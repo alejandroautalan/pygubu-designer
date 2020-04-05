@@ -4,6 +4,10 @@ import importlib
 import logging
 import argparse
 
+
+__version__ = '0.10'
+
+
 # Setup logging level
 parser = argparse.ArgumentParser()
 parser.add_argument('filename', nargs='?')

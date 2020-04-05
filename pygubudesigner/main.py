@@ -61,23 +61,22 @@ logger = logging.getLogger(__name__)
 _ = translator
 
 def init_pygubu_widgets():
+    import pkgutil
     #initialize standard ttk widgets
     import pygubu.builder.ttkstdwidgets
 
     #initialize extra widgets
     widgets_pkg = 'pygubu.builder.widgets'
     mwidgets = importlib.import_module(widgets_pkg)
-    mwpath = os.path.dirname(mwidgets.__file__)
-    for mfile in os.listdir(mwpath):
-        if mfile.endswith('.py') and not mfile.startswith('__'):
-            modulename = "{0}.{1}".format(widgets_pkg, mfile[:-3])
-            try:
-                importlib.import_module(modulename)
-            except Exception as e:
-                logger.exception(e)
-                msg = _("Failed to load widget module: \n'{0}'")
-                msg = msg.format(modulename)
-                messagebox.showerror(_('Error'), msg)
+
+    for _, modulename, _ in pkgutil.iter_modules(mwidgets.__path__, mwidgets.__name__ + "."):
+        try:
+            importlib.import_module(modulename)
+        except Exception as e:
+            logger.exception(e)
+            msg = _("Failed to load widget module: \n'{0}'")
+            msg = msg.format(modulename)
+            messagebox.showerror(_('Error'), msg)
 
     #initialize custom widgets
     for path in get_custom_widgets():
@@ -634,9 +633,10 @@ class PygubuUI(pygubu.TkApplication):
 
 
 def start_pygubu():
-    print("python version: {0} on {1}".format(
+    print("python: {0} on {1}".format(
                 platform.python_version(), sys.platform))
-    print("pygubu version: {0}".format(pygubu.__version__))
+    print("pygubu: {0}".format(pygubu.__version__))
+    print("pygubu-designer: {0}".format(pygubudesigner.__version__))
     root = tk.Tk()
     root.withdraw()
     app = PygubuUI(root)
