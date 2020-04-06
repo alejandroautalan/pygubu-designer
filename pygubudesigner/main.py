@@ -135,13 +135,12 @@ class StatusBarHandler(logging.Handler):
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
-class PygubuUI(pygubu.TkApplication):
+class PygubuDesigner(object):
     """Main gui class"""
+    
+    def __init__(self):
+        init_pygubu_widgets()        
 
-    def _init_before(self):
-        init_pygubu_widgets()
-
-    def _create_ui(self):
         """Creates all gui widgets"""
 
         self.preview = None
@@ -150,19 +149,17 @@ class PygubuUI(pygubu.TkApplication):
         self.builder = pygubu.Builder(translator)
         self.currentfile = None
         self.is_changed = False
+        self.current_title = 'new'
 
         uifile = os.path.join(FILE_PATH, "ui/pygubu-ui.ui")
         self.builder.add_from_file(uifile)
         self.builder.add_resource_path(os.path.join(FILE_PATH, "images"))
 
         #build main ui
-        self.builder.get_object('mainwindow', self.master)
-        toplevel = self.master.winfo_toplevel()
-        menu = self.builder.get_object('mainmenu', toplevel)
-        toplevel['menu'] = menu
-
-        #project name
-        self.project_name = self.builder.get_object('projectname_lbl')
+        self.mainwindow = self.builder.get_object('mainwindow')
+        #toplevel = self.master.winfo_toplevel()
+        menu = self.builder.get_object('mainmenu', self.mainwindow)
+        self.mainwindow.configure(menu=menu)
 
         #Class selector values
         self.widgetlist_sf = self.builder.get_object("widgetlist_sf")
@@ -183,19 +180,16 @@ class PygubuUI(pygubu.TkApplication):
         self.builder.connect_callbacks(self)
 
         #Status bar
-        self.statusbar = self.builder.get_object('statusbar')
-        handler = StatusBarHandler(self.statusbar)
-        handler.setLevel(logging.INFO)
+        #self.statusbar = self.builder.get_object('statusbar')
+        #handler = StatusBarHandler(self.statusbar)
+        #handler.setLevel(logging.INFO)
         # add handler to the root logger:
-        logging.getLogger().addHandler(handler)
-
-        #app grid
-        self.set_resizable()
+        #logging.getLogger().addHandler(handler)
 
         #
         #Application bindings
         #
-        master = self.master
+        master = self.mainwindow
         master.bind_all(
             '<Control-KeyPress-n>',
             lambda e: self.on_file_menuitem_clicked('file_new'))
@@ -261,7 +255,7 @@ class PygubuUI(pygubu.TkApplication):
             lambda e: self.on_edit_menuitem_clicked('grid_right'))
             
         # On preferences save binding
-        self.master.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
+        self.mainwindow.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
 
         #
         # Setup tkk styles
@@ -274,15 +268,31 @@ class PygubuUI(pygubu.TkApplication):
         self._setup_theme_menu()
 
         #app config
-        top = self.master.winfo_toplevel()
+        top = self.mainwindow
         try:
             top.wm_iconname('pygubu')
             top.tk.call('wm', 'iconphoto', '.', StockImage.get('pygubu'))
         except StockImageException as e:
             pass
+        
+    def run(self):
+        self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
+        self.mainwindow.mainloop()
+    
+    def __on_window_close(self):
+        """Manage WM_DELETE_WINDOW protocol."""
+        if self.on_close_execute():
+            self.mainwindow.destroy()
 
-        self.set_title(_('Pygubu a GUI builder for tkinter'))
-        self.set_size('640x480')
+    def quit(self):
+        """Exit the app if it is ready for quit."""
+        self.__on_window_close()
+        
+    def set_title(self, newtitle):
+        self.current_title = newtitle
+        default_title = 'Pygubu Designer - {0}'
+        title = default_title.format(newtitle)
+        self.mainwindow.wm_title(title)
 
     def _setup_styles(self):
         s = ttk.Style()
@@ -491,7 +501,7 @@ class PygubuUI(pygubu.TkApplication):
     def do_save(self, fname):
         self.save_file(fname)
         self.currentfile = fname
-        self.is_changed = False
+        self.set_changed(False)
         logger.info(_('Project saved to {0}').format(fname))
 
     def do_save_as(self):
@@ -503,21 +513,25 @@ class PygubuUI(pygubu.TkApplication):
             self.do_save(fname)
 
     def save_file(self, filename):
-        self.project_name.configure(text=filename)
         xml_tree = self.tree_editor.tree_to_xml()
         util.indent(xml_tree.getroot())
         xml_tree.write(filename, xml_declaration=True, encoding='utf-8')
+        title = os.path.basename(filename)
+        self.set_title(title)
 
-    def set_changed(self):
-        self.is_changed = True
+    def set_changed(self, newvalue=True):
+        if newvalue and self.is_changed == False:
+            self.set_title('{0} (*)'.format(self.current_title))
+        self.is_changed = newvalue
 
     def load_file(self, filename):
         """Load xml into treeview"""
 
         self.tree_editor.load_file(filename)
-        self.project_name.configure(text=filename)
+        title = os.path.basename(filename)
+        self.set_title(title)
         self.currentfile = filename
-        self.is_changed = False
+        self.set_changed(False)
 
     #File Menu
     def on_file_menuitem_clicked(self, itemid):
@@ -531,8 +545,8 @@ class PygubuUI(pygubu.TkApplication):
                 self.previewer.remove_all()
                 self.tree_editor.remove_all()
                 self.currentfile = None
-                self.is_changed = False
-                self.project_name.configure(text=_('<None>'))
+                self.set_changed(False)
+                self.set_title(_('<None>'))
         elif itemid == 'file_open':
             openfile = True
             if self.is_changed:
@@ -607,7 +621,7 @@ class PygubuUI(pygubu.TkApplication):
         builder.add_resource_path(os.path.join(FILE_PATH, "images"))
 
         dialog = builder.get_object(
-            'aboutdialog', self.master.winfo_toplevel())
+            'aboutdialog', self.mainwindow)
         entry = builder.get_object('version')
         txt = entry.cget('text')
         txt = txt.replace('%version%', str(pygubu.__version__))
@@ -629,7 +643,7 @@ class PygubuUI(pygubu.TkApplication):
 
     def _edit_preferences(self):
         if self.preferences is None:
-            self.preferences = PreferencesUI(self.master, translator)
+            self.preferences = PreferencesUI(self.mainwindow, translator)
         self.preferences.dialog.run()
 
 
@@ -658,10 +672,10 @@ def start_pygubu():
     check_dependency('appdirs', '1.3', help)    
     
     
-    root = tk.Tk()
-    root.withdraw()
-    app = PygubuUI(root)
-    root.deiconify()
+    #root = tk.Tk()
+    #root.withdraw()
+    app = PygubuDesigner()
+    #root.deiconify()
 
     filename = args.filename
     if filename is not None:
