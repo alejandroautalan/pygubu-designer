@@ -56,7 +56,7 @@
           <object class="ttk.Label" id="copyr">
             <property name="font">Sans 8</property>
             <property name="padding">0 10 0 10</property>
-            <property name="text" translatable="yes">Copyright © 2012-2018 Alejandro Autalán</property>
+            <property name="text" translatable="yes">Copyright © 2012-2020 Alejandro Autalán</property>
             <layout>
               <property name="column">0</property>
               <property name="row">3</property>
