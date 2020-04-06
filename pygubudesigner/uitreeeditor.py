@@ -789,3 +789,19 @@ class WidgetsTreeEditor(object):
     #
     # End Filter functions
     #
+    
+    def get_topwidget_list(self):
+        wlist = []
+        children = self.treeview.get_children('')
+        for item in children:
+            data = self.treedata[item]
+            label = u'{0} ({1})'.format(data.get_id(), data.get_class())
+            element = (item, label)
+            wlist.append(element)
+        return wlist
+    
+    def get_widget_class(self, item):
+        return self.treedata[item].get_class()
+    
+    def get_widget_id(self, item):
+        return self.treedata[item].get_id()

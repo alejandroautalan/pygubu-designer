@@ -53,6 +53,7 @@ from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 import pygubu.widgets.simpletooltip as tooltip
 import pygubudesigner
 from pygubudesigner.preferences import PreferencesUI, get_custom_widgets, get_option
+from pygubudesigner.scriptgenerator import ScriptGenerator
 
 
 #Initialize logger
@@ -146,6 +147,7 @@ class PygubuDesigner(object):
         self.preview = None
         self.about_dialog = None
         self.preferences = None
+        self.script_generator = None
         self.builder = pygubu.Builder(translator)
         self.currentfile = None
         self.is_changed = False
@@ -516,7 +518,7 @@ class PygubuDesigner(object):
         xml_tree = self.tree_editor.tree_to_xml()
         util.indent(xml_tree.getroot())
         xml_tree.write(filename, xml_declaration=True, encoding='utf-8')
-        title = os.path.basename(filename)
+        title = self.project_name()
         self.set_title(title)
 
     def set_changed(self, newvalue=True):
@@ -528,7 +530,7 @@ class PygubuDesigner(object):
         """Load xml into treeview"""
 
         self.tree_editor.load_file(filename)
-        title = os.path.basename(filename)
+        title = self.project_name()
         self.set_title(title)
         self.currentfile = filename
         self.set_changed(False)
@@ -546,7 +548,7 @@ class PygubuDesigner(object):
                 self.tree_editor.remove_all()
                 self.currentfile = None
                 self.set_changed(False)
-                self.set_title(_('<None>'))
+                self.set_title(self.project_name())
         elif itemid == 'file_open':
             openfile = True
             if self.is_changed:
@@ -613,6 +615,11 @@ class PygubuDesigner(object):
             webbrowser.open_new_tab(url)
         elif itemid == 'help_about':
             self.show_about_dialog()
+    
+    # Project Menu
+    def on_projectmenu_action(self, itemid):
+        if itemid == 'generate_script':
+            self.show_scriptgenerator()
 
     def _create_about_dialog(self):
         builder = pygubu.Builder(translator)
@@ -645,6 +652,20 @@ class PygubuDesigner(object):
         if self.preferences is None:
             self.preferences = PreferencesUI(self.mainwindow, translator)
         self.preferences.dialog.run()
+        
+    def project_name(self):
+        name = None
+        if self.currentfile is None:
+            name = _('newproject')
+        else:
+            name = os.path.basename(self.currentfile)
+        return name
+    
+    def show_scriptgenerator(self):
+        if self.script_generator is None:
+            self.script_generator = ScriptGenerator(self.mainwindow, translator)
+        self.script_generator.configure(self.tree_editor, self.project_name())
+        self.script_generator.run()
 
 
 def start_pygubu():

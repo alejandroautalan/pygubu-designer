@@ -192,6 +192,21 @@
       </object>
     </child>
     <child>
+      <object class="tk.Menuitem.Submenu" id="projectmenu">
+        <property name="label" translatable="yes">Project</property>
+        <property name="tearoff">false</property>
+        <property name="underline">3</property>
+        <child>
+          <object class="tk.Menuitem.Command" id="generate_script">
+            <property name="command">on_projectmenu_action</property>
+            <property name="command_id_arg">true</property>
+            <property name="label" translatable="yes">Generate Script …</property>
+            <property name="underline">0</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
       <object class="tk.Menuitem.Submenu" id="helpmenu">
         <property name="label" translatable="yes">Help</property>
         <property name="tearoff">0</property>
