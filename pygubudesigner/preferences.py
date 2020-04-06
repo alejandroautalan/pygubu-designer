@@ -1,6 +1,8 @@
 # encoding: utf-8
 import os
 import sys
+import logging
+
 try:
     import tkinter as tk
     from tkinter import ttk
@@ -16,13 +18,22 @@ try:
 except:
     import configparser
 
-from appdirs import AppDirs
+has_appdir = False
+try:
+    from appdirs import AppDirs
+    has_appdir = True
+except:
+    pass
+
 import pygubu
 
-
+logger = logging.getLogger(__name__)
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-dirs = AppDirs('pygubu-designer')
-CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
+CONFIG_FILE = os.path.join(FILE_PATH, 'config')
+if has_appdir:
+    dirs = AppDirs('pygubu-designer')
+    CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
+logger.info('Using configfile: {0}'.format(CONFIG_FILE))
 
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},
