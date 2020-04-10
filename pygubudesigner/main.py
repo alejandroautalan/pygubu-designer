@@ -530,9 +530,9 @@ class PygubuDesigner(object):
         """Load xml into treeview"""
 
         self.tree_editor.load_file(filename)
-        title = self.project_name()
-        self.set_title(title)
         self.currentfile = filename
+        title = self.project_name()
+        self.set_title(title)        
         self.set_changed(False)
 
     #File Menu

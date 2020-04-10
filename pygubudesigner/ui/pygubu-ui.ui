@@ -195,7 +195,7 @@
       <object class="tk.Menuitem.Submenu" id="projectmenu">
         <property name="label" translatable="yes">Project</property>
         <property name="tearoff">false</property>
-        <property name="underline">3</property>
+        <property name="underline">1</property>
         <child>
           <object class="tk.Menuitem.Command" id="generate_script">
             <property name="command">on_projectmenu_action</property>

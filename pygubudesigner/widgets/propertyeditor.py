@@ -95,10 +95,10 @@ class EntryPropertyEditor(PropertyEditor):
         self._entry.configure(**kw)
     
     def show_invalid(self, value=True):
-       img = ''
-       if value:
-           img = StockImage.get('property_invalid')
-       self._error_label.configure(image=img)
+        img = ''
+        if value:
+            img = StockImage.get('property_invalid')
+        self._error_label.configure(image=img)
 
 
 SpinboxClass = tk.Spinbox
