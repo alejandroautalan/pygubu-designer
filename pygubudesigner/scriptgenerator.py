@@ -63,7 +63,7 @@ class {class_name}({widget_base_class}):
 if __name__ == '__main__':
     root = tk.Tk()
     widget = {class_name}(root)
-    widget.pack()
+    widget.pack(expand=True, fill='both')
     root.mainloop()
 
 """
@@ -189,7 +189,8 @@ class ScriptGenerator(object):
         _ = self.translator
         options = {
             'defaultextension': '.py',
-            'filetypes': ((_('Python Script'), '*.py'), (_('All'), '*.*'))
+            'filetypes': ((_('Python Script'), '*.py'), (_('All'), '*.*')),
+            'initialfile': '{0}.py'.format(self.classnamevar.get()),
         }
         fname = filedialog.asksaveasfilename(**options)
         if fname:

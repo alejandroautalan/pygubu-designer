@@ -33,7 +33,7 @@ except:
 
 from pygubu.stockimage import StockImage, StockImageException
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
-
+from pygubu.widgets.combobox import Combobox
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGES_DIR = os.path.join(FILE_DIR, "..", "images", "widgets", "propertyeditor")
@@ -127,7 +127,7 @@ class TextPropertyEditor(PropertyEditor):
     def _create_ui(self):
         self._sbh = ScrollbarHelper(self)
         self._sbh.grid(row=0, column=0, sticky='we')
-        self._text = text = tk.Text(self._sbh, width=20, height=3)
+        self._text = text = tk.Text(self._sbh.container, width=20, height=3)
         self._sbh.add_child(self._text)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
@@ -168,6 +168,19 @@ class ChoicePropertyEditor(PropertyEditor):
 
     def parameters(self, **kw):
         self._combobox.configure(**kw)
+
+
+class ChoiceByKeyPropertyEditor(ChoicePropertyEditor):
+    def _create_ui(self):
+        self._cb_pending = False
+        self._combobox = combobox = Combobox(self, keyvariable=self._variable)
+        combobox.grid(sticky='we')
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        combobox.bind('<FocusOut>', self._on_variable_changed)
+        combobox.bind('<KeyPress-Return>', self._on_variable_changed)
+        combobox.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
+        self._variable.trace(mode="w", callback=self._on_trace_var)
 
 
 class CheckbuttonPropertyEditor(PropertyEditor):
@@ -228,6 +241,7 @@ def create_editor(name, *args, **kw):
 
 register_editor('entry', EntryPropertyEditor)
 register_editor('choice', ChoicePropertyEditor)
+register_editor('choice_key', ChoiceByKeyPropertyEditor)
 register_editor('spinbox', SpinboxPropertyEditor)
 register_editor('text', TextPropertyEditor)
 register_editor('checkbutton', CheckbuttonPropertyEditor)

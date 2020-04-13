@@ -28,12 +28,12 @@ CLASS_MAP = builder.CLASS_MAP
 
 
 class BindingsEditor:
-    def __init__(self, etreeview):
+    def __init__(self, etreeview, parent):
         self.tv = etreeview
         self._curr_data = None
         self._adder = 'adder'
         self._allow_edit = False
-        self._parent = etreeview.nametowidget(etreeview.winfo_parent())
+        self._parent = parent
         self.tv.insert('', tk.END, iid=self._adder, values=('+',))
         self.tv.bind('<<TreeviewInplaceEdit>>', self._on_inplace_edit)
         self.tv.bind('<<TreeviewCellEdited>>', self._on_cell_edited)
@@ -85,9 +85,11 @@ class BindingsEditor:
         
         self._allow_edit = CLASS_MAP[wclass].builder.allow_bindings
         if self._allow_edit:
-            self._parent.grid()
+            self._parent.pack(fill='both', expand='True')
+            pass
         else:
-            self._parent.grid_remove()
+            self._parent.pack_forget()
+            pass
         for bind in wdescr.get_bindings():
             self._add_binding(bind)
 
@@ -101,9 +103,9 @@ class BindingsEditor:
                 self.tv.inplace_checkbutton(col, item, offvalue='')
             elif col in ('actions',):
                 self.tv.inplace_custom(col, item, self._del_btn)
-                
+    
     def hide_all(self):
-        self._parent.grid_remove()
+        self._parent.pack_forget()
 
     def clear(self):
         children = self.tv.get_children()

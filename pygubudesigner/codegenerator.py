@@ -101,7 +101,7 @@ class UI2Code(object):
             self._realize(uniqueid, child_xml)
         
         #layout:
-        layout_stmt = "{0}.grid({1})"
+        layout_stmt = "{0}.{1}({2})"
         lrow_stmt = "{0}.rowconfigure({1}, {2})"
         lcol_stmt = "{0}.columnconfigure({1}, {2})"
         arg_stmt = "{0}='{1}'"
@@ -112,7 +112,9 @@ class UI2Code(object):
                 if p not in ('columns', 'rows', 'propagate'):
                     args_bag.append(arg_stmt.format(p, v))
             args = ', '.join(args_bag)
-            print(layout_stmt.format(uniqueid, args), file=self.buffer)
+            manager = data['manager']
+            stmt = layout_stmt.format(uniqueid, manager, args)
+            print(stmt, file=self.buffer)
             if 'propagate' in layout and layout['propagate'] == 'False': 
                 stmt = '{0}.propagate({1})'.format(uniqueid, layout['propagate'])
                 print(stmt, file=self.buffer)

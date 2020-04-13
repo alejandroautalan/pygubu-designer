@@ -21,6 +21,8 @@ from collections import OrderedDict
 import sys
 import xml.etree.ElementTree as ET
 import re
+import logging
+
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
@@ -37,7 +39,7 @@ try:
 except NameError:
     basestring = str
 
-
+logger = logging.getLogger(__name__)
 RE_FONT = re.compile("(?P<family>\{\w+(\w|\s)*\}|\w+)\s?(?P<size>-?\d+)?\s?(?P<modifiers>\{\w+(\w|\s)*\}|\w+)?")
 
 
@@ -160,9 +162,9 @@ class Preview(object):
             self.canvas_window.destroy()
 
         # Create preview
-        canvas_window = ttk.Frame(self.canvas)
-        canvas_window.rowconfigure(0, weight=1)
-        canvas_window.columnconfigure(0, weight=1)
+        canvas_window = ttk.Frame(self.canvas, style='PreviewFrame.TFrame')
+        #canvas_window.rowconfigure(0, weight=1)
+        #canvas_window.columnconfigure(0, weight=1)
 
         self.canvas.itemconfigure(self.shapes['text'], text=widget_id)
 
@@ -172,7 +174,10 @@ class Preview(object):
         self.canvas_window = canvas_window
         self.canvas.itemconfigure(self.shapes['window'], window=canvas_window)
         canvas_window.update_idletasks()
-        canvas_window.grid_propagate(0)
+        if canvas_window.pack_slaves():
+            canvas_window.pack_propagate(0)
+        elif canvas_window.grid_slaves():
+            canvas_window.grid_propagate(0)
         self.min_w = self._get_wreqwidth()
         self.min_h = self._get_wreqheight()
         self.w = self.min_w * 2
@@ -436,6 +441,9 @@ class PreviewHelper:
         canvas.bind('<4>', lambda event: canvas.yview('scroll', -1, 'units'))
         canvas.bind('<5>', lambda event: canvas.yview('scroll', 1, 'units'))
         self._create_indicators()
+        
+        s = ttk.Style()
+        s.configure('PreviewFrame.TFrame', background='lightgreen')        
         
     def add_resource_path(self, path):
         self._resource_paths.append(path)

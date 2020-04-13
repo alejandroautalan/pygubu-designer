@@ -749,6 +749,77 @@ wp.update(REQUIRED_OPTIONS)
 wp.update(CUSTOM_OPTIONS)
 
 LAYOUT_OPTIONS = {
+    # pack/grid/place common properties
+    'padx': {'editor': 'dimensionentry'},
+    'pady': {'editor': 'dimensionentry'},
+    'ipadx': {'editor': 'dimensionentry'},
+    'ipady': {'editor': 'dimensionentry'},
+    'propagate': {
+        'editor': 'choice',
+        'params': {'values': ('True', 'False'), 'state': 'readonly'},
+        'default': 'True'},
+    'anchor': {
+        'editor': 'choice',
+        'params': {
+          'values': ('', 'n', 'ne', 'nw', 'e', 'w', 's', 'se', 'sw', 'center'),
+          'state': 'readonly'},
+        'place': {'default': 'nw'}
+        },
+    
+    # pack properties
+    'expand':{
+        'editor': 'choice',
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
+    'fill':{
+        'editor': 'choice',
+        'params': {'values': ('', 'x', 'y', 'both'), 'state': 'readonly'}
+        },
+    'side':{
+        'editor': 'choice',
+        'params': {
+            'values': ('top', 'bottom', 'left', 'right'),
+            'state': 'readonly'
+            },
+        'default': 'top',
+        },
+    
+    # Pack properties
+    'bordermode':{
+        'editor': 'choice',
+        'params':{
+            'values': ('', 'inside', 'outside', 'ignore'),
+            'state': 'readonly'}        
+        },
+    'height':{
+        'editor': 'spinbox',
+        'params': {'from_': 0, 'to': 999},
+        'validator': 'number_integer',
+        },
+    'relheight':{
+        'editor': 'entry',
+        },
+    'relhwidth':{
+        'editor': 'entry',
+        },
+    'relx':{
+        'editor': 'entry',
+        },
+    'rely':{
+        'editor': 'entry',
+        },
+    'width':{
+        'editor': 'entry',
+        },
+    'x':{
+        'editor': 'entry',
+        'default': '0'
+        },
+    'y':{
+        'editor': 'entry',
+        'default': '0'
+        },
+    
     # grid packing properties
     'row': {
         'editor': 'numberentry',
@@ -771,14 +842,7 @@ LAYOUT_OPTIONS = {
         'editor': 'numberentry',
         'params': {'from_': 1, 'to_': 50}
         },
-    'padx': {'editor': 'dimensionentry'},
-    'pady': {'editor': 'dimensionentry'},
-    'ipadx': {'editor': 'dimensionentry'},
-    'ipady': {'editor': 'dimensionentry'},
-    'propagate': {
-        'editor': 'choice',
-        'params': {'values': ('True', 'False'), 'state': 'readonly'},
-        'default': 'True'},
+    
     #
     # grid row and column properties (can be applied to each row or column)
     #
@@ -793,15 +857,34 @@ LAYOUT_OPTIONS = {
         'params': {'from_': 0, 'to': 999, 'state': 'readonly', 'width': 3}}
 }
 
-GRID_PROPERTIES = [
+# List properties in display order
+MANAGER_PROPERTIES = (
+    'anchor', 
+    'relx', 'rely', 'relhwidth', 'relheight',
+    'x', 'y', 'width', 'height', 'bordermode',
+    'side', 'expand', 'fill',
     'row', 'column', 'sticky', 'rowspan', 'columnspan', 'padx', 'pady',
-    'ipadx', 'ipady', 'propagate']
+    'ipadx', 'ipady', 'propagate'
+)
 
-GRID_RC_PROPERTIES = ['minsize', 'pad', 'weight']
+GRID_PROPERTIES = (
+    'row', 'column', 'sticky', 'rowspan', 'columnspan', 'padx', 'pady',
+    'ipadx', 'ipady', 'propagate')
 
-TRANSLATABLE_PROPERTIES = [
+PACK_PROPERTIES = (
+    'anchor', 'side', 'expand', 'fill', 'padx', 'pady',
+    'ipadx', 'ipady', 'propagate')
+
+PLACE_PROPERTIES = (
+    'anchor', 'relx', 'rely', 'relhwidth', 'relheight',
+    'x', 'y', 'width', 'height', 'bordermode', 
+)
+
+GRID_RC_PROPERTIES = ('minsize', 'pad', 'weight')
+
+TRANSLATABLE_PROPERTIES = (
     'label', 'text', 'title',
-]
+)
 
 
 def _register_custom(name, descr):

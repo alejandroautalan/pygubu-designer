@@ -31,6 +31,9 @@ from . import properties
 from .widgeteditor import WidgetEditor
 from .widgetdescr import WidgetDescr
 from .i18n import translator as _
+from .propertieseditor import PropertiesEditor
+from .bindingseditor import BindingsEditor
+from .layouteditor import LayoutEditor
 
 
 logger = logging.getLogger('pygubu.designer')
@@ -62,8 +65,44 @@ class WidgetsTreeEditor(object):
         # Widget Editor
         pframe = app.builder.get_object('propertiesframe')
         lframe = app.builder.get_object('layoutframe')
+        bframe = app.builder.get_object('bindingsframe')
         bindingstree = app.builder.get_object('bindingstree')
-        self.widget_editor = WidgetEditor(pframe, lframe, bindingstree)
+        
+        self.properties_editor = PropertiesEditor(pframe)
+        self.layout_editor = LayoutEditor(lframe)
+        self.bindings_editor = BindingsEditor(bindingstree, bframe)
+        
+    def get_children_manager(self, item, current=None):
+        manager = None
+        children = self.treeview.get_children(item)
+        for child in children:
+            if child != current:
+                manager = self.treedata[child].manager
+                break
+        return manager
+            
+    
+    def editor_edit(self, item, wdescr):
+        manager_options = ['grid', 'pack', 'place']
+        
+        # Determine allowed manager options
+        parent = self.treeview.parent(item)
+        if parent:
+            cm = self.get_children_manager(parent, item)
+            if 'grid' == cm:
+                manager_options.remove('pack')
+            if 'pack' == cm:
+                manager_options.remove('grid')
+        logger.debug(manager_options)
+        
+        self.properties_editor.edit(wdescr)
+        self.layout_editor.edit(wdescr, manager_options)
+        self.bindings_editor.edit(wdescr)
+
+    def editor_hide_all(self):
+        self.properties_editor.hide_all()
+        self.layout_editor.hide_all()
+        self.bindings_editor.hide_all()    
 
     def config_filter(self):
         def on_filtervar_changed(varname, element, mode):
@@ -155,7 +194,7 @@ class WidgetsTreeEditor(object):
                 if parent:
                     self._update_max_grid_rc(parent)
                     parents_to_redraw.add(parent)
-                self.widget_editor.hide_all()
+                self.editor_hide_all()
             except tk.TclError:
                 # Selection of parent and child items ??
                 # TODO: notify something here
@@ -447,40 +486,25 @@ class WidgetsTreeEditor(object):
                 return
 
         #  root item should be set at this point
-        #  setup properties
-        widget_id = self.get_unique_id(wclass)
-
-        data = WidgetDescr(wclass, widget_id)
-
-        # setup default values for properties
-        for pname in builder.CLASS_MAP[wclass].builder.properties:
-            pdescription = {}
-            if pname in properties.WIDGET_PROPERTIES:
-                pdescription = properties.WIDGET_PROPERTIES[pname]
-            if wclass in pdescription:
-                pdescription = dict(pdescription, **pdescription[wclass])
-            default_value = str(pdescription.get('default', ''))
-            data.set_property(pname, default_value)
-            # default text for widgets with text prop:
-            if pname in ('text', 'label'):
-                data.set_property(pname, widget_id)
-
-        #
-        #  default grid properties
-        #
-        # is_container = builder.CLASS_MAP[wclass].builder.container
-        for prop_name in properties.GRID_PROPERTIES:
-            pdescription = properties.LAYOUT_OPTIONS[prop_name]
-            if wclass in pdescription:
-                pdescription = dict(pdescription, **pdescription[wclass])
-            default_value = str(pdescription.get('default', ''))
-            data.set_layout_property(prop_name, default_value)
-
-        rownum = '0'
+        #  setup properties  
+        parent = None
         if root:
-            rownum = str(self.get_max_row(root)+1)
-        data.set_layout_property('row', rownum)
-        data.set_layout_property('column', '0')
+            parent = self.treedata[root]
+        manager = 'pack' # << DEFAULT LAYOUT MANAGER
+        if parent is not None:
+            cmanager = self.get_children_manager(root)
+            manager = cmanager if cmanager else manager
+            
+        widget_id = self.get_unique_id(wclass)
+        data = WidgetDescr(wclass, widget_id, manager)
+        
+        # Recalculate position if manager is grid
+        if manager == 'grid':
+            rownum = '0'
+            if root:
+                rownum = str(self.get_max_row(root)+1)
+            data.set_layout_property('row', rownum)
+            data.set_layout_property('column', '0')
 
         item = self._insert_item(root, data)
 
@@ -497,7 +521,7 @@ class WidgetsTreeEditor(object):
         children = self.treeview.get_children()
         if children:
             self.treeview.delete(*children)
-        self.widget_editor.hide_all()
+        self.editor_hide_all()
 
     def load_file(self, filename):
         """Load file into treeview"""
@@ -513,7 +537,7 @@ class WidgetsTreeEditor(object):
 
         self.remove_all()
         self.previewer.remove_all()
-        self.widget_editor.hide_all()
+        self.editor_hide_all()
 
         dirname = os.path.dirname(os.path.abspath(filename))
         self.previewer.resource_paths.append(dirname)
@@ -565,10 +589,10 @@ class WidgetsTreeEditor(object):
             selected_id = self.treedata[item].get_id()
             self.previewer.show_selected(top, selected_id)
             # max_rc = self.get_max_row_col(item)
-            self.widget_editor.edit(self.treedata[item])
+            self.editor_edit(item, self.treedata[item])
         else:
             # No selection hide all
-            self.widget_editor.hide_all()
+            self.editor_hide_all()
 
     def get_max_row_col(self, item):
         tree = self.treeview
@@ -624,6 +648,10 @@ class WidgetsTreeEditor(object):
             if prev:
                 prev_idx = tree.index(prev)
                 tree.move(item, parent, prev_idx)
+                manager = self.treedata[item].manager
+                if manager == 'pack':
+                    self.app.set_changed()
+                    self.draw_widget(item)                
             self.filter_restore()
 
     def on_item_move_down(self, event):
@@ -637,6 +665,10 @@ class WidgetsTreeEditor(object):
             if next:
                 next_idx = tree.index(next)
                 tree.move(item, parent, next_idx)
+                manager = self.treedata[item].manager
+                if manager == 'pack':
+                    self.app.set_changed()
+                    self.draw_widget(item)
             self.filter_restore()
 
     #
@@ -650,6 +682,9 @@ class WidgetsTreeEditor(object):
 
             for item in selection:
                 data = self.treedata[item]
+                
+                if data.manager != 'grid':
+                    break
 
                 if direction == self.GRID_UP:
                     row = int(data.get_layout_property('row'))
