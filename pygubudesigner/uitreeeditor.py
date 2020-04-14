@@ -685,8 +685,8 @@ class WidgetsTreeEditor(object):
         tree = self.treeview
         selection = tree.selection()
         if selection:
+            item_first = selection[0]
             self.filter_remove(remember=True)
-
             for item in selection:
                 data = self.treedata[item]
                 
@@ -718,6 +718,7 @@ class WidgetsTreeEditor(object):
                 root = tree.parent(item)
                 self._update_max_grid_rc(root)
             self.filter_restore()
+            self.editor_edit(item_first, self.treedata[item_first])
 
     #
     # Filter functions
