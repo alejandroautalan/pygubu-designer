@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <interface>
   <object class="pygubu.builder.widgets.dialog" id="mainwindow">
-    <property name="borderwidth">4</property>
+    <property name="borderwidth">2</property>
     <property name="geometry">500x480</property>
     <property name="height">100</property>
     <property name="minsize">320|240</property>
@@ -13,13 +13,11 @@
       <object class="tk.Frame" id="main">
         <property name="height">200</property>
         <property name="width">200</property>
-        <layout>
-          <property name="column">0</property>
+        <layout manager="grid">
           <property name="propagate">True</property>
-          <property name="row">0</property>
           <property name="sticky">nsew</property>
           <rows>
-            <row id="1">
+            <row id="0">
               <property name="weight">1</property>
             </row>
           </rows>
@@ -31,18 +29,11 @@
         </layout>
         <child>
           <object class="tk.Frame" id="top">
-            <layout>
-              <property name="column">0</property>
+            <layout manager="grid">
               <property name="propagate">True</property>
-              <property name="row">0</property>
               <property name="sticky">ew</property>
               <columns>
                 <column id="0">
-                  <property name="minsize">0</property>
-                  <property name="pad">0</property>
-                  <property name="weight">1</property>
-                </column>
-                <column id="1">
                   <property name="weight">1</property>
                 </column>
               </columns>
@@ -50,7 +41,7 @@
             <child>
               <object class="tk.Label" id="lbl_template">
                 <property name="text" translatable="yes">Template:</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">0</property>
@@ -62,18 +53,23 @@
               <object class="pygubu.builder.widgets.combobox" id="templatelist">
                 <property name="keyvariable">string:templatelistvar</property>
                 <bind add="" handler="on_template_changed" sequence="&lt;&lt;ComboboxSelected&gt;&gt;" />
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">1</property>
                   <property name="sticky">ew</property>
+                  <columns>
+                    <column id="0">
+                      <property name="weight">1</property>
+                    </column>
+                  </columns>
                 </layout>
               </object>
             </child>
             <child>
               <object class="tk.Label" id="lbl_wlist">
                 <property name="text" translatable="yes">Main widget for script:</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">2</property>
@@ -85,7 +81,7 @@
               <object class="pygubu.builder.widgets.combobox" id="widgetlist">
                 <property name="keyvariable">string:widgetlist_keyvar</property>
                 <property name="textvariable">string:widgetlistvar</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">3</property>
@@ -96,7 +92,7 @@
             <child>
               <object class="tk.Label" id="lbl_class">
                 <property name="text" translatable="yes">Generated Class Name:</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">4</property>
@@ -107,7 +103,7 @@
             <child>
               <object class="tk.Entry" id="classname">
                 <property name="textvariable">string:classnamevar</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">5</property>
@@ -119,7 +115,7 @@
               <object class="tk.Button" id="btn_generate">
                 <property name="command">on_generate_action</property>
                 <property name="text" translatable="yes">Generate</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="pady">5</property>
                   <property name="propagate">True</property>
@@ -130,10 +126,20 @@
             </child>
             <child>
               <object class="tk.Label" id="spacerlbl">
-                <layout>
+                <layout manager="grid">
                   <property name="column">1</property>
                   <property name="propagate">True</property>
                   <property name="row">0</property>
+                  <rows>
+                    <row id="0">
+                      <property name="weight">0</property>
+                    </row>
+                  </rows>
+                  <columns>
+                    <column id="1">
+                      <property name="weight">1</property>
+                    </column>
+                  </columns>
                 </layout>
               </object>
             </child>
@@ -143,17 +149,16 @@
           <object class="tk.Frame" id="middle">
             <property name="height">200</property>
             <property name="width">200</property>
-            <layout>
-              <property name="column">0</property>
+            <layout manager="grid">
               <property name="propagate">True</property>
               <property name="row">1</property>
               <property name="sticky">nsew</property>
               <rows>
                 <row id="0">
-                  <property name="weight">1</property>
+                  <property name="weight">0</property>
                 </row>
                 <row id="1">
-                  <property name="weight">0</property>
+                  <property name="weight">1</property>
                 </row>
               </rows>
               <columns>
@@ -166,12 +171,15 @@
               <object class="tk.Frame" id="Frame_5">
                 <property name="height">200</property>
                 <property name="width">200</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">0</property>
                   <property name="sticky">nsew</property>
                   <rows>
+                    <row id="0">
+                      <property name="weight">1</property>
+                    </row>
                     <row id="1">
                       <property name="weight">1</property>
                     </row>
@@ -185,7 +193,7 @@
                 <child>
                   <object class="tk.Label" id="Label_4">
                     <property name="text" translatable="yes">Preview</property>
-                    <layout>
+                    <layout manager="grid">
                       <property name="column">0</property>
                       <property name="propagate">True</property>
                       <property name="row">0</property>
@@ -197,22 +205,42 @@
                   <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper_1">
                     <property name="scrolltype">both</property>
                     <property name="usemousewheel">true</property>
-                    <layout>
+                    <layout manager="grid">
                       <property name="column">0</property>
                       <property name="propagate">True</property>
                       <property name="row">1</property>
                       <property name="sticky">nsew</property>
+                      <rows>
+                        <row id="1">
+                          <property name="weight">1</property>
+                        </row>
+                      </rows>
+                      <columns>
+                        <column id="0">
+                          <property name="weight">1</property>
+                        </column>
+                      </columns>
                     </layout>
                     <child>
                       <object class="tk.Text" id="txt_code">
                         <property name="font">TkFixedFont</property>
                         <property name="height">10</property>
                         <property name="width">50</property>
-                        <layout>
+                        <layout manager="grid">
                           <property name="column">0</property>
                           <property name="propagate">True</property>
                           <property name="row">0</property>
                           <property name="sticky">nsew</property>
+                          <rows>
+                            <row id="0">
+                              <property name="weight">1</property>
+                            </row>
+                          </rows>
+                          <columns>
+                            <column id="0">
+                              <property name="weight">1</property>
+                            </column>
+                          </columns>
                         </layout>
                       </object>
                     </child>
@@ -224,7 +252,7 @@
               <object class="tk.Frame" id="btnbar2">
                 <property name="height">200</property>
                 <property name="width">200</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">1</property>
@@ -234,7 +262,7 @@
                   <object class="tk.Button" id="btn_toclipboard">
                     <property name="command">on_copy_action</property>
                     <property name="text" translatable="yes">Copy to Clipboard</property>
-                    <layout>
+                    <layout manager="grid">
                       <property name="column">0</property>
                       <property name="propagate">True</property>
                       <property name="row">0</property>
@@ -245,7 +273,7 @@
                   <object class="tk.Button" id="btn_save">
                     <property name="command">on_save_action</property>
                     <property name="text" translatable="yes">Save</property>
-                    <layout>
+                    <layout manager="grid">
                       <property name="column">1</property>
                       <property name="propagate">True</property>
                       <property name="row">0</property>
@@ -260,7 +288,7 @@
           <object class="tk.Frame" id="bottom">
             <property name="height">200</property>
             <property name="width">200</property>
-            <layout>
+            <layout manager="grid">
               <property name="column">0</property>
               <property name="propagate">True</property>
               <property name="row">2</property>
@@ -271,12 +299,17 @@
                   <property name="pad">0</property>
                 </row>
               </rows>
+              <columns>
+                <column id="0">
+                  <property name="weight">1</property>
+                </column>
+              </columns>
             </layout>
             <child>
               <object class="tk.Button" id="btnclose">
                 <property name="command">on_dialog_close</property>
                 <property name="text" translatable="yes">Close</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">0</property>
