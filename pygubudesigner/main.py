@@ -362,13 +362,14 @@ class PygubuDesigner(object):
         sbhelper = ScrollbarHelper(self.widgetlist, scrolltype='both')
 
         # widgetlisttv widget
-        widgetlisttv = ttk.Treeview(sbhelper)
+        widgetlisttv = ttk.Treeview(sbhelper.container)
         widgetlisttv.configure(selectmode='browse', show='tree')
-        widgetlisttv.grid(column='0', row='0', sticky='nsew')
+        #widgetlisttv.grid(column='0', row='0', sticky='nsew')
         
         sbhelper.add_child(widgetlisttv)
         sbhelper.configure(usemousewheel='true')
-        sbhelper.grid(column='0', row='0', sticky='nsew')
+        #sbhelper.grid(column='0', row='0', sticky='nsew')
+        sbhelper.pack(expand=True, fill='both')
         
         #Default widget image:
         default_image = ''
