@@ -799,7 +799,7 @@ LAYOUT_OPTIONS = {
     'relheight':{
         'editor': 'entry',
         },
-    'relhwidth':{
+    'relwidth':{
         'editor': 'entry',
         },
     'relx':{
@@ -860,7 +860,7 @@ LAYOUT_OPTIONS = {
 # List properties in display order
 MANAGER_PROPERTIES = (
     'anchor', 
-    'relx', 'rely', 'relhwidth', 'relheight',
+    'relx', 'rely', 'relwidth', 'relheight',
     'x', 'y', 'width', 'height', 'bordermode',
     'side', 'expand', 'fill',
     'row', 'column', 'sticky', 'rowspan', 'columnspan', 'padx', 'pady',
@@ -876,7 +876,7 @@ PACK_PROPERTIES = (
     'ipadx', 'ipady', 'propagate')
 
 PLACE_PROPERTIES = (
-    'anchor', 'relx', 'rely', 'relhwidth', 'relheight',
+    'anchor', 'relx', 'rely', 'relwidth', 'relheight',
     'x', 'y', 'width', 'height', 'bordermode', 
 )
 
