@@ -71,6 +71,12 @@ class WidgetsTreeEditor(object):
         self.properties_editor = PropertiesEditor(pframe)
         self.layout_editor = LayoutEditor(lframe)
         self.bindings_editor = BindingsEditor(bindingstree, bframe)
+        self.treeview.bind_all('<<PreviewItemSelected>>', self._on_preview_item_clicked)
+    
+    def _on_preview_item_clicked(self, event):
+        wid = self.previewer.selected_widget
+        logger.debug('item-selected {0}'.format(wid))
+        self.select_by_id(wid)
         
     def get_children_manager(self, item, current=None):
         manager = None
@@ -517,6 +523,7 @@ class WidgetsTreeEditor(object):
         tree.after_idle(lambda: tree.see(item))
 
     def remove_all(self):
+        self.treedata = {}
         self.filter_remove()
         children = self.treeview.get_children()
         if children:
@@ -840,3 +847,17 @@ class WidgetsTreeEditor(object):
     
     def get_widget_id(self, item):
         return self.treedata[item].get_id()
+    
+    def select_by_id(self, widget_id):
+        found = None
+        for item, data in self.treedata.items():
+            if widget_id == data['id']:
+                found = item
+                break
+        if found:
+            tree = self.treeview
+            self.filter_remove()
+            self._expand_all()
+            tree.after_idle(lambda: tree.selection_set(found))
+            tree.after_idle(lambda: tree.focus(found))
+            tree.after_idle(lambda: tree.see(found))

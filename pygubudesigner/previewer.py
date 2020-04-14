@@ -32,7 +32,7 @@ except:
 
 import pygubu
 from pygubu.stockimage import StockImage
-import pygubudesigner.widgets.toplevelframe
+from .widgets.toplevelframe import ToplevelFramePreview
 
 try:
     basestring
@@ -52,10 +52,17 @@ class BuilderForPreview(pygubu.Builder):
         #  Sizegrip is dragged on preview panel.
         if cname == 'ttk.Sizegrip':
             data['properties']['class_'] = 'DUMMY_CLASS'
+    
+    def get_widget_id(self, widget):
+        wid = None
+        for key, o in self.objects.items():
+            if o.widget == widget:
+                wid = key
+                break
+        return wid
 
 
 class Preview(object):
-
     def __init__(self, id_, canvas, x=0, y=0, rpaths=None):
         self.id = 'preview_{0}'.format(id_)
         self.x = x
@@ -72,6 +79,9 @@ class Preview(object):
         self.builder = None
         self.canvas_window = None
         self._resource_paths = rpaths if rpaths is not None else []
+        # --
+        self.selected_widget = None
+        self.root_widget = None
 
     def width(self):
         return self.w
@@ -170,6 +180,7 @@ class Preview(object):
 
         self._preview_widget = \
             self.create_preview_widget(canvas_window, widget_id, xmlnode)
+        self.root_widget = self._preview_widget
 
         self.canvas_window = canvas_window
         self.canvas.itemconfigure(self.shapes['window'], window=canvas_window)
@@ -443,7 +454,14 @@ class PreviewHelper:
         self._create_indicators()
         
         s = ttk.Style()
-        s.configure('PreviewFrame.TFrame', background='lightgreen')        
+        s.configure('PreviewFrame.TFrame', background='lightgreen')
+        
+        self.selected_widget = None
+        canvas.bind_all('<<PreviewHelperItemClicked>>',
+                        self._on_preview_widget_clicked)
+        
+    def _on_preview_widget_clicked(self, event):
+        logger.debug('itemclicked {0}'.format(event))
         
     def add_resource_path(self, path):
         self._resource_paths.append(path)
@@ -548,6 +566,7 @@ class PreviewHelper:
         return x, y
 
     def draw(self, identifier, widget_id, xmlnode, wclass):
+        logger.debug('Preview.draw: {0},{1}'.format(identifier, widget_id))
         preview_class = Preview
         if wclass == 'tk.Menu':
             preview_class = MenuPreview
@@ -565,6 +584,14 @@ class PreviewHelper:
         preview.update(widget_id, xmlnode)
         self.reset_selected(identifier)
         self.move_previews()
+        
+        if True:
+            # we are allways recreating full preview.
+            # create callback and bind widgets
+            def callback(event, self=self, previewid=identifier):
+                self.preview_click_handler(previewid, event)
+            widget = preview.root_widget
+            self.bind_preview_widget(widget, callback)            
 
     def _create_indicators(self):
         # selected indicators
@@ -650,3 +677,15 @@ class PreviewHelper:
         for top in self.toplevel_previews:
             top.destroy()
         self.toplevel_previews = []
+    
+    def preview_click_handler(self, preview_id, event=None):
+        preview = self.previews[preview_id]
+        wid = preview.builder.get_widget_id(event.widget)
+        if wid is not None:
+            self.selected_widget = wid
+            self.canvas.event_generate('<<PreviewItemSelected>>')
+    
+    def bind_preview_widget(self, widget, callback):
+        widget.bind('<Button-1>', callback)
+        for w in widget.winfo_children():
+            self.bind_preview_widget(w, callback)
