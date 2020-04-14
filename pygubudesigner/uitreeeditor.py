@@ -51,6 +51,7 @@ class WidgetsTreeEditor(object):
         self.previewer = app.previewer
         self.treedata = {}
         self.counter = Counter()
+        self.default_layout_manager = 'pack' # TODO: set from configuration
         # Filter vars
         self.filter_on = False
         self.filtervar = app.builder.get_variable('filtervar')
@@ -79,6 +80,7 @@ class WidgetsTreeEditor(object):
         self.select_by_id(wid)
         
     def get_children_manager(self, item, current=None):
+        '''Get layout manager for children of item'''
         manager = None
         children = self.treeview.get_children(item)
         for child in children:
@@ -198,7 +200,6 @@ class WidgetsTreeEditor(object):
                 tv.delete(item)
                 self.app.set_changed()
                 if parent:
-                    self._update_max_grid_rc(parent)
                     parents_to_redraw.add(parent)
                 self.editor_hide_all()
             except tk.TclError:
@@ -281,21 +282,9 @@ class WidgetsTreeEditor(object):
         data.attach(self)
         self.treedata[item] = data
 
-        # Update grid r/c data
-        self._update_max_grid_rc(root, from_file=True)
         self.app.set_changed()
 
         return item
-
-    def _update_max_grid_rc(self, item, from_file=False):
-        # Calculate max grid row/col for item
-        if item != '':
-            item_data = self.treedata[item]
-            row, col = self.get_max_row_col(item)
-            item_data.max_col = col
-            item_data.max_row = row
-            if not from_file:
-                item_data.remove_unused_grid_rc()
 
     def copy_to_clipboard(self):
         """
@@ -304,6 +293,7 @@ class WidgetsTreeEditor(object):
         tree = self.treeview
         # get the selected item:
         selection = tree.selection()
+        logger.debug('Selection {0}'.format(str(selection)))
         if selection:
             self.filter_remove(remember=True)
             root = ET.Element('selection')
@@ -455,6 +445,7 @@ class WidgetsTreeEditor(object):
                 data = WidgetDescr(None, None)
                 data.from_xml_node(element)
                 if self._validate_add(selected_item, data.get_class()):
+                    self.update_layout(selected_item, data, element)
                     self.populate_tree(selected_item, root, element)
             self.draw_widget(selected_item)
         except ET.ParseError:
@@ -464,6 +455,22 @@ class WidgetsTreeEditor(object):
             pass
         self.filter_restore()
 
+    def update_layout(self, root, data, element):
+        '''Removes layout info from element, when copied from clipboard.'''
+        
+        cmanager = self.get_children_manager(root)
+        cmanager = cmanager if cmanager is not None else self.default_layout_manager
+        emanager = data['manager']
+        if emanager != 'place' and cmanager != emanager:
+            layout = element.find('layout')
+            if layout is not None:
+                layout.set('manager', cmanager)
+                remove =('property', 'rows', 'columns')
+                for ename in remove:
+                    props = layout.findall(ename)
+                    for p in props:
+                        layout.remove(p)
+    
     def add_widget(self, wclass):
         """Adds a new item to the treeview."""
 
@@ -496,7 +503,7 @@ class WidgetsTreeEditor(object):
         parent = None
         if root:
             parent = self.treedata[root]
-        manager = 'pack' # << DEFAULT LAYOUT MANAGER
+        manager = self.default_layout_manager # << DEFAULT LAYOUT MANAGER
         if parent is not None:
             cmanager = self.get_children_manager(root)
             manager = cmanager if cmanager else manager
@@ -716,7 +723,6 @@ class WidgetsTreeEditor(object):
                     data.set_layout_property('column', str(column))
                     data.notify()
                 root = tree.parent(item)
-                self._update_max_grid_rc(root)
             self.filter_restore()
             self.editor_edit(item_first, self.treedata[item_first])
 
