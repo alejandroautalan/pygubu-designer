@@ -42,12 +42,25 @@ StockImage.register_from_dir(IMAGES_DIR)
 
 
 class PropertyEditor(ttk.Frame):
+    style_initialized = False
+    
     def __init__(self, master=None, **kw):
         self._variable = tk.StringVar()
         self._initvalue = None
         self.value = ''
         ttk.Frame.__init__(self, master, **kw)
+        
+        if not PropertyEditor.style_initialized:
+            s = ttk.Style()
+            s.configure('PropertyEditorInvalid.TFrame', background='red')
+        
         self._create_ui()
+        
+    def show_invalid(self, invalid=True):
+        if invalid:
+            self.configure(borderwidth=2, style='PropertyEditorInvalid.TFrame')
+        else:
+            self.configure(borderwidth=0, style='TFrame')
 
     def _create_ui(self):
         pass
@@ -69,7 +82,11 @@ class PropertyEditor(ttk.Frame):
             if self.value != self._initvalue:
                 self.event_generate('<<PropertyChanged>>')
                 self._initvalue = self.value
+                self._after_change()
 
+    def _after_change(self):
+        pass
+    
     def parameters(self, **kw):
         pass
 
@@ -83,8 +100,6 @@ class EntryPropertyEditor(PropertyEditor):
     def _create_ui(self):
         self._entry = entry = ttk.Entry(self, textvariable=self._variable)
         entry.grid(sticky='we')
-        self._error_label = elabel = ttk.Label(self)
-        elabel.grid(row=0, column=1)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         entry.bind('<FocusOut>', self._on_variable_changed)
@@ -93,12 +108,16 @@ class EntryPropertyEditor(PropertyEditor):
 
     def parameters(self, **kw):
         self._entry.configure(**kw)
-    
-    def show_invalid(self, value=True):
-        img = ''
-        if value:
-            img = StockImage.get('property_invalid')
-        self._error_label.configure(image=img)
+
+
+class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
+    def _validate(self):
+        is_valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            is_valid = value.isalnum()
+        self.show_invalid(not is_valid)
+        return is_valid
 
 
 SpinboxClass = tk.Spinbox
@@ -240,6 +259,7 @@ def create_editor(name, *args, **kw):
     return editor
 
 register_editor('entry', EntryPropertyEditor)
+register_editor('alphanumentry', AlphanumericEntryPropertyEditor)
 register_editor('choice', ChoicePropertyEditor)
 register_editor('choice_key', ChoiceByKeyPropertyEditor)
 register_editor('spinbox', SpinboxPropertyEditor)
