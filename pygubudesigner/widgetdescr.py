@@ -104,9 +104,12 @@ class WidgetDescr(Observable, dict):
         self.notify('GRID_RC_CHANGED', self)
 
     def get_grid_row_property(self, row, name):
+        default = '0'
+        if name == 'uniform':
+            default = ''        
         if 'rows' in self['layout']:
-            return self['layout']['rows'][row].get(name, '0')
-        return '0'
+            return self['layout']['rows'][row].get(name, default)
+        return default
 
     def set_grid_col_property(self, col, name, value):
         self.__init_gridrc()
@@ -114,9 +117,12 @@ class WidgetDescr(Observable, dict):
         self.notify('GRID_RC_CHANGED', self)
 
     def get_grid_col_property(self, col, name):
+        default = '0'
+        if name == 'uniform':
+            default = ''
         if 'columns' in self['layout']:
-            return self['layout']['columns'][col].get(name, '0')
-        return '0'
+            return self['layout']['columns'][col].get(name, default)
+        return default
 
     def to_xml_node(self):
         return data_dict_to_xmlnode(self, TRANSLATABLE_PROPERTIES)

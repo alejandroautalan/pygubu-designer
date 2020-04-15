@@ -750,10 +750,10 @@ wp.update(CUSTOM_OPTIONS)
 
 LAYOUT_OPTIONS = {
     # pack/grid/place common properties
-    'padx': {'editor': 'dimensionentry'},
-    'pady': {'editor': 'dimensionentry'},
-    'ipadx': {'editor': 'dimensionentry'},
-    'ipady': {'editor': 'dimensionentry'},
+    'padx': {'editor': 'twodimensionentry'},
+    'pady': {'editor': 'twodimensionentry'},
+    'ipadx': {'editor': 'twodimensionentry'},
+    'ipady': {'editor': 'twodimensionentry'},
     'propagate': {
         'editor': 'choice',
         'params': {'values': ('True', 'False'), 'state': 'readonly'},
@@ -792,31 +792,29 @@ LAYOUT_OPTIONS = {
             'state': 'readonly'}        
         },
     'height':{
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
-        'validator': 'number_integer',
+        'editor': 'pixelcoordinateentry',
         },
     'relheight':{
-        'editor': 'entry',
+        'editor': 'relativeentry',
         },
     'relwidth':{
-        'editor': 'entry',
+        'editor': 'relativeentry',
         },
     'relx':{
-        'editor': 'entry',
+        'editor': 'relativeentry',
         },
     'rely':{
-        'editor': 'entry',
+        'editor': 'relativeentry',
         },
     'width':{
-        'editor': 'entry',
+        'editor': 'pixelcoordinateentry',
         },
     'x':{
-        'editor': 'entry',
+        'editor': 'pixelcoordinateentry',
         'default': '0'
         },
     'y':{
-        'editor': 'entry',
+        'editor': 'pixelcoordinateentry',
         'default': '0'
         },
     
@@ -853,8 +851,11 @@ LAYOUT_OPTIONS = {
         'editor': 'dimensionentry',
         'params': {'width': 4, 'empty_data': 0}},
     'weight': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999, 'state': 'readonly', 'width': 3}}
+        'editor': 'numberentry'
+    },
+    'uniform': {
+        'editor': 'alphanumentry',
+    }
 }
 
 # List properties in display order
@@ -880,7 +881,7 @@ PLACE_PROPERTIES = (
     'x', 'y', 'width', 'height', 'bordermode', 
 )
 
-GRID_RC_PROPERTIES = ('minsize', 'pad', 'weight')
+GRID_RC_PROPERTIES = ('minsize', 'pad', 'weight', 'uniform')
 
 TRANSLATABLE_PROPERTIES = (
     'label', 'text', 'title',
