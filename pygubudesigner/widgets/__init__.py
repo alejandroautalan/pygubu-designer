@@ -10,3 +10,5 @@ from .dynamicpropeditor import DynamicPropertyEditor
 from .fontentry import FontPropertyEditor
 from .stickyentry import StickyPropertyEditor
 from .dimensionentry import DimensionPropertyEditor
+from .relativeentry import RelativeEntryPropertyEditor
+from .pixelcoordinateentry import PixelCoordinatePropertyEditor

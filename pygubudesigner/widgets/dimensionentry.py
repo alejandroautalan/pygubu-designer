@@ -28,10 +28,11 @@ from pygubudesigner.widgets.propertyeditor import *
 
 
 RE_DIMENSION = re.compile('(\d+([cimp])?)?$')
+RE_TWO_DIMENSION = re.compile('(\d+([cimp])?|\d+([cimp])?\s\d+([cimp])?)?$')
 
 
 class DimensionPropertyEditor(EntryPropertyEditor):
-    
+    REGEX = RE_DIMENSION
     def __init__(self, master=None, **kw):
         self._empty_data = None
         EntryPropertyEditor.__init__(self, master, **kw)
@@ -39,7 +40,7 @@ class DimensionPropertyEditor(EntryPropertyEditor):
     def _validate(self):
         valid = False
         value = self._get_value()
-        m = RE_DIMENSION.match(value)
+        m = self.REGEX.match(value)
         if m:
             valid = True
         self.show_invalid(not valid)
@@ -59,7 +60,14 @@ class DimensionPropertyEditor(EntryPropertyEditor):
         self._empty_data = None if pvalue is None else pvalue
         EntryPropertyEditor.parameters(self, **kw)
 
+
+class TwoDimensionPropertyEditor(DimensionPropertyEditor):
+    REGEX = RE_TWO_DIMENSION
+
+
 register_editor('dimensionentry', DimensionPropertyEditor)
+register_editor('twodimensionentry', TwoDimensionPropertyEditor)
+
 
 if __name__ == '__main__':
     root = tk.Tk()
@@ -76,5 +84,10 @@ if __name__ == '__main__':
     editor.pack(expand=True, fill='x')
     editor.edit('10m')
     editor.bind('<<PropertyChanged>>', make_on_change_cb(editor))
+    
+    editor2 = TwoDimensionPropertyEditor(root)
+    editor2.pack(expand=True, fill='x')
+    editor2.edit('10p 20p')
+    editor2.bind('<<PropertyChanged>>', make_on_change_cb(editor2))    
 
     root.mainloop()
