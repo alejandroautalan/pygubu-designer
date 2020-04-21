@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface>
+<interface version="1.0">
   <object class="pygubu.builder.widgets.dialog" id="aboutdialog">
+    <property name="geometry">420x400</property>
     <property name="height">100</property>
     <property name="modal">False</property>
     <property name="resizable">none</property>
@@ -9,99 +10,92 @@
     <child>
       <object class="ttk.Frame" id="frame1">
         <property name="height">250</property>
-        <property name="padding">10</property>
+        <property name="padding">5</property>
         <property name="width">400</property>
-        <layout manager="grid">
-          <property name="column">0</property>
-          <property name="propagate">True</property>
-          <property name="row">0</property>
-          <property name="sticky">nsew</property>
-          <columns>
-            <column id="0">
-              <property name="weight">1</property>
-            </column>
-          </columns>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
         </layout>
         <child>
-          <object class="ttk.Label" id="name">
-            <property name="anchor">e</property>
-            <property name="font">Sans 18 bold</property>
-            <property name="image">pygubu200</property>
-            <property name="text" translatable="yes">pygubu</property>
-            <layout manager="grid">
+          <object class="ttk.Frame" id="Frame_1">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">x</property>
               <property name="propagate">True</property>
+              <property name="side">top</property>
             </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Label" id="version">
-            <property name="anchor">e</property>
-            <property name="font">Sans 8</property>
-            <property name="padding">0 0 0 5</property>
-            <property name="text" translatable="yes">v%version%</property>
-            <layout manager="grid">
-              <property name="propagate">True</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Label" id="description">
-            <property name="anchor">center</property>
-            <property name="padding">0 10 0 10</property>
-            <property name="text" translatable="yes">pygubu is a graphical user interface designer for tkinter</property>
-            <layout manager="grid">
-              <property name="propagate">True</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Label" id="copyr">
-            <property name="font">Sans 8</property>
-            <property name="padding">0 10 0 10</property>
-            <property name="text" translatable="yes">Copyright © 2012-2020 Alejandro Autalán</property>
-            <layout manager="grid">
-              <property name="propagate">True</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Label" id="warranty">
-            <property name="anchor">center</property>
-            <property name="font">Sans 8</property>
-            <property name="padding">0 10 0 0</property>
-            <property name="text" translatable="yes">This program comes with ABSOLUTELY NO WARRANTY
+            <child>
+              <object class="ttk.Label" id="name">
+                <property name="anchor">e</property>
+                <property name="font">Sans 18 bold</property>
+                <property name="image">pygubu200</property>
+                <property name="text" translatable="yes">pygubu</property>
+                <layout manager="pack" />
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="version">
+                <property name="anchor">e</property>
+                <property name="font">Sans 8</property>
+                <property name="padding">0 0 0 5</property>
+                <property name="text" translatable="yes">v%version%</property>
+                <layout manager="pack" />
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="description">
+                <property name="anchor">center</property>
+                <property name="padding">20 10 20 10</property>
+                <property name="text" translatable="yes">pygubu is a graphical user interface designer for tkinter</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="ipadx">0</property>
+                  <property name="ipady">0</property>
+                  <property name="padx">0</property>
+                  <property name="pady">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="copyr">
+                <property name="font">Sans 8</property>
+                <property name="padding">0 10 0 10</property>
+                <property name="text" translatable="yes">Copyright © 2012-2020 Alejandro Autalán</property>
+                <layout manager="pack" />
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="warranty">
+                <property name="anchor">center</property>
+                <property name="font">Sans 8</property>
+                <property name="padding">0 10 0 0</property>
+                <property name="text" translatable="yes">This program comes with ABSOLUTELY NO WARRANTY
 for details, visit http://www.gnu.org/licenses/gpl-3.0.html</property>
-            <layout manager="grid">
-              <property name="propagate">True</property>
-            </layout>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                </layout>
+              </object>
+            </child>
           </object>
         </child>
         <child>
-          <object class="ttk.Frame" id="ttk.Frame_8">
-            <property name="height">250</property>
-            <property name="padding">0 20 0 0</property>
-            <property name="width">250</property>
-            <layout manager="grid">
-              <property name="propagate">True</property>
-              <property name="sticky">ew</property>
-              <columns>
-                <column id="0">
-                  <property name="weight">1</property>
-                </column>
-              </columns>
+          <object class="ttk.Frame" id="bottom">
+            <property name="height" />
+            <property name="padding">0 10 0 0</property>
+            <property name="width" />
+            <layout manager="pack">
+              <property name="fill">x</property>
             </layout>
             <child>
               <object class="ttk.Button" id="close_btn">
                 <property name="command">on_ok_execute</property>
                 <property name="text" translatable="yes">Close</property>
-                <layout manager="grid">
-                  <property name="propagate">True</property>
-                  <property name="sticky">e</property>
-                  <columns>
-                    <column id="0">
-                      <property name="weight">1</property>
-                    </column>
-                  </columns>
+                <layout manager="pack">
+                  <property name="side">right</property>
                 </layout>
               </object>
             </child>
