@@ -140,18 +140,19 @@ class ScriptGenerator(object):
     def form_valid(self):
         valid = True
         
+        mbtitle = _('Script Generator')
         widget = self.widgetlist.current()
         if widget is None:
             valid = False
-            messagebox.showwarning(message='Select widget')
+            messagebox.showwarning(title=mbtitle, message='Select widget')
         template = self.templatelist.current()
         if valid and template is None:
             valid = False
-            messagebox.showwarning(message='Select template')
+            messagebox.showwarning(title=mbtitle, message='Select template')
         classname = self.classnamevar.get()
         if valid and classname == '':
             valid = False
-            messagebox.showwarning(message='Enter classname')            
+            messagebox.showwarning(title=mbtitle, message='Enter classname')            
         
         return valid
     
