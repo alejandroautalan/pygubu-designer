@@ -79,7 +79,7 @@ class BindingsEditor:
         self.tv.selection_set('')
 
     def edit(self, wdescr):
-        wclass = wdescr.get_class()
+        wclass = wdescr.classname
         self.clear()
         self._curr_data = wdescr
         
@@ -90,7 +90,7 @@ class BindingsEditor:
         else:
             self._parent.pack_forget()
             pass
-        for bind in wdescr.get_bindings():
+        for bind in wdescr.bindings:
             self._add_binding(bind)
 
     def _on_inplace_edit(self, event):

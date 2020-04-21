@@ -6,7 +6,7 @@ try:
 except ImportError:
     from io import StringIO ## for Python 3
 
-from pygubu.builder import data_xmlnode_to_dict
+#from pygubu.builder import data_xmlnode_to_dict
 
 
 if getattr(itertools, 'zip_longest', None) is None:

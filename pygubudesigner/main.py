@@ -516,9 +516,8 @@ class PygubuDesigner(object):
             self.do_save(fname)
 
     def save_file(self, filename):
-        xml_tree = self.tree_editor.tree_to_xml()
-        util.indent(xml_tree.getroot())
-        xml_tree.write(filename, xml_declaration=True, encoding='utf-8')
+        uidefinition = self.tree_editor.tree_to_uidef()
+        uidefinition.save(filename)
         title = self.project_name()
         self.set_title(title)
 

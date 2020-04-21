@@ -32,6 +32,7 @@ except:
 
 import pygubu
 from pygubu.stockimage import StockImage
+from .widgetdescr import WidgetMeta
 from .widgets.toplevelframe import ToplevelFramePreview
 
 try:
@@ -46,12 +47,12 @@ RE_FONT = re.compile("(?P<family>\{\w+(\w|\s)*\}|\w+)\s?(?P<size>-?\d+)?\s?(?P<m
 class BuilderForPreview(pygubu.Builder):
     def _pre_process_data(self, data):
         super(BuilderForPreview, self)._pre_process_data(data)
-        cname = data['class']
+        cname = data.classname
         
         #  Do not resize main window when
         #  Sizegrip is dragged on preview panel.
         if cname == 'ttk.Sizegrip':
-            data['properties']['class_'] = 'DUMMY_CLASS'
+            data.properties['class_'] = 'DUMMY_CLASS'
     
     def get_widget_id(self, widget):
         wid = None
@@ -162,7 +163,7 @@ class Preview(object):
         if self.canvas_window:
             self.canvas_window.configure(width=self.w, height=self.h)
 
-    def update(self, widget_id, xmlnode):
+    def update(self, widget_id, uidefinition):
         # delete current preview
         # FIXME maybe do something to update preview without re-creating all ?
         del self.builder
@@ -179,7 +180,7 @@ class Preview(object):
         self.canvas.itemconfigure(self.shapes['text'], text=widget_id)
 
         self._preview_widget = \
-            self.create_preview_widget(canvas_window, widget_id, xmlnode)
+            self.create_preview_widget(canvas_window, widget_id, uidefinition)
         self.root_widget = self._preview_widget
 
         self.canvas_window = canvas_window
@@ -195,19 +196,19 @@ class Preview(object):
         self.h = self.min_h * 2
         self.resize_to(self.min_w, self.min_h)
 
-    def create_preview_widget(self, parent, widget_id, xmlnode):
+    def create_preview_widget(self, parent, widget_id, uidefinition):
         self.builder = self._create_builder()
-        self.builder.add_from_xmlnode(xmlnode)
+        self.builder.uidefinition = uidefinition
         widget = self.builder.get_object(widget_id, parent)
         return widget
 
     def get_widget_by_id(self, widget_id):
         return self.builder.get_object(widget_id)
 
-    def create_toplevel(self, widget_id, xmlnode):
+    def create_toplevel(self, widget_id, uidefinition):
         # Create preview
         builder = pygubu.Builder()
-        builder.add_from_xmlnode(xmlnode)
+        builder.uidefinition = uidefinition
         top = tk.Toplevel(self.canvas)
         top.columnconfigure(0, weight=1)
         top.rowconfigure(0, weight=1)
@@ -223,19 +224,19 @@ class Preview(object):
 
 class DefaultMenuPreview(Preview):
 
-    def create_preview_widget(self, parent, widget_id, xmlnode):
+    def create_preview_widget(self, parent, widget_id, uidefinition):
         self.builder = self._create_builder()
-        self.builder.add_from_xmlnode(xmlnode)
+        self.builder.uidefinition = uidefinition
         menubutton = ttk.Menubutton(parent, text='Menu preview')
         menubutton.grid()
         widget = self.builder.get_object(widget_id, menubutton)
         menubutton.configure(menu=widget)
         return menubutton
 
-    def create_toplevel(self, widget_id, xmlnode):
+    def create_toplevel(self, widget_id, uidefinition):
         # Create preview
         builder = pygubu.Builder()
-        builder.add_from_xmlnode(xmlnode)
+        builder.uidefinition = uidefinition
         top = tk.Toplevel(self.canvas)
         top.columnconfigure(0, weight=1)
         top.rowconfigure(0, weight=1)
@@ -335,7 +336,7 @@ class OnCanvasMenuPreview(Preview):
         self._cwidth = w + int(w * 0.25)
         self._cheight = h + int(h * 0.25)
 
-    def create_preview_widget(self, parent, widget_id, xmlnode):
+    def create_preview_widget(self, parent, widget_id, uidefinition):
         container = tk.Frame(parent, container=True, height=50)
         container.grid(sticky='nswe')
         container.rowconfigure(0, weight=1)
@@ -347,16 +348,16 @@ class OnCanvasMenuPreview(Preview):
         top.update()
 
         self.builder = self._create_builder()
-        self.builder.add_from_xmlnode(xmlnode)
+        self.builder.uidefinition = uidefinition
         self._menu = widget = self.builder.get_object(widget_id, top)
         top.configure(menu=widget)
         self._calculate_menu_wh()
         return parent
 
-    def create_toplevel(self, widget_id, xmlnode):
+    def create_toplevel(self, widget_id, uidefinition):
         # Create preview
         builder = pygubu.Builder()
-        builder.add_from_xmlnode(xmlnode)
+        builder.uidefinition = uidefinition
         top = tk.Toplevel(self.canvas)
         top.columnconfigure(0, weight=1)
         top.rowconfigure(0, weight=1)
@@ -373,61 +374,41 @@ if sys.platform == 'linux':
 
 class ToplevelPreview(Preview):
 
-    def create_preview_widget(self, parent, widget_id, xmlnode):
+    def create_preview_widget(self, parent, widget_id, uidefinition):
         # Change real Toplevel for a preview replacement:
-        xmlnode.set('class', 'pygubudesigner.ToplevelFramePreview')
         # Add same behavior of Toplevel. Default expand both sides:
-        layout = ET.Element('layout')
-        for n, v in (('row', '0'), ('column', '0'), ('sticky', 'nsew')):
-            p = ET.Element('property')
-            p.set('name', n)
-            p.text = v
-            layout.append(p)
-        rc = ET.Element('rows')
-        row = ET.Element('row')
-        row.set('id', '0')
-        p = ET.Element('property')
-        p.set('name', 'weight')
-        p.text = '1'
-        row.append(p)
-        rc.append(row)
-        layout.append(rc)
+        old = uidefinition.get_widget(widget_id)
+        newroot = WidgetMeta('pygubudesigner.ToplevelFramePreview',
+                             widget_id, 'pack')
+        newroot.copy_properties(old)
+        #newroot.widget_property('height', '200')
+        #newroot.widget_property('width', '200')
+        newroot.layout_property('expand', 'true')
+        newroot.layout_property('fill', 'both')
         
-        rc = ET.Element('columns')
-        col = ET.Element('column')
-        col.set('id', '0')
-        p = ET.Element('property')
-        p.set('name', 'weight')
-        p.text = '1'
-        col.append(p)
-        rc.append(col)
-        layout.append(rc)
-        xmlnode.append(layout)
+        uidefinition.replace_widget(widget_id, newroot)
         # end add behaviour
-        
-        # print(ET.tostring(xmlnode))
+
         self.builder = self._create_builder()
-        self.builder.add_from_xmlnode(xmlnode)
+        self.builder.uidefinition = uidefinition
         widget = self.builder.get_object(widget_id, parent)
         return widget
 
-    def create_toplevel(self, widget_id, xmlnode):
+    def create_toplevel(self, widget_id, uidefinition):
         # Create preview
         builder = pygubu.Builder()
-        builder.add_from_xmlnode(xmlnode)
+        builder.uidefinition = uidefinition
         top = builder.get_object(widget_id, self.canvas)
         return top
 
 
 class DialogPreview(ToplevelPreview):
-    def create_toplevel(self, widget_id, xmlnode):
-        top = super(DialogPreview, self).create_toplevel(widget_id, xmlnode)
+    def create_toplevel(self, widget_id, uidefinition):
+        top = super(DialogPreview, self).create_toplevel(widget_id,
+                                                         uidefinition)
         top.run()
         return top
 
-
-#    def get_widget_by_id(self, widget_id):
-#        return self.canvas_window
 
 
 class PreviewHelper:
@@ -565,7 +546,7 @@ class PreviewHelper:
             y += p.height() + self.padding
         return x, y
 
-    def draw(self, identifier, widget_id, xmlnode, wclass):
+    def draw(self, identifier, widget_id, uidefinition, wclass):
         logger.debug('Preview.draw: {0},{1}'.format(identifier, widget_id))
         preview_class = Preview
         if wclass == 'tk.Menu':
@@ -581,7 +562,7 @@ class PreviewHelper:
                                 self.resource_paths)
         else:
             preview = self.previews[identifier]
-        preview.update(widget_id, xmlnode)
+        preview.update(widget_id, uidefinition)
         self.reset_selected(identifier)
         self.move_previews()
         
@@ -668,9 +649,9 @@ class PreviewHelper:
             self.delete(identifier)
         self.resource_paths = []
 
-    def preview_in_toplevel(self, identifier, widget_id, xmlnode):
+    def preview_in_toplevel(self, identifier, widget_id, uidefinition):
         preview = self.previews[identifier]
-        top = preview.create_toplevel(widget_id, xmlnode)
+        top = preview.create_toplevel(widget_id, uidefinition)
         self.toplevel_previews.append(top)
 
     def close_toplevel_previews(self):

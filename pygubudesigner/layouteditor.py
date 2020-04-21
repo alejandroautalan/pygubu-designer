@@ -130,7 +130,7 @@ class LayoutEditor(PropertiesEditor):
     def edit(self, wdescr, manager_options):
         self._current = wdescr
 
-        wclass = wdescr.get_class()
+        wclass = wdescr.classname
         #class_descr = CLASS_MAP[wclass].builder
         max_children = CLASS_MAP[wclass].builder.maxchildren
         max_children = 0 if max_children is None else max_children
@@ -181,8 +181,8 @@ class LayoutEditor(PropertiesEditor):
         show_grid_rc = (manager == 'grid' and layout_required)
 
         if show_grid_rc:
-            rownum = wdescr.get_layout_property('row')
-            colnum = wdescr.get_layout_property('column')
+            rownum = wdescr.layout_property('row')
+            colnum = wdescr.layout_property('column')
             label = self._fgr_label.format(rownum)
             self._fgr.config(text=label)
             label = self._fgc_label.format(colnum)
@@ -213,18 +213,16 @@ class LayoutEditor(PropertiesEditor):
     def _on_property_changed(self, name, editor):
         value = editor.value
         if name in properties.MANAGER_PROPERTIES:
-            self._current.set_layout_property(name, value)
+            self._current.layout_property(name, value)
         else:
             # asume that is a grid row/col property
             rowcol, pname = self.identify_gridrc_property(name)
-            number = self._current.get_layout_property('row')
+            number = self._current.layout_property('row')
             if rowcol == 'col':
-                number = self._current.get_layout_property('column')   
-            target = self._current        
-            if rowcol == 'row':
-                target.set_grid_row_property(number, pname, value)
-            else:
-                target.set_grid_col_property(number, pname, value)
+                number = self._current.layout_property('column')   
+            target = self._current
+            target.gridrc_property(rowcol, number, pname, value)
+            editor.event_generate('<<LayoutEditorGridRCChanged>>')
 
     def identify_gridrc_property(self, alias):
         return alias.split('_')
@@ -240,14 +238,14 @@ class LayoutEditor(PropertiesEditor):
         editor.parameters(**params)
         default = pdescr.get('default', '')
 
-        value = wdescr.get_layout_property(pname)
+        value = wdescr.layout_property(pname)
         if not value and default:
             value = default
         editor.edit(value)
 
     def update_rc_editor(self, type_, index, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
-        classname = wdescr.get_class()
+        classname = wdescr.classname
 
         if classname in pdescr:
             pdescr = dict(pdescr, **pdescr[classname])
@@ -257,10 +255,7 @@ class LayoutEditor(PropertiesEditor):
         default = pdescr.get('default', '')
 
         value = ''
-        if type_ == 'row':
-            value = wdescr.get_grid_row_property(str(index), pname)
-        else:
-            value = wdescr.get_grid_col_property(str(index), pname)
+        value = wdescr.gridrc_property(type_, str(index), pname)
         if not value and default:
             value = default
         editor.edit(value)

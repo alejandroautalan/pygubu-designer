@@ -99,11 +99,11 @@ class PropertiesEditor(object):
         return editor
 
     def _on_property_changed(self, name, editor):
-        self._current.set_property(name, editor.value)
+        self._current.widget_property(name, editor.value)
 
     def update_editor(self, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
-        classname = wdescr.get_class()
+        classname = wdescr.classname
 
         if classname in pdescr:
             pdescr = dict(pdescr, **pdescr[classname])
@@ -112,14 +112,14 @@ class PropertiesEditor(object):
         editor.parameters(**params)
         default = pdescr.get('default', '')
 
-        value = wdescr.get_property(pname)
+        value = wdescr.widget_property(pname)
         if not value and default:
             value = default
         editor.edit(value)
 
     def edit(self, wdescr):
         self._current = wdescr
-        wclass = wdescr.get_class()
+        wclass = wdescr.classname
         class_descr = CLASS_MAP[wclass].builder
         
         # GroupCode, PropertyType, dict, tuple
