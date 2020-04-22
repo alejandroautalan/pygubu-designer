@@ -338,9 +338,7 @@ class OnCanvasMenuPreview(Preview):
 
     def create_preview_widget(self, parent, widget_id, uidefinition):
         container = tk.Frame(parent, container=True, height=50)
-        container.grid(sticky='nswe')
-        container.rowconfigure(0, weight=1)
-        container.columnconfigure(0, weight=1)
+        container.pack(fill='both', expand=True)
 
         self._top = top = tk.Toplevel(parent, use=container.winfo_id())
         top.maxsize(2048, 50)
