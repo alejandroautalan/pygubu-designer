@@ -45,7 +45,10 @@ class WidgetMeta(WidgetMetaBase, Observable):
             elif name == 'class':
                 self.classname = value
             else:
-                self.properties[name] = value
+                if value:
+                    self.properties[name] = value
+                else:
+                    self.properties.pop(name, None)
             self.notify('PROPERTY_CHANGED', self)
     
     def layout_property(self, name, value=None):
