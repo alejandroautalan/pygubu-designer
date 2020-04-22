@@ -100,7 +100,7 @@ TK_WIDGET_OPTIONS = {
     'activebackground': {
         'editor': 'colorentry'},
     'activeborderwidth': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     'activeforeground': {
         'editor': 'colorentry'},
     'after': {
@@ -126,7 +126,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'colorentry'},
     # ttk.Frame, ttk.Label
     'borderwidth': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     'bigincrement': {
         'editor': 'entry'},
     'bitmap': {
@@ -147,7 +147,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'choice',
         'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}},
     'class_': {
-        'editor': 'entry'},
+        'editor': 'alphanumentry'},
     'closeenough': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999},
@@ -158,7 +158,7 @@ TK_WIDGET_OPTIONS = {
         'params': {'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
         'default': tk.W},
     'command': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     # ttk.Label
     'compound': {
         'editor': 'choice',
@@ -230,9 +230,8 @@ TK_WIDGET_OPTIONS = {
         'default': tk.W},
     # ttk.Frame,
     'height': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
-        'validator': 'number_integer',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'tk.Toplevel': {'default': 200},
         'tk.Frame': {'default': 200},
         'ttk.Frame': {'default': 200},
@@ -241,14 +240,21 @@ TK_WIDGET_OPTIONS = {
         'tk.PanedWindow': {'default': 200},
         'ttk.Panedwindow': {'default': 200},
         'ttk.Notebook': {'default': 200},
-        'tk.Text': {'default': 10},
-        'pygubu.builder.widgets.dialog': {'default': 100}},
+        'tk.Text': {
+            'params': {'mode': 'numberentry'},
+            'default': 10
+            },
+        'tk.Radiobutton':{
+            'params': {'mode': 'numberentry'},
+        },
+        'pygubu.builder.widgets.dialog': {'default': 100}
+        },
     'highlightbackground': {
         'editor': 'colorentry'},
     'highlightcolor': {
         'editor': 'colorentry'},
     'highlightthickness': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     # ttk.Label
     'image': {
         'editor': 'imageentry'},
@@ -286,7 +292,7 @@ TK_WIDGET_OPTIONS = {
         'params': {'from_': 0, 'to': 999}},
     # ttk.Entry
     'invalidcommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     'jump': {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
@@ -356,16 +362,14 @@ TK_WIDGET_OPTIONS = {
     'padding': {
         'editor': 'entry'},
     'padx': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dimensionentry',
         },
     'pady': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dimensionentry',
         },
     # ttk.Checkbutton
     'postcommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     'readonlybackground': {
         'editor': 'colorentry'},
     # ttk.Frame,
@@ -519,7 +523,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
     'tearoffcommand': {
-        'editor': 'entry' },
+        'editor': 'commandentry' },
     # ttk.Label
     'text': {
         'editor': 'text'},
@@ -543,7 +547,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'colorentry'},
     # ttk.Label
     'underline': {
-        'editor': 'spinbox'},
+        'editor': 'numberentry'},
     'undo': {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
@@ -559,7 +563,7 @@ TK_WIDGET_OPTIONS = {
                        'focusout', 'key', 'all'),
             'state': 'readonly'}},
     'validatecommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     # ttk.Checkbutton
     'variable': {
         'editor': 'tkvarentry'},
@@ -569,11 +573,12 @@ TK_WIDGET_OPTIONS = {
     # ttk.Frame, ttk.Label
     'width': {
         'editor': 'dynamic',
-        'params': {'mode': 'spinbox', 'from_': 0, 'to': 999},
-        'tk.Button': {
-            'params': {'mode': 'spinbox', 'from_': -999, 'to': 999}},
-        'ttk.Button': {
-            'params': {'mode': 'spinbox', 'from_': -999, 'to': 999}},
+        'params': {'mode': 'dimensionentry'},
+        'tk.Button': {},
+        'tk.Entry': {
+            'params': {'mode': 'numberentry'},
+            },
+        'ttk.Button': {},
         'tk.Canvas': {
             'params': {'mode': 'entry'}
             },
@@ -593,10 +598,14 @@ TK_WIDGET_OPTIONS = {
             'default': 200},
         'ttk.Notebook': {
             'default': 200},
+        'tk.Radiobutton':{
+            'params': {'mode': 'numberentry'},
+        },        
         'tk.Text': {
+            'params': {'mode': 'numberentry'},
             'default': 50},
         'ttk.Treeview.Column': {
-            'params': {'mode': 'spinbox', 'from_': 5},
+            'params': {'mode': 'numberentry'},
             'default': 200},
         'pygubu.builder.widgets.dialog': {
             'default': 200}},
@@ -613,17 +622,17 @@ TK_WIDGET_OPTIONS = {
         },
     # ttk.Label
     'wraplength': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     # ttk.Entry
     'xscrollcommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     'xscrollincrement': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}
         },
     # ttk.Treeview
     'yscrollcommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     'yscrollincrement': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}
