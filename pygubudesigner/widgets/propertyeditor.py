@@ -23,6 +23,8 @@ __all__ = ['PropertyEditor', 'EntryPropertyEditor', 'SpinboxPropertyEditor',
            'CheckbuttonPropertyEditor', 'register_editor', 'create_editor']
 
 import os
+import keyword
+import re
 
 try:
     import tkinter as tk
@@ -116,6 +118,21 @@ class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
         value = self._get_value()
         if len(value) != 0:
             is_valid = value.isalnum()
+        self.show_invalid(not is_valid)
+        return is_valid
+
+
+class CommandEntryPropertyEditor(EntryPropertyEditor):
+    RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
+    
+    def _validate(self):
+        is_valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            if keyword.iskeyword(value):
+                is_valid = False
+            if is_valid and not self.RE_IDENTIFIER.match(value):
+                is_valid = False
         self.show_invalid(not is_valid)
         return is_valid
 
@@ -260,6 +277,7 @@ def create_editor(name, *args, **kw):
 
 register_editor('entry', EntryPropertyEditor)
 register_editor('alphanumentry', AlphanumericEntryPropertyEditor)
+register_editor('commandentry', CommandEntryPropertyEditor)
 register_editor('choice', ChoicePropertyEditor)
 register_editor('choice_key', ChoiceByKeyPropertyEditor)
 register_editor('spinbox', SpinboxPropertyEditor)
