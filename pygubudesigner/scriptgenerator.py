@@ -172,7 +172,7 @@ class ScriptGenerator(object):
                 self.set_code(code)
             elif template == 'widget':
                 generator = UI2Code()
-                xml = self.tree.tree_to_xml()
+                xml = self.tree.tree_to_uidef()
                 target = self.tree.get_widget_id(tree_item)
                 code = generator.generate(xml, target)
                 params['widget_code'] = code

@@ -1,12 +1,8 @@
 from __future__ import unicode_literals, print_function
 import itertools
-import xml.etree.ElementTree as ET
-try:
-    from StringIO import StringIO ## for Python 2
-except ImportError:
-    from io import StringIO ## for Python 3
-
-#from pygubu.builder import data_xmlnode_to_dict
+from collections import defaultdict
+from pygubu.builder import Builder, CLASS_MAP
+from pygubu.builder.builderobject import BuilderObject, CodeGeneratorBase
 
 
 if getattr(itertools, 'zip_longest', None) is None:
@@ -32,6 +28,7 @@ if getattr(itertools, 'zip_longest', None) is None:
             yield tuple(values)
     itertools.zip_longest = zip_longest
 
+
 def grouper(iterable, n, fillvalue=None):
     "Collect data into fixed-length chunks or blocks"
     # grouper('ABCDEFG', 3, 'x') --> ABC DEF Gxx"
@@ -43,47 +40,66 @@ class UI2Code(object):
     def __init__(self):
         self.buffer = None
         self.as_class = False
+        self._imports = []
+        self._code = []
+        self.uidefinition = None
+        self._builder = Builder()
     
-    def generate(self, uixml, target, as_class=True, tabspaces=8):
+    def generate(self, uidef, target, as_class=True, tabspaces=8):
         self.as_class = as_class
-        tree = uixml
-        tree.getroot()
-        xpath = ".//object[@id='{0}']".format(target)
-        node = tree.find(xpath)
+        self.uidefinition = uidef
+        
+        builder = BuilderObject(None, {})
+        wmeta = self.uidefinition.get_widget(target)
         code = []
-        self.buffer = StringIO()
-        if node is not None:
-            self._realize('', node)
-            self.buffer.seek(0)
-            for line in self.buffer.readlines():
-                line = ' ' * tabspaces + line
+        if wmeta is not None:
+            self._realize(builder, '', wmeta)
+            
+            for line in self._code:
+                line = '{0}{1}\n'.format(' ' * tabspaces, line)
                 code.append(line)
-            self.buffer.close()
         code = ''.join(code)
         return code
     
-    def _realize(self, master, node):
-        data = data_xmlnode_to_dict(node)
-        cname = data['class']
-        uniqueid = data['id']
+    def code_create(self, builder, parentid, codegen):
+        wmeta = builder.wmeta
+        comment = '# {0} widget'.format(wmeta.identifier)
+        lines = []
+
+        if codegen is not None:
+            output = codegen.create()
+            if output is None:
+                return tuple()
+            elif output != 'AUTO':
+                #lines.append(comment)
+                lines.extend(output)
+                return lines
         
-        if self.as_class:
-            if not master:
-                uniqueid = 'self'
-            else:
-                uniqueid = 'self.' + uniqueid
-                stmt = "{0} = {1}({2})".format(uniqueid, cname, master)
-                print(stmt, file=self.buffer)                
-        else:
-            stmt = '# {0} widget'.format(uniqueid)
-            print(stmt, file=self.buffer)
-            stmt = "{0} = {1}({2})".format(uniqueid, cname, master)
-            print(stmt, file=self.buffer)
+        lines.append(comment)
+        line = "{0} = {1}({2})".format(wmeta.identifier,
+                                       wmeta.classname, parentid)
+        lines.append(line)
+        return lines
+    
+    def code_configure(self, builder, codegen):
+        wmeta = builder.wmeta
+        comment = '# {0} configuration'.format(wmeta.identifier)
+        lines = []
         
+        if codegen is not None:
+            output = codegen.configure()
+            if output is None:
+                return tuple()
+            elif output != 'AUTO':
+                #lines.append(comment)
+                lines.extend(output)
+                return lines
+        
+        lines.append(comment)
         # properties
-        prop_stmt = "{0}.configure({1})"
+        prop_stmt = "{0}.config({1})"
         arg_stmt = "{0}='{1}'"
-        properties = data['properties']
+        properties = wmeta.properties
         sorted_keys = sorted(properties.keys())
         for g in grouper(sorted_keys, 4):
             args_bag = []
@@ -91,48 +107,120 @@ class UI2Code(object):
                 if p is not None:
                     args_bag.append(arg_stmt.format(p, properties[p]))
             args = ', '.join(args_bag)
-            print(prop_stmt.format(uniqueid, args), file=self.buffer)
+            line = prop_stmt.format(wmeta.identifier, args)
+            lines.append(line)
+        return lines
+    
+    def code_layout(self, builder, codegen):
+        wmeta = builder.wmeta
+        comment = '# {0} layout'.format(wmeta.identifier)
+        lines = []
+
+        if codegen is not None:
+            output = codegen.layout()
+            if output is None:
+                return tuple()
+            elif output != 'AUTO':
+                #lines.append(comment)
+                lines.extend(output)
+                return lines
         
-        xpath = "./child"
-        children = node.findall(xpath)
-        for child in children:
-            child_xml = child.find('./object')
-            print('', file=self.buffer)
-            self._realize(uniqueid, child_xml)
-        
-        #layout:
+        lines.append(comment)
         layout_stmt = "{0}.{1}({2})"
-        lrow_stmt = "{0}.rowconfigure({1}, {2})"
-        lcol_stmt = "{0}.columnconfigure({1}, {2})"
         arg_stmt = "{0}='{1}'"
-        layout = data['layout']
+        layout = wmeta.layout_properties
         if layout:
             args_bag = []
             for p, v in sorted(layout.items()):
-                if p not in ('columns', 'rows', 'propagate'):
+                if p not in ('propagate', ):
                     args_bag.append(arg_stmt.format(p, v))
             args = ', '.join(args_bag)
-            manager = data['manager']
-            stmt = layout_stmt.format(uniqueid, manager, args)
-            print(stmt, file=self.buffer)
-            if 'propagate' in layout and layout['propagate'] == 'False': 
-                stmt = '{0}.propagate({1})'.format(uniqueid, layout['propagate'])
-                print(stmt, file=self.buffer)
-            # rows
-            for idx, pd in layout['rows'].items():
-                args_bag = []
-                for p, v in sorted(pd.items()):
-                    args_bag.append(arg_stmt.format(p, v))
-                if args_bag:
-                    args = ', '.join(args_bag)
-                    stmt = lrow_stmt.format(uniqueid, idx, args)
-                    print(stmt, file=self.buffer)
-            # cols
-            for idx, pd in sorted(layout['columns'].items()):
-                args_bag = []
-                for p, v in sorted(pd.items()):
-                    args_bag.append(arg_stmt.format(p, v))
-                if args_bag:
-                    args = ', '.join(args_bag)
-                    stmt = lcol_stmt.format(uniqueid, idx, args)
-                    print(stmt, file=self.buffer)
+            
+            manager = wmeta.manager
+            line = layout_stmt.format(wmeta.identifier, manager, args)
+            lines.append(line)
+            
+            pvalue = str(layout.get('propagate', '')).lower()
+            if 'propagate' in layout and  pvalue == 'false':
+                line = '{0}.propagate({1})'.format(wmeta.identifier, pvalue)
+                lines.append(line)
+        
+        lrow_stmt = "{0}.rowconfigure({1}, {2})"
+        lcol_stmt = "{0}.columnconfigure({1}, {2})"
+        rowbag = defaultdict(list)
+        colbag = defaultdict(list)
+        for type_, num, pname, value in wmeta.gridrc_properties:
+            if type_ == 'row':
+                arg = lrow_stmt.format(pname, value)
+                rowbag[num].append(arg)
+            else:
+                arg = lcol_stmt.format(pname, value)
+                colbag[num].append(arg)
+        for k, bag in rowbag:
+            args = ', '.join(bag)
+            line = lrow_stmt.format(wmeta.identifier, k, args)
+            self._code.append(line)
+        for k, bag in colbag:
+            args = ', '.join(bag)
+            line = lcol_stmt.format(wmeta.identifier, k, args)
+            self._code.append(line)
+        return lines
+    
+    def code_add_child(self, builder, codegen, childid, childmeta):
+        wmeta = builder.wmeta
+        comment = '# {0} children config'.format(wmeta.identifier)
+        lines = []        
+        if codegen is not None:
+            output = codegen.add_child(childid, childmeta)
+            if output is not None:
+                #lines.append(comment)
+                lines.extend(output)
+        return lines
+    
+    def _realize(self, bmaster, masterid, wmeta):
+        originalid = wmeta.identifier
+        uniqueid = None
+        
+        if wmeta.classname not in CLASS_MAP:
+            self._builder._import_class(wmeta.classname)
+
+        if wmeta.classname in CLASS_MAP:
+            bclass = CLASS_MAP[wmeta.classname].builder
+            builder = bclass.factory(None, wmeta)
+            uniqueid = wmeta.identifier
+            
+            if self.as_class:
+                if not masterid:
+                    uniqueid = 'self'
+                else:
+                    uniqueid = 'self.' + uniqueid
+            
+            codegen = builder.code_generator(masterid)
+            builder.wmeta.identifier = uniqueid
+            # Creation
+            code = self.code_create(builder, masterid, codegen)
+            self._code.extend(code)
+            
+            # configuration
+            code = self.code_configure(builder, codegen)
+            self._code.extend(code)
+            
+            # Children
+            for childmeta in \
+                self.uidefinition.widget_children(originalid):
+                cmaster = uniqueid
+                if codegen is not None:
+                    cmaster = codegen.child_master()
+                childid = self._realize(builder, cmaster, childmeta)                                
+                code = self.code_add_child(builder, codegen, childid, childmeta)
+                self._code.extend(code)
+            
+            # layout
+            code = self.code_layout(builder, codegen)
+            self._code.extend(code)
+        else:
+            msg = 'Class "{0}" not mapped'.format(wmeta.classname)
+            raise Exception(msg)
+        
+        return uniqueid
+
