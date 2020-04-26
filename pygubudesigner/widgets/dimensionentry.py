@@ -26,9 +26,13 @@ except:
 
 from pygubudesigner.widgets.propertyeditor import *
 
-
-RE_DIMENSION = re.compile('(\d+([cimp])?)?$')
-RE_TWO_DIMENSION = re.compile('(\d+([cimp])?|\d+([cimp])?\s\d+([cimp])?)?$')
+re_dim = '\d+([cimp])?'
+regexp = '({0})?$'.format(re_dim)
+RE_DIMENSION = re.compile(regexp)
+regexp = '({0})?$|{0}\s{0}$'.format(re_dim)
+RE_TWO_DIMENSION = re.compile(regexp)
+regexp = '({0})?$|{0}\s{0}$|{0}\s{0}\s{0}\s{0}$'.format(re_dim)
+RE_FOUR_DIMENSION = re.compile(regexp)
 
 
 class DimensionPropertyEditor(EntryPropertyEditor):
@@ -65,8 +69,13 @@ class TwoDimensionPropertyEditor(DimensionPropertyEditor):
     REGEX = RE_TWO_DIMENSION
 
 
+class FourDimensionPropertyEditor(DimensionPropertyEditor):
+    REGEX = RE_FOUR_DIMENSION
+
+
 register_editor('dimensionentry', DimensionPropertyEditor)
 register_editor('twodimensionentry', TwoDimensionPropertyEditor)
+register_editor('fourdimensionentry', FourDimensionPropertyEditor)
 
 
 if __name__ == '__main__':
@@ -89,5 +98,10 @@ if __name__ == '__main__':
     editor2.pack(expand=True, fill='x')
     editor2.edit('10p 20p')
     editor2.bind('<<PropertyChanged>>', make_on_change_cb(editor2))    
+    
+    editor2 = FourDimensionPropertyEditor(root)
+    editor2.pack(expand=True, fill='x')
+    editor2.edit('10p 20p 1m 2m')
+    editor2.bind('<<PropertyChanged>>', make_on_change_cb(editor2))        
 
     root.mainloop()
