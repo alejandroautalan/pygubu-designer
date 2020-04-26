@@ -42,6 +42,17 @@ IMAGES_DIR = os.path.join(FILE_DIR, "..", "images", "widgets", "propertyeditor")
 IMAGES_DIR = os.path.abspath(IMAGES_DIR)
 StockImage.register_from_dir(IMAGES_DIR)
 
+EDITORS = {}
+
+
+def register_editor(name, class_):
+    EDITORS[name] = class_
+
+
+def create_editor(name, *args, **kw):
+    editor = EDITORS[name](*args, **kw)
+    return editor
+
 
 class PropertyEditor(ttk.Frame):
     style_initialized = False
@@ -188,19 +199,10 @@ class ChoicePropertyEditor(PropertyEditor):
         combobox.grid(sticky='we')
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
-        combobox.bind('<FocusOut>', self._on_variable_changed)
-        combobox.bind('<KeyPress-Return>', self._on_variable_changed)
-        combobox.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
-        self._variable.trace(mode="w", callback=self._on_trace_var)
-
-    def _on_trace_var(self, varname, elementname, mode):
-        if not self._cb_pending:
-            self.after(int(0.5 * 1000), self._on_variable_changed)
-            self._cb_pending = True
-
-    def _on_variable_changed(self, event=None):
-        PropertyEditor._on_variable_changed(self, event)
-        self._cb_pending = False
+        sequenses = ('<FocusOut>', '<KeyPress-Return>',
+                     '<KeyPress-KP_Enter>', '<<ComboboxSelected>>')
+        for seq in sequenses:
+            combobox.bind(seq, self._on_variable_changed)
 
     def parameters(self, **kw):
         self._combobox.configure(**kw)
@@ -213,10 +215,10 @@ class ChoiceByKeyPropertyEditor(ChoicePropertyEditor):
         combobox.grid(sticky='we')
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
-        combobox.bind('<FocusOut>', self._on_variable_changed)
-        combobox.bind('<KeyPress-Return>', self._on_variable_changed)
-        combobox.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
-        self._variable.trace(mode="w", callback=self._on_trace_var)
+        sequenses = ('<FocusOut>', '<KeyPress-Return>',
+                     '<KeyPress-KP_Enter>', '<<ComboboxSelected>>')
+        for seq in sequenses:
+            combobox.bind(seq, self._on_variable_changed)
 
 
 class CheckbuttonPropertyEditor(PropertyEditor):
@@ -231,49 +233,51 @@ class CheckbuttonPropertyEditor(PropertyEditor):
         self._checkb.configure(**kw)
 
 
-class NumberIntegerEditor(EntryPropertyEditor):
-    def _create_ui(self):
-        self._from = None
-        self._to = None
-        
-        EntryPropertyEditor._create_ui(self)
-        func = self._entry.register(self.validator_integer)
-        cmd = (func, '%d', '%P')
-        self._entry.configure(validate='key', validatecommand=cmd)
-        
-    def parameters(self, **kw):
-        pvalue = kw.pop('from_', None)
-        self._from = None if pvalue is None else int(pvalue)
-        pvalue = kw.pop('to_', None)
-        self._to = None if pvalue is None else int(pvalue)
-        self._entry.configure(**kw)
-
-    def validator_integer(self, action, newvalue):
-        valid = False
-        if action == '1': #1: insert 0: delete
-            valid = str(newvalue).isdigit()
-            if valid:
-                value = int(newvalue)
-                if self._from is not None:
-                    if value < self._from:
-                        valid = False
-                if self._to is not None:
-                    if value > self._to:
-                        valid = False
-        else:
-            valid = True
+class NaturalNumberEditor(EntryPropertyEditor):
+    def _validate(self):
+        valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            valid = False
+            try:
+                number = int(value)
+                if number >= 0:
+                    valid = True
+            except:
+                pass
+        self.show_invalid(not valid)
         return valid
 
-EDITORS = {}
+
+class IntegerNumberEditor(EntryPropertyEditor):
+    def _validate(self):
+        valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            valid = False
+            try:
+                int(value)
+                valid = True
+            except:
+                pass
+        self.show_invalid(not valid)
+        return valid
 
 
-def register_editor(name, class_):
-    EDITORS[name] = class_
+class RealNumberEditor(EntryPropertyEditor):
+    def _validate(self):
+        valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            valid = False
+            try:
+                float(value)
+                valid = True
+            except:
+                pass
+        self.show_invalid(not valid)
+        return valid
 
-
-def create_editor(name, *args, **kw):
-    editor = EDITORS[name](*args, **kw)
-    return editor
 
 register_editor('entry', EntryPropertyEditor)
 register_editor('alphanumentry', AlphanumericEntryPropertyEditor)
@@ -283,7 +287,9 @@ register_editor('choice_key', ChoiceByKeyPropertyEditor)
 register_editor('spinbox', SpinboxPropertyEditor)
 register_editor('text', TextPropertyEditor)
 register_editor('checkbutton', CheckbuttonPropertyEditor)
-register_editor('numberentry', NumberIntegerEditor)
+register_editor('naturalnumber', NaturalNumberEditor)
+register_editor('integernumber', IntegerNumberEditor)
+register_editor('realnumber', RealNumberEditor)
 
 
 if __name__ == '__main__':
