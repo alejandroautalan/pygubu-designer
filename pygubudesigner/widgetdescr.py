@@ -48,6 +48,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 if value:
                     self.properties[name] = value
                 else:
+                    # remove if no value set
                     self.properties.pop(name, None)
             self.notify('PROPERTY_CHANGED', self)
     
@@ -60,7 +61,11 @@ class WidgetMeta(WidgetMetaBase, Observable):
             return self.layout_properties.get(name, default)
         else:
             # Setter
-            self.layout_properties[name] = value
+            if value:
+                self.layout_properties[name] = value
+            else:
+                # remove if no value set
+                self.layout_properties.pop(name, None)
             self.notify('LAYOUT_CHANGED', self)
     
     def gridrc_property(self, type_, num, pname, value=None):
