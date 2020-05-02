@@ -75,9 +75,20 @@ class UI2Code(object):
                 lines.extend(output)
                 return lines
         
+        # ro properties
+        kwargs = []
+        for pname, value in wmeta.properties.items():
+            if pname in builder.ro_properties:
+                arg_stmt = "{0}='{1}'".format(pname, value)
+                kwargs.append(arg_stmt)
+        if kwargs:
+            kwargs = ', ' + ', '.join(kwargs)
+        else:
+            kwargs = ''
+        
         lines.append(comment)
-        line = "{0} = {1}({2})".format(wmeta.identifier,
-                                       wmeta.classname, parentid)
+        line = "{0} = {1}({2}{3})".format(wmeta.identifier,
+                                       wmeta.classname, parentid, kwargs)
         lines.append(line)
         return lines
     
@@ -104,7 +115,7 @@ class UI2Code(object):
         for g in grouper(sorted_keys, 4):
             args_bag = []
             for p in g:
-                if p is not None:
+                if p is not None and p not in builder.ro_properties:
                     args_bag.append(arg_stmt.format(p, properties[p]))
             args = ', '.join(args_bag)
             line = prop_stmt.format(wmeta.identifier, args)
