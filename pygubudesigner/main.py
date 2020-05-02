@@ -422,6 +422,8 @@ class PygubuDesigner(object):
         acf = AccordionFrame(self.widgetlist)
         acf.grid(sticky=tk.NSEW)
         acf.bind('<<AccordionGroupToggle>>', self.on_widgetlist_group_toogle)
+        self.widgetlist.rowconfigure(0, weight=1)
+        self.widgetlist.columnconfigure(0, weight=1)
 
         #Default widget image:
         default_image = ''
