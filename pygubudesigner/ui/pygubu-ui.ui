@@ -268,6 +268,7 @@
                     <property name="weight">1</property>
                     <child>
                       <object class="pygubu.builder.widgets.scrolledframe" id="widgetlist_sf">
+                        <property name="scrolltype">both</property>
                         <property name="usemousewheel">true</property>
                         <layout manager="pack">
                           <property name="expand">true</property>
@@ -281,8 +282,8 @@
                             <property name="width">200</property>
                             <layout manager="grid">
                               <property name="sticky">nsew</property>
-                              <property id="0" name="weight" type="col">1</property>
-                              <property id="0" name="weight" type="row">1</property>
+                              <property type="col" id="0" name="weight">1</property>
+                              <property type="row" id="0" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
