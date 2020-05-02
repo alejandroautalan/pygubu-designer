@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface>
+<interface version="1.0">
   <object class="pygubu.builder.widgets.dialog" id="mainwindow">
-    <property name="borderwidth">2</property>
+    <property name="borderwidth">4</property>
     <property name="geometry">500x480</property>
     <property name="height">100</property>
     <property name="minsize">320|240</property>
@@ -20,115 +20,194 @@
           <property name="side">top</property>
         </layout>
         <child>
-          <object class="tk.Frame" id="top">
+          <object class="ttk.Frame" id="newtop">
+            <property name="height">200</property>
+            <property name="width">200</property>
             <layout manager="pack">
-              <property name="fill">both</property>
+              <property name="fill">x</property>
               <property name="propagate">True</property>
               <property name="side">top</property>
             </layout>
             <child>
-              <object class="tk.Label" id="lbl_template">
-                <property name="text" translatable="yes">Template:</property>
-                <layout manager="grid">
-                  <property name="column">0</property>
+              <object class="ttk.Frame" id="Frame_1">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
                   <property name="propagate">True</property>
-                  <property name="row">0</property>
-                  <property name="sticky">w</property>
+                  <property name="side">top</property>
                 </layout>
+                <child>
+                  <object class="ttk.Label" id="lbl_tpldesc">
+                    <property name="text" translatable="yes">Template description here.</property>
+                    <property name="textvariable">string:template_desc_var</property>
+                    <property name="wraplength">400</property>
+                    <layout manager="pack">
+                      <property name="fill">x</property>
+                      <property name="pady">5 10</property>
+                      <property name="side">bottom</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="lbl_template">
+                    <property name="text" translatable="yes">Template:</property>
+                    <layout manager="pack">
+                      <property name="padx">0 5</property>
+                      <property name="propagate">True</property>
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Radiobutton" id="Radiobutton_1">
+                    <property name="command">on_template_changed</property>
+                    <property name="style">Toolbutton</property>
+                    <property name="text" translatable="yes">Application</property>
+                    <property name="value">application</property>
+                    <property name="variable">string:template_var</property>
+                    <layout manager="pack">
+                      <property name="propagate">True</property>
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Separator" id="Separator_1">
+                    <property name="orient">vertical</property>
+                    <layout manager="pack">
+                      <property name="fill">y</property>
+                      <property name="padx">5</property>
+                      <property name="propagate">True</property>
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Radiobutton" id="Radiobutton_2">
+                    <property name="command">on_template_changed</property>
+                    <property name="style">Toolbutton</property>
+                    <property name="text" translatable="yes">Code Script</property>
+                    <property name="value">codescript</property>
+                    <property name="variable">string:template_var</property>
+                    <layout manager="pack">
+                      <property name="propagate">True</property>
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Separator" id="Separator_2">
+                    <property name="orient">vertical</property>
+                    <layout manager="pack">
+                      <property name="fill">y</property>
+                      <property name="padx">5</property>
+                      <property name="propagate">True</property>
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Radiobutton" id="Radiobutton_3">
+                    <property name="command">on_template_changed</property>
+                    <property name="style">Toolbutton</property>
+                    <property name="text" translatable="yes">Custom Widget</property>
+                    <property name="value">widget</property>
+                    <property name="variable">string:template_var</property>
+                    <layout manager="pack">
+                      <property name="propagate">True</property>
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
               </object>
             </child>
             <child>
-              <object class="pygubu.builder.widgets.combobox" id="templatelist">
-                <property name="keyvariable">string:templatelistvar</property>
-                <bind add="" handler="on_template_changed" sequence="&lt;&lt;ComboboxSelected&gt;&gt;" />
-                <layout manager="grid">
-                  <property name="column">0</property>
+              <object class="ttk.Labelframe" id="lfoptions">
+                <property name="height">200</property>
+                <property name="padding">4</property>
+                <property name="text" translatable="yes">Options:</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
                   <property name="propagate">True</property>
-                  <property name="row">1</property>
-                  <property name="sticky">ew</property>
-                  <columns>
-                    <column id="0">
-                      <property name="weight">1</property>
-                    </column>
-                  </columns>
+                  <property name="side">top</property>
                 </layout>
+                <child>
+                  <object class="tk.Label" id="lbl_wlist">
+                    <property name="text" translatable="yes">Main widget:</property>
+                    <layout manager="grid">
+                      <property name="sticky">w</property>
+                      <property type="col" id="0" name="pad">5</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="pygubu.builder.widgets.combobox" id="widgetlist">
+                    <property name="keyvariable">string:widgetlist_keyvar</property>
+                    <property name="textvariable">string:widgetlistvar</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                      <property name="sticky">ew</property>
+                      <property type="col" id="1" name="pad">0</property>
+                      <property type="col" id="1" name="weight">2</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Label" id="lbl_class">
+                    <property name="text" translatable="yes">Class Name:</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">1</property>
+                      <property name="sticky">w</property>
+                      <property type="col" id="0" name="pad">5</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Entry" id="classname">
+                    <property name="textvariable">string:classnamevar</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">1</property>
+                      <property name="sticky">ew</property>
+                      <property type="col" id="1" name="pad">0</property>
+                      <property type="col" id="1" name="weight">2</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Label" id="spacerlbl">
+                    <layout manager="grid">
+                      <property name="column">2</property>
+                      <property name="row">0</property>
+                      <property type="col" id="2" name="weight">1</property>
+                    </layout>
+                  </object>
+                </child>
               </object>
             </child>
             <child>
-              <object class="tk.Label" id="lbl_wlist">
-                <property name="text" translatable="yes">Main widget for script:</property>
-                <layout manager="grid">
-                  <property name="column">0</property>
+              <object class="ttk.Frame" id="Frame_3">
+                <property name="height">200</property>
+                <property name="padding">0 4</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
                   <property name="propagate">True</property>
-                  <property name="row">2</property>
-                  <property name="sticky">w</property>
+                  <property name="side">top</property>
                 </layout>
-              </object>
-            </child>
-            <child>
-              <object class="pygubu.builder.widgets.combobox" id="widgetlist">
-                <property name="keyvariable">string:widgetlist_keyvar</property>
-                <property name="textvariable">string:widgetlistvar</property>
-                <layout manager="grid">
-                  <property name="column">0</property>
-                  <property name="propagate">True</property>
-                  <property name="row">3</property>
-                  <property name="sticky">ew</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="tk.Label" id="lbl_class">
-                <property name="text" translatable="yes">Generated Class Name:</property>
-                <layout manager="grid">
-                  <property name="column">0</property>
-                  <property name="propagate">True</property>
-                  <property name="row">4</property>
-                  <property name="sticky">w</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="tk.Entry" id="classname">
-                <property name="textvariable">string:classnamevar</property>
-                <layout manager="grid">
-                  <property name="column">0</property>
-                  <property name="propagate">True</property>
-                  <property name="row">5</property>
-                  <property name="sticky">ew</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="tk.Button" id="btn_generate">
-                <property name="command">on_generate_action</property>
-                <property name="text" translatable="yes">Generate</property>
-                <layout manager="grid">
-                  <property name="column">0</property>
-                  <property name="pady">5</property>
-                  <property name="propagate">True</property>
-                  <property name="row">6</property>
-                  <property name="sticky">w</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="tk.Label" id="spacerlbl">
-                <layout manager="grid">
-                  <property name="column">1</property>
-                  <property name="propagate">True</property>
-                  <property name="row">0</property>
-                  <rows>
-                    <row id="0">
-                      <property name="weight">0</property>
-                    </row>
-                  </rows>
-                  <columns>
-                    <column id="1">
-                      <property name="weight">1</property>
-                    </column>
-                  </columns>
-                </layout>
+                <child>
+                  <object class="tk.Button" id="btn_generate">
+                    <property name="command">on_generate_action</property>
+                    <property name="text" translatable="yes">Generate</property>
+                    <layout manager="pack">
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -183,16 +262,6 @@
                           <property name="propagate">True</property>
                           <property name="row">0</property>
                           <property name="sticky">nsew</property>
-                          <rows>
-                            <row id="0">
-                              <property name="weight">1</property>
-                            </row>
-                          </rows>
-                          <columns>
-                            <column id="0">
-                              <property name="weight">1</property>
-                            </column>
-                          </columns>
                         </layout>
                       </object>
                     </child>

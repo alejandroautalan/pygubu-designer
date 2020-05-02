@@ -48,6 +48,20 @@ if __name__ == '__main__':
 
 """
 
+TPL_CODESCRIPT = \
+"""import tkinter as tk
+import tkinter.ttk as ttk
+import pygubu # fades
+
+
+def main(master):
+{widget_code}
+
+
+if __name__ == '__main__':
+    main()
+"""
+
 TPL_WIDGET = \
 """import tkinter as tk
 import tkinter.ttk as ttk
@@ -88,17 +102,23 @@ class ScriptGenerator(object):
         self.widgetlist = builder.get_object('widgetlist')
         self.widgetlistvar = builder.get_variable('widgetlistvar')
         self.widgetlist_keyvar = builder.get_variable('widgetlist_keyvar')
-        self.templatelist = builder.get_object('templatelist')
-        self.templatelistvar = builder.get_variable('templatelistvar')
+        
+        #self.templatelist = builder.get_object('templatelist')
+        #self.templatelistvar = builder.get_variable('templatelistvar')
+        self.template_var = builder.get_variable('template_var')
+        
         self.classnamevar = builder.get_variable('classnamevar')
         self.txt_code = builder.get_object('txt_code')
         
+        self.template_desc_var = builder.get_variable('template_desc_var')
+        
         _ = self.translator
-        templates = (
-            ('application', _('Application Template')),
-            ('widget', _('Widget Template'))
-        )
-        self.templatelist.configure(values=templates)
+        self.template_desc = {
+            'application': _('Create a pygubu application script using the UI definition.'),
+            'codescript': _('Create a coded version of the UI definition.'),
+            'widget': _('Create a base class for your custom widget.')
+        }
+        #self.templatelist.configure(values=templates)
         
         builder.connect_callbacks(self)
         
@@ -117,7 +137,7 @@ class ScriptGenerator(object):
         if len(wlist) > 0:
             key = wlist[0][0]
             self.widgetlist_keyvar.set(key)
-        self.templatelistvar.set('application')
+        self.template_var.set('application')
         self.set_code(u'')
         
     def get_classname(self):
@@ -126,13 +146,18 @@ class ScriptGenerator(object):
         
     def on_template_changed(self, event=None):
         _ = self.translator
-        template = self.templatelistvar.get()
+        template = self.template_var.get()
         if template == 'application':
             name = '{0}App'.format(self.get_classname())
             self.classnamevar.set(name)
+        elif template == 'codescript':
+            pass
         elif template == 'widget':
             name = '{0}Widget'.format(self.get_classname())
             self.classnamevar.set(name)
+        # Update template description
+        self.template_desc_var.set(self.template_desc[template])
+        self.set_code('')
     
     def on_dialog_close(self, event=None):
         self.dialog.close()
@@ -140,12 +165,13 @@ class ScriptGenerator(object):
     def form_valid(self):
         valid = True
         
+        _ = self.translator
         mbtitle = _('Script Generator')
         widget = self.widgetlist.current()
         if widget is None:
             valid = False
             messagebox.showwarning(title=mbtitle, message='Select widget')
-        template = self.templatelist.current()
+        template = self.template_var.get()
         if valid and template is None:
             valid = False
             messagebox.showwarning(title=mbtitle, message='Select template')
@@ -166,7 +192,7 @@ class ScriptGenerator(object):
                 'widget_base_class': self.tree.get_widget_class(tree_item),
                 'widget_code': None,
             }
-            template = self.templatelistvar.get()
+            template = self.template_var.get()
             if template == 'application':
                 code = TPL_APPLICATION.format(**params)
                 self.set_code(code)
@@ -177,6 +203,14 @@ class ScriptGenerator(object):
                 code = generator.generate(xml, target)
                 params['widget_code'] = code
                 code = TPL_WIDGET.format(**params)
+                self.set_code(code)
+            elif template == 'codescript':
+                generator = UI2Code()
+                xml = self.tree.tree_to_uidef()
+                target = self.tree.get_widget_id(tree_item)
+                code = generator.generate(xml, target, as_class=False, tabspaces=4)
+                params['widget_code'] = code
+                code = TPL_CODESCRIPT.format(**params)
                 self.set_code(code)
     
     def set_code(self, text):

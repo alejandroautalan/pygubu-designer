@@ -44,10 +44,18 @@ class UI2Code(object):
         self._code = []
         self.uidefinition = None
         self._builder = Builder()
+        self._options = {}
     
-    def generate(self, uidef, target, as_class=True, tabspaces=8):
-        self.as_class = as_class
+    def generate(self, uidef, target, **kw):
+        kwdef = {
+            'as_class': True,
+            'tabspaces': 8
+            }
+        kwdef.update(kw)
+        self._options = kwdef
+        self.as_class = self._options['as_class']
         self.uidefinition = uidef
+        tabspaces = self._options['tabspaces']
         
         builder = BuilderObject(None, {})
         wmeta = self.uidefinition.get_widget(target)
