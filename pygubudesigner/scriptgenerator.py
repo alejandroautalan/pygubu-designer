@@ -22,8 +22,7 @@ FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 TPL_APPLICATION = \
 """import os
-import tkinter as tk
-import pygubu # fades
+import pygubu
 
 
 PROJECT_PATH = os.path.dirname(__file__)
@@ -49,23 +48,27 @@ if __name__ == '__main__':
 """
 
 TPL_CODESCRIPT = \
-"""import tkinter as tk
-import tkinter.ttk as ttk
-import pygubu # fades
+"""{import_lines}
 
 
-def main(master):
+class {class_name}:
+    def __init__(self, master=None):
+        # build ui
 {widget_code}
+        # Main widget
+        self.mainwindow = {main_widget}
+    
+    def run(self):
+        self.mainwindow.mainloop()
 
 
 if __name__ == '__main__':
-    main()
+    app = {class_name}()
+    app.run()
 """
 
 TPL_WIDGET = \
-"""import tkinter as tk
-import tkinter.ttk as ttk
-import pygubu # fades
+"""{import_lines}
 
 
 class {class_name}({widget_base_class}):
@@ -191,6 +194,7 @@ class ScriptGenerator(object):
                 'main_widget': self.tree.get_widget_id(tree_item),
                 'widget_base_class': self.tree.get_widget_class(tree_item),
                 'widget_code': None,
+                'import_lines': None,
             }
             template = self.template_var.get()
             if template == 'application':
@@ -198,18 +202,20 @@ class ScriptGenerator(object):
                 self.set_code(code)
             elif template == 'widget':
                 generator = UI2Code()
-                xml = self.tree.tree_to_uidef()
+                uidef = self.tree.tree_to_uidef()
                 target = self.tree.get_widget_id(tree_item)
-                code = generator.generate(xml, target)
-                params['widget_code'] = code
+                code = generator.generate(uidef, target)
+                params['widget_code'] = code[target]
+                params['import_lines'] = code['imports']
                 code = TPL_WIDGET.format(**params)
                 self.set_code(code)
             elif template == 'codescript':
                 generator = UI2Code()
-                xml = self.tree.tree_to_uidef()
+                uidef = self.tree.tree_to_uidef()
                 target = self.tree.get_widget_id(tree_item)
-                code = generator.generate(xml, target, as_class=False, tabspaces=4)
-                params['widget_code'] = code
+                code = generator.generate(uidef, target, as_class=False, tabspaces=8)
+                params['widget_code'] = code[target]
+                params['import_lines'] = code['imports']
                 code = TPL_CODESCRIPT.format(**params)
                 self.set_code(code)
     
