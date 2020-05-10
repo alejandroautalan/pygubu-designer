@@ -74,6 +74,7 @@ class WHPropertyEditor(PropertyEditor):
                     isvalid = True
             except ValueError:
                 pass
+        self.show_invalid(not isvalid)
         return isvalid
 
 register_editor('whentry', WHPropertyEditor)
