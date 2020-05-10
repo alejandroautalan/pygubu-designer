@@ -66,14 +66,14 @@ class PropertyEditor(ttk.Frame):
         if not PropertyEditor.style_initialized:
             s = ttk.Style()
             s.configure('PropertyEditorInvalid.TFrame', background='red')
-        
+        self.configure(borderwidth=2)
         self._create_ui()
         
     def show_invalid(self, invalid=True):
         if invalid:
-            self.configure(borderwidth=2, style='PropertyEditorInvalid.TFrame')
+            self.configure(style='PropertyEditorInvalid.TFrame')
         else:
-            self.configure(borderwidth=0, style='TFrame')
+            self.configure(style='TFrame')
 
     def _create_ui(self):
         pass
@@ -279,6 +279,20 @@ class RealNumberEditor(EntryPropertyEditor):
         return valid
 
 
+class GeometryPropertyEditor(ChoicePropertyEditor):
+    RE_GEOMETRY = re.compile('\d+x\d+$')
+    
+    def _validate(self):
+        is_valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            if not self.RE_GEOMETRY.match(value):
+                is_valid = False
+        self.show_invalid(not is_valid)
+        return is_valid
+
+
+
 register_editor('entry', EntryPropertyEditor)
 register_editor('alphanumentry', AlphanumericEntryPropertyEditor)
 register_editor('commandentry', CommandEntryPropertyEditor)
@@ -290,6 +304,8 @@ register_editor('checkbutton', CheckbuttonPropertyEditor)
 register_editor('naturalnumber', NaturalNumberEditor)
 register_editor('integernumber', IntegerNumberEditor)
 register_editor('realnumber', RealNumberEditor)
+register_editor('geometryentry', GeometryPropertyEditor)
+
 
 
 if __name__ == '__main__':
