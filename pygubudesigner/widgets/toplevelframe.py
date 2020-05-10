@@ -112,7 +112,10 @@ class ToplevelFramePreviewBO(BuilderObject):
                     tw.tl_attrs['minsize'] = (int(w), int(h))
                     tw._h_set = tw._w_set = False
                     tw.configure(width=w, height=h)
-                    tw.grid_propagate(0)
+                    if tw.pack_slaves():
+                        tw.pack_propagate(0)
+                    elif tw.grid_slaves():
+                        tw.grid_propagate(0)
         elif pname == 'resizable':
             if value:
                 if value in ('both', 'horizontally'):
