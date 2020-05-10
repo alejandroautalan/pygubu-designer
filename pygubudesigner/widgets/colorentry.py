@@ -86,6 +86,23 @@ class ColorPropertyEditor(PropertyEditor):
     def edit(self, value):
         PropertyEditor.edit(self, value)
         self._change_color(value)
+    
+    def _after_change(self):
+        # update button color
+        self._change_color(self._get_value())
+    
+    def _validate(self):
+        is_valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            default = self._entry.cget('background')
+            try:
+                self._entry.configure(background=value)
+                self._entry.configure(background=default)
+            except tk.TclError:
+                is_valid = False
+        self.show_invalid(not is_valid)
+        return is_valid
 
 
 register_editor('colorentry', ColorPropertyEditor)
