@@ -61,6 +61,32 @@ class BuilderForPreview(pygubu.Builder):
                 wid = key
                 break
         return wid
+    
+    def show_selected(self, select_id):
+        self._show_notebook_tabs(select_id)
+    
+    def _show_notebook_tabs(self, select_id):
+        xpath = ".//object[@class='ttk.Notebook.Tab']"
+        xpath = xpath.format(select_id)
+        # find all tabs
+        tabs = self.uidefinition.root.findall(xpath)
+        if tabs is not None:
+            for tab in tabs:
+                # check if selected_id is inside this tab
+                tab_id = tab.get('id')
+                xpath = ".//object[@id='{0}']".format(select_id)
+                o = tab.find(xpath)
+                if o is not None:
+                    # selected_id is inside, find the tab child
+                    # and select this tab
+                    xpath = './child/object[1]'
+                    child = tab.find(xpath)
+                    child_id = child.get('id')
+                    notebook = self.objects[tab_id].widget
+                    current_tab = self.objects[child_id].widget
+                    notebook.select(current_tab)
+                    #print(select_id, ' inside', tab_id, 'child', child_id)
+                    
 
 
 class Preview(object):
@@ -204,6 +230,9 @@ class Preview(object):
 
     def get_widget_by_id(self, widget_id):
         return self.builder.get_object(widget_id)
+    
+    def show_selected(self, select_id):
+        self.builder.show_selected(select_id)
 
     def create_toplevel(self, widget_id, uidefinition):
         # Create preview
@@ -616,6 +645,7 @@ class PreviewHelper:
                 canvas.itemconfigure(indicator, state=tk.NORMAL)
             preview = self.previews[identifier]
             canvas.update_idletasks()
+            preview.show_selected(selected_id)
             widget = preview.get_widget_by_id(selected_id)
             for indicatorw in self.indicators:
                 try:
