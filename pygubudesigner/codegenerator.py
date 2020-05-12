@@ -12,6 +12,8 @@ class UI2Code(Builder):
         self.buffer = None
         self.as_class = False
         self._code_imports = OrderedDict()
+        self._tkvariables = {}
+        self._callbacks = {}
         self._import_ttk = True;
         self._code = []
         self.uidefinition = None
@@ -43,9 +45,12 @@ class UI2Code(Builder):
         
         code_imports = self._process_imports()
         code_imports = '\n'.join(code_imports)
+        code_callbacks = self._process_callbacks()
+        code_callbacks = '\n'.join(code_callbacks)
         cc = {
             'imports': code_imports,
-            target: code
+            target: code,
+            'callbacks': code_callbacks,
             }
         return cc
     
@@ -91,6 +96,27 @@ class UI2Code(Builder):
                 lines.append(line)
         return lines
     
+    def code_create_variable(self, name_or_desc, value, vtype=None):
+        vname, type_from_name = self._process_variable_description(name_or_desc)
+        
+        if vname not in self._tkvariables:
+            var_init = ''
+            if value is None:
+                value = ''
+            else:
+                if type_from_name == 'string':
+                    value = "''".format(value)
+            
+            if vtype is None:
+                var_init = 'tk.{0}Var({1})'.format(type_from_name.capitalize(),
+                                                value)
+            else:
+                var_init = '{0}({1})'.format(str(vtype), value)
+            line = '{0} = {1}'.format(vname, var_init)
+            self._code.append(line)
+            self._tkvariables[vname] = vtype
+        return vname
+    
     def _code_realize(self, bmaster, wmeta):
         originalid = wmeta.identifier
         uniqueid = None
@@ -128,9 +154,36 @@ class UI2Code(Builder):
             # layout
             layout = builder.code_layout()
             self._code.extend(layout)
+            
+            # callbacks
+            commands = builder.code_connect_commands()
+            bindings = builder.code_connect_bindings()
+            self._code.extend(commands)
+            self._code.extend(bindings)
         else:
             msg = 'Class "{0}" not mapped'.format(wmeta.classname)
             raise Exception(msg)
         
         return uniqueid
+
+    def _process_callbacks(self):
+        tabspaces = self._options['tabspaces']
+        tab2 = tabspaces//2 if tabspaces == 8 else 1
+        
+        lines = []
+        for name, cbtype in self._callbacks.items():
+            if cbtype == 'command':
+                line = '{0}def {1}(self):'.format(' '*tab2, name)
+            else:
+                line = '{0}def {1}(self, event=None):'.format(' '*tab2, name)
+            lines.append(line)
+            line = '{0}pass\n'.format(' '*tabspaces)
+            lines.append(line)
+        return lines
+    
+    def code_create_callback(self, name, cbtype):
+        if name not in self._callbacks:
+            self._callbacks[name] = cbtype
+        cb_name = 'self.{0}'.format(name)
+        return cb_name
 

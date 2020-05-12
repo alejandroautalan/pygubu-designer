@@ -37,6 +37,7 @@ class {class_name}:
         self.mainwindow = builder.get_object('{main_widget}')
         builder.connect_callbacks(self)
     
+{callbacks}
     def run(self):
         self.mainwindow.mainloop()
 
@@ -57,7 +58,8 @@ class {class_name}:
 {widget_code}
         # Main widget
         self.mainwindow = {main_widget}
-    
+
+{callbacks}
     def run(self):
         self.mainwindow.mainloop()
 
@@ -75,7 +77,7 @@ class {class_name}({widget_base_class}):
     def __init__(self, master=None, **kw):
         {widget_base_class}.__init__(self, master, **kw)
 {widget_code}
-
+{callbacks}
 
 if __name__ == '__main__':
     root = tk.Tk()
@@ -195,6 +197,7 @@ class ScriptGenerator(object):
                 'widget_base_class': self.tree.get_widget_class(tree_item),
                 'widget_code': None,
                 'import_lines': None,
+                'callbacks': ''
             }
             template = self.template_var.get()
             if template == 'application':
@@ -207,6 +210,7 @@ class ScriptGenerator(object):
                 code = generator.generate(uidef, target)
                 params['widget_code'] = code[target]
                 params['import_lines'] = code['imports']
+                params['callbacks'] = code['callbacks']
                 code = TPL_WIDGET.format(**params)
                 self.set_code(code)
             elif template == 'codescript':
@@ -216,6 +220,7 @@ class ScriptGenerator(object):
                 code = generator.generate(uidef, target, as_class=False, tabspaces=8)
                 params['widget_code'] = code[target]
                 params['import_lines'] = code['imports']
+                params['callbacks'] = code['callbacks']
                 code = TPL_CODESCRIPT.format(**params)
                 self.set_code(code)
     
