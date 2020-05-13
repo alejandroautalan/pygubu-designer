@@ -227,16 +227,16 @@ class PygubuDesigner(object):
         #
         # Widget bindings
         #
-        self.tree_editor.treeview.bind(
+        self.tree_editor.treeview.bind_all(
             '<Control-KeyPress-c>',
             lambda e: self.tree_editor.copy_to_clipboard())
-        self.tree_editor.treeview.bind(
+        self.tree_editor.treeview.bind_all(
             '<Control-KeyPress-v>',
             lambda e: self.tree_editor.paste_from_clipboard())
-        self.tree_editor.treeview.bind(
+        self.tree_editor.treeview.bind_all(
             '<Control-KeyPress-x>',
             lambda e: self.tree_editor.cut_to_clipboard())
-        self.tree_editor.treeview.bind(
+        self.tree_editor.treeview.bind_all(
             '<KeyPress-Delete>',
             lambda e: self.on_edit_menuitem_clicked('edit_item_delete'))
 
@@ -396,7 +396,8 @@ class PygubuDesigner(object):
             callback = create_cb(wc.classname)
             self._pallete.add_button(section, root, wlabel, wc.label,
                                      w_image, callback)
-        self._pallete.show_group('ttk')
+        default_group = get_option('widget_set')
+        self._pallete.show_group(default_group)
 
     def on_add_widget_event(self, classname):
         "Adds a widget to the widget tree."""
@@ -405,11 +406,7 @@ class PygubuDesigner(object):
         self.tree_editor.treeview.focus_set()
 
     def on_preferences_saved(self, event=None):
-        children = self.widgetlist.winfo_children()
-        if children:
-            child = self.widgetlist.nametowidget(children[0])
-            child.destroy()
-        #self.configure_widget_list()
+        pass
     
     def on_close_execute(self):
         quit = True
@@ -581,7 +578,6 @@ class PygubuDesigner(object):
         tab_desing = 0
         tab_code = 1
         nbook = event.widget
-        print('tab index:', nbook.index('current'))
         if nbook.index('current') == tab_code:
             self.script_generator.configure()
     
