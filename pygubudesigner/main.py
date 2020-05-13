@@ -47,12 +47,11 @@ from . import util
 from .uitreeeditor import WidgetsTreeEditor
 from .previewer import PreviewHelper
 from .i18n import translator
-from pygubu.widgets.accordionframe import AccordionFrame
-from pygubu.widgets.autoarrangeframe import AutoArrangeFrame
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 import pygubu.widgets.simpletooltip as tooltip
 import pygubudesigner
 from pygubudesigner.preferences import PreferencesUI, get_custom_widgets, get_option
+from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.scriptgenerator import ScriptGenerator
 
 
@@ -144,6 +143,7 @@ class PygubuDesigner(object):
 
         """Creates all gui widgets"""
 
+        self.translator = translator
         self.preview = None
         self.about_dialog = None
         self.preferences = None
@@ -164,20 +164,27 @@ class PygubuDesigner(object):
         self.mainwindow.configure(menu=menu)
 
         #Class selector values
-        self.widgetlist_sf = self.builder.get_object("widgetlist_sf")
-        self.widgetlist = self.builder.get_object("widgetlist")
-        self.configure_widget_list()
+        #self.widgetlist_sf = self.builder.get_object("widgetlist_sf")
+        #self.widgetlist = self.builder.get_object("widgetlist")
+        #self.configure_widget_list()
 
         #widget tree
         self.treeview = self.builder.get_object('treeview1')
         self.bindings_frame = self.builder.get_object('bindingsframe')
         self.bindings_tree = self.builder.get_object('bindingstree')
+        
+        # _pallete
+        self.fpalette = self.builder.get_object('fpalette')
+        self.create_component_palette(self.fpalette)
 
         #Preview
         previewc = self.builder.get_object('preview_canvas')
         self.previewer = PreviewHelper(previewc)
         #tree editor
         self.tree_editor = WidgetsTreeEditor(self)
+        
+        # Tab Code
+        self.script_generator = ScriptGenerator(self)
 
         self.builder.connect_callbacks(self)
 
@@ -302,6 +309,8 @@ class PygubuDesigner(object):
                     image=StockImage.get('mglass'))
         s.configure('ImageSelectorButton.Toolbutton',
                     image=StockImage.get('mglass'))
+        s.configure('ComponentPalette.Toolbutton',
+                    font='TkSmallCaptionFont')
         if sys.platform == 'linux':
             #change background of comboboxes
             color = s.lookup('TEntry', 'fieldbackground')
@@ -350,106 +359,26 @@ class PygubuDesigner(object):
         treelist.sort(key=by_label)
         return treelist
     
-    def configure_widget_list(self):
+    def create_component_palette(self, fpalette):
+        #Default widget image:
+        default_image = ''
+        try:
+            default_image = StockImage.get('22x22-tk.default')
+        except StockImageException as e:
+            pass
+        
         treelist = self.create_treelist()
-        if get_option('widget_palette') == 'accordion':
-            self.create_accordion_widget_list(treelist)
-        else:
-            self.create_treeview_widget_list(treelist)
+        self._pallete = ComponentPalette(fpalette)
         
-    def create_treeview_widget_list(self, treelist):
-        # sbhelper widget
-        sbhelper = ScrollbarHelper(self.widgetlist, scrolltype='both')
-
-        # widgetlisttv widget
-        widgetlisttv = ttk.Treeview(sbhelper.container)
-        widgetlisttv.configure(selectmode='browse', show='tree')
-        #widgetlisttv.grid(column='0', row='0', sticky='nsew')
-        
-        sbhelper.add_child(widgetlisttv)
-        sbhelper.configure(usemousewheel='true')
-        #sbhelper.grid(column='0', row='0', sticky='nsew')
-        sbhelper.pack(expand=True, fill='both')
-        
-        #Default widget image:
-        default_image = ''
-        try:
-            default_image = StockImage.get('22x22-tk.default')
-        except StockImageException as e:
-            pass
-
         #Start building widget tree selector
         roots = {}
         sections = {}
         for key, wc in treelist:
             root, section = key.split('>')
-            #insert root
-            if root not in roots:
-                roots[root] = widgetlisttv.insert('', 'end', text=root)
-            #insert section
-            if key not in sections:
-                sections[key] = widgetlisttv.insert(roots[root], 'end', text=section)
-            #insert widget
-            w_image = default_image
-            try:
-                w_image = StockImage.get('22x22-{0}'.format(wc.classname))
-            except StockImageException as e:
-                pass
+            if section not in sections:
+                roots[root] = self._pallete.add_tab(section, section)
+                sections[section] = 1
             
-            widgetlisttv.insert(sections[key], 'end', text=wc.label,
-                image=w_image, tags='widget', values=(wc.classname,))
-        widgetlisttv.tag_bind('widget', '<Double-1>', self.on_widgetlist_dclick)
-
-        #Expand prefered widget set
-        hidews = 'tk'
-        prefws = get_option('widget_set')
-        if hidews == prefws:
-            hidews = 'ttk'
-        widgetlisttv.item(roots[hidews], open=False)
-        widgetlisttv.item(roots[prefws], open=True)
-        for child in widgetlisttv.get_children(roots[prefws]):
-            widgetlisttv.item(child, open=True)
-    
-    def on_widgetlist_dclick(self, event):
-        tv = event.widget
-        sel = tv.selection()
-        if sel:
-            item = sel[0]
-            classname = tv.item(item, 'values')[0]
-            self.on_add_widget_event(classname)
-    
-    def create_accordion_widget_list(self, treelist):
-        acf = AccordionFrame(self.widgetlist)
-        acf.grid(sticky=tk.NSEW)
-        acf.bind('<<AccordionGroupToggle>>', self.on_widgetlist_group_toogle)
-        self.widgetlist.rowconfigure(0, weight=1)
-        self.widgetlist.columnconfigure(0, weight=1)
-
-        #Default widget image:
-        default_image = ''
-        try:
-            default_image = StockImage.get('22x22-tk.default')
-        except StockImageException as e:
-            pass
-
-        #Start building widget tree selector
-        roots = {}
-        sections = {}
-        for key, wc in treelist:
-            root, section = key.split('>')
-            #insert root
-            if root not in roots:
-                roots[root] = acf.add_group(root, root)
-            #insert section
-            if key not in sections:
-                sectionacf = AccordionFrame(roots[root])
-                sectionacf.grid(sticky=tk.NSEW, padx='5 0')
-                sectionacf.bind('<<AccordionGroupToggle>>',
-                                self.on_widgetlist_group_toogle)
-                sectiongrp = sectionacf.add_group(key, section)
-                sections[key] = AutoArrangeFrame(sectiongrp)
-                sections[key].grid(sticky=tk.NSEW)
-
             #insert widget
             w_image = default_image
             try:
@@ -460,24 +389,14 @@ class PygubuDesigner(object):
             #define callback for button
             def create_cb(cname):
                 return lambda: self.on_add_widget_event(cname)
-
-            b = ttk.Button(sections[key], text=wc.label, image=w_image,
-                           style='Toolbutton', command=create_cb(wc.classname))
-            tooltip.create(b, wc.classname)
-            b.grid()
-
-        #Expand prefered widget set
-        hidews = 'tk'
-        prefws = get_option('widget_set')
-        if hidews == prefws:
-            hidews = 'ttk'
-        acf.group_toogle(hidews)
-        self.widgetlist_sf.reposition()
-
-    def on_widgetlist_group_toogle(self, event=None):
-        "Refresh widget list to reposition scrolledframe"
-
-        self.widgetlist_sf.reposition()
+            
+            wlabel = wc.label
+            if wlabel.startswith('Menuitem.'):
+                wlabel = wlabel.replace('Menuitem.', '')
+            callback = create_cb(wc.classname)
+            self._pallete.add_button(section, root, wlabel, wc.label,
+                                     w_image, callback)
+        self._pallete.show_group('ttk')
 
     def on_add_widget_event(self, classname):
         "Adds a widget to the widget tree."""
@@ -490,7 +409,7 @@ class PygubuDesigner(object):
         if children:
             child = self.widgetlist.nametowidget(children[0])
             child.destroy()
-        self.configure_widget_list()
+        #self.configure_widget_list()
     
     def on_close_execute(self):
         quit = True
@@ -617,11 +536,6 @@ class PygubuDesigner(object):
             webbrowser.open_new_tab(url)
         elif itemid == 'help_about':
             self.show_about_dialog()
-    
-    # Project Menu
-    def on_projectmenu_action(self, itemid):
-        if itemid == 'generate_script':
-            self.show_scriptgenerator()
 
     def _create_about_dialog(self):
         builder = pygubu.Builder(translator)
@@ -663,11 +577,26 @@ class PygubuDesigner(object):
             name = os.path.basename(self.currentfile)
         return name
     
-    def show_scriptgenerator(self):
-        if self.script_generator is None:
-            self.script_generator = ScriptGenerator(self.mainwindow, translator)
-        self.script_generator.configure(self.tree_editor, self.project_name())
-        self.script_generator.run()
+    def nbmain_tab_changed(self, event):
+        tab_desing = 0
+        tab_code = 1
+        nbook = event.widget
+        print('tab index:', nbook.index('current'))
+        if nbook.index('current') == tab_code:
+            self.script_generator.configure()
+    
+    # Tab code management
+    def on_code_generate_clicked(self):
+        self.script_generator.on_code_generate_clicked()
+    
+    def on_code_copy_clicked(self):
+        self.script_generator.on_code_copy_clicked()
+    
+    def on_code_template_changed(self):
+        self.script_generator.on_code_template_changed()
+    
+    def on_code_save_clicked(self):
+        self.script_generator.on_code_save_clicked()
 
 
 def start_pygubu():
