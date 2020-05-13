@@ -37,7 +37,7 @@ logger.info('Using configfile: {0}'.format(CONFIG_FILE))
 
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},
-    'widget_palette': {'values': '["accordion", "treeview"]', 'default':'accordion'}
+#    'widget_palette': {'values': '["accordion", "treeview"]', 'default':'accordion'}
 }
 
 SEC_GENERAL = 'GENERAL'
@@ -107,7 +107,7 @@ class PreferencesUI(object):
         self.dialog = dialog = builder.get_object('preferences', top)
         
         #General
-        for key in ('widget_set', 'widget_palette'):
+        for key in ('widget_set',):
             cbox = builder.get_object(key)
             cbox.configure(values=options[key]['values'])
         

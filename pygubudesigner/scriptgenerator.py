@@ -14,7 +14,7 @@ except:
     import tkMessageBox as messagebox
     import tkFileDialog as filedialog
 import pygubu
-from .codegenerator import UI2Code
+from .codebuilder import UI2Code
 
 logger = logging.getLogger(__name__)
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -89,20 +89,11 @@ if __name__ == '__main__':
 
 
 class ScriptGenerator(object):
-    def __init__(self, master, translator=None):
-        self.tree = None
+    def __init__(self, app):
+        self.app = app
+        self.builder = builder = app.builder
+        self.tree = app.tree_editor
         self.projectname = ''
-        self.master = master
-        self.translator = translator
-        self.dialog = None
-        self.builder = None
-        
-        self.builder = builder = pygubu.Builder(self.translator)
-        uifile = os.path.join(FILE_PATH, "ui/scriptgenerator_dialog.ui")
-        builder.add_from_file(uifile)
-
-        top = self.master.winfo_toplevel()
-        self.dialog = dialog = builder.get_object('mainwindow', top)
 
         self.widgetlist = builder.get_object('widgetlist')
         self.widgetlistvar = builder.get_variable('widgetlistvar')
@@ -117,77 +108,18 @@ class ScriptGenerator(object):
         
         self.template_desc_var = builder.get_variable('template_desc_var')
         
-        _ = self.translator
+        _ = self.app.translator
         self.template_desc = {
             'application': _('Create a pygubu application script using the UI definition.'),
             'codescript': _('Create a coded version of the UI definition.'),
             'widget': _('Create a base class for your custom widget.')
         }
-        #self.templatelist.configure(values=templates)
-        
-        builder.connect_callbacks(self)
         
     def camel_case(self, st):
         output = ''.join(x for x in st.title() if x.isalnum())
         return output
     
-    def configure(self, tree_editor, projectname):
-        self.tree = tree_editor
-        self.projectname = projectname
-        
-        wlist = self.tree.get_topwidget_list()
-        self.widgetlist.configure(values=wlist)
-        self.classnamevar.set(self.get_classname())
-        
-        if len(wlist) > 0:
-            key = wlist[0][0]
-            self.widgetlist_keyvar.set(key)
-        self.template_var.set('application')
-        self.set_code(u'')
-        
-    def get_classname(self):
-        name = os.path.splitext(self.projectname)[0]
-        return self.camel_case(name)
-        
-    def on_template_changed(self, event=None):
-        _ = self.translator
-        template = self.template_var.get()
-        if template == 'application':
-            name = '{0}App'.format(self.get_classname())
-            self.classnamevar.set(name)
-        elif template == 'codescript':
-            pass
-        elif template == 'widget':
-            name = '{0}Widget'.format(self.get_classname())
-            self.classnamevar.set(name)
-        # Update template description
-        self.template_desc_var.set(self.template_desc[template])
-        self.set_code('')
-    
-    def on_dialog_close(self, event=None):
-        self.dialog.close()
-    
-    def form_valid(self):
-        valid = True
-        
-        _ = self.translator
-        mbtitle = _('Script Generator')
-        widget = self.widgetlist.current()
-        if widget is None:
-            valid = False
-            messagebox.showwarning(title=mbtitle, message='Select widget')
-        template = self.template_var.get()
-        if valid and template is None:
-            valid = False
-            messagebox.showwarning(title=mbtitle, message='Select template')
-        classname = self.classnamevar.get()
-        if valid and classname == '':
-            valid = False
-            messagebox.showwarning(title=mbtitle, message='Enter classname')            
-        
-        return valid
-    
-    def on_generate_action(self):
+    def on_code_generate_clicked(self):
         if self.form_valid():
             tree_item = self.widgetlist_keyvar.get()
             params = {
@@ -224,27 +156,77 @@ class ScriptGenerator(object):
                 code = TPL_CODESCRIPT.format(**params)
                 self.set_code(code)
     
-    def set_code(self, text):
-        self.txt_code.delete('0.0', 'end')
-        self.txt_code.insert('0.0', text)
+    def on_code_copy_clicked(self):
+        pass
     
-    def get_code(self):
-        return self.txt_code.get('0.0', 'end')
+    def on_code_template_changed(self):
+        template = self.template_var.get()
+        if template == 'application':
+            name = '{0}App'.format(self.get_classname())
+            self.classnamevar.set(name)
+        elif template == 'codescript':
+            pass
+        elif template == 'widget':
+            name = '{0}Widget'.format(self.get_classname())
+            self.classnamevar.set(name)
+        # Update template description
+        self.template_desc_var.set(self.template_desc[template])
+        self.set_code('')
     
-    def on_save_action(self):
-        _ = self.translator
+    def on_code_save_clicked(self):
+        _ = self.app.translator
+        filename = (self.classnamevar.get()).lower()
         options = {
             'defaultextension': '.py',
             'filetypes': ((_('Python Script'), '*.py'), (_('All'), '*.*')),
-            'initialfile': '{0}.py'.format(self.classnamevar.get()),
+            'initialfile': '{0}.py'.format(filename),
         }
         fname = filedialog.asksaveasfilename(**options)
         if fname:
             with open(fname, 'w') as out:
                 out.write(self.get_code())
     
-    def on_copy_action(self):
-        pass
+    def configure(self):
+        print('configuring...')
+        self.projectname = self.app.project_name()
+        wlist = self.tree.get_topwidget_list()
+        self.widgetlist.configure(values=wlist)
+        self.classnamevar.set(self.get_classname())
         
-    def run(self):
-        self.dialog.run()
+        if len(wlist) > 0:
+            key = wlist[0][0]
+            self.widgetlist_keyvar.set(key)
+        self.template_var.set('application')
+        self.set_code(u'')
+        
+    def get_classname(self):
+        name = os.path.splitext(self.projectname)[0]
+        return self.camel_case(name)
+    
+    def form_valid(self):
+        valid = True
+        
+        _ = self.app.translator
+        mbtitle = _('Script Generator')
+        widget = self.widgetlist.current()
+        if widget is None:
+            valid = False
+            messagebox.showwarning(title=mbtitle, message='Select widget')
+        template = self.template_var.get()
+        if valid and template is None:
+            valid = False
+            messagebox.showwarning(title=mbtitle, message='Select template')
+        classname = self.classnamevar.get()
+        if valid and classname == '':
+            valid = False
+            messagebox.showwarning(title=mbtitle, message='Enter classname')            
+        
+        return valid
+    
+    def set_code(self, text):
+        self.txt_code.delete('0.0', 'end')
+        self.txt_code.insert('0.0', text)
+    
+    def get_code(self):
+        return self.txt_code.get('0.0', 'end')
+

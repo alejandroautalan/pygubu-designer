@@ -284,7 +284,7 @@ class WidgetsTreeEditor(object):
         """Insert a item on the treeview and fills columns from data"""
 
         tree = self.treeview
-        treelabel = data.identifier
+        treelabel = '{0}: {1}'.format(data.identifier, data.classname)
         row = col = ''
         if root != '' and data.has_layout_defined():
             row = data.layout_property('row')
@@ -435,6 +435,7 @@ class WidgetsTreeEditor(object):
             if class_base_name in base:
                 name = name.split('_')[0]
         name = '{0}_{1}'.format(name, index)
+        name = name.lower()
         return name
 
     def get_unique_id(self, classname, start_id=None):
@@ -639,9 +640,10 @@ class WidgetsTreeEditor(object):
         tree = self.treeview
         data = obj
         item = self.get_item_by_data(obj)
+        item_text = '{0}: {1}'.format(data.identifier, data.classname)
         if item:
-            if data.identifier != tree.item(item, 'text'):
-                tree.item(item, text=data.identifier)
+            if item_text != tree.item(item, 'text'):
+                tree.item(item, text=item_text)
             # if tree.parent(item) != '' and 'layout' in data:
             if tree.parent(item) != '':
                 row = data.layout_property('row')
