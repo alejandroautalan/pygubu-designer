@@ -401,7 +401,7 @@ class PygubuDesigner(object):
             if wlabel.startswith('Menuitem.'):
                 wlabel = wlabel.replace('Menuitem.', '')
             callback = create_cb(wc.classname)
-            self._pallete.add_button(section, root, wlabel, wc.label,
+            self._pallete.add_button(section, root, wlabel, wc.classname,
                                      w_image, callback)
         default_group = get_option('widget_set')
         self._pallete.show_group(default_group)
