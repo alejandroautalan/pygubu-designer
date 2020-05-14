@@ -148,7 +148,6 @@ class UI2Code(Builder):
             
             # configuration
             configure = builder.code_configure()
-            print(uniqueid, configure)
             self._code.extend(configure)
             
             # layout

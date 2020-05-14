@@ -114,6 +114,7 @@ class ScriptGenerator(object):
             'codescript': _('Create a coded version of the UI definition.'),
             'widget': _('Create a base class for your custom widget.')
         }
+        self.template_var.set('application')
         
     def camel_case(self, st):
         output = ''.join(x for x in st.title() if x.isalnum())
@@ -132,13 +133,16 @@ class ScriptGenerator(object):
                 'callbacks': ''
             }
             template = self.template_var.get()
+            generator = UI2Code()
+            uidef = self.tree.tree_to_uidef()
+            target = self.tree.get_widget_id(tree_item)
+            
             if template == 'application':
+                code = generator.generate(uidef, target, as_class=False, tabspaces=8)
+                params['callbacks'] = code['callbacks']
                 code = TPL_APPLICATION.format(**params)
                 self.set_code(code)
             elif template == 'widget':
-                generator = UI2Code()
-                uidef = self.tree.tree_to_uidef()
-                target = self.tree.get_widget_id(tree_item)
                 code = generator.generate(uidef, target)
                 params['widget_code'] = code[target]
                 params['import_lines'] = code['imports']
@@ -146,9 +150,6 @@ class ScriptGenerator(object):
                 code = TPL_WIDGET.format(**params)
                 self.set_code(code)
             elif template == 'codescript':
-                generator = UI2Code()
-                uidef = self.tree.tree_to_uidef()
-                target = self.tree.get_widget_id(tree_item)
                 code = generator.generate(uidef, target, as_class=False, tabspaces=8)
                 params['widget_code'] = code[target]
                 params['import_lines'] = code['imports']
@@ -159,19 +160,22 @@ class ScriptGenerator(object):
     def on_code_copy_clicked(self):
         pass
     
-    def on_code_template_changed(self):
+    def on_code_template_changed(self, clear_code=True):
         template = self.template_var.get()
+        classname = self.get_classname()
         if template == 'application':
-            name = '{0}App'.format(self.get_classname())
+            name = '{0}App'.format(classname)
             self.classnamevar.set(name)
         elif template == 'codescript':
-            pass
+            name = '{0}App'.format(classname)
+            self.classnamevar.set(name)
         elif template == 'widget':
-            name = '{0}Widget'.format(self.get_classname())
+            name = '{0}Widget'.format(classname)
             self.classnamevar.set(name)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
-        self.set_code('')
+        if clear_code:
+            self.set_code('')
     
     def on_code_save_clicked(self):
         _ = self.app.translator
@@ -187,7 +191,6 @@ class ScriptGenerator(object):
                 out.write(self.get_code())
     
     def configure(self):
-        print('configuring...')
         self.projectname = self.app.project_name()
         wlist = self.tree.get_topwidget_list()
         self.widgetlist.configure(values=wlist)
@@ -196,8 +199,7 @@ class ScriptGenerator(object):
         if len(wlist) > 0:
             key = wlist[0][0]
             self.widgetlist_keyvar.set(key)
-        self.template_var.set('application')
-        self.set_code(u'')
+        self.on_code_template_changed(False)
         
     def get_classname(self):
         name = os.path.splitext(self.projectname)[0]
