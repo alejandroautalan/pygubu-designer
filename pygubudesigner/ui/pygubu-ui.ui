@@ -259,10 +259,8 @@
                         </layout>
                         <child>
                           <object class="ttk.Label" id="lblottitle">
-                            <property name="background">#000088</property>
-                            <property name="font">TkSmallCaptionFont</property>
-                            <property name="foreground">#ffffff</property>
                             <property name="padding">1</property>
+                            <property name="style">PanelTitle.TLabel</property>
                             <property name="text" translatable="yes">Object Tree</property>
                             <layout manager="pack">
                               <property name="fill">x</property>
@@ -504,10 +502,8 @@
                                             </layout>
                                             <child>
                                               <object class="ttk.Label" id="lbltitle2">
-                                                <property name="background">#000088</property>
-                                                <property name="font">TkSmallCaptionFont</property>
-                                                <property name="foreground">#ffffff</property>
                                                 <property name="padding">1</property>
+                                                <property name="style">PanelTitle.TLabel</property>
                                                 <property name="text" translatable="yes">Object Properties</property>
                                                 <layout manager="pack">
                                                   <property name="fill">x</property>
@@ -702,9 +698,10 @@
                                         </layout>
                                         <child>
                                           <object class="ttk.Label" id="lbl_tpldesc">
+                                            <property name="font">{Default} 10 {bold}</property>
                                             <property name="text" translatable="yes">Template description here.</property>
                                             <property name="textvariable">string:template_desc_var</property>
-                                            <property name="wraplength">400</property>
+                                            <property name="wraplength">500</property>
                                             <layout manager="pack">
                                               <property name="fill">x</property>
                                               <property name="pady">5 10</property>
@@ -725,7 +722,7 @@
                                         <child>
                                           <object class="ttk.Radiobutton" id="Radiobutton_1">
                                             <property name="command">on_code_template_changed</property>
-                                            <property name="style">Toolbutton</property>
+                                            <property name="style">Template.Toolbutton</property>
                                             <property name="text" translatable="yes">Application</property>
                                             <property name="value">application</property>
                                             <property name="variable">string:template_var</property>
@@ -749,7 +746,7 @@
                                         <child>
                                           <object class="ttk.Radiobutton" id="Radiobutton_2">
                                             <property name="command">on_code_template_changed</property>
-                                            <property name="style">Toolbutton</property>
+                                            <property name="style">Template.Toolbutton</property>
                                             <property name="text" translatable="yes">Code Script</property>
                                             <property name="value">codescript</property>
                                             <property name="variable">string:template_var</property>
@@ -773,7 +770,7 @@
                                         <child>
                                           <object class="ttk.Radiobutton" id="Radiobutton_3">
                                             <property name="command">on_code_template_changed</property>
-                                            <property name="style">Toolbutton</property>
+                                            <property name="style">Template.Toolbutton</property>
                                             <property name="text" translatable="yes">Custom Widget</property>
                                             <property name="value">widget</property>
                                             <property name="variable">string:template_var</property>

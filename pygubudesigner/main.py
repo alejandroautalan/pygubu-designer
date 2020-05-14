@@ -227,18 +227,19 @@ class PygubuDesigner(object):
         #
         # Widget bindings
         #
-        self.tree_editor.treeview.bind_all(
-            '<Control-KeyPress-c>',
-            lambda e: self.tree_editor.copy_to_clipboard())
-        self.tree_editor.treeview.bind_all(
-            '<Control-KeyPress-v>',
-            lambda e: self.tree_editor.paste_from_clipboard())
-        self.tree_editor.treeview.bind_all(
-            '<Control-KeyPress-x>',
-            lambda e: self.tree_editor.cut_to_clipboard())
-        self.tree_editor.treeview.bind_all(
-            '<KeyPress-Delete>',
-            lambda e: self.on_edit_menuitem_clicked('edit_item_delete'))
+        for widget in (self.tree_editor.treeview, previewc):
+            widget.bind(
+                '<Control-KeyPress-c>',
+                lambda e: self.tree_editor.copy_to_clipboard())
+            widget.bind(
+                '<Control-KeyPress-v>',
+                lambda e: self.tree_editor.paste_from_clipboard())
+            widget.bind(
+                '<Control-KeyPress-x>',
+                lambda e: self.tree_editor.cut_to_clipboard())
+            widget.bind(
+                '<KeyPress-Delete>',
+                lambda e: self.on_edit_menuitem_clicked('edit_item_delete'))
 
         def clear_key_pressed(event, newevent):
             # when KeyPress, not Ctrl-KeyPress, generate event.
@@ -311,6 +312,12 @@ class PygubuDesigner(object):
                     image=StockImage.get('mglass'))
         s.configure('ComponentPalette.Toolbutton',
                     font='TkSmallCaptionFont')
+        s.configure('PanelTitle.TLabel',
+                    background='#808080',
+                    foreground='white',
+                    font='TkSmallCaptionFont')
+        s.configure('Template.Toolbutton',
+                    padding=5)
         if sys.platform == 'linux':
             #change background of comboboxes
             color = s.lookup('TEntry', 'fieldbackground')
