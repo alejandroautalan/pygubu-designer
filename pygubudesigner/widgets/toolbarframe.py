@@ -90,6 +90,9 @@ class ToolbarFrame(ttk.Frame):
         else:
             # remove controls
             self.controls_required = False
+            if self.fcstart != 0:
+                self.fcstart = 0
+                self.fcontent.place(x=self.fcstart)
         
         if self.controls_required != self.controls_visible:
             self.toggle_controls()
