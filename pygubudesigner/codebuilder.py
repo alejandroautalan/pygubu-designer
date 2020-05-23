@@ -20,7 +20,7 @@ class UI2Code(Builder):
         self._builder = Builder()
         self._options = {}
     
-    def generate(self, uidef, target, **kw):
+    def _process_options(self, kw):
         kwdef = {
             'as_class': True,
             'tabspaces': 8
@@ -28,31 +28,66 @@ class UI2Code(Builder):
         kwdef.update(kw)
         self._options = kwdef
         self.as_class = self._options['as_class']
-        self.uidefinition = uidef
         tabspaces = self._options['tabspaces']
         
-        mastermeta = WidgetMeta('','master')
-        builder = BuilderObject(self, mastermeta)
-        wmeta = self.uidefinition.get_widget(target)
+    def _process_results(self, target):
+        tabspaces = self._options['tabspaces']
         code = []
-        if wmeta is not None:
-            self._code_realize(builder, wmeta)
-            
-            for line in self._code:
-                line = '{0}{1}\n'.format(' ' * tabspaces, line)
-                code.append(line)
+        for line in self._code:
+            line = '{0}{1}\n'.format(' ' * tabspaces, line)
+            code.append(line)
         code = ''.join(code)
         
         code_imports = self._process_imports()
         code_imports = '\n'.join(code_imports)
         code_callbacks = self._process_callbacks()
         code_callbacks = '\n'.join(code_callbacks)
+        code = ''.join(code)
         cc = {
             'imports': code_imports,
             target: code,
             'callbacks': code_callbacks,
             }
         return cc
+        
+    def generate(self, uidef, target, **kw):
+        self.uidefinition = uidef
+        self._process_options(kw)
+        
+        mastermeta = WidgetMeta('','master')
+        builder = BuilderObject(self, mastermeta)
+        wmeta = self.uidefinition.get_widget(target)
+
+        if wmeta is not None:
+            self._code_realize(builder, wmeta)
+        return self._process_results(target)
+    
+    def generate_widget_class(self, uidef, target, **kw):
+        self.uidefinition = uidef
+        self._process_options(kw)
+        
+        mastermeta = wmeta = self.uidefinition.get_widget(target)
+        builder = bmaster = BuilderObject(self, mastermeta)
+        if wmeta is not None:
+            originalid = wmeta.identifier
+            wmeta.identifier = 'self'
+            
+            if wmeta.classname not in CLASS_MAP:
+                self._builder._import_class(wmeta.classname)
+
+            if wmeta.classname in CLASS_MAP:
+                bclass = CLASS_MAP[wmeta.classname].builder
+                builder = bclass.factory(self, wmeta)
+                uniqueid = builder.code_identifier()
+                masterid = bmaster.code_child_master()
+                
+                for childmeta in \
+                    self.uidefinition.widget_children(target):
+                    childid = self._code_realize(builder, childmeta)
+                    code = builder.code_child_add(childid)
+                    self._code.extend(code)
+        
+        return self._process_results(target)
     
     def code_classname_for(self, bobject):
         wmeta = bobject.wmeta

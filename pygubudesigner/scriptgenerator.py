@@ -15,77 +15,9 @@ except:
     import tkFileDialog as filedialog
 import pygubu
 from .codebuilder import UI2Code
+from .scripttemplate import *
 
 logger = logging.getLogger(__name__)
-FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-
-
-TPL_APPLICATION = \
-"""import os
-import pygubu
-
-
-PROJECT_PATH = os.path.dirname(__file__)
-PROJECT_UI = os.path.join(PROJECT_PATH, "{project_name}")
-
-
-class {class_name}:
-    def __init__(self):
-        self.builder = builder = pygubu.Builder()
-        builder.add_resource_path(PROJECT_PATH)
-        builder.add_from_file(PROJECT_UI)
-        self.mainwindow = builder.get_object('{main_widget}')
-        builder.connect_callbacks(self)
-    
-{callbacks}
-    def run(self):
-        self.mainwindow.mainloop()
-
-
-if __name__ == '__main__':
-    app = {class_name}()
-    app.run()
-
-"""
-
-TPL_CODESCRIPT = \
-"""{import_lines}
-
-
-class {class_name}:
-    def __init__(self, master=None):
-        # build ui
-{widget_code}
-        # Main widget
-        self.mainwindow = {main_widget}
-
-{callbacks}
-    def run(self):
-        self.mainwindow.mainloop()
-
-
-if __name__ == '__main__':
-    app = {class_name}()
-    app.run()
-"""
-
-TPL_WIDGET = \
-"""{import_lines}
-
-
-class {class_name}({widget_base_class}):
-    def __init__(self, master=None, **kw):
-        {widget_base_class}.__init__(self, master, **kw)
-{widget_code}
-{callbacks}
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    widget = {class_name}(root)
-    widget.pack(expand=True, fill='both')
-    root.mainloop()
-
-"""
 
 
 class ScriptGenerator(object):
@@ -123,19 +55,30 @@ class ScriptGenerator(object):
     def on_code_generate_clicked(self):
         if self.form_valid():
             tree_item = self.widgetlist_keyvar.get()
-            params = {
-                'project_name': self.projectname,
-                'class_name': self.classnamevar.get(),
-                'main_widget': self.tree.get_widget_id(tree_item),
-                'widget_base_class': self.tree.get_widget_class(tree_item),
-                'widget_code': None,
-                'import_lines': None,
-                'callbacks': ''
-            }
             template = self.template_var.get()
             generator = UI2Code()
             uidef = self.tree.tree_to_uidef()
             target = self.tree.get_widget_id(tree_item)
+            target_class = self.tree.get_widget_class(tree_item)
+            class_name = self.classnamevar.get()
+            
+            app_init = ''
+            if target_class == 'tk.Toplevel':
+                app_init = TPL_APPINIT.format(class_name=class_name)
+            else:
+                app_init = TPL_APPINIT_WITH_TKROOT.format(
+                    class_name=class_name)
+            
+            params = {
+                'project_name': self.projectname,
+                'class_name': class_name,
+                'main_widget': target,
+                'widget_base_class': target_class,
+                'widget_code': None,
+                'import_lines': None,
+                'callbacks': '',
+                'app_init': app_init,
+            }
             
             if template == 'application':
                 code = generator.generate(uidef, target, as_class=False, tabspaces=8)
@@ -143,7 +86,7 @@ class ScriptGenerator(object):
                 code = TPL_APPLICATION.format(**params)
                 self.set_code(code)
             elif template == 'widget':
-                code = generator.generate(uidef, target)
+                code = generator.generate_widget_class(uidef, target)
                 params['widget_code'] = code[target]
                 params['import_lines'] = code['imports']
                 params['callbacks'] = code['callbacks']
