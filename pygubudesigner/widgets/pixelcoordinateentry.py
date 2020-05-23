@@ -22,7 +22,10 @@ class PixelCoordinatePropertyEditor(PropertyEditor):
     def _validate(self):
         is_valid = False
         value = self._get_value()
-        if len(value) != 0:
+        vlen = len(value)
+        if vlen == 0:
+            is_valid = True  # Allow empty
+        else:
             try:
                 int(value)
                 is_valid = True

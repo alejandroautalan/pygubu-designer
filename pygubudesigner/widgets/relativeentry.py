@@ -30,7 +30,10 @@ class RelativeEntryPropertyEditor(PropertyEditor):
     def _validate(self):
         is_valid = False
         value = self._get_value()
-        if len(value) != 0:
+        vlen = len(value)
+        if vlen == 0:
+            is_valid = True  # Allow empty string
+        else:
             try:
                 float(value)
                 is_valid = True
