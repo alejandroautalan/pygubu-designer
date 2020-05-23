@@ -31,6 +31,7 @@ class BindingsEditor:
     def __init__(self, etreeview, parent):
         self.tv = etreeview
         self._curr_data = None
+        self._curr_bo = None
         self._adder = 'adder'
         self._allow_edit = False
         self._parent = parent
@@ -41,6 +42,10 @@ class BindingsEditor:
 
         self._del_btn = ttk.Button(self.tv, text='-',
                                    command=self._on_del_clicked)
+        self._seq_cboxvar = tk.StringVar()
+        self._seq_cbox = cbox = ttk.Combobox(self.tv,
+                                             textvariable=self._seq_cboxvar)
+        #cbox.place(x=-10, y=-10)
         self.hide_all()
 
     def _on_add_clicked(self, event):
@@ -82,26 +87,29 @@ class BindingsEditor:
         wclass = wdescr.classname
         self.clear()
         self._curr_data = wdescr
+        self._curr_bo = CLASS_MAP[wclass].builder
+        self._seq_cbox.config(values=self._curr_bo.virtual_events)
         
-        self._allow_edit = CLASS_MAP[wclass].builder.allow_bindings
+        self._allow_edit = self._curr_bo.allow_bindings
         if self._allow_edit:
             self._parent.pack(fill='both', expand='True')
-            pass
         else:
             self._parent.pack_forget()
-            pass
+        
         for bind in wdescr.bindings:
             self._add_binding(bind)
 
     def _on_inplace_edit(self, event):
         col, item = self.tv.get_event_info()
-#        print('on_inplace_edit:', col, item)
         if item != self._adder and self._allow_edit:
-            if col in ('sequence', 'handler'):
+            if col == 'sequence':
+                self.tv.inplace_custom(col, item, self._seq_cbox,
+                                       self._seq_cboxvar)
+            elif col == 'handler':
                 self.tv.inplace_entry(col, item)
-            elif col in ('add',):
+            elif col == 'add':
                 self.tv.inplace_checkbutton(col, item, offvalue='')
-            elif col in ('actions',):
+            elif col == 'actions':
                 self.tv.inplace_custom(col, item, self._del_btn)
     
     def hide_all(self):
