@@ -811,7 +811,7 @@
                                               <property name="row">0</property>
                                               <property name="sticky">ew</property>
                                               <property type="col" id="1" name="pad">0</property>
-                                              <property type="col" id="1" name="weight">2</property>
+                                              <property type="col" id="1" name="weight">1</property>
                                             </layout>
                                           </object>
                                         </child>
@@ -834,7 +834,7 @@
                                               <property name="row">1</property>
                                               <property name="sticky">ew</property>
                                               <property type="col" id="1" name="pad">0</property>
-                                              <property type="col" id="1" name="weight">2</property>
+                                              <property type="col" id="1" name="weight">1</property>
                                             </layout>
                                           </object>
                                         </child>
@@ -843,7 +843,7 @@
                                             <layout manager="grid">
                                               <property name="column">2</property>
                                               <property name="row">0</property>
-                                              <property type="col" id="2" name="weight">1</property>
+                                              <property type="col" id="2" name="weight">2</property>
                                             </layout>
                                           </object>
                                         </child>
