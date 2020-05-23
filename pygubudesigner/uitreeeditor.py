@@ -35,8 +35,7 @@ from .i18n import translator as _
 from .propertieseditor import PropertiesEditor
 from .bindingseditor import BindingsEditor
 from .layouteditor import LayoutEditor
-from .properties import (WIDGET_PROPERTIES, PACK_PROPERTIES, PLACE_PROPERTIES,
-                         GRID_PROPERTIES, LAYOUT_OPTIONS)
+
 
 logger = logging.getLogger('pygubu.designer')
 
@@ -283,6 +282,7 @@ class WidgetsTreeEditor(object):
     def _insert_item(self, root, data, from_file=False):
         """Insert a item on the treeview and fills columns from data"""
 
+        data.setup_defaults() # load default settings for properties and layout
         tree = self.treeview
         treelabel = '{0}: {1}'.format(data.identifier, data.classname)
         row = col = ''
@@ -530,7 +530,7 @@ class WidgetsTreeEditor(object):
             manager = cmanager if cmanager else manager
             
         widget_id = self.get_unique_id(wclass)
-        pdefaults, ldefaults = self.get_widget_defaults(wclass, widget_id)
+        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(wclass, widget_id)
         data = WidgetMeta(wclass, widget_id, manager, pdefaults, ldefaults)
         
         # Recalculate position if manager is grid
@@ -880,40 +880,4 @@ class WidgetsTreeEditor(object):
             tree.after_idle(lambda: tree.selection_set(found))
             tree.after_idle(lambda: tree.focus(found))
             tree.after_idle(lambda: tree.see(found))
-    
-    def get_widget_defaults(self, wclass, widget_id):
-        properties = {}
-        layout = {}
-        
-        if wclass in CLASS_MAP:
-            # setup default values for properties
-            for pname in CLASS_MAP[wclass].builder.properties:
-                pdescription = {}
-                if pname in WIDGET_PROPERTIES:
-                    pdescription = WIDGET_PROPERTIES[pname]
-                if wclass in pdescription:
-                    pdescription = dict(pdescription, **pdescription[wclass])
-                default_value = str(pdescription.get('default', ''))
-                if default_value:
-                    properties[pname] = default_value
-                # default text for widgets with text prop:
-                if pname in ('text', 'label'):
-                    properties[pname] = widget_id
-        
-        # setup default values for layout
-        groups = (
-            ('pack', PACK_PROPERTIES),
-            ('place', PLACE_PROPERTIES),
-            ('grid', GRID_PROPERTIES),
-        )
-        for manager, manager_prop in groups:
-            layout[manager] = {}
-            for pname in manager_prop:
-                pdescr = LAYOUT_OPTIONS[pname]
-                if manager in pdescr:
-                    pdescr = pdescr.copy()
-                    pdescr = dict(pdescr, **pdescr[manager])
-                default_value = pdescr.get('default', None)
-                if default_value:
-                    layout[manager][pname] = default_value
-        return properties, layout
+

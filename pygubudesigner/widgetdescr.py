@@ -18,8 +18,11 @@
 from __future__ import unicode_literals
 import logging
 
+from pygubu.builder import CLASS_MAP
 from pygubu.builder.widgetmeta import WidgetMeta as WidgetMetaBase, BindingMeta
 from .util.observable import Observable
+from .properties import (WIDGET_PROPERTIES, PACK_PROPERTIES, PLACE_PROPERTIES,
+                         GRID_PROPERTIES, LAYOUT_OPTIONS)
 
 logger = logging.getLogger(__name__)
 
@@ -109,4 +112,47 @@ class WidgetMeta(WidgetMetaBase, Observable):
     def remove_unused_grid_rc(self):
         """Deletes unused grid row/cols"""
         pass
+    
+    def setup_defaults(self):
+        propd, layoutd = WidgetMeta.get_widget_defaults(self, self.identifier)
+        self.properties_defaults = propd
+        self.layout_defaults = layoutd
+    
+    @staticmethod
+    def get_widget_defaults(wclass, widget_id):
+        properties = {}
+        layout = {}
+        
+        if wclass in CLASS_MAP:
+            # setup default values for properties
+            for pname in CLASS_MAP[wclass].builder.properties:
+                pdescription = {}
+                if pname in WIDGET_PROPERTIES:
+                    pdescription = WIDGET_PROPERTIES[pname]
+                if wclass in pdescription:
+                    pdescription = dict(pdescription, **pdescription[wclass])
+                default_value = str(pdescription.get('default', ''))
+                if default_value:
+                    properties[pname] = default_value
+                # default text for widgets with text prop:
+                if pname in ('text', 'label'):
+                    properties[pname] = widget_id
+        
+        # setup default values for layout
+        groups = (
+            ('pack', PACK_PROPERTIES),
+            ('place', PLACE_PROPERTIES),
+            ('grid', GRID_PROPERTIES),
+        )
+        for manager, manager_prop in groups:
+            layout[manager] = {}
+            for pname in manager_prop:
+                pdescr = LAYOUT_OPTIONS[pname]
+                if manager in pdescr:
+                    pdescr = pdescr.copy()
+                    pdescr = dict(pdescr, **pdescr[manager])
+                default_value = pdescr.get('default', None)
+                if default_value:
+                    layout[manager][pname] = default_value
+        return properties, layout
 
