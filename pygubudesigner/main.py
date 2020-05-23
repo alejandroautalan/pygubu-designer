@@ -70,7 +70,7 @@ def init_pygubu_widgets():
     widgets_pkg = 'pygubu.builder.widgets'
     mwidgets = importlib.import_module(widgets_pkg)
 
-    for _, modulename, _ in pkgutil.iter_modules(mwidgets.__path__, mwidgets.__name__ + "."):
+    for x, modulename, x in pkgutil.iter_modules(mwidgets.__path__, mwidgets.__name__ + "."):
         try:
             importlib.import_module(modulename)
         except Exception as e:
@@ -139,8 +139,6 @@ class PygubuDesigner(object):
     """Main gui class"""
     
     def __init__(self):
-        init_pygubu_widgets()        
-
         """Creates all gui widgets"""
 
         self.translator = translator
@@ -172,6 +170,9 @@ class PygubuDesigner(object):
         self.treeview = self.builder.get_object('treeview1')
         self.bindings_frame = self.builder.get_object('bindingsframe')
         self.bindings_tree = self.builder.get_object('bindingstree')
+        
+        # Load all widgets before creating the component pallete
+        init_pygubu_widgets()
         
         # _pallete
         self.fpalette = self.builder.get_object('fpalette')
@@ -311,6 +312,8 @@ class PygubuDesigner(object):
         s.configure('ImageSelectorButton.Toolbutton',
                     image=StockImage.get('mglass'))
         s.configure('ComponentPalette.Toolbutton',
+                    font='TkSmallCaptionFont')
+        s.configure('ComponentPalette.TNotebook.Tab',
                     font='TkSmallCaptionFont')
         s.configure('PanelTitle.TLabel',
                     background='#808080',
