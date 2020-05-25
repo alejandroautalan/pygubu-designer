@@ -1,4 +1,5 @@
 from __future__ import unicode_literals, print_function
+import os
 from collections import OrderedDict
 from pygubu.builder import Builder, CLASS_MAP
 from pygubu.builder.builderobject import BuilderObject, grouper
@@ -13,6 +14,7 @@ class UI2Code(Builder):
         self.as_class = False
         self._code_imports = OrderedDict()
         self._tkvariables = {}
+        self._tkimages = {}
         self._callbacks = {}
         self._import_ttk = True;
         self._code = []
@@ -220,4 +222,19 @@ class UI2Code(Builder):
             self._callbacks[name] = cbtype
         cb_name = 'self.{0}'.format(name)
         return cb_name
-
+    
+    def code_create_image(self, filename):
+        name = os.path.basename(filename)
+        name = os.path.splitext(name)[0]
+        name = self._make_identifier(name)
+        varname = 'self.img_{0}'.format(name)
+        
+        if filename not in self._tkimages:
+            line = "{0} = tk.PhotoImage('{1}')".format(varname, filename)
+            self._code.append(line)
+            self._tkvariables[varname] = True
+        return varname
+    
+    def _make_identifier(self, name):
+        output = ''.join(x for x in name if x.isalnum())
+        return output
