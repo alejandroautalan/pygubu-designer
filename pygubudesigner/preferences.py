@@ -33,7 +33,7 @@ CONFIG_FILE = os.path.join(FILE_PATH, 'config')
 if has_appdir:
     dirs = AppDirs('pygubu-designer')
     CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
-logger.info('Using configfile: {0}', CONFIG_FILE)
+logger.info('Using configfile: %s', CONFIG_FILE)
 
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},

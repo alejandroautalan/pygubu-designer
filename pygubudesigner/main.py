@@ -77,7 +77,7 @@ def init_pygubu_widgets():
             importlib.import_module(modulename)
         except Exception as e:
             logger.exception(e)
-            msg = _("Failed to load widget module: \n'{0}'")
+            msg = _("Failed to load widget module: '%s'")
             msg = msg.format(modulename)
             messagebox.showerror(_('Error'), msg)
 
@@ -92,7 +92,7 @@ def init_pygubu_widgets():
                 importlib.import_module(modulename)
             except Exception as e:
                 logger.exception(e)
-                msg = _("Failed to load custom widget module: \n'{0}'")
+                msg = _("Failed to load custom widget module: '%s'")
                 msg = msg.format(path)
                 messagebox.showerror(_('Error'), msg)
 
@@ -110,7 +110,7 @@ class StatusBarHandler(logging.Handler):
     def __init__(self, app, level=logging.NOTSET):
         super(StatusBarHandler, self).__init__(level)
         self.app = app
-        formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+        formatter = logging.Formatter('%(levelname)s:%(message)s')
         self.setFormatter(formatter)
 
     def emit(self, record):
@@ -419,7 +419,7 @@ class PygubuDesigner(object):
     def do_save(self, fname):
         self.save_file(fname)
         self.set_changed(False)
-        logger.info(_('Project saved to {0}'), fname)
+        logger.info(_('Project saved to %s'), fname)
 
     def do_save_as(self):
         options = {
@@ -551,6 +551,10 @@ class PygubuDesigner(object):
         txt = entry.cget('text')
         txt = txt.replace('%version%', str(pygubu.__version__))
         entry.configure(text=txt)
+        entry = builder.get_object('designer_version')
+        txt = entry.cget('text')
+        txt = txt.replace('%version%', str(pygubudesigner.__version__))
+        entry.configure(text=txt)
 
         def on_ok_execute():
             dialog.close()
@@ -662,14 +666,13 @@ def check_dependency(modulename, version, help_msg=None):
             v = getattr(module, attr, None)
             if v is not None:
                 module_version = v
-        msg = "Module {0} imported ok, version {1}"
+        msg = "Module %s imported ok, version %s"
         logger.info(msg, modulename, module_version)
     except ImportError as e:
-        msg = """I can't import module "{module}". You need to have installed '{module}' version {version} or higher. {help}"""
+        msg = "I can't import module '%s'. You need to have installed '%s' version %s or higher. %s"
         if help_msg is None:
             help_msg = ''
-        msg = msg.format(module=modulename, version=version, help=help_msg)
-        logger.error(msg)
+        logger.error(msg, modulename, modulename, version, help_msg)
         sys.exit(-1)
 
 
