@@ -54,6 +54,7 @@ from pygubudesigner.preferences import PreferencesUI, get_custom_widgets, get_op
 from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.scriptgenerator import ScriptGenerator
 from .rfilemanager import RecentFilesManager
+from .logpanel import LogPanelManager
 
 
 #Initialize logger
@@ -106,31 +107,20 @@ StockImage.register_from_dir(
 
 
 class StatusBarHandler(logging.Handler):
-    def __init__(self, tklabel, level=logging.NOTSET):
+    def __init__(self, app, level=logging.NOTSET):
         super(StatusBarHandler, self).__init__(level)
-        self.tklabel = tklabel
-        self._clear = True
-        self._cb_id = None
+        self.app = app
+        formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+        self.setFormatter(formatter)
 
     def emit(self, record):
         try:
             msg = self.format(record)
-            if not self._clear and self._cb_id is not None:
-                self.tklabel.after_cancel(self._cb_id)
-            self._clear = False
-            self._cb_id = self.tklabel.after(5000, self.clear)
-            txtcolor = 'red'
-            if record.levelno == logging.INFO:
-                txtcolor = 'black'
-            self.tklabel.configure(text=msg, foreground=txtcolor)
+            self.app.log_message(msg, record.levelno)
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
             self.handleError(record)
-
-    def clear(self):
-        self.tklabel.configure(text='', foreground='black')
-        self._clear = True
 
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -187,15 +177,11 @@ class PygubuDesigner(object):
         
         # Tab Code
         self.script_generator = ScriptGenerator(self)
+        
+        # Bottom Panel
+        self.setup_bottom_panel()
 
         self.builder.connect_callbacks(self)
-
-        #Status bar
-        #self.statusbar = self.builder.get_object('statusbar')
-        #handler = StatusBarHandler(self.statusbar)
-        #handler.setLevel(logging.INFO)
-        # add handler to the root logger:
-        #logging.getLogger().addHandler(handler)
 
         #
         #Application bindings
@@ -433,7 +419,7 @@ class PygubuDesigner(object):
     def do_save(self, fname):
         self.save_file(fname)
         self.set_changed(False)
-        logger.info(_('Project saved to {0}').format(fname))
+        logger.info(_('Project saved to {0}'), fname)
 
     def do_save_as(self):
         options = {
@@ -612,6 +598,23 @@ class PygubuDesigner(object):
     
     def on_code_save_clicked(self):
         self.script_generator.on_code_save_clicked()
+        
+    def setup_bottom_panel(self):
+        self.log_panel = LogPanelManager(self)
+        self.setup_logger_handler()
+    
+    def on_bpanel_button_clicked(self):
+        self.log_panel.on_bpanel_button_clicked()
+    
+    def setup_logger_handler(self):
+        #Status bar
+        handler = StatusBarHandler(self)
+        handler.setLevel(logging.INFO)
+        # add handler to the root logger:
+        logging.getLogger().addHandler(handler)
+    
+    def log_message(self, msg, level):
+        self.log_panel.log_message(msg, level)
 
 
 def start_pygubu():
@@ -660,7 +663,7 @@ def check_dependency(modulename, version, help_msg=None):
             if v is not None:
                 module_version = v
         msg = "Module {0} imported ok, version {1}"
-        logger.info(msg.format(modulename, module_version))
+        logger.info(msg, modulename, module_version)
     except ImportError as e:
         msg = """I can't import module "{module}". You need to have installed '{module}' version {version} or higher. {help}"""
         if help_msg is None:
