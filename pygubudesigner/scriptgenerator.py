@@ -41,6 +41,8 @@ class ScriptGenerator(object):
         self.template_desc_var = builder.get_variable('template_desc_var')
         
         _ = self.app.translator
+        self.msgtitle = _('Script Generator')
+        
         self.template_desc = {
             'application': _('Create a pygubu application script using the UI definition.'),
             'codescript': _('Create a coded version of the UI definition.'),
@@ -101,7 +103,13 @@ class ScriptGenerator(object):
                 self.set_code(code)
     
     def on_code_copy_clicked(self):
-        pass
+        text = self.get_code()
+        self.txt_code.clipboard_clear()
+        self.txt_code.clipboard_append(text)
+        
+        _ = self.app.translator
+        msg = _('Code copied')
+        messagebox.showinfo(title=self.msgtitle, message=msg)
     
     def on_code_template_changed(self, clear_code=True):
         template = self.template_var.get()
@@ -152,19 +160,19 @@ class ScriptGenerator(object):
         valid = True
         
         _ = self.app.translator
-        mbtitle = _('Script Generator')
+        mbtitle = self.msgtitle
         widget = self.widgetlist.current()
         if widget is None:
             valid = False
-            messagebox.showwarning(title=mbtitle, message='Select widget')
+            messagebox.showwarning(title=mbtitle, message=_('Select widget'))
         template = self.template_var.get()
         if valid and template is None:
             valid = False
-            messagebox.showwarning(title=mbtitle, message='Select template')
+            messagebox.showwarning(title=mbtitle, message=_('Select template'))
         classname = self.classnamevar.get()
         if valid and classname == '':
             valid = False
-            messagebox.showwarning(title=mbtitle, message='Enter classname')            
+            messagebox.showwarning(title=mbtitle, message=_('Enter classname'))
         
         return valid
     
