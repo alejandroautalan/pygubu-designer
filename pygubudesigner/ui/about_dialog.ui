@@ -45,6 +45,15 @@
               </object>
             </child>
             <child>
+              <object class="ttk.Label" id="designer_version">
+                <property name="anchor">e</property>
+                <property name="font">Sans 8</property>
+                <property name="padding">0 0 0 5</property>
+                <property name="text" translatable="yes">pygubu-designer v%version%</property>
+                <layout manager="pack" />
+              </object>
+            </child>
+            <child>
               <object class="ttk.Label" id="description">
                 <property name="anchor">center</property>
                 <property name="padding">20 10 20 10</property>
