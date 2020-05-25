@@ -1045,6 +1045,8 @@
                             </layout>
                             <child>
                               <object class="tk.Text" id="txt_log">
+                                <property name="background">#f8f8f8</property>
+                                <property name="font">TkFixedFont</property>
                                 <property name="height">8</property>
                                 <property name="state">disabled</property>
                                 <property name="width">50</property>
