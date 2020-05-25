@@ -138,7 +138,7 @@ setup(
     cmdclass={
         'install': CustomInstall,
     },
-    install_requires=['appdirs>=1.3'],
+    install_requires=['appdirs>=1.3','pygubu>=0.10'],
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
