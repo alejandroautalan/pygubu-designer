@@ -218,6 +218,7 @@ class WidgetsTreeEditor(object):
 
         toplevel_items = tv.get_children()
         parents_to_redraw = set()
+        final_focus = None
         for item in selection:
             try:
                 parent = ''
@@ -225,10 +226,18 @@ class WidgetsTreeEditor(object):
                     parent = self.get_toplevel_parent(item)
                 else:
                     self.previewer.delete(item)
+                # determine final focus
+                if final_focus is None:
+                    candidates = (tv.prev(item), tv.next(item), tv.parent(item))
+                    for c in candidates:
+                        if c and (c not in selection):
+                            final_focus = c
+                            break
+                # remove item
                 del self.treedata[item]
                 tv.delete(item)
                 self.app.set_changed()
-                if parent:
+                if parent and (parent not in selection):
                     parents_to_redraw.add(parent)
                 self.editor_hide_all()
             except tk.TclError:
@@ -238,6 +247,14 @@ class WidgetsTreeEditor(object):
         # redraw widgets
         for item in parents_to_redraw:
             self.draw_widget(item)
+        # Set final item focused
+        if final_focus:
+            selected_id = self.treedata[final_focus].identifier 
+            tv.after_idle(lambda: tv.selection_set(final_focus))
+            tv.after_idle(lambda: tv.focus(final_focus))
+            tv.after_idle(lambda: tv.see(final_focus))
+            tv.after_idle(lambda i=final_focus,s=selected_id: self.previewer.show_selected(i, s))
+        
         # restore filter
         self.filter_restore()
         
