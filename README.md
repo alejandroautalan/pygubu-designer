@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/alejandroautalan/pygubu.svg?branch=master)](https://travis-ci.org/alejandroautalan/pygubu)
+[![Build Status](https://travis-ci.org/alejandroautalan/pygubu-designer.svg?branch=master)](https://travis-ci.org/alejandroautalan/pygubu-designer)
 
 [Leer en Español](LEEME.md)
 
@@ -12,9 +12,9 @@ The user interfaces designed are saved as [XML](https://en.wikipedia.org/wiki/XM
 Pygubu is inspired by [Glade](https://glade.gnome.org).
 
 Installation
-====
+============
 
-Pygubu requires Python >= 2.7 (Tested only in Python 2.7.3 and 3.2.3 with tk8.5).
+Pygubu requires Python >= 2.7
 
 You can install pygubu using:
 
@@ -186,11 +186,11 @@ Visit the pygubu [wiki](https://github.com/alejandroautalan/pygubu/wiki) for mor
 
 The following are some good tkinter (and tk) references:
 
+- [Graphical User Interfaces with Tk](https://docs.python.org/3/library/tk.html)
 - [TkDocs](http://www.tkdocs.com)
-- [Graphical User Interfaces with Tk](http://docs.python.org/3.5/library/tk.html)
 - [Tkinter 8.5 reference: a GUI for Python](https://web.archive.org/web/20181211092656/http://infohost.nmt.edu/~shipman/soft/tkinter/web/index.html)
 - [An Introduction to Tkinter](http://effbot.org/tkinterbook/)
-- [Tcl/Tk 8.5 Manual](http://www.tcl.tk/man/tcl8.5/)
+- [Tcl/Tk Manual](https://www.tcl.tk/man/tcl/TkCmd/contents.htm)
 
 
 You can also see the [examples](examples) directory or watch [this introductory video tutorial](http://youtu.be/wuzV9P8geDg).
