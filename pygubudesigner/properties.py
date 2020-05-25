@@ -952,7 +952,7 @@ def _register_custom(name, descr):
         WIDGET_PROPERTIES.update(CUSTOM_OPTIONS)
         WIDGET_CUSTOM_OPTIONS.append(name)
         WIDGET_CUSTOM_OPTIONS.sort()
-        logger.debug('Registered property; {0}'.format(name))
+        logger.debug('Registered property; {0}', name)
 
 def register_property(name, descr):
     _register_custom(name, descr)

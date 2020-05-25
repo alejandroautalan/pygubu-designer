@@ -102,7 +102,7 @@ class WidgetsTreeEditor(object):
     
     def _on_preview_item_clicked(self, event):
         wid = self.previewer.selected_widget
-        logger.debug('item-selected {0}'.format(wid))
+        logger.debug('item-selected {0}', wid)
         self.select_by_id(wid)
         
     def get_children_manager(self, item, current=None):
@@ -344,7 +344,7 @@ class WidgetsTreeEditor(object):
         tree = self.treeview
         # get the selected item:
         selection = tree.selection()
-        logger.debug('Selection {0}'.format(str(selection)))
+        logger.debug('Selection {0}', selection)
         if selection:
             self.filter_remove(remember=True)
             
@@ -374,9 +374,8 @@ class WidgetsTreeEditor(object):
                 if classname not in allowed_children:
                     str_children = ', '.join(allowed_children)
                     msg = _('Allowed children: {0}.')
-                    msg = msg.format(str_children)
                     if show_warnings:
-                        logger.warning(msg)
+                        logger.warning(msg, str_children)
                     is_valid = False
                     return is_valid
 
@@ -384,9 +383,8 @@ class WidgetsTreeEditor(object):
             maxchildren = root_boclass.maxchildren
             if maxchildren is not None and children_count >= maxchildren:
                 msg = _('Only {0} children allowed for {1}')
-                msg = msg.format(maxchildren, root_classname)
                 if show_warnings:
-                    logger.warning(msg)
+                    logger.warning(msg, maxchildren, root_classname)
                 is_valid = False
                 return is_valid
 
@@ -394,17 +392,15 @@ class WidgetsTreeEditor(object):
             if (allowed_parents is not None and
                root_classname not in allowed_parents):
                 msg = _('{0} not allowed as parent of {1}')
-                msg = msg.format(root_classname, classname)
                 if show_warnings:
-                    logger.warning(msg)
+                    logger.warning(msg, root_classname, classname)
                 is_valid = False
                 return is_valid
 
             if allowed_children is None and root_boclass.container is False:
                 msg = _('Not allowed, {0} is not a container.')
-                msg = msg.format(root_classname)
                 if show_warnings:
-                    logger.warning(msg)
+                    logger.warning(msg, root_classname)
                 is_valid = False
                 return is_valid
 
@@ -415,8 +411,7 @@ class WidgetsTreeEditor(object):
             allowed_parents = new_boclass.allowed_parents
             if allowed_parents is not None and 'root' not in allowed_parents:
                 msg = _('{0} not allowed at root level')
-                msg = msg.format(classname)
-                logger.warning(msg)
+                logger.warning(msg, classname)
                 is_valid = False
                 return is_valid
 
@@ -425,8 +420,7 @@ class WidgetsTreeEditor(object):
             # only containers are allowed at root level
             if new_boclass.container is False:
                 msg = _('Not allowed at root level, {0} is not a container.')
-                msg = msg.format(classname)
-                logger.warning(msg)
+                logger.warning(msg, classname)
                 is_valid = False
                 return is_valid
         return is_valid

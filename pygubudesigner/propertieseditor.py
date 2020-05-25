@@ -81,7 +81,7 @@ class PropertiesEditor(object):
                 widget.grid(row=row, column=col+1, sticky=tk.EW, pady=2)
                 row += 1
                 self._propbag[gcode+name] = (label, widget)
-                logger.debug('Created property: {0}-{1}'.format(gname,name))
+                logger.debug('Created property: {0}-{1}', gname,name)
 
     def _create_editor(self, master, pname, wdata):
         editor = None
