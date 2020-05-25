@@ -24,6 +24,25 @@
           </object>
         </child>
         <child>
+          <object class="tk.Menuitem.Submenu" id="file_recent_menu">
+            <property name="label" translatable="yes">Open recent …</property>
+            <property name="tearoff">false</property>
+            <child>
+              <object class="tk.Menuitem.Separator" id="file_recent_sep1" />
+            </child>
+            <child>
+              <object class="tk.Menuitem.Command" id="file_recent_clear">
+                <property name="command">on_file_menuitem_clicked</property>
+                <property name="command_id_arg">true</property>
+                <property name="label" translatable="yes">Clear list</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Separator" id="file_sep2" />
+        </child>
+        <child>
           <object class="tk.Menuitem.Command" id="file_save">
             <property name="accelerator">Ctrl+S</property>
             <property name="command">on_file_menuitem_clicked</property>
@@ -794,11 +813,12 @@
                                           <property name="side">top</property>
                                         </layout>
                                         <child>
-                                          <object class="tk.Label" id="lbl_wlist">
+                                          <object class="ttk.Label" id="lbl_wlist">
                                             <property name="text" translatable="yes">Main widget:</property>
                                             <layout manager="grid">
-                                              <property name="sticky">w</property>
-                                              <property type="col" id="0" name="pad">5</property>
+                                              <property name="column">0</property>
+                                              <property name="propagate">True</property>
+                                              <property name="row">0</property>
                                             </layout>
                                           </object>
                                         </child>
@@ -816,25 +836,13 @@
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="tk.Label" id="lbl_class">
-                                            <property name="text" translatable="yes">Class Name:</property>
-                                            <layout manager="grid">
-                                              <property name="column">0</property>
-                                              <property name="row">1</property>
-                                              <property name="sticky">w</property>
-                                              <property type="col" id="0" name="pad">5</property>
-                                            </layout>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="tk.Entry" id="classname">
+                                          <object class="ttk.Entry" id="classname">
                                             <property name="textvariable">string:classnamevar</property>
                                             <layout manager="grid">
                                               <property name="column">1</property>
+                                              <property name="propagate">True</property>
                                               <property name="row">1</property>
                                               <property name="sticky">ew</property>
-                                              <property type="col" id="1" name="pad">0</property>
-                                              <property type="col" id="1" name="weight">1</property>
                                             </layout>
                                           </object>
                                         </child>
@@ -844,6 +852,16 @@
                                               <property name="column">2</property>
                                               <property name="row">0</property>
                                               <property type="col" id="2" name="weight">2</property>
+                                            </layout>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="ttk.Label" id="label_2">
+                                            <property name="text" translatable="yes">Class Name:</property>
+                                            <layout manager="grid">
+                                              <property name="column">0</property>
+                                              <property name="propagate">True</property>
+                                              <property name="row">1</property>
                                             </layout>
                                           </object>
                                         </child>
@@ -860,10 +878,11 @@
                                           <property name="side">top</property>
                                         </layout>
                                         <child>
-                                          <object class="tk.Button" id="btn_generate">
+                                          <object class="ttk.Button" id="btn_generate">
                                             <property name="command">on_code_generate_clicked</property>
                                             <property name="text" translatable="yes">Generate</property>
                                             <layout manager="pack">
+                                              <property name="propagate">True</property>
                                               <property name="side">left</property>
                                             </layout>
                                           </object>
@@ -873,7 +892,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="tk.Frame" id="middle">
+                                  <object class="ttk.Frame" id="middle">
                                     <property name="height">200</property>
                                     <property name="width">200</property>
                                     <layout manager="pack">
@@ -883,7 +902,7 @@
                                       <property name="side">top</property>
                                     </layout>
                                     <child>
-                                      <object class="tk.Frame" id="Frame_5">
+                                      <object class="ttk.Frame" id="Frame_5">
                                         <property name="height">200</property>
                                         <property name="width">200</property>
                                         <layout manager="pack">
@@ -914,6 +933,7 @@
                                             </layout>
                                             <child>
                                               <object class="tk.Text" id="txt_code">
+                                                <property name="background">#fcfcfc</property>
                                                 <property name="font">TkFixedFont</property>
                                                 <property name="height">10</property>
                                                 <property name="width">50</property>
@@ -930,8 +950,9 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="tk.Frame" id="btnbar2">
+                                      <object class="ttk.Frame" id="btnbar2">
                                         <property name="height">200</property>
+                                        <property name="padding">2</property>
                                         <property name="width">200</property>
                                         <layout manager="pack">
                                           <property name="fill">x</property>
@@ -939,24 +960,23 @@
                                           <property name="side">top</property>
                                         </layout>
                                         <child>
-                                          <object class="tk.Button" id="btn_toclipboard">
+                                          <object class="ttk.Button" id="btn_toclipboard">
                                             <property name="command">on_code_copy_clicked</property>
                                             <property name="text" translatable="yes">Copy to Clipboard</property>
-                                            <layout manager="grid">
-                                              <property name="column">0</property>
+                                            <layout manager="pack">
+                                              <property name="padx">0 10</property>
                                               <property name="propagate">True</property>
-                                              <property name="row">0</property>
+                                              <property name="side">left</property>
                                             </layout>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="tk.Button" id="btn_save">
+                                          <object class="ttk.Button" id="btn_save">
                                             <property name="command">on_code_save_clicked</property>
                                             <property name="text" translatable="yes">Save</property>
-                                            <layout manager="grid">
-                                              <property name="column">1</property>
+                                            <layout manager="pack">
                                               <property name="propagate">True</property>
-                                              <property name="row">0</property>
+                                              <property name="side">left</property>
                                             </layout>
                                           </object>
                                         </child>

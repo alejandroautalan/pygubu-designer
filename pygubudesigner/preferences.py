@@ -42,9 +42,11 @@ options = {
 
 SEC_GENERAL = 'GENERAL'
 SEC_CUSTOM_WIDGETS = 'CUSTOM_WIDGETS'
+SEC_RECENT_FILES = 'RECENT_FILES'
 config = configparser.SafeConfigParser()
 config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
+config.add_section(SEC_RECENT_FILES)
 
 
 def initialize_configfile():
@@ -83,6 +85,19 @@ def get_custom_widgets():
     
 def get_option(key):
     return config.get(SEC_GENERAL, key)
+
+def recent_files_get():
+    rf = []
+    for k, f in config.items(SEC_RECENT_FILES):
+        rf.append(f)
+    return rf
+
+def recent_files_save(file_list):
+    config.remove_section(SEC_RECENT_FILES)
+    config.add_section(SEC_RECENT_FILES)
+    for j, p in enumerate(file_list):
+        config.set(SEC_RECENT_FILES, 'f{0}'.format(j), p)
+    save_configfile()
 
 # Get user configuration
 load_configfile()

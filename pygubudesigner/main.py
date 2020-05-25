@@ -53,6 +53,7 @@ import pygubudesigner
 from pygubudesigner.preferences import PreferencesUI, get_custom_widgets, get_option
 from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.scriptgenerator import ScriptGenerator
+from .rfilemanager import RecentFilesManager
 
 
 #Initialize logger
@@ -161,10 +162,10 @@ class PygubuDesigner(object):
         menu = self.builder.get_object('mainmenu', self.mainwindow)
         self.mainwindow.configure(menu=menu)
 
-        #Class selector values
-        #self.widgetlist_sf = self.builder.get_object("widgetlist_sf")
-        #self.widgetlist = self.builder.get_object("widgetlist")
-        #self.configure_widget_list()
+        # Recen Files management
+        rfmenu = self.builder.get_object('file_recent_menu')
+        self.rfiles_manager = RecentFilesManager(rfmenu, self.do_file_open)
+        self.mainwindow.after_idle(lambda: self.rfiles_manager.load())
 
         #widget tree
         self.treeview = self.builder.get_object('treeview1')
@@ -431,7 +432,6 @@ class PygubuDesigner(object):
 
     def do_save(self, fname):
         self.save_file(fname)
-        self.currentfile = fname
         self.set_changed(False)
         logger.info(_('Project saved to {0}').format(fname))
 
@@ -446,8 +446,10 @@ class PygubuDesigner(object):
     def save_file(self, filename):
         uidefinition = self.tree_editor.tree_to_uidef()
         uidefinition.save(filename)
+        self.currentfile = filename
         title = self.project_name()
         self.set_title(title)
+        self.rfiles_manager.addfile(filename)
 
     def set_changed(self, newvalue=True):
         if newvalue and self.is_changed == False:
@@ -462,6 +464,22 @@ class PygubuDesigner(object):
         title = self.project_name()
         self.set_title(title)        
         self.set_changed(False)
+        self.rfiles_manager.addfile(filename)
+    
+    def do_file_open(self, filename=None):
+        openfile = True
+        if self.is_changed:
+            openfile = messagebox.askokcancel(
+                _('File changed'),
+                _('Changes not saved. Open new file anyway?'))
+        if openfile:
+            if filename is None:
+                options = {
+                    'defaultextension': '.ui',
+                    'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*'))}
+                filename = filedialog.askopenfilename(**options)
+            if filename:
+                self.load_file(filename)
 
     #File Menu
     def on_file_menuitem_clicked(self, itemid):
@@ -478,18 +496,7 @@ class PygubuDesigner(object):
                 self.set_changed(False)
                 self.set_title(self.project_name())
         elif itemid == 'file_open':
-            openfile = True
-            if self.is_changed:
-                openfile = messagebox.askokcancel(
-                    _('File changed'),
-                    _('Changes not saved. Open new file anyway?'))
-            if openfile:
-                options = {
-                    'defaultextension': '.ui',
-                    'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*'))}
-                fname = filedialog.askopenfilename(**options)
-                if fname:
-                    self.load_file(fname)
+            self.do_file_open()
         elif itemid == 'file_save':
             if self.currentfile:
                 if self.is_changed:
@@ -500,6 +507,8 @@ class PygubuDesigner(object):
             self.do_save_as()
         elif itemid == 'file_quit':
             self.quit()
+        elif itemid == 'file_recent_clear':
+            self.rfiles_manager.clear()
 
     #Edit menu
     def on_edit_menuitem_clicked(self, itemid):
