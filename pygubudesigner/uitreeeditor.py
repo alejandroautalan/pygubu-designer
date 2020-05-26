@@ -32,6 +32,7 @@ import pygubudesigner
 from .widgeteditor import WidgetEditor
 from .widgetdescr import WidgetMeta
 from .i18n import translator as _
+from .util import trlog
 from .propertieseditor import PropertiesEditor
 from .bindingseditor import BindingsEditor
 from .layouteditor import LayoutEditor
@@ -382,18 +383,20 @@ class WidgetsTreeEditor(object):
             children_count = len(self.treeview.get_children(root))
             maxchildren = root_boclass.maxchildren
             if maxchildren is not None and children_count >= maxchildren:
-                msg = _('Only %s children allowed for %s')
+                msg = trlog(_('Only {0} children allowed for {1}'),
+                            maxchildren, root_classname)
                 if show_warnings:
-                    logger.warning(msg, maxchildren, root_classname)
+                    logger.warning(msg)
                 is_valid = False
                 return is_valid
 
             allowed_parents = new_boclass.allowed_parents
             if (allowed_parents is not None and
                root_classname not in allowed_parents):
-                msg = _('%s not allowed as parent of %s')
+                msg = trlog(_('{0} not allowed as parent of {1}'),
+                            root_classname, classname)
                 if show_warnings:
-                    logger.warning(msg, root_classname, classname)
+                    logger.warning(msg)
                 is_valid = False
                 return is_valid
 
