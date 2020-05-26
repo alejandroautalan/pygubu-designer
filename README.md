@@ -18,32 +18,17 @@ Pygubu requires Python >= 2.7
 
 You can install pygubu using:
 
-### zip tarball
-
-Download and extract the [tarball](http://searchenterpriselinux.techtarget.com/definition/tarball). Open a console in the extraction path and execute:
-
-```
-python setup.py install
-```
-
 ### pip
 
 ```
-pip install pygubu
+pip install pygubu-designer
 ```
 
-Note that if you are using a Python 3 version, you might want to use its `pip` tool, for example:
+Screenshot
+==========
 
-    pip3.5 install pygubu
-    
-In the previous case, I am using the `pip` tool of Python 3.5.  
+<img src="pygubu-designer.png" alt="pygubu-desinger.png">
 
-
-To check that the installation was successful, you can try to import `pygubu` (for example from the [IDLE](https://en.wikipedia.org/wiki/IDLE_(Python)))
-
-    import pygubu
-    
-If you have no [`ImportError`](https://docs.python.org/3.5/library/exceptions.html#ImportError), then your installation was successful.
 
 Usage
 =====
@@ -65,10 +50,6 @@ C:\Python34\Scripts\pygubu-designer.exe
 Where `C:\Python34` is the path to **your** Python installation directory.
 
 > **Note**: for versions prior to **0.9.8** the executable script was named _**pygubu-designer.bat**_
-
-After that the _pygubu-designer_ application should appear:
-
-<img src="pygubu-designer.png" alt="pygubu-desinger.png">
 
 
 Now, you can start creating your tkinter application using the widgets that you find in the left panel called `Widget List`.
@@ -186,11 +167,11 @@ Visit the pygubu [wiki](https://github.com/alejandroautalan/pygubu/wiki) for mor
 
 The following are some good tkinter (and tk) references:
 
-- [Graphical User Interfaces with Tk](https://docs.python.org/3/library/tk.html)
 - [TkDocs](http://www.tkdocs.com)
+- [Graphical User Interfaces with Tk](http://docs.python.org/3.5/library/tk.html)
 - [Tkinter 8.5 reference: a GUI for Python](https://web.archive.org/web/20181211092656/http://infohost.nmt.edu/~shipman/soft/tkinter/web/index.html)
 - [An Introduction to Tkinter](http://effbot.org/tkinterbook/)
-- [Tcl/Tk Manual](https://www.tcl.tk/man/tcl/TkCmd/contents.htm)
+- [Tcl/Tk 8.5 Manual](http://www.tcl.tk/man/tcl8.5/)
 
 
 You can also see the [examples](examples) directory or watch [this introductory video tutorial](http://youtu.be/wuzV9P8geDg).
