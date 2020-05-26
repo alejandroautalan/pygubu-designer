@@ -230,7 +230,7 @@ class UI2Code(Builder):
         varname = 'self.img_{0}'.format(name)
         
         if filename not in self._tkimages:
-            line = "{0} = tk.PhotoImage('{1}')".format(varname, filename)
+            line = "{0} = tk.PhotoImage(file='{1}')".format(varname, filename)
             self._code.append(line)
             self._tkvariables[varname] = True
         return varname
