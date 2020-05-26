@@ -45,14 +45,42 @@ RE_FONT = re.compile("(?P<family>\{\w+(\w|\s)*\}|\w+)\s?(?P<size>-?\d+)?\s?(?P<m
 
 
 class BuilderForPreview(pygubu.Builder):
-    def _pre_process_data(self, data):
-        super(BuilderForPreview, self)._pre_process_data(data)
-        cname = data.classname
+    normalwidgets = ['tk.Menu', 'tk.PanedWindow', 'tk.PanedWindow.Pane',
+                     'ttk.Panedwindow', 'ttk.Notebook',
+                     'ttk.Panedwindow.Pane', 'ttk.Notebook.Tab',
+                     'pygubudesigner.ToplevelFramePreview']
+    
+    def _pre_realize(self, bobject):
+        super(BuilderForPreview, self)._pre_realize(bobject)
+        wmeta = bobject.wmeta
+        cname = wmeta.classname
+        #print('In _pre_process_data', cname)
         
         #  Do not resize main window when
         #  Sizegrip is dragged on preview panel.
         if cname == 'ttk.Sizegrip':
-            data.properties['class_'] = 'DUMMY_CLASS'
+            wmeta.properties['class_'] = 'DUMMY_CLASS'
+        if cname not in self.normalwidgets:
+            if 'class_' in bobject.properties:
+                wmeta.properties['class_'] = 'PreviewWidget'
+    
+    def _post_realize(self, bobject):
+        #print('In postProcess', bobject.wmeta.classname)
+        cname = bobject.wmeta.classname
+        if cname not in self.normalwidgets:
+            if cname.startswith('tk.Menuitem'):
+                return
+            elif cname.startswith('tk.'):
+                self.make_previewonly(bobject.widget)
+    
+    def make_previewonly(self, w):
+        sequences = ['<Enter>', '<FocusIn>', '<Button>', '<KeyPress>']
+        for seq in sequences:
+            w.bind(seq, self._do_nothing_cb)
+    
+    def _do_nothing_cb(self, event):
+        logger.debug('On _do_nothing_cb')
+        return 'break'
     
     def get_widget_id(self, widget):
         wid = None
@@ -469,7 +497,7 @@ class PreviewHelper:
                         self._on_preview_widget_clicked)
         
     def _on_preview_widget_clicked(self, event):
-        logger.debug('itemclicked {0}'.format(event))
+        logger.debug('itemclicked %s', event)
         
     def add_resource_path(self, path):
         self._resource_paths.append(path)
@@ -574,7 +602,7 @@ class PreviewHelper:
         return x, y
 
     def draw(self, identifier, widget_id, uidefinition, wclass):
-        logger.debug('Preview.draw: {0},{1}'.format(identifier, widget_id))
+        logger.debug('Preview.draw: %s,%s', identifier, widget_id)
         preview_class = Preview
         if wclass == 'tk.Menu':
             preview_class = MenuPreview
