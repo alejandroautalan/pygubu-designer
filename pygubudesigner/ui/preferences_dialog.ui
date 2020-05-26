@@ -1,43 +1,34 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface>
+<interface version="1.0">
   <object class="pygubu.builder.widgets.dialog" id="preferences">
     <property name="borderwidth">2</property>
-    <property name="geometry">320x320</property>
+    <property name="geometry">480x380</property>
     <property name="height">200</property>
+    <property name="minsize">380|380</property>
     <property name="modal">true</property>
     <property name="resizable">both</property>
     <property name="title" translatable="yes">Pygubu Preferences</property>
     <property name="width">200</property>
-    <bind add="" handler="on_dialog_close" sequence="&lt;&lt;DialogClose&gt;&gt;" />
+    <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog_close" add="" />
     <child>
       <object class="ttk.Frame" id="Frame_5">
         <property name="height">200</property>
         <property name="width">200</property>
-        <layout>
-          <property name="column">0</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
           <property name="propagate">True</property>
-          <property name="row">0</property>
-          <property name="sticky">nsew</property>
-          <rows>
-            <row id="0">
-              <property name="weight">1</property>
-            </row>
-          </rows>
-          <columns>
-            <column id="0">
-              <property name="weight">1</property>
-            </column>
-          </columns>
+          <property name="side">top</property>
         </layout>
         <child>
           <object class="ttk.Notebook" id="Notebook_1">
             <property name="height">200</property>
             <property name="width">200</property>
-            <layout>
-              <property name="column">0</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
               <property name="propagate">True</property>
-              <property name="row">0</property>
-              <property name="sticky">nsew</property>
+              <property name="side">top</property>
             </layout>
             <child>
               <object class="ttk.Notebook.Tab" id="Tab_general">
@@ -48,15 +39,14 @@
                     <property name="height">200</property>
                     <property name="padding">5</property>
                     <property name="width">200</property>
-                    <layout>
-                      <property name="column">0</property>
+                    <layout manager="pack">
                       <property name="propagate">True</property>
-                      <property name="row">0</property>
+                      <property name="side">top</property>
                     </layout>
                     <child>
                       <object class="ttk.Label" id="lblpt">
                         <property name="text" translatable="yes">Prefered widget set:</property>
-                        <layout>
+                        <layout manager="grid">
                           <property name="column">0</property>
                           <property name="propagate">True</property>
                           <property name="row">0</property>
@@ -66,30 +56,10 @@
                     <child>
                       <object class="pygubu.builder.widgets.combobox" id="widget_set">
                         <property name="keyvariable">string:widget_set</property>
-                        <layout>
+                        <layout manager="grid">
                           <property name="column">1</property>
                           <property name="propagate">True</property>
                           <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ttk.Label" id="Label_3">
-                        <property name="text" translatable="yes">Widget Palette:</property>
-                        <layout>
-                          <property name="column">0</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="pygubu.builder.widgets.combobox" id="widget_palette">
-                        <property name="keyvariable">string:widget_palette</property>
-                        <layout>
-                          <property name="column">1</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
                         </layout>
                       </object>
                     </child>
@@ -106,31 +76,20 @@
                     <property name="height">200</property>
                     <property name="padding">5</property>
                     <property name="width">200</property>
-                    <layout>
-                      <property name="column">0</property>
+                    <layout manager="pack">
+                      <property name="expand">true</property>
+                      <property name="fill">both</property>
                       <property name="propagate">True</property>
-                      <property name="row">1</property>
-                      <property name="sticky">nsew</property>
-                      <rows>
-                        <row id="1">
-                          <property name="weight">1</property>
-                        </row>
-                      </rows>
-                      <columns>
-                        <column id="0">
-                          <property name="weight">1</property>
-                        </column>
-                      </columns>
+                      <property name="side">top</property>
                     </layout>
                     <child>
                       <object class="ttk.Label" id="Label_1">
                         <property name="font">TkHeadingFont</property>
                         <property name="text" translatable="yes">Custom Widgets Builders</property>
-                        <layout>
-                          <property name="column">0</property>
+                        <layout manager="pack">
+                          <property name="fill">x</property>
                           <property name="propagate">True</property>
-                          <property name="row">0</property>
-                          <property name="sticky">w</property>
+                          <property name="side">top</property>
                         </layout>
                       </object>
                     </child>
@@ -139,56 +98,42 @@
                         <property name="height">200</property>
                         <property name="padding">10 6 0 0</property>
                         <property name="width">200</property>
-                        <layout>
-                          <property name="column">0</property>
+                        <layout manager="pack">
+                          <property name="expand">true</property>
+                          <property name="fill">both</property>
                           <property name="propagate">True</property>
-                          <property name="row">1</property>
-                          <property name="sticky">nswe</property>
-                          <rows>
-                            <row id="0">
-                              <property name="weight">0</property>
-                            </row>
-                            <row id="1">
-                              <property name="weight">1</property>
-                            </row>
-                          </rows>
-                          <columns>
-                            <column id="0">
-                              <property name="weight">1</property>
-                            </column>
-                          </columns>
+                          <property name="side">top</property>
                         </layout>
                         <child>
                           <object class="ttk.Label" id="Label_2">
                             <property name="padding">0 0 0 2</property>
                             <property name="text" translatable="yes">Requires restart.</property>
-                            <layout>
-                              <property name="column">0</property>
+                            <layout manager="pack">
+                              <property name="fill">x</property>
                               <property name="propagate">True</property>
-                              <property name="row">0</property>
-                              <property name="sticky">w</property>
+                              <property name="side">top</property>
                             </layout>
                           </object>
                         </child>
                         <child>
                           <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper_1">
                             <property name="scrolltype">both</property>
-                            <layout>
-                              <property name="column">0</property>
+                            <layout manager="pack">
+                              <property name="expand">true</property>
+                              <property name="fill">both</property>
                               <property name="propagate">True</property>
-                              <property name="row">1</property>
-                              <property name="sticky">nswe</property>
+                              <property name="side">top</property>
                             </layout>
                             <child>
                               <object class="ttk.Treeview" id="cwtv">
                                 <property name="height">5</property>
                                 <property name="selectmode">extended</property>
                                 <property name="show">tree</property>
-                                <layout>
-                                  <property name="column">0</property>
+                                <layout manager="pack">
+                                  <property name="expand">true</property>
+                                  <property name="fill">both</property>
                                   <property name="propagate">True</property>
-                                  <property name="row">0</property>
-                                  <property name="sticky">nswe</property>
+                                  <property name="side">top</property>
                                 </layout>
                                 <child>
                                   <object class="ttk.Treeview.Column" id="Column_1">
@@ -211,23 +156,17 @@
                             <property name="height">200</property>
                             <property name="padding">0 6 0 0</property>
                             <property name="width">200</property>
-                            <layout>
-                              <property name="column">0</property>
+                            <layout manager="pack">
+                              <property name="fill">x</property>
                               <property name="propagate">True</property>
-                              <property name="row">2</property>
-                              <property name="sticky">w</property>
-                              <rows>
-                                <row id="0">
-                                  <property name="pad">0</property>
-                                </row>
-                              </rows>
+                              <property name="side">bottom</property>
                             </layout>
                             <child>
                               <object class="ttk.Button" id="path_add">
                                 <property name="command">on_pathadd_clicked</property>
                                 <property name="text" translatable="yes">+</property>
                                 <property name="width">3</property>
-                                <layout>
+                                <layout manager="grid">
                                   <property name="column">0</property>
                                   <property name="propagate">True</property>
                                   <property name="row">0</property>
@@ -240,7 +179,7 @@
                                 <property name="state">disabled</property>
                                 <property name="text" translatable="yes">-</property>
                                 <property name="width">3</property>
-                                <layout>
+                                <layout manager="grid">
                                   <property name="column">1</property>
                                   <property name="padx">6</property>
                                   <property name="propagate">True</property>
@@ -263,18 +202,16 @@
             <property name="height">200</property>
             <property name="padding">0 5 0 0</property>
             <property name="width">200</property>
-            <layout>
-              <property name="column">0</property>
+            <layout manager="pack">
               <property name="propagate">True</property>
-              <property name="row">1</property>
-              <property name="sticky">e</property>
+              <property name="side">right</property>
             </layout>
             <child>
               <object class="ttk.Button" id="dialog_close">
                 <property name="command">on_dialog_close</property>
                 <property name="default">active</property>
                 <property name="text" translatable="yes">Close</property>
-                <layout>
+                <layout manager="grid">
                   <property name="column">0</property>
                   <property name="propagate">True</property>
                   <property name="row">0</property>

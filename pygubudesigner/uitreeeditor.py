@@ -25,12 +25,17 @@ try:
 except:
     import Tkinter as tk
 
-from pygubu import builder
+from pygubu.builder import CLASS_MAP
+from pygubu.builder.uidefinition import UIDefinition
 from pygubu.stockimage import StockImage, StockImageException
-from . import properties
+import pygubudesigner
 from .widgeteditor import WidgetEditor
-from .widgetdescr import WidgetDescr
+from .widgetdescr import WidgetMeta
 from .i18n import translator as _
+from .util import trlog
+from .propertieseditor import PropertiesEditor
+from .bindingseditor import BindingsEditor
+from .layouteditor import LayoutEditor
 
 
 logger = logging.getLogger('pygubu.designer')
@@ -48,6 +53,7 @@ class WidgetsTreeEditor(object):
         self.previewer = app.previewer
         self.treedata = {}
         self.counter = Counter()
+        self.default_layout_manager = 'pack' # TODO: set from configuration
         # Filter vars
         self.filter_on = False
         self.filtervar = app.builder.get_variable('filtervar')
@@ -58,12 +64,81 @@ class WidgetsTreeEditor(object):
 
         self.config_treeview()
         self.config_filter()
+        
+        # current item being edited
+        self.current_edit = None
 
         # Widget Editor
         pframe = app.builder.get_object('propertiesframe')
         lframe = app.builder.get_object('layoutframe')
+        bframe = app.builder.get_object('bindingsframe')
         bindingstree = app.builder.get_object('bindingstree')
-        self.widget_editor = WidgetEditor(pframe, lframe, bindingstree)
+        
+        self.properties_editor = PropertiesEditor(pframe)
+        self.layout_editor = LayoutEditor(lframe)
+        self.bindings_editor = BindingsEditor(bindingstree, bframe)
+        self.treeview.bind_all('<<PreviewItemSelected>>', self._on_preview_item_clicked)
+        # Listen to Grid RC changes from layout
+        lframe.bind_all('<<LayoutEditorGridRCChanged>>', self._on_gridrc_changed)
+    
+    def _on_gridrc_changed(self, event):
+        # update siblings items that have same row col position
+        current_item = self.current_edit
+        parent = self.treeview.parent(current_item)
+        if parent:
+            wmeta = self.treedata[current_item]
+            srow = wmeta.layout_property('row')
+            scol = wmeta.layout_property('column')
+            children = self.treeview.get_children(parent)
+            for child in children:
+                if child == current_item:
+                    continue
+                wu = self.treedata[child]
+                wu_row = wu.layout_property('row')
+                wu_col = wu.layout_property('column')
+                if wu_row == srow:
+                    wu.copy_gridrc(wmeta, 'row')
+                if wu_col == scol:
+                    wu.copy_gridrc(wmeta, 'col')
+    
+    def _on_preview_item_clicked(self, event):
+        wid = self.previewer.selected_widget
+        logger.debug('item-selected %s', wid)
+        self.select_by_id(wid)
+        
+    def get_children_manager(self, item, current=None):
+        '''Get layout manager for children of item'''
+        manager = None
+        children = self.treeview.get_children(item)
+        for child in children:
+            if child != current:
+                manager = self.treedata[child].manager
+                break
+        return manager
+            
+    
+    def editor_edit(self, item, wdescr):
+        self.current_edit = item
+        manager_options = ['grid', 'pack', 'place']
+        
+        # Determine allowed manager options
+        parent = self.treeview.parent(item)
+        if parent:
+            cm = self.get_children_manager(parent, item)
+            if 'grid' == cm:
+                manager_options.remove('pack')
+            if 'pack' == cm:
+                manager_options.remove('grid')
+        logger.debug(manager_options)
+        
+        self.properties_editor.edit(wdescr)
+        self.layout_editor.edit(wdescr, manager_options)
+        self.bindings_editor.edit(wdescr)
+
+    def editor_hide_all(self):
+        self.properties_editor.hide_all()
+        self.layout_editor.hide_all()
+        self.bindings_editor.hide_all()    
 
     def config_filter(self):
         def on_filtervar_changed(varname, element, mode):
@@ -95,14 +170,17 @@ class WidgetsTreeEditor(object):
 
     def draw_widget(self, item):
         """Create a preview of the selected treeview item"""
+        
         if item:
             self.filter_remove(remember=True)
-            selected_id = self.treedata[item]['id']
+            
+            selected_id = self.treedata[item].identifier
             item = self.get_toplevel_parent(item)
-            widget_id = self.treedata[item]['id']
-            wclass = self.treedata[item]['class']
-            xmlnode = self.tree_node_to_xml('', item)
-            self.previewer.draw(item, widget_id, xmlnode, wclass)
+            widget_id = self.treedata[item].identifier
+            wclass = self.treedata[item].classname
+            uidef = self.tree_to_uidef(item)
+            
+            self.previewer.draw(item, widget_id, uidef, wclass)
             self.previewer.show_selected(item, selected_id)
             self.filter_restore()
 
@@ -113,10 +191,9 @@ class WidgetsTreeEditor(object):
             self.filter_remove(remember=True)
             item = sel[0]
             item = self.get_toplevel_parent(item)
-            widget_id = self.treedata[item]['id']
-            wclass = self.treedata[item]['class']
-            xmlnode = self.tree_node_to_xml('', item)
-            self.previewer.preview_in_toplevel(item, widget_id, xmlnode)
+            widget_id = self.treedata[item].identifier
+            uidef = self.tree_to_uidef(item)
+            self.previewer.preview_in_toplevel(item, widget_id, uidef)
             self.filter_restore()
         else:
             logger.warning(_('No item selected.'))
@@ -142,6 +219,7 @@ class WidgetsTreeEditor(object):
 
         toplevel_items = tv.get_children()
         parents_to_redraw = set()
+        final_focus = None
         for item in selection:
             try:
                 parent = ''
@@ -149,13 +227,20 @@ class WidgetsTreeEditor(object):
                     parent = self.get_toplevel_parent(item)
                 else:
                     self.previewer.delete(item)
+                # determine final focus
+                if final_focus is None:
+                    candidates = (tv.prev(item), tv.next(item), tv.parent(item))
+                    for c in candidates:
+                        if c and (c not in selection):
+                            final_focus = c
+                            break
+                # remove item
                 del self.treedata[item]
                 tv.delete(item)
                 self.app.set_changed()
-                if parent:
-                    self._update_max_grid_rc(parent)
+                if parent and (parent not in selection):
                     parents_to_redraw.add(parent)
-                self.widget_editor.hide_all()
+                self.editor_hide_all()
             except tk.TclError:
                 # Selection of parent and child items ??
                 # TODO: notify something here
@@ -163,59 +248,72 @@ class WidgetsTreeEditor(object):
         # redraw widgets
         for item in parents_to_redraw:
             self.draw_widget(item)
+        # Set final item focused
+        if final_focus:
+            selected_id = self.treedata[final_focus].identifier 
+            tv.after_idle(lambda: tv.selection_set(final_focus))
+            tv.after_idle(lambda: tv.focus(final_focus))
+            tv.after_idle(lambda: tv.see(final_focus))
+            tv.after_idle(lambda i=final_focus,s=selected_id: self.previewer.show_selected(i, s))
+        
         # restore filter
         self.filter_restore()
+        
+    def new_uidefinition(self):
+        author = 'PygubuDesigner {0}'.format(pygubudesigner.__version__)
+        uidef = UIDefinition(wmetaclass=WidgetMeta)
+        uidef.author = author
+        return uidef
 
-    def tree_to_xml(self):
+    def tree_to_uidef(self, treeitem=None):
         """Traverses treeview and generates a ElementTree object"""
 
         # Need to remove filter or hidden items will not be saved.
         self.filter_remove(remember=True)
-
-        tree = self.treeview
-        root = ET.Element('interface')
-        items = tree.get_children()
-        for item in items:
-            node = self.tree_node_to_xml('', item)
-            root.append(node)
+        
+        uidef = self.new_uidefinition()
+        if treeitem is None:            
+            items = self.treeview.get_children()
+            for item in items:
+                node = self.build_uidefinition(uidef, '', item)
+                uidef.add_xmlnode(node)
+        else:
+            node = self.build_uidefinition(uidef, '', treeitem)
+            uidef.add_xmlnode(node)
 
         # restore filter
         self.filter_restore()
 
-        return ET.ElementTree(root)
+        return uidef
 
-    def tree_node_to_xml(self, parent, item):
-        """Converts a treeview item and children to xml nodes"""
+    def build_uidefinition(self, uidef, parent, item):
+        """Traverses tree and build ui definition"""
 
-        tree = self.treeview
-        data = self.treedata[item]
-        node = data.to_xml_node()
+        node = uidef.widget_to_xmlnode(self.treedata[item])
 
-        children = tree.get_children(item)
+        children = self.treeview.get_children(item)
         for child in children:
-            cnode = ET.Element('child')
-            cwidget = self.tree_node_to_xml(item, child)
-            cnode.append(cwidget)
-            node.append(cnode)
-
+            child_node = self.build_uidefinition(uidef, item, child)
+            uidef.add_xmlchild(node, child_node)
         return node
 
     def _insert_item(self, root, data, from_file=False):
         """Insert a item on the treeview and fills columns from data"""
 
+        data.setup_defaults() # load default settings for properties and layout
         tree = self.treeview
-        treelabel = data.get_id()
+        treelabel = '{0}: {1}'.format(data.identifier, data.classname)
         row = col = ''
-        if root != '' and 'layout' in data:
-            row = data.get_layout_property('row')
-            col = data.get_layout_property('column')
+        if root != '' and data.has_layout_defined():
+            row = data.layout_property('row')
+            col = data.layout_property('column')
 
             # fix row position when using copy and paste
             # If collision, increase by 1
             row_count = self.get_max_row(root)
             if not from_file and (row_count > int(row) and int(col) == 0):
                 row = str(row_count + 1)
-                data.set_layout_property('row', row)
+                data.layout_property('row', row)
 
         image = ''
         try:
@@ -225,32 +323,20 @@ class WidgetsTreeEditor(object):
             pass
 
         try:
-            image = StockImage.get('16x16-{0}'.format(data.get_class()))
+            image = StockImage.get('16x16-{0}'.format(data.classname))
         except StockImageException:
             # TODO: notify something here
             pass
 
-        values = (data.get_class(), row, col)
+        values = (data.classname, row, col)
         item = tree.insert(root, 'end', text=treelabel, values=values,
                            image=image)
         data.attach(self)
         self.treedata[item] = data
 
-        # Update grid r/c data
-        self._update_max_grid_rc(root, from_file=True)
         self.app.set_changed()
 
         return item
-
-    def _update_max_grid_rc(self, item, from_file=False):
-        # Calculate max grid row/col for item
-        if item != '':
-            item_data = self.treedata[item]
-            row, col = self.get_max_row_col(item)
-            item_data.max_col = col
-            item_data.max_row = row
-            if not from_file:
-                item_data.remove_unused_grid_rc()
 
     def copy_to_clipboard(self):
         """
@@ -259,17 +345,15 @@ class WidgetsTreeEditor(object):
         tree = self.treeview
         # get the selected item:
         selection = tree.selection()
+        logger.debug('Selection %s', selection)
         if selection:
             self.filter_remove(remember=True)
-            root = ET.Element('selection')
+            
+            uidef = self.new_uidefinition()
             for item in selection:
-                node = self.tree_node_to_xml('', item)
-                root.append(node)
-            # python2 issue
-            try:
-                text = ET.tostring(root, encoding='unicode')
-            except LookupError:
-                text = ET.tostring(root, encoding='UTF-8')
+                node = self.build_uidefinition(uidef, '', item)
+                uidef.add_xmlnode(node)
+            text = str(uidef)
             tree.clipboard_clear()
             tree.clipboard_append(text)
             self.filter_restore()
@@ -281,32 +365,26 @@ class WidgetsTreeEditor(object):
     def _validate_add(self, root_item, classname, show_warnings=True):
         is_valid = True
 
-        new_boclass = builder.CLASS_MAP[classname].builder
+        new_boclass = CLASS_MAP[classname].builder
         root = root_item
         if root:
-            root_classname = self.treedata[root].get_class()
-            root_boclass = builder.CLASS_MAP[root_classname].builder
-            # print('rootclass:', root_classname)
-
+            root_classname = self.treedata[root].classname
+            root_boclass = CLASS_MAP[root_classname].builder
             allowed_children = root_boclass.allowed_children
-            # print('allowed_children:', allowed_children)
-
             if allowed_children:
                 if classname not in allowed_children:
                     str_children = ', '.join(allowed_children)
-                    msg = _('Allowed children: {0}.')
-                    msg = msg.format(str_children)
+                    msg = _('Allowed children: %s.')
                     if show_warnings:
-                        logger.warning(msg)
+                        logger.warning(msg, str_children)
                     is_valid = False
                     return is_valid
 
             children_count = len(self.treeview.get_children(root))
             maxchildren = root_boclass.maxchildren
-#            print('root children:', children_count)
             if maxchildren is not None and children_count >= maxchildren:
-                msg = _('Only {0} children allowed for {1}')
-                msg = msg.format(maxchildren, root_classname)
+                msg = trlog(_('Only {0} children allowed for {1}'),
+                            maxchildren, root_classname)
                 if show_warnings:
                     logger.warning(msg)
                 is_valid = False
@@ -315,18 +393,17 @@ class WidgetsTreeEditor(object):
             allowed_parents = new_boclass.allowed_parents
             if (allowed_parents is not None and
                root_classname not in allowed_parents):
-                msg = _('{0} not allowed as parent of {1}')
-                msg = msg.format(root_classname, classname)
+                msg = trlog(_('{0} not allowed as parent of {1}'),
+                            root_classname, classname)
                 if show_warnings:
                     logger.warning(msg)
                 is_valid = False
                 return is_valid
 
             if allowed_children is None and root_boclass.container is False:
-                msg = _('Not allowed, {0} is not a container.')
-                msg = msg.format(root_classname)
+                msg = _('Not allowed, %s is not a container.')
                 if show_warnings:
-                    logger.warning(msg)
+                    logger.warning(msg, root_classname)
                 is_valid = False
                 return is_valid
 
@@ -336,9 +413,8 @@ class WidgetsTreeEditor(object):
             # Validate if it can be added at root level
             allowed_parents = new_boclass.allowed_parents
             if allowed_parents is not None and 'root' not in allowed_parents:
-                msg = _('{0} not allowed at root level')
-                msg = msg.format(classname)
-                logger.warning(msg)
+                msg = _('%s not allowed at root level')
+                logger.warning(msg, classname)
                 is_valid = False
                 return is_valid
 
@@ -346,9 +422,8 @@ class WidgetsTreeEditor(object):
             # check that item to insert is a container.
             # only containers are allowed at root level
             if new_boclass.container is False:
-                msg = _('Not allowed at root level, {0} is not a container.')
-                msg = msg.format(classname)
-                logger.warning(msg)
+                msg = _('Not allowed at root level, %s is not a container.')
+                logger.warning(msg, classname)
                 is_valid = False
                 return is_valid
         return is_valid
@@ -357,7 +432,7 @@ class WidgetsTreeEditor(object):
         unique = True
         if root != '':
             data = self.treedata[root]
-            if data.get_id() == widget_id:
+            if data.identifier == widget_id:
                 unique = False
         if unique is True:
             for item in self.treeview.get_children(root):
@@ -374,6 +449,7 @@ class WidgetsTreeEditor(object):
             if class_base_name in base:
                 name = name.split('_')[0]
         name = '{0}_{1}'.format(name, index)
+        name = name.lower()
         return name
 
     def get_unique_id(self, classname, start_id=None):
@@ -388,11 +464,11 @@ class WidgetsTreeEditor(object):
                                          self.counter[classname], start_id)
             is_unique = self._is_unique_id('', start_id)
 
-        # print('unique_calculated:', start_id)
         return start_id
 
     def paste_from_clipboard(self):
         self.filter_remove(remember=True)
+        
         tree = self.treeview
         selected_item = ''
         selection = tree.selection()
@@ -400,25 +476,39 @@ class WidgetsTreeEditor(object):
             selected_item = selection[0]
         try:
             text = tree.selection_get(selection='CLIPBOARD')
-            # python 2 issues
-            try:
-                root = ET.fromstring(text)
-            except UnicodeEncodeError:
-                parser = ET.XMLParser(encoding='UTF-8')
-                root = ET.XML(text.encode('UTF-8'), parser)
-            for element in root:
-                data = WidgetDescr(None, None)
-                data.from_xml_node(element)
-                if self._validate_add(selected_item, data.get_class()):
-                    self.populate_tree(selected_item, root, element)
-            self.draw_widget(selected_item)
+            
+            uidef = self.new_uidefinition()
+            uidef.load_from_string(text)
+            for wmeta in uidef.widgets():
+                if self._validate_add(selected_item, wmeta.classname):
+                    self.update_layout(selected_item, wmeta)
+                    self.populate_tree(selected_item, uidef, wmeta)
         except ET.ParseError:
-            # TODO: show warning here.
-            pass
+            msg = 'The clipboard does not have a valid widget xml definition.'
+            logger.error(msg)
         except tk.TclError:
             pass
+        
+        if selected_item == '':
+            # redraw all
+            children = tree.get_children('')
+            for child in children:
+                self.draw_widget(child)            
+        else:
+            self.draw_widget(selected_item)
+            
+        
         self.filter_restore()
 
+    def update_layout(self, root, data):
+        '''Removes layout info from element, when copied from clipboard.'''
+        
+        cmanager = self.get_children_manager(root)
+        cmanager = cmanager if cmanager is not None else self.default_layout_manager
+        emanager = data.manager
+        if emanager != 'place' and cmanager != emanager:
+            data.manager = cmanager
+    
     def add_widget(self, wclass):
         """Adds a new item to the treeview."""
 
@@ -447,40 +537,26 @@ class WidgetsTreeEditor(object):
                 return
 
         #  root item should be set at this point
-        #  setup properties
-        widget_id = self.get_unique_id(wclass)
-
-        data = WidgetDescr(wclass, widget_id)
-
-        # setup default values for properties
-        for pname in builder.CLASS_MAP[wclass].builder.properties:
-            pdescription = {}
-            if pname in properties.WIDGET_PROPERTIES:
-                pdescription = properties.WIDGET_PROPERTIES[pname]
-            if wclass in pdescription:
-                pdescription = dict(pdescription, **pdescription[wclass])
-            default_value = str(pdescription.get('default', ''))
-            data.set_property(pname, default_value)
-            # default text for widgets with text prop:
-            if pname in ('text', 'label'):
-                data.set_property(pname, widget_id)
-
-        #
-        #  default grid properties
-        #
-        # is_container = builder.CLASS_MAP[wclass].builder.container
-        for prop_name in properties.GRID_PROPERTIES:
-            pdescription = properties.LAYOUT_OPTIONS[prop_name]
-            if wclass in pdescription:
-                pdescription = dict(pdescription, **pdescription[wclass])
-            default_value = str(pdescription.get('default', ''))
-            data.set_layout_property(prop_name, default_value)
-
-        rownum = '0'
+        #  setup properties  
+        parent = None
         if root:
-            rownum = str(self.get_max_row(root)+1)
-        data.set_layout_property('row', rownum)
-        data.set_layout_property('column', '0')
+            parent = self.treedata[root]
+        manager = self.default_layout_manager # << DEFAULT LAYOUT MANAGER
+        if parent is not None:
+            cmanager = self.get_children_manager(root)
+            manager = cmanager if cmanager else manager
+            
+        widget_id = self.get_unique_id(wclass)
+        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(wclass, widget_id)
+        data = WidgetMeta(wclass, widget_id, manager, pdefaults, ldefaults)
+        
+        # Recalculate position if manager is grid
+        if manager == 'grid':
+            rownum = '0'
+            if root:
+                rownum = str(self.get_max_row(root)+1)
+            data.layout_property('row', rownum)
+            data.layout_property('column', '0')
 
         item = self._insert_item(root, data)
 
@@ -493,55 +569,46 @@ class WidgetsTreeEditor(object):
         tree.after_idle(lambda: tree.see(item))
 
     def remove_all(self):
+        self.treedata = {}
         self.filter_remove()
         children = self.treeview.get_children()
         if children:
             self.treeview.delete(*children)
-        self.widget_editor.hide_all()
+        self.editor_hide_all()
 
     def load_file(self, filename):
         """Load file into treeview"""
 
-        self.counter.clear()
-        # python2 issues
-        try:
-            etree = ET.parse(filename)
-        except ET.ParseError:
-            parser = ET.XMLParser(encoding='UTF-8')
-            etree = ET.parse(filename, parser)
-        eroot = etree.getroot()
+        self.counter.clear()      
+        uidef = UIDefinition(wmetaclass=WidgetMeta)
+        uidef.load_file(filename)
 
         self.remove_all()
         self.previewer.remove_all()
-        self.widget_editor.hide_all()
+        self.editor_hide_all()
 
         dirname = os.path.dirname(os.path.abspath(filename))
         self.previewer.resource_paths.append(dirname)
-        for element in eroot:
-            self.populate_tree('', eroot, element,from_file=True)
+        for widget in uidef.widgets():
+            self.populate_tree('', uidef, widget,from_file=True)
+        
         children = self.treeview.get_children('')
         for child in children:
             self.draw_widget(child)
         self.previewer.show_selected(None, None)
 
-    def populate_tree(self, master, parent, element,from_file=False):
+    def populate_tree(self, master, uidef, wmeta, from_file=False):
         """Reads xml nodes and populates tree item"""
 
-        data = WidgetDescr(None, None)
-        data.from_xml_node(element)
-        cname = data.get_class()
-        uniqueid = self.get_unique_id(cname, data.get_id())
-        data.set_property('id', uniqueid)
+        cname = wmeta.classname
+        original_id = wmeta.identifier
+        uniqueid = self.get_unique_id(cname, wmeta.identifier)
+        wmeta.widget_property('id', uniqueid)
 
-        if cname in builder.CLASS_MAP:
-            pwidget = self._insert_item(master, data,from_file=from_file)
-            xpath = "./child"
-            children = element.findall(xpath)
-            for child in children:
-                child_object = child.find('./object')
-                cwidget = self.populate_tree(pwidget, child, child_object,from_file=from_file)
-
-            return pwidget
+        if cname in CLASS_MAP:
+            pwidget = self._insert_item(master, wmeta, from_file=from_file)
+            for mchild in uidef.widget_children(original_id):
+                self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
         else:
             raise Exception('Class "{0}" not mapped'.format(cname))
 
@@ -550,8 +617,8 @@ class WidgetsTreeEditor(object):
         max_row = -1
         children = tree.get_children(item)
         for child in children:
-            data = self.treedata[child].get('layout', {})
-            row = int(data.get('row', 0))
+            row = self.treedata[child].layout_property('row')
+            row = int(row)
             if row > max_row:
                 max_row = row
         return max_row
@@ -562,13 +629,13 @@ class WidgetsTreeEditor(object):
         if sel:
             item = sel[0]
             top = self.get_toplevel_parent(item)
-            selected_id = self.treedata[item].get_id()
+            selected_id = self.treedata[item].identifier            
             self.previewer.show_selected(top, selected_id)
             # max_rc = self.get_max_row_col(item)
-            self.widget_editor.edit(self.treedata[item])
+            self.editor_edit(item, self.treedata[item])
         else:
             # No selection hide all
-            self.widget_editor.hide_all()
+            self.editor_hide_all()
 
     def get_max_row_col(self, item):
         tree = self.treeview
@@ -577,8 +644,8 @@ class WidgetsTreeEditor(object):
         children = tree.get_children(item)
         for child in children:
             data = self.treedata[child]
-            row = int(data.get_layout_property('row'))
-            col = int(data.get_layout_property('column'))
+            row = int(data.layout_property('row'))
+            col = int(data.layout_property('column'))
             if row > max_row:
                 max_row = row
             if col > max_col:
@@ -587,20 +654,20 @@ class WidgetsTreeEditor(object):
 
     def update_event(self, hint, obj):
         """Updates tree colums when itemdata is changed."""
-
         tree = self.treeview
         data = obj
         item = self.get_item_by_data(obj)
+        item_text = '{0}: {1}'.format(data.identifier, data.classname)
         if item:
-            if data.get_id() != tree.item(item, 'text'):
-                tree.item(item, text=data.get_id())
+            if item_text != tree.item(item, 'text'):
+                tree.item(item, text=item_text)
             # if tree.parent(item) != '' and 'layout' in data:
             if tree.parent(item) != '':
-                row = data.get_layout_property('row')
-                col = data.get_layout_property('column')
+                row = data.layout_property('row')
+                col = data.layout_property('column')
                 values = tree.item(item, 'values')
                 if (row != values[1] or col != values[2]):
-                    values = (data.get_class(), row, col)
+                    values = (data.classname, row, col)
                 tree.item(item, values=values)
             self.draw_widget(item)
             self.app.set_changed()
@@ -624,6 +691,10 @@ class WidgetsTreeEditor(object):
             if prev:
                 prev_idx = tree.index(prev)
                 tree.move(item, parent, prev_idx)
+                manager = self.treedata[item].manager
+                if manager == 'pack':
+                    self.app.set_changed()
+                    self.draw_widget(item)                
             self.filter_restore()
 
     def on_item_move_down(self, event):
@@ -637,6 +708,10 @@ class WidgetsTreeEditor(object):
             if next:
                 next_idx = tree.index(next)
                 tree.move(item, parent, next_idx)
+                manager = self.treedata[item].manager
+                if manager == 'pack':
+                    self.app.set_changed()
+                    self.draw_widget(item)
             self.filter_restore()
 
     #
@@ -646,36 +721,39 @@ class WidgetsTreeEditor(object):
         tree = self.treeview
         selection = tree.selection()
         if selection:
+            item_first = selection[0]
             self.filter_remove(remember=True)
-
             for item in selection:
                 data = self.treedata[item]
+                
+                if data.manager != 'grid':
+                    break
 
                 if direction == self.GRID_UP:
-                    row = int(data.get_layout_property('row'))
+                    row = int(data.layout_property('row'))
                     if row > 0:
                         row = row - 1
-                        data.set_layout_property('row', str(row))
+                        data.layout_property('row', str(row))
                         data.notify()
                 elif direction == self.GRID_DOWN:
-                    row = int(data.get_layout_property('row'))
+                    row = int(data.layout_property('row'))
                     row = row + 1
-                    data.set_layout_property('row', str(row))
+                    data.layout_property('row', str(row))
                     data.notify()
                 elif direction == self.GRID_LEFT:
-                    column = int(data.get_layout_property('column'))
+                    column = int(data.layout_property('column'))
                     if column > 0:
                         column = column - 1
-                        data.set_layout_property('column', str(column))
+                        data.layout_property('column', str(column))
                         data.notify()
                 elif direction == self.GRID_RIGHT:
-                    column = int(data.get_layout_property('column'))
+                    column = int(data.layout_property('column'))
                     column = column + 1
-                    data.set_layout_property('column', str(column))
+                    data.layout_property('column', str(column))
                     data.notify()
                 root = tree.parent(item)
-                self._update_max_grid_rc(root)
             self.filter_restore()
+            self.editor_edit(item_first, self.treedata[item_first])
 
     #
     # Filter functions
@@ -760,7 +838,7 @@ class WidgetsTreeEditor(object):
         if value in txt:
             match_found = True
         else:
-            class_txt = self.treedata[item].get_class().lower()
+            class_txt = self.treedata[item].classname.lower()
             if value in class_txt:
                 match_found = True
 
@@ -789,3 +867,34 @@ class WidgetsTreeEditor(object):
     #
     # End Filter functions
     #
+    
+    def get_topwidget_list(self):
+        wlist = []
+        children = self.treeview.get_children('')
+        for item in children:
+            data = self.treedata[item]
+            label = u'{0} ({1})'.format(data.identifier, data.classname)
+            element = (item, label)
+            wlist.append(element)
+        return wlist
+    
+    def get_widget_class(self, item):
+        return self.treedata[item].classname
+    
+    def get_widget_id(self, item):
+        return self.treedata[item].identifier
+    
+    def select_by_id(self, widget_id):
+        found = None
+        for item, data in self.treedata.items():
+            if widget_id == data.identifier:
+                found = item
+                break
+        if found:
+            tree = self.treeview
+            self.filter_remove()
+            self._expand_all()
+            tree.after_idle(lambda: tree.selection_set(found))
+            tree.after_idle(lambda: tree.focus(found))
+            tree.after_idle(lambda: tree.see(found))
+

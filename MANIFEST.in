@@ -1,0 +1,9 @@
+include COPYING
+include LEEME.txt
+include README.md
+include LISEZMOI.md
+include AUTHORS
+recursive-include po *
+recursive-include pygubudesigner/locale *
+recursive-include examples *
+global-exclude *~

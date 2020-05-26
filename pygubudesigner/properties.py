@@ -100,7 +100,7 @@ TK_WIDGET_OPTIONS = {
     'activebackground': {
         'editor': 'colorentry'},
     'activeborderwidth': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     'activeforeground': {
         'editor': 'colorentry'},
     'after': {
@@ -117,7 +117,7 @@ TK_WIDGET_OPTIONS = {
                 'state': 'readonly'}},
         },
     'aspect': {
-        'editor': 'entry'},
+        'editor': 'naturalnumber'},
     'autoseparators': {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
@@ -126,9 +126,9 @@ TK_WIDGET_OPTIONS = {
         'editor': 'colorentry'},
     # ttk.Frame, ttk.Label
     'borderwidth': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     'bigincrement': {
-        'editor': 'entry'},
+        'editor': 'naturalnumber'},
     'bitmap': {
         'editor': 'choice',
         'params': {'values': ('',) + TK_BITMAPS, 'state': 'readonly'}},
@@ -147,7 +147,8 @@ TK_WIDGET_OPTIONS = {
         'editor': 'choice',
         'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}},
     'class_': {
-        'editor': 'entry'},
+        'editor': 'alphanumentry',
+        },
     'closeenough': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999},
@@ -158,7 +159,7 @@ TK_WIDGET_OPTIONS = {
         'params': {'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
         'default': tk.W},
     'command': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     # ttk.Label
     'compound': {
         'editor': 'choice',
@@ -215,8 +216,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'entry'},
     # ttk.Scale, ttk.Spinbox
     'from_': {
-        'editor': 'spinbox',
-        'params': {'from_': -999, 'to': 999},
+        'editor': 'realnumber',
         },
     'handlepad': {
         'editor': 'entry'},
@@ -230,25 +230,40 @@ TK_WIDGET_OPTIONS = {
         'default': tk.W},
     # ttk.Frame,
     'height': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
-        'validator': 'number_integer',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
+        'ttk.Combobox': {
+            'params': {'mode': 'naturalnumber'},
+            },        
         'tk.Toplevel': {'default': 200},
         'tk.Frame': {'default': 200},
         'ttk.Frame': {'default': 200},
         'tk.LabelFrame': {'default': 200},
         'ttk.Labelframe': {'default': 200},
+        'tk.Listbox': {
+            'params': {'mode': 'naturalnumber'},
+            },
+        'tk.Menubutton': {
+            'params': {'mode': 'naturalnumber'},
+            },        
         'tk.PanedWindow': {'default': 200},
         'ttk.Panedwindow': {'default': 200},
         'ttk.Notebook': {'default': 200},
-        'tk.Text': {'default': 10},
-        'pygubu.builder.widgets.dialog': {'default': 100}},
+        'tk.Text': {
+            'params': {'mode': 'naturalnumber'},
+            'default': 10
+            },
+        'tk.Radiobutton':{
+            'params': {'mode': 'naturalnumber'},
+        },
+        'pygubu.builder.widgets.dialog': {'default': 100}
+        },
     'highlightbackground': {
         'editor': 'colorentry'},
     'highlightcolor': {
         'editor': 'colorentry'},
     'highlightthickness': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     # ttk.Label
     'image': {
         'editor': 'imageentry'},
@@ -286,7 +301,7 @@ TK_WIDGET_OPTIONS = {
         'params': {'from_': 0, 'to': 999}},
     # ttk.Entry
     'invalidcommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     'jump': {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
@@ -306,12 +321,12 @@ TK_WIDGET_OPTIONS = {
             'state': 'readonly'}},
     # ttk.Progressbar
     'length': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     'listvariable': {
         'editor': 'tkvarentry'},
     # ttk.Progressbar
     'maximum': {
-        'editor': 'entry'},
+        'editor': 'realnumber'},
     'maxundo': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}},
@@ -319,8 +334,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'entry'},
     # ttk.Treeview.Column
     'minwidth': {
-        'editor': 'spinbox',
-        'params': {'from_': 5, 'to': 999},
+        'editor': 'naturalnumber',
         'default': '20'},
     # ttk.Progressbar
     'mode': {
@@ -354,18 +368,16 @@ TK_WIDGET_OPTIONS = {
         },
     # ttk.Frame, ttk.Label
     'padding': {
-        'editor': 'entry'},
+        'editor': 'fourdimensionentry'},
     'padx': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dimensionentry',
         },
     'pady': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dimensionentry',
         },
     # ttk.Checkbutton
     'postcommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     'readonlybackground': {
         'editor': 'colorentry'},
     # ttk.Frame,
@@ -384,7 +396,7 @@ TK_WIDGET_OPTIONS = {
         'params': {'from_': 0, 'to': 999, 'increment': 0.5},
         },
     'sliderlength': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     'sliderrelief': {
         'editor': 'choice',
         'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}},
@@ -488,7 +500,14 @@ TK_WIDGET_OPTIONS = {
         'ttk.Notebook.Tab': {
             'params': {
                 'values': ('', 'normal', 'disabled', 'hidden'),
-                'state': 'readonly'}}},
+                'state': 'readonly'
+                }},
+        'tk.Spinbox': {
+            'params': {
+                'values': ('', tk.NORMAL, tk.DISABLED, 'readonly'),
+                'state': 'readonly'
+                }},
+    },
     # ttk.Notebook.Tab
     'sticky': {
         'editor': 'stickyentry',
@@ -504,7 +523,7 @@ TK_WIDGET_OPTIONS = {
                 'values': ('', 'always', 'first', 'last', 'middle', 'never'),
                 'state': 'readonly'}}},
     'style': {
-        'editor': 'choice'},
+        'editor': 'ttkstylechoice'},
     'tabs': {
         'editor': 'entry'},  # FIXME see tk.Text tab property
     'tabstyle': {
@@ -519,7 +538,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
     'tearoffcommand': {
-        'editor': 'entry' },
+        'editor': 'commandentry' },
     # ttk.Label
     'text': {
         'editor': 'text'},
@@ -532,8 +551,7 @@ TK_WIDGET_OPTIONS = {
         },
     # ttk.Scale, ttk.Spinbox
     'to': {
-        'editor': 'spinbox',
-        'params': {'from_': -999, 'to': 999},
+        'editor': 'realnumber',
         },
     'tristateimage': {
         'editor': 'imageentry'},
@@ -543,12 +561,20 @@ TK_WIDGET_OPTIONS = {
         'editor': 'colorentry'},
     # ttk.Label
     'underline': {
-        'editor': 'spinbox'},
+        'editor': 'naturalnumber'},
     'undo': {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
     'value': {
-        'editor': 'entry'},
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
+        'ttk.Progressbar':{
+            'params':{'mode':'realnumber'}
+            },
+        'ttk.Scale':{
+            'params':{'mode':'realnumber'}
+            },        
+        },
     # ttk.Checkbutton
     'values': {
         'editor': 'entry'},
@@ -559,26 +585,43 @@ TK_WIDGET_OPTIONS = {
                        'focusout', 'key', 'all'),
             'state': 'readonly'}},
     'validatecommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     # ttk.Checkbutton
     'variable': {
         'editor': 'tkvarentry'},
     # ttk.Panedwindow.Pane
     'weight': {
-        'editor': 'spinbox', 'params': {'from_': 0, 'to': 999}},
+        'editor': 'spinbox',
+        'params': {'from_': 0, 'to': 999},
+        'default': '1',
+        },
     # ttk.Frame, ttk.Label
     'width': {
         'editor': 'dynamic',
-        'params': {'mode': 'spinbox', 'from_': 0, 'to': 999},
-        'tk.Button': {
-            'params': {'mode': 'spinbox', 'from_': -999, 'to': 999}},
-        'ttk.Button': {
-            'params': {'mode': 'spinbox', 'from_': -999, 'to': 999}},
+        'params': {'mode': 'dimensionentry'},
+        'tk.Button': {},
+        'ttk.Button': {},
         'tk.Canvas': {
             'params': {'mode': 'entry'}
             },
-        'tk.Toplevel': {
-            'default': 200},
+        'ttk.Checkbutton': {
+            'params': {'mode': 'integernumber'},
+            },        
+        'tk.Entry': {
+            'params': {'mode': 'naturalnumber'},
+            },
+        'ttk.Entry': {
+            'params': {'mode': 'naturalnumber'},
+            },
+        'tk.Menubutton': {
+            'params': {'mode': 'naturalnumber'},
+            },
+        'ttk.Label': {
+            'params': {'mode': 'integernumber'},
+            },        
+        'tk.Listbox': {
+            'params': {'mode': 'naturalnumber'},
+            },
         'tk.Frame': {
             'default': 200},
         'ttk.Frame': {
@@ -593,10 +636,19 @@ TK_WIDGET_OPTIONS = {
             'default': 200},
         'ttk.Notebook': {
             'default': 200},
+        'tk.Radiobutton':{
+            'params': {'mode': 'naturalnumber'},
+            },
+        'ttk.Radiobutton':{
+            'params': {'mode': 'integernumber'},
+            },        
         'tk.Text': {
+            'params': {'mode': 'naturalnumber'},
             'default': 50},
+        'tk.Toplevel': {
+            'default': 200},        
         'ttk.Treeview.Column': {
-            'params': {'mode': 'spinbox', 'from_': 5},
+            'params': {'mode': 'naturalnumber'},
             'default': 200},
         'pygubu.builder.widgets.dialog': {
             'default': 200}},
@@ -613,17 +665,17 @@ TK_WIDGET_OPTIONS = {
         },
     # ttk.Label
     'wraplength': {
-        'editor': 'entry'},
+        'editor': 'dimensionentry'},
     # ttk.Entry
     'xscrollcommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     'xscrollincrement': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}
         },
     # ttk.Treeview
     'yscrollcommand': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     'yscrollincrement': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}
@@ -646,7 +698,19 @@ CUSTOM_OPTIONS = {
             'state': 'readonly'},
         'default': 'false'},
     'geometry': {
-        'editor': 'entry'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'geometryentry',
+            'values': ('', '320x200', '320x240', '352x288', '384x288',
+                       '480x320', '640x480', '768x576', '800x480', '800x600',
+                       '854x480', '1024x576', '1024x600', '1024x768',
+                       '1152x768', '1152x864', '1280x720', '1280x768',
+                       '1280x800', '1280x854', '1280x960', '1280x1024',
+                       '1366x768', '1400x1050', '1440x1080', '1440x900',
+                       '1440x960', '1440x1080', '1600x900', '1600x1050',
+                       '1600x1200', '1920x1080', '2048x1080'),
+            },
+        },
     'invalidcommand_args': {
         'editor': 'entry'},
     'maxsize': {
@@ -749,36 +813,92 @@ wp.update(REQUIRED_OPTIONS)
 wp.update(CUSTOM_OPTIONS)
 
 LAYOUT_OPTIONS = {
+    # pack/grid/place common properties
+    'padx': {'editor': 'twodimensionentry'},
+    'pady': {'editor': 'twodimensionentry'},
+    'ipadx': {'editor': 'twodimensionentry'},
+    'ipady': {'editor': 'twodimensionentry'},
+    'propagate': {
+        'editor': 'choice',
+        'params': {'values': ('True', 'False'), 'state': 'readonly'},
+        'default': 'True'},
+    'anchor': {
+        'editor': 'choice',
+        'params': {
+          'values': ('', 'n', 'ne', 'nw', 'e', 'w', 's', 'se', 'sw', 'center'),
+          'state': 'readonly'},
+        'place': {'default': 'nw'}
+        },
+    
+    # pack properties
+    'expand':{
+        'editor': 'choice',
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
+    'fill':{
+        'editor': 'choice',
+        'params': {'values': ('', 'x', 'y', 'both'), 'state': 'readonly'}
+        },
+    'side':{
+        'editor': 'choice',
+        'params': {
+            'values': ('top', 'bottom', 'left', 'right'),
+            'state': 'readonly'
+            },
+        'default': 'top',
+        },
+    
+    # Pack properties
+    'bordermode':{
+        'editor': 'choice',
+        'params':{
+            'values': ('', 'inside', 'outside', 'ignore'),
+            'state': 'readonly'}        
+        },
+    'height':{
+        'editor': 'pixelcoordinateentry',
+        },
+    'relheight':{
+        'editor': 'relativeentry',
+        },
+    'relwidth':{
+        'editor': 'relativeentry',
+        },
+    'relx':{
+        'editor': 'relativeentry',
+        },
+    'rely':{
+        'editor': 'relativeentry',
+        },
+    'width':{
+        'editor': 'pixelcoordinateentry',
+        },
+    'x':{
+        'editor': 'pixelcoordinateentry',
+        'default': '0'
+        },
+    'y':{
+        'editor': 'pixelcoordinateentry',
+        'default': '0'
+        },
+    
     # grid packing properties
     'row': {
-        'editor': 'numberentry',
-        # to_ = 50 is a pygubu-designer restriction
-        'params': {'from_': 0, 'to_': 50}
+        'editor': 'naturalnumber',
         },
     'column': {
-        'editor': 'numberentry',
-        # to_ = 50 is a pygubu-designer restriction
-        'params': {'from_': 0, 'to_': 50}
+        'editor': 'naturalnumber',
         },
     'sticky': {
         'editor': 'stickyentry',
         'params': {}},
     'rowspan': {
-        'editor': 'numberentry',
-        'params': {'from_': 1, 'to_': 50}
+        'editor': 'naturalnumber',
         },
     'columnspan': {
-        'editor': 'numberentry',
-        'params': {'from_': 1, 'to_': 50}
+        'editor': 'naturalnumber',
         },
-    'padx': {'editor': 'dimensionentry'},
-    'pady': {'editor': 'dimensionentry'},
-    'ipadx': {'editor': 'dimensionentry'},
-    'ipady': {'editor': 'dimensionentry'},
-    'propagate': {
-        'editor': 'choice',
-        'params': {'values': ('True', 'False'), 'state': 'readonly'},
-        'default': 'True'},
+    
     #
     # grid row and column properties (can be applied to each row or column)
     #
@@ -789,19 +909,41 @@ LAYOUT_OPTIONS = {
         'editor': 'dimensionentry',
         'params': {'width': 4, 'empty_data': 0}},
     'weight': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999, 'state': 'readonly', 'width': 3}}
+        'editor': 'naturalnumber'
+    },
+    'uniform': {
+        'editor': 'alphanumentry',
+    }
 }
 
-GRID_PROPERTIES = [
+# List properties in display order
+MANAGER_PROPERTIES = (
+    'anchor', 
+    'relx', 'rely', 'relwidth', 'relheight',
+    'x', 'y', 'width', 'height', 'bordermode',
+    'side', 'expand', 'fill',
     'row', 'column', 'sticky', 'rowspan', 'columnspan', 'padx', 'pady',
-    'ipadx', 'ipady', 'propagate']
+    'ipadx', 'ipady', 'propagate'
+)
 
-GRID_RC_PROPERTIES = ['minsize', 'pad', 'weight']
+GRID_PROPERTIES = (
+    'row', 'column', 'sticky', 'rowspan', 'columnspan', 'padx', 'pady',
+    'ipadx', 'ipady', 'propagate')
 
-TRANSLATABLE_PROPERTIES = [
+PACK_PROPERTIES = (
+    'anchor', 'side', 'expand', 'fill', 'padx', 'pady',
+    'ipadx', 'ipady', 'propagate')
+
+PLACE_PROPERTIES = (
+    'anchor', 'relx', 'rely', 'relwidth', 'relheight',
+    'x', 'y', 'width', 'height', 'bordermode', 
+)
+
+GRID_RC_PROPERTIES = ('minsize', 'pad', 'weight', 'uniform')
+
+TRANSLATABLE_PROPERTIES = (
     'label', 'text', 'title',
-]
+)
 
 
 def _register_custom(name, descr):
@@ -810,7 +952,7 @@ def _register_custom(name, descr):
         WIDGET_PROPERTIES.update(CUSTOM_OPTIONS)
         WIDGET_CUSTOM_OPTIONS.append(name)
         WIDGET_CUSTOM_OPTIONS.sort()
-        logger.debug('Registered property; {0}'.format(name))
+        logger.debug('Registered property: %s', name)
 
 def register_property(name, descr):
     _register_custom(name, descr)

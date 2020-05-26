@@ -23,6 +23,8 @@ __all__ = ['PropertyEditor', 'EntryPropertyEditor', 'SpinboxPropertyEditor',
            'CheckbuttonPropertyEditor', 'register_editor', 'create_editor']
 
 import os
+import keyword
+import re
 
 try:
     import tkinter as tk
@@ -33,21 +35,45 @@ except:
 
 from pygubu.stockimage import StockImage, StockImageException
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
-
+from pygubu.widgets.combobox import Combobox
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGES_DIR = os.path.join(FILE_DIR, "..", "images", "widgets", "propertyeditor")
 IMAGES_DIR = os.path.abspath(IMAGES_DIR)
 StockImage.register_from_dir(IMAGES_DIR)
 
+EDITORS = {}
+
+
+def register_editor(name, class_):
+    EDITORS[name] = class_
+
+
+def create_editor(name, *args, **kw):
+    editor = EDITORS[name](*args, **kw)
+    return editor
+
 
 class PropertyEditor(ttk.Frame):
+    style_initialized = False
+    
     def __init__(self, master=None, **kw):
         self._variable = tk.StringVar()
         self._initvalue = None
         self.value = ''
         ttk.Frame.__init__(self, master, **kw)
+        
+        if not PropertyEditor.style_initialized:
+            s = ttk.Style()
+            s.configure('PropertyEditorInvalid.TFrame', background='red')
+        self.configure(borderwidth=2)
         self._create_ui()
+        
+    def show_invalid(self, invalid=True):
+        if invalid:
+            self.configure(style='PropertyEditorInvalid.TFrame')
+        else:
+            self.configure(style='TFrame')
 
     def _create_ui(self):
         pass
@@ -69,7 +95,11 @@ class PropertyEditor(ttk.Frame):
             if self.value != self._initvalue:
                 self.event_generate('<<PropertyChanged>>')
                 self._initvalue = self.value
+                self._after_change()
 
+    def _after_change(self):
+        pass
+    
     def parameters(self, **kw):
         pass
 
@@ -83,8 +113,6 @@ class EntryPropertyEditor(PropertyEditor):
     def _create_ui(self):
         self._entry = entry = ttk.Entry(self, textvariable=self._variable)
         entry.grid(sticky='we')
-        self._error_label = elabel = ttk.Label(self)
-        elabel.grid(row=0, column=1)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         entry.bind('<FocusOut>', self._on_variable_changed)
@@ -93,12 +121,31 @@ class EntryPropertyEditor(PropertyEditor):
 
     def parameters(self, **kw):
         self._entry.configure(**kw)
+
+
+class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
+    def _validate(self):
+        is_valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            is_valid = value.isalnum()
+        self.show_invalid(not is_valid)
+        return is_valid
+
+
+class CommandEntryPropertyEditor(EntryPropertyEditor):
+    RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
     
-    def show_invalid(self, value=True):
-       img = ''
-       if value:
-           img = StockImage.get('property_invalid')
-       self._error_label.configure(image=img)
+    def _validate(self):
+        is_valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            if keyword.iskeyword(value):
+                is_valid = False
+            if is_valid and not self.RE_IDENTIFIER.match(value):
+                is_valid = False
+        self.show_invalid(not is_valid)
+        return is_valid
 
 
 SpinboxClass = tk.Spinbox
@@ -127,7 +174,7 @@ class TextPropertyEditor(PropertyEditor):
     def _create_ui(self):
         self._sbh = ScrollbarHelper(self)
         self._sbh.grid(row=0, column=0, sticky='we')
-        self._text = text = tk.Text(self._sbh, width=20, height=3)
+        self._text = text = tk.Text(self._sbh.container, width=20, height=3)
         self._sbh.add_child(self._text)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
@@ -152,22 +199,26 @@ class ChoicePropertyEditor(PropertyEditor):
         combobox.grid(sticky='we')
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
-        combobox.bind('<FocusOut>', self._on_variable_changed)
-        combobox.bind('<KeyPress-Return>', self._on_variable_changed)
-        combobox.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
-        self._variable.trace(mode="w", callback=self._on_trace_var)
-
-    def _on_trace_var(self, varname, elementname, mode):
-        if not self._cb_pending:
-            self.after(int(0.5 * 1000), self._on_variable_changed)
-            self._cb_pending = True
-
-    def _on_variable_changed(self, event=None):
-        PropertyEditor._on_variable_changed(self, event)
-        self._cb_pending = False
+        sequenses = ('<FocusOut>', '<KeyPress-Return>',
+                     '<KeyPress-KP_Enter>', '<<ComboboxSelected>>')
+        for seq in sequenses:
+            combobox.bind(seq, self._on_variable_changed)
 
     def parameters(self, **kw):
         self._combobox.configure(**kw)
+
+
+class ChoiceByKeyPropertyEditor(ChoicePropertyEditor):
+    def _create_ui(self):
+        self._cb_pending = False
+        self._combobox = combobox = Combobox(self, keyvariable=self._variable)
+        combobox.grid(sticky='we')
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        sequenses = ('<FocusOut>', '<KeyPress-Return>',
+                     '<KeyPress-KP_Enter>', '<<ComboboxSelected>>')
+        for seq in sequenses:
+            combobox.bind(seq, self._on_variable_changed)
 
 
 class CheckbuttonPropertyEditor(PropertyEditor):
@@ -182,56 +233,79 @@ class CheckbuttonPropertyEditor(PropertyEditor):
         self._checkb.configure(**kw)
 
 
-class NumberIntegerEditor(EntryPropertyEditor):
-    def _create_ui(self):
-        self._from = None
-        self._to = None
-        
-        EntryPropertyEditor._create_ui(self)
-        func = self._entry.register(self.validator_integer)
-        cmd = (func, '%d', '%P')
-        self._entry.configure(validate='key', validatecommand=cmd)
-        
-    def parameters(self, **kw):
-        pvalue = kw.pop('from_', None)
-        self._from = None if pvalue is None else int(pvalue)
-        pvalue = kw.pop('to_', None)
-        self._to = None if pvalue is None else int(pvalue)
-        self._entry.configure(**kw)
-
-    def validator_integer(self, action, newvalue):
-        valid = False
-        if action == '1': #1: insert 0: delete
-            valid = str(newvalue).isdigit()
-            if valid:
-                value = int(newvalue)
-                if self._from is not None:
-                    if value < self._from:
-                        valid = False
-                if self._to is not None:
-                    if value > self._to:
-                        valid = False
-        else:
-            valid = True
+class NaturalNumberEditor(EntryPropertyEditor):
+    def _validate(self):
+        valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            valid = False
+            try:
+                number = int(value)
+                if number >= 0:
+                    valid = True
+            except:
+                pass
+        self.show_invalid(not valid)
         return valid
 
-EDITORS = {}
+
+class IntegerNumberEditor(EntryPropertyEditor):
+    def _validate(self):
+        valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            valid = False
+            try:
+                int(value)
+                valid = True
+            except:
+                pass
+        self.show_invalid(not valid)
+        return valid
 
 
-def register_editor(name, class_):
-    EDITORS[name] = class_
+class RealNumberEditor(EntryPropertyEditor):
+    def _validate(self):
+        valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            valid = False
+            try:
+                float(value)
+                valid = True
+            except:
+                pass
+        self.show_invalid(not valid)
+        return valid
 
 
-def create_editor(name, *args, **kw):
-    editor = EDITORS[name](*args, **kw)
-    return editor
+class GeometryPropertyEditor(ChoicePropertyEditor):
+    RE_GEOMETRY = re.compile('\d+x\d+$')
+    
+    def _validate(self):
+        is_valid = True
+        value = self._get_value()
+        if len(value) != 0:
+            if not self.RE_GEOMETRY.match(value):
+                is_valid = False
+        self.show_invalid(not is_valid)
+        return is_valid
+
+
 
 register_editor('entry', EntryPropertyEditor)
+register_editor('alphanumentry', AlphanumericEntryPropertyEditor)
+register_editor('commandentry', CommandEntryPropertyEditor)
 register_editor('choice', ChoicePropertyEditor)
+register_editor('choice_key', ChoiceByKeyPropertyEditor)
 register_editor('spinbox', SpinboxPropertyEditor)
 register_editor('text', TextPropertyEditor)
 register_editor('checkbutton', CheckbuttonPropertyEditor)
-register_editor('numberentry', NumberIntegerEditor)
+register_editor('naturalnumber', NaturalNumberEditor)
+register_editor('integernumber', IntegerNumberEditor)
+register_editor('realnumber', RealNumberEditor)
+register_editor('geometryentry', GeometryPropertyEditor)
+
 
 
 if __name__ == '__main__':

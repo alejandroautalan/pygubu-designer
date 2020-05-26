@@ -15,6 +15,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals, print_function
+import logging
 
 try:
     import tkinter as tk
@@ -29,19 +30,37 @@ from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.propertieseditor import PropertiesEditor
 
+logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
 
 
 class LayoutEditor(PropertiesEditor):
+    managers_keys = ('grid', 'pack', 'place')
+    managers_labels = (_('Grid'), _('Pack'), _('Place'))
+    managers = dict(zip(managers_keys, managers_labels))
 
     def _create_properties(self):
         """Populate a frame with a list of all editable properties"""
+        
+        # Layout selector
+        self._fselector = fm = ttk.Frame(self._sframe.innerframe)
+        label = ttk.Label(fm, text='Manager:')
+        label.pack(side='left')
+        self.layout_selector = combo = create_editor('choice_key', fm)
+        combo.parameters(state='readonly', values=self.managers)
+        combo.pack(side='left', expand=True)
+        combo.bind('<<PropertyChanged>>', self._layout_manager_changed)
+        self._manager_options = self.managers.keys()
+        fm.grid(row=0, sticky='w')
+        
+        # Layout Options editors
         self._rcbag = {}  # bag for row/column prop editors
-        self._fgrid = f = ttk.Labelframe(self._sframe.innerframe,
-                                         text=_('Grid options:'), padding=5)
-        f.grid(sticky='nswe')
+        # main options frame
+        self._fprop = f = ttk.Labelframe(self._sframe.innerframe,
+                                         text=_('Options:'), padding=4)
+        f.grid(row=1, sticky='nswe')
         #  hack to resize correctly when properties are hidden
-        label = ttk.Label(f)
+        label = ttk.Frame(f)
         label.grid()
 
         label_tpl = "{0}:"
@@ -49,98 +68,108 @@ class LayoutEditor(PropertiesEditor):
         col = 0
 
         groups = (
-            ('00', properties.GRID_PROPERTIES, properties.LAYOUT_OPTIONS),
+            ('00', properties.MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
         )
 
         for gcode, plist, propdescr in groups:
             for name in plist:
                 kwdata = propdescr[name]
                 labeltext = label_tpl.format(name)
-                label = ttk.Label(self._fgrid, text=labeltext, anchor=tk.W)
+                label = ttk.Label(self._fprop, text=labeltext, anchor=tk.W)
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
-                widget = self._create_editor(self._fgrid, name, kwdata)
+                widget = self._create_editor(self._fprop, name, kwdata)
                 widget.grid(row=row, column=col+1, sticky=tk.EW, pady=2)
                 row += 1
                 self._propbag[gcode+name] = (label, widget)
 
-        # Grid row/col properties
-        #labels
-        gcode = '01'
-        self._fgrc = fgrc = ttk.LabelFrame(self._sframe.innerframe,
-                                           text=_('Grid row/column options:'),
-                                           padding=5)
-        fgrc.grid(row=1, column=0, sticky=tk.NSEW, pady='10 0')
-
-        #hack to resize correctly when properties are hidden
-        label = ttk.Label(fgrc)
-        label.grid()
-
-        row = col = 0
-        icol = 1
-        headers = []
+        # Grid row properties
+        self._fgr_label = _("Grid row '{0}' options:")
+        self._fgr = fgr = ttk.LabelFrame(self._sframe.innerframe,
+                                        text=self._fgr_label,
+                                        padding=5)
+        fgr.grid(row=2, column=0, sticky=tk.NSEW, pady='10 0')
+        name_format = 'row_{0}'  # row_{name}
+        row = 0
+        label_tpl = "{0}:"
         for pname in properties.GRID_RC_PROPERTIES:
-            label = ttk.Label(fgrc, text=pname)
-            label.grid(row=row, column=icol)
-            headers.append(label)
-            icol += 1
-        self._internal = {'grc_headers': headers}
+            kwdata = properties.LAYOUT_OPTIONS[pname]
+            alias = name_format.format(pname)
+            labeltext = label_tpl.format(pname)
+            label = ttk.Label(fgr, text=labeltext, anchor=tk.W)
+            label.grid(row=row, column=0, sticky=tk.EW, pady=2)
+            
+            widget = self._create_editor(fgr, alias, kwdata)
+            widget.grid(row=row, column=1, sticky=tk.EW, pady=2)
+            self._rcbag[alias] = (label, widget)
+            row = row + 1
+        fgr.columnconfigure(1, weight=1)
+        
+        # Grid column properties
+        self._fgc_label = _("Grid column '{0}' options:")
+        self._fgc = fgc = ttk.LabelFrame(self._sframe.innerframe,
+                                           text=self._fgc_label,
+                                           padding=5)
+        fgc.grid(row=3, column=0, sticky=tk.NSEW, pady='10 0')
+        name_format = 'col_{0}'  # row_{name}
+        row = 0
+        label_tpl = "{0}:"
+        for pname in properties.GRID_RC_PROPERTIES:
+            kwdata = properties.LAYOUT_OPTIONS[pname]
+            alias = name_format.format(pname)
+            labeltext = label_tpl.format(pname)
+            label = ttk.Label(fgc, text=labeltext, anchor=tk.W)
+            label.grid(row=row, column=0, sticky=tk.EW, pady=2)
+            
+            widget = self._create_editor(fgc, alias, kwdata)
+            widget.grid(row=row, column=1, sticky=tk.EW, pady=2)
+            self._rcbag[alias] = (label, widget)
+            row = row + 1
+        fgc.columnconfigure(1, weight=1)
 
-        #
-        name_format = '{}_{}_{}'  # {row/column}_{number}_{name}
-        MAX_RC = 50
-        #rowconfig
-        row += 1
-        trow_label = _('Row {0}:')
-        tcol_label = _('Column {0}:')
-        for index in range(0, MAX_RC):
-            labeltext = trow_label.format(index)
-            label = ttk.Label(fgrc, text=labeltext)
-            label.grid(row=row, column=0)
-
-            labeltext = tcol_label.format(index)
-            labelc = ttk.Label(fgrc, text=labeltext)
-            labelc.grid(row=row + MAX_RC, column=0, sticky=tk.E, pady=2)
-
-            icol = 1
-            for pname in properties.GRID_RC_PROPERTIES:
-                kwdata = properties.LAYOUT_OPTIONS[pname]
-
-                alias = name_format.format('row', index, pname)
-                widget = self._create_editor(fgrc, alias, kwdata)
-                widget.grid(row=row, column=icol, pady=2, sticky='ew')
-                self._rcbag[alias] = (label, widget)
-
-                alias = name_format.format('column', index, pname)
-                widget = self._create_editor(fgrc, alias, kwdata)
-                widget.grid(row=row + MAX_RC, column=icol, pady=2, sticky='ew')
-                self._rcbag[alias] = (labelc, widget)
-
-                icol += 1
-            row += 1
-
-    def edit(self, wdescr):
+    
+    def edit(self, wdescr, manager_options):
         self._current = wdescr
-        max_row = wdescr.max_row
-        max_col = wdescr.max_col
-        wclass = wdescr.get_class()
-        class_descr = CLASS_MAP[wclass].builder
+
+        wclass = wdescr.classname
+        #class_descr = CLASS_MAP[wclass].builder
         max_children = CLASS_MAP[wclass].builder.maxchildren
         max_children = 0 if max_children is None else max_children
         is_container = CLASS_MAP[wclass].builder.container
         layout_required = CLASS_MAP[wclass].builder.layout_required
-        allow_container_layout = CLASS_MAP[wclass].builder.allow_container_layout
         show_layout = layout_required
 
-        #grid layout properties
+        self._fprop.grid()
+        self._fselector.grid()
+        # manager selector
+        manager = wdescr.manager
+        manager_prop = properties.GRID_PROPERTIES
+        if manager == 'pack':
+            manager_prop = properties.PACK_PROPERTIES
+        elif manager == 'place':
+            manager_prop = properties.PLACE_PROPERTIES
+        
+        if show_layout:
+            self._manager_options = manager_options
+            allowed_values = self.managers.copy()
+            for key in self.managers:
+                if key not in self._manager_options:
+                    allowed_values.pop(key)
+            self.layout_selector.parameters(values=allowed_values)
+            self.layout_selector.edit(manager)
+            self.layout_selector.pack()
+        else:
+            self.layout_selector.pack_forget()
+        
+        #layout properties
         groups = (
-            ('00', properties.GRID_PROPERTIES, properties.LAYOUT_OPTIONS),
+            ('00', properties.MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
         )
 
         for gcode, proplist, gproperties in groups:
             for name in proplist:
                 propdescr = gproperties[name]
                 label, widget = self._propbag[gcode + name]
-                if show_layout:
+                if show_layout and name in manager_prop:
                     self.update_editor(widget, wdescr, name, propdescr)
                     label.grid()
                     widget.grid()
@@ -148,78 +177,75 @@ class LayoutEditor(PropertiesEditor):
                     label.grid_remove()
                     widget.grid_remove()
 
-        show_layout = (is_container
-                       and layout_required
-                       and allow_container_layout
-                       and max_children != 1)
-        show_headers = False
+        # determine if show grid r/c properties
+        show_grid_rc = (manager == 'grid' and layout_required)
 
-        for key in self._rcbag:
-            rowcol, number, name = self.identify_gridrc_property(key)
-            number_str = str(number)
-            number = int(number)
-            propdescr = properties.LAYOUT_OPTIONS[name]
-            if show_layout and rowcol == 'row' and number <= max_row:
+        if show_grid_rc:
+            rownum = wdescr.layout_property('row')
+            colnum = wdescr.layout_property('column')
+            label = self._fgr_label.format(rownum)
+            self._fgr.config(text=label)
+            label = self._fgc_label.format(colnum)
+            self._fgc.config(text=label)
+            
+            target = self._current
+            for key in self._rcbag:
+                rowcol, name = self.identify_gridrc_property(key)
+                propdescr = properties.LAYOUT_OPTIONS[name]
+                number = colnum if rowcol == 'col' else rownum
                 label, widget = self._rcbag[key]
                 self.update_rc_editor(rowcol, number, widget,
-                                      wdescr, name, propdescr)
-                label.grid()
-                widget.grid()
-                show_headers = True
-            elif show_layout and rowcol == 'column' and number <= max_col:
-                label, widget = self._rcbag[key]
-                self.update_rc_editor(rowcol, number, widget,
-                                      wdescr, name, propdescr)
-                label.grid()
-                widget.grid()
-                show_headers = True
-            else:
-                label, widget = self._rcbag[key]
-                label.grid_remove()
-                widget.grid_remove()
-
-        for widget in self._internal['grc_headers']:
-            if show_headers:
-                widget.grid()
-            else:
-                widget.grid_remove()
+                                      target, name, propdescr)
+            self._fgr.grid()
+            self._fgc.grid()
+        else:
+            self._fgr.grid_remove()
+            self._fgc.grid_remove()
 
         self._sframe.reposition()
 
+    def _layout_manager_changed(self, event=None):
+        if self._current is not None:
+            newvalue = self.layout_selector.value
+            self._current.manager = newvalue
+            self.edit(self._current, self._manager_options)
+    
     def _on_property_changed(self, name, editor):
         value = editor.value
-        if name in properties.GRID_PROPERTIES:
-            self._current.set_layout_property(name, value)
+        if name in properties.MANAGER_PROPERTIES:
+            self._current.layout_property(name, value)
         else:
             # asume that is a grid row/col property
-            rowcol, number, pname = self.identify_gridrc_property(name)
-            if rowcol == 'row':
-                self._current.set_grid_row_property(number, pname, value)
-            else:
-                self._current.set_grid_col_property(number, pname, value)
+            rowcol, pname = self.identify_gridrc_property(name)
+            number = self._current.layout_property('row')
+            if rowcol == 'col':
+                number = self._current.layout_property('column')   
+            target = self._current
+            target.gridrc_property(rowcol, number, pname, value)
+            editor.event_generate('<<LayoutEditorGridRCChanged>>')
 
     def identify_gridrc_property(self, alias):
         return alias.split('_')
 
     def update_editor(self, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
-        classname = wdescr.get_class()
+        manager = wdescr.manager
 
-        if classname in pdescr:
-            pdescr = dict(pdescr, **pdescr[classname])
+        if manager in pdescr:
+            pdescr = dict(pdescr, **pdescr[manager])
 
         params = pdescr.get('params', {})
         editor.parameters(**params)
         default = pdescr.get('default', '')
 
-        value = wdescr.get_layout_property(pname)
+        value = wdescr.layout_property(pname)
         if not value and default:
             value = default
         editor.edit(value)
 
     def update_rc_editor(self, type_, index, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
-        classname = wdescr.get_class()
+        classname = wdescr.classname
 
         if classname in pdescr:
             pdescr = dict(pdescr, **pdescr[classname])
@@ -229,21 +255,16 @@ class LayoutEditor(PropertiesEditor):
         default = pdescr.get('default', '')
 
         value = ''
-        if type_ == 'row':
-            value = wdescr.get_grid_row_property(str(index), pname)
-        else:
-            value = wdescr.get_grid_col_property(str(index), pname)
+        value = wdescr.gridrc_property(type_, str(index), pname)
         if not value and default:
             value = default
         editor.edit(value)
 
     def hide_all(self):
         super(LayoutEditor, self).hide_all()
-
-        for _v, (label, widget) in self._rcbag.items():
-            label.grid_remove()
-            widget.grid_remove()
+        self._fselector.grid_remove()
+        self._fprop.grid_remove()
+        self._fgr.grid_remove()
+        self._fgc.grid_remove()
         
-        for h in self._internal['grc_headers']:
-            h.grid_remove()
 

@@ -16,107 +16,143 @@
 #
 # For further info, check  http://pygubu.web.here
 from __future__ import unicode_literals
-from collections import defaultdict
+import logging
 
-from pygubu.builder import data_dict_to_xmlnode, data_xmlnode_to_dict
+from pygubu.builder import CLASS_MAP
+from pygubu.builder.widgetmeta import WidgetMeta as WidgetMetaBase, BindingMeta
 from .util.observable import Observable
-from .properties import TRANSLATABLE_PROPERTIES
+from .properties import (WIDGET_PROPERTIES, PACK_PROPERTIES, PLACE_PROPERTIES,
+                         GRID_PROPERTIES, LAYOUT_OPTIONS)
+
+logger = logging.getLogger(__name__)
 
 
-class WidgetDescr(Observable, dict):
-
-    def __init__(self, _class, _id):
-        super(WidgetDescr, self).__init__()
-        #properties
-        self['class'] = _class
-        self['id'] = _id
-        self['properties'] = {}
-        self['layout'] = {}
-        self['layout']['rows'] = defaultdict(dict)
-        self['layout']['columns'] = defaultdict(dict)
-        self['bindings'] = []
-        self.max_row = 0;
-        self.max_col = 0;
-
-    def get_class(self):
-        return self['class']
-
-    def get_id(self):
-        return self['id']
-
-    def set_property(self, name, value):
-        if name in ('id', 'class'):
-            self[name] = value
-        else:
-            self['properties'][name] = value
-        self.notify('PROPERTY_CHANGED', self)
-
-    def get_property(self, name):
-        if name in ('id', 'class'):
-            return self[name]
-        else:
-            return self['properties'].get(name, '')
-
-    def set_layout_property(self, name, value):
-        self['layout'][name] = value
+class WidgetMeta(WidgetMetaBase, Observable):          
+    
+    def apply_layout_defaults(self):
+        super(WidgetMeta, self).apply_layout_defaults()
         self.notify('LAYOUT_CHANGED', self)
-
-    def get_layout_property(self, name):
-        default = ''
-        if name in ('row', 'column'):
+        
+    def widget_property(self, name, value=None):
+        if value is None:
+            if name == 'id':
+                return self.identifier
+            elif name == 'class':
+                return self.classname
+            else:
+                return self.properties.get(name, '')
+        else:
+            # Setter
+            if name == 'id':
+                self.identifier = value
+            elif name == 'class':
+                self.classname = value
+            else:
+                if value:
+                    self.properties[name] = value
+                else:
+                    # remove if no value set
+                    self.properties.pop(name, None)
+            self.notify('PROPERTY_CHANGED', self)
+    
+    def layout_property(self, name, value=None):
+        if value is None:
+            # Getter
+            default = ''
+            if name in ('row', 'column'):
+                default = '0'
+            return self.layout_properties.get(name, default)
+        else:
+            # Setter
+            if value:
+                self.layout_properties[name] = value
+            else:
+                # remove if no value set
+                self.layout_properties.pop(name, None)
+            self.notify('LAYOUT_CHANGED', self)
+    
+    def gridrc_property(self, type_, num, pname, value=None):
+        if value is None:
+            # Getter
             default = '0'
-        return self['layout'].get(name, default)
+            if pname == 'uniform':
+                default = ''
+            pvalue = self.get_gridrc_value(type_, num, pname)
+            pvalue = pvalue if pvalue is not None else default
+            return pvalue
+        else:
+            # Setter
+            self.set_gridrc_value(type_, num, pname, value)
+            self.notify('LAYOUT_GRIDRC_CHANGED', self)
 
-    def set_grid_row_property(self, row, name, value):
-        self['layout']['rows'][row][name] = value
-        self.notify('GRID_RC_CHANGED', self)
-
-    def get_grid_row_property(self, row, name):
-        return self['layout']['rows'][row].get(name, '0')
-
-    def set_grid_col_property(self, col, name, value):
-        self['layout']['columns'][col][name] = value
-        self.notify('GRID_RC_CHANGED', self)
-
-    def get_grid_col_property(self, col, name):
-        return self['layout']['columns'][col].get(name, '0')
-
-    def to_xml_node(self):
-        return data_dict_to_xmlnode(self, TRANSLATABLE_PROPERTIES)
-
-    def from_xml_node(self, node):
-        data = data_xmlnode_to_dict(node)
-        self.update(data)
+    
+    @property
+    def manager(self):
+        return self._manager
+    
+    @manager.setter
+    def manager(self, value):
+        if self._manager != value:
+            self._manager = value
+            self.clear_layout()
+        self.notify('LAYOUT_CHANGED', self)
 
     def get_bindings(self):
         blist = []
-        for v in self['bindings']:
-            blist.append((v['sequence'], v['handler'], v['add']))
+        for v in self.bindings:
+            blist.append((v.sequence, v.handler, v.add))
         return blist
 
     def clear_bindings(self):
-        self['bindings'] = []
+        self.bindings = []
 
     def add_binding(self, seq, handler, add):
-        self['bindings'].append({
-            'sequence': seq,
-            'handler': handler,
-            'add': add
-            })
+        self.bindings.append(BindingMeta(seq, handler, add))
 
     def remove_unused_grid_rc(self):
         """Deletes unused grid row/cols"""
-
-        if 'columns' in self['layout']:
-            ckeys = tuple(self['layout']['columns'].keys())
-            for key in ckeys:
-                value = int(key)
-                if value > self.max_col:
-                    del self['layout']['columns'][key]
-        if 'rows' in self['layout']:
-            rkeys = tuple(self['layout']['rows'].keys())
-            for key in rkeys:
-                value = int(key)
-                if value > self.max_row:
-                    del self['layout']['rows'][key]
+        pass
+    
+    def setup_defaults(self):
+        propd, layoutd = WidgetMeta.get_widget_defaults(self, self.identifier)
+        self.properties_defaults = propd
+        self.layout_defaults = layoutd
+    
+    @staticmethod
+    def get_widget_defaults(wclass, widget_id):
+        properties = {}
+        layout = {}
+        
+        if wclass in CLASS_MAP:
+            # setup default values for properties
+            for pname in CLASS_MAP[wclass].builder.properties:
+                pdescription = {}
+                if pname in WIDGET_PROPERTIES:
+                    pdescription = WIDGET_PROPERTIES[pname]
+                if wclass in pdescription:
+                    pdescription = dict(pdescription, **pdescription[wclass])
+                default_value = str(pdescription.get('default', ''))
+                if default_value:
+                    properties[pname] = default_value
+                # default text for widgets with text prop:
+                if pname in ('text', 'label'):
+                    properties[pname] = widget_id
+        
+        # setup default values for layout
+        groups = (
+            ('pack', PACK_PROPERTIES),
+            ('place', PLACE_PROPERTIES),
+            ('grid', GRID_PROPERTIES),
+        )
+        for manager, manager_prop in groups:
+            layout[manager] = {}
+            for pname in manager_prop:
+                pdescr = LAYOUT_OPTIONS[pname]
+                if manager in pdescr:
+                    pdescr = pdescr.copy()
+                    pdescr = dict(pdescr, **pdescr[manager])
+                default_value = pdescr.get('default', None)
+                if default_value:
+                    layout[manager][pname] = default_value
+        return properties, layout
 

@@ -1,6 +1,8 @@
 # encoding: utf-8
 import os
 import sys
+import logging
+
 try:
     import tkinter as tk
     from tkinter import ttk
@@ -16,24 +18,35 @@ try:
 except:
     import configparser
 
-from appdirs import AppDirs
+has_appdir = False
+try:
+    from appdirs import AppDirs
+    has_appdir = True
+except:
+    pass
+
 import pygubu
 
-
+logger = logging.getLogger(__name__)
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-dirs = AppDirs('pygubu-designer')
-CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
+CONFIG_FILE = os.path.join(FILE_PATH, 'config')
+if has_appdir:
+    dirs = AppDirs('pygubu-designer')
+    CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
+logger.info('Using configfile: %s', CONFIG_FILE)
 
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},
-    'widget_palette': {'values': '["accordion", "treeview"]', 'default':'accordion'}
+#    'widget_palette': {'values': '["accordion", "treeview"]', 'default':'accordion'}
 }
 
 SEC_GENERAL = 'GENERAL'
 SEC_CUSTOM_WIDGETS = 'CUSTOM_WIDGETS'
+SEC_RECENT_FILES = 'RECENT_FILES'
 config = configparser.SafeConfigParser()
 config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
+config.add_section(SEC_RECENT_FILES)
 
 
 def initialize_configfile():
@@ -73,6 +86,19 @@ def get_custom_widgets():
 def get_option(key):
     return config.get(SEC_GENERAL, key)
 
+def recent_files_get():
+    rf = []
+    for k, f in config.items(SEC_RECENT_FILES):
+        rf.append(f)
+    return rf
+
+def recent_files_save(file_list):
+    config.remove_section(SEC_RECENT_FILES)
+    config.add_section(SEC_RECENT_FILES)
+    for j, p in enumerate(file_list):
+        config.set(SEC_RECENT_FILES, 'f{0}'.format(j), p)
+    save_configfile()
+
 # Get user configuration
 load_configfile()
 
@@ -96,7 +122,7 @@ class PreferencesUI(object):
         self.dialog = dialog = builder.get_object('preferences', top)
         
         #General
-        for key in ('widget_set', 'widget_palette'):
+        for key in ('widget_set',):
             cbox = builder.get_object(key)
             cbox.configure(values=options[key]['values'])
         
