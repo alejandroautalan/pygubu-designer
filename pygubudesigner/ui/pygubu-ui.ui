@@ -448,7 +448,7 @@
                                 <child>
                                   <object class="ttk.Notebook.Tab" id="tab_1">
                                     <property name="sticky">nsew</property>
-                                    <property name="text" translatable="yes">Designer</property>
+                                    <property name="text" translatable="yes">Design</property>
                                     <child>
                                       <object class="ttk.Frame" id="designer_main">
                                         <property name="height">100</property>
