@@ -55,6 +55,7 @@ from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.scriptgenerator import ScriptGenerator
 from .rfilemanager import RecentFilesManager
 from .logpanel import LogPanelManager
+from .shortcutdispatch import Keycode, ShortcutDispatch
 
 
 #Initialize logger
@@ -187,70 +188,69 @@ class PygubuDesigner(object):
         #Application bindings
         #
         master = self.mainwindow
-        master.bind_all(
-            '<Control-KeyPress-n>',
-            lambda e: self.on_file_menuitem_clicked('file_new'))
-        master.bind_all(
-            '<Control-KeyPress-o>',
-            lambda e: self.on_file_menuitem_clicked('file_open'))
-        master.bind_all(
-            '<Control-KeyPress-s>',
-            lambda e: self.on_file_menuitem_clicked('file_save'))
-        master.bind_all(
-            '<Control-KeyPress-q>',
-            lambda e: self.on_file_menuitem_clicked('file_quit'))
-        master.bind_all(
-            '<Control-KeyPress-i>',
-            lambda e: self.on_edit_menuitem_clicked('edit_item_up'))
-        master.bind_all(
-            '<Control-KeyPress-k>',
-            lambda e: self.on_edit_menuitem_clicked('edit_item_down'))
-        master.bind_all(
-            '<F5>',
-            lambda e: self.tree_editor.preview_in_toplevel())
-        master.bind_all(
-            '<F6>',
-            lambda e: self.previewer.close_toplevel_previews())
+        app_bind = ShortcutDispatch.acquire(master)
+        app_bind.bind_all()
+        app_bind.add(
+            lambda e: self.on_file_menuitem_clicked('file_new'), ord('N'), app_bind.CONTROL)
+        app_bind.add(
+            lambda e: self.on_file_menuitem_clicked('file_open'), ord('O'), app_bind.CONTROL)
+        app_bind.add(
+            lambda e: self.on_file_menuitem_clicked('file_save'), ord('S'), app_bind.CONTROL)
+        app_bind.add(
+            lambda e: self.on_file_menuitem_clicked('file_quit'), ord('Q'), app_bind.CONTROL)
+        app_bind.add(
+            lambda e: self.on_edit_menuitem_clicked('edit_item_up'), ord('I'), app_bind.CONTROL)
+        app_bind.add(
+            lambda e: self.on_edit_menuitem_clicked('edit_item_down'), ord('K'), app_bind.CONTROL)
+        app_bind.add(
+            lambda e: self.tree_editor.preview_in_toplevel(), Keycode.function(5))
+        app_bind.add(
+            lambda e: self.previewer.close_toplevel_previews(), Keycode.function(6))
 
         #
         # Widget bindings
         #
         for widget in (self.tree_editor.treeview, previewc):
-            widget.bind(
-                '<Control-KeyPress-c>',
-                lambda e: self.tree_editor.copy_to_clipboard())
-            widget.bind(
-                '<Control-KeyPress-v>',
-                lambda e: self.tree_editor.paste_from_clipboard())
-            widget.bind(
-                '<Control-KeyPress-x>',
-                lambda e: self.tree_editor.cut_to_clipboard())
-            widget.bind(
-                '<KeyPress-Delete>',
-                lambda e: self.on_edit_menuitem_clicked('edit_item_delete'))
+            widget_bind = ShortcutDispatch.acquire(widget)
+            widget_bind.bind()
+            widget_bind.add(
+                lambda e: self.tree_editor.copy_to_clipboard(),
+                ord('C'), widget_bind.CONTROL)
+            widget_bind.add(
+                lambda e: self.tree_editor.paste_from_clipboard(),
+                ord('V'), widget_bind.CONTROL)
+            widget_bind.add(
+                lambda e: self.tree_editor.cut_to_clipboard(),
+                ord('X'), widget_bind.CONTROL)
+            widget_bind.add(
+                lambda e: self.on_edit_menuitem_clicked('edit_item_delete'),
+                Keycode.DELETE)
 
         def clear_key_pressed(event, newevent):
             # when KeyPress, not Ctrl-KeyPress, generate event.
             if event.keysym_num == ord(event.char):
                 self.tree_editor.treeview.event_generate(newevent)
-        self.tree_editor.treeview.bind('<i>',
-                lambda e: clear_key_pressed(e, '<Up>'))
-        self.tree_editor.treeview.bind('<k>',
-                lambda e: clear_key_pressed(e, '<Down>'))
+
+        tree_bind = ShortcutDispatch.acquire(self.tree_editor.treeview)
+        tree_bind.bind()
+        tree_bind.add(
+                lambda e: clear_key_pressed(e, '<Up>'), ord('I'))
+        tree_bind.add(
+                lambda e: clear_key_pressed(e, '<Down>'), ord('K'))
 
         #grid move bindings
-        self.tree_editor.treeview.bind(
-            '<Alt-KeyPress-i>',
-            lambda e: self.on_edit_menuitem_clicked('grid_up'))
-        self.tree_editor.treeview.bind(
-            '<Alt-KeyPress-k>',
-            lambda e: self.on_edit_menuitem_clicked('grid_down'))
-        self.tree_editor.treeview.bind(
-            '<Alt-KeyPress-j>',
-            lambda e: self.on_edit_menuitem_clicked('grid_left'))
-        self.tree_editor.treeview.bind(
-            '<Alt-KeyPress-l>',
-            lambda e: self.on_edit_menuitem_clicked('grid_right'))
+        tree_bind.add(
+            lambda e: self.on_edit_menuitem_clicked('grid_up'),
+            ord('I'), tree_bind.ALT)
+        tree_bind.add(
+            lambda e: self.on_edit_menuitem_clicked('grid_down'),
+            ord('K'), tree_bind.ALT)
+        tree_bind.add(
+            lambda e: self.on_edit_menuitem_clicked('grid_left'),
+            ord('J'), tree_bind.ALT)
+        tree_bind.add(
+            lambda e: self.on_edit_menuitem_clicked('grid_right'),
+            ord('L'), tree_bind.ALT)
             
         # On preferences save binding
         self.mainwindow.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
