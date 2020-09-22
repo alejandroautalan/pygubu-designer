@@ -1,5 +1,6 @@
 TPL_APPINIT_WITH_TKROOT = \
 '''if __name__ == '__main__':
+    import tkinter as tk
     root = tk.Tk()
     app = {class_name}(root)
     app.run()
