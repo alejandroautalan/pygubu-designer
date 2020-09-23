@@ -110,7 +110,7 @@ class StatusBarHandler(logging.Handler):
     def __init__(self, app, level=logging.NOTSET):
         super(StatusBarHandler, self).__init__(level)
         self.app = app
-        formatter = logging.Formatter('%(levelname)s:%(message)s')
+        formatter = logging.Formatter('%(asctime)s %(levelname)s:%(message)s', datefmt='%H:%M:%S')
         self.setFormatter(formatter)
 
     def emit(self, record):
