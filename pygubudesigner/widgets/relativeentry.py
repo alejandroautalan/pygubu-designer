@@ -55,7 +55,9 @@ class RelativeEntryPropertyEditor(PropertyEditor):
     def _set_value(self, value):
         """Save value on storage"""
         self._variable.set(value)
-        self.scalevar.set(value)
+        # if empty value, set scale value to zero
+        scale_value = 0 if len(value) == 0 else value
+        self.scalevar.set(scale_value)
     
     def _after_change(self):
         self.scalevar.set(self._variable.get())
