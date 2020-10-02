@@ -95,7 +95,7 @@ class ScriptGenerator(object):
                 code = TPL_WIDGET.format(**params)
                 self.set_code(code)
             elif template == 'codescript':
-                code = generator.generate(uidef, target, as_class=False, tabspaces=8)
+                code = generator.generate(uidef, target, as_class=True, tabspaces=8)
                 params['widget_code'] = code[target]
                 params['import_lines'] = code['imports']
                 params['callbacks'] = code['callbacks']

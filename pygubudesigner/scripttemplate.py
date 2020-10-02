@@ -44,7 +44,7 @@ class {class_name}:
         # build ui
 {widget_code}
         # Main widget
-        self.mainwindow = {main_widget}
+        self.mainwindow = self.{main_widget}
 
 {callbacks}
     def run(self):
