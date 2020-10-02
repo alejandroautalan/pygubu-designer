@@ -91,7 +91,7 @@ class ToplevelFramePreviewBO(BuilderObject):
     def _set_property(self, target_widget, pname, value):
         tw = target_widget
         tw.tl_attrs[pname] = value
-        method_props = ('overrideredirect', 'title')
+        method_props = ('iconbitmap', 'iconphoto', 'overrideredirect', 'title')
         if pname in method_props:
             pass
         elif pname in ('maxsize', 'minsize'):

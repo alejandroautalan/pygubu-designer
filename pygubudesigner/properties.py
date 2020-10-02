@@ -711,6 +711,10 @@ CUSTOM_OPTIONS = {
                        '1600x1200', '1920x1080', '2048x1080'),
             },
         },
+    'iconbitmap': {
+        'editor': 'imageentry' },
+    'iconphoto': {
+        'editor': 'imageentry' },    
     'invalidcommand_args': {
         'editor': 'entry'},
     'maxsize': {
@@ -802,10 +806,10 @@ WIDGET_SPECIFIC_OPTIONS = (
     )
 
 WIDGET_CUSTOM_OPTIONS = [
-    'command_id_arg', 'invalidcommand_args', 'tree_column',
-    'validatecommand_args', 'visible', 'scrolltype', 'text',
-    'title', 'geometry', 'overrideredirect', 'resizable',
-    'minsize', 'maxsize', 'usemousewheel'
+    'command_id_arg', 'invalidcommand_args', 'tree_column', 'validatecommand_args',
+    'visible', 'scrolltype', 'text', 'title',
+    'geometry', 'overrideredirect', 'resizable', 'minsize',
+    'maxsize', 'usemousewheel', 'iconbitmap', 'iconphoto',
     ]
 
 WIDGET_PROPERTIES = wp = dict(TK_WIDGET_OPTIONS)

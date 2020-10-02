@@ -4,6 +4,7 @@ from collections import OrderedDict
 from pygubu.builder import Builder, CLASS_MAP
 from pygubu.builder.builderobject import BuilderObject, grouper
 from pygubu.builder.widgetmeta import WidgetMeta
+from pygubu.stockimage import TK_BITMAP_FORMATS
 
 
 class UI2Code(Builder):
@@ -225,15 +226,24 @@ class UI2Code(Builder):
     
     def code_create_image(self, filename):
         name = os.path.basename(filename)
-        name = os.path.splitext(name)[0]
+        name, file_ext = os.path.splitext(name)
         name = self._make_identifier(name)
         varname = 'self.img_{0}'.format(name)
-        
+            
         if filename not in self._tkimages:
-            line = "{0} = tk.PhotoImage(file='{1}')".format(varname, filename)
+            img_class = 'tk.PhotoImage'
+            if file_ext in TK_BITMAP_FORMATS:
+                img_class = 'tk.BitmapImage'
+            line = "{0} = {1}(file='{2}')".format(varname, img_class, filename)
             self._code.append(line)
             self._tkvariables[varname] = True
         return varname
+    
+    def code_create_iconbitmap(self, filename):
+        TPL = '@{0}'
+        if os.name == 'nt':
+            TPL = '{0}'
+        return TPL.format(filename)
     
     def _make_identifier(self, name):
         output = ''.join(x for x in name if x.isalnum())
