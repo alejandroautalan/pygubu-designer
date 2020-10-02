@@ -225,10 +225,10 @@ class UI2Code(Builder):
         return cb_name
     
     def code_create_image(self, filename):
-        name = os.path.basename(filename)
-        name, file_ext = os.path.splitext(name)
-        name = self._make_identifier(name)
-        varname = 'self.img_{0}'.format(name)
+        basename = os.path.basename(filename)
+        name, file_ext = os.path.splitext(basename)
+        name = self._make_identifier(basename)
+        varname = 'self.{0}'.format(name)
             
         if filename not in self._tkimages:
             img_class = 'tk.PhotoImage'
@@ -246,5 +246,6 @@ class UI2Code(Builder):
         return TPL.format(filename)
     
     def _make_identifier(self, name):
-        output = ''.join(x for x in name if x.isalnum())
+        output = name.replace('.', '_')
+        output = ''.join(x for x in output if x.isalnum() or x == '_')
         return output
