@@ -15,6 +15,7 @@ import platform
 import pygubudesigner
 
 VERSION = pygubudesigner.__version__
+PYGUBU_VERSION = pygubudesigner.__pygubu_minimal_version__
 
 try:
     from setuptools.command.install import install
@@ -138,7 +139,9 @@ setup(
     cmdclass={
         'install': CustomInstall,
     },
-    install_requires=['appdirs>=1.3','pygubu>=0.10'],
+    install_requires=[
+        'appdirs>=1.3',
+        'pygubu>={0}'.format(PYGUBU_VERSION)],
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
