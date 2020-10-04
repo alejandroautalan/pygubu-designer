@@ -78,7 +78,7 @@ def init_pygubu_widgets():
         except Exception as e:
             logger.exception(e)
             msg = _("Failed to load widget module: '%s'")
-            msg = msg.format(modulename)
+            msg = msg % (modulename,)
             messagebox.showerror(_('Error'), msg)
 
     #initialize custom widgets
@@ -93,7 +93,7 @@ def init_pygubu_widgets():
             except Exception as e:
                 logger.exception(e)
                 msg = _("Failed to load custom widget module: '%s'")
-                msg = msg.format(path)
+                msg = msg % (path,)
                 messagebox.showerror(_('Error'), msg)
 
 #Initialize images
