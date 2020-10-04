@@ -13,3 +13,4 @@ myvenv*/
 designer.wpr
 designer.wpu
 *.egg-info*
+*.kdev4
