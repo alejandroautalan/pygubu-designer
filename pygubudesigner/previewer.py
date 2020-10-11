@@ -31,6 +31,7 @@ except:
     import ttk
 
 import pygubu
+import pygubudesigner.actions as actions
 from pygubu.stockimage import StockImage
 from .widgetdescr import WidgetMeta
 from .widgets.toplevelframe import ToplevelFramePreview
@@ -495,6 +496,8 @@ class PreviewHelper:
         self.selected_widget = None
         canvas.bind_all('<<PreviewHelperItemClicked>>',
                         self._on_preview_widget_clicked)
+        canvas.bind_all(actions.PREVIEW_TOPLEVEL_CLOSE_ALL,
+                    lambda e: self.close_toplevel_previews())
         
     def _on_preview_widget_clicked(self, event):
         logger.debug('itemclicked %s', event)

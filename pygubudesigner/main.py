@@ -43,7 +43,8 @@ except:
 import pygubu
 from pygubu import builder
 from pygubu.stockimage import StockImage, StockImageException
-from . import util
+from .util import virtual_event
+from .util.keyboard import Key, key_bind
 from .uitreeeditor import WidgetsTreeEditor
 from .previewer import PreviewHelper
 from .i18n import translator
@@ -55,6 +56,7 @@ from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.scriptgenerator import ScriptGenerator
 from .rfilemanager import RecentFilesManager
 from .logpanel import LogPanelManager
+import pygubudesigner.actions as actions
 
 
 #Initialize logger
@@ -184,76 +186,98 @@ class PygubuDesigner(object):
         self.builder.connect_callbacks(self)
 
         #
-        #Application bindings
+        # Application Keyboard bindings
         #
         master = self.mainwindow
-        master.bind_all(
-            '<Control-KeyPress-n>',
-            lambda e: self.on_file_menuitem_clicked('file_new'))
-        master.bind_all(
-            '<Control-KeyPress-o>',
-            lambda e: self.on_file_menuitem_clicked('file_open'))
-        master.bind_all(
-            '<Control-KeyPress-s>',
-            lambda e: self.on_file_menuitem_clicked('file_save'))
-        master.bind_all(
-            '<Control-KeyPress-q>',
-            lambda e: self.on_file_menuitem_clicked('file_quit'))
-        master.bind_all(
-            '<Control-KeyPress-i>',
-            lambda e: self.on_edit_menuitem_clicked('edit_item_up'))
-        master.bind_all(
-            '<Control-KeyPress-k>',
-            lambda e: self.on_edit_menuitem_clicked('edit_item_down'))
+        master.bind_all('<Control-KeyPress>',
+                        key_bind(Key.N,
+                                     virtual_event(actions.FILE_NEW)))
+        master.bind_all('<Control-KeyPress>',
+                        key_bind(Key.O,
+                                     virtual_event(actions.FILE_OPEN)),
+                        add=True)
+        master.bind_all('<Control-KeyPress>',
+                        key_bind(Key.S,
+                                     virtual_event(actions.FILE_SAVE)),
+                        add=True)
+        master.bind_all('<Control-KeyPress>',
+                        key_bind(Key.Q,
+                                     virtual_event(actions.FILE_QUIT)),
+                        add=True)
         master.bind_all(
             '<F5>',
-            lambda e: self.tree_editor.preview_in_toplevel())
+            virtual_event(actions.TREE_ITEM_PREVIEW_TOPLEVEL))
         master.bind_all(
             '<F6>',
-            lambda e: self.previewer.close_toplevel_previews())
-
-        #
-        # Widget bindings
-        #
-        for widget in (self.tree_editor.treeview, previewc):
+            virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL))        
+        
+        # Tree Editing Keyboard events
+        for widget in (self.treeview, previewc):
             widget.bind(
-                '<Control-KeyPress-c>',
-                lambda e: self.tree_editor.copy_to_clipboard())
+                '<Control-KeyPress>',
+                key_bind(Key.I,
+                             virtual_event(actions.TREE_ITEM_MOVE_UP)))
             widget.bind(
-                '<Control-KeyPress-v>',
-                lambda e: self.tree_editor.paste_from_clipboard())
+                '<Control-KeyPress>',
+                key_bind(Key.K,
+                             virtual_event(actions.TREE_ITEM_MOVE_DOWN)),
+                add=True
+            )
             widget.bind(
-                '<Control-KeyPress-x>',
-                lambda e: self.tree_editor.cut_to_clipboard())
+                '<Control-KeyPress>',
+                key_bind(Key.C,
+                             lambda e: self.tree_editor.copy_to_clipboard()),
+                add=True)
             widget.bind(
-                '<KeyPress-Delete>',
-                lambda e: self.on_edit_menuitem_clicked('edit_item_delete'))
-
-        def clear_key_pressed(event, newevent):
-            # when KeyPress, not Ctrl-KeyPress, generate event.
-            if event.keysym_num == ord(event.char):
-                self.tree_editor.treeview.event_generate(newevent)
-        self.tree_editor.treeview.bind('<i>',
-                lambda e: clear_key_pressed(e, '<Up>'))
-        self.tree_editor.treeview.bind('<k>',
-                lambda e: clear_key_pressed(e, '<Down>'))
+                '<Control-KeyPress>',
+                key_bind(Key.V,
+                             lambda e: self.tree_editor.paste_from_clipboard()),
+                add=True
+            )
+            widget.bind(
+                '<Control-KeyPress>',
+                key_bind(Key.X,
+                             lambda e: self.tree_editor.cut_to_clipboard()),
+                add=True
+            )
+            widget.bind('<KeyPress>',
+                        key_bind(Key.I,
+                                     virtual_event(actions.TREE_NAV_UP)))
+            widget.bind('<KeyPress>',
+                        key_bind(Key.K,
+                                     virtual_event(actions.TREE_NAV_DOWN)),
+                        add=True)            
+            widget.bind('<KeyPress-Delete>',
+                        virtual_event(actions.TREE_ITEM_DELETE))
 
         #grid move bindings
-        self.tree_editor.treeview.bind(
-            '<Alt-KeyPress-i>',
-            lambda e: self.on_edit_menuitem_clicked('grid_up'))
-        self.tree_editor.treeview.bind(
-            '<Alt-KeyPress-k>',
-            lambda e: self.on_edit_menuitem_clicked('grid_down'))
-        self.tree_editor.treeview.bind(
-            '<Alt-KeyPress-j>',
-            lambda e: self.on_edit_menuitem_clicked('grid_left'))
-        self.tree_editor.treeview.bind(
-            '<Alt-KeyPress-l>',
-            lambda e: self.on_edit_menuitem_clicked('grid_right'))
-            
+        self.treeview.bind(
+            '<Alt-KeyPress>',
+            key_bind(Key.I,
+                         virtual_event(actions.TREE_ITEM_GRID_UP)))
+        self.treeview.bind(
+            '<Alt-KeyPress>',
+            key_bind(Key.K,
+                         virtual_event(actions.TREE_ITEM_GRID_DOWN)), add=True)
+        self.treeview.bind(
+            '<Alt-KeyPress>',
+            key_bind(Key.J,
+                         virtual_event(actions.TREE_ITEM_GRID_LEFT)), add=True)
+        self.treeview.bind(
+            '<Alt-KeyPress>',
+            key_bind(Key.L,
+                         virtual_event(actions.TREE_ITEM_GRID_RIGHT)), add=True)
+        
+        # Actions Bindings
+        w = self.mainwindow
+        w.bind(actions.FILE_NEW, self.on_file_new)
+        w.bind(actions.FILE_OPEN, lambda e: self.do_file_open())
+        w.bind(actions.FILE_SAVE, self.on_file_save)
+        w.bind(actions.FILE_SAVEAS, lambda e: self.do_save_as())
+        w.bind(actions.FILE_QUIT, lambda e: self.quit())
+        w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
         # On preferences save binding
-        self.mainwindow.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
+        w.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
 
         #
         # Setup tkk styles
@@ -280,6 +304,7 @@ class PygubuDesigner(object):
     def __on_window_close(self):
         """Manage WM_DELETE_WINDOW protocol."""
         if self.on_close_execute():
+            self.mainwindow.withdraw()
             self.mainwindow.destroy()
 
     def quit(self):
@@ -466,70 +491,44 @@ class PygubuDesigner(object):
                 filename = filedialog.askopenfilename(**options)
             if filename:
                 self.load_file(filename)
+    
+    def on_file_new(self, event=None):
+        new = True
+        if self.is_changed:
+            new = openfile = messagebox.askokcancel(
+                _('File changed'),
+                _('Changes not saved. Discard Changes?'))
+        if new:
+            self.previewer.remove_all()
+            self.tree_editor.remove_all()
+            self.currentfile = None
+            self.set_changed(False)
+            self.set_title(self.project_name())
+    
+    def on_file_save(self, event=None):
+        if self.currentfile:
+            if self.is_changed:
+                self.do_save(self.currentfile)
+        else:
+            self.do_save_as()        
 
     #File Menu
     def on_file_menuitem_clicked(self, itemid):
-        if itemid == 'file_new':
-            new = True
-            if self.is_changed:
-                new = openfile = messagebox.askokcancel(
-                    _('File changed'),
-                    _('Changes not saved. Discard Changes?'))
-            if new:
-                self.previewer.remove_all()
-                self.tree_editor.remove_all()
-                self.currentfile = None
-                self.set_changed(False)
-                self.set_title(self.project_name())
-        elif itemid == 'file_open':
-            self.do_file_open()
-        elif itemid == 'file_save':
-            if self.currentfile:
-                if self.is_changed:
-                    self.do_save(self.currentfile)
-            else:
-                self.do_save_as()
-        elif itemid == 'file_saveas':
-            self.do_save_as()
-        elif itemid == 'file_quit':
-            self.quit()
-        elif itemid == 'file_recent_clear':
-            self.rfiles_manager.clear()
+        action = '<<ACTION_{0}>>'.format(itemid)
+        self.mainwindow.event_generate(action)
 
     #Edit menu
     def on_edit_menuitem_clicked(self, itemid):
-        if itemid == 'edit_item_up':
-            self.tree_editor.on_item_move_up(None)
-        elif itemid == 'edit_item_down':
-            self.tree_editor.on_item_move_down(None)
-        elif itemid == 'edit_item_delete':
-            do_delete = messagebox.askokcancel(_('Delete items'),
-                                               _('Delete selected items?'))
-            if do_delete:
-                self.tree_editor.on_treeview_delete_selection(None)
-        elif itemid == 'edit_copy':
-            self.tree_editor.copy_to_clipboard()
-        elif itemid == 'edit_paste':
-            self.tree_editor.paste_from_clipboard()
-        elif itemid == 'edit_cut':
-            self.tree_editor.cut_to_clipboard()
-        elif itemid == 'grid_up':
-            self.tree_editor.on_item_grid_move(WidgetsTreeEditor.GRID_UP)
-        elif itemid == 'grid_down':
-            self.tree_editor.on_item_grid_move(WidgetsTreeEditor.GRID_DOWN)
-        elif itemid == 'grid_left':
-            self.tree_editor.on_item_grid_move(WidgetsTreeEditor.GRID_LEFT)
-        elif itemid == 'grid_right':
-            self.tree_editor.on_item_grid_move(WidgetsTreeEditor.GRID_RIGHT)
-        elif itemid == 'edit_preferences':
+        if itemid == 'edit_preferences':
             self._edit_preferences()
+        else:
+            action = '<<ACTION_{0}>>'.format(itemid)
+            self.mainwindow.event_generate(action)
 
     #preview menu
     def on_previewmenu_action(self, itemid):
-        if itemid == 'preview_toplevel':
-            self.tree_editor.preview_in_toplevel()
-        if itemid == 'preview_toplevel_closeall':
-            self.previewer.close_toplevel_previews()
+        action = '<<ACTION_{0}>>'.format(itemid)
+        self.mainwindow.event_generate(action)
 
     #Help menu
     def on_help_menuitem_clicked(self, itemid):

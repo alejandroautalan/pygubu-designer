@@ -22,8 +22,10 @@ from collections import Counter
 import logging
 try:
     import tkinter as tk
+    from tkinter import messagebox
 except:
     import Tkinter as tk
+    import tkMessageBox as messagebox
 
 from pygubu.builder import CLASS_MAP
 from pygubu.builder.uidefinition import UIDefinition
@@ -36,9 +38,14 @@ from .util import trlog
 from .propertieseditor import PropertiesEditor
 from .bindingseditor import BindingsEditor
 from .layouteditor import LayoutEditor
+from .i18n import translator
+from .actions import *
 
 
 logger = logging.getLogger('pygubu.designer')
+
+#translator function
+_ = translator
 
 
 class WidgetsTreeEditor(object):
@@ -80,6 +87,32 @@ class WidgetsTreeEditor(object):
         self.treeview.bind_all('<<PreviewItemSelected>>', self._on_preview_item_clicked)
         # Listen to Grid RC changes from layout
         lframe.bind_all('<<LayoutEditorGridRCChanged>>', self._on_gridrc_changed)
+        
+        # Tree Editing
+        tree = self.treeview
+        tree.bind(TREE_ITEM_COPY, lambda e: self.copy_to_clipboard())
+        tree.bind(TREE_ITEM_PASTE, lambda e: self.paste_from_clipboard())
+        tree.bind(TREE_ITEM_CUT, lambda e: self.cut_to_clipboard())
+        tree.bind(TREE_ITEM_DELETE, self.on_tree_item_delete)
+        tree.bind(TREE_ITEM_GRID_DOWN,
+                  lambda e: self.on_item_grid_move(self.GRID_DOWN))
+        tree.bind(TREE_ITEM_GRID_LEFT,
+                  lambda e: self.on_item_grid_move(self.GRID_LEFT))
+        tree.bind(TREE_ITEM_GRID_RIGHT,
+                  lambda e: self.on_item_grid_move(self.GRID_RIGHT))
+        tree.bind(TREE_ITEM_GRID_UP,
+                  lambda e: self.on_item_grid_move(self.GRID_UP))
+        tree.bind(TREE_ITEM_MOVE_DOWN, lambda e: self.on_item_move_down(None))
+        tree.bind(TREE_ITEM_MOVE_UP, lambda e: self.on_item_move_up(None))
+        tree.bind(TREE_NAV_DOWN, lambda e: e.widget.event_generate('<Down>'))
+        tree.bind(TREE_NAV_UP, lambda e: e.widget.event_generate('<Up>'))
+        tree.bind(TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel)
+        
+    def on_tree_item_delete(self, event):
+        do_delete = messagebox.askokcancel(_('Delete items'),
+                                           _('Delete selected items?'))
+        if do_delete:
+            self.on_treeview_delete_selection(None)        
     
     def _on_gridrc_changed(self, event):
         # update siblings items that have same row col position
@@ -184,7 +217,7 @@ class WidgetsTreeEditor(object):
             self.previewer.show_selected(item, selected_id)
             self.filter_restore()
 
-    def preview_in_toplevel(self):
+    def on_preview_in_toplevel(self, event=None):
         tv = self.treeview
         sel = tv.selection()
         if sel:
