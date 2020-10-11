@@ -124,6 +124,7 @@ def treeview_print(tree, root=''):
 
 
 class BraceMessage:
+    '''Helper class to use braces {} in log messages'''
     def __init__(self, fmt, *args, **kwargs):
         self.fmt = fmt
         self.args = args
@@ -132,4 +133,16 @@ class BraceMessage:
     def __str__(self):
         return self.fmt.format(*self.args, **self.kwargs)
 
+
+# Helper to translate log messages with braces
 trlog = BraceMessage
+
+
+def virtual_event(event_name):
+    '''Generate virtual event event_name'''
+    
+    def virtual_event_gen(event):
+        event.widget.event_generate(event_name)
+    
+    return virtual_event_gen
+
