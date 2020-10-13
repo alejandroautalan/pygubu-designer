@@ -22,7 +22,7 @@ gtk_imgs = {
     'widget-gtk-label.png': ('tk.Label', 'ttk.Label'),
     'widget-gtk-menubar.png': tuple(),
     'widget-gtk-menuitem.png': ('tk.Menuitem.Command',),
-    'widget-gtk-menu.png': ('tk.Menu', 'tk.Menuitem.Submenu'),
+    'widget-gtk-menu.png': ('tk.Menu', 'tk.Menuitem.Submenu', 'pygubu.builder.widgets.toplevelmenu'),
     'widget-gtk-menutoolbutton.png': ('tk.Menubutton', 'ttk.Menubutton'),
     'widget-gtk-notebook.png': ('ttk.Notebook',),
     'widget-gtk-paned.png': ('tk.PanedWindow', 'ttk.Panedwindow',
@@ -101,6 +101,7 @@ def create_image_for(widget_name):
         dest = os.path.join(IMG_DIR, '16x16')
         iimage = os.path.join(origin, source)
         oimage = os.path.join(dest, widget_name)
+        #print('calling convert: ')
         cmd = 'convert {0} -filter Hermite -format gif ' \
               '-background transparent -bordercolor white -border 0x0 ' \
               '-resize 16 {1}.gif'.format(iimage, oimage)

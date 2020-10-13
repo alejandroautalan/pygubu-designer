@@ -79,6 +79,11 @@ class ToplevelFramePreview(tk.Frame):
                 cnf.pop(key)
             else:
                 self._h_set = True
+        key = 'menu'
+        if key in cnf:
+            # No menu preview available
+            cnf.pop(key)
+        
         return tk.Frame.configure(self, cnf)
 
 
@@ -87,6 +92,7 @@ class ToplevelFramePreviewBO(BuilderObject):
     container = True
     #Add fake 'modal' property for Dialog preview
     properties = TKToplevel.properties + ('modal',)
+    ro_properties = TKToplevel.ro_properties
 
     def _set_property(self, target_widget, pname, value):
         tw = target_widget
