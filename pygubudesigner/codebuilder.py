@@ -2,9 +2,35 @@ from __future__ import unicode_literals, print_function
 import os
 from collections import OrderedDict
 from pygubu.builder import Builder, CLASS_MAP
-from pygubu.builder.builderobject import BuilderObject, grouper
+from pygubu.builder.builderobject import BuilderObject, grouper, register_widget
 from pygubu.builder.widgetmeta import WidgetMeta
 from pygubu.stockimage import TK_BITMAP_FORMATS
+from pygubu.builder.tkstdwidgets import TKToplevel
+
+
+class ToplevelOrTk(TKToplevel):
+    def code_realize(self, boparent, code_identifier=None):
+        if code_identifier is not None:
+            self._code_identifier = code_identifier
+        lines = []
+        master = boparent.code_child_master()
+        init_args = self._get_init_args()
+        bag = []
+        for pname, value in init_args.items():
+            s = "{0}='{1}'".format(pname, value)
+            bag.append(s)
+        kwargs = ''
+        if bag:
+            kwargs = ', {0}'.format(', '.join(bag))
+        s = "{0} = tk.Tk({3}) if master is None else {1}({2}{3})".format(self.code_identifier(),
+                                       self._code_class_name(), master, kwargs)
+        lines.append(s)
+        return lines
+
+
+register_widget('pygubudesigner.ToplevelOrTk',
+                ToplevelOrTk, 'ToplevelOrTk', tuple())
+
 
 
 class UI2Code(Builder):
@@ -52,13 +78,20 @@ class UI2Code(Builder):
             'callbacks': code_callbacks,
             }
         return cc
-        
+    
+    def _toplevel_or_tk(self, target):
+        wmeta = self.uidefinition.get_widget(target)
+        if wmeta.classname == 'tk.Toplevel':
+            wmeta.classname = 'pygubudesigner.ToplevelOrTk'
+            self.uidefinition.replace_widget(target, wmeta)
+    
     def generate(self, uidef, target, **kw):
         self.uidefinition = uidef
         self._process_options(kw)
         
         mastermeta = WidgetMeta('','master')
         builder = BuilderObject(self, mastermeta)
+        self._toplevel_or_tk(target)
         wmeta = self.uidefinition.get_widget(target)
 
         if wmeta is not None:
@@ -96,7 +129,9 @@ class UI2Code(Builder):
         wmeta = bobject.wmeta
         cname = None
         if bobject.class_ is not None:
-            if wmeta.classname.startswith('tk.'):
+            if wmeta.classname == 'pygubudesigner.ToplevelOrTk':
+                cname = 'tk.Toplevel'
+            elif wmeta.classname.startswith('tk.'):
                 cname = wmeta.classname
             elif wmeta.classname.startswith('ttk.'):
                 self._import_ttk = True;
