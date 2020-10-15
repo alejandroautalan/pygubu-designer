@@ -36,7 +36,7 @@ gtk_imgs = {
     'widget-gtk-separatormenuitem.png': ('tk.Menuitem.Separator',),
     'widget-gtk-separator.png': ('ttk.Separator',),
     'widget-gtk-spinbutton.png': ('tk.Spinbox', 'ttk.Spinbox'),
-    'widget-gtk-textview.png': ('tk.Text',),
+    'widget-gtk-textview.png': ('tk.Text', 'pygubu.builder.widgets.tkinterscrolledtext'),
     'widget-gtk-treeview.png': ('tk.Listbox', 'ttk.Treeview',
         'pygubu.builder.widgets.editabletreeview'),
     'widget-gtk-viewport.png': ('pygubu.builder.widgets.scrollbarhelper',
