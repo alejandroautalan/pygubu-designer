@@ -1,26 +1,19 @@
 import os
 import pygubu
-from PIL import Image, ImageTk
+import pathlib
 
-
-PROJECT_PATH = os.path.dirname(__file__)
-PROJECT_UI = os.path.join(PROJECT_PATH, "demoapp.ui")
+PROJECT_PATH = pathlib.Path(__file__).parent
+PROJECT_UI = PROJECT_PATH / "demoapp.ui"
 
 
 class DemoApp:
     def __init__(self):
         self.builder = builder = pygubu.Builder()
         builder.add_resource_path(PROJECT_PATH)
+        print(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object('topdemo')
         builder.connect_callbacks(self)
-        
-        canvas = builder.get_object('canvas1')
-        # Load image in canvas
-        fpath = os.path.join(PROJECT_PATH, 'seaside400.jpg')
-        aux = Image.open(fpath)
-        self.img = ImageTk.PhotoImage(aux)
-        canvas.create_image(0, 0, image=self.img, anchor='nw')
         
     def run(self):
         self.mainwindow.mainloop()
