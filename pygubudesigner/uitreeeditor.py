@@ -90,23 +90,23 @@ class WidgetsTreeEditor(object):
         
         # Tree Editing
         tree = self.treeview
-        tree.bind(TREE_ITEM_COPY, lambda e: self.copy_to_clipboard())
-        tree.bind(TREE_ITEM_PASTE, lambda e: self.paste_from_clipboard())
-        tree.bind(TREE_ITEM_CUT, lambda e: self.cut_to_clipboard())
-        tree.bind(TREE_ITEM_DELETE, self.on_tree_item_delete)
-        tree.bind(TREE_ITEM_GRID_DOWN,
+        tree.bind_all(TREE_ITEM_COPY, lambda e: self.copy_to_clipboard())
+        tree.bind_all(TREE_ITEM_PASTE, lambda e: self.paste_from_clipboard())
+        tree.bind_all(TREE_ITEM_CUT, lambda e: self.cut_to_clipboard())
+        tree.bind_all(TREE_ITEM_DELETE, self.on_tree_item_delete)
+        tree.bind_all(TREE_ITEM_GRID_DOWN,
                   lambda e: self.on_item_grid_move(self.GRID_DOWN))
-        tree.bind(TREE_ITEM_GRID_LEFT,
+        tree.bind_all(TREE_ITEM_GRID_LEFT,
                   lambda e: self.on_item_grid_move(self.GRID_LEFT))
-        tree.bind(TREE_ITEM_GRID_RIGHT,
+        tree.bind_all(TREE_ITEM_GRID_RIGHT,
                   lambda e: self.on_item_grid_move(self.GRID_RIGHT))
-        tree.bind(TREE_ITEM_GRID_UP,
+        tree.bind_all(TREE_ITEM_GRID_UP,
                   lambda e: self.on_item_grid_move(self.GRID_UP))
-        tree.bind(TREE_ITEM_MOVE_DOWN, lambda e: self.on_item_move_down(None))
-        tree.bind(TREE_ITEM_MOVE_UP, lambda e: self.on_item_move_up(None))
-        tree.bind(TREE_NAV_DOWN, lambda e: e.widget.event_generate('<Down>'))
-        tree.bind(TREE_NAV_UP, lambda e: e.widget.event_generate('<Up>'))
-        tree.bind(TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel)
+        tree.bind_all(TREE_ITEM_MOVE_DOWN, lambda e: self.on_item_move_down(None))
+        tree.bind_all(TREE_ITEM_MOVE_UP, lambda e: self.on_item_move_up(None))
+        tree.bind_all(TREE_NAV_DOWN, lambda e: e.widget.event_generate('<Down>'))
+        tree.bind_all(TREE_NAV_UP, lambda e: e.widget.event_generate('<Up>'))
+        tree.bind_all(TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel)
         
     def on_tree_item_delete(self, event):
         do_delete = messagebox.askokcancel(_('Delete items'),
