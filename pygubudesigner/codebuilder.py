@@ -243,9 +243,14 @@ class UI2Code(Builder):
         tab2 = tabspaces//2 if tabspaces == 8 else 1
         
         lines = []
-        for name, cbtype in self._callbacks.items():
+        for name, value in self._callbacks.items():
+            cbtype, args = value
             if cbtype == 'command':
-                line = '{0}def {1}(self):'.format(' '*tab2, name)
+                if args is None:
+                    line = '{0}def {1}(self):'.format(' '*tab2, name)
+                else:
+                    fargs = ', '.join(args)
+                    line = '{0}def {1}(self, {2}):'.format(' '*tab2, name, fargs)
             else:
                 line = '{0}def {1}(self, event=None):'.format(' '*tab2, name)
             lines.append(line)
@@ -253,9 +258,9 @@ class UI2Code(Builder):
             lines.append(line)
         return lines
     
-    def code_create_callback(self, name, cbtype):
+    def code_create_callback(self, name, cbtype, args=None):
         if name not in self._callbacks:
-            self._callbacks[name] = cbtype
+            self._callbacks[name] = (cbtype, args)
         cb_name = 'self.{0}'.format(name)
         return cb_name
     
