@@ -183,3 +183,7 @@ class ScriptGenerator(object):
     def get_code(self):
         return self.txt_code.get('0.0', 'end')
 
+    def reset(self):
+        self.set_code('')
+        self.configure()
+    

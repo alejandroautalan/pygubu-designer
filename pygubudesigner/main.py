@@ -470,12 +470,15 @@ class PygubuDesigner(object):
     def load_file(self, filename):
         """Load xml into treeview"""
 
-        self.tree_editor.load_file(filename)
-        self.currentfile = filename
-        title = self.project_name()
-        self.set_title(title)        
-        self.set_changed(False)
-        self.rfiles_manager.addfile(filename)
+        try:
+            self.tree_editor.load_file(filename)
+            self.currentfile = filename
+            title = self.project_name()
+            self.set_title(title)        
+            self.set_changed(False)
+            self.rfiles_manager.addfile(filename)
+        except Exception as e:
+            messagebox.showerror(_('Error'), str(e))
     
     def do_file_open(self, filename=None):
         openfile = True
@@ -504,6 +507,7 @@ class PygubuDesigner(object):
             self.currentfile = None
             self.set_changed(False)
             self.set_title(self.project_name())
+            self.script_generator.reset()
     
     def on_file_save(self, event=None):
         if self.currentfile:
