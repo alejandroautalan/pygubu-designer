@@ -523,7 +523,11 @@ TK_WIDGET_OPTIONS = {
                 'values': ('', 'always', 'first', 'last', 'middle', 'never'),
                 'state': 'readonly'}}},
     'style': {
-        'editor': 'ttkstylechoice'},
+        'editor': 'ttkstylechoice',
+        'ttk.Button': {
+            'params': {'values': ('', 'Toolbutton')}
+            }
+        },
     'tabs': {
         'editor': 'entry'},  # FIXME see tk.Text tab property
     'tabstyle': {
@@ -697,6 +701,12 @@ CUSTOM_OPTIONS = {
             'values': ('true', 'false'),
             'state': 'readonly'},
         'default': 'false'},
+    'idtocommand': {
+        'editor': 'choice',
+        'params': {
+            'values': ('true', 'false'),
+            'state': 'readonly'},
+        'default': 'false'},
     'geometry': {
         'editor': 'dynamic',
         'params': {
@@ -809,7 +819,7 @@ WIDGET_CUSTOM_OPTIONS = [
     'command_id_arg', 'invalidcommand_args', 'tree_column', 'validatecommand_args',
     'visible', 'scrolltype', 'text', 'title',
     'geometry', 'overrideredirect', 'resizable', 'minsize',
-    'maxsize', 'usemousewheel', 'iconbitmap', 'iconphoto',
+    'maxsize', 'usemousewheel', 'iconbitmap', 'iconphoto', 'idtocommand',
     ]
 
 WIDGET_PROPERTIES = wp = dict(TK_WIDGET_OPTIONS)
