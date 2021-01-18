@@ -318,6 +318,9 @@ class PygubuDesigner(object):
         self.mainwindow.wm_title(title)
 
     def _setup_styles(self):
+        self.mainwindow.option_add('*Dialog.msg.width', 34)
+        self.mainwindow.option_add("*Dialog.msg.wrapLength", "6i")
+        
         s = ttk.Style()
         s.configure('ColorSelectorButton.Toolbutton',
                     image=StockImage.get('mglass'))
