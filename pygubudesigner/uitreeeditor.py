@@ -31,7 +31,6 @@ from pygubu.builder import CLASS_MAP
 from pygubu.builder.uidefinition import UIDefinition
 from pygubu.stockimage import StockImage, StockImageException
 import pygubudesigner
-from .widgeteditor import WidgetEditor
 from .widgetdescr import WidgetMeta
 from .i18n import translator as _
 from .util import trlog
@@ -68,6 +67,7 @@ class WidgetsTreeEditor(object):
         self.filter_prev_value = ''
         self.filter_prev_sitem = None
         self._detached = []
+        self._listen_object_updates = True
 
         self.config_treeview()
         self.config_filter()
@@ -87,6 +87,10 @@ class WidgetsTreeEditor(object):
         self.treeview.bind_all('<<PreviewItemSelected>>', self._on_preview_item_clicked)
         # Listen to Grid RC changes from layout
         lframe.bind_all('<<LayoutEditorGridRCChanged>>', self._on_gridrc_changed)
+        f = lambda e, manager='grid': self.change_container_manager(manager)
+        lframe.bind_all('<<LayoutEditorContainerManagerToGrid>>', f)
+        f = lambda e, manager='pack': self.change_container_manager(manager)
+        lframe.bind_all('<<LayoutEditorContainerManagerToPack>>', f)
         
         # Tree Editing
         tree = self.treeview
@@ -133,6 +137,19 @@ class WidgetsTreeEditor(object):
                     wu.copy_gridrc(wmeta, 'row')
                 if wu_col == scol:
                     wu.copy_gridrc(wmeta, 'col')
+    
+    def change_container_manager(self, new_manager):
+        item = self.current_edit
+        parent = self.treeview.parent(item)
+        if parent:
+            children = self.treeview.get_children(parent)
+            self._listen_object_updates = False
+            for child in children:
+                self.treedata[child].manager = new_manager
+            self._listen_object_updates = True
+            #breakpoint()
+            self.editor_edit(item, self.treedata[item])
+            self.draw_widget(item)
     
     def _on_preview_item_clicked(self, event):
         wid = self.previewer.selected_widget
@@ -687,6 +704,10 @@ class WidgetsTreeEditor(object):
 
     def update_event(self, hint, obj):
         """Updates tree colums when itemdata is changed."""
+        
+        if not self._listen_object_updates:
+            return
+        
         tree = self.treeview
         data = obj
         item = self.get_item_by_data(obj)

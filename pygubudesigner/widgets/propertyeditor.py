@@ -292,6 +292,20 @@ class GeometryPropertyEditor(ChoicePropertyEditor):
         return is_valid
 
 
+class LayoutManagerPropertyEditor(ChoicePropertyEditor):
+    """Special Internal Manager property editor"""
+    
+    def _create_ui(self):
+        self._cb_pending = False
+        self._combobox = combobox = Combobox(self, keyvariable=self._variable)
+        combobox.grid(sticky='we')
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        sequenses = ('<KeyPress-Return>',
+                     '<KeyPress-KP_Enter>', '<<ComboboxSelected>>')
+        for seq in sequenses:
+            combobox.bind(seq, self._on_variable_changed)
+
 
 register_editor('entry', EntryPropertyEditor)
 register_editor('alphanumentry', AlphanumericEntryPropertyEditor)

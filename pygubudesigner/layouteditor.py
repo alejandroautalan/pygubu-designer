@@ -20,12 +20,15 @@ import logging
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
+    from tkinter import messagebox
 except:
     import Tkinter as tk
     import ttk
+    import tkMessageBox as messagebox
 
 from pygubu import builder
-from pygubudesigner.widgets.propertyeditor import create_editor
+from pygubudesigner.widgets.propertyeditor import (create_editor,
+    LayoutManagerPropertyEditor)
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.propertieseditor import PropertiesEditor
@@ -46,11 +49,11 @@ class LayoutEditor(PropertiesEditor):
         self._fselector = fm = ttk.Frame(self._sframe.innerframe)
         label = ttk.Label(fm, text='Manager:')
         label.pack(side='left')
-        self.layout_selector = combo = create_editor('choice_key', fm)
+        self.layout_selector = combo = LayoutManagerPropertyEditor(fm)
         combo.parameters(state='readonly', values=self.managers)
         combo.pack(side='left', expand=True)
         combo.bind('<<PropertyChanged>>', self._layout_manager_changed)
-        self._manager_options = self.managers.keys()
+        self._allowed_managers = self.managers.keys()
         fm.grid(row=0, sticky='w')
         
         # Layout Options editors
@@ -149,12 +152,7 @@ class LayoutEditor(PropertiesEditor):
             manager_prop = properties.PLACE_PROPERTIES
         
         if show_layout:
-            self._manager_options = manager_options
-            allowed_values = self.managers.copy()
-            for key in self.managers:
-                if key not in self._manager_options:
-                    allowed_values.pop(key)
-            self.layout_selector.parameters(values=allowed_values)
+            self._allowed_managers = manager_options
             self.layout_selector.edit(manager)
             self.layout_selector.pack()
         else:
@@ -205,10 +203,32 @@ class LayoutEditor(PropertiesEditor):
         self._sframe.reposition()
 
     def _layout_manager_changed(self, event=None):
-        if self._current is not None:
-            newvalue = self.layout_selector.value
-            self._current.manager = newvalue
-            self.edit(self._current, self._manager_options)
+        if self._current is None:
+            # I'm not editing anything
+            return
+        
+        old_manager = self._current.manager
+        new_manager = self.layout_selector.value
+        needs_container_change = False
+        user_accepts_change = False
+        if new_manager not in self._allowed_managers:
+            needs_container_change = True
+            title = _('Change Manager')
+            msg = _('Change manager from {0} to {1}?')
+            msg = msg.format(old_manager, new_manager)
+            detail = _('All container widgets will be updated.')
+            user_accepts_change = messagebox.askokcancel(title, msg, detail=detail)
+        if needs_container_change:
+            if user_accepts_change:
+                event_name = '<<LayoutEditorContainerManagerToPack>>'
+                if new_manager == 'grid':
+                    event_name = '<<LayoutEditorContainerManagerToGrid>>'
+                event.widget.event_generate(event_name)
+            else:
+                self.layout_selector.edit(old_manager)
+        else:
+            self._current.manager = new_manager
+            self.edit(self._current, self._allowed_managers)
     
     def _on_property_changed(self, name, editor):
         value = editor.value
