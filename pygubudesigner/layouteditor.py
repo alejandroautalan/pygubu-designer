@@ -217,7 +217,9 @@ class LayoutEditor(PropertiesEditor):
             msg = _('Change manager from {0} to {1}?')
             msg = msg.format(old_manager, new_manager)
             detail = _('All container widgets will be updated.')
-            user_accepts_change = messagebox.askokcancel(title, msg, detail=detail)
+            user_accepts_change = messagebox.askokcancel(
+                title, msg, detail=detail,
+                parent=self.layout_selector.winfo_toplevel())
         if needs_container_change:
             if user_accepts_change:
                 event_name = '<<LayoutEditorContainerManagerToPack>>'

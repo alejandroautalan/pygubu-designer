@@ -109,7 +109,8 @@ class ScriptGenerator(object):
         
         _ = self.app.translator
         msg = _('Code copied')
-        messagebox.showinfo(title=self.msgtitle, message=msg)
+        messagebox.showinfo(title=self.msgtitle, message=msg,
+                            parent=self.widgetlist.winfo_toplevel())
     
     def on_code_template_changed(self, clear_code=True):
         template = self.template_var.get()
@@ -162,17 +163,21 @@ class ScriptGenerator(object):
         _ = self.app.translator
         mbtitle = self.msgtitle
         widget = self.widgetlist.current()
+        parent = self.widgetlist.winfo_toplevel()
         if widget is None:
             valid = False
-            messagebox.showwarning(title=mbtitle, message=_('Select widget'))
+            messagebox.showwarning(title=mbtitle, message=_('Select widget'),
+                                   parent=parent)
         template = self.template_var.get()
         if valid and template is None:
             valid = False
-            messagebox.showwarning(title=mbtitle, message=_('Select template'))
+            messagebox.showwarning(title=mbtitle, message=_('Select template'),
+                                   parent=parent)
         classname = self.classnamevar.get()
         if valid and classname == '':
             valid = False
-            messagebox.showwarning(title=mbtitle, message=_('Enter classname'))
+            messagebox.showwarning(title=mbtitle, message=_('Enter classname'),
+                                   parent=parent)
         
         return valid
     

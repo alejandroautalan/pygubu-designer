@@ -438,7 +438,8 @@ class PygubuDesigner(object):
         if self.is_changed:
             quit = messagebox.askokcancel(
                 _('File changed'),
-                _('Changes not saved. Quit anyway?'))
+                _('Changes not saved. Quit anyway?'),
+                parent=self.mainwindow)
         if quit:
             #prevent tk image errors on python2 ?
             StockImage.clear_cache()
@@ -481,14 +482,15 @@ class PygubuDesigner(object):
             self.set_changed(False)
             self.rfiles_manager.addfile(filename)
         except Exception as e:
-            messagebox.showerror(_('Error'), str(e))
+            messagebox.showerror(_('Error'), str(e), parent=self.mainwindow)
     
     def do_file_open(self, filename=None):
         openfile = True
         if self.is_changed:
             openfile = messagebox.askokcancel(
                 _('File changed'),
-                _('Changes not saved. Open new file anyway?'))
+                _('Changes not saved. Open new file anyway?'),
+                parent=self.mainwindow)
         if openfile:
             if filename is None:
                 options = {
@@ -503,7 +505,8 @@ class PygubuDesigner(object):
         if self.is_changed:
             new = openfile = messagebox.askokcancel(
                 _('File changed'),
-                _('Changes not saved. Discard Changes?'))
+                _('Changes not saved. Discard Changes?'),
+                parent=self.mainwindow)
         if new:
             self.previewer.remove_all()
             self.tree_editor.remove_all()
