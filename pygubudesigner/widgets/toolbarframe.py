@@ -7,6 +7,8 @@ except:
 
 
 class ToolbarFrame(ttk.Frame):
+    BTN_LEFT_STYLE = 'BtnLeft.ToolbarFrame.Toolbutton'
+    BTN_RIGHT_STYLE = 'btnRight.ToolbarFrame.Toolbutton'
     
     def __init__(self, master=None, **kw):
         ttk.Frame.__init__(self, master, **kw)
@@ -20,11 +22,13 @@ class ToolbarFrame(ttk.Frame):
         fvport.pack(expand='true', fill='both', side='left')
         fcontrols = ttk.Frame(self)
         bsleft = ttk.Button(fcontrols)
-        bsleft.config(text='<', width='1', takefocus=True)
+        bsleft.config(text='<', width='1', takefocus=True,
+                      style=self.BTN_LEFT_STYLE)
         bsleft.pack(expand='true', fill='y', side='left')
         bsleft.configure(command=self.scroll_left)
         bsright = ttk.Button(fcontrols)
-        bsright.config(text='>', width='1', takefocus=True)
+        bsright.config(text='>', width='1', takefocus=True,
+                      style=self.BTN_RIGHT_STYLE)
         bsright.pack(expand='true', fill='y', side='left')
         bsright.configure(command=self.scroll_right)
         fcontrols.config(height='50', width='50')

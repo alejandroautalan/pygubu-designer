@@ -16,7 +16,6 @@
 
 from __future__ import unicode_literals
 
-import os
 import sys
 import re
 try:
@@ -33,10 +32,6 @@ from pygubu.stockimage import StockImage, StockImageException
 from pygubudesigner.widgets.propertyeditor import *
 
 RE_FONT = re.compile("(?P<family>\{\w+(\w|\s)*\}|\w+)\s?(?P<size>-?\d+)?\s?(?P<modifiers>\{\w+(\w|\s)*\}|\w+)?")
-FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-IMAGES_DIR = os.path.join(FILE_DIR, "..", "images", "widgets", "fontentry")
-IMAGES_DIR = os.path.abspath(IMAGES_DIR)
-StockImage.register_from_dir(IMAGES_DIR)
 
 PREDEFINED_FONTS = [
     'TkDefaultFont', 'TkTextFont', 'TkFixedFont',

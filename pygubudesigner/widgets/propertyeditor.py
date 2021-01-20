@@ -22,7 +22,6 @@ __all__ = ['PropertyEditor', 'EntryPropertyEditor', 'SpinboxPropertyEditor',
            'ChoicePropertyEditor', 'TextPropertyEditor',
            'CheckbuttonPropertyEditor', 'register_editor', 'create_editor']
 
-import os
 import keyword
 import re
 
@@ -33,14 +32,8 @@ except:
     import Tkinter as tk
     import ttk
 
-from pygubu.stockimage import StockImage, StockImageException
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 from pygubu.widgets.combobox import Combobox
-
-FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-IMAGES_DIR = os.path.join(FILE_DIR, "..", "images", "widgets", "propertyeditor")
-IMAGES_DIR = os.path.abspath(IMAGES_DIR)
-StockImage.register_from_dir(IMAGES_DIR)
 
 EDITORS = {}
 

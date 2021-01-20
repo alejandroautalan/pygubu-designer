@@ -127,7 +127,10 @@ setup(
     packages=['pygubudesigner', 'pygubudesigner.util', 'pygubudesigner.widgets'],
     package_data={
         'pygubudesigner': [
-            'images/*.gif', 'images/widgets/*/*.gif',
+            'images/images-gif/*.gif',
+            'images/images-gif/widgets/*/*.gif',
+            'images/images-png/*.png',
+            'images/images-png/widgets/*/*.png',
             'ui/*.ui',
             'locale/*/*/*.mo'],
     },

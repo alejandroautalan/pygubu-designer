@@ -53,6 +53,7 @@ import pygubu.widgets.simpletooltip as tooltip
 import pygubudesigner
 from pygubudesigner.preferences import PreferencesUI, get_custom_widgets, get_option
 from pygubudesigner.widgets.componentpalette import ComponentPalette
+from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 from pygubudesigner.scriptgenerator import ScriptGenerator
 from .rfilemanager import RecentFilesManager
 from .logpanel import LogPanelManager
@@ -100,12 +101,22 @@ def init_pygubu_widgets():
 
 #Initialize images
 DESIGNER_DIR = os.path.dirname(os.path.abspath(__file__))
+
+imgformat = 'images-gif'
+if tk.TkVersion >= 8.6:
+    imgformat = 'images-png'
+
 IMAGES_DIR = os.path.join(DESIGNER_DIR, "images")
-StockImage.register_from_dir(IMAGES_DIR)
-StockImage.register_from_dir(
-    os.path.join(IMAGES_DIR, 'widgets', '22x22'), '22x22-')
-StockImage.register_from_dir(
-    os.path.join(IMAGES_DIR, 'widgets', '16x16'), '16x16-')
+IMAGE_PATHS = [ #(dir, tag)
+    (IMAGES_DIR, ''),
+    (os.path.join(IMAGES_DIR, imgformat), ''),
+    (os.path.join(IMAGES_DIR, imgformat, 'widgets', '22x22'), '22x22-'),
+    (os.path.join(IMAGES_DIR, imgformat, 'widgets', '16x16'), '16x16-'),
+    (os.path.join(IMAGES_DIR, imgformat, 'widgets', 'fontentry'), ''),
+    ]
+for dir_, prefix in IMAGE_PATHS:
+    StockImage.register_from_dir(dir_, prefix)
+
 
 
 class StatusBarHandler(logging.Handler):
@@ -336,6 +347,11 @@ class PygubuDesigner(object):
                     font='TkSmallCaptionFont')
         s.configure('Template.Toolbutton',
                     padding=5)
+        # ToolbarFrame scroll buttons
+        s.configure(ToolbarFrame.BTN_LEFT_STYLE,
+            image=StockImage.get('arrow-left2'))
+        s.configure(ToolbarFrame.BTN_RIGHT_STYLE,
+            image=StockImage.get('arrow-right2'))
         if sys.platform == 'linux':
             #change background of comboboxes
             color = s.lookup('TEntry', 'fieldbackground')
