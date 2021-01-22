@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 21:18-0300\n"
+"POT-Creation-Date: 2021-01-22 15:33-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,48 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: pygubudesigner/ui/preferences_dialog.ui:10
+msgid "Pygubu Preferences"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:36
+#: pygubudesigner/ui/pygubu-ui.ui:568
+msgid "General"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:48
+msgid "Prefered widget set:"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:73
+msgid "Custom Widgets"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:88
+msgid "Custom Widgets Builders"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:110
+msgid "Requires restart."
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:144
+msgid "modules"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:167
+msgid "+"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:180
+msgid "-"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:213
+#: pygubudesigner/ui/about_dialog.ui:105
+msgid "Close"
+msgstr ""
 
 #: pygubudesigner/ui/pygubu-ui.ui:7
 msgid "File"
@@ -37,7 +79,7 @@ msgstr ""
 msgid "Clear list"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:50 pygubudesigner/ui/pygubu-ui.ui:990
+#: pygubudesigner/ui/pygubu-ui.ui:50 pygubudesigner/ui/pygubu-ui.ui:994
 msgid "Save"
 msgstr ""
 
@@ -85,202 +127,160 @@ msgstr ""
 msgid "Widget grid"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:146
+#: pygubudesigner/ui/pygubu-ui.ui:147
 msgid "Move up"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:153
+#: pygubudesigner/ui/pygubu-ui.ui:155
 msgid "Move down"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:160
+#: pygubudesigner/ui/pygubu-ui.ui:163
 msgid "Move left"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:167
+#: pygubudesigner/ui/pygubu-ui.ui:171
 msgid "Move right"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:179
+#: pygubudesigner/ui/pygubu-ui.ui:183
 msgid "Preferences"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:186 pygubudesigner/ui/pygubu-ui.ui:930
+#: pygubudesigner/ui/pygubu-ui.ui:190 pygubudesigner/ui/pygubu-ui.ui:934
 msgid "Preview"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:194
+#: pygubudesigner/ui/pygubu-ui.ui:198
 msgid "Preview in Toplevel"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:202
+#: pygubudesigner/ui/pygubu-ui.ui:206
 msgid "Close Toplevel previews"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:207
+#: pygubudesigner/ui/pygubu-ui.ui:211
 msgid "ttk theme"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:215
+#: pygubudesigner/ui/pygubu-ui.ui:219
 msgid "Help"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:222
+#: pygubudesigner/ui/pygubu-ui.ui:226
 msgid "Help (Online)"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:229
+#: pygubudesigner/ui/pygubu-ui.ui:233
 msgid "About …"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:239
+#: pygubudesigner/ui/pygubu-ui.ui:243
 msgid "Pygubu Designer"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:297
+#: pygubudesigner/ui/pygubu-ui.ui:301
 msgid "Object Tree"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:319
+#: pygubudesigner/ui/pygubu-ui.ui:323
 msgid "Filter:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:342
+#: pygubudesigner/ui/pygubu-ui.ui:346
 msgid "✖"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:375
+#: pygubudesigner/ui/pygubu-ui.ui:379
 msgid "Widget Id"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:387
+#: pygubudesigner/ui/pygubu-ui.ui:391
 msgid "Class"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:399
+#: pygubudesigner/ui/pygubu-ui.ui:403
 msgid "R"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:411
+#: pygubudesigner/ui/pygubu-ui.ui:415
 msgid "C"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:451
+#: pygubudesigner/ui/pygubu-ui.ui:455
 msgid "Design"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:540
+#: pygubudesigner/ui/pygubu-ui.ui:544
 msgid "Object Properties"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:564
-#: pygubudesigner/ui/preferences_dialog.ui:36
-msgid "General"
-msgstr ""
-
-#: pygubudesigner/ui/pygubu-ui.ui:584
+#: pygubudesigner/ui/pygubu-ui.ui:588
 msgid "Layout"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:603
+#: pygubudesigner/ui/pygubu-ui.ui:607
 msgid "Bindings"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:640
+#: pygubudesigner/ui/pygubu-ui.ui:644
 msgid "Sequence descriptor"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:652
+#: pygubudesigner/ui/pygubu-ui.ui:656
 msgid "Event Handler"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:664
+#: pygubudesigner/ui/pygubu-ui.ui:668
 msgid "Add"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:704
+#: pygubudesigner/ui/pygubu-ui.ui:708
 msgid "Code"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:735
+#: pygubudesigner/ui/pygubu-ui.ui:739
 msgid "Template description here."
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:747
+#: pygubudesigner/ui/pygubu-ui.ui:751
 msgid "Template:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:759
+#: pygubudesigner/ui/pygubu-ui.ui:763
 msgid "Application"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:783
+#: pygubudesigner/ui/pygubu-ui.ui:787
 msgid "Code Script"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:807
+#: pygubudesigner/ui/pygubu-ui.ui:811
 msgid "Custom Widget"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:822 pygubudesigner/layouteditor.py:60
+#: pygubudesigner/ui/pygubu-ui.ui:826 pygubudesigner/layouteditor.py:63
 msgid "Options:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:831
+#: pygubudesigner/ui/pygubu-ui.ui:835
 msgid "Main widget:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:874
+#: pygubudesigner/ui/pygubu-ui.ui:878
 msgid "Class Name:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:897
+#: pygubudesigner/ui/pygubu-ui.ui:901
 msgid "Generate"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:979
+#: pygubudesigner/ui/pygubu-ui.ui:983
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:1079
+#: pygubudesigner/ui/pygubu-ui.ui:1083
 msgid "Messages"
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:10
-msgid "Pygubu Preferences"
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:48
-msgid "Prefered widget set:"
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:73
-msgid "Custom Widgets"
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:88
-msgid "Custom Widgets Builders"
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:110
-msgid "Requires restart."
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:144
-msgid "modules"
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:167
-msgid "+"
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:180
-msgid "-"
-msgstr ""
-
-#: pygubudesigner/ui/preferences_dialog.ui:213
-#: pygubudesigner/ui/about_dialog.ui:105
-msgid "Close"
 msgstr ""
 
 #: pygubudesigner/ui/about_dialog.ui:8
@@ -313,161 +313,48 @@ msgid ""
 "for details, visit http://www.gnu.org/licenses/gpl-3.0.html"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:39
+#: pygubudesigner/preferences.py:179
+msgid "Python module"
+msgstr ""
+
+#: pygubudesigner/preferences.py:179 pygubudesigner/main.py:472
+#: pygubudesigner/main.py:514 pygubudesigner/scriptgenerator.py:137
+msgid "All"
+msgstr ""
+
+#: pygubudesigner/layouteditor.py:42
 msgid "Grid"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:39
+#: pygubudesigner/layouteditor.py:42
 msgid "Pack"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:39
+#: pygubudesigner/layouteditor.py:42
 msgid "Place"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:86
+#: pygubudesigner/layouteditor.py:89
 #, python-brace-format
 msgid "Grid row '{0}' options:"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:108
+#: pygubudesigner/layouteditor.py:111
 #, python-brace-format
 msgid "Grid column '{0}' options:"
 msgstr ""
 
-#: pygubudesigner/widgets/imageentry.py:59
-msgid "Tk image formats"
+#: pygubudesigner/layouteditor.py:216
+msgid "Change Manager"
 msgstr ""
 
-#: pygubudesigner/widgets/imageentry.py:60
-msgid "All Files"
-msgstr ""
-
-#: pygubudesigner/main.py:80
-#, python-format
-msgid "Failed to load widget module: '%s'"
-msgstr ""
-
-#: pygubudesigner/main.py:82 pygubudesigner/main.py:97
-msgid "Error"
-msgstr ""
-
-#: pygubudesigner/main.py:95
-#, python-format
-msgid "Failed to load custom widget module: '%s'"
-msgstr ""
-
-#: pygubudesigner/main.py:412 pygubudesigner/main.py:459
-#: pygubudesigner/main.py:476
-msgid "File changed"
-msgstr ""
-
-#: pygubudesigner/main.py:413
-msgid "Changes not saved. Quit anyway?"
-msgstr ""
-
-#: pygubudesigner/main.py:422
-#, python-format
-msgid "Project saved to %s"
-msgstr ""
-
-#: pygubudesigner/main.py:427 pygubudesigner/main.py:465
-msgid "pygubu ui"
-msgstr ""
-
-#: pygubudesigner/main.py:427 pygubudesigner/main.py:465
-#: pygubudesigner/scriptgenerator.py:136 pygubudesigner/preferences.py:179
-msgid "All"
-msgstr ""
-
-#: pygubudesigner/main.py:460
-msgid "Changes not saved. Open new file anyway?"
-msgstr ""
-
-#: pygubudesigner/main.py:477
-msgid "Changes not saved. Discard Changes?"
-msgstr ""
-
-#: pygubudesigner/main.py:506
-msgid "Delete items"
-msgstr ""
-
-#: pygubudesigner/main.py:507
-msgid "Delete selected items?"
-msgstr ""
-
-#: pygubudesigner/main.py:581
-msgid "newproject"
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:199
-msgid "No item selected."
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:377
-#, python-format
-msgid "Allowed children: %s."
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:386
+#: pygubudesigner/layouteditor.py:217
 #, python-brace-format
-msgid "Only {0} children allowed for {1}"
+msgid "Change manager from {0} to {1}?"
 msgstr ""
 
-#: pygubudesigner/uitreeeditor.py:396
-#, python-brace-format
-msgid "{0} not allowed as parent of {1}"
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:404
-#, python-format
-msgid "Not allowed, %s is not a container."
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:416
-#, python-format
-msgid "%s not allowed at root level"
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:425
-#, python-format
-msgid "Not allowed at root level, %s is not a container."
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:44
-msgid "Script Generator"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:47
-msgid "Create a pygubu application script using the UI definition."
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:48
-msgid "Create a coded version of the UI definition."
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:49
-msgid "Create a base class for your custom widget."
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:111
-msgid "Code copied"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:136
-msgid "Python Script"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:167
-msgid "Select widget"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:171
-msgid "Select template"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:175
-msgid "Enter classname"
+#: pygubudesigner/layouteditor.py:219
+msgid "All container widgets will be updated."
 msgstr ""
 
 #: pygubudesigner/propertieseditor.py:49
@@ -494,6 +381,133 @@ msgstr ""
 msgid "offvalue_help"
 msgstr ""
 
-#: pygubudesigner/preferences.py:179
-msgid "Python module"
+#: pygubudesigner/widgets/imageentry.py:59
+msgid "Tk image formats"
+msgstr ""
+
+#: pygubudesigner/widgets/imageentry.py:60
+msgid "All Files"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:117
+msgid "Delete items"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:118
+msgid "Delete selected items?"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:252
+msgid "No item selected."
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:430
+#, python-format
+msgid "Allowed children: %s."
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:439
+#, python-brace-format
+msgid "Only {0} children allowed for {1}"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:449
+#, python-brace-format
+msgid "{0} not allowed as parent of {1}"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:457
+#, python-format
+msgid "Not allowed, %s is not a container."
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:469
+#, python-format
+msgid "%s not allowed at root level"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:478
+#, python-format
+msgid "Not allowed at root level, %s is not a container."
+msgstr ""
+
+#: pygubudesigner/main.py:83
+#, python-format
+msgid "Failed to load widget module: '%s'"
+msgstr ""
+
+#: pygubudesigner/main.py:85 pygubudesigner/main.py:100
+#: pygubudesigner/main.py:501
+msgid "Error"
+msgstr ""
+
+#: pygubudesigner/main.py:98
+#, python-format
+msgid "Failed to load custom widget module: '%s'"
+msgstr ""
+
+#: pygubudesigner/main.py:456 pygubudesigner/main.py:507
+#: pygubudesigner/main.py:523
+msgid "File changed"
+msgstr ""
+
+#: pygubudesigner/main.py:457
+msgid "Changes not saved. Quit anyway?"
+msgstr ""
+
+#: pygubudesigner/main.py:467
+#, python-format
+msgid "Project saved to %s"
+msgstr ""
+
+#: pygubudesigner/main.py:472 pygubudesigner/main.py:514
+msgid "pygubu ui"
+msgstr ""
+
+#: pygubudesigner/main.py:508
+msgid "Changes not saved. Open new file anyway?"
+msgstr ""
+
+#: pygubudesigner/main.py:524
+msgid "Changes not saved. Discard Changes?"
+msgstr ""
+
+#: pygubudesigner/main.py:606
+msgid "newproject"
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:44
+msgid "Script Generator"
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:47
+msgid "Create a pygubu application script using the UI definition."
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:48
+msgid "Create a coded version of the UI definition."
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:49
+msgid "Create a base class for your custom widget."
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:111
+msgid "Code copied"
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:137
+msgid "Python Script"
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:169
+msgid "Select widget"
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:174
+msgid "Select template"
+msgstr ""
+
+#: pygubudesigner/scriptgenerator.py:179
+msgid "Enter classname"
 msgstr ""
