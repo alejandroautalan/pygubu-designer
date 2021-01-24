@@ -25,7 +25,6 @@ LOCALE_DIR = os.path.join(APP_DIR, 'locale')
 #  (on desktop is usually LANGUAGES)
 #
 DEFAULT_LANGUAGES = os.environ.get('LANG', '').split(':')
-DEFAULT_LANGUAGES += ['en_US']
 
 # Try to get the languages from the default locale
 languages = []
@@ -36,7 +35,7 @@ if lc:
 # Concat all languages (env + default locale),
 #  and here we have the languages and location of the translations
 #
-languages += DEFAULT_LANGUAGES
+languages = DEFAULT_LANGUAGES + languages + ['en_US']
 mo_location = LOCALE_DIR
 
 # Lets tell those details to gettext
