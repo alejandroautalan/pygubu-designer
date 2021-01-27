@@ -37,8 +37,10 @@ logger.info('Using configfile: %s', CONFIG_FILE)
 
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},
-#    'widget_palette': {'values': '["accordion", "treeview"]', 'default':'accordion'}
-}
+    'geometry': {
+        'default': '640x480'
+        },
+    }
 
 SEC_GENERAL = 'GENERAL'
 SEC_CUSTOM_WIDGETS = 'CUSTOM_WIDGETS'
@@ -86,6 +88,11 @@ def get_custom_widgets():
 def get_option(key):
     return config.get(SEC_GENERAL, key)
 
+def set_option(key, value, save=False):
+    config.set(SEC_GENERAL, key, value)
+    if save:
+        save_configfile()
+
 def recent_files_get():
     rf = []
     for k, f in config.items(SEC_RECENT_FILES):
@@ -98,6 +105,12 @@ def recent_files_save(file_list):
     for j, p in enumerate(file_list):
         config.set(SEC_RECENT_FILES, 'f{0}'.format(j), p)
     save_configfile()
+
+def save_window_size(geom):
+    set_option('geometry', geom, save=True)
+
+def get_window_size():
+    return get_option('geometry')
 
 # Get user configuration
 load_configfile()
