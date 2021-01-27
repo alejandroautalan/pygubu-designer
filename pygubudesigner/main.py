@@ -51,7 +51,7 @@ from .i18n import translator
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 import pygubu.widgets.simpletooltip as tooltip
 import pygubudesigner
-from pygubudesigner.preferences import PreferencesUI, get_custom_widgets, get_option
+from pygubudesigner import preferences as pref
 from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 from pygubudesigner.scriptgenerator import ScriptGenerator
@@ -85,7 +85,7 @@ def init_pygubu_widgets():
             messagebox.showerror(_('Error'), msg)
 
     #initialize custom widgets
-    for path in get_custom_widgets():
+    for path in pref.get_custom_widgets():
         dirname, fname = os.path.split(path)
         if fname.endswith('.py'):
             if dirname not in sys.path:
@@ -300,13 +300,17 @@ class PygubuDesigner(object):
         #
         self._setup_theme_menu()
 
-        #app config
+        # App config
         top = self.mainwindow
         try:
             top.wm_iconname('pygubu')
             top.tk.call('wm', 'iconphoto', '.', StockImage.get('pygubu'))
         except StockImageException as e:
             pass
+        
+        # Restore windows position and size
+        geom = pref.get_window_size()
+        self.mainwindow.geometry(geom)
         
     def run(self):
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
@@ -437,7 +441,7 @@ class PygubuDesigner(object):
             callback = create_cb(wc.classname)
             self._pallete.add_button(section, root, wlabel, wc.classname,
                                      w_image, callback)
-        default_group = get_option('widget_set')
+        default_group = pref.get_option('widget_set')
         self._pallete.show_group(default_group)
 
     def on_add_widget_event(self, classname):
@@ -457,8 +461,12 @@ class PygubuDesigner(object):
                 _('Changes not saved. Quit anyway?'),
                 parent=self.mainwindow)
         if quit:
-            #prevent tk image errors on python2 ?
+            # prevent tk image errors on python2 ?
             StockImage.clear_cache()
+            
+            # Save window size and position
+            geom = self.mainwindow.geometry()
+            pref.save_window_size(geom)
         return quit
 
     def do_save(self, fname):
@@ -597,7 +605,7 @@ class PygubuDesigner(object):
 
     def _edit_preferences(self):
         if self.preferences is None:
-            self.preferences = PreferencesUI(self.mainwindow, translator)
+            self.preferences = pref.PreferencesUI(self.mainwindow, translator)
         self.preferences.dialog.run()
         
     def project_name(self):
