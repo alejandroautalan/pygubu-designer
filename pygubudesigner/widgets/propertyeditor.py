@@ -36,6 +36,7 @@ from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 from pygubu.widgets.combobox import Combobox
 
 EDITORS = {}
+KEY_PRESS_CB_MILISECONDS = 500
 
 
 def register_editor(name, class_):
@@ -53,6 +54,7 @@ class PropertyEditor(ttk.Frame):
     def __init__(self, master=None, **kw):
         self._variable = tk.StringVar()
         self._initvalue = None
+        self._cbid = None # callback id
         self.value = ''
         ttk.Frame.__init__(self, master, **kw)
         
@@ -61,6 +63,15 @@ class PropertyEditor(ttk.Frame):
             s.configure('PropertyEditorInvalid.TFrame', background='red')
         self.configure(borderwidth=2)
         self._create_ui()
+        
+    def _on_keypress(self, event=None):
+        if self._cbid is not None:
+            self.after_cancel(self._cbid)
+        self._cbid = self.after(KEY_PRESS_CB_MILISECONDS, self._on_keypress_after)
+    
+    def _on_keypress_after(self, event=None):
+        self._on_variable_changed(event)
+        self._cbid = None
         
     def show_invalid(self, invalid=True):
         if invalid:
@@ -109,8 +120,7 @@ class EntryPropertyEditor(PropertyEditor):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         entry.bind('<FocusOut>', self._on_variable_changed)
-        entry.bind('<KeyPress-Return>', self._on_variable_changed)
-        entry.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
+        entry.bind('<KeyPress>', self._on_keypress)
 
     def parameters(self, **kw):
         self._entry.configure(**kw)
@@ -156,8 +166,7 @@ class SpinboxPropertyEditor(PropertyEditor):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         spinbox.bind('<FocusOut>', self._on_variable_changed)
-        spinbox.bind('<KeyPress-Return>', self._on_variable_changed)
-        spinbox.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
+        spinbox.bind('<KeyPress>', self._on_keypress)
 
     def parameters(self, **kw):
         self._spinbox.configure(**kw)
@@ -172,6 +181,7 @@ class TextPropertyEditor(PropertyEditor):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         text.bind('<FocusOut>', self._on_variable_changed)
+        text.bind('<KeyPress>', self._on_keypress)
 
     def _get_value(self):
         value = self._text.get('0.0', tk.END)
@@ -192,10 +202,9 @@ class ChoicePropertyEditor(PropertyEditor):
         combobox.grid(sticky='we')
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
-        sequenses = ('<FocusOut>', '<KeyPress-Return>',
-                     '<KeyPress-KP_Enter>', '<<ComboboxSelected>>')
-        for seq in sequenses:
-            combobox.bind(seq, self._on_variable_changed)
+        combobox.bind('<FocusOut>', self._on_variable_changed)
+        combobox.bind('<<ComboboxSelected>>', self._on_variable_changed)
+        combobox.bind('<KeyPress>', self._on_keypress)
 
     def parameters(self, **kw):
         self._combobox.configure(**kw)
@@ -208,10 +217,9 @@ class ChoiceByKeyPropertyEditor(ChoicePropertyEditor):
         combobox.grid(sticky='we')
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
-        sequenses = ('<FocusOut>', '<KeyPress-Return>',
-                     '<KeyPress-KP_Enter>', '<<ComboboxSelected>>')
-        for seq in sequenses:
-            combobox.bind(seq, self._on_variable_changed)
+        combobox.bind('<FocusOut>', self._on_variable_changed)
+        combobox.bind('<<ComboboxSelected>>', self._on_variable_changed)
+        combobox.bind('<KeyPress>', self._on_keypress)
 
 
 class CheckbuttonPropertyEditor(PropertyEditor):
@@ -294,10 +302,9 @@ class LayoutManagerPropertyEditor(ChoicePropertyEditor):
         combobox.grid(sticky='we')
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
-        sequenses = ('<KeyPress-Return>',
-                     '<KeyPress-KP_Enter>', '<<ComboboxSelected>>')
-        for seq in sequenses:
-            combobox.bind(seq, self._on_variable_changed)
+        combobox.bind('<FocusOut>', self._on_variable_changed)
+        combobox.bind('<<ComboboxSelected>>', self._on_variable_changed)
+        combobox.bind('<KeyPress>', self._on_keypress)
 
 
 register_editor('entry', EntryPropertyEditor)

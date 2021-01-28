@@ -24,8 +24,7 @@ class RelativeEntryPropertyEditor(PropertyEditor):
         self.scale.pack(expand='true', fill='both', side='left')
         
         entry.bind('<FocusOut>', self._on_variable_changed)
-        entry.bind('<KeyPress-Return>', self._on_variable_changed)
-        entry.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
+        entry.bind('<KeyPress>', self._on_keypress)
     
     def _validate(self):
         is_valid = False

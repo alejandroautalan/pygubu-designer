@@ -17,6 +17,9 @@
 # For further info, check  http://pygubu.web.here
 
 from __future__ import unicode_literals
+
+import re
+import keyword
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
@@ -28,6 +31,7 @@ from pygubudesigner.widgets.propertyeditor import *
 
 
 class TkVarPropertyEditor(PropertyEditor):
+    RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
 
     def _create_ui(self):
         self._entry = w = EntryPropertyEditor(self)
@@ -56,6 +60,17 @@ class TkVarPropertyEditor(PropertyEditor):
         else:
             self._entry.edit('')
             self._cbox.edit('string')
+    
+    def _validate(self):
+        is_valid = True
+        value = self._entry.value
+        if len(value) != 0:
+            if keyword.iskeyword(value):
+                is_valid = False
+            if is_valid and not self.RE_IDENTIFIER.match(value):
+                is_valid = False
+        self.show_invalid(not is_valid)
+        return is_valid
 
 
 register_editor('tkvarentry', TkVarPropertyEditor)

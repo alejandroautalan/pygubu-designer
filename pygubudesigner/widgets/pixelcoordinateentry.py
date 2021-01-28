@@ -16,8 +16,7 @@ class PixelCoordinatePropertyEditor(PropertyEditor):
         self.entry.pack(side='top', expand=True, fill='both')
         
         entry.bind('<FocusOut>', self._on_variable_changed)
-        entry.bind('<KeyPress-Return>', self._on_variable_changed)
-        entry.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
+        entry.bind('<KeyPress>', self._on_keypress)
     
     def _validate(self):
         is_valid = False
