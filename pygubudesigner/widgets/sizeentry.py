@@ -39,8 +39,7 @@ class SizeEntry(CompoundPropertyEditor):
         self._dvar = tk.StringVar()
         self._dentry = w = ttk.Entry(self, textvariable=self._dvar)
         w.bind('<FocusOut>', self._on_entry_changed)
-        w.bind('<KeyPress-Return>', self._on_entry_changed)
-        w.bind('<KeyPress-KP_Enter>', self._on_entry_changed)
+        w.bind('<KeyPress>', self._on_keypress)
         w.grid(row=0, column=0, sticky='ew')
 
         self._whframe = f = ttk.Frame(self)
@@ -53,8 +52,7 @@ class SizeEntry(CompoundPropertyEditor):
         self._wentry = w = ttk.Entry(f, textvariable=self._wvar, width=9)
         w.grid(row=0, column=1, sticky='ew')
         w.bind('<FocusOut>', self._on_entry_changed)
-        w.bind('<KeyPress-Return>', self._on_entry_changed)
-        w.bind('<KeyPress-KP_Enter>', self._on_entry_changed)
+        w.bind('<KeyPress>', self._on_keypress)
 
         l = ttk.Label(f, text='h:')
         l.grid(row=0, column=2)
@@ -62,8 +60,7 @@ class SizeEntry(CompoundPropertyEditor):
         self._hentry = w = ttk.Entry(f, textvariable=self._hvar, width=9)
         w.grid(row=0, column='3', sticky='ew')
         w.bind('<FocusOut>', self._on_entry_changed)
-        w.bind('<KeyPress-Return>', self._on_entry_changed)
-        w.bind('<KeyPress-KP_Enter>', self._on_entry_changed)
+        w.bind('<KeyPress>', self._on_keypress)
         self.set_mode()
 
 

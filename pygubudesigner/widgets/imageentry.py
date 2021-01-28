@@ -41,8 +41,7 @@ class ImagePropertyEditor(PropertyEditor):
         self._entry = w = ttk.Entry(self, textvariable=self._variable)
         w.grid(sticky='ew')
         w.bind('<FocusOut>', self._on_variable_changed)
-        w.bind('<KeyPress-Return>', self._on_variable_changed)
-        w.bind('<KeyPress-KP_Enter>', self._on_variable_changed)
+        w.bind('<KeyPress>', self._on_keypress)
 
         btn_style = 'ImageSelectorButton.Toolbutton'
         self._button = w = ttk.Button(self, text='…', style=btn_style)
