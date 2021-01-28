@@ -44,23 +44,133 @@
                       <property name="side">top</property>
                     </layout>
                     <child>
-                      <object class="ttk.Label" id="lblpt">
-                        <property name="text" translatable="yes">Prefered widget set:</property>
-                        <layout manager="grid">
-                          <property name="column">0</property>
+                      <object class="ttk.Frame" id="frame_1">
+                        <property name="height">200</property>
+                        <property name="padding">0 5 0 10</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="fill">x</property>
                           <property name="propagate">True</property>
-                          <property name="row">0</property>
+                          <property name="side">top</property>
                         </layout>
+                        <child>
+                          <object class="ttk.Label" id="lblpt">
+                            <property name="text" translatable="yes">Prefered widget set:</property>
+                            <layout manager="grid">
+                              <property name="propagate">True</property>
+                              <property type="col" id="0" name="pad">0</property>
+                              <property type="row" id="0" name="pad">4</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="pygubu.builder.widgets.combobox" id="widget_set">
+                            <property name="keyvariable">string:widget_set</property>
+                            <layout manager="grid">
+                              <property name="column">1</property>
+                              <property name="propagate">True</property>
+                              <property name="row">0</property>
+                              <property type="row" id="0" name="pad">4</property>
+                            </layout>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
-                      <object class="pygubu.builder.widgets.combobox" id="widget_set">
-                        <property name="keyvariable">string:widget_set</property>
-                        <layout manager="grid">
-                          <property name="column">1</property>
+                      <object class="ttk.Labelframe" id="labelframe_1">
+                        <property name="height">200</property>
+                        <property name="padding">2</property>
+                        <property name="text" translatable="yes">Widget naming:</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="fill">x</property>
                           <property name="propagate">True</property>
-                          <property name="row">0</property>
+                          <property name="side">top</property>
                         </layout>
+                        <child>
+                          <object class="ttk.Radiobutton" id="radiobutton_1">
+                            <property name="idtocommand">false</property>
+                            <property name="text" translatable="yes">No separator (e.g. button1)</property>
+                            <property name="value">NONE</property>
+                            <property name="variable">string:widget_naming_separator</property>
+                            <layout manager="pack">
+                              <property name="anchor">w</property>
+                              <property name="fill">x</property>
+                              <property name="propagate">True</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Radiobutton" id="radiobutton_2">
+                            <property name="idtocommand">false</property>
+                            <property name="text" translatable="yes">Use "_" as separator (e.g. button_1)</property>
+                            <property name="value">UNDERSCORE</property>
+                            <property name="variable">string:widget_naming_separator</property>
+                            <layout manager="pack">
+                              <property name="anchor">w</property>
+                              <property name="fill">x</property>
+                              <property name="propagate">True</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Checkbutton" id="checkbutton_1">
+                            <property name="idtocommand">false</property>
+                            <property name="offvalue">no</property>
+                            <property name="onvalue">yes</property>
+                            <property name="text" translatable="yes">Uppercase first letter (e.g. Button…)</property>
+                            <property name="variable">string:widget_naming_ufletter</property>
+                            <layout manager="pack">
+                              <property name="anchor">w</property>
+                              <property name="propagate">True</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Label" id="label_1">
+                            <property name="text" translatable="yes">This does not affect previously generated names.</property>
+                            <layout manager="pack">
+                              <property name="anchor">w</property>
+                              <property name="fill">x</property>
+                              <property name="pady">4</property>
+                              <property name="propagate">True</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Labelframe" id="fhidden">
+                        <property name="height">200</property>
+                        <property name="padding">2</property>
+                        <property name="text" translatable="yes">Hidden options:</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="fill">x</property>
+                          <property name="propagate">True</property>
+                          <property name="side">top</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Label" id="label_1_2">
+                            <property name="text" translatable="yes">Window geometry:</property>
+                            <layout manager="pack">
+                              <property name="side">left</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Entry" id="entry_1">
+                            <property name="state">readonly</property>
+                            <property name="textvariable">string:geometry</property>
+                            <layout manager="pack">
+                              <property name="side">left</property>
+                            </layout>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>

@@ -38,7 +38,15 @@ logger.info('Using configfile: %s', CONFIG_FILE)
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},
     'geometry': {
-        'default': '640x480'
+        'default': '640x480',
+        },
+    'widget_naming_separator': {
+        'values': '["NONE", "UNDERSCORE"]',
+        'default': 'NONE',
+        },
+    'widget_naming_ufletter': {
+        'values': '["yes", "no"]',
+        'default': 'no',
         },
     }
 
@@ -143,6 +151,10 @@ class PreferencesUI(object):
         self.cwtv = builder.get_object('cwtv')
         self.path_remove = builder.get_object('path_remove')
         builder.connect_callbacks(self)
+        
+        # hide options
+        fhide = builder.get_object('fhidden')
+        fhide.pack_forget()
         
     def _load_options(self):
         # General

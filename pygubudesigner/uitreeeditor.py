@@ -39,6 +39,7 @@ from .bindingseditor import BindingsEditor
 from .layouteditor import LayoutEditor
 from .i18n import translator
 from .actions import *
+from pygubudesigner import preferences as pref
 
 
 logger = logging.getLogger('pygubu.designer')
@@ -494,15 +495,15 @@ class WidgetsTreeEditor(object):
                     break
         return unique
 
-    def _generate_id(self, classname, index, base=None):
+    def _generate_id(self, classname, index):
         class_base_name = classname.split('.')[-1]
         name = class_base_name
-        if base is not None:
-            name = base
-            if class_base_name in base:
-                name = name.split('_')[0]
-        name = '{0}_{1}'.format(name, index)
+        name = '{0}{1}'.format(name, index)
+        if pref.get_option('widget_naming_separator') == 'UNDERSCORE':
+            name = '{0}_{1}'.format(name, index)
         name = name.lower()
+        if pref.get_option('widget_naming_ufletter') == 'yes':
+            name = name.capitalize()
         return name
 
     def get_unique_id(self, classname, start_id=None):
@@ -513,10 +514,9 @@ class WidgetsTreeEditor(object):
         is_unique = self._is_unique_id('', start_id)
         while is_unique is False:
             self.counter[classname] += 1
-            start_id = self._generate_id(classname,
-                                         self.counter[classname], start_id)
+            start_id = self._generate_id(classname, self.counter[classname])
             is_unique = self._is_unique_id('', start_id)
-
+        
         return start_id
 
     def paste_from_clipboard(self):
