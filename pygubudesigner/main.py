@@ -308,9 +308,7 @@ class PygubuDesigner(object):
         except StockImageException as e:
             pass
         
-        # Restore windows position and size
-        geom = pref.get_window_size()
-        self.mainwindow.geometry(geom)
+        self.setup_app_preferences()
         
     def run(self):
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
@@ -449,9 +447,26 @@ class PygubuDesigner(object):
 
         self.tree_editor.add_widget(classname)
         self.tree_editor.treeview.focus_set()
-
+    
+    def setup_app_preferences(self):
+        # Restore windows position and size
+        geom = pref.get_window_size()
+        self.mainwindow.geometry(geom)
+        # Load preferred ttk theme
+        theme = pref.get_option('ttk_theme')
+        self._change_ttk_theme(theme)
+    
+    def _change_ttk_theme(self, theme):
+        s = ttk.Style()
+        try:
+            s.theme_use(theme)
+        except tk.TclError as e:
+            logger.exception('Invalid ttk theme.')
+    
     def on_preferences_saved(self, event=None):
-        pass
+        # Setup ttk theme if changed
+        theme = pref.get_option('ttk_theme')
+        self._change_ttk_theme(theme)
     
     def on_close_execute(self):
         quit = True

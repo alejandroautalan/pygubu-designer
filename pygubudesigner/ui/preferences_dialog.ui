@@ -55,9 +55,10 @@
                         </layout>
                         <child>
                           <object class="ttk.Label" id="lblpt">
-                            <property name="text" translatable="yes">Prefered widget set:</property>
+                            <property name="text" translatable="yes">Preferred widget set:</property>
                             <layout manager="grid">
                               <property name="propagate">True</property>
+                              <property name="sticky">ew</property>
                               <property type="col" id="0" name="pad">0</property>
                               <property type="row" id="0" name="pad">4</property>
                             </layout>
@@ -71,6 +72,27 @@
                               <property name="propagate">True</property>
                               <property name="row">0</property>
                               <property type="row" id="0" name="pad">4</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Label" id="label1">
+                            <property name="text" translatable="yes">Preferred ttk theme:</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="propagate">True</property>
+                              <property name="row">1</property>
+                              <property name="sticky">ew</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="pygubu.builder.widgets.combobox" id="cbox_ttk_theme">
+                            <property name="keyvariable">string:ttk_theme</property>
+                            <layout manager="grid">
+                              <property name="column">1</property>
+                              <property name="propagate">True</property>
+                              <property name="row">1</property>
                             </layout>
                           </object>
                         </child>

@@ -37,6 +37,7 @@ logger.info('Using configfile: %s', CONFIG_FILE)
 
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},
+    'ttk_theme': {'default': 'default'},
     'geometry': {
         'default': '640x480',
         },
@@ -141,6 +142,15 @@ class PreferencesUI(object):
 
         top = self.master.winfo_toplevel()
         self.dialog = dialog = builder.get_object('preferences', top)
+        
+        # setup theme values
+        s = ttk.Style()
+        styles = s.theme_names()
+        themelist = []
+        for name in styles:
+            themelist.append((name, name))
+        cbox = builder.get_object('cbox_ttk_theme')
+        cbox.configure(values=themelist)
         
         #General
         for key in ('widget_set',):
