@@ -261,23 +261,23 @@ class PygubuDesigner(object):
             widget.bind('<KeyPress-Delete>',
                         virtual_event(actions.TREE_ITEM_DELETE))
 
-        #grid move bindings
-        self.treeview.bind(
-            '<Alt-KeyPress>',
-            key_bind(Key.I,
-                         virtual_event(actions.TREE_ITEM_GRID_UP)))
-        self.treeview.bind(
-            '<Alt-KeyPress>',
-            key_bind(Key.K,
-                         virtual_event(actions.TREE_ITEM_GRID_DOWN)), add=True)
-        self.treeview.bind(
-            '<Alt-KeyPress>',
-            key_bind(Key.J,
-                         virtual_event(actions.TREE_ITEM_GRID_LEFT)), add=True)
-        self.treeview.bind(
-            '<Alt-KeyPress>',
-            key_bind(Key.L,
-                         virtual_event(actions.TREE_ITEM_GRID_RIGHT)), add=True)
+            #grid move bindings
+            widget.bind(
+                '<Alt-KeyPress>',
+                key_bind(Key.I,
+                             virtual_event(actions.TREE_ITEM_GRID_UP)))
+            widget.bind(
+                '<Alt-KeyPress>',
+                key_bind(Key.K,
+                             virtual_event(actions.TREE_ITEM_GRID_DOWN)), add=True)
+            widget.bind(
+                '<Alt-KeyPress>',
+                key_bind(Key.J,
+                             virtual_event(actions.TREE_ITEM_GRID_LEFT)), add=True)
+            widget.bind(
+                '<Alt-KeyPress>',
+                key_bind(Key.L,
+                             virtual_event(actions.TREE_ITEM_GRID_RIGHT)), add=True)
         
         # Actions Bindings
         w = self.mainwindow

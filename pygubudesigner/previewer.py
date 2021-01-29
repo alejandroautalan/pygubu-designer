@@ -71,17 +71,22 @@ class BuilderForPreview(pygubu.Builder):
         if cname not in self.normalwidgets:
             if cname.startswith('tk.Menuitem'):
                 return
-            elif cname.startswith('tk.'):
-                self.make_previewonly(bobject.widget)
+            self.make_previewonly(bobject.widget)
     
     def make_previewonly(self, w):
-        sequences = ['<Enter>', '<FocusIn>', '<Button>', '<KeyPress>']
-        for seq in sequences:
-            w.bind(seq, self._do_nothing_cb)
+        '''Make widget just display with no functionality.'''
+        for child in w.winfo_children():
+            self._crop_widget(child)
+        self._crop_widget(w)
     
-    def _do_nothing_cb(self, event):
-        logger.debug('On _do_nothing_cb')
-        return 'break'
+    def _crop_widget(self, w):
+        '''Remove standard widget functionality.'''
+        wclass = w.winfo_class()
+        bindtags = w.bindtags()
+        if wclass in bindtags:
+            bindtags = list(bindtags)
+            bindtags.remove(wclass)
+            w.bindtags(bindtags)
     
     def get_widget_id(self, widget):
         wid = None
@@ -488,22 +493,18 @@ class PreviewHelper:
         canvas.bind('<Motion>', self.motion_handler)
         canvas.bind('<4>', lambda event: canvas.yview('scroll', -1, 'units'))
         canvas.bind('<5>', lambda event: canvas.yview('scroll', 1, 'units'))
+        canvas.bind('<Enter>', lambda e: canvas.focus_set())
         self._create_indicators()
         
         s = ttk.Style()
         s.configure('PreviewFrame.TFrame', background='lightgreen')
         
         self.selected_widget = None
-        canvas.bind_all('<<PreviewHelperItemClicked>>',
-                        self._on_preview_widget_clicked)
         canvas.bind_all(actions.PREVIEW_TOPLEVEL_CLOSE_ALL,
                     lambda e: self.close_toplevel_previews())
-        
-    def _on_preview_widget_clicked(self, event):
-        logger.debug('itemclicked %s', event)
-        
+    
     def add_resource_path(self, path):
-        self._resource_paths.append(path)
+        self.resource_paths.append(path)
 
     def motion_handler(self, event):
         if not self._moving:
