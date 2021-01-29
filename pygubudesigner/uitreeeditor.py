@@ -107,10 +107,10 @@ class WidgetsTreeEditor(object):
                   lambda e: self.on_item_grid_move(self.GRID_RIGHT))
         tree.bind_all(TREE_ITEM_GRID_UP,
                   lambda e: self.on_item_grid_move(self.GRID_UP))
-        tree.bind_all(TREE_ITEM_MOVE_DOWN, lambda e: self.on_item_move_down(None))
-        tree.bind_all(TREE_ITEM_MOVE_UP, lambda e: self.on_item_move_up(None))
-        tree.bind_all(TREE_NAV_DOWN, lambda e: e.widget.event_generate('<Down>'))
-        tree.bind_all(TREE_NAV_UP, lambda e: e.widget.event_generate('<Up>'))
+        tree.bind_all(TREE_ITEM_MOVE_UP, self.on_item_move_up)
+        tree.bind_all(TREE_ITEM_MOVE_DOWN, self.on_item_move_down)
+        tree.bind_all(TREE_NAV_UP, self.on_item_nav_up)
+        tree.bind_all(TREE_NAV_DOWN, self.on_item_nav_down)
         tree.bind_all(TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel)
         
     def on_tree_item_delete(self, event):
@@ -736,7 +736,27 @@ class WidgetsTreeEditor(object):
                 skey = key
                 break
         return skey
-
+    
+    def on_item_nav_up(self, event=None):
+        '''Move selection to prev item'''
+        tree = self.treeview
+        sel = tree.selection()
+        if sel:
+            item = sel[0]
+            prev = tree.prev(item) or tree.parent(item)
+            if prev:
+                tree.selection_set(prev)
+    
+    def on_item_nav_down(self, event=None):
+        '''Move selection to next item'''
+        tree = self.treeview
+        sel = tree.selection()
+        if sel:
+            item = sel[0]
+            prev = tree.next(item) or tree.parent(item)
+            if prev:
+                tree.selection_set(prev)
+    
     def on_item_move_up(self, event):
         tree = self.treeview
         sel = tree.selection()
