@@ -489,9 +489,12 @@ class PygubuDesigner(object):
         return quit
 
     def do_save(self, fname):
-        self.save_file(fname)
-        self.set_changed(False)
-        logger.info(_('Project saved to %s'), fname)
+        try:
+            self.save_file(fname)
+            self.set_changed(False)
+            logger.info(_('Project saved to %s'), fname)
+        except Exception as e:
+            messagebox.showerror(_('Error'), str(e), parent=self.mainwindow)        
 
     def do_save_as(self):
         options = {
