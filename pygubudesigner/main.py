@@ -289,6 +289,9 @@ class PygubuDesigner(object):
         w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
         # On preferences save binding
         w.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
+        
+        # setup app preferences
+        self.setup_app_preferences()
 
         #
         # Setup tkk styles
@@ -308,7 +311,6 @@ class PygubuDesigner(object):
         except StockImageException as e:
             pass
         
-        self.setup_app_preferences()
         
     def run(self):
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
@@ -365,12 +367,13 @@ class PygubuDesigner(object):
         s = ttk.Style()
         styles = s.theme_names()
         self.__theme_var = var = tk.StringVar()
-        var.set(s.theme_use())
+        theme = pref.get_option('ttk_theme')
+        var.set(theme)
 
         for name in styles:
 
-            def handler(style=s, theme=name):
-                style.theme_use(theme)
+            def handler(theme=name):
+                self._change_ttk_theme(theme)
 
             menu.add_radiobutton(label=name, value=name,
                                  variable=self.__theme_var, command=handler)
@@ -460,6 +463,7 @@ class PygubuDesigner(object):
         s = ttk.Style()
         try:
             s.theme_use(theme)
+            self._setup_styles()
         except tk.TclError as e:
             logger.exception('Invalid ttk theme.')
     
