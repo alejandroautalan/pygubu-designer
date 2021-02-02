@@ -114,13 +114,15 @@ class WidgetsTreeEditor(object):
         tree.bind_all(TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel)
         
     def on_tree_item_delete(self, event):
-        do_delete = messagebox.askokcancel(
-                _('Delete items'),
-                _('Delete selected items?'),
-                parent=self.treeview.winfo_toplevel())
-        
-        if do_delete:
-            self.on_treeview_delete_selection(None)        
+        selection = self.treeview.selection()
+        if selection:
+            do_delete = messagebox.askokcancel(
+                    _('Delete items'),
+                    _('Delete selected items?'),
+                    parent=self.treeview.winfo_toplevel())
+            
+            if do_delete:
+                self.on_treeview_delete_selection(None)
     
     def _on_gridrc_changed(self, event):
         # update siblings items that have same row col position
