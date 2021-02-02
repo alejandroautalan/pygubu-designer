@@ -146,3 +146,18 @@ def virtual_event(event_name):
     
     return virtual_event_gen
 
+def menu_iter_children(menu):
+    '''Iterates all menu items (including submenus).
+    Returns (menu, itemtype, index)'''
+    count = menu.index(tk.END)
+    if count is not None:
+        cascades = []
+        for i in range(0, count+1):
+            itemtype = menu.type(i)
+            if itemtype == 'cascade':
+                cascade = menu.nametowidget(menu.entrycget(i, 'menu'))
+                cascades.append(cascade)
+            yield (menu, itemtype, i)
+        for m in cascades:
+            for child in menu_iter_children(m):
+                yield child

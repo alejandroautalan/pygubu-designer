@@ -43,13 +43,11 @@ except:
 import pygubu
 from pygubu import builder
 from pygubu.stockimage import StockImage, StockImageException
-from .util import virtual_event
+from .util import virtual_event, menu_iter_children
 from .util.keyboard import Key, key_bind
 from .uitreeeditor import WidgetsTreeEditor
 from .previewer import PreviewHelper
 from .i18n import translator
-from pygubu.widgets.scrollbarhelper import ScrollbarHelper
-import pygubu.widgets.simpletooltip as tooltip
 import pygubudesigner
 from pygubudesigner import preferences as pref
 from pygubudesigner.widgets.componentpalette import ComponentPalette
@@ -199,19 +197,33 @@ class PygubuDesigner(object):
         #
         # Application Keyboard bindings
         #
+        CONTROL_KP_SEQUENCE = '<Control-KeyPress>'
+        ALT_KP_SEQUENCE = '<Alt-KeyPress>'
+        if sys.platform == 'darwin':
+            CONTROL_KP_SEQUENCE = '<Command-KeyPress>'
+            ALT_KP_SEQUENCE = '<Control-KeyPress>'
+            # Fix menu accelerators
+            for m, itemtype, index in menu_iter_children(menu):
+                if itemtype != 'separator':
+                    accel = m.entrycget(index, 'accelerator')
+                    accel = accel.replace('Ctrl+', 'Cmd-')
+                    accel = accel.replace('Alt+', 'Ctrl+')
+                    m.entryconfigure(index, accelerator=accel)
+        
+        
         master = self.mainwindow
-        master.bind_all('<Control-KeyPress>',
+        master.bind_all(CONTROL_KP_SEQUENCE,
                         key_bind(Key.N,
                                      virtual_event(actions.FILE_NEW)))
-        master.bind_all('<Control-KeyPress>',
+        master.bind_all(CONTROL_KP_SEQUENCE,
                         key_bind(Key.O,
                                      virtual_event(actions.FILE_OPEN)),
                         add=True)
-        master.bind_all('<Control-KeyPress>',
+        master.bind_all(CONTROL_KP_SEQUENCE,
                         key_bind(Key.S,
                                      virtual_event(actions.FILE_SAVE)),
                         add=True)
-        master.bind_all('<Control-KeyPress>',
+        master.bind_all(CONTROL_KP_SEQUENCE,
                         key_bind(Key.Q,
                                      virtual_event(actions.FILE_QUIT)),
                         add=True)
@@ -225,28 +237,28 @@ class PygubuDesigner(object):
         # Tree Editing Keyboard events
         for widget in (self.treeview, previewc):
             widget.bind(
-                '<Control-KeyPress>',
+                CONTROL_KP_SEQUENCE,
                 key_bind(Key.I,
                              virtual_event(actions.TREE_ITEM_MOVE_UP)))
             widget.bind(
-                '<Control-KeyPress>',
+                CONTROL_KP_SEQUENCE,
                 key_bind(Key.K,
                              virtual_event(actions.TREE_ITEM_MOVE_DOWN)),
                 add=True
             )
             widget.bind(
-                '<Control-KeyPress>',
+                CONTROL_KP_SEQUENCE,
                 key_bind(Key.C,
                              lambda e: self.tree_editor.copy_to_clipboard()),
                 add=True)
             widget.bind(
-                '<Control-KeyPress>',
+                CONTROL_KP_SEQUENCE,
                 key_bind(Key.V,
                              lambda e: self.tree_editor.paste_from_clipboard()),
                 add=True
             )
             widget.bind(
-                '<Control-KeyPress>',
+                CONTROL_KP_SEQUENCE,
                 key_bind(Key.X,
                              lambda e: self.tree_editor.cut_to_clipboard()),
                 add=True
@@ -263,19 +275,19 @@ class PygubuDesigner(object):
 
             #grid move bindings
             widget.bind(
-                '<Alt-KeyPress>',
+                ALT_KP_SEQUENCE,
                 key_bind(Key.I,
                              virtual_event(actions.TREE_ITEM_GRID_UP)))
             widget.bind(
-                '<Alt-KeyPress>',
+                ALT_KP_SEQUENCE,
                 key_bind(Key.K,
                              virtual_event(actions.TREE_ITEM_GRID_DOWN)), add=True)
             widget.bind(
-                '<Alt-KeyPress>',
+                ALT_KP_SEQUENCE,
                 key_bind(Key.J,
                              virtual_event(actions.TREE_ITEM_GRID_LEFT)), add=True)
             widget.bind(
-                '<Alt-KeyPress>',
+                ALT_KP_SEQUENCE,
                 key_bind(Key.L,
                              virtual_event(actions.TREE_ITEM_GRID_RIGHT)), add=True)
         
