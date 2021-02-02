@@ -769,7 +769,7 @@ CUSTOM_OPTIONS = {
 
 WIDGET_REQUIRED_OPTIONS = ('class', 'id')
 WIDGET_STANDARD_OPTIONS = (
-    'accelerator', 'activerelief', 'activestyle', 'activebackground',
+    'activerelief', 'activestyle', 'activebackground',
     'activeborderwidth', 'activeforeground', 'after',
     'anchor', 'background', 'bitmap', 'borderwidth',
     'class_', 'compound', 'cursor', 'disabledforeground',
@@ -785,7 +785,7 @@ WIDGET_STANDARD_OPTIONS = (
     'xscrollcommand', 'yscrollcommand')
 
 WIDGET_SPECIFIC_OPTIONS = (
-    'activestyle', 'activerelief', 'anchor', 'aspect',
+    'accelerator', 'activestyle', 'activerelief', 'anchor', 'aspect',
     'autoseparators', 'background', 'bigincrement',
     'blockcursor', 'borderwidth', 'buttonbackground', 'buttoncursor',
     'buttondownrelief', 'buttonuprelief',
