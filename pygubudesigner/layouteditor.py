@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2021 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -209,28 +209,29 @@ class LayoutEditor(PropertiesEditor):
         
         old_manager = self._current.manager
         new_manager = self.layout_selector.value
-        needs_container_change = False
-        user_accepts_change = False
-        if new_manager not in self._allowed_managers:
-            needs_container_change = True
-            title = _('Change Manager')
-            msg = _('Change manager from {0} to {1}?')
-            msg = msg.format(old_manager, new_manager)
-            detail = _('All container widgets will be updated.')
-            user_accepts_change = messagebox.askokcancel(
-                title, msg, detail=detail,
-                parent=self.layout_selector.winfo_toplevel())
+        needs_container_change = (new_manager not in self._allowed_managers)
+        
         if needs_container_change:
-            if user_accepts_change:
-                event_name = '<<LayoutEditorContainerManagerToPack>>'
-                if new_manager == 'grid':
-                    event_name = '<<LayoutEditorContainerManagerToGrid>>'
-                event.widget.event_generate(event_name)
-            else:
-                self.layout_selector.edit(old_manager)
+            self.layout_selector.edit(old_manager)
+            cb = lambda f=old_manager,t=new_manager: self._ask_manager_change(f, t)
+            self._fselector.after_idle(cb)
         else:
             self._current.manager = new_manager
             self.edit(self._current, self._allowed_managers)
+    
+    def _ask_manager_change(self, old_manager, new_manager):
+        title = _('Change Manager')
+        msg = _('Change manager from {0} to {1}?')
+        msg = msg.format(old_manager, new_manager)
+        detail = _('All container widgets will be updated.')
+        user_accepts_change = messagebox.askokcancel(
+            title, msg, detail=detail,
+            parent=self.layout_selector.winfo_toplevel())
+        if user_accepts_change:
+            topack = '<<LayoutEditorContainerManagerToPack>>'
+            togrid = '<<LayoutEditorContainerManagerToGrid>>'
+            event_name = togrid if new_manager == 'grid' else topack
+            self._fselector.event_generate(event_name)
     
     def _on_property_changed(self, name, editor):
         value = editor.value
@@ -241,7 +242,7 @@ class LayoutEditor(PropertiesEditor):
             rowcol, pname = self.identify_gridrc_property(name)
             number = self._current.layout_property('row')
             if rowcol == 'col':
-                number = self._current.layout_property('column')   
+                number = self._current.layout_property('column')
             target = self._current
             target.gridrc_property(rowcol, number, pname, value)
             editor.event_generate('<<LayoutEditorGridRCChanged>>')
