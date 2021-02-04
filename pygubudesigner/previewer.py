@@ -489,11 +489,11 @@ class PreviewHelper:
         self._last_event = None
         self._objects_moving = None
         canvas.bind('<Button-1>', self.click_handler)
+        canvas.bind('<Button-1>', lambda e: canvas.focus_set(), add=True)
         canvas.bind('<ButtonRelease-1>', self.release_handler)
         canvas.bind('<Motion>', self.motion_handler)
         canvas.bind('<4>', lambda event: canvas.yview('scroll', -1, 'units'))
         canvas.bind('<5>', lambda event: canvas.yview('scroll', 1, 'units'))
-        canvas.bind('<Enter>', lambda e: canvas.focus_set())
         self._create_indicators()
         
         s = ttk.Style()
