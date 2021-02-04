@@ -147,16 +147,31 @@ class WidgetsTreeEditor(object):
     def change_container_manager(self, new_manager):
         item = self.current_edit
         parent = self.treeview.parent(item)
+        gridrow = 0
         if parent:
             children = self.treeview.get_children(parent)
+            # Stop listening object updates
             self._listen_object_updates = False
+
             for child in children:
-                self.treedata[child].manager = new_manager
+                widget = self.treedata[child]
+                widget.manager = new_manager  # Change manager
+                
+                #update Tree R/C columns
+                values = self.treeview.item(child, 'values')
+                if new_manager == 'grid':
+                    widget.layout_property('row', str(gridrow))
+                    widget.layout_property('column', '0')
+                    values = (values[0], gridrow, 0)
+                    gridrow += 1
+                else:
+                    values = (values[0], '', '')
+                self.treeview.item(child, values=values)
             self._listen_object_updates = True
-            #breakpoint()
             self.editor_edit(item, self.treedata[item])
             self.draw_widget(item)
-    
+            self.app.set_changed()
+
     def _on_preview_item_clicked(self, event):
         wid = self.previewer.selected_widget
         logger.debug('item-selected %s', wid)
@@ -194,7 +209,7 @@ class WidgetsTreeEditor(object):
     def editor_hide_all(self):
         self.properties_editor.hide_all()
         self.layout_editor.hide_all()
-        self.bindings_editor.hide_all()    
+        self.bindings_editor.hide_all()
 
     def config_filter(self):
         def on_filtervar_changed(varname, element, mode):
@@ -306,7 +321,7 @@ class WidgetsTreeEditor(object):
             self.draw_widget(item)
         # Set final item focused
         if final_focus:
-            selected_id = self.treedata[final_focus].identifier 
+            selected_id = self.treedata[final_focus].identifier
             tv.after_idle(lambda: tv.selection_set(final_focus))
             tv.after_idle(lambda: tv.focus(final_focus))
             tv.after_idle(lambda: tv.see(final_focus))
@@ -328,7 +343,7 @@ class WidgetsTreeEditor(object):
         self.filter_remove(remember=True)
         
         uidef = self.new_uidefinition()
-        if treeitem is None:            
+        if treeitem is None:
             items = self.treeview.get_children()
             for item in items:
                 node = self.build_uidefinition(uidef, '', item)
@@ -361,15 +376,15 @@ class WidgetsTreeEditor(object):
         treelabel = '{0}: {1}'.format(data.identifier, data.classname)
         row = col = ''
         if root != '' and data.has_layout_defined():
-            row = data.layout_property('row')
-            col = data.layout_property('column')
-
-            # fix row position when using copy and paste
-            # If collision, increase by 1
-            row_count = self.get_max_row(root)
-            if not from_file and (row_count > int(row) and int(col) == 0):
-                row = str(row_count + 1)
-                data.layout_property('row', row)
+            if data.manager == 'grid':
+                row = data.layout_property('row')
+                col = data.layout_property('column')
+                # fix row position when using copy and paste
+                # If collision, increase by 1
+                row_count = self.get_max_row(root)
+                if not from_file and (row_count > int(row) and int(col) == 0):
+                    row = str(row_count + 1)
+                    data.layout_property('row', row)
 
         image = ''
         try:
@@ -548,7 +563,7 @@ class WidgetsTreeEditor(object):
             # redraw all
             children = tree.get_children('')
             for child in children:
-                self.draw_widget(child)            
+                self.draw_widget(child)
         else:
             self.draw_widget(selected_item)
             
@@ -592,7 +607,7 @@ class WidgetsTreeEditor(object):
                 return
 
         #  root item should be set at this point
-        #  setup properties  
+        #  setup properties
         parent = None
         if root:
             parent = self.treedata[root]
@@ -684,7 +699,7 @@ class WidgetsTreeEditor(object):
         if sel:
             item = sel[0]
             top = self.get_toplevel_parent(item)
-            selected_id = self.treedata[item].identifier            
+            selected_id = self.treedata[item].identifier
             self.previewer.show_selected(top, selected_id)
             # max_rc = self.get_max_row_col(item)
             self.editor_edit(item, self.treedata[item])
@@ -722,12 +737,13 @@ class WidgetsTreeEditor(object):
                 tree.item(item, text=item_text)
             # if tree.parent(item) != '' and 'layout' in data:
             if tree.parent(item) != '':
-                row = data.layout_property('row')
-                col = data.layout_property('column')
-                values = tree.item(item, 'values')
-                if (row != values[1] or col != values[2]):
-                    values = (data.classname, row, col)
-                tree.item(item, values=values)
+                if data.manager == 'grid':
+                    row = data.layout_property('row')
+                    col = data.layout_property('column')
+                    values = tree.item(item, 'values')
+                    if (row != values[1] or col != values[2]):
+                        values = (data.classname, row, col)
+                    tree.item(item, values=values)
             self.draw_widget(item)
             self.app.set_changed()
 
@@ -773,7 +789,7 @@ class WidgetsTreeEditor(object):
                 manager = self.treedata[item].manager
                 if manager == 'pack':
                     self.app.set_changed()
-                    self.draw_widget(item)                
+                    self.draw_widget(item)
             self.filter_restore()
 
     def on_item_move_down(self, event):
