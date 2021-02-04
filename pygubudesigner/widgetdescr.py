@@ -27,7 +27,7 @@ from .properties import (WIDGET_PROPERTIES, PACK_PROPERTIES, PLACE_PROPERTIES,
 logger = logging.getLogger(__name__)
 
 
-class WidgetMeta(WidgetMetaBase, Observable):          
+class WidgetMeta(WidgetMetaBase, Observable):
     
     def apply_layout_defaults(self):
         super(WidgetMeta, self).apply_layout_defaults()
