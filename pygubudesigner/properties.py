@@ -765,6 +765,10 @@ CUSTOM_OPTIONS = {
         'editor': 'choice',
         'params': {'values': ('true', 'false'), 'state': 'readonly'},
         'default': 'true'},
+    'specialmenu': {
+        'editor': 'choice',
+        'params': {'values': ('apple', 'help', 'window', 'system'), 'state': 'readonly'}
+        },
     }
 
 WIDGET_REQUIRED_OPTIONS = ('class', 'id')
@@ -820,6 +824,7 @@ WIDGET_CUSTOM_OPTIONS = [
     'visible', 'scrolltype', 'text', 'title',
     'geometry', 'overrideredirect', 'resizable', 'minsize',
     'maxsize', 'usemousewheel', 'iconbitmap', 'iconphoto', 'idtocommand',
+    'specialmenu', 
     ]
 
 WIDGET_PROPERTIES = wp = dict(TK_WIDGET_OPTIONS)
@@ -899,9 +904,11 @@ LAYOUT_OPTIONS = {
     # grid packing properties
     'row': {
         'editor': 'naturalnumber',
+        'default': '0'
         },
     'column': {
         'editor': 'naturalnumber',
+        'default': '0'
         },
     'sticky': {
         'editor': 'stickyentry',
