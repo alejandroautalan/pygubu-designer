@@ -725,6 +725,7 @@ class PreviewHelper:
         if wid is not None:
             self.selected_widget = wid
             self.canvas.event_generate('<<PreviewItemSelected>>')
+            self.canvas.focus_set() # add focus to canvas
     
     def bind_preview_widget(self, widget, callback):
         widget.bind('<Button-1>', callback)
