@@ -761,7 +761,13 @@ class WidgetsTreeEditor(object):
         sel = tree.selection()
         if sel:
             item = sel[0]
-            prev = tree.prev(item) or tree.parent(item)
+            prev = tree.prev(item)
+            if prev and tree.item(prev, 'open'):
+                children = tree.get_children(prev)
+                if children:
+                    prev = children[-1]
+            if not prev:
+                prev = tree.parent(item)
             if prev:
                 tree.selection_set(prev)
     
@@ -771,9 +777,21 @@ class WidgetsTreeEditor(object):
         sel = tree.selection()
         if sel:
             item = sel[0]
-            prev = tree.next(item) or tree.parent(item)
-            if prev:
-                tree.selection_set(prev)
+            next_ = None
+            if tree.item(item, 'open'):
+                # children
+                children = tree.get_children(item)
+                if children:
+                    next_ = children[0]
+            if not next_:
+                # sibling
+                next_ = tree.next(item)
+            if not next_:
+                # parent sibling
+                parent = tree.parent(item)
+                next_ = tree.next(parent)
+            if next_:
+                tree.selection_set(next_)
     
     def on_item_move_up(self, event):
         tree = self.treeview
@@ -787,8 +805,8 @@ class WidgetsTreeEditor(object):
                 prev_idx = tree.index(prev)
                 tree.move(item, parent, prev_idx)
                 manager = self.treedata[item].manager
-                if manager == 'pack':
-                    self.app.set_changed()
+                self.app.set_changed()
+                if manager in ('pack', 'place'):
                     self.draw_widget(item)
             self.filter_restore()
 
@@ -804,8 +822,8 @@ class WidgetsTreeEditor(object):
                 next_idx = tree.index(next)
                 tree.move(item, parent, next_idx)
                 manager = self.treedata[item].manager
-                if manager == 'pack':
-                    self.app.set_changed()
+                self.app.set_changed()
+                if manager in ('pack', 'place'):
                     self.draw_widget(item)
             self.filter_restore()
 
