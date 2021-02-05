@@ -53,6 +53,7 @@ from pygubudesigner import preferences as pref
 from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 from pygubudesigner.scriptgenerator import ScriptGenerator
+from pygubudesigner.dialogs import ask_save_changes, AskSaveChangesDialog
 from .rfilemanager import RecentFilesManager
 from .logpanel import LogPanelManager
 import pygubudesigner.actions as actions
@@ -157,6 +158,7 @@ class PygubuDesigner(object):
         self.builder.add_from_file(uifile)
         self.builder.add_resource_path(os.path.join(FILE_PATH, "images"))
 
+        in_macos = (sys.platform == 'darwin')
         #build main ui
         self.mainwindow = self.builder.get_object('mainwindow')
         #toplevel = self.master.winfo_toplevel()
@@ -199,7 +201,7 @@ class PygubuDesigner(object):
         #
         CONTROL_KP_SEQUENCE = '<Control-KeyPress>'
         ALT_KP_SEQUENCE = '<Alt-KeyPress>'
-        if sys.platform == 'darwin':
+        if in_macos:
             CONTROL_KP_SEQUENCE = '<Command-KeyPress>'
             ALT_KP_SEQUENCE = '<Control-KeyPress>'
             # Fix menu accelerators
@@ -232,8 +234,8 @@ class PygubuDesigner(object):
             virtual_event(actions.TREE_ITEM_PREVIEW_TOPLEVEL))
         master.bind_all(
             '<F6>',
-            virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL))        
-        
+            virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL))
+
         # Tree Editing Keyboard events
         for widget in (self.treeview, previewc):
             widget.bind(
@@ -269,9 +271,11 @@ class PygubuDesigner(object):
             widget.bind('<KeyPress>',
                         key_bind(Key.K,
                                      virtual_event(actions.TREE_NAV_DOWN)),
-                        add=True)            
-            widget.bind('<KeyPress-Delete>',
-                        virtual_event(actions.TREE_ITEM_DELETE))
+                        add=True)
+            # avoid double delete dialog in macos
+            if not in_macos:
+                widget.bind('<KeyPress-Delete>',
+                            virtual_event(actions.TREE_ITEM_DELETE))
 
             #grid move bindings
             widget.bind(
@@ -484,13 +488,26 @@ class PygubuDesigner(object):
         theme = pref.get_option('ttk_theme')
         self._change_ttk_theme(theme)
     
+    def ask_save_changes(self, message, detail=None, title=None):
+        do_continue = False
+        if title is None:
+            title = _('Save Changes')
+        if detail is None:
+            detail = _('If you dont save the document, all the changes will be lost.')
+        choice = ask_save_changes(self.mainwindow, title, message, detail)
+        if choice == AskSaveChangesDialog.SAVE:
+            do_continue = self.on_file_save()
+        elif choice == AskSaveChangesDialog.CANCEL:
+            do_continue = False
+        elif choice == AskSaveChangesDialog.DONTSAVE:
+            do_continue = True
+        return do_continue
+    
     def on_close_execute(self):
         quit = True
         if self.is_changed:
-            quit = messagebox.askokcancel(
-                _('File changed'),
-                _('Changes not saved. Quit anyway?'),
-                parent=self.mainwindow)
+            msg = _('Do you want to save the changes before closing?')
+            quit = self.ask_save_changes(msg)
         if quit:
             # prevent tk image errors on python2 ?
             StockImage.clear_cache()
@@ -501,20 +518,25 @@ class PygubuDesigner(object):
         return quit
 
     def do_save(self, fname):
+        saved = False
         try:
             self.save_file(fname)
             self.set_changed(False)
             logger.info(_('Project saved to %s'), fname)
+            saved = True
         except Exception as e:
-            messagebox.showerror(_('Error'), str(e), parent=self.mainwindow)        
+            messagebox.showerror(_('Error'), str(e), parent=self.mainwindow)
+        return saved
 
     def do_save_as(self):
+        saved = False
         options = {
             'defaultextension': '.ui',
             'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*'))}
         fname = filedialog.asksaveasfilename(**options)
         if fname:
-            self.do_save(fname)
+            saved = self.do_save(fname)
+        return saved
 
     def save_file(self, filename):
         uidefinition = self.tree_editor.tree_to_uidef()
@@ -536,7 +558,7 @@ class PygubuDesigner(object):
             self.tree_editor.load_file(filename)
             self.currentfile = filename
             title = self.project_name()
-            self.set_title(title)        
+            self.set_title(title)
             self.set_changed(False)
             self.rfiles_manager.addfile(filename)
         except Exception as e:
@@ -545,10 +567,8 @@ class PygubuDesigner(object):
     def do_file_open(self, filename=None):
         openfile = True
         if self.is_changed:
-            openfile = messagebox.askokcancel(
-                _('File changed'),
-                _('Changes not saved. Open new file anyway?'),
-                parent=self.mainwindow)
+            msg = _('Do you want to save the changes before opening?')
+            openfile = self.ask_save_changes(msg)
         if openfile:
             if filename is None:
                 options = {
@@ -561,10 +581,8 @@ class PygubuDesigner(object):
     def on_file_new(self, event=None):
         new = True
         if self.is_changed:
-            new = openfile = messagebox.askokcancel(
-                _('File changed'),
-                _('Changes not saved. Discard Changes?'),
-                parent=self.mainwindow)
+            msg = _('Do you want to save the changes before creating?')
+            new = self.ask_save_changes(msg)
         if new:
             self.previewer.remove_all()
             self.tree_editor.remove_all()
@@ -576,9 +594,9 @@ class PygubuDesigner(object):
     def on_file_save(self, event=None):
         if self.currentfile:
             if self.is_changed:
-                self.do_save(self.currentfile)
+                return self.do_save(self.currentfile)
         else:
-            self.do_save_as()        
+            return self.do_save_as()
 
     #File Menu
     def on_file_menuitem_clicked(self, itemid):
@@ -710,7 +728,7 @@ def start_pygubu():
     help = "Hint, If your are using Debian, install package python3-appdirs."
     if sys.version_info < (3,):
         help = "Hint, If your are using Debian, install package python-appdirs."
-    check_dependency('appdirs', '1.3', help)    
+    check_dependency('appdirs', '1.3', help)
     
     
     #root = tk.Tk()
@@ -727,7 +745,7 @@ def start_pygubu():
 
 def check_dependency(modulename, version, help_msg=None):
     try:
-        module = importlib.import_module(modulename)        
+        module = importlib.import_module(modulename)
         module_version = "<unknown>"
         for attr in ('version', '__version__', 'ver', 'PYQT_VERSION_STR'):
             v = getattr(module, attr, None)

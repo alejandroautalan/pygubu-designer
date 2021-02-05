@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.0">
+  <object class="pygubu.builder.widgets.dialog" id="ask_save_changes_dialog">
+    <property name="height">100</property>
+    <property name="modal">true</property>
+    <property name="resizable">none</property>
+    <property name="title" translatable="yes">Save Changes</property>
+    <property name="width">200</property>
+    <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog_close" add="" />
+    <child>
+      <object class="ttk.Frame" id="fcontainer">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="frame3">
+            <property name="height">200</property>
+            <property name="padding">10 10 10 20</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="labelicon">
+                <property name="image">download3-32</property>
+                <property name="text" translatable="yes">SaveIcon</property>
+                <layout manager="pack">
+                  <property name="fill">y</property>
+                  <property name="propagate">True</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Frame" id="frame5">
+                <property name="height">200</property>
+                <property name="padding">10 0 0 0</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="lbl_message">
+                    <property name="font">TkHeadingFont</property>
+                    <property name="padding">0 0 0 5</property>
+                    <property name="text" translatable="yes">Message</property>
+                    <layout manager="pack">
+                      <property name="fill">x</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="lbl_detail">
+                    <property name="font">TkDefaultFont</property>
+                    <property name="text" translatable="yes">Detail</property>
+                    <layout manager="pack">
+                      <property name="fill">x</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="fbuttons">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">x</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="btn_dontsave">
+                <property name="command">on_dontsave</property>
+                <property name="compound">left</property>
+                <property name="idtocommand">false</property>
+                <property name="image">bin-16</property>
+                <property name="text" translatable="yes">Don't Save</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="propagate">True</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_cancel">
+                <property name="command">on_cancel</property>
+                <property name="compound">left</property>
+                <property name="idtocommand">false</property>
+                <property name="image">cancel-circle-16</property>
+                <property name="text" translatable="yes">Cancel</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="propagate">True</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_save">
+                <property name="command">on_save</property>
+                <property name="compound">left</property>
+                <property name="idtocommand">false</property>
+                <property name="image">download3-16</property>
+                <property name="text" translatable="yes">Save</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="propagate">True</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
