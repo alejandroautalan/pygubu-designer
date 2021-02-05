@@ -691,7 +691,7 @@ REQUIRED_OPTIONS = {
         'editor': 'entry',
         'params': {'state': 'readonly'}},
     'id': {
-        'editor': 'entry'},
+        'editor': 'commandentry'},
     }
 
 CUSTOM_OPTIONS = {
