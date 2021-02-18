@@ -153,13 +153,23 @@ TK_WIDGET_OPTIONS = {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999},
         },
-    # ttk.Treeview.Column
-    'column_anchor': {
+    'column_anchor': { # ttk.Treeview.Column
         'editor': 'choice',
         'params': {'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
         'default': tk.W},
     'command': {
-        'editor': 'commandentry'},
+        'editor': 'dynamic',
+        'params': {'mode': 'commandentry'},
+        'ttk.Scrollbar': {
+             'params': {'mode': 'scrollcommandentry'}
+             },
+        'ttk.Scale': {
+             'params': {'mode': 'scalecommandentry'}
+             },
+        'tk.Scale': {
+             'params': {'mode': 'scalecommandentry'}
+             },        
+        },
     # ttk.Label
     'compound': {
         'editor': 'choice',
@@ -301,7 +311,7 @@ TK_WIDGET_OPTIONS = {
         'params': {'from_': 0, 'to': 999}},
     # ttk.Entry
     'invalidcommand': {
-        'editor': 'commandentry'},
+        'editor': 'entryvalidatecommandentry'},
     'jump': {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
@@ -377,7 +387,7 @@ TK_WIDGET_OPTIONS = {
         },
     # ttk.Checkbutton
     'postcommand': {
-        'editor': 'commandentry'},
+        'editor': 'simplecommandentry'},
     'readonlybackground': {
         'editor': 'colorentry'},
     # ttk.Frame,
@@ -542,7 +552,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
     'tearoffcommand': {
-        'editor': 'commandentry' },
+        'editor': 'simplecommandentry' },
     # ttk.Label
     'text': {
         'editor': 'text'},
@@ -589,7 +599,7 @@ TK_WIDGET_OPTIONS = {
                        'focusout', 'key', 'all'),
             'state': 'readonly'}},
     'validatecommand': {
-        'editor': 'commandentry'},
+        'editor': 'entryvalidatecommandentry'},
     # ttk.Checkbutton
     'variable': {
         'editor': 'tkvarentry'},
@@ -672,14 +682,14 @@ TK_WIDGET_OPTIONS = {
         'editor': 'dimensionentry'},
     # ttk.Entry
     'xscrollcommand': {
-        'editor': 'commandentry'},
+        'editor': 'scrollsetcommandentry'},
     'xscrollincrement': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}
         },
     # ttk.Treeview
     'yscrollcommand': {
-        'editor': 'commandentry'},
+        'editor': 'scrollsetcommandentry'},
     'yscrollincrement': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}
@@ -691,22 +701,10 @@ REQUIRED_OPTIONS = {
         'editor': 'entry',
         'params': {'state': 'readonly'}},
     'id': {
-        'editor': 'commandentry'},
+        'editor': 'identifierentry'},
     }
 
 CUSTOM_OPTIONS = {
-    'command_id_arg': {
-        'editor': 'choice',
-        'params': {
-            'values': ('true', 'false'),
-            'state': 'readonly'},
-        'default': 'false'},
-    'idtocommand': {
-        'editor': 'choice',
-        'params': {
-            'values': ('true', 'false'),
-            'state': 'readonly'},
-        'default': 'false'},
     'geometry': {
         'editor': 'dynamic',
         'params': {
@@ -724,9 +722,7 @@ CUSTOM_OPTIONS = {
     'iconbitmap': {
         'editor': 'imageentry' },
     'iconphoto': {
-        'editor': 'imageentry' },    
-    'invalidcommand_args': {
-        'editor': 'entry'},
+        'editor': 'imageentry' },
     'maxsize': {
         'editor': 'whentry'},
     'minsize': {
@@ -759,8 +755,6 @@ CUSTOM_OPTIONS = {
             'values': ('true', 'false'),
             'state': 'readonly'},
         'default': 'false'},
-    'validatecommand_args': {
-        'editor': 'entry'},
     'visible': {
         'editor': 'choice',
         'params': {'values': ('true', 'false'), 'state': 'readonly'},
@@ -820,10 +814,9 @@ WIDGET_SPECIFIC_OPTIONS = (
     )
 
 WIDGET_CUSTOM_OPTIONS = [
-    'command_id_arg', 'invalidcommand_args', 'tree_column', 'validatecommand_args',
-    'visible', 'scrolltype', 'text', 'title',
+    'tree_column', 'visible', 'scrolltype', 'text', 'title',
     'geometry', 'overrideredirect', 'resizable', 'minsize',
-    'maxsize', 'usemousewheel', 'iconbitmap', 'iconphoto', 'idtocommand',
+    'maxsize', 'usemousewheel', 'iconbitmap', 'iconphoto',
     'specialmenu', 
     ]
 

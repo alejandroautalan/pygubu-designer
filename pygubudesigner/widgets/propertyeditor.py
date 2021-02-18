@@ -19,8 +19,9 @@
 from __future__ import unicode_literals
 
 __all__ = ['PropertyEditor', 'EntryPropertyEditor', 'SpinboxPropertyEditor',
-           'ChoicePropertyEditor', 'TextPropertyEditor',
-           'CheckbuttonPropertyEditor', 'register_editor', 'create_editor']
+           'ChoicePropertyEditor', 'ChoiceByKeyPropertyEditor',
+           'TextPropertyEditor', 'CheckbuttonPropertyEditor',
+           'register_editor', 'create_editor']
 
 import keyword
 import re
@@ -136,7 +137,7 @@ class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
         return is_valid
 
 
-class CommandEntryPropertyEditor(EntryPropertyEditor):
+class IdentifierPropertyEditor(EntryPropertyEditor):
     RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
     
     def _validate(self):
@@ -309,7 +310,7 @@ class LayoutManagerPropertyEditor(ChoicePropertyEditor):
 
 register_editor('entry', EntryPropertyEditor)
 register_editor('alphanumentry', AlphanumericEntryPropertyEditor)
-register_editor('commandentry', CommandEntryPropertyEditor)
+register_editor('identifierentry', IdentifierPropertyEditor)
 register_editor('choice', ChoicePropertyEditor)
 register_editor('choice_key', ChoiceByKeyPropertyEditor)
 register_editor('spinbox', SpinboxPropertyEditor)

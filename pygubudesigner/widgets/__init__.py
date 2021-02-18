@@ -13,3 +13,5 @@ from .dimensionentry import DimensionPropertyEditor
 from .relativeentry import RelativeEntryPropertyEditor
 from .pixelcoordinateentry import PixelCoordinatePropertyEditor
 from .ttkstyleentry import TtkStylePropertyEditor
+from .commandentry import CommandPropertyEditor
+from .entryvalidatecommandeditor import EntryValidateCommandPropertyEditor
