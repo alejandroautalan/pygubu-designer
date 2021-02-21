@@ -444,9 +444,9 @@ class WidgetsTreeEditor(object):
             allowed_children = root_boclass.allowed_children
             if allowed_children:
                 if classname not in allowed_children:
-                    str_children = ', '.join(allowed_children)
-                    msg = _('Allowed children: %s.')
                     if show_warnings:
+                        str_children = ', '.join(allowed_children)
+                        msg = _('Allowed children: %s.')
                         logger.warning(msg, str_children)
                     is_valid = False
                     return is_valid
@@ -454,9 +454,9 @@ class WidgetsTreeEditor(object):
             children_count = len(self.treeview.get_children(root))
             maxchildren = root_boclass.maxchildren
             if maxchildren is not None and children_count >= maxchildren:
-                msg = trlog(_('Only {0} children allowed for {1}'),
-                            maxchildren, root_classname)
                 if show_warnings:
+                    msg = trlog(_('Only {0} children allowed for {1}'),
+                                maxchildren, root_classname)
                     logger.warning(msg)
                 is_valid = False
                 return is_valid
@@ -464,16 +464,16 @@ class WidgetsTreeEditor(object):
             allowed_parents = new_boclass.allowed_parents
             if (allowed_parents is not None and
                root_classname not in allowed_parents):
-                msg = trlog(_('{0} not allowed as parent of {1}'),
-                            root_classname, classname)
                 if show_warnings:
+                    msg = trlog(_('{0} not allowed as parent of {1}'),
+                                root_classname, classname)
                     logger.warning(msg)
                 is_valid = False
                 return is_valid
 
             if allowed_children is None and root_boclass.container is False:
-                msg = _('Not allowed, %s is not a container.')
                 if show_warnings:
+                    msg = _('Not allowed, %s is not a container.')
                     logger.warning(msg, root_classname)
                 is_valid = False
                 return is_valid
@@ -484,8 +484,9 @@ class WidgetsTreeEditor(object):
             # Validate if it can be added at root level
             allowed_parents = new_boclass.allowed_parents
             if allowed_parents is not None and 'root' not in allowed_parents:
-                msg = _('%s not allowed at root level')
-                logger.warning(msg, classname)
+                if show_warnings:
+                    msg = _('%s not allowed at root level')
+                    logger.warning(msg, classname)
                 is_valid = False
                 return is_valid
 
@@ -493,8 +494,9 @@ class WidgetsTreeEditor(object):
             # check that item to insert is a container.
             # only containers are allowed at root level
             if new_boclass.container is False:
-                msg = _('Not allowed at root level, %s is not a container.')
-                logger.warning(msg, classname)
+                if show_warnings:
+                    msg = _('Not allowed at root level, %s is not a container.')
+                    logger.warning(msg, classname)
                 is_valid = False
                 return is_valid
         return is_valid
@@ -594,11 +596,14 @@ class WidgetsTreeEditor(object):
 
         root = selected_item
         #  check if the widget can be added at selected point
-        if not self._validate_add(root, wclass, True):
+        parent = tree.parent(root)
+        has_parent = (parent != root)
+        show_warnings = False if has_parent else True
+        if not self._validate_add(root, wclass, show_warnings):
             #  if not try to add at item parent level
             parent = tree.parent(root)
             if parent != root:
-                logger.warning('Failed to add widget, trying one level up.')
+                logger.info('Failed to add widget, trying one level up.')
                 if self._validate_add(parent, wclass):
                     root = parent
                 else:
