@@ -161,8 +161,22 @@ class PygubuDesigner(object):
         in_macos = (sys.platform == 'darwin')
         #build main ui
         self.mainwindow = self.builder.get_object('mainwindow')
-        #toplevel = self.master.winfo_toplevel()
         menu = self.builder.get_object('mainmenu', self.mainwindow)
+        
+        if in_macos:
+            cmd = 'tk::mac::ShowPreferences'
+            self.mainwindow.createcommand(cmd, self._edit_preferences)
+            #cmd = 'tk::mac::ShowHelp'
+            #self.mainwindow.createcommand(cmd, self.on_help_item_clicked)
+            cmd = 'tk::mac::Quit'
+            self.mainwindow.createcommand(cmd, self.quit)
+            # In mac add apple menu
+            m = tk.Menu(menu, name='apple')
+            m.add_command(label=_('Quit'), accelerator='Cmd-Q',
+                          command=self.quit)
+            menu.insert_cascade(0, menu=m)
+        
+        # Set top menu
         self.mainwindow.configure(menu=menu)
 
         # Recen Files management
@@ -493,7 +507,7 @@ class PygubuDesigner(object):
         if title is None:
             title = _('Save Changes')
         if detail is None:
-            detail = _('If you dont save the document, all the changes will be lost.')
+            detail = _("If you don't save the document, all the changes will be lost.")
         choice = ask_save_changes(self.mainwindow, title, message, detail)
         if choice == AskSaveChangesDialog.SAVE:
             do_continue = self.on_file_save()
