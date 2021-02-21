@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.0">
+<interface version="1.1">
   <object class="pygubu.builder.widgets.dialog" id="ask_save_changes_dialog">
     <property name="height">100</property>
     <property name="modal">true</property>
@@ -52,7 +52,7 @@
                 </layout>
                 <child>
                   <object class="ttk.Label" id="lbl_message">
-                    <property name="font">TkHeadingFont</property>
+                    <property name="font">TkDefaultFont</property>
                     <property name="padding">0 0 0 5</property>
                     <property name="text" translatable="yes">Message</property>
                     <layout manager="pack">
@@ -89,9 +89,8 @@
             </layout>
             <child>
               <object class="ttk.Button" id="btn_dontsave">
-                <property name="command">on_dontsave</property>
+                <property name="command" type="command" cbtype="simple" args="">on_dontsave</property>
                 <property name="compound">left</property>
-                <property name="idtocommand">false</property>
                 <property name="image">bin-16</property>
                 <property name="text" translatable="yes">Don't Save</property>
                 <layout manager="pack">
@@ -104,9 +103,8 @@
             </child>
             <child>
               <object class="ttk.Button" id="btn_cancel">
-                <property name="command">on_cancel</property>
+                <property name="command" type="command" cbtype="simple" args="">on_cancel</property>
                 <property name="compound">left</property>
-                <property name="idtocommand">false</property>
                 <property name="image">cancel-circle-16</property>
                 <property name="text" translatable="yes">Cancel</property>
                 <layout manager="pack">
@@ -119,9 +117,8 @@
             </child>
             <child>
               <object class="ttk.Button" id="btn_save">
-                <property name="command">on_save</property>
+                <property name="command" type="command" cbtype="simple" args="">on_save</property>
                 <property name="compound">left</property>
-                <property name="idtocommand">false</property>
                 <property name="image">download3-16</property>
                 <property name="text" translatable="yes">Save</property>
                 <layout manager="pack">
