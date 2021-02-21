@@ -103,7 +103,6 @@ register_editor('scalecommandentry', ScaleCommandEntry)
 class CommandPropertyEditor(CommandPropertyBase):
     
     def _create_ui(self):
-        self._lbl_vevent = _('Event:')
         self._lbl_callback = _('Callback:')
         self._plabel = w = ttk.Label(self, text=self._lbl_callback,
                                      font='TkSmallCaptionFont')
@@ -119,23 +118,12 @@ class CommandPropertyEditor(CommandPropertyBase):
         cmdtypes = (
             (CB_TYPES.SIMPLE, _('Simple')),
             (CB_TYPES.WITH_WID, _('Send widget ID')),
-            (CB_TYPES.GENERATE_VE, _('Generate virtual event')),
         )
         self._cmdtype = w = ChoiceByKeyPropertyEditor(self)
         w.parameters(values=cmdtypes)
-        w.bind('<<PropertyChanged>>', self._on_type_change)
+        w.bind('<<PropertyChanged>>', self._on_variable_changed)
         w.grid(row=1, column=1, sticky='nswe')
         self.columnconfigure(1, weight=1)
-        
-    def _setup_labels(self):
-        if self._cmdtype.value == CB_TYPES.GENERATE_VE:
-            self._plabel['text'] = self._lbl_vevent
-        else:
-            self._plabel['text'] = self._lbl_callback
-    
-    def _on_type_change(self, event=None):
-        self._setup_labels()
-        self._on_variable_changed()
     
     def _set_value(self, value):
         """Save value on storage"""
@@ -147,7 +135,6 @@ class CommandPropertyEditor(CommandPropertyBase):
             cbtype = vd['cbtype']
         self._cbname.edit(cbname)
         self._cmdtype.edit(cbtype)
-        self._setup_labels()
         self._variable.set(value)
     
     def _get_value(self):
