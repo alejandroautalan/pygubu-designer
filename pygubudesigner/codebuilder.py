@@ -1,7 +1,7 @@
 from __future__ import unicode_literals, print_function
 import os
 from collections import OrderedDict
-from pygubu.builder import Builder, CLASS_MAP
+from pygubu.builder import Builder, CLASS_MAP, CB_TYPES
 from pygubu.builder.builderobject import BuilderObject, grouper, register_widget
 from pygubu.builder.widgetmeta import WidgetMeta
 from pygubu.stockimage import TK_BITMAP_FORMATS
@@ -244,24 +244,41 @@ class UI2Code(Builder):
         
         lines = []
         for name, value in self._callbacks.items():
-            cbtype, args = value
-            if cbtype == 'command':
+            wid, cbtype, args = value
+            if cbtype == CB_TYPES.BIND_EVENT:
+                line = '{0}def {1}(self, event=None):'.format(' '*tab2, name)
+                lines.append(line)
+                line = '{0}pass\n'.format(' '*tabspaces)
+                lines.append(line)
+            elif cbtype == CB_TYPES.SCROLL:
+                fargs = []
+                for a in args:
+                    fargs.append('{0}=None'.format(a))
+                fargs = ', '.join(fargs)
+                line = '{0}def {1}(self, {2}):'.format(' '*tab2, name, fargs)
+                lines.append(line)
+                line = '{0}pass\n'.format(' '*tabspaces)
+                lines.append(line)
+            else:
+                # other types: cb_simple, cb_with_id, etc.
                 if args is None:
                     line = '{0}def {1}(self):'.format(' '*tab2, name)
+                    lines.append(line)
+                    line = '{0}pass\n'.format(' '*tabspaces)
+                    lines.append(line)
                 else:
                     fargs = ', '.join(args)
                     line = '{0}def {1}(self, {2}):'.format(' '*tab2, name, fargs)
-            else:
-                line = '{0}def {1}(self, event=None):'.format(' '*tab2, name)
-            lines.append(line)
-            line = '{0}pass\n'.format(' '*tabspaces)
-            lines.append(line)
+                    lines.append(line)
+                    line = '{0}pass\n'.format(' '*tabspaces)
+                    lines.append(line)
         return lines
     
-    def code_create_callback(self, name, cbtype, args=None):
-        if name not in self._callbacks:
-            self._callbacks[name] = (cbtype, args)
-        cb_name = 'self.{0}'.format(name)
+    def code_create_callback(self, widgetid, cbname, cbtype, args=None):
+        print('on_code_create_callback', widgetid, cbname, cbtype, args)
+        if cbname not in self._callbacks:
+            self._callbacks[cbname] = (widgetid, cbtype, args)
+        cb_name = 'self.{0}'.format(cbname)
         return cb_name
     
     def code_create_image(self, filename):
