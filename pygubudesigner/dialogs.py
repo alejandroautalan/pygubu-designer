@@ -1,7 +1,7 @@
 # encoding: UTF-8
 import os
 import pygubu
-
+from pygubudesigner.i18n import translator
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 ASK_SAVE_CHANGES_DIALOG_UI = os.path.join(FILE_PATH, 'ui', 'ask_save_changes_dialog.ui')
@@ -14,7 +14,7 @@ class AskSaveChangesDialog:
     
     def __init__(self, master):
         self.master = master
-        self.builder = builder = pygubu.Builder()
+        self.builder = builder = pygubu.Builder(translator)
         #builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(ASK_SAVE_CHANGES_DIALOG_UI)
         self.dialog = builder.get_object('ask_save_changes_dialog', master)
