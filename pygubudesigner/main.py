@@ -172,7 +172,7 @@ class PygubuDesigner(object):
             self.mainwindow.createcommand(cmd, self.quit)
             # In mac add apple menu
             m = tk.Menu(menu, name='apple')
-            m.add_command(label=_('Quit'), accelerator='Cmd-Q',
+            m.add_command(label=_('Quit …'), accelerator='Cmd-Q',
                           command=self.quit)
             menu.insert_cascade(0, menu=m)
         
