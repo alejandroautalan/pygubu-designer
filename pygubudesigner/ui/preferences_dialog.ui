@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.0">
+<interface version="1.1">
   <object class="pygubu.builder.widgets.dialog" id="preferences">
-    <property name="borderwidth">2</property>
     <property name="geometry">480x380</property>
     <property name="height">200</property>
     <property name="minsize">380|380</property>
@@ -13,6 +12,7 @@
     <child>
       <object class="ttk.Frame" id="Frame_5">
         <property name="height">200</property>
+        <property name="padding">5</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="expand">true</property>
@@ -111,7 +111,6 @@
                         </layout>
                         <child>
                           <object class="ttk.Radiobutton" id="radiobutton_1">
-                            <property name="idtocommand">false</property>
                             <property name="text" translatable="yes">No separator (e.g. button1)</property>
                             <property name="value">NONE</property>
                             <property name="variable">string:widget_naming_separator</property>
@@ -125,7 +124,6 @@
                         </child>
                         <child>
                           <object class="ttk.Radiobutton" id="radiobutton_2">
-                            <property name="idtocommand">false</property>
                             <property name="text" translatable="yes">Use "_" as separator (e.g. button_1)</property>
                             <property name="value">UNDERSCORE</property>
                             <property name="variable">string:widget_naming_separator</property>
@@ -139,7 +137,6 @@
                         </child>
                         <child>
                           <object class="ttk.Checkbutton" id="checkbutton_1">
-                            <property name="idtocommand">false</property>
                             <property name="offvalue">no</property>
                             <property name="onvalue">yes</property>
                             <property name="text" translatable="yes">Uppercase first letter (e.g. Button…)</property>
@@ -295,7 +292,7 @@
                             </layout>
                             <child>
                               <object class="ttk.Button" id="path_add">
-                                <property name="command">on_pathadd_clicked</property>
+                                <property name="command" type="command" cbtype="simple" args="">on_pathadd_clicked</property>
                                 <property name="text" translatable="yes">+</property>
                                 <property name="width">3</property>
                                 <layout manager="grid">
@@ -307,7 +304,7 @@
                             </child>
                             <child>
                               <object class="ttk.Button" id="path_remove">
-                                <property name="command">on_pathremove_clicked</property>
+                                <property name="command" type="command" cbtype="simple" args="">on_pathremove_clicked</property>
                                 <property name="state">disabled</property>
                                 <property name="text" translatable="yes">-</property>
                                 <property name="width">3</property>
@@ -340,7 +337,7 @@
             </layout>
             <child>
               <object class="ttk.Button" id="dialog_close">
-                <property name="command">on_dialog_close</property>
+                <property name="command" type="command" cbtype="simple" args="">on_dialog_close</property>
                 <property name="default">active</property>
                 <property name="text" translatable="yes">Close</property>
                 <layout manager="grid">
