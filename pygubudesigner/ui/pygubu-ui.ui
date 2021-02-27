@@ -866,9 +866,12 @@
                                                   </object>
                                                 </child>
                                                 <child>
-                                                  <object class="tk.Label" id="spacerlbl">
+                                                  <object class="ttk.Frame" id="spacerframe1">
+                                                    <property name="height">10</property>
+                                                    <property name="width">10</property>
                                                     <layout manager="grid">
                                                       <property name="column">2</property>
+                                                      <property name="propagate">True</property>
                                                       <property name="row">0</property>
                                                       <property type="col" id="2" name="weight">2</property>
                                                     </layout>
