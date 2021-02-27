@@ -275,7 +275,7 @@ class UI2Code(Builder):
         return lines
     
     def code_create_callback(self, widgetid, cbname, cbtype, args=None):
-        print('on_code_create_callback', widgetid, cbname, cbtype, args)
+        #print('on_code_create_callback', widgetid, cbname, cbtype, args)
         if cbname not in self._callbacks:
             self._callbacks[cbname] = (widgetid, cbtype, args)
         cb_name = 'self.{0}'.format(cbname)
