@@ -161,3 +161,18 @@ def menu_iter_children(menu):
         for m in cascades:
             for child in menu_iter_children(m):
                 yield child
+
+__style = None
+
+def get_ttk_style():
+    '''Use ttkthemes if module is installed
+    '''
+    global __style
+    if __style is None:
+        try:
+            from ttkthemes.themed_style import ThemedStyle
+            __style = ThemedStyle()
+        except:
+            import tkinter.ttk
+            __style = tkinter.ttk.Style()
+    return __style

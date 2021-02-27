@@ -2,6 +2,7 @@
 import os
 import sys
 import logging
+from pygubudesigner.util import get_ttk_style
 
 try:
     import tkinter as tk
@@ -144,11 +145,12 @@ class PreferencesUI(object):
         self.dialog = dialog = builder.get_object('preferences', top)
         
         # setup theme values
-        s = ttk.Style()
+        s = get_ttk_style()
         styles = s.theme_names()
         themelist = []
         for name in styles:
             themelist.append((name, name))
+        themelist.sort()
         cbox = builder.get_object('cbox_ttk_theme')
         cbox.configure(values=themelist)
         

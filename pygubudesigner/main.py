@@ -43,7 +43,7 @@ except:
 import pygubu
 from pygubu import builder
 from pygubu.stockimage import StockImage, StockImageException
-from .util import virtual_event, menu_iter_children
+from .util import virtual_event, menu_iter_children, get_ttk_style
 from .util.keyboard import Key, key_bind
 from .uitreeeditor import WidgetsTreeEditor
 from .previewer import PreviewHelper
@@ -366,7 +366,7 @@ class PygubuDesigner(object):
         self.mainwindow.option_add('*Dialog.msg.width', 34)
         self.mainwindow.option_add("*Dialog.msg.wrapLength", "6i")
         
-        s = ttk.Style()
+        s = get_ttk_style()
         s.configure('ColorSelectorButton.Toolbutton',
                     image=StockImage.get('mglass'))
         s.configure('ImageSelectorButton.Toolbutton',
@@ -394,8 +394,9 @@ class PygubuDesigner(object):
 
     def _setup_theme_menu(self):
         menu = self.builder.get_object('preview_themes_submenu')
-        s = ttk.Style()
-        styles = s.theme_names()
+        s = get_ttk_style()
+        styles = list(s.theme_names())
+        styles.sort()
         self.__theme_var = var = tk.StringVar()
         theme = pref.get_option('ttk_theme')
         var.set(theme)
@@ -490,7 +491,7 @@ class PygubuDesigner(object):
         self._change_ttk_theme(theme)
     
     def _change_ttk_theme(self, theme):
-        s = ttk.Style()
+        s = get_ttk_style()
         try:
             s.theme_use(theme)
             self._setup_styles()
