@@ -178,13 +178,13 @@ class UI2Code(Builder):
                 value = ''
             else:
                 if type_from_name == 'string':
-                    value = "''".format(value)
+                    value = "'{0}'".format(value)
             
             if vtype is None:
-                var_init = 'tk.{0}Var({1})'.format(type_from_name.capitalize(),
+                var_init = 'tk.{0}Var(value={1})'.format(type_from_name.capitalize(),
                                                 value)
             else:
-                var_init = '{0}({1})'.format(str(vtype), value)
+                var_init = '{0}(value={1})'.format(str(vtype), value)
             line = '{0} = {1}'.format(vname, var_init)
             self._code.append(line)
             self._tkvariables[vname] = vtype
