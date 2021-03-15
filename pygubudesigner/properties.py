@@ -818,7 +818,7 @@ WIDGET_SPECIFIC_OPTIONS = (
     'text', 'textvariable', 'tickinterval', 'tristateimage',
     'tristatevalue', 'underline', 'validate', 'undo', 'validatecommand',
     'value', 'values', 'variable', 'weight', 'width', 'wrap',
-    'wraplength', 'xscrollincrement', 'yscrollincrement',
+    'wraplength', 'xscrollcommand', 'xscrollincrement', 'yscrollincrement',
     'tearoff', 'tearoffcommand'
     )
 
