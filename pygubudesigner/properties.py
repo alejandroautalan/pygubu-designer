@@ -168,7 +168,10 @@ TK_WIDGET_OPTIONS = {
              },
         'tk.Scale': {
              'params': {'mode': 'scalecommandentry'}
-             },        
+             },
+        'tk.OptionMenu': {
+             'params': {'mode': 'simplecommandentry'}
+             },
         },
     # ttk.Label
     'compound': {

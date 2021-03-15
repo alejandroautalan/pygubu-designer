@@ -47,6 +47,7 @@ gtk_imgs = {
         'tk.Menuitem.Submenu', 
         'pygubu.builder.widgets.toplevelmenu'),
     'widget-gtk-menutoolbutton.png': (
+        'tk.OptionMenu',
         'tk.Menubutton', 
         'ttk.Menubutton'),
     'widget-gtk-notebook.png': ('ttk.Notebook',),
@@ -150,6 +151,7 @@ def find_source_image_for(widget_name):
 def create_image_for(widget_name):
     origin = IMG_ORIGIN
     dest = os.path.join(IMG_GIF_DIR, '22x22')
+    dest_png = os.path.join(IMG_PNG_DIR, '22x22')
 
     source = find_source_image_for(widget_name)
     if source:
@@ -158,18 +160,32 @@ def create_image_for(widget_name):
         cmd = 'convert {0} {1}.gif'.format(iimage, oimage)
         cmd = shlex.split(cmd)
         subprocess.call(cmd)
-
-        origin = os.path.join(IMG_DIR, 'png', '22x22')
-        dest = os.path.join(IMG_DIR, '16x16')
-        iimage = os.path.join(origin, source)
-        oimage = os.path.join(dest, widget_name)
-        #print('calling convert: ')
-        cmd = 'convert {0} -filter Hermite -format gif ' \
-              '-background transparent -bordercolor white -border 0x0 ' \
-              '-resize 16 {1}.gif'.format(iimage, oimage)
+        #copy as png
+        oimage = os.path.join(dest_png, widget_name)
+        cmd = 'cp {0} {1}.png'.format(iimage, oimage)
         cmd = shlex.split(cmd)
         print('call to: ', cmd)
-        #subprocess.call(cmd)
+        subprocess.call(cmd)
+
+        print('\n## 16x16')
+        origin = IMG_ORIGIN
+        dest = os.path.join(IMG_GIF_DIR, '16x16')
+        dest_png = os.path.join(IMG_PNG_DIR, '16x16')
+        
+        oimage = os.path.join(dest, widget_name)
+        cmd = 'convert {0} -filter Hermite -format gif ' \
+            '-background transparent -bordercolor white -border 0x0 ' \
+            '-resize 16 {1}.gif'.format(iimage, oimage)
+        cmd = shlex.split(cmd)
+        print('call to: ', cmd)
+        subprocess.call(cmd)
+        
+        # resize as png
+        oimage = os.path.join(dest_png, widget_name)
+        cmd = 'convert {0} -resize 16 {1}.png'.format(iimage, oimage)
+        cmd = shlex.split(cmd)
+        print('call to: ', cmd)
+        subprocess.call(cmd)
     else:
         print('Widget not defined :(')
 

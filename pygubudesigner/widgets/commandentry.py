@@ -70,7 +70,6 @@ class SimpleCommandEntry(CommandPropertyBase):
                 'cbtype': self.cmd_type
             }
             value = json.dumps(cmd)
-        print('on_get_value', value)
         return value
         
     def _validate(self):
