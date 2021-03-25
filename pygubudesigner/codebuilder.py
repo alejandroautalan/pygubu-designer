@@ -22,8 +22,13 @@ class ToplevelOrTk(TKToplevel):
         kwargs = ''
         if bag:
             kwargs = ', {0}'.format(', '.join(bag))
-        s = "{0} = tk.Tk({3}) if master is None else {1}({2}{3})".format(self.code_identifier(),
-                                       self._code_class_name(), master, kwargs)
+        if init_args:
+            # has init args defined so create a TkToplevel
+            s = "{0} = {1}({2}{3})"
+        else:
+            s = "{0} = tk.Tk() if master is None else {1}({2}{3})"
+        s = s.format(self.code_identifier(), self._code_class_name(),
+                     master, kwargs)
         lines.append(s)
         return lines
 
