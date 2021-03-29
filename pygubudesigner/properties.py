@@ -83,20 +83,23 @@ TK_RELIEFS = (tk.FLAT, tk.RAISED, tk.SUNKEN, tk.GROOVE, tk.RIDGE)
 
 TK_WIDGET_OPTIONS = {
     'accelerator': {
-        'editor': 'entry'
+        'editor': 'entry',
+        'help': help_for('accelerator')
         },
     'activerelief': {
         'editor': 'choice',
         'params': {
             'values': ('', tk.FLAT, tk.RAISED, tk.SUNKEN,
                        tk.GROOVE, tk.RIDGE),
-            'state': 'readonly'}
+            'state': 'readonly'},
+        'help': help_for('activerelief')
         },
     'activestyle': {
         'editor': 'choice',
         'params': {
             'values': ('', 'underline', 'dotbox', 'none'),
-            'state': 'readonly'}
+            'state': 'readonly'},
+        'help': help_for('activestyle')
         },
     'activebackground': {
         'editor': 'colorentry',
@@ -111,7 +114,8 @@ TK_WIDGET_OPTIONS = {
         'help': help_for('activeforeground')
         },
     'after': {
-        'editor': 'entry'
+        'editor': 'entry',
+        'help': help_for('after')
         },
     # ttk.Label
     'anchor': {
@@ -147,7 +151,8 @@ TK_WIDGET_OPTIONS = {
         'help': help_for('borderwidth')
         },
     'bigincrement': {
-        'editor': 'naturalnumber'
+        'editor': 'naturalnumber',
+        'help': help_for('bigincrement')
         },
     'bitmap': {
         'editor': 'choice',
@@ -181,11 +186,13 @@ TK_WIDGET_OPTIONS = {
     'closeenough': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999},
+        'help': help_for('closeenough')
         },
     'column_anchor': { # ttk.Treeview.Column
         'editor': 'choice',
         'params': {'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
-        'default': tk.W
+        'default': tk.W,
+        'help': help_for('column_anchor')
         },
     'columnbreak': {
         'editor': 'choice',
@@ -206,7 +213,7 @@ TK_WIDGET_OPTIONS = {
         'tk.OptionMenu': {
              'params': {'mode': 'simplecommandentry'}
              },
-        'help': help_for('command')
+        'help': help_for('command-pygubu')
         },
     # ttk.Label
     'compound': {
@@ -221,7 +228,8 @@ TK_WIDGET_OPTIONS = {
     # ttk.Button
     'confine': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'help': help_for('confine')
         },
     'container': {
         'editor': 'choice',
@@ -243,7 +251,8 @@ TK_WIDGET_OPTIONS = {
         },
     'digits': {
         'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999}
+        'params': {'from_': 0, 'to': 999},
+        'help': help_for('digits')
         },
     'direction': {
         'editor': 'choice',
@@ -295,6 +304,7 @@ TK_WIDGET_OPTIONS = {
     # ttk.Scale, ttk.Spinbox
     'from_': {
         'editor': 'realnumber',
+        'help': help_for('from_')
         },
     'handlepad': {
         'editor': 'entry'
@@ -307,7 +317,8 @@ TK_WIDGET_OPTIONS = {
         'editor': 'choice',
         'params': {
             'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
-        'default': tk.W
+        'default': tk.W,
+        'help': help_for('heading_anchor')
         },
     # ttk.Frame,
     'height': {
@@ -341,6 +352,14 @@ TK_WIDGET_OPTIONS = {
         'tk.Radiobutton':{
             'params': {'mode': 'naturalnumber'},
             },
+        'ttk.Treeview': {
+            'params': {'mode': 'naturalnumber'},
+            'help': help_for('height-ttk.Treeview')
+            },
+        'pygubu.builder.widgets.editabletreeview': {
+            'params': {'mode': 'naturalnumber'},
+            'help': help_for('height-ttk.Treeview')
+            },
         'pygubu.builder.widgets.dialog': {'default': 100}
         },
     'hidemargin': {
@@ -364,7 +383,11 @@ TK_WIDGET_OPTIONS = {
         'editor': 'imageentry',
         'help': {
             'tk': help_for('image-tk'),
-            'ttk': help_for('image-ttk')}
+            'ttk': help_for('image-ttk')
+            },
+        'ttk.Treeview.Column': {
+            'help': help_for('image-ttk.Treeview.Column'),
+            }
         },
     'inactiveselectbackground': {
         'editor': 'colorentry'
@@ -427,7 +450,8 @@ TK_WIDGET_OPTIONS = {
             'help': help_for('justify-ttk.Entry')}
         },
     'label': {
-        'editor': 'entry'
+        'editor': 'entry',
+        'help': help_for('label')
         },
     # ttk.Labelframe
     'labelanchor': {
@@ -440,9 +464,13 @@ TK_WIDGET_OPTIONS = {
         },
     # ttk.Progressbar
     'length': {
-        'editor': 'dimensionentry'},
+        'editor': 'dimensionentry',
+        'help': help_for('length')
+        },
     'listvariable': {
-        'editor': 'tkvarentry'},
+        'editor': 'tkvarentry',
+        'help': help_for('listvariable')
+        },
     # ttk.Progressbar
     'maximum': {
         'editor': 'realnumber'},
@@ -454,7 +482,9 @@ TK_WIDGET_OPTIONS = {
     # ttk.Treeview.Column
     'minwidth': {
         'editor': 'naturalnumber',
-        'default': '20'},
+        'default': '20',
+        'help': help_for('minwidth')
+        },
     # ttk.Progressbar
     'mode': {
         'editor': 'choice',
@@ -527,15 +557,21 @@ TK_WIDGET_OPTIONS = {
     'resolution': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999, 'increment': 0.5},
+        'help': help_for('resolution')
         },
     'sliderlength': {
-        'editor': 'dimensionentry'},
+        'editor': 'dimensionentry',
+        'help': help_for('sliderlength')
+        },
     'sliderrelief': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}},
+        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'help': help_for('sliderrelief')
+        },
     'sashcursor': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'}},
+        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'}
+        },
     'sashpad': {
         'editor': 'entry'},
     'sashrelief': {
@@ -557,7 +593,8 @@ TK_WIDGET_OPTIONS = {
         'help': help_for('selectforeground')
         },
     'scrollregion': {
-        'editor': 'entry'
+        'editor': 'fourdimensionentry',
+        'help': help_for('scrollregion')
         },
     'selectcolor': {
         'editor': 'colorentry'
@@ -568,6 +605,7 @@ TK_WIDGET_OPTIONS = {
     # ttk.Treeview
     'selectmode': {
         'editor': 'choice',
+        'help': help_for('selectmode'),
         'params': {
             'values': ('', tk.BROWSE, tk.SINGLE, tk.MULTIPLE, tk.EXTENDED),
             'state': 'readonly'},
@@ -575,7 +613,8 @@ TK_WIDGET_OPTIONS = {
             'params': {
                 'values': (tk.EXTENDED, tk.BROWSE, tk.NONE),
                 'state': 'readonly'},
-            'default': tk.EXTENDED}
+            'default': tk.EXTENDED,
+            }
         },
     'setgrid': {
         'editor': 'choice',
@@ -588,12 +627,12 @@ TK_WIDGET_OPTIONS = {
         'ttk.Treeview': {
             'params': {
                 'values': ('', 'tree', 'headings'), 'state': 'readonly'},
-            'help': '?'
+            'help': help_for('show-ttk.Treeview')
             },
         'pygubu.builder.widgets.editabletreeview': {
             'params': {
                 'values': ('', 'tree', 'headings'), 'state': 'readonly'},
-            'help': '?'
+            'help': help_for('show-ttk.Treeview')
             },
         },
     'showhandle': {
@@ -601,7 +640,9 @@ TK_WIDGET_OPTIONS = {
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
     'showvalue': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'help': help_for('showvalue')
+        },
     'spacing1': {
         'editor': 'entry'},
     'spacing2': {
@@ -619,6 +660,12 @@ TK_WIDGET_OPTIONS = {
             'params': {
                 'values': ('', tk.NORMAL, tk.ACTIVE, tk.DISABLED),
                 'state': 'readonly'}},
+        'tk.Canvas': {
+            'params': {
+                'values': ('', tk.NORMAL, tk.DISABLED),
+                'state': 'readonly'},
+            'help': help_for('state-tk.Canvas')
+            },
         'tk.Entry': {
             'params': {
                 'values': ('', tk.NORMAL, tk.DISABLED, 'readonly'),
@@ -658,9 +705,12 @@ TK_WIDGET_OPTIONS = {
     # ttk.Treeview.Column
     'stretch': {
         'editor': 'choice',
+        'help': help_for('stretch'),
         'ttk.Treeview.Column': {
             'params': {'values': ('true', 'false'), 'state': 'readonly'},
-            'default': 'true'},
+            'default': 'true',
+            'help': help_for('stretch-ttk.Treeview')
+            },
         'tk.PanedWindow.Pane': {
             'params': {
                 'values': ('', 'always', 'first', 'last', 'middle', 'never'),
@@ -707,10 +757,12 @@ TK_WIDGET_OPTIONS = {
     'tickinterval': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999, 'increment': 0.5},
+        'help': help_for('tickinterval')
         },
     # ttk.Scale, ttk.Spinbox
     'to': {
         'editor': 'realnumber',
+        'help': help_for('to')
         },
     'tristateimage': {
         'editor': 'imageentry'
@@ -732,6 +784,7 @@ TK_WIDGET_OPTIONS = {
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
     'value': {
         'editor': 'dynamic',
+        'help': help_for('value'),
         'params': {'mode': 'entry'},
         'ttk.Progressbar':{
             'params':{'mode':'realnumber'}
@@ -778,6 +831,9 @@ TK_WIDGET_OPTIONS = {
         'tk.Button': {
             'params': {'mode': 'integernumber'},
             'help': help_for('width-tk.Button')
+            },
+        'tk.Scale': {
+            'help': help_for('width-scale')
             },
         'ttk.Button': {
             'params': {'mode': 'integernumber'},
@@ -840,7 +896,9 @@ TK_WIDGET_OPTIONS = {
             'default': 200},
         'ttk.Treeview.Column': {
             'params': {'mode': 'naturalnumber'},
-            'default': 200},
+            'default': 200,
+            'help': help_for('width-ttk.Treeview.Column')
+            },
         'pygubu.builder.widgets.dialog': {
             'default': 200}},
     # ttk.Spinbox
@@ -865,8 +923,8 @@ TK_WIDGET_OPTIONS = {
         'help': help_for('command-pygubu')
         },
     'xscrollincrement': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999}
+        'editor': 'dimensionentry',
+        'help': help_for('xscrollincrement')
         },
     # ttk.Treeview
     'yscrollcommand': {
@@ -874,8 +932,8 @@ TK_WIDGET_OPTIONS = {
         'help': help_for('command-pygubu')
         },
     'yscrollincrement': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999}
+        'editor': 'dimensionentry',
+        'help': help_for('yscrollincrement')
         },
     }
 
@@ -938,7 +996,9 @@ CUSTOM_OPTIONS = {
     'tree_column': {
         'editor': 'choice',
         'params': {'values': ('true', 'false'), 'state': 'readonly'},
-        'default': 'false'},
+        'default': 'false',
+        'help': help_for('tree_column-custom')
+        },
     'usemousewheel': {
         'editor': 'choice',
         'params': {
@@ -948,7 +1008,9 @@ CUSTOM_OPTIONS = {
     'visible': {
         'editor': 'choice',
         'params': {'values': ('true', 'false'), 'state': 'readonly'},
-        'default': 'true'},
+        'default': 'true',
+        'help': help_for('visible-custom')
+        },
     'specialmenu': {
         'editor': 'choice',
         'params': {'values': ('apple', 'help', 'window', 'system'), 'state': 'readonly'}
