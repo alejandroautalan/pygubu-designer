@@ -25,12 +25,10 @@ except:
     import Tkinter as tk
 
 from pygubu.builder import builderobject
+from .propertieshelp import help_for, _
 
 logger = logging.getLogger(__name__)
 
-# translator marker
-def _(x):
-    return x
 
 TK_BITMAPS = (
     'error', 'gray75', 'gray50', 'gray25', 'gray12',
@@ -85,69 +83,100 @@ TK_RELIEFS = (tk.FLAT, tk.RAISED, tk.SUNKEN, tk.GROOVE, tk.RIDGE)
 
 TK_WIDGET_OPTIONS = {
     'accelerator': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     'activerelief': {
         'editor': 'choice',
         'params': {
             'values': ('', tk.FLAT, tk.RAISED, tk.SUNKEN,
                        tk.GROOVE, tk.RIDGE),
-            'state': 'readonly'}},
+            'state': 'readonly'}
+        },
     'activestyle': {
         'editor': 'choice',
         'params': {
             'values': ('', 'underline', 'dotbox', 'none'),
-            'state': 'readonly'}},
+            'state': 'readonly'}
+        },
     'activebackground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('activebackground')
+        },
     'activeborderwidth': {
-        'editor': 'dimensionentry'},
+        'editor': 'dimensionentry',
+        'help': help_for('activeborderwidth')
+        },
     'activeforeground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('activeforeground')
+        },
     'after': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     # ttk.Label
     'anchor': {
         'editor': 'choice',
-        'params': {'values': ('', tk.W, tk.CENTER, tk.E),
-                   'state': 'readonly'},
-        'tk.Button': {
+        'params': {
+            'values': ('', 'n', 'ne', 'nw', 'e', 'w', 's', 'se', 'sw', 'center'),
+            'state': 'readonly'},
+        'help': help_for('anchor'),
+        'ttk.xxxx?': {
             'params': {
-                'values': (
-                    '', 'n', 'ne', 'nw', 'e', 'w', 's', 'se', 'sw', 'center'),
-                'state': 'readonly'}},
+                'values': ('', tk.W, tk.CENTER, tk.E),
+                'state': 'readonly'}
+            },
         },
     'aspect': {
-        'editor': 'naturalnumber'},
+        'editor': 'naturalnumber'
+        },
     'autoseparators': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
     # ttk.Label
     'background': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': {
+            'tk': help_for('background-tk'),
+            'ttk': help_for('background-ttk'),
+            }
+        },
     # ttk.Frame, ttk.Label
     'borderwidth': {
-        'editor': 'dimensionentry'},
+        'editor': 'dimensionentry',
+        'help': help_for('borderwidth')
+        },
     'bigincrement': {
-        'editor': 'naturalnumber'},
+        'editor': 'naturalnumber'
+        },
     'bitmap': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_BITMAPS, 'state': 'readonly'}},
+        'params': {'values': ('',) + TK_BITMAPS, 'state': 'readonly'},
+        'help': help_for('bitmap')
+        },
     'blockcursor': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
     'buttonbackground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('buttonbackground')
+        },
     'buttoncursor': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'}},
+        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'}
+        },
     'buttondownrelief': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}},
+        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}
+        },
     'buttonuprelief': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}},
+        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}
+        },
     'class_': {
         'editor': 'alphanumentry',
+        'help': help_for('class_')
         },
     'closeenough': {
         'editor': 'spinbox',
@@ -156,10 +185,12 @@ TK_WIDGET_OPTIONS = {
     'column_anchor': { # ttk.Treeview.Column
         'editor': 'choice',
         'params': {'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
-        'default': tk.W},
+        'default': tk.W
+        },
     'columnbreak': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
     'command': {
         'editor': 'dynamic',
         'params': {'mode': 'commandentry'},
@@ -175,30 +206,45 @@ TK_WIDGET_OPTIONS = {
         'tk.OptionMenu': {
              'params': {'mode': 'simplecommandentry'}
              },
+        'help': help_for('command')
         },
     # ttk.Label
     'compound': {
         'editor': 'choice',
         'params': {
-            'values': ('', tk.TOP, tk.BOTTOM, tk.LEFT, tk.RIGHT),
-            'state': 'readonly'}},
+            'values': ('', tk.TOP, tk.BOTTOM, tk.LEFT, tk.RIGHT, tk.CENTER, tk.NONE),
+            'state': 'readonly'},
+        'help': {
+            'tk': help_for('compound-tk'),
+            'ttk': help_for('compound-ttk')}
+        },
     # ttk.Button
     'confine': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
     'container': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'help': help_for('container')
+        },
     'cursor': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'}},
+        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'},
+        'help': help_for('cursor')
+        },
     # ttk.Button
     'default': {
         'editor': 'choice',
-        'params': {'values': ('', 'normal', 'active', 'disabled')}},
+        'params': {
+            'values': ('', 'normal', 'active', 'disabled'),
+            'state': 'readonly'},
+        'help': help_for('default')
+        },
     'digits': {
         'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999}},
+        'params': {'from_': 0, 'to': 999}
+        },
     'direction': {
         'editor': 'choice',
         'tk.Menubutton': {
@@ -211,46 +257,69 @@ TK_WIDGET_OPTIONS = {
                 'state': 'readonly'}},
         },
     'disabledbackground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry'
+        },
     'disabledforeground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('disabledforeground')
+        },
     'elementborderwidth': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     'endline': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     # ttk.Checkbutton, ttk.Entry
     'exportselection': {
         'editor': 'choice',
-        'params': {'values': ('', 'true', 'false'), 'state': 'readonly'}},
+        'params': {'values': ('', 'true', 'false'), 'state': 'readonly'},
+        'help': help_for('exportselection')
+        },
     # ttk.Label
-    'font': { 'editor': 'fontentry'},
+    'font': {
+        'editor': 'fontentry',
+        'help': help_for('font')
+        },
     # ttk.Label
     'foreground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': {
+            'tk': help_for('foreground-tk'),
+            'ttk': help_for('foreground-ttk')
+            }
+        },
     # ttk.Spinbox
     'format': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     # ttk.Scale, ttk.Spinbox
     'from_': {
         'editor': 'realnumber',
         },
     'handlepad': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     'handlesize': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     # ttk.Treeview.Column
     'heading_anchor': {
         'editor': 'choice',
         'params': {
             'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
-        'default': tk.W},
+        'default': tk.W
+        },
     # ttk.Frame,
     'height': {
         'editor': 'dynamic',
+        'help': help_for('height'),
         'params': {'mode': 'dimensionentry'},
+        'tk.Button': {
+            'help': help_for('height-tk.Button')
+            },
         'ttk.Combobox': {
             'params': {'mode': 'naturalnumber'},
-            },        
+            },
         'tk.Toplevel': {'default': 200},
         'tk.Frame': {'default': 200},
         'ttk.Frame': {'default': 200},
@@ -271,23 +340,35 @@ TK_WIDGET_OPTIONS = {
             },
         'tk.Radiobutton':{
             'params': {'mode': 'naturalnumber'},
-        },
+            },
         'pygubu.builder.widgets.dialog': {'default': 100}
         },
     'hidemargin': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
     'highlightbackground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('highlightbackground')
+        },
     'highlightcolor': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('highlightcolor')
+        },
     'highlightthickness': {
-        'editor': 'dimensionentry'},
+        'editor': 'dimensionentry',
+        'help': help_for('highlightthickness')
+        },
     # ttk.Label
     'image': {
-        'editor': 'imageentry'},
+        'editor': 'imageentry',
+        'help': {
+            'tk': help_for('image-tk'),
+            'ttk': help_for('image-ttk')}
+        },
     'inactiveselectbackground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry'
+        },
     # ttk.Spinbox
     'increment': {
         'editor': 'spinbox',
@@ -295,20 +376,26 @@ TK_WIDGET_OPTIONS = {
         },
     'indicatoron': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
     'insertbackground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('insertbackground')
+        },
     'insertborderwidth': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999},
+        'help': help_for('insertborderwidth')
         },
     'insertofftime': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 9999, 'increment': 100},
+        'help': help_for('insertofftime')
         },
     'insertontime': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 9999, 'increment': 100},
+        'help': help_for('insertontime')
         },
     'insertunfocussed': {
         'editor': 'choice',
@@ -317,27 +404,40 @@ TK_WIDGET_OPTIONS = {
             'state': 'readonly'}},
     'insertwidth': {
         'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999}},
+        'params': {'from_': 0, 'to': 999},
+        'help': help_for('insertwidth')
+        },
     # ttk.Entry
     'invalidcommand': {
-        'editor': 'entryvalidatecommandentry'},
+        'editor': 'entryvalidatecommandentry',
+        'help': help_for('command-pygubu')
+        },
     'jump': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'help': help_for('jump')
+        },
     # ttk.Label
     'justify': {
         'editor': 'choice',
-        'params': {'values': ('', 'left', 'center', 'right'),
-                   'state': 'readonly'}},
+        'params': {
+            'values': ('', 'left', 'center', 'right'), 'state': 'readonly'},
+        'help': help_for('justify'),
+        'ttk.Entry': {
+            'help': help_for('justify-ttk.Entry')}
+        },
     'label': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     # ttk.Labelframe
     'labelanchor': {
         'editor': 'choice',
         'params': {
             'values': ('', 'nw', 'n', 'ne', 'en', 'e', 'es',
                        'se', 's', 'sw', 'ws', 'w'),
-            'state': 'readonly'}},
+            'state': 'readonly'},
+        'help': help_for('labelanchor')
+        },
     # ttk.Progressbar
     'length': {
         'editor': 'dimensionentry'},
@@ -367,10 +467,13 @@ TK_WIDGET_OPTIONS = {
     # ttk.Checkbutton
     'offvalue': {
         'editor': 'entry',
-        'help': _('offvalue_help')},
+        'help': help_for('offvalue')
+        },
     # ttk.Checkbutton
     'onvalue': {
-        'editor': 'entry'},
+        'editor': 'entry',
+        'help': help_for('onvalue')
+        },
     'opaqueresize': {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
@@ -379,20 +482,26 @@ TK_WIDGET_OPTIONS = {
         'editor': 'choice',
         'params': {'values': (tk.VERTICAL, tk.HORIZONTAL),
                    'state': 'readonly'},
-        'default': tk.HORIZONTAL
+        'default': tk.HORIZONTAL,
+        'help': help_for('orient')
         },
     'overrelief': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}
+        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'help': help_for('overrelief')
         },
     # ttk.Frame, ttk.Label
     'padding': {
-        'editor': 'fourdimensionentry'},
+        'editor': 'fourdimensionentry',
+        'help': help_for('padding')
+        },
     'padx': {
         'editor': 'dimensionentry',
+        'help': help_for('padx')
         },
     'pady': {
         'editor': 'dimensionentry',
+        'help': help_for('pady')
         },
     # ttk.Checkbutton
     'postcommand': {
@@ -402,14 +511,19 @@ TK_WIDGET_OPTIONS = {
     # ttk.Frame,
     'relief': {
         'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'}},
+        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'help': help_for('relief')
+        },
     'repeatdelay': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 9999, 'increment': 100},
+        'help': help_for('repeatdelay')
         },
     'repeatinterval': {
         'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 9999, 'increment': 100}},
+        'params': {'from_': 0, 'to': 9999, 'increment': 100},
+        'help': help_for('repeatinterval')
+        },
     'resolution': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999, 'increment': 0.5},
@@ -430,18 +544,27 @@ TK_WIDGET_OPTIONS = {
     'sashwidth': {
         'editor': 'entry'},
     'selectbackground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('selectbackground')
+        },
     'selectborderwidth': {
         'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999}},
+        'params': {'from_': 0, 'to': 999},
+        'help': help_for('selectborderwidth')
+        },
     'selectforeground': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('selectforeground')
+        },
     'scrollregion': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     'selectcolor': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry'
+        },
     'selectimage': {
-        'editor': 'imageentry'},
+        'editor': 'imageentry'
+        },
     # ttk.Treeview
     'selectmode': {
         'editor': 'choice',
@@ -460,19 +583,17 @@ TK_WIDGET_OPTIONS = {
     # ttk.Entry
     'show': {
         'editor': 'choice',
-        'tk.Entry': {
-            'params': {'values': ('', '•'), 'state': 'normal'},
-            },
-        'ttk.Entry': {
-            'params': {'values': ('', '•'), 'state': 'normal'},
-            },
+        'params': {'values': ('', '•'), 'state': 'normal'},
+        'help': help_for('show'),
         'ttk.Treeview': {
             'params': {
-                'values': ('', 'tree', 'headings'), 'state': 'readonly'}
+                'values': ('', 'tree', 'headings'), 'state': 'readonly'},
+            'help': '?'
             },
         'pygubu.builder.widgets.editabletreeview': {
             'params': {
-                'values': ('', 'tree', 'headings'), 'state': 'readonly'}
+                'values': ('', 'tree', 'headings'), 'state': 'readonly'},
+            'help': '?'
             },
         },
     'showhandle': {
@@ -491,6 +612,7 @@ TK_WIDGET_OPTIONS = {
         'editor': 'entry'},
     'state': {
         'editor': 'choice',
+        'help': help_for('state'),
         'params': {'values': ('', tk.NORMAL, tk.DISABLED),
                    'state': 'readonly'},
         'tk.Button': {
@@ -525,12 +647,14 @@ TK_WIDGET_OPTIONS = {
             'params': {
                 'values': ('', tk.NORMAL, tk.DISABLED, 'readonly'),
                 'state': 'readonly'
-                }},
+                }
+            },
     },
     # ttk.Notebook.Tab
     'sticky': {
         'editor': 'stickyentry',
-        'params': {}},
+        'params': {}
+        },
     # ttk.Treeview.Column
     'stretch': {
         'editor': 'choice',
@@ -540,34 +664,46 @@ TK_WIDGET_OPTIONS = {
         'tk.PanedWindow.Pane': {
             'params': {
                 'values': ('', 'always', 'first', 'last', 'middle', 'never'),
-                'state': 'readonly'}}},
+                'state': 'readonly'}}
+        },
     'style': {
         'editor': 'ttkstylechoice',
         'ttk.Button': {
             'params': {'values': ('', 'Toolbutton')}
-            }
+            },
+        'help': help_for('style')
         },
-    'tabs': {
-        'editor': 'entry'},  # FIXME see tk.Text tab property
+    'tabs': { # FIXME see tk.Text tab property
+        'editor': 'entry'
+        },
     'tabstyle': {
         'editor': 'choice',
         'params': {
             'values': ('', 'tabular', 'wordprocessor'),
-            'state': 'readonly'}},
+            'state': 'readonly'}
+        },
     'takefocus': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'help': help_for('takefocus')
+        },
     'tearoff': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        },
     'tearoffcommand': {
-        'editor': 'simplecommandentry' },
+        'editor': 'simplecommandentry'
+        },
     # ttk.Label
     'text': {
-        'editor': 'text'},
+        'editor': 'text',
+        'help': help_for('text')
+        },
     # ttk.Label
     'textvariable': {
-        'editor': 'tkvarentry'},
+        'editor': 'tkvarentry',
+        'help': help_for('textvariable')
+        },
     'tickinterval': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999, 'increment': 0.5},
@@ -577,14 +713,20 @@ TK_WIDGET_OPTIONS = {
         'editor': 'realnumber',
         },
     'tristateimage': {
-        'editor': 'imageentry'},
+        'editor': 'imageentry'
+        },
     'tristatevalue': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     'troughcolor': {
-        'editor': 'colorentry'},
+        'editor': 'colorentry',
+        'help': help_for('troughcolor')
+        },
     # ttk.Label
     'underline': {
-        'editor': 'naturalnumber'},
+        'editor': 'naturalnumber',
+        'help': help_for('underline')
+        },
     'undo': {
         'editor': 'choice',
         'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
@@ -596,22 +738,29 @@ TK_WIDGET_OPTIONS = {
             },
         'ttk.Scale':{
             'params':{'mode':'realnumber'}
-            },        
+            },
         },
     # ttk.Checkbutton
     'values': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     'validate': {
         'editor': 'choice',
         'params': {
             'values': ('', 'none', 'focus', 'focusin',
                        'focusout', 'key', 'all'),
-            'state': 'readonly'}},
+            'state': 'readonly'},
+        'help': help_for('validate')
+        },
     'validatecommand': {
-        'editor': 'entryvalidatecommandentry'},
+        'editor': 'entryvalidatecommandentry',
+        'help': help_for('command-pygubu')
+        },
     # ttk.Checkbutton
     'variable': {
-        'editor': 'tkvarentry'},
+        'editor': 'tkvarentry',
+        'help': help_for('variable')
+        },
     # ttk.Panedwindow.Pane
     'weight': {
         'editor': 'spinbox',
@@ -621,17 +770,33 @@ TK_WIDGET_OPTIONS = {
     # ttk.Frame, ttk.Label
     'width': {
         'editor': 'dynamic',
+        'help': help_for('width'),
         'params': {'mode': 'dimensionentry'},
-        'tk.Button': {},
-        'ttk.Button': {},
+        'tk.Label': {
+            'help': help_for('width-tk.Label')
+            },
+        'tk.Button': {
+            'params': {'mode': 'integernumber'},
+            'help': help_for('width-tk.Button')
+            },
+        'ttk.Button': {
+            'params': {'mode': 'integernumber'},
+            'help': help_for('width-ttk')
+            },
         'tk.Canvas': {
             'params': {'mode': 'entry'}
             },
+        'tk.Checkbutton': {
+            'params': {'mode': 'integernumber'},
+            'help': help_for('width-tk')
+            },        
         'ttk.Checkbutton': {
             'params': {'mode': 'integernumber'},
-            },        
+            'help': help_for('width-ttk')
+            },
         'tk.Entry': {
             'params': {'mode': 'naturalnumber'},
+            'help': help_for('width-tk.Entry')
             },
         'ttk.Entry': {
             'params': {'mode': 'naturalnumber'},
@@ -641,12 +806,14 @@ TK_WIDGET_OPTIONS = {
             },
         'ttk.Label': {
             'params': {'mode': 'integernumber'},
-            },        
+            'help': help_for('width-ttk.Label')
+            },
         'tk.Listbox': {
             'params': {'mode': 'naturalnumber'},
             },
         'tk.Frame': {
-            'default': 200},
+            'default': 200
+            },
         'ttk.Frame': {
             'default': 200},
         'tk.LabelFrame': {
@@ -664,12 +831,13 @@ TK_WIDGET_OPTIONS = {
             },
         'ttk.Radiobutton':{
             'params': {'mode': 'integernumber'},
-            },        
+            'help': help_for('width-ttk')
+            },
         'tk.Text': {
             'params': {'mode': 'naturalnumber'},
             'default': 50},
         'tk.Toplevel': {
-            'default': 200},        
+            'default': 200},
         'ttk.Treeview.Column': {
             'params': {'mode': 'naturalnumber'},
             'default': 200},
@@ -688,17 +856,23 @@ TK_WIDGET_OPTIONS = {
         },
     # ttk.Label
     'wraplength': {
-        'editor': 'dimensionentry'},
+        'editor': 'dimensionentry',
+        'help': help_for('wraplength')
+        },
     # ttk.Entry
     'xscrollcommand': {
-        'editor': 'scrollsetcommandentry'},
+        'editor': 'scrollsetcommandentry',
+        'help': help_for('command-pygubu')
+        },
     'xscrollincrement': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}
         },
     # ttk.Treeview
     'yscrollcommand': {
-        'editor': 'scrollsetcommandentry'},
+        'editor': 'scrollsetcommandentry',
+        'help': help_for('command-pygubu')
+        },
     'yscrollincrement': {
         'editor': 'spinbox',
         'params': {'from_': 0, 'to': 999}
@@ -708,10 +882,14 @@ TK_WIDGET_OPTIONS = {
 REQUIRED_OPTIONS = {
     'class': {
         'editor': 'entry',
-        'params': {'state': 'readonly'}},
+        'params': {'state': 'readonly'},
+        'help': help_for('class')
+    },
     'id': {
-        'editor': 'identifierentry'},
-    }
+        'editor': 'identifierentry',
+        'help': help_for('id')
+    },
+}
 
 CUSTOM_OPTIONS = {
     'geometry': {
@@ -751,9 +929,12 @@ CUSTOM_OPTIONS = {
             'state': 'readonly'},
         'default': 'both'},
     'text': {
-        'editor': 'text'},
+        'editor': 'text',
+        'help': help_for('text-custom')
+        },
     'title': {
-        'editor': 'entry'},
+        'editor': 'entry'
+        },
     'tree_column': {
         'editor': 'choice',
         'params': {'values': ('true', 'false'), 'state': 'readonly'},
@@ -835,30 +1016,51 @@ wp.update(CUSTOM_OPTIONS)
 
 LAYOUT_OPTIONS = {
     # pack/grid/place common properties
-    'padx': {'editor': 'twodimensionentry'},
-    'pady': {'editor': 'twodimensionentry'},
-    'ipadx': {'editor': 'twodimensionentry'},
-    'ipady': {'editor': 'twodimensionentry'},
+    'padx': {
+        'editor': 'twodimensionentry',
+        'help': help_for('padx-layout')
+        },
+    'pady': {
+        'editor': 'twodimensionentry',
+        'help': help_for('pady-layout')
+        },
+    'ipadx': {
+        'editor': 'twodimensionentry',
+        'help': help_for('ipadx-layout')
+        },
+    'ipady': {
+        'editor': 'twodimensionentry',
+        'help': help_for('ipady-layout')
+        },
     'propagate': {
         'editor': 'choice',
         'params': {'values': ('True', 'False'), 'state': 'readonly'},
-        'default': 'True'},
+        'default': 'True',
+        'help': help_for('propagate-layout')
+        },
     'anchor': {
         'editor': 'choice',
         'params': {
-          'values': ('', 'n', 'ne', 'nw', 'e', 'w', 's', 'se', 'sw', 'center'),
-          'state': 'readonly'},
-        'place': {'default': 'nw'}
+            'values': ('', 'n', 'ne', 'nw', 'e', 'w', 's', 'se', 'sw', 'center'),
+            'state': 'readonly'
+            },
+        'help': help_for('anchor-layout'),
+        'place': {
+            'default': 'nw',
+            'help': help_for('anchor-layout-place')
+            }
         },
     
     # pack properties
     'expand':{
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'help': help_for('expand-pack')
         },
     'fill':{
         'editor': 'choice',
-        'params': {'values': ('', 'x', 'y', 'both'), 'state': 'readonly'}
+        'params': {'values': ('', 'x', 'y', 'both'), 'state': 'readonly'},
+        'help': help_for('fill-pack')
         },
     'side':{
         'editor': 'choice',
@@ -867,75 +1069,94 @@ LAYOUT_OPTIONS = {
             'state': 'readonly'
             },
         'default': 'top',
+        'help': help_for('side-pack')
         },
-    
-    # Pack properties
     'bordermode':{
         'editor': 'choice',
         'params':{
             'values': ('', 'inside', 'outside', 'ignore'),
-            'state': 'readonly'}        
+            'state': 'readonly'},
+        'help': help_for('bordermode-pack')
         },
     'height':{
         'editor': 'pixelcoordinateentry',
+        'help': help_for('height-pack')
         },
     'relheight':{
         'editor': 'relativeentry',
+        'help': help_for('relheight-pack')
         },
     'relwidth':{
         'editor': 'relativeentry',
+        'help': help_for('relwidth-pack')
         },
     'relx':{
         'editor': 'relativeentry',
+        'help': help_for('relx-pack')
         },
     'rely':{
         'editor': 'relativeentry',
+        'help': help_for('rely-pack')
         },
     'width':{
         'editor': 'pixelcoordinateentry',
+        'help': help_for('width-pack')
         },
     'x':{
         'editor': 'pixelcoordinateentry',
-        'default': '0'
+        'default': '0',
+        'help': help_for('x-pack')
         },
     'y':{
         'editor': 'pixelcoordinateentry',
-        'default': '0'
+        'default': '0',
+        'help': help_for('y-pack')
         },
-    
+    #
     # grid packing properties
+    #
     'row': {
         'editor': 'naturalnumber',
-        'default': '0'
+        'default': '0',
+        'help': help_for('row-grid')
         },
     'column': {
         'editor': 'naturalnumber',
-        'default': '0'
+        'default': '0',
+        'help': help_for('column-grid')
         },
     'sticky': {
         'editor': 'stickyentry',
-        'params': {}},
+        'params': {},
+        'help': help_for('sticky-grid')
+        },
     'rowspan': {
         'editor': 'naturalnumber',
+        'help': help_for('rowspan-grid')
         },
     'columnspan': {
         'editor': 'naturalnumber',
+        'help': help_for('columnspan-grid')
         },
-    
     #
     # grid row and column properties (can be applied to each row or column)
-    #
     'minsize': {
         'editor': 'dimensionentry',
-        'params': {'width': 4, 'empty_data': 0}},
+        'params': {'width': 4, 'empty_data': 0},
+        'help': help_for('minsize-grid')
+        },
     'pad': {
         'editor': 'dimensionentry',
-        'params': {'width': 4, 'empty_data': 0}},
+        'params': {'width': 4, 'empty_data': 0},
+        'help': help_for('pad-grid')
+        },
     'weight': {
-        'editor': 'naturalnumber'
+        'editor': 'naturalnumber',
+        'help': help_for('weight-grid')
     },
     'uniform': {
         'editor': 'alphanumentry',
+        'help': help_for('uniform-grid')
     }
 }
 

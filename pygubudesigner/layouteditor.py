@@ -27,6 +27,7 @@ except:
     import tkMessageBox as messagebox
 
 from pygubu import builder
+from pygubu.widgets.simpletooltip import create as create_tooltip
 from pygubudesigner.widgets.propertyeditor import (create_editor,
     LayoutManagerPropertyEditor)
 from pygubudesigner import properties
@@ -80,6 +81,7 @@ class LayoutEditor(PropertiesEditor):
                 labeltext = label_tpl.format(name)
                 label = ttk.Label(self._fprop, text=labeltext, anchor=tk.W)
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
+                label.tooltip = create_tooltip(label, '?')
                 widget = self._create_editor(self._fprop, name, kwdata)
                 widget.grid(row=row, column=col+1, sticky=tk.EW, pady=2)
                 row += 1
@@ -100,6 +102,7 @@ class LayoutEditor(PropertiesEditor):
             labeltext = label_tpl.format(pname)
             label = ttk.Label(fgr, text=labeltext, anchor=tk.W)
             label.grid(row=row, column=0, sticky=tk.EW, pady=2)
+            label.tooltip = create_tooltip(label, '?')
             
             widget = self._create_editor(fgr, alias, kwdata)
             widget.grid(row=row, column=1, sticky=tk.EW, pady=2)
@@ -122,6 +125,7 @@ class LayoutEditor(PropertiesEditor):
             labeltext = label_tpl.format(pname)
             label = ttk.Label(fgc, text=labeltext, anchor=tk.W)
             label.grid(row=row, column=0, sticky=tk.EW, pady=2)
+            label.tooltip = create_tooltip(label, '?')
             
             widget = self._create_editor(fgc, alias, kwdata)
             widget.grid(row=row, column=1, sticky=tk.EW, pady=2)
@@ -168,7 +172,7 @@ class LayoutEditor(PropertiesEditor):
                 propdescr = gproperties[name]
                 label, widget = self._propbag[gcode + name]
                 if show_layout and name in manager_prop:
-                    self.update_editor(widget, wdescr, name, propdescr)
+                    self.update_editor(label, widget, wdescr, name, propdescr)
                     label.grid()
                     widget.grid()
                 else:
@@ -192,7 +196,7 @@ class LayoutEditor(PropertiesEditor):
                 propdescr = properties.LAYOUT_OPTIONS[name]
                 number = colnum if rowcol == 'col' else rownum
                 label, widget = self._rcbag[key]
-                self.update_rc_editor(rowcol, number, widget,
+                self.update_rc_editor(rowcol, number, label, widget,
                                       target, name, propdescr)
             self._fgr.grid()
             self._fgc.grid()
@@ -250,13 +254,14 @@ class LayoutEditor(PropertiesEditor):
     def identify_gridrc_property(self, alias):
         return alias.split('_')
 
-    def update_editor(self, editor, wdescr, pname, propdescr):
+    def update_editor(self, label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
         manager = wdescr.manager
 
         if manager in pdescr:
             pdescr = dict(pdescr, **pdescr[manager])
 
+        label.tooltip.text = pdescr.get('help', None)
         params = pdescr.get('params', {})
         editor.parameters(**params)
         default = pdescr.get('default', '')
@@ -266,13 +271,14 @@ class LayoutEditor(PropertiesEditor):
             value = default
         editor.edit(value)
 
-    def update_rc_editor(self, type_, index, editor, wdescr, pname, propdescr):
+    def update_rc_editor(self, type_, index, label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
         classname = wdescr.classname
 
         if classname in pdescr:
             pdescr = dict(pdescr, **pdescr[classname])
 
+        label.tooltip.text = pdescr.get('help', None)
         params = pdescr.get('params', {})
         editor.parameters(**params)
         default = pdescr.get('default', '')
