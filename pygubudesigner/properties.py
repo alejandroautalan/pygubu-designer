@@ -1093,7 +1093,9 @@ CUSTOM_OPTIONS = {
         'params': {
             'values': ('both', 'vertical', 'horizontal'),
             'state': 'readonly'},
-        'default': 'both'},
+        'default': 'both',
+        'help': help_for('scrolltype-custom')
+        },
     'text': {
         'editor': 'text',
         'help': help_for('text-custom')

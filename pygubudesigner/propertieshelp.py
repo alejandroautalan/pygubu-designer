@@ -191,6 +191,8 @@ tooltip_help = {
     'resizable-custom': _('Determines if the window can be resized.'),
     'iconbitmap-custom': _('Sets bitmap for the iconified widget.'),
     'iconphoto-custom': _('Sets the titlebar icon for this window.'),
+    'scrolltype-custom': _('Determines scroll type for the widget.'),
+    'usermosewheel': _('Enable scrolling using mousewheel'),
     #
     # Layout properties
     #
