@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.1">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="geometry">480x320</property>
+    <property name="height">200</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">Scrolledframe Examples</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="fmain">
+        <property name="height">200</property>
+        <property name="padding">2</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="text" translatable="yes">Scrolled frame, adjust to parent size.</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="pygubu.builder.widgets.scrolledframe" id="scrolledframe1">
+            <property name="scrolltype">both</property>
+            <property name="usemousewheel">false</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="tk.Canvas" id="canvas1">
+                <property name="background">#ff0000</property>
+                <property name="width">600</property>
+                <layout manager="pack">
+                  <property name="fill">both</property>
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Canvas" id="canvas2">
+                <property name="background">#0000ff</property>
+                <property name="width">600</property>
+                <layout manager="pack">
+                  <property name="fill">both</property>
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Canvas" id="canvas3">
+                <property name="background">#00ff00</property>
+                <property name="width">600</property>
+                <layout manager="pack">
+                  <property name="fill">both</property>
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Toplevel" id="toplevel2">
+    <property name="geometry">480x320</property>
+    <property name="height">200</property>
+    <property name="resizable">both</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="fmain2">
+        <property name="height">200</property>
+        <property name="padding">2</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label2">
+            <property name="text" translatable="yes">Fixed Height size Scrolledframe</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="framesizer">
+            <property name="height">100</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="propagate">False</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="pygubu.builder.widgets.scrolledframe" id="scrolledframe2">
+                <property name="scrolltype">both</property>
+                <property name="usemousewheel">false</property>
+                <layout manager="pack">
+                  <property name="fill">both</property>
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="tk.Canvas" id="canvas4">
+                    <property name="background">#d9ffd9</property>
+                    <property name="height">50</property>
+                    <layout manager="pack">
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Canvas" id="canvas5">
+                    <property name="background">#d9d9ff</property>
+                    <property name="height">50</property>
+                    <layout manager="pack">
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Canvas" id="canvas6">
+                    <property name="background">#d98bff</property>
+                    <property name="height">50</property>
+                    <layout manager="pack">
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Canvas" id="canvas7">
+                    <property name="background">#d9d983</property>
+                    <property name="height">50</property>
+                    <layout manager="pack">
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="label3">
+            <property name="text" translatable="yes">Fixed width size Scolledframe</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="framesizer2">
+            <property name="height">200</property>
+            <property name="width">150</property>
+            <layout manager="pack">
+              <property name="expand">false</property>
+              <property name="fill">y</property>
+              <property name="propagate">False</property>
+              <property name="side">left</property>
+            </layout>
+            <child>
+              <object class="pygubu.builder.widgets.scrolledframe" id="scrolledframe3">
+                <property name="scrolltype">both</property>
+                <property name="usemousewheel">false</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="propagate">True</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="tk.Canvas" id="canvas8">
+                    <property name="background">#d9ffd9</property>
+                    <property name="height">50</property>
+                    <layout manager="pack">
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Canvas" id="canvas9">
+                    <property name="background">#d9d9ff</property>
+                    <property name="height">50</property>
+                    <layout manager="pack">
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Canvas" id="canvas10">
+                    <property name="background">#d98bff</property>
+                    <property name="height">50</property>
+                    <layout manager="pack">
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Canvas" id="canvas11">
+                    <property name="background">#d9d983</property>
+                    <property name="height">50</property>
+                    <layout manager="pack">
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
