@@ -17,7 +17,7 @@ TPL_APPLICATION = \
 import pygubu
 
 
-PROJECT_PATH = os.path.dirname(__file__)
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 PROJECT_UI = os.path.join(PROJECT_PATH, "{project_name}")
 
 
