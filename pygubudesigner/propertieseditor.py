@@ -26,6 +26,7 @@ except:
     import ttk
 
 from pygubu import builder
+from pygubu.widgets.simpletooltip import create as create_tooltip
 from pygubudesigner.widgets.propertyeditor import create_editor
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
@@ -77,6 +78,7 @@ class PropertiesEditor(object):
                 labeltext = label_tpl.format(name)
                 label = ttk.Label(self._frame, text=labeltext, anchor=tk.W)
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
+                label.tooltip = create_tooltip(label, '?')
                 widget = self._create_editor(self._frame, name, kwdata)
                 widget.grid(row=row, column=col+1, sticky=tk.EW, pady=2)
                 row += 1
@@ -102,7 +104,7 @@ class PropertiesEditor(object):
     def _on_property_changed(self, name, editor):
         self._current.widget_property(name, editor.value)
 
-    def update_editor(self, editor, wdescr, pname, propdescr):
+    def update_editor(self, label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
         classname = wdescr.classname
 
@@ -112,6 +114,14 @@ class PropertiesEditor(object):
         params = pdescr.get('params', {})
         editor.parameters(**params)
         default = pdescr.get('default', '')
+        
+        help = pdescr.get('help', None)
+        if isinstance(help, dict):
+            for k, v in help.items():
+                if classname.startswith(k):
+                    help = v
+                    break
+        label.tooltip.text = help
 
         value = wdescr.widget_property(pname)
         if not value and default:
@@ -139,7 +149,7 @@ class PropertiesEditor(object):
                 propdescr = gproperties[name]
                 label, widget = self._propbag[gcode + name]
                 if gcode == '00' or name in getattr(class_descr, attrname):
-                    self.update_editor(widget, wdescr, name, propdescr)
+                    self.update_editor(label, widget, wdescr, name, propdescr)
                     label.grid()
                     widget.grid()
                 else:
