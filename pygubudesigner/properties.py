@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2021 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -1061,11 +1061,15 @@ CUSTOM_OPTIONS = {
             },
         },
     'iconbitmap': {
-        'editor': 'imageentry',
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'imageentry',},
         'help': help_for('iconbitmap-custom')
         },
     'iconphoto': {
-        'editor': 'imageentry',
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'imageentry',},
         'help': help_for('iconphoto-custom')
         },
     'maxsize': {
@@ -1077,54 +1081,74 @@ CUSTOM_OPTIONS = {
         'help': help_for('minsize-custom')
         },
     'overrideredirect': {
-        'editor': 'choice',
-        'params': {'values': ('', 'True', 'False'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'True', 'False'),
+            'state': 'readonly'
+            },
         'help': help_for('overrideredirect-custom')
         },
     'resizable': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'both', 'horizontally', 'vertically', 'none'),
             'state': 'readonly'},
         'help': help_for('resizable-custom')
         },
     'scrolltype': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('both', 'vertical', 'horizontal'),
             'state': 'readonly'},
         'default': 'both',
         'help': help_for('scrolltype-custom')
         },
     'text': {
-        'editor': 'text',
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'text',},
         'help': help_for('text-custom')
         },
     'title': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'entry',},
         'help': help_for('title-custom')
         },
     'tree_column': {
-        'editor': 'choice',
-        'params': {'values': ('true', 'false'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('true', 'false'),
+            'state': 'readonly'},
         'default': 'false',
         'help': help_for('tree_column-custom')
         },
     'usemousewheel': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('true', 'false'),
             'state': 'readonly'},
         'default': 'false'},
     'visible': {
-        'editor': 'choice',
-        'params': {'values': ('true', 'false'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('true', 'false'),
+            'state': 'readonly'},
         'default': 'true',
         'help': help_for('visible-custom')
         },
     'specialmenu': {
-        'editor': 'choice',
-        'params': {'values': ('apple', 'help', 'window', 'system'), 'state': 'readonly'}
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('apple', 'help', 'window', 'system'),
+            'state': 'readonly'}
         },
     }
 
@@ -1364,12 +1388,15 @@ TRANSLATABLE_PROPERTIES = (
 
 
 def _register_custom(name, descr):
-    if name not in CUSTOM_OPTIONS:
+    if name in CUSTOM_OPTIONS:
+        CUSTOM_OPTIONS[name].update(descr)
+        logger.debug('Updated property: %s', name)
+    else:
         CUSTOM_OPTIONS[name] = descr
-        WIDGET_PROPERTIES.update(CUSTOM_OPTIONS)
         WIDGET_CUSTOM_OPTIONS.append(name)
         WIDGET_CUSTOM_OPTIONS.sort()
         logger.debug('Registered property: %s', name)
+    WIDGET_PROPERTIES.update(CUSTOM_OPTIONS)
 
 def register_property(name, descr):
     _register_custom(name, descr)
