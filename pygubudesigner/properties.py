@@ -834,6 +834,10 @@ TK_WIDGET_OPTIONS = {
         'editor': 'realnumber',
         'help': help_for('to')
         },
+    'title': {
+        'editor': 'entry',
+        'help': help_for('title-menu')
+        },
     'tristateimage': {
         'editor': 'imageentry',
         'help': help_for('tristateimage')
@@ -1193,7 +1197,7 @@ WIDGET_SPECIFIC_OPTIONS = (
     'showhandle', 'showvalue', 'sliderlength', 'sliderrelief',
     'spacing1', 'spacing2', 'spacing3', 'startline',
     'state', 'sticky', 'stretch', 'tabs', 'tabstyle',
-    'text', 'textvariable', 'tickinterval', 'tristateimage',
+    'text', 'textvariable', 'title', 'tickinterval', 'tristateimage',
     'tristatevalue', 'underline', 'validate', 'undo', 'validatecommand',
     'value', 'values', 'variable', 'weight', 'width', 'wrap',
     'wraplength', 'xscrollcommand', 'xscrollincrement', 'yscrollincrement',
