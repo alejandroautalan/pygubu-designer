@@ -540,7 +540,9 @@ TK_WIDGET_OPTIONS = {
         },
     'opaqueresize': {
         'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'}},
+        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'help': help_for('opaqueresize'),
+        },
     # ttk.Panedwindow
     'orient': {
         'editor': 'choice',
@@ -571,6 +573,19 @@ TK_WIDGET_OPTIONS = {
     'postcommand': {
         'editor': 'simplecommandentry',
         'help': help_for('postcommand')
+        },
+    'proxybackground': {
+        'editor': 'colorentry',
+        'help': help_for('proxybackground')
+        },
+    'proxyborderwidth': {
+        'editor': 'dimensionentry',
+        'help': help_for('proxyborderwidth')
+        },
+    'proxyrelief': {
+        'editor': 'choice',
+        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'help': help_for('proxyrelief')
         },
     'readonlybackground': {
         'editor': 'colorentry',
@@ -1191,7 +1206,8 @@ WIDGET_SPECIFIC_OPTIONS = (
     'minsize', 'minwidth', 'mode', 'offrelief', 'offvalue',
     'onvalue', 'opaqueresize', 'orient', 'overrelief',
     'padding', 'padx', 'pady',
-    'postcommand', 'readonlybackground', 'relief', 'resolution',
+    'postcommand', 'proxybackground', 'proxyborderwidth', 'proxyrelief',
+    'readonlybackground', 'relief', 'resolution',
     'scrollregion', 'sashcursor', 'sashpad', 'sashrelief', 'sashwidth',
     'selectcolor', 'selectimage', 'selectmode', 'show',
     'showhandle', 'showvalue', 'sliderlength', 'sliderrelief',
