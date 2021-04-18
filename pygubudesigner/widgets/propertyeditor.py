@@ -140,14 +140,28 @@ class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
 class IdentifierPropertyEditor(EntryPropertyEditor):
     RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
     
+    def __init__(self, master=None, **kw):
+        self.is_unique_cb = kw.pop('unique_cb', None)
+        super(IdentifierPropertyEditor, self).__init__(master, **kw)
+    
+    def set_unique_cb(self, callback):
+        self.is_unique_cb = callback
+    
     def _validate(self):
         is_valid = True
         value = self._get_value()
-        if len(value) != 0:
+        if len(value) > 0:
             if keyword.iskeyword(value):
                 is_valid = False
             if is_valid and not self.RE_IDENTIFIER.match(value):
                 is_valid = False
+            # Check if new id is unique
+            if is_valid and self.is_unique_cb is not None:
+                if value != self._initvalue:
+                    is_valid = self.is_unique_cb(value)
+        else:
+            # ID must have at least one character
+            is_valid = False
         self.show_invalid(not is_valid)
         return is_valid
 

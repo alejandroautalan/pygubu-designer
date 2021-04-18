@@ -82,7 +82,8 @@ class WidgetsTreeEditor(object):
         bframe = app.builder.get_object('bindingsframe')
         bindingstree = app.builder.get_object('bindingstree')
         
-        self.properties_editor = PropertiesEditor(pframe)
+        self.properties_editor = PropertiesEditor(
+            pframe, id_validator=self.is_id_unique)
         self.layout_editor = LayoutEditor(lframe)
         self.bindings_editor = BindingsEditor(bindingstree, bframe)
         self.treeview.bind_all('<<PreviewItemSelected>>', self._on_preview_item_clicked)
@@ -1015,4 +1016,10 @@ class WidgetsTreeEditor(object):
             tree.after_idle(lambda: tree.selection_set(found))
             tree.after_idle(lambda: tree.focus(found))
             tree.after_idle(lambda: tree.see(found))
+    
+    def is_id_unique(self, idvalue):
+        "Check if idvalue is unique in all UI tree."
+        # Used in ID validation
+        return self._is_unique_id('', idvalue)
+    
 
