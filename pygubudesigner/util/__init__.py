@@ -173,6 +173,5 @@ def get_ttk_style():
             from ttkthemes.themed_style import ThemedStyle
             __style = ThemedStyle()
         except:
-            import tkinter.ttk
-            __style = tkinter.ttk.Style()
+            __style = ttk.Style()
     return __style

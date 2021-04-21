@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # translator marker
 def _(x):
     return x

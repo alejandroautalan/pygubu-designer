@@ -137,7 +137,7 @@ class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
         return is_valid
 
 
-class IdentifierPropertyEditor(EntryPropertyEditor):
+class IdentifierPropertyEditor(EntryPropertyEditor, object):
     RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
     
     def __init__(self, master=None, **kw):
