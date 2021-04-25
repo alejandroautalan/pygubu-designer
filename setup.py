@@ -144,6 +144,7 @@ setup(
     },
     install_requires=[
         'appdirs>=1.3',
+        'Mako>=1.1.4',
         'pygubu>={0}'.format(PYGUBU_VERSION)],
     classifiers=[
         "Programming Language :: Python",
