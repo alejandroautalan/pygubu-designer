@@ -2,6 +2,7 @@
 import os
 import sys
 import logging
+from mako.lookup import TemplateLookup
 
 try:
     import tkinter as tk
@@ -18,7 +19,9 @@ from .codebuilder import UI2Code
 from .scripttemplate import *
 
 logger = logging.getLogger(__name__)
-
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'template')
+makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
 
 class ScriptGenerator(object):
     def __init__(self, app):
@@ -64,43 +67,44 @@ class ScriptGenerator(object):
             target_class = self.tree.get_widget_class(tree_item)
             class_name = self.classnamevar.get()
             
-            app_init = ''
+            main_widget_is_toplevel = False
             if target_class == 'tk.Toplevel':
-                app_init = TPL_APPINIT.format(class_name=class_name)
-            else:
-                app_init = TPL_APPINIT_WITH_TKROOT.format(
-                    class_name=class_name)
+                main_widget_is_toplevel = True
             
-            params = {
+            context = {
                 'project_name': self.projectname,
                 'class_name': class_name,
+                'main_widget_is_toplevel': main_widget_is_toplevel,
                 'main_widget': target,
                 'widget_base_class': target_class,
                 'widget_code': None,
                 'import_lines': None,
                 'callbacks': '',
-                'app_init': app_init,
             }
             
             if template == 'application':
                 code = generator.generate(uidef, target, as_class=False, tabspaces=8)
-                params['callbacks'] = code['callbacks']
-                code = TPL_APPLICATION.format(**params)
-                self.set_code(code)
+                context['callbacks'] = code['callbacks']
+                tpl = makolookup.get_template('app.py')
+                final_code = tpl.render(**context)
+                self.set_code(final_code)
             elif template == 'widget':
                 code = generator.generate_widget_class(uidef, target)
-                params['widget_code'] = code[target]
-                params['import_lines'] = code['imports']
-                params['callbacks'] = code['callbacks']
-                code = TPL_WIDGET.format(**params)
-                self.set_code(code)
+                context['widget_code'] = code[target]
+                context['import_lines'] = code['imports']
+                context['callbacks'] = code['callbacks']
+                tpl = makolookup.get_template('widget.py')
+                final_code = tpl.render(**context)
+                self.set_code(final_code)
             elif template == 'codescript':
-                code = generator.generate(uidef, target, as_class=True, tabspaces=8)
-                params['widget_code'] = code[target]
-                params['import_lines'] = code['imports']
-                params['callbacks'] = code['callbacks']
-                code = TPL_CODESCRIPT.format(**params)
-                self.set_code(code)
+                code = generator.generate(uidef, target, as_class=True, 
+                                          tabspaces=8)
+                context['widget_code'] = code[target]
+                context['import_lines'] = code['imports']
+                context['callbacks'] = code['callbacks']
+                tpl = makolookup.get_template('script.py')
+                final_code = tpl.render(**context)
+                self.set_code(final_code)
     
     def on_code_copy_clicked(self):
         text = self.get_code()
