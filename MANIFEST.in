@@ -6,5 +6,6 @@ include AUTHORS
 recursive-include po *
 recursive-include pygubudesigner/locale *
 recursive-include pygubudesigner/images *
+recursive-include pygubudesigner/template *
 recursive-include examples *
 global-exclude *~
