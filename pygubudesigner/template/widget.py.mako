@@ -1,4 +1,4 @@
-<%inherit file="base.py"/>
+<%inherit file="base.py.mako"/>
 <%block name="imports" filter="trim">
 ${import_lines}
 </%block>

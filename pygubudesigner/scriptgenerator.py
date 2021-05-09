@@ -16,11 +16,11 @@ except:
     import tkFileDialog as filedialog
 import pygubu
 from .codebuilder import UI2Code
-from .scripttemplate import *
 
 logger = logging.getLogger(__name__)
 CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
 TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'template')
+print('TEMPLATE_DIR', TEMPLATE_DIR)
 makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
 
 class ScriptGenerator(object):
@@ -85,7 +85,7 @@ class ScriptGenerator(object):
             if template == 'application':
                 code = generator.generate(uidef, target, as_class=False, tabspaces=8)
                 context['callbacks'] = code['callbacks']
-                tpl = makolookup.get_template('app.py')
+                tpl = makolookup.get_template('app.py.mako')
                 final_code = tpl.render(**context)
                 self.set_code(final_code)
             elif template == 'widget':
@@ -93,7 +93,7 @@ class ScriptGenerator(object):
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
                 context['callbacks'] = code['callbacks']
-                tpl = makolookup.get_template('widget.py')
+                tpl = makolookup.get_template('widget.py.mako')
                 final_code = tpl.render(**context)
                 self.set_code(final_code)
             elif template == 'codescript':
@@ -102,7 +102,7 @@ class ScriptGenerator(object):
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
                 context['callbacks'] = code['callbacks']
-                tpl = makolookup.get_template('script.py')
+                tpl = makolookup.get_template('script.py.mako')
                 final_code = tpl.render(**context)
                 self.set_code(final_code)
     

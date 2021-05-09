@@ -1,4 +1,4 @@
-<%inherit file="base.py"/>
+<%inherit file="base.py.mako"/>
 <%block name="class_definition" filter="trim">
 class ${class_name}:
     def __init__(self, master=None):

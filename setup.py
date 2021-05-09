@@ -132,7 +132,9 @@ setup(
             'images/images-png/*.png',
             'images/images-png/widgets/*/*.png',
             'ui/*.ui',
-            'locale/*/*/*.mo'],
+            'locale/*/*/*.mo',
+            'template/*.mako',
+            ],
     },
     entry_points={
         'gui_scripts': [
