@@ -31,31 +31,28 @@ from pygubudesigner.widgets.propertyeditor import *
 
 
 class ColorPropertyEditor(PropertyEditor):
-    count = 0  # instance counter, to generate unike style name
     ttk_style = None  # style instance for all color instances
-    btn_bgcolor = ''  # default background color picked from current theme
-    style_name_tpl = 'ID{0}.ColorSelectorButton.Toolbutton'
+    def_bgcolor = ''  # default background color picked from current theme
 
     def _create_ui(self):
         cls = ColorPropertyEditor
         if cls.ttk_style is None:
             cls.ttk_style = ttk.Style()
-            cls.btn_bgcolor = cls.ttk_style.lookup('Toolbutton', 'background')
+            cls.def_bgcolor = cls.ttk_style.lookup('TFrame', 'background')
 
-        cls.count += 1
-
+        self._lcolor = w = ttk.Label(self, text='', width=-1)
+        w.grid(sticky='ns', padx='0 2')
         self._entry = w = ttk.Entry(self, textvariable=self._variable)
-        w.grid(sticky='ew')
+        w.grid(row=0, column=1, sticky='nsew')
         w.bind('<FocusOut>', self._on_variable_changed)
         w.bind('<KeyPress>', self._on_keypress)
 
-        selector_id = cls.count
-        self._stylename = cls.style_name_tpl.format(selector_id)
-        self._button = w = ttk.Button(self, text='…', style=self._stylename)
-        w.grid(row=0, column=1, padx="5 0")
+        stylename = 'ColorSelectorButton.Toolbutton'
+        self._button = w = ttk.Button(self, text='…', style=stylename)
+        w.grid(row=0, column=2, padx="5 0")
         w.configure(command=self._on_button_click)
 
-        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
 
     def _on_button_click(self):
         current = self._get_value()
@@ -74,13 +71,15 @@ class ColorPropertyEditor(PropertyEditor):
         if newcolor:
             try:
                 rgb = self.winfo_rgb(newcolor)
-                cls.ttk_style.configure(self._stylename,
-                                        background=newcolor)
+                self._lcolor.configure(
+                    relief=tk.FLAT,
+                    background=newcolor)
             except tk.TclError:
                 pass
         else:
-            cls.ttk_style.configure(self._stylename,
-                                    background=cls.btn_bgcolor)
+            self._lcolor.configure(
+                relief=tk.SUNKEN,
+                background=cls.def_bgcolor)
 
     def edit(self, value):
         PropertyEditor.edit(self, value)
