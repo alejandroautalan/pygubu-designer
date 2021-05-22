@@ -176,24 +176,25 @@ class UI2Code(Builder):
     
     def code_create_variable(self, name_or_desc, value, vtype=None):
         vname, type_from_name = self._process_variable_description(name_or_desc)
-        
+        vname_in_code = vname
         if vname not in self._tkvariables:
             var_init = ''
             if value is None:
-                value = ''
+                value = "''"
             else:
                 if type_from_name == 'string':
                     value = "'{0}'".format(value)
-            
             if vtype is None:
-                var_init = 'tk.{0}Var(value={1})'.format(type_from_name.capitalize(),
-                                                value)
+                var_init = 'tk.{0}Var(value={1})'.format(
+                    type_from_name.capitalize(), value)
             else:
                 var_init = '{0}(value={1})'.format(str(vtype), value)
-            line = '{0} = {1}'.format(vname, var_init)
+            if self.as_class:
+                vname_in_code = 'self.{0}'.format(vname)
+            line = '{0} = {1}'.format(vname_in_code, var_init)
             self._code.append(line)
-            self._tkvariables[vname] = vtype
-        return vname
+            self._tkvariables[vname] = vname_in_code
+        return self._tkvariables[vname]
     
     def _code_realize(self, bmaster, wmeta):
         originalid = wmeta.identifier
