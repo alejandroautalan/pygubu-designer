@@ -15,7 +15,7 @@ class ComponentPalette(ttk.Frame):
         fbuttons = ttk.Frame(component_pallete)
         fbuttons.configure(padding=1)
         rb_tk = ttk.Radiobutton(fbuttons)
-        self.gvalue = gvalue = tk.StringVar('')
+        self.gvalue = gvalue = tk.StringVar(value='')
         rb_tk.config(style='Toolbutton', text='tk', value='tk',
                      variable=gvalue, command=self._on_tk_clicked)
         rb_tk.pack(expand='true', fill='both', side='top')
