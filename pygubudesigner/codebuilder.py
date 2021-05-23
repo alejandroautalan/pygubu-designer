@@ -81,6 +81,7 @@ class UI2Code(Builder):
             'imports': code_imports,
             target: code,
             'callbacks': code_callbacks,
+            'tkvariables': list(self._tkvariables.keys())
             }
         return cc
     

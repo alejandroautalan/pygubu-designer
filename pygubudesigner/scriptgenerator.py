@@ -31,17 +31,19 @@ class ScriptGenerator(object):
         self.projectname = ''
 
         self.widgetlist = builder.get_object('widgetlist')
-        self.widgetlistvar = builder.get_variable('widgetlistvar')
-        self.widgetlist_keyvar = builder.get_variable('widgetlist_keyvar')
         
-        #self.templatelist = builder.get_object('templatelist')
-        #self.templatelistvar = builder.get_variable('templatelistvar')
-        self.template_var = builder.get_variable('template_var')
+        self.widgetlistvar = None
+        self.widgetlist_keyvar = None
+        self.template_var = None
+        self.classnamevar = None
+        self.template_desc_var = None
+        self.import_tkvars_var = None
+        myvars = ['widgetlistvar', 'widgetlist_keyvar', 'template_var',
+                  'classnamevar', 'template_desc_var', 'import_tkvars_var']
+        builder.import_variables(self, myvars)
         
-        self.classnamevar = builder.get_variable('classnamevar')
         self.txt_code = builder.get_object('txt_code')
-        
-        self.template_desc_var = builder.get_variable('template_desc_var')
+        self.cb_import_tkvars = builder.get_object('cb_import_tkvars')
         
         _ = self.app.translator
         self.msgtitle = _('Script Generator')
@@ -52,6 +54,7 @@ class ScriptGenerator(object):
             'widget': _('Create a base class for your custom widget.')
         }
         self.template_var.set('application')
+        self.import_tkvars_var.set(True)
         
     def camel_case(self, st):
         output = ''.join(x for x in st.title() if x.isalnum())
@@ -80,11 +83,14 @@ class ScriptGenerator(object):
                 'widget_code': None,
                 'import_lines': None,
                 'callbacks': '',
+                'tkvariables': [],
             }
             
             if template == 'application':
                 code = generator.generate(uidef, target, as_class=False, tabspaces=8)
                 context['callbacks'] = code['callbacks']
+                if self.import_tkvars_var.get():
+                    context['tkvariables'] = code['tkvariables']
                 tpl = makolookup.get_template('app.py.mako')
                 final_code = tpl.render(**context)
                 self.set_code(final_code)
@@ -119,9 +125,11 @@ class ScriptGenerator(object):
     def on_code_template_changed(self, clear_code=True):
         template = self.template_var.get()
         classname = self.get_classname()
+        self.cb_import_tkvars.configure(state="disabled")
         if template == 'application':
             name = '{0}App'.format(classname)
             self.classnamevar.set(name)
+            self.cb_import_tkvars.configure(state="normal")
         elif template == 'codescript':
             name = '{0}App'.format(classname)
             self.classnamevar.set(name)
