@@ -87,7 +87,17 @@ def load_configfile():
     if not os.path.exists(CONFIG_FILE):
         initialize_configfile()
     else:
-        config.read(CONFIG_FILE)
+        try:
+            config.read(CONFIG_FILE)
+        except configparser.MissingSectionHeaderError as e:
+            logger.exception(e)
+            msg = _("Configuration file at '{0}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(CONFIG_FILE))
+            messagebox.showerror(_('Error'), msg)
+        except configparser.Error as e:
+            logger.exception(e)
+            msg = _("Faild to parse config file at '{0}', program may not work as expected.".format(CONFIG_FILE))
+            msg = msg.format(CONFIG_FILE)
+            messagebox.showerror(_('Error'), msg)
 
 def get_custom_widgets():
     paths = []

@@ -79,8 +79,7 @@ def init_pygubu_widgets():
             importlib.import_module(modulename)
         except Exception as e:
             logger.exception(e)
-            msg = _("Failed to load widget module: '%s'")
-            msg = msg % (modulename,)
+            msg = _("Failed to load widget module: '{0}'".format(modulename))
             messagebox.showerror(_('Error'), msg)
 
     #initialize custom widgets
@@ -94,8 +93,7 @@ def init_pygubu_widgets():
                 importlib.import_module(modulename)
             except Exception as e:
                 logger.exception(e)
-                msg = _("Failed to load custom widget module: '%s'")
-                msg = msg % (path,)
+                msg = _("Failed to load custom widget module: '{0}'".format(path))
                 messagebox.showerror(_('Error'), msg)
 
 #Initialize images
@@ -340,7 +338,6 @@ class PygubuDesigner(object):
             top.tk.call('wm', 'iconphoto', '.', StockImage.get('pygubu'))
         except StockImageException as e:
             pass
-        
         
     def run(self):
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
