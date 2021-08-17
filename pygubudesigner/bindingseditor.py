@@ -55,6 +55,12 @@ class BindingsEditor:
             item = sel[0]
             if item == self._adder and self._allow_edit:
                 self._add_binding(('<1>', 'callback', ''))
+                
+                # A new binding was added (with default values).
+                # Notify the designer that the project has been
+                # modified and needs to be saved.
+                # Date changed: August 17, 2021
+                self._copy_to_data()
 
     def _on_del_clicked(self):
         sel = self.tv.selection()
@@ -76,7 +82,10 @@ class BindingsEditor:
                     values = self.tv.item(item, 'values')
 #                    print(item, 'values = ', values)
                     self._curr_data.add_binding(*values[:3])
-                    self._curr_data.notify(self)
+                    
+            # Notify the editor that a change has occurred and the project needs saving.
+            # Changed: August 17, 2021        
+            self._curr_data.notify(self)
 
     def _add_binding(self, bind):
         idx = self.tv.index(self._adder)
