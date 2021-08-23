@@ -307,8 +307,8 @@ msgid "pygubu is a graphical user interface designer for tkinter"
 msgstr "pygubu, tkinter için bir kullanıcı arayüzü tasarlayıcısıdır"
 
 #: pygubudesigner/ui/about_dialog.ui:75
-msgid "Copyright © 2012-2020 Alejandro Autalán"
-msgstr "Copyright © 2012-2020 Alejandro Autalán"
+msgid "Copyright © 2012-2021 Alejandro Autalán"
+msgstr "Copyright © 2012-2021 Alejandro Autalán"
 
 #: pygubudesigner/ui/about_dialog.ui:84
 msgid ""
