@@ -1,0 +1,8 @@
+appdirs>=1.4.3
+Mako>=1.1.4
+pygubu>=0.11
+
+# dev
+isort>=5.9.2
+autopep8>=1.5.6
+Babel>=2.9.0

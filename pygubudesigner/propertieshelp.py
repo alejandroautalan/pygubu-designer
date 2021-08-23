@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 # translator marker
-def _(x):
-    return x
+
+from pygubudesigner.i18n import translator as _
 
 tooltip_help = {
     'class': _('Object class name.'),

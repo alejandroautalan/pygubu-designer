@@ -658,6 +658,14 @@ class PygubuDesigner(object):
 
         builder.connect_callbacks({'on_ok_execute': on_ok_execute})
 
+        warranty = builder.get_object('warranty')
+
+        def on_warranty_click(e):
+            url = 'http://www.gnu.org/licenses/gpl-3.0.html'
+            webbrowser.open_new_tab(url)
+
+        builder.connect_callbacks({'on_warranty_clicked': on_warranty_click})
+
         return dialog
 
     def show_about_dialog(self):

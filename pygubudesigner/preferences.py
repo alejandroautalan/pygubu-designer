@@ -19,21 +19,17 @@ try:
 except:
     import configparser
 
-has_appdir = False
-try:
-    from appdirs import AppDirs
-    has_appdir = True
-except:
-    pass
+from appdirs import AppDirs
 
 import pygubu
 
 logger = logging.getLogger(__name__)
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join(FILE_PATH, 'config')
-if has_appdir:
-    dirs = AppDirs('pygubu-designer')
-    CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
+
+dirs = AppDirs('pygubu-designer')
+CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
+
 logger.info('Using configfile: %s', CONFIG_FILE)
 
 options = {
