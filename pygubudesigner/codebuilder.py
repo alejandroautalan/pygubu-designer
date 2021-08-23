@@ -222,7 +222,7 @@ class UI2Code(Builder):
             # Children
             for childmeta in \
                 self.uidefinition.widget_children(originalid):
-                childid = self._code_realize(builder, childmeta)                                
+                childid = self._code_realize(builder, childmeta)
                 code = builder.code_child_add(childid)
                 self._code.extend(code)
             
@@ -231,7 +231,7 @@ class UI2Code(Builder):
             self._code.extend(configure)
             
             # layout
-            layout = builder.code_layout()
+            layout = builder.code_layout(parentid=masterid)
             self._code.extend(layout)
             
             # callbacks
