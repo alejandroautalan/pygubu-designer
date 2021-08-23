@@ -26,7 +26,7 @@ _xgettext(){
 }
 
 ir(){
-    install_isort_autopep8; 
+    install_r; 
 }
 p8(){ 
     auto_sort_pep8; 
