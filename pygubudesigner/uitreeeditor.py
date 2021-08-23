@@ -651,6 +651,7 @@ class WidgetsTreeEditor(object):
         if children:
             self.treeview.delete(*children)
         self.editor_hide_all()
+        self.counter.clear() # Reset the widget counter (August 19, 2021)
 
     def load_file(self, filename):
         """Load file into treeview"""
