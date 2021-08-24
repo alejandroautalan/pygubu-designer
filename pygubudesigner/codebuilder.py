@@ -234,7 +234,7 @@ class UI2Code(Builder):
             self._code.extend(configure)
 
             # layout
-            layout = builder.code_layout()
+            layout = builder.code_layout(parentid=masterid)
             self._code.extend(layout)
 
             # callbacks
