@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 18:12+0800\n"
+"POT-Creation-Date: 2021-08-24 19:27+0800\n"
 "PO-Revision-Date: 2021-02-21 22:49-0300\n"
 "Last-Translator: larryw3i <larryw3i@163.com>\n"
 "Language-Team: \n"
@@ -152,7 +152,7 @@ msgstr "保存"
 msgid "Save as …"
 msgstr "另存为 …"
 
-#: pygubudesigner/ui/pygubu-ui.ui:62 pygubudesigner/main.py:173
+#: pygubudesigner/ui/pygubu-ui.ui:62 pygubudesigner/main.py:177
 msgid "Quit …"
 msgstr "退出 …"
 
@@ -324,7 +324,7 @@ msgstr "代码脚本"
 msgid "Custom Widget"
 msgstr "自定义控件"
 
-#: pygubudesigner/ui/pygubu-ui.ui:806 pygubudesigner/layouteditor.py:64
+#: pygubudesigner/ui/pygubu-ui.ui:806 pygubudesigner/layouteditor.py:66
 msgid "Options:"
 msgstr "可选项:"
 
@@ -352,7 +352,7 @@ msgstr "复制到剪切板"
 msgid "Messages"
 msgstr "信息"
 
-#: pygubudesigner/ui/ask_save_changes_dialog.ui:7 pygubudesigner/main.py:506
+#: pygubudesigner/ui/ask_save_changes_dialog.ui:7 pygubudesigner/main.py:512
 msgid "Save Changes"
 msgstr "保存变化"
 
@@ -434,8 +434,7 @@ msgid ""
 "Specifies a boolean that says whether separators are automatically inserted "
 "in the undo stack. Only meaningful when the undo option is true."
 msgstr ""
-"指定一个布尔值表示是否自动将更改放到改变记录的堆栈中,"
-"只有撤销可用时才有效。"
+"指定一个布尔值表示是否自动将更改放到改变记录的堆栈中,只有撤销可用时才有效。"
 
 #: pygubudesigner/propertieshelp.py:20
 msgid ""
@@ -491,8 +490,8 @@ msgid ""
 "database for the window's other options, to determine the default bindtags "
 "for the window, and to select the widget's default layout and style."
 msgstr ""
-"指定窗体类，这个类用于查询窗体的其它属性，决定窗体的默认绑定，"
-"以及选择窗体的默认布局和样式。"
+"指定窗体类，这个类用于查询窗体的其它属性，决定窗体的默认绑定，以及选择窗体的"
+"默认布局和样式。"
 
 #: pygubudesigner/propertieshelp.py:32
 msgid ""
@@ -515,16 +514,14 @@ msgid ""
 "menu. This option is ignored on Aqua/macOS, where menus are always a single "
 "column."
 msgstr ""
-"当此选项为False时，输入框会显示在原先的输入框下部。当此选项为True时，"
-"输入框将显示在菜单中新列的顶部。此选项在Apple/macOS上被忽略，"
-"其中菜单始终是单列。"
+"当此选项为False时，输入框会显示在原先的输入框下部。当此选项为True时，输入框将"
+"显示在菜单中新列的顶部。此选项在Apple/macOS上被忽略，其中菜单始终是单列。"
 
 #: pygubudesigner/propertieshelp.py:36
 msgid ""
 "In pygubu-designer, a python function name used as the callback for the "
 "widget command property."
-msgstr ""
-"在pygubu-designer, 一个Python被用作控件命令属性的回调。"
+msgstr "在pygubu-designer, 一个Python被用作控件命令属性的回调。"
 
 #: pygubudesigner/propertieshelp.py:37
 msgid ""
@@ -538,16 +535,14 @@ msgstr ""
 msgid ""
 "Specifies how to display the image relative to the text, in the case both "
 "text and image are present."
-msgstr ""
-"指定如何相对与文本来显示图片，在这种情况，文本和图片都会被显示。"
+msgstr "指定如何相对与文本来显示图片，在这种情况，文本和图片都会被显示。"
 
 #: pygubudesigner/propertieshelp.py:39
 msgid ""
 "Specifies a boolean value that indicates whether or not it should be "
 "allowable to set the canvas's view outside the region defined by the "
 "scrollRegion argument."
-msgstr ""
-"指定一个布尔值表示是否允许画布的内容超出定义的可滚动范围。"
+msgstr "指定一个布尔值表示是否允许画布的内容超出定义的可滚动范围。"
 
 #: pygubudesigner/propertieshelp.py:40
 msgid ""
@@ -568,15 +563,14 @@ msgid ""
 "indicates that this is currently the default button; normal means that it "
 "may become the default button, and disabled means that it is not defaultable."
 msgstr ""
-"在对话框中，一个按钮可以指定为默认按钮。active表示这是当前默认按钮,"
-"通常意味着它可能成为默认按钮，而禁用意味着它不可默认。"
+"在对话框中，一个按钮可以指定为默认按钮。active表示这是当前默认按钮,通常意味着"
+"它可能成为默认按钮，而禁用意味着它不可默认。"
 
 #: pygubudesigner/propertieshelp.py:43
 msgid ""
 "An integer specifying how many significant digits should be retained when "
 "converting the value of the scale to a string."
-msgstr ""
-"一个整数，表示转换值为字符串时的精度。"
+msgstr "一个整数，表示转换值为字符串时的精度。"
 
 #: pygubudesigner/propertieshelp.py:44
 msgid "Specifies where the menu is to be popped up relative to the menubutton."
@@ -603,8 +597,8 @@ msgid ""
 "widget. This allows a text widget to reflect only a portion of a larger "
 "piece of text."
 msgstr ""
-"指定一个整数行,表示只显示文本内容的几行"
-"这允许文本部件仅反映较大文本的一部分文本。"
+"指定一个整数行,表示只显示文本内容的几行这允许文本部件仅反映较大文本的一部分文"
+"本。"
 
 #: pygubudesigner/propertieshelp.py:49
 msgid ""
@@ -632,8 +626,8 @@ msgid ""
 "using the from and to range. This must be a format specifier of the form "
 "%<pad>.<pad>f, as it will format a floating-point number."
 msgstr ""
-"指定在设置字符串值时使用的格式，用于指定范围。必须像这样的格式："
-"%<pad>.<pad>f， 因为它将格式化一个浮点数。"
+"指定在设置字符串值时使用的格式，用于指定范围。必须像这样的格式：%<pad>."
+"<pad>f， 因为它将格式化一个浮点数。"
 
 #: pygubudesigner/propertieshelp.py:54
 msgid "A floating-point value specifying the lowest value for the widget."
@@ -644,8 +638,7 @@ msgid ""
 "When sash handles are drawn, specifies the distance from the top or left end "
 "of the sash (depending on the orientation of the widget) at which to draw "
 "the handle."
-msgstr ""
-"绘制窗体手柄时，指定从窗体顶部或左端绘制的距离（取决于控件的方向）。"
+msgstr "绘制窗体手柄时，指定从窗体顶部或左端绘制的距离（取决于控件的方向）。"
 
 #: pygubudesigner/propertieshelp.py:56
 msgid ""
@@ -666,7 +659,8 @@ msgid ""
 "Specifies a desired height for the button. If an image or bitmap is being "
 "displayed in the button then the value is in screen units; for text it is in "
 "lines of text."
-msgstr "指定按钮高度，如果显示图片，则单位为屏幕像素，如果显示文字，则单位为行数。"
+msgstr ""
+"指定按钮高度，如果显示图片，则单位为屏幕像素，如果显示文字，则单位为行数。"
 
 #: pygubudesigner/propertieshelp.py:60
 msgid ""
@@ -679,7 +673,9 @@ msgid ""
 "Specifies a desired height for the menubutton. If an image or bitmap is "
 "being displayed in the menubutton then the value is in screen units; for "
 "text it is in lines of text."
-msgstr "指定menubutton的高度，如果显示图片，则单位为屏幕像素，如果显示文字，则单位为行数。"
+msgstr ""
+"指定menubutton的高度，如果显示图片，则单位为屏幕像素，如果显示文字，则单位为"
+"行数。"
 
 #: pygubudesigner/propertieshelp.py:62
 msgid "Specifies the number of rows which should be visible."
@@ -742,7 +738,7 @@ msgstr "表示增量的一个浮点值。"
 msgid "Specifies whether or not the indicator should be drawn."
 msgstr "指定是否绘制。"
 
-#: pygubudesigner/propertieshelp.py:74 
+#: pygubudesigner/propertieshelp.py:74
 msgid ""
 "Specifies the color to use as background in the area covered by the "
 "insertion cursor."
@@ -786,8 +782,8 @@ msgid ""
 "made."
 msgstr ""
 "对于带有可以拖动以调整值（如滚动条）的滑块的控件，此选项将决定何时发出有关值"
-"更改的通知。如果值是False，则会在拖拽滑块时连续进行更新。如果值为True，则更"
-"新将延迟，直到鼠标按钮拖动到结尾, 此时，会发出一个通知。"
+"更改的通知。如果值是False，则会在拖拽滑块时连续进行更新。如果值为True，则更新"
+"将延迟，直到鼠标按钮拖动到结尾, 此时，会发出一个通知。"
 
 #: pygubudesigner/propertieshelp.py:82
 msgid ""
@@ -838,15 +834,14 @@ msgid ""
 "the column any smaller than minwidth when the widget is resized or the user "
 "drags a column separator."
 msgstr ""
-"列的最小宽（单位为：像素），当控件被改变尺寸或列被分离时treeview依然使每列"
-"大于或等于列的最小宽"
+"列的最小宽（单位为：像素），当控件被改变尺寸或列被分离时treeview依然使每列大"
+"于或等于列的最小宽"
 
 #: pygubudesigner/propertieshelp.py:93
 msgid ""
 "Specifies the relief for the checkbutton when the indicator is not drawn and "
 "the checkbutton is off. The default value is “raised”."
-msgstr ""
-"指定checkbutton的relief特效，当checkbutton未被绘制或被关闭时值为raised"
+msgstr "指定checkbutton的relief特效，当checkbutton未被绘制或被关闭时值为raised"
 
 #: pygubudesigner/propertieshelp.py:94
 msgid ""
@@ -1548,184 +1543,184 @@ msgid ""
 "other rows that have the same value for uniform."
 msgstr ""
 
-#: pygubudesigner/main.py:82
+#: pygubudesigner/main.py:83
 #, fuzzy, python-brace-format
 msgid "Failed to load widget module: '{0}'"
 msgstr "加载控件模块失败: '{0}'"
 
-#: pygubudesigner/main.py:83 pygubudesigner/main.py:97
-#: pygubudesigner/main.py:540 pygubudesigner/main.py:577
-#: pygubudesigner/preferences.py:91 pygubudesigner/preferences.py:96
+#: pygubudesigner/main.py:84 pygubudesigner/main.py:99
+#: pygubudesigner/main.py:547 pygubudesigner/main.py:584
+#: pygubudesigner/preferences.py:92 pygubudesigner/preferences.py:98
 msgid "Error"
 msgstr "出错"
 
-#: pygubudesigner/main.py:96
+#: pygubudesigner/main.py:98
 #, fuzzy, python-brace-format
 msgid "Failed to load custom widget module: '{0}'"
 msgstr "加载自定义控件模块失败: '%s'"
 
-#: pygubudesigner/main.py:508
+#: pygubudesigner/main.py:515
 msgid "If you don't save the document, all the changes will be lost."
 msgstr "如果你不保存文档，所有更改会丢失。"
 
-#: pygubudesigner/main.py:521
+#: pygubudesigner/main.py:528
 msgid "Do you want to save the changes before closing?"
 msgstr "关闭之前要保存文档吗？"
 
-#: pygubudesigner/main.py:537
+#: pygubudesigner/main.py:544
 #, python-format
 msgid "Project saved to %s"
 msgstr "项目保存到：%s"
 
-#: pygubudesigner/main.py:547 pygubudesigner/main.py:588
+#: pygubudesigner/main.py:554 pygubudesigner/main.py:595
 msgid "pygubu ui"
 msgstr "pygubu用户界面"
 
-#: pygubudesigner/main.py:547 pygubudesigner/main.py:588
-#: pygubudesigner/scriptgenerator.py:149 pygubudesigner/preferences.py:222
+#: pygubudesigner/main.py:554 pygubudesigner/main.py:595
+#: pygubudesigner/scriptgenerator.py:151 pygubudesigner/preferences.py:232
 msgid "All"
 msgstr "全部"
 
-#: pygubudesigner/main.py:582
+#: pygubudesigner/main.py:589
 msgid "Do you want to save the changes before opening?"
 msgstr "打开之前您要保存所做的更改吗？"
 
-#: pygubudesigner/main.py:596
+#: pygubudesigner/main.py:603
 msgid "Do you want to save the changes before creating?"
 msgstr "新建前您要保存所做的更改吗？"
 
-#: pygubudesigner/main.py:686
+#: pygubudesigner/main.py:693
 msgid "newproject"
 msgstr "新项目"
 
-#: pygubudesigner/scriptgenerator.py:49
+#: pygubudesigner/scriptgenerator.py:51
 msgid "Script Generator"
 msgstr "脚本生成"
 
-#: pygubudesigner/scriptgenerator.py:52
+#: pygubudesigner/scriptgenerator.py:54
 msgid "Create a pygubu application script using the UI definition."
 msgstr "使用用户界面定义创建一个pygubu应用脚本。"
 
-#: pygubudesigner/scriptgenerator.py:53
+#: pygubudesigner/scriptgenerator.py:55
 msgid "Create a coded version of the UI definition."
 msgstr "创建一个用户界面定义的代码版本。"
 
-#: pygubudesigner/scriptgenerator.py:54
+#: pygubudesigner/scriptgenerator.py:56
 msgid "Create a base class for your custom widget."
 msgstr "给你的自定义控件创建一个base类"
 
-#: pygubudesigner/scriptgenerator.py:121
+#: pygubudesigner/scriptgenerator.py:123
 msgid "Code copied"
 msgstr "代码被复制"
 
-#: pygubudesigner/scriptgenerator.py:149
+#: pygubudesigner/scriptgenerator.py:151
 msgid "Python Script"
 msgstr "Python脚本"
 
-#: pygubudesigner/scriptgenerator.py:181
+#: pygubudesigner/scriptgenerator.py:183
 msgid "Select widget"
 msgstr "选择控件"
 
-#: pygubudesigner/scriptgenerator.py:186
+#: pygubudesigner/scriptgenerator.py:188
 msgid "Select template"
 msgstr "选择模板"
 
-#: pygubudesigner/scriptgenerator.py:191
+#: pygubudesigner/scriptgenerator.py:193
 msgid "Enter classname"
 msgstr "输入类名"
 
-#: pygubudesigner/layouteditor.py:43
+#: pygubudesigner/layouteditor.py:45
 msgid "Grid"
 msgstr "Grid"
 
-#: pygubudesigner/layouteditor.py:43
+#: pygubudesigner/layouteditor.py:45
 msgid "Pack"
 msgstr "Pack"
 
-#: pygubudesigner/layouteditor.py:43
+#: pygubudesigner/layouteditor.py:45
 msgid "Place"
 msgstr "Place"
 
-#: pygubudesigner/layouteditor.py:91
+#: pygubudesigner/layouteditor.py:93
 #, python-brace-format
 msgid "Grid row '{0}' options:"
 msgstr "表格第'{0}'行的选项: "
 
-#: pygubudesigner/layouteditor.py:114
+#: pygubudesigner/layouteditor.py:116
 #, python-brace-format
 msgid "Grid column '{0}' options:"
 msgstr "表格第'{0}'列的选项: "
 
-#: pygubudesigner/layouteditor.py:227
+#: pygubudesigner/layouteditor.py:233
 msgid "Change Manager"
 msgstr "Cambiar Manager"
 
-#: pygubudesigner/layouteditor.py:228
+#: pygubudesigner/layouteditor.py:234
 #, python-brace-format
 msgid "Change manager from {0} to {1}?"
 msgstr "转换{0}布局管理器为{1}布局管理器?"
 
-#: pygubudesigner/layouteditor.py:230
+#: pygubudesigner/layouteditor.py:236
 msgid "All container widgets will be updated."
 msgstr "所有容器控件会被更新。"
 
-#: pygubudesigner/widgets/imageentry.py:58
+#: pygubudesigner/widgets/imageentry.py:61
 msgid "Tk image formats"
 msgstr "Tk图片格式"
 
-#: pygubudesigner/widgets/imageentry.py:59
+#: pygubudesigner/widgets/imageentry.py:62
 msgid "All Files"
 msgstr "全部文件"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:51
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:53
 msgid "Type of action."
 msgstr "Action类型"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:52
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:54
 msgid "Index of character string to be inserted/deleted."
 msgstr "欲取代或删除的字符（串）索引。"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:53
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:55
 msgid "The new/current value of the entry."
 msgstr "Entry的当前值。"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:54
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:56
 msgid "The current value of entry prior to editing."
 msgstr "Entry当前编辑的值。"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:55
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:57
 msgid "The text string being inserted/deleted."
 msgstr "文本已被取代/删除"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:56
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:58
 msgid "The current value of the -validate option."
 msgstr "-validate选项的当前值"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:57
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:59
 msgid "The validation condition that triggered the callback."
 msgstr "触发回调的验证条件。"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:58
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:60
 msgid "The name of the entry widget."
 msgstr "Entry控件名："
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:64
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:66
 msgid "Select all"
 msgstr "全选"
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:65
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:67
 msgid "Clear"
 msgstr "清除"
 
-#: pygubudesigner/widgets/commandentry.py:105
+#: pygubudesigner/widgets/commandentry.py:107
 msgid "Callback:"
 msgstr "回调:"
 
-#: pygubudesigner/widgets/commandentry.py:118
+#: pygubudesigner/widgets/commandentry.py:120
 msgid "Simple"
 msgstr "简易"
 
-#: pygubudesigner/widgets/commandentry.py:119
+#: pygubudesigner/widgets/commandentry.py:121
 msgid "Send widget ID"
 msgstr "发送控件ID"
 
@@ -1736,74 +1731,74 @@ msgid ""
 "If you delete this file, configuration will be set to default"
 msgstr ""
 
-#: pygubudesigner/preferences.py:94
+#: pygubudesigner/preferences.py:95
 #, python-brace-format
 msgid "Faild to parse config file at '{0}', program may not work as expected."
 msgstr ""
 
-#: pygubudesigner/preferences.py:222
+#: pygubudesigner/preferences.py:232
 msgid "Python module"
 msgstr "Python模块"
 
-#: pygubudesigner/uitreeeditor.py:121
+#: pygubudesigner/uitreeeditor.py:127
 msgid "Delete items"
 msgstr "删除项"
 
-#: pygubudesigner/uitreeeditor.py:122
+#: pygubudesigner/uitreeeditor.py:128
 msgid "Delete selected items?"
 msgstr "删除被选项？"
 
-#: pygubudesigner/uitreeeditor.py:271
+#: pygubudesigner/uitreeeditor.py:276
 msgid "No item selected."
 msgstr "无被选项。"
 
-#: pygubudesigner/uitreeeditor.py:450
+#: pygubudesigner/uitreeeditor.py:462
 #, python-format
 msgid "Allowed children: %s."
 msgstr "被允许的子项: %s."
 
-#: pygubudesigner/uitreeeditor.py:459
+#: pygubudesigner/uitreeeditor.py:471
 #, python-brace-format
 msgid "Only {0} children allowed for {1}"
 msgstr "仅{0}被允许成为{1}的子项"
 
-#: pygubudesigner/uitreeeditor.py:469
+#: pygubudesigner/uitreeeditor.py:481
 #, python-brace-format
 msgid "{0} not allowed as parent of {1}"
 msgstr "{0}不允许作为{1}的父项"
 
-#: pygubudesigner/uitreeeditor.py:477
+#: pygubudesigner/uitreeeditor.py:489
 #, python-format
 msgid "Not allowed, %s is not a container."
 msgstr "不被允许, %s不是一个容器。"
 
-#: pygubudesigner/uitreeeditor.py:489
+#: pygubudesigner/uitreeeditor.py:501
 #, python-format
 msgid "%s not allowed at root level"
 msgstr "%s不能成为根级"
 
-#: pygubudesigner/uitreeeditor.py:499
+#: pygubudesigner/uitreeeditor.py:511
 #, python-format
 msgid "Not allowed at root level, %s is not a container."
 msgstr "不能成为根级, %s不是一个容器"
 
-#: pygubudesigner/propertieseditor.py:51
+#: pygubudesigner/propertieseditor.py:53
 msgid "Widget properties"
 msgstr "控件属性"
 
-#: pygubudesigner/propertieseditor.py:60
+#: pygubudesigner/propertieseditor.py:62
 msgid "Required"
 msgstr "必要属性"
 
-#: pygubudesigner/propertieseditor.py:62
+#: pygubudesigner/propertieseditor.py:64
 msgid "Standard"
 msgstr "标准属性"
 
-#: pygubudesigner/propertieseditor.py:64
+#: pygubudesigner/propertieseditor.py:66
 msgid "Specific"
 msgstr "特定属性"
 
-#: pygubudesigner/propertieseditor.py:66
+#: pygubudesigner/propertieseditor.py:68
 msgid "Custom"
 msgstr "自定义"
 

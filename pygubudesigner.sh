@@ -29,15 +29,15 @@ auto_sort_pep8(){
 }
 
 _xgettext(){
-    xgettext -L glade --output=po/pygubu.pot \
+    xgettext -L glade --output=pygubudesigner/locale/pygubu.pot \
     $(find ./pygubudesigner/ui -name "*.ui")
 
     xgettext --join-existing --language=Python --keyword=_ \
-    --output=po/pygubu.pot --from-code=UTF-8 \
+    --output=pygubudesigner/locale/pygubu.pot --from-code=UTF-8 \
     `find ./pygubudesigner -name "*.py"`
 
     for _po in $(find ./pygubudesigner/locale -name "*.po"); do
-        msgmerge $_po po/pygubu.pot -U
+        msgmerge $_po ./pygubudesigner/locale/pygubu.pot -U
     done
 
 }
