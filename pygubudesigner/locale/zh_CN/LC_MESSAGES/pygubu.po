@@ -434,8 +434,8 @@ msgid ""
 "Specifies a boolean that says whether separators are automatically inserted "
 "in the undo stack. Only meaningful when the undo option is true."
 msgstr ""
-"指定一个布尔值表示是否自动将更改放到改变记录的堆栈中,“
-”只有撤销可用时才有效。"
+"指定一个布尔值表示是否自动将更改放到改变记录的堆栈中,"
+"只有撤销可用时才有效。"
 
 #: pygubudesigner/propertieshelp.py:20
 msgid ""

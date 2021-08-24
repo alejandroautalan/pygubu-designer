@@ -1,6 +1,7 @@
-import os, sys
-import locale
 import gettext
+import locale
+import os
+import sys
 
 # Change this variable to your app name!
 #  The translation files will be under
@@ -12,11 +13,19 @@ APP_NAME = "pygubu"
 #
 
 project_basedir = os.path.abspath(
-        os.path.join(os.path.dirname(__file__)))
+    os.path.join(os.path.dirname(__file__)))
 
 APP_DIR = project_basedir
 LOCALE_DIR = os.path.join(APP_DIR, 'locale')
 
+first_mo_path = os.path.join(LOCALE_DIR, 'de', 'LC_MESSAGES', 'pygubu.mo')
+
+if not os.path.exists(first_mo_path):
+    print(
+        'You should compile the .po files in the pygubudesigner/locale' +
+        'directory first if you are a developer, otherwise give us feedback here:' +
+        'https://github.com/alejandroautalan/pygubu-designer/issues')
+    sys.exit(0)
 
 # Now we need to choose the language. We will provide a list, and gettext
 # will use the first translation available in the list
@@ -44,9 +53,9 @@ gettext.install(True)
 gettext.bindtextdomain(APP_NAME, mo_location)
 gettext.textdomain(APP_NAME)
 language = gettext.translation(APP_NAME,
-                            mo_location,
-                            languages = languages,
-                            fallback = True)
+                               mo_location,
+                               languages=languages,
+                               fallback=True)
 
 translator = language.gettext
 
