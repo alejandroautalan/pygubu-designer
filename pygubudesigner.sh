@@ -52,11 +52,11 @@ _msgfmt(){
 _build(){
     _msgfmt # compile .po files
     cd ../pygubu
-    rm -rf ./pygubu/dist ./pygubu/build/
+    rm -rf ./dist/* ./build/*
     python3 setup.py sdist bdist_wheel
     
     cd ../pygubu-designer
-    rm -rf ./pygubudesigner/dist ./pygubudesigner/build/
+    rm -rf ./dist/* ./build/*
     cp -r ../pygubu/dist/ .
     python3 setup.py sdist bdist_wheel
 }
