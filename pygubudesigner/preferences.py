@@ -39,6 +39,7 @@ logger.info('Using configfile: %s', CONFIG_FILE)
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},
     'ttk_theme': {'default': 'default'},
+    'default_layout_manager': {'values': '["pack", "grid", "place"]', 'default':'pack'},
     'geometry': {
         'default': '640x480',
         },
@@ -168,6 +169,10 @@ class PreferencesUI(object):
         for key in ('widget_set',):
             cbox = builder.get_object(key)
             cbox.configure(values=options[key]['values'])
+            
+        # Preferred layout manager
+        cbox_layout_manager = builder.get_object('cbox_layout_manager')
+        cbox_layout_manager.configure(values=options['default_layout_manager']['values'])
         
         #Custom widgets
         self.cwtv = builder.get_object('cwtv')
