@@ -29,9 +29,10 @@ except BaseException:
 from pygubu.builder.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
-from pygubudesigner.widgets import EntryPropertyEditor
 from pygubudesigner.widgets.commandentry import CommandPropertyBase
 from pygubudesigner.widgets.propertyeditor import register_editor
+
+from .propertyeditor import EntryPropertyEditor
 
 
 class EntryValidateCommandPropertyEditor(CommandPropertyBase):
