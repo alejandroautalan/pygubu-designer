@@ -16,35 +16,37 @@
 
 from __future__ import unicode_literals
 
+import logging
 import os
 import xml.etree.ElementTree as ET
 from collections import Counter
-import logging
+
 try:
     import tkinter as tk
     from tkinter import messagebox
-except:
+except BaseException:
     import Tkinter as tk
     import tkMessageBox as messagebox
 
 from pygubu.builder import CLASS_MAP
 from pygubu.builder.uidefinition import UIDefinition
 from pygubu.stockimage import StockImage, StockImageException
+
 import pygubudesigner
-from .widgetdescr import WidgetMeta
-from .i18n import translator as _
-from .util import trlog
-from .propertieseditor import PropertiesEditor
-from .bindingseditor import BindingsEditor
-from .layouteditor import LayoutEditor
-from .i18n import translator
-from .actions import *
 from pygubudesigner import preferences as pref
 
+from .actions import *
+from .bindingseditor import BindingsEditor
+from .i18n import translator
+from .i18n import translator as _
+from .layouteditor import LayoutEditor
+from .propertieseditor import PropertiesEditor
+from .util import trlog
+from .widgetdescr import WidgetMeta
 
 logger = logging.getLogger('pygubu.designer')
 
-#translator function
+# translator function
 _ = translator
 
 
@@ -60,7 +62,7 @@ class WidgetsTreeEditor(object):
         self.previewer = app.previewer
         self.treedata = {}
         self.counter = Counter()
-        self.default_layout_manager = 'pack' # TODO: set from configuration
+        self.default_layout_manager = 'pack'  # TODO: set from configuration
         # Filter vars
         self.filter_on = False
         self.filtervar = app.builder.get_variable('filtervar')
@@ -72,7 +74,7 @@ class WidgetsTreeEditor(object):
 
         self.config_treeview()
         self.config_filter()
-        
+
         # current item being edited
         self.current_edit = None
 
@@ -81,19 +83,23 @@ class WidgetsTreeEditor(object):
         lframe = app.builder.get_object('layoutframe')
         bframe = app.builder.get_object('bindingsframe')
         bindingstree = app.builder.get_object('bindingstree')
-        
+
         self.properties_editor = PropertiesEditor(
             pframe, id_validator=self.is_id_unique)
         self.layout_editor = LayoutEditor(lframe)
         self.bindings_editor = BindingsEditor(bindingstree, bframe)
-        self.treeview.bind_all('<<PreviewItemSelected>>', self._on_preview_item_clicked)
+        self.treeview.bind_all(
+            '<<PreviewItemSelected>>',
+            self._on_preview_item_clicked)
         # Listen to Grid RC changes from layout
-        lframe.bind_all('<<LayoutEditorGridRCChanged>>', self._on_gridrc_changed)
+        lframe.bind_all(
+            '<<LayoutEditorGridRCChanged>>',
+            self._on_gridrc_changed)
         f = lambda e, manager='grid': self.change_container_manager(manager)
         lframe.bind_all('<<LayoutEditorContainerManagerToGrid>>', f)
         f = lambda e, manager='pack': self.change_container_manager(manager)
         lframe.bind_all('<<LayoutEditorContainerManagerToPack>>', f)
-        
+
         # Tree Editing
         tree = self.treeview
         tree.bind_all(TREE_ITEM_COPY, lambda e: self.copy_to_clipboard())
@@ -101,30 +107,30 @@ class WidgetsTreeEditor(object):
         tree.bind_all(TREE_ITEM_CUT, lambda e: self.cut_to_clipboard())
         tree.bind_all(TREE_ITEM_DELETE, self.on_tree_item_delete)
         tree.bind_all(TREE_ITEM_GRID_DOWN,
-                  lambda e: self.on_item_grid_move(self.GRID_DOWN))
+                      lambda e: self.on_item_grid_move(self.GRID_DOWN))
         tree.bind_all(TREE_ITEM_GRID_LEFT,
-                  lambda e: self.on_item_grid_move(self.GRID_LEFT))
+                      lambda e: self.on_item_grid_move(self.GRID_LEFT))
         tree.bind_all(TREE_ITEM_GRID_RIGHT,
-                  lambda e: self.on_item_grid_move(self.GRID_RIGHT))
+                      lambda e: self.on_item_grid_move(self.GRID_RIGHT))
         tree.bind_all(TREE_ITEM_GRID_UP,
-                  lambda e: self.on_item_grid_move(self.GRID_UP))
+                      lambda e: self.on_item_grid_move(self.GRID_UP))
         tree.bind_all(TREE_ITEM_MOVE_UP, self.on_item_move_up)
         tree.bind_all(TREE_ITEM_MOVE_DOWN, self.on_item_move_down)
         tree.bind_all(TREE_NAV_UP, self.on_item_nav_up)
         tree.bind_all(TREE_NAV_DOWN, self.on_item_nav_down)
         tree.bind_all(TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel)
-        
+
     def on_tree_item_delete(self, event):
         selection = self.treeview.selection()
         if selection:
             do_delete = messagebox.askokcancel(
-                    _('Delete items'),
-                    _('Delete selected items?'),
-                    parent=self.treeview.winfo_toplevel())
-            
+                _('Delete items'),
+                _('Delete selected items?'),
+                parent=self.treeview.winfo_toplevel())
+
             if do_delete:
                 self.on_treeview_delete_selection(None)
-    
+
     def _on_gridrc_changed(self, event):
         # update siblings items that have same row col position
         current_item = self.current_edit
@@ -144,7 +150,7 @@ class WidgetsTreeEditor(object):
                     wu.copy_gridrc(wmeta, 'row')
                 if wu_col == scol:
                     wu.copy_gridrc(wmeta, 'col')
-    
+
     def change_container_manager(self, new_manager):
         item = self.current_edit
         parent = self.treeview.parent(item)
@@ -157,8 +163,8 @@ class WidgetsTreeEditor(object):
             for child in children:
                 widget = self.treedata[child]
                 widget.manager = new_manager  # Change manager
-                
-                #update Tree R/C columns
+
+                # update Tree R/C columns
                 values = self.treeview.item(child, 'values')
                 if new_manager == 'grid':
                     widget.layout_property('row', str(gridrow))
@@ -177,7 +183,7 @@ class WidgetsTreeEditor(object):
         wid = self.previewer.selected_widget
         logger.debug('item-selected %s', wid)
         self.select_by_id(wid)
-        
+
     def get_children_manager(self, item, current=None):
         '''Get layout manager for children of item'''
         manager = None
@@ -187,12 +193,11 @@ class WidgetsTreeEditor(object):
                 manager = self.treedata[child].manager
                 break
         return manager
-            
-    
+
     def editor_edit(self, item, wdescr):
         self.current_edit = item
         manager_options = ['grid', 'pack', 'place']
-        
+
         # Determine allowed manager options
         parent = self.treeview.parent(item)
         if parent:
@@ -202,7 +207,7 @@ class WidgetsTreeEditor(object):
             if 'pack' == cm:
                 manager_options.remove('grid')
         logger.debug(manager_options)
-        
+
         self.properties_editor.edit(wdescr)
         self.layout_editor.edit(wdescr, manager_options)
         self.bindings_editor.edit(wdescr)
@@ -242,16 +247,16 @@ class WidgetsTreeEditor(object):
 
     def draw_widget(self, item):
         """Create a preview of the selected treeview item"""
-        
+
         if item:
             self.filter_remove(remember=True)
-            
+
             selected_id = self.treedata[item].identifier
             item = self.get_toplevel_parent(item)
             widget_id = self.treedata[item].identifier
             wclass = self.treedata[item].classname
             uidef = self.tree_to_uidef(item)
-            
+
             self.previewer.draw(item, widget_id, uidef, wclass)
             self.previewer.show_selected(item, selected_id)
             self.filter_restore()
@@ -301,7 +306,10 @@ class WidgetsTreeEditor(object):
                     self.previewer.delete(item)
                 # determine final focus
                 if final_focus is None:
-                    candidates = (tv.prev(item), tv.next(item), tv.parent(item))
+                    candidates = (
+                        tv.prev(item),
+                        tv.next(item),
+                        tv.parent(item))
                     for c in candidates:
                         if c and (c not in selection):
                             final_focus = c
@@ -326,11 +334,15 @@ class WidgetsTreeEditor(object):
             tv.after_idle(lambda: tv.selection_set(final_focus))
             tv.after_idle(lambda: tv.focus(final_focus))
             tv.after_idle(lambda: tv.see(final_focus))
-            tv.after_idle(lambda i=final_focus,s=selected_id: self.previewer.show_selected(i, s))
-        
+            tv.after_idle(
+                lambda i=final_focus,
+                s=selected_id: self.previewer.show_selected(
+                    i,
+                    s))
+
         # restore filter
         self.filter_restore()
-        
+
     def new_uidefinition(self):
         author = 'PygubuDesigner {0}'.format(pygubudesigner.__version__)
         uidef = UIDefinition(wmetaclass=WidgetMeta)
@@ -342,7 +354,7 @@ class WidgetsTreeEditor(object):
 
         # Need to remove filter or hidden items will not be saved.
         self.filter_remove(remember=True)
-        
+
         uidef = self.new_uidefinition()
         if treeitem is None:
             items = self.treeview.get_children()
@@ -372,7 +384,7 @@ class WidgetsTreeEditor(object):
     def _insert_item(self, root, data, from_file=False):
         """Insert a item on the treeview and fills columns from data"""
 
-        data.setup_defaults() # load default settings for properties and layout
+        data.setup_defaults()  # load default settings for properties and layout
         tree = self.treeview
         treelabel = '{0}: {1}'.format(data.identifier, data.classname)
         row = col = ''
@@ -420,7 +432,7 @@ class WidgetsTreeEditor(object):
         logger.debug('Selection %s', selection)
         if selection:
             self.filter_remove(remember=True)
-            
+
             uidef = self.new_uidefinition()
             for item in selection:
                 node = self.build_uidefinition(uidef, '', item)
@@ -536,12 +548,12 @@ class WidgetsTreeEditor(object):
             self.counter[classname] += 1
             start_id = self._generate_id(classname, self.counter[classname])
             is_unique = self._is_unique_id('', start_id)
-        
+
         return start_id
 
     def paste_from_clipboard(self):
         self.filter_remove(remember=True)
-        
+
         tree = self.treeview
         selected_item = ''
         selection = tree.selection()
@@ -549,7 +561,7 @@ class WidgetsTreeEditor(object):
             selected_item = selection[0]
         try:
             text = tree.selection_get(selection='CLIPBOARD')
-            
+
             uidef = self.new_uidefinition()
             uidef.load_from_string(text)
             for wmeta in uidef.widgets():
@@ -561,7 +573,7 @@ class WidgetsTreeEditor(object):
             logger.error(msg)
         except tk.TclError:
             pass
-        
+
         if selected_item == '':
             # redraw all
             children = tree.get_children('')
@@ -569,19 +581,18 @@ class WidgetsTreeEditor(object):
                 self.draw_widget(child)
         else:
             self.draw_widget(selected_item)
-            
-        
+
         self.filter_restore()
 
     def update_layout(self, root, data):
         '''Removes layout info from element, when copied from clipboard.'''
-        
+
         cmanager = self.get_children_manager(root)
         cmanager = cmanager if cmanager is not None else self.default_layout_manager
         emanager = data.manager
         if emanager != 'place' and cmanager != emanager:
             data.manager = cmanager
-    
+
     def add_widget(self, wclass):
         """Adds a new item to the treeview."""
 
@@ -617,20 +628,21 @@ class WidgetsTreeEditor(object):
         parent = None
         if root:
             parent = self.treedata[root]
-        manager = self.default_layout_manager # << DEFAULT LAYOUT MANAGER
+        manager = self.default_layout_manager  # << DEFAULT LAYOUT MANAGER
         if parent is not None:
             cmanager = self.get_children_manager(root)
             manager = cmanager if cmanager else manager
-            
+
         widget_id = self.get_unique_id(wclass)
-        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(wclass, widget_id)
+        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(
+            wclass, widget_id)
         data = WidgetMeta(wclass, widget_id, manager, pdefaults, ldefaults)
-        
+
         # Recalculate position if manager is grid
         if manager == 'grid':
             rownum = '0'
             if root:
-                rownum = str(self.get_max_row(root)+1)
+                rownum = str(self.get_max_row(root) + 1)
             data.layout_property('row', rownum)
             data.layout_property('column', '0')
 
@@ -655,7 +667,7 @@ class WidgetsTreeEditor(object):
     def load_file(self, filename):
         """Load file into treeview"""
 
-        self.counter.clear()      
+        self.counter.clear()
         uidef = UIDefinition(wmetaclass=WidgetMeta)
         uidef.load_file(filename)
 
@@ -666,8 +678,8 @@ class WidgetsTreeEditor(object):
         dirname = os.path.dirname(os.path.abspath(filename))
         self.previewer.resource_paths.append(dirname)
         for widget in uidef.widgets():
-            self.populate_tree('', uidef, widget,from_file=True)
-        
+            self.populate_tree('', uidef, widget, from_file=True)
+
         children = self.treeview.get_children('')
         for child in children:
             self.draw_widget(child)
@@ -730,10 +742,10 @@ class WidgetsTreeEditor(object):
 
     def update_event(self, hint, obj):
         """Updates tree colums when itemdata is changed."""
-        
+
         if not self._listen_object_updates:
             return
-        
+
         tree = self.treeview
         data = obj
         item = self.get_item_by_data(obj)
@@ -760,7 +772,7 @@ class WidgetsTreeEditor(object):
                 skey = key
                 break
         return skey
-    
+
     def on_item_nav_up(self, event=None):
         '''Move selection to prev item'''
         tree = self.treeview
@@ -776,7 +788,7 @@ class WidgetsTreeEditor(object):
                 prev = tree.parent(item)
             if prev:
                 tree.selection_set(prev)
-    
+
     def on_item_nav_down(self, event=None):
         '''Move selection to next item'''
         tree = self.treeview
@@ -798,7 +810,7 @@ class WidgetsTreeEditor(object):
                 next_ = tree.next(parent)
             if next_:
                 tree.selection_set(next_)
-    
+
     def on_item_move_up(self, event):
         tree = self.treeview
         sel = tree.selection()
@@ -844,7 +856,7 @@ class WidgetsTreeEditor(object):
             self.filter_remove(remember=True)
             for item in selection:
                 data = self.treedata[item]
-                
+
                 if data.manager != 'grid':
                     break
 
@@ -986,7 +998,7 @@ class WidgetsTreeEditor(object):
     #
     # End Filter functions
     #
-    
+
     def get_topwidget_list(self):
         wlist = []
         children = self.treeview.get_children('')
@@ -996,13 +1008,13 @@ class WidgetsTreeEditor(object):
             element = (item, label)
             wlist.append(element)
         return wlist
-    
+
     def get_widget_class(self, item):
         return self.treedata[item].classname
-    
+
     def get_widget_id(self, item):
         return self.treedata[item].identifier
-    
+
     def select_by_id(self, widget_id):
         found = None
         for item, data in self.treedata.items():
@@ -1016,10 +1028,8 @@ class WidgetsTreeEditor(object):
             tree.after_idle(lambda: tree.selection_set(found))
             tree.after_idle(lambda: tree.focus(found))
             tree.after_idle(lambda: tree.see(found))
-    
+
     def is_id_unique(self, idvalue):
         "Check if idvalue is unique in all UI tree."
         # Used in ID validation
         return self._is_unique_id('', idvalue)
-    
-

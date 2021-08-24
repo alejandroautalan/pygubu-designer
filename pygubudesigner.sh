@@ -1,4 +1,16 @@
 #!/bin/sh
+<<comment
+tree  -L 1
+.
+├── pygubu
+├── pygubu-designer
+└── venv
+comment
+
+# Use virtualenv 'venv' if exists
+if [[ -f "../venv/bin/activate" ]];then
+    source ../venv/bin/activate
+fi
 
 install_r(){
     pip3 install -U -r requirements.txt
@@ -9,6 +21,11 @@ auto_sort_pep8(){
     isort ./pygubudesigner/
     autopep8 -i -a -a -r  ./setup.py
     autopep8 -i -a -a -r  ./pygubudesigner/
+
+    isort ../pygubu/setup.py
+    isort ../pygubu/pygubu/
+    autopep8 -i -a -a -r  ../pygubu/setup.py
+    autopep8 -i -a -a -r  ../pygubu/pygubu/
 }
 
 _xgettext(){
@@ -25,15 +42,51 @@ _xgettext(){
 
 }
 
-ir(){
-    install_r; 
+_msgfmt(){
+    for _po in $(find ./pygubudesigner/locale -name "*.po"); do
+        msgfmt -o ${_po/.po/.mo}  $_po
+    done
 }
-p8(){ 
-    auto_sort_pep8; 
+
+_build(){
+    _msgfmt # compile .po files
+    cd ../pygubu
+    rm -rf ./pygubu/dist ./pygubu/build/
+    python3 setup.py sdist bdist_wheel
+    
+    cd ../pygubu-designer
+    rm -rf ./pygubudesigner/dist ./pygubudesigner/build/
+    cp -r ../pygubu/dist/ .
+    python3 setup.py sdist bdist_wheel
 }
-po(){
-    _xgettext;
+
+build_and_serve(){
+    _build
+    cd dist
+    python3 -m http.server 8080
+    cd ..
 }
+build_and_upload(){
+    _build
+    twine upload dist/*
+}
+_install(){
+    pip3 install ./dist/*.whl
+}
+
+build_and_install(){
+    _build
+    _install
+}
+
+ir(){   install_r; }
+p8(){   auto_sort_pep8; }
+po(){   _xgettext;}
+msgf(){ _msgfmt;}
+_b(){   _build;}
+bs(){   build_and_serve;}
+bup(){  build_and_upload;}
+bi(){   build_and_install;}
 
 
 $1

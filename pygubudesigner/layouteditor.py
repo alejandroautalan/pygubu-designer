@@ -14,25 +14,27 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
+
 import logging
 
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
     from tkinter import messagebox
-except:
+except BaseException:
     import Tkinter as tk
     import ttk
     import tkMessageBox as messagebox
 
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
-from pygubudesigner.widgets.propertyeditor import (create_editor,
-    LayoutManagerPropertyEditor)
+
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.propertieseditor import PropertiesEditor
+from pygubudesigner.widgets.propertyeditor import (LayoutManagerPropertyEditor,
+                                                   create_editor)
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
@@ -45,7 +47,7 @@ class LayoutEditor(PropertiesEditor):
 
     def _create_properties(self):
         """Populate a frame with a list of all editable properties"""
-        
+
         # Layout selector
         self._fselector = fm = ttk.Frame(self._sframe.innerframe)
         label = ttk.Label(fm, text='Manager:')
@@ -56,7 +58,7 @@ class LayoutEditor(PropertiesEditor):
         combo.bind('<<PropertyChanged>>', self._layout_manager_changed)
         self._allowed_managers = self.managers.keys()
         fm.grid(row=0, sticky='w')
-        
+
         # Layout Options editors
         self._rcbag = {}  # bag for row/column prop editors
         # main options frame
@@ -83,15 +85,15 @@ class LayoutEditor(PropertiesEditor):
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
                 label.tooltip = create_tooltip(label, '?')
                 widget = self._create_editor(self._fprop, name, kwdata)
-                widget.grid(row=row, column=col+1, sticky=tk.EW, pady=2)
+                widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
                 row += 1
-                self._propbag[gcode+name] = (label, widget)
+                self._propbag[gcode + name] = (label, widget)
 
         # Grid row properties
         self._fgr_label = _("Grid row '{0}' options:")
         self._fgr = fgr = ttk.LabelFrame(self._sframe.innerframe,
-                                        text=self._fgr_label,
-                                        padding=5)
+                                         text=self._fgr_label,
+                                         padding=5)
         fgr.grid(row=2, column=0, sticky=tk.NSEW, pady='10 0')
         name_format = 'row_{0}'  # row_{name}
         row = 0
@@ -103,18 +105,18 @@ class LayoutEditor(PropertiesEditor):
             label = ttk.Label(fgr, text=labeltext, anchor=tk.W)
             label.grid(row=row, column=0, sticky=tk.EW, pady=2)
             label.tooltip = create_tooltip(label, '?')
-            
+
             widget = self._create_editor(fgr, alias, kwdata)
             widget.grid(row=row, column=1, sticky=tk.EW, pady=2)
             self._rcbag[alias] = (label, widget)
             row = row + 1
         fgr.columnconfigure(1, weight=1)
-        
+
         # Grid column properties
         self._fgc_label = _("Grid column '{0}' options:")
         self._fgc = fgc = ttk.LabelFrame(self._sframe.innerframe,
-                                           text=self._fgc_label,
-                                           padding=5)
+                                         text=self._fgc_label,
+                                         padding=5)
         fgc.grid(row=3, column=0, sticky=tk.NSEW, pady='10 0')
         name_format = 'col_{0}'  # row_{name}
         row = 0
@@ -126,14 +128,13 @@ class LayoutEditor(PropertiesEditor):
             label = ttk.Label(fgc, text=labeltext, anchor=tk.W)
             label.grid(row=row, column=0, sticky=tk.EW, pady=2)
             label.tooltip = create_tooltip(label, '?')
-            
+
             widget = self._create_editor(fgc, alias, kwdata)
             widget.grid(row=row, column=1, sticky=tk.EW, pady=2)
             self._rcbag[alias] = (label, widget)
             row = row + 1
         fgc.columnconfigure(1, weight=1)
 
-    
     def edit(self, wdescr, manager_options):
         self._current = wdescr
 
@@ -154,15 +155,15 @@ class LayoutEditor(PropertiesEditor):
             manager_prop = properties.PACK_PROPERTIES
         elif manager == 'place':
             manager_prop = properties.PLACE_PROPERTIES
-        
+
         if show_layout:
             self._allowed_managers = manager_options
             self.layout_selector.edit(manager)
             self.layout_selector.pack()
         else:
             self.layout_selector.pack_forget()
-        
-        #layout properties
+
+        # layout properties
         groups = (
             ('00', properties.MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
         )
@@ -189,7 +190,7 @@ class LayoutEditor(PropertiesEditor):
             self._fgr.config(text=label)
             label = self._fgc_label.format(colnum)
             self._fgc.config(text=label)
-            
+
             target = self._current
             for key in self._rcbag:
                 rowcol, name = self.identify_gridrc_property(key)
@@ -210,19 +211,24 @@ class LayoutEditor(PropertiesEditor):
         if self._current is None:
             # I'm not editing anything
             return
-        
+
         old_manager = self._current.manager
         new_manager = self.layout_selector.value
         needs_container_change = (new_manager not in self._allowed_managers)
-        
+
         if needs_container_change:
             self.layout_selector.edit(old_manager)
-            cb = lambda f=old_manager,t=new_manager: self._ask_manager_change(f, t)
+
+            def cb(
+                f=old_manager,
+                t=new_manager): return self._ask_manager_change(
+                f,
+                t)
             self._fselector.after_idle(cb)
         else:
             self._current.manager = new_manager
             self.edit(self._current, self._allowed_managers)
-    
+
     def _ask_manager_change(self, old_manager, new_manager):
         title = _('Change Manager')
         msg = _('Change manager from {0} to {1}?')
@@ -236,7 +242,7 @@ class LayoutEditor(PropertiesEditor):
             togrid = '<<LayoutEditorContainerManagerToGrid>>'
             event_name = togrid if new_manager == 'grid' else topack
             self._fselector.event_generate(event_name)
-    
+
     def _on_property_changed(self, name, editor):
         value = editor.value
         if name in properties.MANAGER_PROPERTIES:
@@ -271,7 +277,15 @@ class LayoutEditor(PropertiesEditor):
             value = default
         editor.edit(value)
 
-    def update_rc_editor(self, type_, index, label, editor, wdescr, pname, propdescr):
+    def update_rc_editor(
+            self,
+            type_,
+            index,
+            label,
+            editor,
+            wdescr,
+            pname,
+            propdescr):
         pdescr = propdescr.copy()
         classname = wdescr.classname
 
@@ -295,5 +309,3 @@ class LayoutEditor(PropertiesEditor):
         self._fprop.grid_remove()
         self._fgr.grid_remove()
         self._fgc.grid_remove()
-        
-

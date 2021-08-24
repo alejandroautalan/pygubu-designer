@@ -17,15 +17,18 @@
 # For further info, check  http://pygubu.web.here
 
 from __future__ import unicode_literals
+
 import re
+
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except BaseException:
     import Tkinter as tk
     import ttk
 
-from pygubudesigner.widgets.compoundpropertyeditor import CompoundPropertyEditor
+from pygubudesigner.widgets.compoundpropertyeditor import \
+    CompoundPropertyEditor
 
 DIMENSION = r'[1-9]\d*[cimp]?'
 DIMENSION_RE = re.compile(DIMENSION)
@@ -63,7 +66,6 @@ class SizeEntry(CompoundPropertyEditor):
         w.bind('<KeyPress>', self._on_keypress)
         self.set_mode()
 
-
     def set_mode(self, mode=''):
         self._mode = mode
         if mode == '':
@@ -72,7 +74,6 @@ class SizeEntry(CompoundPropertyEditor):
         if mode == 'whsize':
             self._dentry.grid_remove()
             self._whframe.grid()
-
 
     def _on_entry_changed(self, event=None):
         if self._mode == '':
@@ -127,7 +128,7 @@ if __name__ == '__main__':
     entry = DimensionEntry(root, textvariable=var)
     entry.grid()
     entry.configure(textvariable=var)
-    #entry.set_mode('whsize')
+    # entry.set_mode('whsize')
     var.set('100|70')
 
     btn = ttk.Button(root, text='Value', command=see_var)

@@ -1,30 +1,33 @@
 # encoding: UTF-8
 import os
+
 import pygubu
+
 from pygubudesigner.i18n import translator
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-ASK_SAVE_CHANGES_DIALOG_UI = os.path.join(FILE_PATH, 'ui', 'ask_save_changes_dialog.ui')
+ASK_SAVE_CHANGES_DIALOG_UI = os.path.join(
+    FILE_PATH, 'ui', 'ask_save_changes_dialog.ui')
 
 
 class AskSaveChangesDialog:
     CANCEL = 0
     SAVE = 1
     DONTSAVE = 3
-    
+
     def __init__(self, master):
         self.master = master
         self.builder = builder = pygubu.Builder(translator)
-        #builder.add_resource_path(PROJECT_PATH)
+        # builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(ASK_SAVE_CHANGES_DIALOG_UI)
         self.dialog = builder.get_object('ask_save_changes_dialog', master)
         self.lbl_message = builder.get_object('lbl_message')
         self.lbl_detail = builder.get_object('lbl_detail')
         self.btn_save = builder.get_object('btn_save')
         builder.connect_callbacks(self)
-        
+
         self.user_choice = None
-    
+
     def on_dontsave(self):
         self.user_choice = self.DONTSAVE
         self.dialog.close()
@@ -65,4 +68,3 @@ if __name__ == '__main__':
     root = tk.Tk()
     app = AskSaveChangesDialog(root)
     app.run()
-

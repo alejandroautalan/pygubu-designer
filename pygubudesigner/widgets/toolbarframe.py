@@ -1,7 +1,7 @@
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except BaseException:
     import Tkinter as tk
     import ttk
 
@@ -9,7 +9,7 @@ except:
 class ToolbarFrame(ttk.Frame):
     BTN_LEFT_STYLE = 'BtnLeft.ToolbarFrame.Toolbutton'
     BTN_RIGHT_STYLE = 'btnRight.ToolbarFrame.Toolbutton'
-    
+
     def __init__(self, master=None, **kw):
         ttk.Frame.__init__(self, master, **kw)
         #btonbar = ttk.Frame(master)
@@ -28,7 +28,7 @@ class ToolbarFrame(ttk.Frame):
         bsleft.configure(command=self.scroll_left)
         bsright = ttk.Button(fcontrols)
         bsright.config(text='>', width='1', takefocus=True,
-                      style=self.BTN_RIGHT_STYLE)
+                       style=self.BTN_RIGHT_STYLE)
         bsright.pack(expand='true', fill='y', side='left')
         bsright.configure(command=self.scroll_right)
         fcontrols.config(height='50', width='50')
@@ -36,7 +36,7 @@ class ToolbarFrame(ttk.Frame):
         #btonbar.config(height='50', width='320')
         #btonbar.pack(expand='true', fill='x', side='top')
         self.config(height='200', width='20')
-        
+
         self.controls_visible = True
         self.controls_required = False
         self._scrollRecurse = 0
@@ -48,21 +48,21 @@ class ToolbarFrame(ttk.Frame):
         self.SCROLL_INCREMENT = 50
         fvport.bind('<Configure>', self._reposition)
         fcontent.bind('<Configure>', self._reposition)
-    
+
     def child_master(self):
         return self.fcontent
-    
+
     def toggle_controls(self):
         self.controls_visible = not self.controls_visible
         if self.controls_visible:
             self.fcontrols.pack(side='left', fill='y')
         else:
             self.fcontrols.pack_forget()
-    
+
     def reposition(self):
         if self.timer is None:
             self.timer = self.after_idle(self._reposition)
-    
+
     def _reposition(self, event):
         self.timer = None
 
@@ -74,7 +74,7 @@ class ToolbarFrame(ttk.Frame):
         self._scrollRecurse = self._scrollRecurse - 1
         if self._scrollRecurse != 0:
             return
-        
+
         fcw = self.fcontent.winfo_reqwidth()
         #fch = self.fcontent.winfo_reqheight()
         fctlw = self.fcontrols.winfo_reqwidth()
@@ -83,11 +83,11 @@ class ToolbarFrame(ttk.Frame):
         #myh = self.winfo_height()
         vpw = self.fvport.winfo_width()
         #vph = self.fvport.winfo_height()
-        
-        self.SCROLL_INCREMENT = vpw//3
+
+        self.SCROLL_INCREMENT = vpw // 3
         hole = myw - fctlw
         diff = hole - fcw
-        
+
         if diff < 0:
             # requires controls
             self.controls_required = True
@@ -97,7 +97,7 @@ class ToolbarFrame(ttk.Frame):
             if self.fcstart != 0:
                 self.fcstart = 0
                 self.fcontent.place(x=self.fcstart)
-        
+
         if self.controls_required != self.controls_visible:
             self.toggle_controls()
 
@@ -121,5 +121,3 @@ if __name__ == '__main__':
     widget = ToolbarFrame(root)
     widget.pack(expand=True, fill='both')
     root.mainloop()
-
-

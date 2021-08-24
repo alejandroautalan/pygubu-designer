@@ -15,25 +15,27 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
+
+import json
 import keyword
 import re
-import json
 
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except BaseException:
     import Tkinter as tk
     import ttk
 
 from pygubu.builder.builderobject import CB_TYPES
+
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import *
 
 
 class CommandPropertyBase(PropertyEditor):
     RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
-    
+
     def is_safe_identifier(self, value):
         is_valid = True
         if keyword.iskeyword(value):
@@ -45,13 +47,13 @@ class CommandPropertyBase(PropertyEditor):
 
 class SimpleCommandEntry(CommandPropertyBase):
     cmd_type = CB_TYPES.SIMPLE
-    
+
     def _create_ui(self):
         self._cbname = w = EntryPropertyEditor(self)
         w.grid(row=0, column=0, sticky='nswe', columnspan=2)
         w.bind('<<PropertyChanged>>', self._on_variable_changed)
         self.columnconfigure(0, weight=1)
-    
+
     def _set_value(self, value):
         """Save value on storage"""
         cbname = ''
@@ -60,7 +62,7 @@ class SimpleCommandEntry(CommandPropertyBase):
             cbname = vd['value']
         self._cbname.edit(cbname)
         self._variable.set(value)
-    
+
     def _get_value(self):
         value = ''
         if len(self._cbname.value) != 0:
@@ -71,7 +73,7 @@ class SimpleCommandEntry(CommandPropertyBase):
             }
             value = json.dumps(cmd)
         return value
-        
+
     def _validate(self):
         is_valid = True
         value = self._cbname.value
@@ -100,13 +102,13 @@ register_editor('scalecommandentry', ScaleCommandEntry)
 
 
 class CommandPropertyEditor(CommandPropertyBase):
-    
+
     def _create_ui(self):
         self._lbl_callback = _('Callback:')
         self._plabel = w = ttk.Label(self, text=self._lbl_callback,
                                      font='TkSmallCaptionFont')
         w.grid(row=0, column=0, sticky='nswe')
-        
+
         self._cbname = w = EntryPropertyEditor(self)
         w.grid(row=0, column=1, sticky='nswe')
         w.bind('<<PropertyChanged>>', self._on_variable_changed)
@@ -123,7 +125,7 @@ class CommandPropertyEditor(CommandPropertyBase):
         w.bind('<<PropertyChanged>>', self._on_variable_changed)
         w.grid(row=1, column=1, sticky='nswe')
         self.columnconfigure(1, weight=1)
-    
+
     def _set_value(self, value):
         """Save value on storage"""
         cbname = ''
@@ -135,7 +137,7 @@ class CommandPropertyEditor(CommandPropertyBase):
         self._cbname.edit(cbname)
         self._cmdtype.edit(cbtype)
         self._variable.set(value)
-    
+
     def _get_value(self):
         value = ''
         if len(self._cbname.value) != 0:
@@ -146,7 +148,7 @@ class CommandPropertyEditor(CommandPropertyBase):
             }
             value = json.dumps(cmd)
         return value
-        
+
     def _validate(self):
         is_valid = True
         value = self._cbname.value
@@ -159,17 +161,16 @@ class CommandPropertyEditor(CommandPropertyBase):
 register_editor('commandentry', CommandPropertyEditor)
 
 
-
 if __name__ == '__main__':
     root = tk.Tk()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
     editor = CommandPropertyEditor(root)
     editor.grid(sticky='nsew')
-    
+
     def change_cb(self, event=None):
         print('change cb')
-    
+
     editor.bind('<<PropertyChanged>>', change_cb)
     value = '{"value":"mycb", "cbtype": "simple"}'
     editor.edit(value)

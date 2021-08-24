@@ -15,9 +15,10 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
+
 try:
     import tkinter.ttk as ttk
-except:
+except BaseException:
     import ttk
 
 from pygubudesigner.widgets.propertyeditor import *
@@ -32,7 +33,7 @@ class WHPropertyEditor(PropertyEditor):
         self._weditor = w = EntryPropertyEditor(self)
         w.grid(row=0, column=1, sticky='we')
         w.parameters(width=4)
-        
+
         self._wlabel = w = ttk.Label(self, text='h:',
                                      font='TkSmallCaptionFont')
         w.grid(row=0, column=2)
@@ -61,7 +62,7 @@ class WHPropertyEditor(PropertyEditor):
         else:
             self._weditor.edit('')
             self._heditor.edit('')
-    
+
     def _validate(self):
         isvalid = False
         w = self._weditor.value
@@ -76,5 +77,6 @@ class WHPropertyEditor(PropertyEditor):
                 pass
         self.show_invalid(not isvalid)
         return isvalid
+
 
 register_editor('whentry', WHPropertyEditor)
