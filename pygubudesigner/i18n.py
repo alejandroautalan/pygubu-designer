@@ -22,7 +22,7 @@ first_mo_path = os.path.join(LOCALE_DIR, 'de', 'LC_MESSAGES', 'pygubu.mo')
 
 if not os.path.exists(first_mo_path):
     print(
-        'You should compile the .po files in the pygubudesigner/locale' +
+        'You should compile the .po files in the pygubudesigner/locale ' +
         'directory first if you are a developer, otherwise give us feedback here:' +
         'https://github.com/alejandroautalan/pygubu-designer/issues')
     sys.exit(0)
