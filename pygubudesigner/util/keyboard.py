@@ -16,8 +16,9 @@
 
 
 from __future__ import unicode_literals
-import sys
+
 import os
+import sys
 from collections import namedtuple
 
 #
@@ -50,7 +51,7 @@ class Key:
 def key_bind(key, callback):
     '''Key Event decorator.
     Run callback if key of event match'''
-    
+
     def key_event_manager(event):
         if osnt or oslinux:
             if event.keycode == key.code:
@@ -60,6 +61,6 @@ def key_bind(key, callback):
             #
             # Default match with keysym
             if event.keysym == key.sym:
-                callback(event)    
-    
+                callback(event)
+
     return key_event_manager

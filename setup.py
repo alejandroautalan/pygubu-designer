@@ -8,19 +8,21 @@ Needed packages to run (using Debian/Ubuntu package names):
     python3-tk
 """
 from __future__ import print_function
-import sys
+
 import os
-import shutil
 import platform
+import shutil
+import sys
+
 import pygubudesigner
 
 VERSION = pygubudesigner.__version__
 PYGUBU_VERSION = pygubudesigner.__pygubu_minimal_version__
 
 try:
-    from setuptools.command.install import install
     from setuptools import setup
-except:
+    from setuptools.command.install import install
+except BaseException:
     from distutils.command.install import install
     from distutils.core import setup
 
@@ -49,7 +51,7 @@ class CustomInstall(install):
 
 
 long_description = \
-"""
+    """
 Welcome to pygubu a GUI designer for tkinter
 ============================================
 
@@ -78,8 +80,8 @@ path and execute:
 Usage
 -----
 
-Create an UI definition using pygubu and save it to a file. Then, 
-create your aplication script as shown below. Note that 'mainwindow' 
+Create an UI definition using pygubu and save it to a file. Then,
+create your aplication script as shown below. Note that 'mainwindow'
 is the name of your Toplevel widget.
 
 ::
@@ -87,21 +89,21 @@ is the name of your Toplevel widget.
     # helloworld.py
     import tkinter as tk
     import pygubu
-    
-    
+
+
     class HelloWorldApp:
-        
+
         def __init__(self):
-    
+
             #1: Create a builder
             self.builder = builder = pygubu.Builder()
-    
+
             #2: Load an ui file
             builder.add_from_file('helloworld.ui')
-    
+
             #3: Create the mainwindow
             self.mainwindow = builder.get_object('mainwindow')
-            
+
         def run(self):
             self.mainwindow.mainloop()
 
@@ -134,7 +136,7 @@ setup(
             'ui/*.ui',
             'locale/*/*/*.mo',
             'template/*.mako',
-            ],
+        ],
     },
     entry_points={
         'gui_scripts': [

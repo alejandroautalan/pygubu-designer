@@ -1,6 +1,7 @@
-import os, sys
-import locale
 import gettext
+import locale
+import os
+import sys
 
 # Change this variable to your app name!
 #  The translation files will be under
@@ -12,7 +13,7 @@ APP_NAME = "pygubu"
 #
 
 project_basedir = os.path.abspath(
-        os.path.join(os.path.dirname(__file__)))
+    os.path.join(os.path.dirname(__file__)))
 
 APP_DIR = project_basedir
 LOCALE_DIR = os.path.join(APP_DIR, 'locale')
@@ -44,9 +45,9 @@ gettext.install(True)
 gettext.bindtextdomain(APP_NAME, mo_location)
 gettext.textdomain(APP_NAME)
 language = gettext.translation(APP_NAME,
-                            mo_location,
-                            languages = languages,
-                            fallback = True)
+                               mo_location,
+                               languages=languages,
+                               fallback=True)
 
 translator = language.gettext
 

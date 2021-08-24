@@ -1,32 +1,31 @@
 # encoding: utf-8
+import pygubu
+import logging
 import os
 import sys
-import logging
+
 from pygubudesigner.util import get_ttk_style
 
 try:
     import tkinter as tk
-    from tkinter import ttk
-    from tkinter import filedialog
-    from tkinter import messagebox
-except:
-    import Tkinter as tk
-    import ttk
-    import tkMessageBox as messagebox
+    from tkinter import filedialog, messagebox, ttk
+except BaseException:
     import tkFileDialog as filedialog
+    import Tkinter as tk
+    import tkMessageBox as messagebox
+    import ttk
 try:
     import ConfigParser as configparser
-except:
+except BaseException:
     import configparser
 
 has_appdir = False
 try:
     from appdirs import AppDirs
     has_appdir = True
-except:
+except BaseException:
     pass
 
-import pygubu
 
 logger = logging.getLogger(__name__)
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -37,21 +36,21 @@ if has_appdir:
 logger.info('Using configfile: %s', CONFIG_FILE)
 
 options = {
-    'widget_set': {'values': '["tk", "ttk"]', 'default':'ttk'},
+    'widget_set': {'values': '["tk", "ttk"]', 'default': 'ttk'},
     'ttk_theme': {'default': 'default'},
-    'default_layout_manager': {'values': '["pack", "grid", "place"]', 'default':'pack'},
+    'default_layout_manager': {'values': '["pack", "grid", "place"]', 'default': 'pack'},
     'geometry': {
         'default': '640x480',
-        },
+    },
     'widget_naming_separator': {
         'values': '["NONE", "UNDERSCORE"]',
         'default': 'NONE',
-        },
+    },
     'widget_naming_ufletter': {
         'values': '["yes", "no"]',
         'default': 'no',
-        },
-    }
+    },
+}
 
 SEC_GENERAL = 'GENERAL'
 SEC_CUSTOM_WIDGETS = 'CUSTOM_WIDGETS'
@@ -69,21 +68,23 @@ def initialize_configfile():
         with open(CONFIG_FILE, 'w') as configfile:
             config.write(configfile)
 
+
 def save_configfile():
     with open(CONFIG_FILE, 'w') as configfile:
         config.write(configfile)
+
 
 def load_configfile():
     defaults = {}
     for k in options:
         defaults[k] = options[k]['default']
-    if sys.version_info < (3,0):
-        #Python 2.7
+    if sys.version_info < (3, 0):
+        # Python 2.7
         keys = defaults.keys()
         for i in range(0, len(defaults)):
             config.set(SEC_GENERAL, keys[i], defaults.get(keys[i]))
     else:
-        #Python 3
+        # Python 3
         config[SEC_GENERAL] = defaults
     if not os.path.exists(CONFIG_FILE):
         initialize_configfile()
@@ -92,33 +93,40 @@ def load_configfile():
             config.read(CONFIG_FILE)
         except configparser.MissingSectionHeaderError as e:
             logger.exception(e)
-            msg = _("Configuration file at '{0}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(CONFIG_FILE))
+            msg = _("Configuration file at '{0}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(
+                CONFIG_FILE))
             messagebox.showerror(_('Error'), msg)
         except configparser.Error as e:
             logger.exception(e)
-            msg = _("Faild to parse config file at '{0}', program may not work as expected.".format(CONFIG_FILE))
+            msg = _("Faild to parse config file at '{0}', program may not work as expected.".format(
+                CONFIG_FILE))
             msg = msg.format(CONFIG_FILE)
             messagebox.showerror(_('Error'), msg)
+
 
 def get_custom_widgets():
     paths = []
     for k, p in config.items(SEC_CUSTOM_WIDGETS):
         paths.append(p)
     return paths
-    
+
+
 def get_option(key):
     return config.get(SEC_GENERAL, key)
+
 
 def set_option(key, value, save=False):
     config.set(SEC_GENERAL, key, value)
     if save:
         save_configfile()
 
+
 def recent_files_get():
     rf = []
     for k, f in config.items(SEC_RECENT_FILES):
         rf.append(f)
     return rf
+
 
 def recent_files_save(file_list):
     config.remove_section(SEC_RECENT_FILES)
@@ -127,11 +135,14 @@ def recent_files_save(file_list):
         config.set(SEC_RECENT_FILES, 'f{0}'.format(j), p)
     save_configfile()
 
+
 def save_window_size(geom):
     set_option('geometry', geom, save=True)
 
+
 def get_window_size():
     return get_option('geometry')
+
 
 # Get user configuration
 load_configfile()
@@ -154,7 +165,7 @@ class PreferencesUI(object):
 
         top = self.master.winfo_toplevel()
         self.dialog = dialog = builder.get_object('preferences', top)
-        
+
         # setup theme values
         s = get_ttk_style()
         styles = s.theme_names()
@@ -164,25 +175,26 @@ class PreferencesUI(object):
         themelist.sort()
         cbox = builder.get_object('cbox_ttk_theme')
         cbox.configure(values=themelist)
-        
-        #General
+
+        # General
         for key in ('widget_set',):
             cbox = builder.get_object(key)
             cbox.configure(values=options[key]['values'])
-            
+
         # Preferred layout manager
         cbox_layout_manager = builder.get_object('cbox_layout_manager')
-        cbox_layout_manager.configure(values=options['default_layout_manager']['values'])
-        
-        #Custom widgets
+        cbox_layout_manager.configure(
+            values=options['default_layout_manager']['values'])
+
+        # Custom widgets
         self.cwtv = builder.get_object('cwtv')
         self.path_remove = builder.get_object('path_remove')
         builder.connect_callbacks(self)
-        
+
         # hide options
         fhide = builder.get_object('fhidden')
         fhide.pack_forget()
-        
+
     def _load_options(self):
         # General
         for key in options:
@@ -215,7 +227,7 @@ class PreferencesUI(object):
             self.path_remove.configure(state='normal')
         else:
             self.path_remove.configure(state='disabled')
-        
+
     def on_dialog_close(self, event=None):
         self._save_options()
         self.dialog.close()
@@ -233,4 +245,3 @@ class PreferencesUI(object):
         if fname:
             self.cwtv.insert('', tk.END, text=fname)
             self._configure_path_remove()
-        

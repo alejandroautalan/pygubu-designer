@@ -16,23 +16,26 @@
 #
 # For further info, check  http://pygubu.web.here
 from __future__ import unicode_literals
+
 import logging
 
 from pygubu.builder import CLASS_MAP
-from pygubu.builder.widgetmeta import WidgetMeta as WidgetMetaBase, BindingMeta
+from pygubu.builder.widgetmeta import BindingMeta
+from pygubu.builder.widgetmeta import WidgetMeta as WidgetMetaBase
+
+from .properties import (GRID_PROPERTIES, LAYOUT_OPTIONS, PACK_PROPERTIES,
+                         PLACE_PROPERTIES, WIDGET_PROPERTIES)
 from .util.observable import Observable
-from .properties import (WIDGET_PROPERTIES, PACK_PROPERTIES, PLACE_PROPERTIES,
-                         GRID_PROPERTIES, LAYOUT_OPTIONS)
 
 logger = logging.getLogger(__name__)
 
 
 class WidgetMeta(WidgetMetaBase, Observable):
-    
+
     def apply_layout_defaults(self):
         super(WidgetMeta, self).apply_layout_defaults()
         self.notify('LAYOUT_CHANGED', self)
-        
+
     def widget_property(self, name, value=None):
         if value is None:
             if name == 'id':
@@ -54,7 +57,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
                     # remove if no value set
                     self.properties.pop(name, None)
             self.notify('PROPERTY_CHANGED', self)
-    
+
     def layout_property(self, name, value=None):
         if value is None:
             # Getter
@@ -70,7 +73,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 # remove if no value set
                 self.layout_properties.pop(name, None)
             self.notify('LAYOUT_CHANGED', self)
-    
+
     def gridrc_property(self, type_, num, pname, value=None):
         if value is None:
             # Getter
@@ -85,11 +88,10 @@ class WidgetMeta(WidgetMetaBase, Observable):
             self.set_gridrc_value(type_, num, pname, value)
             self.notify('LAYOUT_GRIDRC_CHANGED', self)
 
-    
     @property
     def manager(self):
         return self._manager
-    
+
     @manager.setter
     def manager(self, value):
         if self._manager != value:
@@ -112,17 +114,17 @@ class WidgetMeta(WidgetMetaBase, Observable):
     def remove_unused_grid_rc(self):
         """Deletes unused grid row/cols"""
         pass
-    
+
     def setup_defaults(self):
         propd, layoutd = WidgetMeta.get_widget_defaults(self, self.identifier)
         self.properties_defaults = propd
         self.layout_defaults = layoutd
-    
+
     @staticmethod
     def get_widget_defaults(wclass, widget_id):
         properties = {}
         layout = {}
-        
+
         if wclass in CLASS_MAP:
             # setup default values for properties
             for pname in CLASS_MAP[wclass].builder.properties:
@@ -137,7 +139,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 # default text for widgets with text prop:
                 if pname in ('text', 'label'):
                     properties[pname] = widget_id
-        
+
         # setup default values for layout
         groups = (
             ('pack', PACK_PROPERTIES),
@@ -155,4 +157,3 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 if default_value:
                     layout[manager][pname] = default_value
         return properties, layout
-

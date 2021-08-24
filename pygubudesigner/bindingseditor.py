@@ -15,10 +15,11 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
+
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except BaseException:
     import Tkinter as tk
     import ttk
 
@@ -49,13 +50,13 @@ class BindingsEditor:
         self.hide_all()
 
     def _on_add_clicked(self, event):
-#        print('_on_add_clicked')
+        #        print('_on_add_clicked')
         sel = self.tv.selection()
         if sel:
             item = sel[0]
             if item == self._adder and self._allow_edit:
                 self._add_binding(('<1>', 'callback', ''))
-                
+
                 # A new binding was added (with default values).
                 # Notify the designer that the project has been
                 # modified and needs to be saved.
@@ -82,9 +83,9 @@ class BindingsEditor:
                     values = self.tv.item(item, 'values')
 #                    print(item, 'values = ', values)
                     self._curr_data.add_binding(*values[:3])
-                    
+
             # Notify the editor that a change has occurred and the project needs saving.
-            # Changed: August 17, 2021        
+            # Changed: August 17, 2021
             self._curr_data.notify(self)
 
     def _add_binding(self, bind):
@@ -98,13 +99,13 @@ class BindingsEditor:
         self._curr_data = wdescr
         self._curr_bo = CLASS_MAP[wclass].builder
         self._seq_cbox.config(values=self._curr_bo.virtual_events)
-        
+
         self._allow_edit = self._curr_bo.allow_bindings
         if self._allow_edit:
             self._parent.pack(fill='both', expand='True')
         else:
             self._parent.pack_forget()
-        
+
         for bind in wdescr.bindings:
             self._add_binding(bind)
 
@@ -120,7 +121,7 @@ class BindingsEditor:
                 self.tv.inplace_checkbutton(col, item, offvalue='')
             elif col == 'actions':
                 self.tv.inplace_custom(col, item, self._del_btn)
-    
+
     def hide_all(self):
         self._parent.pack_forget()
 

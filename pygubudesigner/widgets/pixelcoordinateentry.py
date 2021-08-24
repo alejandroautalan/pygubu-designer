@@ -1,23 +1,26 @@
 from __future__ import unicode_literals
+
 import re
+
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except BaseException:
     import Tkinter as tk
     import ttk
 
-from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
+from pygubudesigner.widgets.propertyeditor import (PropertyEditor,
+                                                   register_editor)
 
 
 class PixelCoordinatePropertyEditor(PropertyEditor):
     def _create_ui(self):
         self.entry = entry = ttk.Entry(self, textvariable=self._variable)
         self.entry.pack(side='top', expand=True, fill='both')
-        
+
         entry.bind('<FocusOut>', self._on_variable_changed)
         entry.bind('<KeyPress>', self._on_keypress)
-    
+
     def _validate(self):
         is_valid = False
         value = self._get_value()
@@ -32,6 +35,7 @@ class PixelCoordinatePropertyEditor(PropertyEditor):
                 pass
         self.show_invalid(not is_valid)
         return is_valid
+
 
 register_editor('pixelcoordinateentry', PixelCoordinatePropertyEditor)
 

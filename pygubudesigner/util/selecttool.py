@@ -17,9 +17,10 @@
 # For further info, check  http://pygubu.web.here
 
 from __future__ import unicode_literals
+
 try:
     import tkinter as tk
-except:
+except BaseException:
     import Tkinter as tk
 
 
@@ -27,7 +28,7 @@ class SelectTool(object):
     def __init__(self, canvas):
         self._canvas = canvas
         self._canvas.region_selected = None
-        #variables para el manejo de seleccion
+        # variables para el manejo de seleccion
         self._selecting = False
         self._sobject = None
         self._sstart = None
@@ -42,7 +43,7 @@ class SelectTool(object):
     def motion_handler(self, event):
         if self._selecting:
             self._keep_selecting(event)
-        
+
     def release_handler(self, event):
         if self._selecting:
             self._keep_selecting(event)
@@ -58,7 +59,7 @@ class SelectTool(object):
         if not self._sobject:
             self._sobject = canvas.create_rectangle(
                 self._sstart[0], self._sstart[1], x, y,
-                dash=(3,5), outline='#0000ff'
+                dash=(3, 5), outline='#0000ff'
             )
         canvas.itemconfigure(self._sobject, state=tk.NORMAL)
 
@@ -80,11 +81,10 @@ class SelectTool(object):
         canvas = self._canvas
         x = canvas.canvasx(event.x)
         y = canvas.canvasy(event.y)
-        
+
         canvas.coords(self._sobject, -1, -1, -1, -1)
         canvas.itemconfigure(self._sobject, state=tk.HIDDEN)
 
         sel_region = self._sstart[0], self._sstart[1], x, y
         canvas.region_selected = sel_region
         canvas.event_generate('<<RegionSelected>>')
-

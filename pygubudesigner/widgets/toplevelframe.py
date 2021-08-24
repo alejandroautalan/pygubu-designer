@@ -18,7 +18,7 @@
 
 try:
     import tkinter as tk
-except:
+except BaseException:
     import Tkinter as tk
 
 from pygubu.builder.builderobject import *
@@ -55,7 +55,7 @@ class ToplevelFramePreview(tk.Frame):
                 if resizable and not TKToplevel.RESIZABLE[resizable][0]:
                     remove = True
             if remove:
-#                print('rm', key, value)
+                #                print('rm', key, value)
                 cnf.pop(key)
             else:
                 self._w_set = True
@@ -75,7 +75,7 @@ class ToplevelFramePreview(tk.Frame):
                 if resizable and not TKToplevel.RESIZABLE[resizable][1]:
                     remove = True
             if remove:
-#                print('rm', key, value)
+                #                print('rm', key, value)
                 cnf.pop(key)
             else:
                 self._h_set = True
@@ -83,14 +83,14 @@ class ToplevelFramePreview(tk.Frame):
         if key in cnf:
             # No menu preview available
             cnf.pop(key)
-        
+
         return tk.Frame.configure(self, cnf)
 
 
 class ToplevelFramePreviewBO(BuilderObject):
     class_ = ToplevelFramePreview
     container = True
-    #Add fake 'modal' property for Dialog preview
+    # Add fake 'modal' property for Dialog preview
     properties = TKToplevel.properties + ('modal',)
     ro_properties = TKToplevel.ro_properties
 

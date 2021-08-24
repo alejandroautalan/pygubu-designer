@@ -20,13 +20,13 @@ class LogPanelManager(object):
 
     def pwindow_configure(self, event):
         self.mainpw_sash_pos = None
-        
+
     def update_sash(self, action='show'):
         pwh = self.mainpw.winfo_height()
         gch = self.bpanel.winfo_reqheight()
         gbh = self.gbuttons.winfo_height()
-        newpos = pwh-gch
-        hidden_pos = pwh - (gbh+5)
+        newpos = pwh - gch
+        hidden_pos = pwh - (gbh + 5)
         if action == 'show':
             if self.mainpw_sash_pos is not None:
                 if self.mainpw_sash_pos > hidden_pos:
@@ -36,9 +36,9 @@ class LogPanelManager(object):
             newpos = hidden_pos
             self.mainpw_sash_pos = self.mainpw.sashpos(0)
         self.mainpw.sashpos(0, newpos)
-        
+
     def on_bpanel_button_clicked(self):
-        #print(self.pwindow.sashpos(0))
+        # print(self.pwindow.sashpos(0))
         value = self.buttonsvar.get()
         if value == 'messages':
             self.unread = 0
@@ -47,23 +47,23 @@ class LogPanelManager(object):
             self.gcontainer.after_idle(self.update_sash)
         else:
             self.gcontainer.after_idle(
-                lambda x='hide':self.update_sash(x))
+                lambda x='hide': self.update_sash(x))
             self.gcontainer.pack_forget()
-    
+
     def _log_set_text(self, text):
         tktext = self.txt_log
         tktext.config(state='normal')
         tktext.delete('0.0', 'end')
         tktext.insert('0.0', text)
         tktext.config(state='disabled')
-    
+
     def _log_add_text(self, text):
         tktext = self.txt_log
         tktext.config(state='normal')
-        tktext.insert('end', text+'\n')
+        tktext.insert('end', text + '\n')
         tktext.config(state='disabled')
         tktext.see('end')
-    
+
     def log_message(self, msg, level):
         if self.buttonsvar.get() != 'messages':
             self.unread = self.unread + 1

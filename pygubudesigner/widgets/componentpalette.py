@@ -1,10 +1,12 @@
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except BaseException:
     import Tkinter as tk
     import ttk
+
 import pygubu.widgets.simpletooltip as tooltip
+
 from .toolbarframe import ToolbarFrame
 
 
@@ -34,16 +36,16 @@ class ComponentPalette(ttk.Frame):
         fbntab.pack(side='left', expand=True, fill='x')
         component_pallete.config(height='200', padding='2', width='200')
         component_pallete.pack(side='top', expand=True, fill='x')
-        
+
         self._tabs = {}
         self._buttons = []
-        
+
     def _on_tk_clicked(self):
         self.show_group('tk')
-        
+
     def _on_ttk_clicked(self):
         self.show_group('ttk')
-    
+
     def add_tab(self, tabid, label):
         #frame_1 = ttk.Frame(self.notebook)
         frame_1 = ToolbarFrame(self.notebook)
@@ -51,17 +53,17 @@ class ComponentPalette(ttk.Frame):
         frame_1.pack(expand='true', fill='both', side='top')
         self.notebook.add(frame_1, text=label)
         self._tabs[tabid] = frame_1
-    
+
     def add_button(self, tabid, group, label, ttiplabel, image, callback):
         master = self._tabs[tabid].child_master()
         #master = self._tabs[tabid]
         b = ttk.Button(master, text=label, image=image,
-                           style='ComponentPalette.Toolbutton', command=callback,
-                           compound='top', takefocus=True)
+                       style='ComponentPalette.Toolbutton', command=callback,
+                       compound='top', takefocus=True)
         tooltip.create(b, ttiplabel)
         b.pack(side='left')
         self._buttons.append((b, group))
-    
+
     def show_group(self, group):
         for b, g in self._buttons:
             if g == group:
@@ -76,5 +78,3 @@ if __name__ == '__main__':
     widget = ComponentPallete(root)
     widget.pack(expand=True, fill='both')
     root.mainloop()
-
-

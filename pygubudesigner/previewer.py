@@ -17,22 +17,25 @@
 # For further info, check  http://pygubu.web.here
 
 from __future__ import unicode_literals
-from collections import OrderedDict
+
+import logging
+import re
 import sys
 import xml.etree.ElementTree as ET
-import re
-import logging
+from collections import OrderedDict
 
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except BaseException:
     import Tkinter as tk
     import ttk
 
 import pygubu
-import pygubudesigner.actions as actions
 from pygubu.stockimage import StockImage
+
+import pygubudesigner.actions as actions
+
 from .widgetdescr import WidgetMeta
 from .widgets.toplevelframe import ToplevelFramePreview
 
@@ -42,7 +45,8 @@ except NameError:
     basestring = str
 
 logger = logging.getLogger(__name__)
-RE_FONT = re.compile("(?P<family>\{\w+(\w|\s)*\}|\w+)\s?(?P<size>-?\d+)?\s?(?P<modifiers>\{\w+(\w|\s)*\}|\w+)?")
+RE_FONT = re.compile(
+    "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?")
 
 
 class BuilderForPreview(pygubu.Builder):
@@ -50,13 +54,13 @@ class BuilderForPreview(pygubu.Builder):
                      'ttk.Panedwindow', 'ttk.Notebook',
                      'ttk.Panedwindow.Pane', 'ttk.Notebook.Tab',
                      'pygubudesigner.ToplevelFramePreview']
-    
+
     def _pre_realize(self, bobject):
         super(BuilderForPreview, self)._pre_realize(bobject)
         wmeta = bobject.wmeta
         cname = wmeta.classname
         #print('In _pre_process_data', cname)
-        
+
         #  Do not resize main window when
         #  Sizegrip is dragged on preview panel.
         if cname == 'ttk.Sizegrip':
@@ -64,7 +68,7 @@ class BuilderForPreview(pygubu.Builder):
         if cname not in self.normalwidgets:
             if 'class_' in bobject.properties:
                 wmeta.properties['class_'] = 'PreviewWidget'
-    
+
     def _post_realize(self, bobject):
         #print('In postProcess', bobject.wmeta.classname)
         cname = bobject.wmeta.classname
@@ -72,13 +76,13 @@ class BuilderForPreview(pygubu.Builder):
             if cname.startswith('tk.Menuitem'):
                 return
             self.make_previewonly(bobject.widget)
-    
+
     def make_previewonly(self, w):
         '''Make widget just display with no functionality.'''
         for child in w.winfo_children():
             self._crop_widget(child)
         self._crop_widget(w)
-    
+
     def _crop_widget(self, w):
         '''Remove standard widget functionality.'''
         wclass = w.winfo_class()
@@ -87,7 +91,7 @@ class BuilderForPreview(pygubu.Builder):
             bindtags = list(bindtags)
             bindtags.remove(wclass)
             w.bindtags(bindtags)
-    
+
     def get_widget_id(self, widget):
         wid = None
         for key, o in self.objects.items():
@@ -95,10 +99,10 @@ class BuilderForPreview(pygubu.Builder):
                 wid = key
                 break
         return wid
-    
+
     def show_selected(self, select_id):
         self._show_notebook_tabs(select_id)
-    
+
     def _show_notebook_tabs(self, select_id):
         xpath = ".//object[@class='ttk.Notebook.Tab']"
         xpath = xpath.format(select_id)
@@ -120,7 +124,6 @@ class BuilderForPreview(pygubu.Builder):
                     current_tab = self.objects[child_id].widget
                     notebook.select(current_tab)
                     #print(select_id, ' inside', tab_id, 'child', child_id)
-                    
 
 
 class Preview(object):
@@ -149,7 +152,7 @@ class Preview(object):
 
     def height(self):
         return self.h + self.resizer_h
-        
+
     def _create_builder(self):
         b = BuilderForPreview()
         for p in self._resource_paths:
@@ -264,7 +267,7 @@ class Preview(object):
 
     def get_widget_by_id(self, widget_id):
         return self.builder.get_object(widget_id)
-    
+
     def show_selected(self, select_id):
         self.builder.show_selected(select_id)
 
@@ -446,7 +449,7 @@ class ToplevelPreview(Preview):
         #newroot.widget_property('width', '200')
         newroot.layout_property('expand', 'true')
         newroot.layout_property('fill', 'both')
-        
+
         uidefinition.replace_widget(widget_id, newroot)
         # end add behaviour
 
@@ -469,7 +472,6 @@ class DialogPreview(ToplevelPreview):
                                                          uidefinition)
         top.run()
         return top
-
 
 
 class PreviewHelper:
@@ -495,14 +497,14 @@ class PreviewHelper:
         canvas.bind('<4>', lambda event: canvas.yview('scroll', -1, 'units'))
         canvas.bind('<5>', lambda event: canvas.yview('scroll', 1, 'units'))
         self._create_indicators()
-        
+
         s = ttk.Style()
         s.configure('PreviewFrame.TFrame', background='lightgreen')
-        
+
         self.selected_widget = None
         canvas.bind_all(actions.PREVIEW_TOPLEVEL_CLOSE_ALL,
-                    lambda e: self.close_toplevel_previews())
-    
+                        lambda e: self.close_toplevel_previews())
+
     def add_resource_path(self, path):
         self.resource_paths.append(path)
 
@@ -624,14 +626,14 @@ class PreviewHelper:
         preview.update(widget_id, uidefinition)
         self.reset_selected(identifier)
         self.move_previews()
-        
+
         if True:
             # we are allways recreating full preview.
             # create callback and bind widgets
             def callback(event, self=self, previewid=identifier):
                 self.preview_click_handler(previewid, event)
             widget = preview.root_widget
-            self.bind_preview_widget(widget, callback)            
+            self.bind_preview_widget(widget, callback)
 
     def _create_indicators(self):
         # selected indicators
@@ -718,15 +720,15 @@ class PreviewHelper:
         for top in self.toplevel_previews:
             top.destroy()
         self.toplevel_previews = []
-    
+
     def preview_click_handler(self, preview_id, event=None):
         preview = self.previews[preview_id]
         wid = preview.builder.get_widget_id(event.widget)
         if wid is not None:
             self.selected_widget = wid
             self.canvas.event_generate('<<PreviewItemSelected>>')
-            self.canvas.focus_set() # add focus to canvas
-    
+            self.canvas.focus_set()  # add focus to canvas
+
     def bind_preview_widget(self, widget, callback):
         widget.bind('<Button-1>', callback)
         for w in widget.winfo_children():

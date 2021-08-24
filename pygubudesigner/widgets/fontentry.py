@@ -16,22 +16,25 @@
 
 from __future__ import unicode_literals
 
-import sys
 import re
+import sys
+
 try:
     import tkinter as tk
-    import tkinter.ttk as ttk
     import tkinter.font
-except:
+    import tkinter.ttk as ttk
+except BaseException:
+    import tkFont
     import Tkinter as tk
     import ttk
-    import tkFont
     tk.font = tkFont
 
 from pygubu.stockimage import StockImage, StockImageException
+
 from pygubudesigner.widgets.propertyeditor import *
 
-RE_FONT = re.compile("(?P<family>\{\w+(\w|\s)*\}|\w+)\s?(?P<size>-?\d+)?\s?(?P<modifiers>\{\w+(\w|\s)*\}|\w+)?")
+RE_FONT = re.compile(
+    "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?")
 
 PREDEFINED_FONTS = [
     'TkDefaultFont', 'TkTextFont', 'TkFixedFont',
@@ -40,7 +43,7 @@ PREDEFINED_FONTS = [
 WIN_FONTS = (
     'system', 'ansi', 'device', 'systemfixed', 'ansifixed', 'oemfixed')
 MAC_FONTS = (
-    'system','application','menu',
+    'system', 'application', 'menu',
     'systemSystemFont', 'systemEmphasizedSystemFont', 'systemSmallSystemFont',
     'systemSmallEmphasizedSystemFont', 'systemApplicationFont',
     'systemLabelFont', 'systemViewsFont', 'systemMenuTitleFont',
@@ -133,7 +136,7 @@ class FontPropertyEditor(PropertyEditor):
                 value = tkformat.format(name, size, modifiers)
         else:
             self._clear_editors()
-            
+
         return value
 
     def _set_value(self, value):
@@ -144,11 +147,11 @@ class FontPropertyEditor(PropertyEditor):
         s = RE_FONT.search(value)
         if s:
             g = s.groupdict()
-            family = g['family'].replace('{', '').replace('}','')
+            family = g['family'].replace('{', '').replace('}', '')
             size = g['size']
             modifiers = g['modifiers']
-            if  modifiers is not None:
-                modifiers = modifiers.replace('{', '').replace('}','')
+            if modifiers is not None:
+                modifiers = modifiers.replace('{', '').replace('}', '')
             else:
                 modifiers = ''
         self._name.edit(family)
@@ -172,7 +175,7 @@ class FontPropertyEditor(PropertyEditor):
         self._on_fontname_changed()
 
     def _on_fontname_changed(self, event=None):
-#        print('_on_fontname_changed', event, self._name.value)
+        #        print('_on_fontname_changed', event, self._name.value)
         if self._name.value in PREDEFINED_FONTS:
             self._optionsframe.grid_remove()
         else:
@@ -215,11 +218,11 @@ if __name__ == '__main__':
     btn.grid(row=0, column=1)
     lbl = ttk.Label(root, text='Lorem ipsum dolor sit amet.')
     lbl.grid(row=1, column=0)
-    
+
     def font_cb(event=None):
         font = editor.value.split('|')
         lbl.configure(font=font)
-    
+
     editor.bind('<<PropertyChanged>>', font_cb)
 
     root.mainloop()
