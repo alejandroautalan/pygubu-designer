@@ -60,7 +60,18 @@ class WidgetsTreeEditor(object):
         self.previewer = app.previewer
         self.treedata = {}
         self.counter = Counter()
-        self.default_layout_manager = 'pack' # TODO: set from configuration
+
+        # Get the default layout manager based on the user's configuration.
+        self.__preferred_layout_manager_var = tk.StringVar()
+        current_default_layout = pref.get_option('default_layout_manager')
+        if not current_default_layout:
+            self.__preferred_layout_manager_var.set("pack")
+        else:
+            self.__preferred_layout_manager_var.set(current_default_layout)
+            
+        # Set the default layout manager
+        self.default_layout_manager = self.__preferred_layout_manager_var.get()
+        
         # Filter vars
         self.filter_on = False
         self.filtervar = app.builder.get_variable('filtervar')

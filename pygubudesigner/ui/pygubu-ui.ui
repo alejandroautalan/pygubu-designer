@@ -354,7 +354,7 @@
                                             <property name="column_anchor">w</property>
                                             <property name="heading_anchor">w</property>
                                             <property name="minwidth">200</property>
-                                            <property name="stretch">false</property>
+                                            <property name="stretch">true</property>
                                             <property name="text" translatable="yes">Widget Id</property>
                                             <property name="tree_column">True</property>
                                             <property name="visible">True</property>
