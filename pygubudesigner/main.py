@@ -505,7 +505,10 @@ class PygubuDesigner(object):
         # Setup ttk theme if changed
         theme = pref.get_option('ttk_theme')
         self._change_ttk_theme(theme)
-
+        
+        # Get the preferred default layout manager, in case it has changed.
+        self.tree_editor.default_layout_manager = pref.get_option('default_layout_manager')
+    
     def ask_save_changes(self, message, detail=None, title=None):
         do_continue = False
         if title is None:
