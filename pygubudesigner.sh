@@ -89,7 +89,6 @@ build_and_serve(){
 build_and_upload(){
     _build
     twine upload dist/*
-    twine upload ../pygubu/dist/*
 }
 
 _install(){
