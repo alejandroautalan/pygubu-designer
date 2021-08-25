@@ -151,7 +151,7 @@ setup(
         'install': CustomInstall,
     },
     install_requires=[
-        i.replace('\n', '') for i in open(product_txt_path, 'r')
+        i.strip('\n') for i in open(product_txt_path, 'r').readlines()
         if not i.startswith('#') and len(i.strip()) > 0
     ],
     classifiers=[
