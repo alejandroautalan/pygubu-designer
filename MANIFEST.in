@@ -10,5 +10,6 @@ global-exclude *.po
 recursive-include pygubudesigner/images *
 recursive-include pygubudesigner/template *
 recursive-include examples *
+recursive-include requirements product.txt
 
 global-exclude *~

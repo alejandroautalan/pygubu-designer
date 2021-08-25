@@ -16,19 +16,19 @@ fi
 args=("$@") # All parameters from terminal.
 
 install_r(){
-    pip3 install -U -r requirements.txt
+    pip3 install -U -r .requirements/development.txt
 }
 
 auto_sort_pep8(){
-    isort ./setup.py  -v
-    isort ./pygubudesigner/ -v
-    autopep8 -i -a -a -r  ./setup.py -v
-    autopep8 -i -a -a -r  ./pygubudesigner/ -v
+    isort -v ./setup.py
+    isort -v ./pygubudesigner/
+    autopep8 -i -a -a -r -v ./setup.py
+    autopep8 -i -a -a -r -v ./pygubudesigner/
 
-    isort ../pygubu/setup.py -v
-    isort ../pygubu/pygubu/ -v
-    autopep8 -i -a -a -r  ../pygubu/setup.py -v
-    autopep8 -i -a -a -r  ../pygubu/pygubu/ -v
+    isort -v ../pygubu/setup.py
+    isort -v ../pygubu/pygubu/
+    autopep8 -v -i -a -a -r  ../pygubu/setup.py
+    autopep8 -v -i -a -a -r  ../pygubu/pygubu/
 }
 
 auto_sort_pep8_commit(){
@@ -102,7 +102,8 @@ build_and_install(){
 }
 
 _test(){
-    pip3 uninstall pygubu pygubu-designer -y
+    # uninstall all
+    pip3 uninstall pygubu pygubu-designer appdirs Mako -y
     build_and_install
     pygubu-designer
 }

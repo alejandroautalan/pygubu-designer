@@ -17,7 +17,11 @@ import sys
 import pygubudesigner
 
 VERSION = pygubudesigner.__version__
-PYGUBU_VERSION = pygubudesigner.__pygubu_minimal_version__
+
+product_txt_path = os.path.join(
+    os.path.dirname(__file__),
+    'requirements',
+    'product.txt')
 
 try:
     from setuptools import setup
@@ -147,9 +151,9 @@ setup(
         'install': CustomInstall,
     },
     install_requires=[
-        'appdirs>=1.4.3',
-        'Mako>=1.1.4',
-        'pygubu>={0}'.format(PYGUBU_VERSION)],
+        i.replace('\n', '') for i in open(product_txt_path, 'r')
+        if not i.startswith('#') and len(i.strip()) > 0
+    ],
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
