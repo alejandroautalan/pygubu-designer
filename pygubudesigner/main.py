@@ -667,15 +667,15 @@ class PygubuDesigner(object):
         def on_ok_execute():
             dialog.close()
 
-        builder.connect_callbacks({'on_ok_execute': on_ok_execute})
-
-        warranty = builder.get_object('warranty')
-
         def on_warranty_click(e):
             url = 'http://www.gnu.org/licenses/gpl-3.0.html'
             webbrowser.open_new_tab(url)
 
-        builder.connect_callbacks({'on_warranty_clicked': on_warranty_click})
+        dialog_callbacks = {
+            'on_ok_execute': on_ok_execute,
+            'on_warranty_clicked': on_warranty_click
+        }
+        builder.connect_callbacks(dialog_callbacks)
 
         return dialog
 
