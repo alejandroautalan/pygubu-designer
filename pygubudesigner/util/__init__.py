@@ -17,12 +17,13 @@
 # For further info, check  http://pygubu.web.here
 
 from __future__ import unicode_literals
+
 import sys
 
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except ImportError:
     import Tkinter as tk
     import ttk
 
@@ -31,14 +32,14 @@ from pygubu.stockimage import *
 
 # in-place prettyprint formatter
 def indent(elem, level=0):
-    i = "\n" + level*"  "
+    i = "\n" + level * "  "
     if len(elem):
         if not elem.text or not elem.text.strip():
             elem.text = i + "  "
         if not elem.tail or not elem.tail.strip():
             elem.tail = i
         for elem in elem:
-            indent(elem, level+1)
+            indent(elem, level + 1)
         if not elem.tail or not elem.tail.strip():
             elem.tail = i
     else:
@@ -57,29 +58,25 @@ class ArrayVar(tk.Variable):
         for elementvar in self._elementvars:
             del elementvar
 
-
     def __setitem__(self, elementname, value):
         if elementname not in self._elementvars:
             v = ArrayElementVar(varname=self._name,
-            elementname=elementname, master=self._master)
+                                elementname=elementname, master=self._master)
             self._elementvars[elementname] = v
         self._elementvars[elementname].set(value)
-
 
     def __getitem__(self, name):
         if name in self._elementvars:
             return self._elementvars[name].get()
         return None
 
-
     def __call__(self, elementname):
         '''Create a new StringVar as an element in the array'''
         if elementname not in self._elementvars:
             v = ArrayElementVar(varname=self._name, elementname=elementname,
-                master=self._master)
+                                master=self._master)
             self._elementvars[elementname] = v
         return self._elementvars[elementname]
-
 
     def set(self, dictvalue):
         # this establishes the variable as an array
@@ -89,9 +86,8 @@ class ArrayVar(tk.Variable):
         for (k, v) in dictvalue.items():
             self._tk.call("array", "set", self._name, k, v)
 
-    #python 3.3 hack
+    # python 3.3 hack
     initialize = set
-
 
     def get(self):
         '''Return a dictionary that represents the Tcl array'''
@@ -106,7 +102,7 @@ class ArrayElementVar(tk.StringVar):
 
     def __init__(self, varname, elementname, master):
         name = "%s(%s)" % (varname, elementname)
-        #python2 hack
+        # python2 hack
         if sys.version_info[0] < 3:
             if isinstance(name, unicode):
                 name = name.encode('UTF-8')
@@ -125,6 +121,7 @@ def treeview_print(tree, root=''):
 
 class BraceMessage:
     '''Helper class to use braces {} in log messages'''
+
     def __init__(self, fmt, *args, **kwargs):
         self.fmt = fmt
         self.args = args
@@ -140,11 +137,12 @@ trlog = BraceMessage
 
 def virtual_event(event_name):
     '''Generate virtual event event_name'''
-    
+
     def virtual_event_gen(event):
         event.widget.event_generate(event_name)
-    
+
     return virtual_event_gen
+
 
 def menu_iter_children(menu):
     '''Iterates all menu items (including submenus).
@@ -152,7 +150,7 @@ def menu_iter_children(menu):
     count = menu.index(tk.END)
     if count is not None:
         cascades = []
-        for i in range(0, count+1):
+        for i in range(0, count + 1):
             itemtype = menu.type(i)
             if itemtype == 'cascade':
                 cascade = menu.nametowidget(menu.entrycget(i, 'menu'))
@@ -162,7 +160,9 @@ def menu_iter_children(menu):
             for child in menu_iter_children(m):
                 yield child
 
+
 __style = None
+
 
 def get_ttk_style():
     '''Use ttkthemes if module is installed
@@ -172,6 +172,6 @@ def get_ttk_style():
         try:
             from ttkthemes.themed_style import ThemedStyle
             __style = ThemedStyle()
-        except:
+        except BaseException:
             __style = ttk.Style()
     return __style

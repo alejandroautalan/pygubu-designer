@@ -29,12 +29,12 @@ import re
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except ImportError:
     import Tkinter as tk
     import ttk
 
-from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 from pygubu.widgets.combobox import Combobox
+from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 
 EDITORS = {}
 KEY_PRESS_CB_MILISECONDS = 500
@@ -51,29 +51,31 @@ def create_editor(name, *args, **kw):
 
 class PropertyEditor(ttk.Frame):
     style_initialized = False
-    
+
     def __init__(self, master=None, **kw):
         self._variable = tk.StringVar()
         self._initvalue = None
-        self._cbid = None # callback id
+        self._cbid = None  # callback id
         self.value = ''
         ttk.Frame.__init__(self, master, **kw)
-        
+
         if not PropertyEditor.style_initialized:
             s = ttk.Style()
             s.configure('PropertyEditorInvalid.TFrame', background='red')
         self.configure(borderwidth=2)
         self._create_ui()
-        
+
     def _on_keypress(self, event=None):
         if self._cbid is not None:
             self.after_cancel(self._cbid)
-        self._cbid = self.after(KEY_PRESS_CB_MILISECONDS, self._on_keypress_after)
-    
+        self._cbid = self.after(
+            KEY_PRESS_CB_MILISECONDS,
+            self._on_keypress_after)
+
     def _on_keypress_after(self, event=None):
         self._on_variable_changed(event)
         self._cbid = None
-        
+
     def show_invalid(self, invalid=True):
         if invalid:
             self.configure(style='PropertyEditorInvalid.TFrame')
@@ -104,7 +106,7 @@ class PropertyEditor(ttk.Frame):
 
     def _after_change(self):
         pass
-    
+
     def parameters(self, **kw):
         pass
 
@@ -139,14 +141,14 @@ class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
 
 class IdentifierPropertyEditor(EntryPropertyEditor, object):
     RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
-    
+
     def __init__(self, master=None, **kw):
         self.is_unique_cb = kw.pop('unique_cb', None)
         super(IdentifierPropertyEditor, self).__init__(master, **kw)
-    
+
     def set_unique_cb(self, callback):
         self.is_unique_cb = callback
-    
+
     def _validate(self):
         is_valid = True
         value = self._get_value()
@@ -259,7 +261,7 @@ class NaturalNumberEditor(EntryPropertyEditor):
                 number = int(value)
                 if number >= 0:
                     valid = True
-            except:
+            except BaseException:
                 pass
         self.show_invalid(not valid)
         return valid
@@ -274,7 +276,7 @@ class IntegerNumberEditor(EntryPropertyEditor):
             try:
                 int(value)
                 valid = True
-            except:
+            except BaseException:
                 pass
         self.show_invalid(not valid)
         return valid
@@ -289,15 +291,15 @@ class RealNumberEditor(EntryPropertyEditor):
             try:
                 float(value)
                 valid = True
-            except:
+            except BaseException:
                 pass
         self.show_invalid(not valid)
         return valid
 
 
 class GeometryPropertyEditor(ChoicePropertyEditor):
-    RE_GEOMETRY = re.compile('\d+x\d+$')
-    
+    RE_GEOMETRY = re.compile('\\d+x\\d+$')
+
     def _validate(self):
         is_valid = True
         value = self._get_value()
@@ -310,7 +312,7 @@ class GeometryPropertyEditor(ChoicePropertyEditor):
 
 class LayoutManagerPropertyEditor(ChoicePropertyEditor):
     """Special Internal Manager property editor"""
-    
+
     def _create_ui(self):
         self._cb_pending = False
         self._combobox = combobox = Combobox(self, keyvariable=self._variable)
@@ -334,7 +336,6 @@ register_editor('naturalnumber', NaturalNumberEditor)
 register_editor('integernumber', IntegerNumberEditor)
 register_editor('realnumber', RealNumberEditor)
 register_editor('geometryentry', GeometryPropertyEditor)
-
 
 
 if __name__ == '__main__':

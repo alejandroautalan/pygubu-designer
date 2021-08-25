@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 # translator marker
-def _(x):
-    return x
+
+from pygubudesigner.i18n import translator as _
 
 tooltip_help = {
     'class': _('Object class name.'),
@@ -233,6 +233,6 @@ tooltip_help = {
     'uniform-grid': _('When a non-empty value is supplied, places the row in a uniform group with other rows that have the same value for uniform.')
 }
 
+
 def help_for(pname):
     return tooltip_help[pname]
-

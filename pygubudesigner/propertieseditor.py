@@ -15,21 +15,23 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # For further info, check  http://pygubu.web.here
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
+
 import logging
 
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except ImportError:
     import Tkinter as tk
     import ttk
 
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
-from pygubudesigner.widgets.propertyeditor import create_editor
+
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
+from pygubudesigner.widgets.propertyeditor import create_editor
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
@@ -81,10 +83,10 @@ class PropertiesEditor(object):
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
                 label.tooltip = create_tooltip(label, '?')
                 widget = self._create_editor(self._frame, name, kwdata)
-                widget.grid(row=row, column=col+1, sticky=tk.EW, pady=2)
+                widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
                 row += 1
-                self._propbag[gcode+name] = (label, widget)
-                logger.debug('Created property: %s-%s', gname,name)
+                self._propbag[gcode + name] = (label, widget)
+                logger.debug('Created property: %s-%s', gname, name)
                 # add validator for widget id
                 if gcode == '00' and name == 'id':
                     widget.set_unique_cb(self._id_validator)
@@ -93,8 +95,8 @@ class PropertiesEditor(object):
         editor = None
         wtype = wdata.get('editor', None)
 
-        #I don't have class name at this moment
-        #so setup class specific values on update_property_widget
+        # I don't have class name at this moment
+        # so setup class specific values on update_property_widget
         editor = create_editor(wtype, master)
 
         def make_on_change_cb(pname, editor):
@@ -118,7 +120,7 @@ class PropertiesEditor(object):
         params = pdescr.get('params', {})
         editor.parameters(**params)
         default = pdescr.get('default', '')
-        
+
         help = pdescr.get('help', None)
         if isinstance(help, dict):
             for k, v in help.items():
@@ -136,7 +138,7 @@ class PropertiesEditor(object):
         self._current = wdescr
         wclass = wdescr.classname
         class_descr = CLASS_MAP[wclass].builder
-        
+
         # GroupCode, PropertyType, dict, tuple
         groups = (
             ('00', None, properties.WIDGET_REQUIRED_OPTIONS,
@@ -157,7 +159,7 @@ class PropertiesEditor(object):
                     label.grid()
                     widget.grid()
                 else:
-                    #hide property widget
+                    # hide property widget
                     label.grid_remove()
                     widget.grid_remove()
         self._sframe.reposition()

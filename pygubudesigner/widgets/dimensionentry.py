@@ -15,32 +15,34 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
+
 import re
 
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except ImportError:
     import Tkinter as tk
     import ttk
 
 from pygubudesigner.widgets.propertyeditor import *
 
-re_dim = '\d+([cimp])?'
+re_dim = '\\d+([cimp])?'
 regexp = '({0})?$'.format(re_dim)
 RE_DIMENSION = re.compile(regexp)
-regexp = '({0})?$|{0}\s{0}$'.format(re_dim)
+regexp = '({0})?$|{0}\\s{0}$'.format(re_dim)
 RE_TWO_DIMENSION = re.compile(regexp)
-regexp = '({0})?$|{0}\s{0}$|{0}\s{0}\s{0}\s{0}$'.format(re_dim)
+regexp = '({0})?$|{0}\\s{0}$|{0}\\s{0}\\s{0}\\s{0}$'.format(re_dim)
 RE_FOUR_DIMENSION = re.compile(regexp)
 
 
 class DimensionPropertyEditor(EntryPropertyEditor):
     REGEX = RE_DIMENSION
+
     def __init__(self, master=None, **kw):
         self._empty_data = None
         EntryPropertyEditor.__init__(self, master, **kw)
-    
+
     def _validate(self):
         valid = False
         value = self._get_value()
@@ -49,16 +51,16 @@ class DimensionPropertyEditor(EntryPropertyEditor):
             valid = True
         self.show_invalid(not valid)
         return valid
-    
+
     def _get_value(self):
         value = self._variable.get()
-        
+
         if self._empty_data is not None and value == '':
             value = str(self._empty_data)
             self._set_value(value)
-        
+
         return value
-    
+
     def parameters(self, **kw):
         pvalue = kw.pop('empty_data', None)
         self._empty_data = None if pvalue is None else pvalue
@@ -93,15 +95,15 @@ if __name__ == '__main__':
     editor.pack(expand=True, fill='x')
     editor.edit('10m')
     editor.bind('<<PropertyChanged>>', make_on_change_cb(editor))
-    
+
     editor2 = TwoDimensionPropertyEditor(root)
     editor2.pack(expand=True, fill='x')
     editor2.edit('10p 20p')
-    editor2.bind('<<PropertyChanged>>', make_on_change_cb(editor2))    
-    
+    editor2.bind('<<PropertyChanged>>', make_on_change_cb(editor2))
+
     editor2 = FourDimensionPropertyEditor(root)
     editor2.pack(expand=True, fill='x')
     editor2.edit('10p 20p 1m 2m')
-    editor2.bind('<<PropertyChanged>>', make_on_change_cb(editor2))        
+    editor2.bind('<<PropertyChanged>>', make_on_change_cb(editor2))
 
     root.mainloop()

@@ -17,14 +17,15 @@
 # For further info, check  http://pygubu.web.here
 
 from __future__ import unicode_literals
+
 try:
     import tkinter as tk
-    import tkinter.ttk as ttk
     import tkinter.colorchooser
-except:
+    import tkinter.ttk as ttk
+except ImportError:
+    import tkColorChooser
     import Tkinter as tk
     import ttk
-    import tkColorChooser
     tk.colorchooser = tkColorChooser
 
 from pygubudesigner.widgets.propertyeditor import *
@@ -84,11 +85,11 @@ class ColorPropertyEditor(PropertyEditor):
     def edit(self, value):
         PropertyEditor.edit(self, value)
         self._change_color(value)
-    
+
     def _after_change(self):
         # update button color
         self._change_color(self._get_value())
-    
+
     def _validate(self):
         is_valid = True
         value = self._get_value()

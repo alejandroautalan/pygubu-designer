@@ -3,9 +3,12 @@ include LEEME.txt
 include README.md
 include LISEZMOI.md
 include AUTHORS
-recursive-include po *
-recursive-include pygubudesigner/locale *
+
+global-include *.mo
+global-exclude *.po
+
 recursive-include pygubudesigner/images *
 recursive-include pygubudesigner/template *
 recursive-include examples *
+
 global-exclude *~

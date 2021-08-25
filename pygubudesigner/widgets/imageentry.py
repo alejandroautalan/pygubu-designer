@@ -17,20 +17,23 @@
 # For further info, check  http://pygubu.web.here
 
 from __future__ import unicode_literals
+
 import os
+
 try:
     import tkinter as tk
-    import tkinter.ttk as ttk
     import tkinter.filedialog
-except:
+    import tkinter.ttk as ttk
+except ImportError:
+    import tkFileDialog
     import Tkinter as tk
     import ttk
-    import tkFileDialog
     tk.filedialog = tkFileDialog
 
 from pygubu.stockimage import *
-from pygubudesigner.widgets.propertyeditor import *
+
 from pygubudesigner.i18n import translator
+from pygubudesigner.widgets.propertyeditor import *
 
 _ = translator
 
@@ -52,13 +55,13 @@ class ImagePropertyEditor(PropertyEditor):
         self.columnconfigure(0, weight=1)
 
     def _on_button_click(self):
-        ext = [ '*{0}'.format(e) for e in TK_IMAGE_FORMATS]
+        ext = ['*{0}'.format(e) for e in TK_IMAGE_FORMATS]
         options = {
             'filetypes': [
                 (_('Tk image formats'), ' '.join(ext)),
                 (_('All Files'), '*.*')
-                ]
-            }
+            ]
+        }
 
         fname = tk.filedialog.askopenfilename(**options)
         if fname:

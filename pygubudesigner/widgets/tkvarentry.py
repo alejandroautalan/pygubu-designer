@@ -18,12 +18,13 @@
 
 from __future__ import unicode_literals
 
-import re
 import keyword
+import re
+
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except ImportError:
     import Tkinter as tk
     import ttk
 
@@ -60,7 +61,7 @@ class TkVarPropertyEditor(PropertyEditor):
         else:
             self._entry.edit('')
             self._cbox.edit('string')
-    
+
     def _validate(self):
         is_valid = True
         value = self._entry.value

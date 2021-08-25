@@ -15,6 +15,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
+
 from pygubudesigner.widgets.propertyeditor import *
 
 
@@ -65,5 +66,6 @@ class DynamicPropertyEditor(PropertyEditor):
             else:
                 widget.grid_remove()
         self._current = self._editors[mode]
+
 
 register_editor('dynamic', DynamicPropertyEditor)

@@ -15,12 +15,13 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
+
 import re
 
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except:
+except ImportError:
     import Tkinter as tk
     import ttk
 
@@ -29,8 +30,9 @@ from pygubudesigner.widgets.propertyeditor import (ChoicePropertyEditor,
 
 
 class TtkStylePropertyEditor(ChoicePropertyEditor):
-    RE_TTKSTYLECLASS = re.compile('(?i)$|[_A-Za-z](\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$')
-    
+    RE_TTKSTYLECLASS = re.compile(
+        '(?i)$|[_A-Za-z](\\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$')
+
     def _validate(self):
         valid = False
         value = self._get_value()
