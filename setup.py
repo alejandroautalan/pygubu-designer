@@ -69,7 +69,7 @@ setup(
     author='Alejandro Autalán',
     author_email='alejandroautalan@gmail.com',
     description='A tkinter GUI builder.',
-    long_description=open(readme_path, 'r').read(),
+    long_description=open(readme_path, 'r', encoding='utf-8').read(),
     url='https://github.com/alejandroautalan/pygubu-designer',
 
     packages=['pygubudesigner', 'pygubudesigner.util', 'pygubudesigner.widgets'],
