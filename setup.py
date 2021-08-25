@@ -54,6 +54,14 @@ class CustomInstall(install):
                 os.remove(spath)
 
 
+def get_requirements():
+    requirements = [
+        i.strip('\n') for i in open(product_txt_path, 'r').readlines()
+        if not i.startswith('#') and len(i.strip()) > 0
+    ]
+    return requirements
+
+
 setup(
     name='pygubu-designer',
     version=VERSION,
@@ -84,10 +92,7 @@ setup(
     cmdclass={
         'install': CustomInstall,
     },
-    install_requires=[
-        i.strip('\n') for i in open(product_txt_path, 'r').readlines()
-        if not i.startswith('#') and len(i.strip()) > 0
-    ],
+    install_requires=get_requirements(),
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
