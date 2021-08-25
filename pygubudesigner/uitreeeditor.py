@@ -62,7 +62,7 @@ class WidgetsTreeEditor(object):
         self.previewer = app.previewer
         self.treedata = {}
         self.counter = Counter()
-        
+
         # Get the default layout manager based on the user's configuration.
         self.__preferred_layout_manager_var = tk.StringVar()
         current_default_layout = pref.get_option('default_layout_manager')
@@ -70,10 +70,10 @@ class WidgetsTreeEditor(object):
             self.__preferred_layout_manager_var.set("pack")
         else:
             self.__preferred_layout_manager_var.set(current_default_layout)
-            
+
         # Set the default layout manager
         self.default_layout_manager = self.__preferred_layout_manager_var.get()
-        
+
         # Filter vars
         self.filter_on = False
         self.filtervar = app.builder.get_variable('filtervar')
@@ -674,7 +674,7 @@ class WidgetsTreeEditor(object):
         if children:
             self.treeview.delete(*children)
         self.editor_hide_all()
-        self.counter.clear() # Reset the widget counter (August 19, 2021)
+        self.counter.clear()  # Reset the widget counter (August 19, 2021)
 
     def load_file(self, filename):
         """Load file into treeview"""

@@ -27,6 +27,11 @@ auto_sort_pep8(){
     isort ../pygubu/pygubu/
     autopep8 -i -a -a -r  ../pygubu/setup.py
     autopep8 -i -a -a -r  ../pygubu/pygubu/
+
+    cd ../pygubu/
+    git add . ; git commit -m 'sort imports and autopep8'
+    cd ../pygubu-designer/
+    git add . ; git commit -m 'sort imports and autopep8'
 }
 
 _xgettext(){
