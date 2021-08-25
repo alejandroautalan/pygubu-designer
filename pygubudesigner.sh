@@ -13,25 +13,32 @@ if [[ -f "../venv/bin/activate" ]];then
     source ../venv/bin/activate
 fi
 
+args=("$@") # All parameters from terminal.
+
 install_r(){
     pip3 install -U -r requirements.txt
 }
 
 auto_sort_pep8(){
-    isort ./setup.py
-    isort ./pygubudesigner/
-    autopep8 -i -a -a -r  ./setup.py
-    autopep8 -i -a -a -r  ./pygubudesigner/
+    isort ./setup.py  -v
+    isort ./pygubudesigner/ -v
+    autopep8 -i -a -a -r  ./setup.py -v
+    autopep8 -i -a -a -r  ./pygubudesigner/ -v
 
-    isort ../pygubu/setup.py
-    isort ../pygubu/pygubu/
-    autopep8 -i -a -a -r  ../pygubu/setup.py
-    autopep8 -i -a -a -r  ../pygubu/pygubu/
+    isort ../pygubu/setup.py -v
+    isort ../pygubu/pygubu/ -v
+    autopep8 -i -a -a -r  ../pygubu/setup.py -v
+    autopep8 -i -a -a -r  ../pygubu/pygubu/ -v
+}
 
+auto_sort_pep8_commit(){
+    auto_sort_pep8
+
+    git_commit_m='sort imports and autopep8'
     cd ../pygubu/
-    git add . ; git commit -m 'sort imports and autopep8'
+    git add . ; git commit -m "$git_commit_m"
     cd ../pygubu-designer/
-    git add . ; git commit -m 'sort imports and autopep8'
+    git add . ; git commit -m "$git_commit_m"
 }
 
 _xgettext(){
@@ -66,17 +73,25 @@ _build(){
     python3 setup.py sdist bdist_wheel
 }
 
+_serve(){
+    # default port is 8080
+    _port=`[[ -z ${args[1]} ]] && echo "8080" || echo ${args[1]}`
+    python3 -m http.server $_port
+}
+
 build_and_serve(){
     _build
     cd dist
-    python3 -m http.server 8080
+    _serve
     cd ..
 }
+
 build_and_upload(){
     _build
     twine upload dist/*
     twine upload ../pygubu/dist/*
 }
+
 _install(){
     pip3 install ./dist/*.whl
 }
@@ -86,21 +101,22 @@ build_and_install(){
     _install
 }
 
-test(){
+_test(){
     pip3 uninstall pygubu pygubu-designer -y
-    bi
+    build_and_install
     pygubu-designer
 }
 
 ir(){   install_r; }
 p8(){   auto_sort_pep8; }
-po(){   _xgettext;}
-msgf(){ _msgfmt;}
-_b(){   _build;}
-bs(){   build_and_serve;}
-bup(){  build_and_upload;}
-bi(){   build_and_install;}
-ts(){   test;}
-
+p8c(){  auto_sort_pep8_commit; }
+po(){   _xgettext; }
+msgf(){ _msgfmt; }
+_b(){   _build; }
+_s(){   _serve; }
+bs(){   build_and_serve; }
+bup(){  build_and_upload; }
+bi(){   build_and_install; }
+ts(){   _test; }
 
 $1
