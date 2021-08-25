@@ -31,7 +31,7 @@ import webbrowser
 try:
     import tkinter as tk
     from tkinter import filedialog, messagebox, ttk
-except BaseException:
+except ImportError:
     import Tkinter as tk
     import ttk
     import tkMessageBox as messagebox

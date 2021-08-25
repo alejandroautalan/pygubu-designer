@@ -81,6 +81,12 @@ build_and_install(){
     _install
 }
 
+test(){
+    pip3 uninstall pygubu pygubu-designer -y
+    bi
+    pygubu-designer
+}
+
 ir(){   install_r; }
 p8(){   auto_sort_pep8; }
 po(){   _xgettext;}
@@ -89,6 +95,7 @@ _b(){   _build;}
 bs(){   build_and_serve;}
 bup(){  build_and_upload;}
 bi(){   build_and_install;}
+ts(){   test;}
 
 
 $1

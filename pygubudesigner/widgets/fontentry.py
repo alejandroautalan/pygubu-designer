@@ -23,7 +23,7 @@ try:
     import tkinter as tk
     import tkinter.font
     import tkinter.ttk as ttk
-except BaseException:
+except ImportError:
     import tkFont
     import Tkinter as tk
     import ttk

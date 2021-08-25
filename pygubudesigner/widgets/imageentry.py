@@ -24,7 +24,7 @@ try:
     import tkinter as tk
     import tkinter.filedialog
     import tkinter.ttk as ttk
-except BaseException:
+except ImportError:
     import tkFileDialog
     import Tkinter as tk
     import ttk

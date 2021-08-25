@@ -18,7 +18,7 @@ from __future__ import unicode_literals
 
 try:
     import tkinter.ttk as ttk
-except BaseException:
+except ImportError:
     import ttk
 
 from pygubudesigner.widgets.propertyeditor import *

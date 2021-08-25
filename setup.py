@@ -22,7 +22,7 @@ PYGUBU_VERSION = pygubudesigner.__pygubu_minimal_version__
 try:
     from setuptools import setup
     from setuptools.command.install import install
-except BaseException:
+except ImportError:
     from distutils.command.install import install
     from distutils.core import setup
 

@@ -22,7 +22,7 @@ try:
     import tkinter as tk
     import tkinter.ttk as ttk
     from tkinter import messagebox
-except BaseException:
+except ImportError:
     import Tkinter as tk
     import ttk
     import tkMessageBox as messagebox

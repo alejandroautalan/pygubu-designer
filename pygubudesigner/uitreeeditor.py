@@ -24,7 +24,7 @@ from collections import Counter
 try:
     import tkinter as tk
     from tkinter import messagebox
-except BaseException:
+except ImportError:
     import Tkinter as tk
     import tkMessageBox as messagebox
 

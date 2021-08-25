@@ -20,7 +20,7 @@ from __future__ import unicode_literals
 try:
     import tkinter as tk
     import tkinter.ttk as ttk
-except BaseException:
+except ImportError:
     import Tkinter as tk
     import ttk
 

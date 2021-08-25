@@ -22,7 +22,7 @@ try:
     import tkinter as tk
     import tkinter.colorchooser
     import tkinter.ttk as ttk
-except BaseException:
+except ImportError:
     import tkColorChooser
     import Tkinter as tk
     import ttk

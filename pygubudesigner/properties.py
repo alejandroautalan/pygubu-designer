@@ -22,7 +22,7 @@ import platform
 
 try:
     import tkinter as tk
-except BaseException:
+except ImportError:
     import Tkinter as tk
 
 from pygubu.builder import builderobject

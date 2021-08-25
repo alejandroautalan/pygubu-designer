@@ -8,14 +8,14 @@ from pygubudesigner.util import get_ttk_style
 try:
     import tkinter as tk
     from tkinter import filedialog, messagebox, ttk
-except BaseException:
+except ImportError:
     import tkFileDialog as filedialog
     import Tkinter as tk
     import tkMessageBox as messagebox
     import ttk
 try:
     import ConfigParser as configparser
-except BaseException:
+except ImportError:
     import configparser
 
 import pygubu
