@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/alejandroautalan/pygubu-designer.svg?branch=master)](https://travis-ci.org/alejandroautalan/pygubu-designer)
 
 [Leer en Español](LEEME.md)
 

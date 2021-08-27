@@ -3,6 +3,7 @@ include LEEME.txt
 include README.md
 include LISEZMOI.md
 include AUTHORS
+include pygubu-designer.png 
 
 global-include *.mo
 global-exclude *.po
@@ -10,5 +11,6 @@ global-exclude *.po
 recursive-include pygubudesigner/images *
 recursive-include pygubudesigner/template *
 recursive-include examples *
+recursive-include requirements product.txt
 
 global-exclude *~

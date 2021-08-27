@@ -81,6 +81,7 @@
                 <property name="anchor">center</property>
                 <property name="cursor">hand2</property>
                 <property name="font">Sans 8</property>
+                <property name="foreground">#143ee3</property>
                 <property name="padding">0 10 0 0</property>
                 <property name="text" translatable="yes">This program comes with ABSOLUTELY NO WARRANTY
 for details, visit http://www.gnu.org/licenses/gpl-3.0.html</property>
