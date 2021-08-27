@@ -539,12 +539,15 @@ class WidgetsTreeEditor(object):
         return unique
 
     def _generate_id(self, classname, index):
-        class_base_name = classname.split('.')[-1]
-        name = class_base_name
-        name = '{0}{1}'.format(name, index)
+        name = classname.split('.')[-1]
+        
         if pref.get_option('widget_naming_separator') == 'UNDERSCORE':
             name = '{0}_{1}'.format(name, index)
+        else:
+            name = '{0}{1}'.format(name, index)
+
         name = name.lower()
+        
         if pref.get_option('widget_naming_ufletter') == 'yes':
             name = name.capitalize()
         return name
