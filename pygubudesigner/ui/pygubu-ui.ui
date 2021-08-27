@@ -203,13 +203,13 @@
         <child>
           <object class="tk.Menuitem.Command" id="help_online">
             <property name="command" type="command" cbtype="with_wid" args="">on_help_menuitem_clicked</property>
-            <property name="label" translatable="yes">Help (Online)</property>
+            <property name="label" translatable="yes">Pygubu wiki</property>
           </object>
         </child>
         <child>
           <object class="tk.Menuitem.Command" id="help_about">
             <property name="command" type="command" cbtype="with_wid" args="">on_help_menuitem_clicked</property>
-            <property name="label" translatable="yes">About …</property>
+            <property name="label" translatable="yes">About Pygubu</property>
           </object>
         </child>
       </object>
@@ -313,6 +313,7 @@
                                         <layout manager="pack">
                                           <property name="expand">true</property>
                                           <property name="fill">x</property>
+                                          <property name="padx">5</property>
                                           <property name="propagate">True</property>
                                           <property name="side">left</property>
                                         </layout>
@@ -803,7 +804,7 @@
                                               <object class="ttk.Labelframe" id="lfoptions">
                                                 <property name="height">120</property>
                                                 <property name="padding">4</property>
-                                                <property name="text" translatable="yes">Options:</property>
+                                                <property name="text" translatable="yes">Options</property>
                                                 <property name="width">100</property>
                                                 <layout manager="pack">
                                                   <property name="fill">x</property>
@@ -934,6 +935,7 @@
                                                     <property name="command" type="command" cbtype="simple" args="">on_code_generate_clicked</property>
                                                     <property name="text" translatable="yes">Generate</property>
                                                     <layout manager="pack">
+                                                      <property name="pady">5</property>
                                                       <property name="propagate">True</property>
                                                       <property name="side">left</property>
                                                     </layout>
@@ -987,7 +989,9 @@
                                                       <object class="tk.Text" id="txt_code">
                                                         <property name="background">#fcfcfc</property>
                                                         <property name="font">TkFixedFont</property>
+                                                        <property name="foreground">#111111</property>
                                                         <property name="height">10</property>
+                                                        <property name="highlightthickness">0</property>
                                                         <property name="width">50</property>
                                                         <layout manager="grid">
                                                           <property name="column">0</property>
@@ -1016,7 +1020,8 @@
                                                     <property name="command" type="command" cbtype="simple" args="">on_code_copy_clicked</property>
                                                     <property name="text" translatable="yes">Copy to Clipboard</property>
                                                     <layout manager="pack">
-                                                      <property name="padx">0 10</property>
+                                                      <property name="padx">0 5</property>
+                                                      <property name="pady">5</property>
                                                       <property name="propagate">True</property>
                                                       <property name="side">left</property>
                                                     </layout>
@@ -1027,6 +1032,8 @@
                                                     <property name="command" type="command" cbtype="simple" args="">on_code_save_clicked</property>
                                                     <property name="text" translatable="yes">Save</property>
                                                     <layout manager="pack">
+                                                      <property name="padx">5 0</property>
+                                                      <property name="pady">5</property>
                                                       <property name="propagate">True</property>
                                                       <property name="side">left</property>
                                                     </layout>
@@ -1085,7 +1092,9 @@
                               <object class="tk.Text" id="txt_log">
                                 <property name="background">#f8f8f8</property>
                                 <property name="font">TkFixedFont</property>
+                                <property name="foreground">#111111</property>
                                 <property name="height">8</property>
+                                <property name="highlightthickness">0</property>
                                 <property name="state">disabled</property>
                                 <property name="width">50</property>
                                 <layout manager="pack">

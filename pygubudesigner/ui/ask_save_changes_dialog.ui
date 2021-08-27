@@ -23,10 +23,12 @@
             <property name="height">200</property>
             <property name="padding">10 10 10 20</property>
             <property name="width">200</property>
-            <layout manager="pack">
-              <property name="fill">both</property>
+            <layout manager="grid">
+              <property name="column">0</property>
               <property name="propagate">True</property>
-              <property name="side">top</property>
+              <property name="row">0</property>
+              <property name="sticky">nsew</property>
+              <property type="col" id="0" name="weight">1</property>
             </layout>
             <child>
               <object class="ttk.Label" id="labelicon">
@@ -81,11 +83,12 @@
           <object class="ttk.Frame" id="fbuttons">
             <property name="height">200</property>
             <property name="width">200</property>
-            <layout manager="pack">
-              <property name="expand">true</property>
-              <property name="fill">x</property>
+            <layout manager="grid">
+              <property name="column">0</property>
               <property name="propagate">True</property>
-              <property name="side">top</property>
+              <property name="row">1</property>
+              <property name="sticky">nsew</property>
+              <property type="col" id="0" name="weight">1</property>
             </layout>
             <child>
               <object class="ttk.Button" id="btn_dontsave">
@@ -93,11 +96,13 @@
                 <property name="compound">left</property>
                 <property name="image">bin-16</property>
                 <property name="text" translatable="yes">Don't Save</property>
-                <layout manager="pack">
-                  <property name="expand">true</property>
-                  <property name="fill">x</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">0 5</property>
                   <property name="propagate">True</property>
-                  <property name="side">left</property>
+                  <property name="row">0</property>
+                  <property name="sticky">ew</property>
+                  <property type="col" id="0" name="weight">1</property>
                 </layout>
               </object>
             </child>
@@ -107,11 +112,12 @@
                 <property name="compound">left</property>
                 <property name="image">cancel-circle-16</property>
                 <property name="text" translatable="yes">Cancel</property>
-                <layout manager="pack">
-                  <property name="expand">true</property>
-                  <property name="fill">x</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
                   <property name="propagate">True</property>
-                  <property name="side">left</property>
+                  <property name="row">0</property>
+                  <property name="sticky">ew</property>
+                  <property type="col" id="1" name="weight">1</property>
                 </layout>
               </object>
             </child>
@@ -121,11 +127,13 @@
                 <property name="compound">left</property>
                 <property name="image">download3-16</property>
                 <property name="text" translatable="yes">Save</property>
-                <layout manager="pack">
-                  <property name="expand">true</property>
-                  <property name="fill">x</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="padx">5 0</property>
                   <property name="propagate">True</property>
-                  <property name="side">left</property>
+                  <property name="row">0</property>
+                  <property name="sticky">ew</property>
+                  <property type="col" id="2" name="weight">1</property>
                 </layout>
               </object>
             </child>
