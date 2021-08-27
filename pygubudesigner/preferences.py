@@ -187,7 +187,7 @@ class PreferencesUI(object):
 
         # hide options
         fhide = builder.get_object('fhidden')
-        fhide.pack_forget()
+        fhide.grid_forget()
 
     def _load_options(self):
         # General
@@ -224,6 +224,9 @@ class PreferencesUI(object):
 
     def on_dialog_close(self, event=None):
         self._save_options()
+        self.dialog.close()
+
+    def on_cancel(self, event=None):
         self.dialog.close()
 
     def on_pathremove_clicked(self):
