@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-24 19:27+0800\n"
-"PO-Revision-Date: 2021-02-21 22:49-0300\n"
+"PO-Revision-Date: 2021-08-27 20:49-0300\n"
 "Last-Translator: Alejandro Autalán <alejandroautalan@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -111,7 +111,7 @@ msgstr "Constructores Personalizados"
 
 #: pygubudesigner/ui/preferences_dialog.ui:239
 msgid "Requires restart."
-msgstr "Es necesario reiniciar el programa para cargar los nuevos widgets."
+msgstr "Es necesario reiniciar el programa."
 
 #: pygubudesigner/ui/preferences_dialog.ui:273
 msgid "modules"
@@ -228,7 +228,7 @@ msgstr "Cerrar previsualizaciones"
 
 #: pygubudesigner/ui/pygubu-ui.ui:192
 msgid "ttk theme"
-msgstr "Tema ttk"
+msgstr "tema ttk"
 
 #: pygubudesigner/ui/pygubu-ui.ui:200
 msgid "Help"
@@ -340,7 +340,7 @@ msgstr "Nombre de la clase:"
 
 #: pygubudesigner/ui/pygubu-ui.ui:907
 msgid "Import Tk Variables"
-msgstr ""
+msgstr "Importar variables Tk"
 
 #: pygubudesigner/ui/pygubu-ui.ui:935
 msgid "Generate"
@@ -379,13 +379,12 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: pygubudesigner/propertieshelp.py:8
-#, fuzzy
 msgid "Object class name."
-msgstr "Ingrese nombre de la clase"
+msgstr "Ingrese nombre de la clase."
 
 #: pygubudesigner/propertieshelp.py:9
 msgid "Object unique identifier."
-msgstr ""
+msgstr "Identificador único."
 
 #: pygubudesigner/propertieshelp.py:10
 msgid "Specifies a string to display at the right side of the menu entry."
@@ -1154,9 +1153,8 @@ msgid ""
 msgstr ""
 
 #: pygubudesigner/propertieshelp.py:156
-#, fuzzy
 msgid "Specifies the current value of the widget."
-msgstr "El valor nuevo/actual del entry."
+msgstr "El valor nuevo/actual del widget."
 
 #: pygubudesigner/propertieshelp.py:157
 msgid "Specifies the list of values to display in the drop-down listbox."
@@ -1503,9 +1501,9 @@ msgid ""
 msgstr ""
 
 #: pygubudesigner/main.py:83
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Failed to load widget module: '{0}'"
-msgstr "Error al cargar modulo de widget: '%s'"
+msgstr "Error al cargar modulo de widget: '{0}'"
 
 #: pygubudesigner/main.py:84 pygubudesigner/main.py:99
 #: pygubudesigner/main.py:547 pygubudesigner/main.py:584
@@ -1514,9 +1512,9 @@ msgid "Error"
 msgstr "Error"
 
 #: pygubudesigner/main.py:98
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Failed to load custom widget module: '{0}'"
-msgstr "Error al cargar modulo de widget personalizado: '%s'"
+msgstr "Error al cargar modulo de widget personalizado: '{0}'"
 
 #: pygubudesigner/main.py:515
 msgid "If you don't save the document, all the changes will be lost."
@@ -1533,7 +1531,7 @@ msgstr "Proyecto guardado a %s"
 
 #: pygubudesigner/main.py:554 pygubudesigner/main.py:595
 msgid "pygubu ui"
-msgstr "Archivos de pygubu"
+msgstr "archivos de pygubu"
 
 #: pygubudesigner/main.py:554 pygubudesigner/main.py:595
 #: pygubudesigner/scriptgenerator.py:151 pygubudesigner/preferences.py:232
