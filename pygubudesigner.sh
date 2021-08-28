@@ -16,7 +16,7 @@ fi
 args=("$@") # All parameters from terminal.
 
 install_r(){
-    pip3 install -U -r .requirements/development.txt
+    pip3 install -U -r ./requirements/development.txt
 }
 
 auto_sort_pep8(){
