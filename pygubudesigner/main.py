@@ -98,6 +98,11 @@ def init_pygubu_widgets():
                     "Failed to load custom widget module: '{0}'".format(path))
                 messagebox.showerror(_('Error'), msg)
 
+    # initialize custom widget plugins
+    for finder, name, ispkg in pkgutil.iter_modules():
+        if name.startswith('pygubu_'):
+            importlib.import_module(name)
+
 
 # Initialize images
 DESIGNER_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -323,7 +328,8 @@ class PygubuDesigner(object):
         w.bind(actions.FILE_RECENT_CLEAR,
                lambda e: self.rfiles_manager.clear())
         # On preferences save binding
-        w.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
+        w.bind('<<PygubuDesignerPreferencesSaved>>',
+               self.on_preferences_saved)
 
         # setup app preferences
         self.setup_app_preferences()
