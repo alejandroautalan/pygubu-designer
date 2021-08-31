@@ -62,6 +62,9 @@ class WidgetsTreeEditor(object):
         self.previewer = app.previewer
         self.treedata = {}
         self.counter = Counter()
+        self.virtual_clipboard_for_duplicate = None
+        self.duplicating = False
+        self.duplicate_parent_iid = None
 
         # Get the default layout manager based on the user's configuration.
         self.__preferred_layout_manager_var = tk.StringVar()
@@ -117,6 +120,7 @@ class WidgetsTreeEditor(object):
         tree.bind_all(TREE_ITEM_PASTE, lambda e: self.paste_from_clipboard())
         tree.bind_all(TREE_ITEM_CUT, lambda e: self.cut_to_clipboard())
         tree.bind_all(TREE_ITEM_DELETE, self.on_tree_item_delete)
+        tree.bind_all(TREE_ITEM_DUPLICATE, self.on_tree_item_duplicate)
         tree.bind_all(TREE_ITEM_GRID_DOWN,
                       lambda e: self.on_item_grid_move(self.GRID_DOWN))
         tree.bind_all(TREE_ITEM_GRID_LEFT,
@@ -141,6 +145,34 @@ class WidgetsTreeEditor(object):
 
             if do_delete:
                 self.on_treeview_delete_selection(None)
+                
+    def on_tree_item_duplicate(self, event):
+        """
+        Make a copy of the selected item (copy into a variable, not the clipboard)
+        and 'paste' it in the parent of the selected item.
+        
+        The clipboard does not get used when making duplicates, but the process is very similar.
+        """
+        
+        # Get the iid of the current selection. We need this to get the parent iid.
+        selected_iid = self.treeview.selection()
+        
+        if not selected_iid:
+            return
+        else:
+            # Get the iid of the first selection so we can later find out its parent's iid.
+            selected_iid = selected_iid[0]
+        
+        # Set a flag to indicate to copy_to_clipboard() that we will not 
+        # be using the clipboard, but a variable instead.
+        self.duplicating = True
+        self.copy_to_clipboard()
+
+        # Record the selected items' parent iid (because we're going to paste the widget(s) into the parent)
+        self.duplicate_parent_iid = self.treeview.parent(selected_iid)
+        
+        # Paste the virtually-copied widget (not with the clipboard) to the parent.
+        self.treeview.event_generate(TREE_ITEM_PASTE)
 
     def _on_gridrc_changed(self, event):
         # update siblings items that have same row col position
@@ -449,8 +481,13 @@ class WidgetsTreeEditor(object):
                 node = self.build_uidefinition(uidef, '', item)
                 uidef.add_xmlnode(node)
             text = str(uidef)
-            tree.clipboard_clear()
-            tree.clipboard_append(text)
+            
+            if self.duplicating:
+                self.virtual_clipboard_for_duplicate = text
+            else:
+                tree.clipboard_clear()
+                tree.clipboard_append(text)
+                
             self.filter_restore()
 
     def cut_to_clipboard(self):
@@ -570,11 +607,22 @@ class WidgetsTreeEditor(object):
 
         tree = self.treeview
         selected_item = ''
-        selection = tree.selection()
-        if selection:
-            selected_item = selection[0]
+        
+        if self.duplicating:
+            # Simulate the selected item (the one we're pasting to) as the 
+            # parent of the first selected item we're duplicating.
+            selected_item = self.duplicate_parent_iid
+        else:
+            selection = tree.selection()
+            if selection:
+                selected_item = selection[0]
         try:
-            text = tree.selection_get(selection='CLIPBOARD')
+            # If we're duplicating, we should get the copy data from a variable, not the clipboard.
+            if self.duplicating:
+                # Get the copy/duplicate data.
+                text = self.virtual_clipboard_for_duplicate
+            else:
+                text = tree.selection_get(selection='CLIPBOARD')
 
             uidef = self.new_uidefinition()
             uidef.load_from_string(text)
@@ -587,6 +635,8 @@ class WidgetsTreeEditor(object):
             logger.error(msg)
         except tk.TclError:
             pass
+        finally:
+            self.duplicating = False            
 
         if selected_item == '':
             # redraw all
@@ -597,6 +647,12 @@ class WidgetsTreeEditor(object):
             self.draw_widget(selected_item)
 
         self.filter_restore()
+        
+        # Get all the children widgets of the parent that we pasted into.
+        children_of_parent = self.treeview.get_children(selected_item)
+        if children_of_parent:
+            # Select the last (latest) child so the user can see where the last pasted item is.
+            self.treeview.selection_set(children_of_parent[-1])
 
     def update_layout(self, root, data):
         '''Removes layout info from element, when copied from clipboard.'''

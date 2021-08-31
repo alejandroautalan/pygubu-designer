@@ -169,6 +169,7 @@ class PygubuDesigner(object):
         # build main ui
         self.mainwindow = self.builder.get_object('mainwindow')
         menu = self.builder.get_object('mainmenu', self.mainwindow)
+        context_menu = self.builder.get_object("context_menu", self.mainwindow)
 
         if in_macos:
             cmd = 'tk::mac::ShowPreferences'
@@ -216,6 +217,16 @@ class PygubuDesigner(object):
         self.setup_bottom_panel()
 
         self.builder.connect_callbacks(self)
+        
+        #
+        # Context menu binding for object treeview
+        #
+        if in_macos:
+            # tree_editor context menu binding (2nd mouse button for macos)
+            self.tree_editor.treeview.bind("<2>", self.on_right_click_object_tree)
+        else:
+            # tree_editor context menu binding (3rd mouse button for linux and windows)
+            self.tree_editor.treeview.bind("<3>", self.on_right_click_object_tree)        
 
         #
         # Application Keyboard bindings
@@ -279,6 +290,10 @@ class PygubuDesigner(object):
                          lambda e: self.tree_editor.paste_from_clipboard()),
                 add=True
             )
+            widget.bind(CONTROL_KP_SEQUENCE,
+                        key_bind(Key.D,
+                                 virtual_event(actions.TREE_ITEM_DUPLICATE)),
+                        add=True)       
             widget.bind(
                 CONTROL_KP_SEQUENCE,
                 key_bind(Key.X,
@@ -652,6 +667,43 @@ class PygubuDesigner(object):
             webbrowser.open_new_tab(url)
         elif itemid == 'help_about':
             self.show_about_dialog()
+            
+    # Right-click menu (on object tree)
+    def on_right_click_object_tree(self, event):
+        # Get the context menu
+        context_menu = self.builder.get_object("context_menu")
+        context_menu.tk_popup(event.x_root, event.y_root)
+
+    def on_context_menu_cut_clicked(self):
+        """
+        Cut was clicked from the context menu.
+        """
+        action = actions.TREE_ITEM_CUT
+        self.mainwindow.event_generate(action)   
+
+    def on_context_menu_copy_clicked(self):
+        """
+        Copy was clicked from the context menu.
+        """
+        self.mainwindow.event_generate(actions.TREE_ITEM_COPY)      
+        
+    def on_context_menu_paste_clicked(self):
+        """
+        Paste was clicked from the context menu.
+        """
+        self.mainwindow.event_generate(actions.TREE_ITEM_PASTE)
+        
+    def on_context_menu_delete_clicked(self):
+        """
+        Delete was clicked from the context menu.
+        """
+        self.mainwindow.event_generate(actions.TREE_ITEM_DELETE)   
+        
+    def on_context_menu_duplicate_clicked(self):
+        """
+        Duplicate was clicked from the context menu.
+        """
+        self.mainwindow.event_generate(actions.TREE_ITEM_DUPLICATE)  
 
     def _create_about_dialog(self):
         builder = pygubu.Builder(translator)
