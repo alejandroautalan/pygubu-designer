@@ -169,7 +169,7 @@ class PygubuDesigner(object):
         # build main ui
         self.mainwindow = self.builder.get_object('mainwindow')
         menu = self.builder.get_object('mainmenu', self.mainwindow)
-        context_menu = self.builder.get_object("context_menu", self.mainwindow)
+        self.context_menu = self.builder.get_object("context_menu", self.mainwindow)
 
         if in_macos:
             cmd = 'tk::mac::ShowPreferences'
@@ -670,9 +670,8 @@ class PygubuDesigner(object):
             
     # Right-click menu (on object tree)
     def on_right_click_object_tree(self, event):
-        # Get the context menu
-        context_menu = self.builder.get_object("context_menu")
-        context_menu.tk_popup(event.x_root, event.y_root)
+        # Show the context menu
+        self.context_menu.tk_popup(event.x_root, event.y_root)
 
     def on_context_menu_cut_clicked(self):
         """
