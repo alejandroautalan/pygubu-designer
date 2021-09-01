@@ -36,6 +36,7 @@ class Key:
     # TODO extend this keycode list
     # keysym, keycode (windows, linux)
     C = Keydef('c', 67 if osnt else 54)
+    D = Keydef('d', 68 if osnt else 40)
     I = Keydef('i', 73 if osnt else 31)
     J = Keydef('j', 74 if osnt else 44)
     K = Keydef('k', 75 if osnt else 45)
