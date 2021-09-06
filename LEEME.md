@@ -13,7 +13,7 @@ Pygubu esta inspirado por [Glade](https://es.wikipedia.org/wiki/Glade) (el diseÃ
 InstalaciÃ³n
 ============
 
-Pygubu requiere python >= 2.7 (Probado solo en python 2.7.3 y 3.2.3 con tk8.5)
+Pygubu funciona con Python 2.7 o Python 3
 
 Puedes instalar pygubu usando:
 
