@@ -11,8 +11,6 @@ from __future__ import print_function
 
 import os
 import platform
-import shutil
-import sys
 
 import pygubudesigner
 
@@ -70,9 +68,11 @@ setup(
     author_email='alejandroautalan@gmail.com',
     description='A tkinter GUI builder.',
     long_description=open(readme_path, 'r', encoding='utf-8').read(),
+    long_description_content_type='text/markdown',
     url='https://github.com/alejandroautalan/pygubu-designer',
 
-    packages=['pygubudesigner', 'pygubudesigner.util', 'pygubudesigner.widgets'],
+    packages=['pygubudesigner', 'pygubudesigner.util',
+              'pygubudesigner.widgets'],
     package_data={
         'pygubudesigner': [
             'images/images-gif/*.gif',
