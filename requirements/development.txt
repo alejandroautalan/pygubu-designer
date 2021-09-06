@@ -1,6 +1,6 @@
 appdirs>=1.4.3
 Mako>=1.1.4
-pygubu>=0.13
+pygubu>=0.14
 
 # dev
 isort>=5.9.2
