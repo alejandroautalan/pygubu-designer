@@ -91,6 +91,13 @@
           </object>
         </child>
         <child>
+          <object class="tk.Menuitem.Command" id="TREE_ITEM_DUPLICATE">
+            <property name="accelerator">Ctrl+D</property>
+            <property name="command" type="command" cbtype="with_wid">on_edit_menuitem_clicked</property>
+            <property name="label" translatable="yes">Duplicate</property>
+          </object>
+        </child>
+        <child>
           <object class="tk.Menuitem.Separator" id="edit_Separator1" />
         </child>
         <child>
@@ -1139,6 +1146,42 @@
             </child>
           </object>
         </child>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Menu" id="context_menu">
+    <property name="tearoff">false</property>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_cut">
+        <property name="command" type="command" cbtype="simple">on_context_menu_cut_clicked</property>
+        <property name="label" translatable="yes">Cut</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_copy">
+        <property name="command" type="command" cbtype="simple">on_context_menu_copy_clicked</property>
+        <property name="label" translatable="yes">Copy</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_paste">
+        <property name="command" type="command" cbtype="simple">on_context_menu_paste_clicked</property>
+        <property name="label" translatable="yes">Paste</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_delete">
+        <property name="command" type="command" cbtype="simple">on_context_menu_delete_clicked</property>
+        <property name="label" translatable="yes">Delete</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Separator" id="context_sep1" />
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_duplicate">
+        <property name="command" type="command" cbtype="simple">on_context_menu_duplicate_clicked</property>
+        <property name="label" translatable="yes">Duplicate</property>
       </object>
     </child>
   </object>
