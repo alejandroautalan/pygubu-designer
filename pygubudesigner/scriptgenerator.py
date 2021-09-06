@@ -21,7 +21,6 @@ from .codebuilder import UI2Code
 logger = logging.getLogger(__name__)
 CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
 TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'template')
-print('TEMPLATE_DIR', TEMPLATE_DIR)
 makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
 
 
