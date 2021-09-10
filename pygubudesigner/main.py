@@ -684,8 +684,8 @@ class PygubuDesigner(object):
         
         # Should we enable the 'Duplicate' menu?
         self.duplicate_menu_state = 'disabled' if self.tree_editor.selection_different_parents() else 'normal'
-        menu_duplicate_context.entryconfig('Duplicate', state=self.duplicate_menu_state)
-        menu_duplicate_edit.entryconfig('Duplicate', state=self.duplicate_menu_state)
+        menu_duplicate_context.entryconfig(5, state=self.duplicate_menu_state)
+        menu_duplicate_edit.entryconfig(3, state=self.duplicate_menu_state)
                 
     def show_context_menu(self, event):
         """
