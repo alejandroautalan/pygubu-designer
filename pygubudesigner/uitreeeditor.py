@@ -145,7 +145,70 @@ class WidgetsTreeEditor(object):
 
             if do_delete:
                 self.on_treeview_delete_selection(None)
+    
+    def selection_different_parents(self) -> bool:
+        """
+        Check whether any of the selections have different parents.
+        
+        Return True if at least one selected item has a different parent than the rest of the selected items.
+        
+        The purpose of this method is: duplicating an item that has a different parent than the rest of the items
+        will give the user unexpected results.
+        
+        For example:
+        -> Frame1:
+            -> Button1
+            -> Frame2
+               -> Button2
+        
+        In the example above, if the user attempts to duplicate Frame1 and Frame2 together, then Frame1 and Frame2 will get
+        duplicated into root (because Frame1's parent is root). This may confuse the user.
+        If we were to allow this, the end-result would show up like this:
+        -> Frame1:
+            -> Button1
+            -> Frame2
+               -> Button2
+        ---Duplicated below as---
+        -> Frame3
+            -> Button3
+            -> Frame4
+               -> Button4
+        -> Frame5
+            -> Button5
+        
+        We use this method to decide whether we should allow a duplication to occur or not.
+        """
+        
+        # Get all the selected items in the object treeview.
+        all_selections = self.treeview.selection()
+        
+        if not all_selections:
+            return False
+        
+        # Keep a record of the selected items' parents.
+        parent_iids = []
+        
+        # Check whether any of the selected items have a different parent or not.
+        for selected_item in all_selections:
+            
+            # Get the parent of the current item we are looping on
+            item_parent = self.treeview.parent(selected_item)
+            
+            # If item's parents has not been recorded, record it now.
+            if item_parent not in parent_iids:
+                parent_iids.append(item_parent)
                 
+                # Do we now have more than 1 parent? Break out of the loop if that's the case.
+                if len(parent_iids) > 1:
+                    item_parent_in_selection = True
+                    break
+                
+        else:
+            # There are no selected items that have different parents.
+            item_parent_in_selection = False
+            
+        return item_parent_in_selection
+    
     def on_tree_item_duplicate(self, event):
         """
         Make a copy of the selected item (copy into a variable, not the clipboard)
@@ -154,7 +217,12 @@ class WidgetsTreeEditor(object):
         The clipboard does not get used when making duplicates, but the process is very similar.
         """
         
-        # Get the iid of the current selection. We need this to get the parent iid.
+        # Is the 'Duplicate' menu disabled? Don't allow this method to run.
+        # Without this check here, the user can use Ctrl+D on their keyboard and run this method.
+        if self.app.duplicate_menu_state != 'normal':
+            return
+        
+        # Get the iids of all the selections. We need this to get the parent iid of the first selection.
         selected_iid = self.treeview.selection()
         
         if not selected_iid:
@@ -636,7 +704,8 @@ class WidgetsTreeEditor(object):
         except tk.TclError:
             pass
         finally:
-            self.duplicating = False            
+            self.duplicating = False
+            self.virtual_clipboard_for_duplicate = None
 
         if selected_item == '':
             # redraw all
@@ -795,6 +864,11 @@ class WidgetsTreeEditor(object):
         else:
             # No selection hide all
             self.editor_hide_all()
+        
+        # Check if some menu items (such as 'Duplicate') should be disabled or not.
+        # The reason is: the treeview selection has changed, so we need to evaluate
+        # whether it makes sense to have some menus enabled or not.
+        self.app.evaluate_menu_states()
 
     def get_max_row_col(self, item):
         tree = self.treeview

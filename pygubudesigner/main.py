@@ -169,7 +169,10 @@ class PygubuDesigner(object):
         # build main ui
         self.mainwindow = self.builder.get_object('mainwindow')
         menu = self.builder.get_object('mainmenu', self.mainwindow)
-        self.context_menu = self.builder.get_object("context_menu", self.mainwindow)
+        self.context_menu = self.builder.get_object('context_menu', self.mainwindow)
+        
+        # Initialize duplicate menu state
+        self.duplicate_menu_state = 'normal'
 
         if in_macos:
             cmd = 'tk::mac::ShowPreferences'
@@ -206,7 +209,8 @@ class PygubuDesigner(object):
 
         # Preview
         previewc = self.builder.get_object('preview_canvas')
-        self.previewer = PreviewHelper(previewc)
+        self.previewer = PreviewHelper(previewc, self)
+
         # tree editor
         self.tree_editor = WidgetsTreeEditor(self)
 
@@ -223,10 +227,10 @@ class PygubuDesigner(object):
         #
         if in_macos:
             # tree_editor context menu binding (2nd mouse button for macos)
-            self.tree_editor.treeview.bind("<2>", self.on_right_click_object_tree)
+            self.tree_editor.treeview.bind('<2>', self.on_right_click_object_tree)
         else:
             # tree_editor context menu binding (3rd mouse button for linux and windows)
-            self.tree_editor.treeview.bind("<3>", self.on_right_click_object_tree)        
+            self.tree_editor.treeview.bind('<3>', self.on_right_click_object_tree)        
 
         #
         # Application Keyboard bindings
@@ -668,10 +672,30 @@ class PygubuDesigner(object):
         elif itemid == 'help_about':
             self.show_about_dialog()
             
+    def evaluate_menu_states(self):
+        """
+        Check whether some menus (such as 'Duplicate' need to be enabled or disabled.
+        
+        The state of the menus is dependant on whether they can be used at the current time or not.
+        """
+        
+        menu_duplicate_context = self.builder.get_object('menu_duplicate')
+        menu_duplicate_edit = self.builder.get_object('TREE_ITEM_DUPLICATE')
+        
+        # Should we enable the 'Duplicate' menu?
+        self.duplicate_menu_state = 'disabled' if self.tree_editor.selection_different_parents() else 'normal'
+        menu_duplicate_context.entryconfig(5, state=self.duplicate_menu_state)
+        menu_duplicate_edit.entryconfig(3, state=self.duplicate_menu_state)
+                
+    def show_context_menu(self, event):
+        """
+        Show the context menu.
+        """
+        self.context_menu.tk_popup(event.x_root, event.y_root)
+
     # Right-click menu (on object tree)
     def on_right_click_object_tree(self, event):
-        # Show the context menu
-        self.context_menu.tk_popup(event.x_root, event.y_root)
+        self.show_context_menu(event)
 
     def on_context_menu_cut_clicked(self):
         """
