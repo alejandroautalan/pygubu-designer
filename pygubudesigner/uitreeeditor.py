@@ -503,10 +503,10 @@ class WidgetsTreeEditor(object):
             if data.manager == 'grid':
                 row = data.layout_property('row')
                 col = data.layout_property('column')
-                # fix row position when using copy and paste
-                # If collision, increase by 1
+                # Fix grid row position when using copy and paste
+                # Increase the pasted widget by 1 row so that it doesn't overlap
                 row_count = self.get_max_row(root)
-                if not from_file and (row_count > int(row) and int(col) == 0):
+                if not from_file:
                     row = str(row_count + 1)
                     data.layout_property('row', row)
 
