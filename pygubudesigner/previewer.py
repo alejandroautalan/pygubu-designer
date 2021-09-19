@@ -478,9 +478,9 @@ class DialogPreview(ToplevelPreview):
 class PreviewHelper:
     indicators_tag = ('nw', 'ne', 'sw', 'se')
 
-    def __init__(self, canvas, app):
+    def __init__(self, canvas, context_menu_method):
         self.canvas = canvas
-        self.app = app # so we can access the main GUI when needed (ie: the context menu)
+        self.show_context_menu = context_menu_method # The method we will call to show the context menu
         self.previews = OrderedDict()
         self.padding = 20
         self.indicators = None
@@ -764,5 +764,5 @@ class PreviewHelper:
         callback(event)
         
         # Show the right-click context menu.
-        self.app.show_context_menu(event)
+        self.show_context_menu(event)
         

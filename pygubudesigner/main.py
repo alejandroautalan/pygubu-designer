@@ -209,7 +209,7 @@ class PygubuDesigner(object):
 
         # Preview
         previewc = self.builder.get_object('preview_canvas')
-        self.previewer = PreviewHelper(previewc, self)
+        self.previewer = PreviewHelper(previewc, self.show_context_menu)
 
         # tree editor
         self.tree_editor = WidgetsTreeEditor(self)
