@@ -1,4 +1,10 @@
 <%inherit file="base.py.mako"/>
+<%block name="imports" filter="trim">
+import os
+import pygubu
+${import_lines}
+</%block>
+
 <%block name="class_definition" filter="trim">
 class ${class_name}:
     def __init__(self, master=None):

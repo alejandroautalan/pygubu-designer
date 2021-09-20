@@ -268,7 +268,8 @@ class UI2Code(Builder):
         for name, value in self._callbacks.items():
             wid, cbtype, args = value
             if cbtype == CB_TYPES.BIND_EVENT:
-                line = '{0}def {1}(self, event=None):'.format(' ' * tab2, name)
+                line = '{0}def {1}(self, event=None):'.format(
+                    ' ' * tab2, name)
                 lines.append(line)
                 line = '{0}pass\n'.format(' ' * tabspaces)
                 lines.append(line)
@@ -277,7 +278,8 @@ class UI2Code(Builder):
                 for a in args:
                     fargs.append('{0}=None'.format(a))
                 fargs = ', '.join(fargs)
-                line = '{0}def {1}(self, {2}):'.format(' ' * tab2, name, fargs)
+                line = '{0}def {1}(self, {2}):'.format(
+                    ' ' * tab2, name, fargs)
                 lines.append(line)
                 line = '{0}pass\n'.format(' ' * tabspaces)
                 lines.append(line)
@@ -314,7 +316,8 @@ class UI2Code(Builder):
             img_class = 'tk.PhotoImage'
             if file_ext in TK_BITMAP_FORMATS:
                 img_class = 'tk.BitmapImage'
-            line = "{0} = {1}(file='{2}')".format(varname, img_class, filename)
+            line = "{0} = {1}(file='{2}')".format(
+                varname, img_class, filename)
             self._code.append(line)
             self._tkvariables[varname] = True
         return varname
