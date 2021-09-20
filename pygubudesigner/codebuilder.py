@@ -251,8 +251,8 @@ class UI2Code(Builder):
                     self._unique_grid_properties.append(l)
             
             # Remove duplicate lines that we already have (such as for example: self.frame1.columnconfigure(0, weight='1'))
-            for remove_idx in idx_to_remove:
-                layout.pop(remove_idx)
+            layout = [item for idx, item in enumerate(layout)
+                      if idx not in idx_to_remove]
             
             self._code.extend(layout)
 

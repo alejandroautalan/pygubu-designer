@@ -788,6 +788,10 @@ class WidgetsTreeEditor(object):
 
         item = self._insert_item(root, data)
 
+        # Make sure the selected widget has the same layout properties (weight, uniform, etc.)
+        # as its siblings (if any). Then show (refresh) the latest layout properties in the Object Properties pane.
+        self.refresh_properties(event=None, item=item)
+
         # Do redraw
         self.draw_widget(item)
 
@@ -836,6 +840,11 @@ class WidgetsTreeEditor(object):
 
         if cname in CLASS_MAP:
             pwidget = self._insert_item(master, wmeta, from_file=from_file)
+            
+            # Make sure the widget has the same layout properties (weight, uniform, etc.)
+            # as its siblings (if any). Then show (refresh) the latest layout properties in the Object Properties pane.
+            self.refresh_properties(event=None, item=pwidget)            
+            
             for mchild in uidef.widget_children(original_id):
                 self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
         else:
@@ -852,19 +861,60 @@ class WidgetsTreeEditor(object):
                 max_row = row
         return max_row
     
-    def refresh_properties(self, event):
+    def refresh_properties(self, event, item=None):
         """
-        Refresh the object properties pane for the selected item.
+        Copy sbiling properties (such as weight) and select the item in the treeview so the latest properties are shown.
+        Used for grid.
         
-        This was made so that when the grid row/column is changed, the option labelframes
-        in the 'Layout' tab also reflect the changed row/column.
+        This was made so that when the grid row/column is changed, the options in the 'Layout' tab also 
+        reflect the changed row/column. It will copy the shared row/column properties from its sibling(s) in
+        the same row or same column.
+        
+        For example: if its sibling has a grid column weight of 1, this item will also end up having a column weight of 1.
         """
-        tree = self.treeview
-        sel = tree.selection()
-        if sel:
-            item = sel[0]
-            self.editor_edit(item, self.treedata[item])
-      
+
+        # Set the widget's row/column properties (such as weight) to be 
+        # the same as the first sibling's row/column properties (such as weight)
+        
+        # If no treeview item has been provided, get the current selection.
+        if item:
+            current_item = item
+        else:
+            current_item = self.current_edit
+            
+        parent = self.treeview.parent(current_item)
+        wmeta = self.treedata[current_item]
+        srow = wmeta.layout_property('row')
+        scol = wmeta.layout_property('column')        
+        if parent:
+            copied_row_property = False
+            copied_column_property = False
+            children = self.treeview.get_children(parent)
+            for child in children:
+                if child == current_item:
+                    continue
+
+                wu = self.treedata[child]
+                wu_row = wu.layout_property('row')
+                wu_col = wu.layout_property('column')
+                
+                # Is this sibling widget on the same row as our widget? Copy its row properties.
+                if wu_row == srow:
+                    wmeta.copy_gridrc(wu, 'row')
+                    copied_row_property = True
+                    
+                # Is this sibling widget on the same column as our widget? Copy its column properties.
+                if wu_col == scol:
+                    wmeta.copy_gridrc(wu, 'col')
+                    copied_column_property = True
+                    
+                # If we've copied the row and column properties that we need from sibling widget(s), 
+                # there is no need to check other sibling widgets, so exit the loop.
+                if copied_row_property and copied_column_property:
+                    break
+        
+        # Show the new properties of the widget in the object properties pane (this refreshes the Layout tab).
+        self.editor_edit(current_item, self.treedata[current_item])
 
     def on_treeview_select(self, event):
         tree = self.treeview
