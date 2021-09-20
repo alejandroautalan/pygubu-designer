@@ -52,6 +52,7 @@ class UI2Code(Builder):
         self._callbacks = {}
         self._import_ttk = True
         self._code = []
+        self._unique_layout = []
         self.uidefinition = None
         self._builder = Builder()
         self._options = {}
@@ -235,6 +236,17 @@ class UI2Code(Builder):
 
             # layout
             layout = builder.code_layout(parentid=masterid)
+
+            idx_to_remove = []
+            for idx, l in enumerate(layout):
+                if l in self._unique_layout:
+                    idx_to_remove.append(idx)
+                else:
+                    self._unique_layout.append(l)
+            
+            for remove_idx in idx_to_remove:
+                layout.pop(remove_idx)
+            
             self._code.extend(layout)
 
             # callbacks

@@ -105,6 +105,7 @@ class WidgetsTreeEditor(object):
         self.treeview.bind_all(
             '<<PreviewItemSelected>>',
             self._on_preview_item_clicked)
+        self.treeview.bind_all('<<RefreshPropertiesView>>', self.refresh_properties)
         # Listen to Grid RC changes from layout
         lframe.bind_all(
             '<<LayoutEditorGridRCChanged>>',
@@ -850,6 +851,20 @@ class WidgetsTreeEditor(object):
             if row > max_row:
                 max_row = row
         return max_row
+    
+    def refresh_properties(self, event):
+        """
+        Refresh the object properties pane for the selected item.
+        
+        This was made so that when the grid row/column is changed, the option labelframes
+        in the 'Layout' tab also reflect the changed row/column.
+        """
+        tree = self.treeview
+        sel = tree.selection()
+        if sel:
+            item = sel[0]
+            self.editor_edit(item, self.treedata[item])
+      
 
     def on_treeview_select(self, event):
         tree = self.treeview

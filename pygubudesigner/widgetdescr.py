@@ -112,8 +112,26 @@ class WidgetMeta(WidgetMetaBase, Observable):
         self.bindings.append(BindingMeta(seq, handler, add))
 
     def remove_unused_grid_rc(self):
-        """Deletes unused grid row/cols"""
-        pass
+        """Deletes unused grid row/col options (such as weight)"""
+
+        # in self.gridrc_properties, a line will look something like this:
+        # GridRCLine(rctype='row', rcid='3', pname='weight', pvalue='6')
+        # That means that row #3 has a weight of 6.
+        
+        # Based on the example above, we would get the widget's current row and column and
+        # remove any references to rows/columns options that don't match this widget's current row/column.
+            
+        # Get the widget's current row and column.
+        current_row = self.layout_properties.get("row")
+        current_column = self.layout_properties.get("column")
+        
+        # Only keep the gridrc properties that match the widget's row and column.
+        filtered_list = [line for line in self.gridrc_properties
+                         if (line.rctype == "row" and line.rcid == current_row)
+                         or (line.rctype == "col" and line.rcid == current_column)]
+        
+        # The new filtered list.
+        self.gridrc_properties = filtered_list
 
     def setup_defaults(self):
         propd, layoutd = WidgetMeta.get_widget_defaults(self, self.identifier)
