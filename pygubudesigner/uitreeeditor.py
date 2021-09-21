@@ -842,7 +842,7 @@ class WidgetsTreeEditor(object):
             pwidget = self._insert_item(master, wmeta, from_file=from_file)
             
             # Make sure the widget has the same layout properties (weight, uniform, etc.)
-            # as its siblings (if any). Then show (refresh) the latest layout properties in the Object Properties pane.
+            # as its siblings (if any).
             self.synchronize_layout_properties(event=None, item=pwidget, editor_gui_refresh=False)            
             
             for mchild in uidef.widget_children(original_id):
@@ -895,11 +895,13 @@ class WidgetsTreeEditor(object):
         parent = self.treeview.parent(current_item)
         wmeta = self.treedata[current_item]
         srow = wmeta.layout_property('row')
-        scol = wmeta.layout_property('column')        
+        scol = wmeta.layout_property('column')    
+        
         if parent:
-            copied_row_property = False
-            copied_column_property = False
             children = self.treeview.get_children(parent)
+            copied_row_property = False
+            copied_column_property = False 
+            
             for child in children:
                 if child == current_item:
                     continue
@@ -922,7 +924,7 @@ class WidgetsTreeEditor(object):
                 # there is no need to check other sibling widgets, so exit the loop.
                 if copied_row_property and copied_column_property:
                     break
-        
+
         # Show the new properties of the widget in the object properties pane (this refreshes the Layout tab).
         if editor_gui_refresh:
             self.editor_edit(current_item, self.treedata[current_item])
@@ -1104,8 +1106,9 @@ class WidgetsTreeEditor(object):
                     data.layout_property('column', str(column))
                     data.notify()
                 root = tree.parent(item)
+                data.remove_unused_grid_rc()
             self.filter_restore()
-            self.editor_edit(item_first, self.treedata[item_first])
+            self.synchronize_layout_properties(event=None, item=item_first)
 
     #
     # Filter functions
