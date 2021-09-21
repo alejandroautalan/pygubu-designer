@@ -249,7 +249,7 @@ class LayoutEditor(PropertiesEditor):
             self._current.layout_property(name, value)
 
             # If the row or column has changed, remove the unused grid settings (such as weight)
-            # that no longer apply to the new row or column. Then refresh the properties view to reflect the new row/col.
+            # that no longer apply to the new row or column. Then refresh the properties layout view to reflect the new row/col.
             if name in ('row', 'column'):
                 self._current.remove_unused_grid_rc()
                 editor.event_generate('<<RefreshLayoutPropertiesView>>')
