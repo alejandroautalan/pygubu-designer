@@ -252,7 +252,7 @@ class LayoutEditor(PropertiesEditor):
             # that no longer apply to the new row or column. Then refresh the properties view to reflect the new row/col.
             if name in ('row', 'column'):
                 self._current.remove_unused_grid_rc()
-                editor.event_generate('<<RefreshPropertiesView>>')
+                editor.event_generate('<<RefreshLayoutPropertiesView>>')
         else:
             # asume that is a grid row/col property
             rowcol, pname = self.identify_gridrc_property(name)

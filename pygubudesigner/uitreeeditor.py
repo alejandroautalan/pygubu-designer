@@ -105,7 +105,7 @@ class WidgetsTreeEditor(object):
         self.treeview.bind_all(
             '<<PreviewItemSelected>>',
             self._on_preview_item_clicked)
-        self.treeview.bind_all('<<RefreshPropertiesView>>', self.refresh_properties)
+        self.treeview.bind_all('<<RefreshLayoutPropertiesView>>', self.refresh_layout_properties)
         # Listen to Grid RC changes from layout
         lframe.bind_all(
             '<<LayoutEditorGridRCChanged>>',
@@ -790,7 +790,7 @@ class WidgetsTreeEditor(object):
 
         # Make sure the selected widget has the same layout properties (weight, uniform, etc.)
         # as its siblings (if any). Then show (refresh) the latest layout properties in the Object Properties pane.
-        self.refresh_properties(event=None, item=item)
+        self.refresh_layout_properties(event=None, item=item, editor_gui_refresh=False)
 
         # Do redraw
         self.draw_widget(item)
@@ -843,7 +843,7 @@ class WidgetsTreeEditor(object):
             
             # Make sure the widget has the same layout properties (weight, uniform, etc.)
             # as its siblings (if any). Then show (refresh) the latest layout properties in the Object Properties pane.
-            self.refresh_properties(event=None, item=pwidget)            
+            self.refresh_layout_properties(event=None, item=pwidget, editor_gui_refresh=False)            
             
             for mchild in uidef.widget_children(original_id):
                 self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
@@ -861,7 +861,7 @@ class WidgetsTreeEditor(object):
                 max_row = row
         return max_row
     
-    def refresh_properties(self, event, item=None):
+    def refresh_layout_properties(self, event, item=None, editor_gui_refresh=True):
         """
         Copy sbiling properties (such as weight) and select the item in the treeview so the latest properties are shown.
         Used for grid.
@@ -871,6 +871,16 @@ class WidgetsTreeEditor(object):
         the same row or same column.
         
         For example: if its sibling has a grid column weight of 1, this item will also end up having a column weight of 1.
+        
+        Arguments:
+        
+        - event: this is a regular tk Event which will contain Event data if this method is run via event_generate().
+        
+        - item: the caller of this method may pass in the treeview item here. Otherwise, we'll use the selected treeview item.
+        
+        - editor_gui_refresh: specify whether we should reload/refresh the Object Properties pane GUI (Layout tab).
+        Some callers of this method will update the Object Properties pane on their own, while others may not (hence the use of this flag).
+        The reason this argument is here is to prevent multiple refreshes of the Object Properties pane.
         """
 
         # Set the widget's row/column properties (such as weight) to be 
@@ -914,7 +924,8 @@ class WidgetsTreeEditor(object):
                     break
         
         # Show the new properties of the widget in the object properties pane (this refreshes the Layout tab).
-        self.editor_edit(current_item, self.treedata[current_item])
+        if editor_gui_refresh:
+            self.editor_edit(current_item, self.treedata[current_item])
 
     def on_treeview_select(self, event):
         tree = self.treeview
