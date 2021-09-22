@@ -909,7 +909,7 @@ class WidgetsTreeEditor(object):
                 wu = self.treedata[child]
                 wu_row = wu.layout_property('row')
                 wu_col = wu.layout_property('column')
-                
+
                 # Is this sibling widget on the same row as our widget? Copy its row properties.
                 if wu_row == srow:
                     wmeta.copy_gridrc(wu, 'row')
@@ -1074,6 +1074,7 @@ class WidgetsTreeEditor(object):
     def on_item_grid_move(self, direction):
         tree = self.treeview
         selection = tree.selection()
+        using_grid = True
         if selection:
             item_first = selection[0]
             self.filter_remove(remember=True)
@@ -1081,6 +1082,7 @@ class WidgetsTreeEditor(object):
                 data = self.treedata[item]
 
                 if data.manager != 'grid':
+                    using_grid = False
                     break
 
                 if direction == self.GRID_UP:
@@ -1108,7 +1110,8 @@ class WidgetsTreeEditor(object):
                 root = tree.parent(item)
                 data.remove_unused_grid_rc()
             self.filter_restore()
-            self.synchronize_layout_properties(event=None, item=item_first)
+            if using_grid:
+                self.synchronize_layout_properties(event=None, item=item_first)
 
     #
     # Filter functions
