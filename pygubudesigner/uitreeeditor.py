@@ -368,7 +368,6 @@ class WidgetsTreeEditor(object):
             widget_id = self.treedata[item].identifier
             wclass = self.treedata[item].classname
             uidef = self.tree_to_uidef(item)
-
             self.previewer.draw(item, widget_id, uidef, wclass)
             self.previewer.show_selected(item, selected_id)
             self.filter_restore()

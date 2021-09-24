@@ -246,13 +246,16 @@ class LayoutEditor(PropertiesEditor):
     def _on_property_changed(self, name, editor):
         value = editor.value
         if name in properties.MANAGER_PROPERTIES:
-            self._current.layout_property(name, value)
-
+            
+            # Save new value and update the preview
+            self._current.layout_property(name, value)            
+            
             # If the row or column has changed, remove the unused grid settings (such as weight)
             # that no longer apply to the new row or column. Then refresh the properties layout view to reflect the new row/col.
             if name in ('row', 'column'):
                 self._current.remove_unused_grid_rc()
-                editor.event_generate('<<RefreshLayoutPropertiesView>>')
+                editor.event_generate('<<RefreshLayoutPropertiesView>>')      
+
         else:
             # asume that is a grid row/col property
             rowcol, pname = self.identify_gridrc_property(name)
@@ -262,6 +265,9 @@ class LayoutEditor(PropertiesEditor):
             target = self._current
             target.gridrc_property(rowcol, number, pname, value)
             editor.event_generate('<<LayoutEditorGridRCChanged>>')
+            
+            # Update the preview now, after the grid rc changes have been made.
+            target.notify('LAYOUT_GRIDRC_CHANGED', target)
 
     def identify_gridrc_property(self, alias):
         return alias.split('_')

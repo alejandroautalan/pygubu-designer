@@ -86,7 +86,6 @@ class WidgetMeta(WidgetMetaBase, Observable):
         else:
             # Setter
             self.set_gridrc_value(type_, num, pname, value)
-            self.notify('LAYOUT_GRIDRC_CHANGED', self)
 
     @property
     def manager(self):
