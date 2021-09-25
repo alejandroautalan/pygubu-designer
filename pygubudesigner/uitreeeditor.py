@@ -105,6 +105,7 @@ class WidgetsTreeEditor(object):
         self.treeview.bind_all(
             '<<PreviewItemSelected>>',
             self._on_preview_item_clicked)
+        self.treeview.bind_all('<<RefreshLayoutPropertiesView>>', self.synchronize_layout_properties)
         # Listen to Grid RC changes from layout
         lframe.bind_all(
             '<<LayoutEditorGridRCChanged>>',
@@ -367,7 +368,6 @@ class WidgetsTreeEditor(object):
             widget_id = self.treedata[item].identifier
             wclass = self.treedata[item].classname
             uidef = self.tree_to_uidef(item)
-
             self.previewer.draw(item, widget_id, uidef, wclass)
             self.previewer.show_selected(item, selected_id)
             self.filter_restore()
@@ -503,10 +503,10 @@ class WidgetsTreeEditor(object):
             if data.manager == 'grid':
                 row = data.layout_property('row')
                 col = data.layout_property('column')
-                # fix row position when using copy and paste
-                # If collision, increase by 1
+                # Fix grid row position when using copy and paste
+                # Increase the pasted widget by 1 row so that it doesn't overlap
                 row_count = self.get_max_row(root)
-                if not from_file and (row_count > int(row) and int(col) == 0):
+                if not from_file:
                     row = str(row_count + 1)
                     data.layout_property('row', row)
 
@@ -787,6 +787,10 @@ class WidgetsTreeEditor(object):
 
         item = self._insert_item(root, data)
 
+        # Make sure the selected widget has the same layout properties (weight, uniform, etc.)
+        # as its siblings (if any).
+        self.synchronize_layout_properties(event=None, item=item, editor_gui_refresh=False)
+
         # Do redraw
         self.draw_widget(item)
 
@@ -835,6 +839,11 @@ class WidgetsTreeEditor(object):
 
         if cname in CLASS_MAP:
             pwidget = self._insert_item(master, wmeta, from_file=from_file)
+            
+            # Make sure the widget has the same layout properties (weight, uniform, etc.)
+            # as its siblings (if any).
+            self.synchronize_layout_properties(event=None, item=pwidget, editor_gui_refresh=False)            
+            
             for mchild in uidef.widget_children(original_id):
                 self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
         else:
@@ -850,6 +859,74 @@ class WidgetsTreeEditor(object):
             if row > max_row:
                 max_row = row
         return max_row
+    
+    def synchronize_layout_properties(self, event, item=None, editor_gui_refresh=True):
+        """
+        Copy sibling properties (such as weight) and select the item in the treeview so the latest properties are shown.
+        Used for grid.
+        
+        This was made so that when the grid row/column is changed, the options in the 'Layout' tab also 
+        reflect the changed row/column. It will copy the shared row/column properties from its sibling(s) in
+        the same row or same column.
+        
+        For example: if its sibling has a grid column weight of 1, this item will also end up having a column weight of 1.
+        
+        Arguments:
+        
+        - event: this is a regular tk Event which will contain Event data if this method is run via event_generate().
+        
+        - item: the caller of this method may pass in the treeview item here. Otherwise, we'll use the selected treeview item.
+        
+        - editor_gui_refresh: specify whether we should reload/refresh the Object Properties pane GUI (Layout tab).
+        Some callers of this method will update the Object Properties pane on their own, while others may not (hence the use of this flag).
+        The reason this argument is here is to prevent multiple refreshes of the Object Properties pane.
+        """
+
+        # Set the widget's row/column properties (such as weight) to be 
+        # the same as the first sibling's row/column properties (such as weight)
+        
+        # If no treeview item has been provided, get the current selection.
+        if item:
+            current_item = item
+        else:
+            current_item = self.current_edit
+            
+        parent = self.treeview.parent(current_item)
+        wmeta = self.treedata[current_item]
+        srow = wmeta.layout_property('row')
+        scol = wmeta.layout_property('column')    
+        
+        if parent:
+            children = self.treeview.get_children(parent)
+            copied_row_property = False
+            copied_column_property = False 
+            
+            for child in children:
+                if child == current_item:
+                    continue
+
+                wu = self.treedata[child]
+                wu_row = wu.layout_property('row')
+                wu_col = wu.layout_property('column')
+
+                # Is this sibling widget on the same row as our widget? Copy its row properties.
+                if wu_row == srow:
+                    wmeta.copy_gridrc(wu, 'row')
+                    copied_row_property = True
+                    
+                # Is this sibling widget on the same column as our widget? Copy its column properties.
+                if wu_col == scol:
+                    wmeta.copy_gridrc(wu, 'col')
+                    copied_column_property = True
+                    
+                # If we've copied the row and column properties that we need from sibling widget(s), 
+                # there is no need to check other sibling widgets, so exit the loop.
+                if copied_row_property and copied_column_property:
+                    break
+
+        # Show the new properties of the widget in the object properties pane (this refreshes the Layout tab).
+        if editor_gui_refresh:
+            self.editor_edit(current_item, self.treedata[current_item])
 
     def on_treeview_select(self, event):
         tree = self.treeview
@@ -996,6 +1073,7 @@ class WidgetsTreeEditor(object):
     def on_item_grid_move(self, direction):
         tree = self.treeview
         selection = tree.selection()
+        using_grid = True
         if selection:
             item_first = selection[0]
             self.filter_remove(remember=True)
@@ -1003,6 +1081,7 @@ class WidgetsTreeEditor(object):
                 data = self.treedata[item]
 
                 if data.manager != 'grid':
+                    using_grid = False
                     break
 
                 if direction == self.GRID_UP:
@@ -1028,8 +1107,10 @@ class WidgetsTreeEditor(object):
                     data.layout_property('column', str(column))
                     data.notify()
                 root = tree.parent(item)
+                data.remove_unused_grid_rc()
             self.filter_restore()
-            self.editor_edit(item_first, self.treedata[item_first])
+            if using_grid:
+                self.synchronize_layout_properties(event=None, item=item_first)
 
     #
     # Filter functions
