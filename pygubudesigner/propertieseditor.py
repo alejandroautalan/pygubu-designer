@@ -114,13 +114,24 @@ class PropertiesEditor(object):
         pdescr = propdescr.copy()
         classname = wdescr.classname
 
+        # Get editor default mode
+        default_mode = None
+        if 'params' in pdescr:
+            default_mode = pdescr['params'].get('mode', None)
+        # Get editor parameters for a specific class
         if classname in pdescr:
             pdescr = dict(pdescr, **pdescr[classname])
 
         params = pdescr.get('params', {})
+        # setup default mode if not specified in parameters for
+        # specific class
+        if (default_mode is not None
+                and 'mode' not in params):
+            params['mode'] = default_mode
+        # Configure editor
         editor.parameters(**params)
-        default = pdescr.get('default', '')
 
+        # Setup tooltip
         help = pdescr.get('help', None)
         if isinstance(help, dict):
             for k, v in help.items():
@@ -129,6 +140,8 @@ class PropertiesEditor(object):
                     break
         label.tooltip.text = help
 
+        # setup default value
+        default = pdescr.get('default', '')
         value = wdescr.widget_property(pname)
         if not value and default:
             value = default
