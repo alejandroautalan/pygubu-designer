@@ -85,44 +85,52 @@ TK_RELIEFS = (tk.FLAT, tk.RAISED, tk.SUNKEN, tk.GROOVE, tk.RIDGE)
 
 TK_WIDGET_OPTIONS = {
     'accelerator': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('accelerator')
     },
     'activerelief': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', tk.FLAT, tk.RAISED, tk.SUNKEN,
                        tk.GROOVE, tk.RIDGE),
             'state': 'readonly'},
         'help': help_for('activerelief')
     },
     'activestyle': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'underline', 'dotbox', 'none'),
             'state': 'readonly'},
         'help': help_for('activestyle')
     },
     'activebackground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('activebackground')
     },
     'activeborderwidth': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('activeborderwidth')
     },
     'activeforeground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('activeforeground')
     },
     'after': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('after')
     },
     # ttk.Label
     'anchor': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'n', 'ne', 'nw', 'e', 'w', 's', 'se', 'sw', 'center'),
             'state': 'readonly'},
         'help': help_for('anchor'),
@@ -133,17 +141,21 @@ TK_WIDGET_OPTIONS = {
         },
     },
     'aspect': {
-        'editor': 'naturalnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'naturalnumber'},
         'help': help_for('aspect')
     },
     'autoseparators': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('autoseparators')
     },
     # ttk.Label
     'background': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': {
             'tk': help_for('background-tk'),
             'ttk': help_for('background-ttk'),
@@ -151,63 +163,83 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Frame, ttk.Label
     'borderwidth': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('borderwidth')
     },
     'bigincrement': {
-        'editor': 'naturalnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'naturalnumber'},
         'help': help_for('bigincrement')
     },
     'bitmap': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_BITMAPS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_BITMAPS, 'state': 'readonly'},
         'help': help_for('bitmap')
     },
     'blockcursor': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('blockcursor')
     },
     'buttonbackground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('buttonbackground'),
         'tk.Spinbox': {
             'help': help_for('buttonbackground-tk.Spinbox')
         }
     },
     'buttoncursor': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_CURSORS, 'state': 'readonly'},
         'help': help_for('buttoncursor')
     },
     'buttondownrelief': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
         'help': help_for('buttondownrelief')
     },
     'buttonuprelief': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
         'help': help_for('buttonuprelief')
     },
     'class_': {
-        'editor': 'alphanumentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'alphanumentry'},
         'help': help_for('class_')
     },
     'closeenough': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 999},
         'help': help_for('closeenough')
     },
     'column_anchor': {  # ttk.Treeview.Column
-        'editor': 'choice',
-        'params': {'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
         'default': tk.W,
         'help': help_for('column_anchor')
     },
     'columnbreak': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('columnbreak')
     },
     'command': {
@@ -232,8 +264,9 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Label
     'compound': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', tk.TOP, tk.BOTTOM, tk.LEFT, tk.RIGHT, tk.CENTER, tk.NONE),
             'state': 'readonly'},
         'help': {
@@ -242,35 +275,45 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Button
     'confine': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('confine')
     },
     'container': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('container')
     },
     'cursor': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_CURSORS, 'state': 'readonly'},
         'help': help_for('cursor')
     },
     # ttk.Button
     'default': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'normal', 'active', 'disabled'),
             'state': 'readonly'},
         'help': help_for('default')
     },
     'digits': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 999},
         'help': help_for('digits')
     },
     'direction': {
-        'editor': 'choice',
+        'editor': 'dynamic',
+        'params': {'mode': 'choice'},
         'help': help_for('direction'),
         'tk.Menubutton': {
             'params': {'values': ('', tk.LEFT, tk.RIGHT, 'above'),
@@ -282,35 +325,43 @@ TK_WIDGET_OPTIONS = {
                 'state': 'readonly'}},
     },
     'disabledbackground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('disabledbackground')
     },
     'disabledforeground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('disabledforeground')
     },
     'elementborderwidth': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('elementborderwidth')
     },
     'endline': {
-        'editor': 'naturalnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'naturalnumber'},
         'help': help_for('endline')
     },
     # ttk.Checkbutton, ttk.Entry
     'exportselection': {
-        'editor': 'choice',
-        'params': {'values': ('', 'true', 'false'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'true', 'false'), 'state': 'readonly'},
         'help': help_for('exportselection')
     },
     # ttk.Label
     'font': {
-        'editor': 'fontentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'fontentry'},
         'help': help_for('font')
     },
     # ttk.Label
     'foreground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': {
             'tk': help_for('foreground-tk'),
             'ttk': help_for('foreground-ttk')
@@ -318,25 +369,30 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Spinbox
     'format': {
-        'editor': 'entry'
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
     },
     # ttk.Scale, ttk.Spinbox
     'from_': {
-        'editor': 'realnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'realnumber'},
         'help': help_for('from_')
     },
     'handlepad': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('handlepad')
     },
     'handlesize': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('handlesize')
     },
     # ttk.Treeview.Column
     'heading_anchor': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', tk.W, tk.CENTER, tk.E), 'state': 'readonly'},
         'default': tk.W,
         'help': help_for('heading_anchor')
@@ -405,7 +461,8 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Label
     'image': {
-        'editor': 'imageentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'imageentry'},
         'help': {
             'tk': help_for('image-tk'),
             'ttk': help_for('image-ttk')
@@ -415,77 +472,97 @@ TK_WIDGET_OPTIONS = {
         }
     },
     'inactiveselectbackground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('inactiveselectbackground')
     },
     # ttk.Spinbox
     'increment': {
-        'editor': 'realnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'realnumber'},
         'help': help_for('increment')
     },
     'indicatoron': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('indicatoron')
     },
     'insertbackground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('insertbackground')
     },
     'insertborderwidth': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 999},
         'help': help_for('insertborderwidth')
     },
     'insertofftime': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 9999, 'increment': 100},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 9999, 'increment': 100},
         'help': help_for('insertofftime')
     },
     'insertontime': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 9999, 'increment': 100},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 9999, 'increment': 100},
         'help': help_for('insertontime')
     },
     'insertunfocussed': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'none', 'hollow', 'solid'),
             'state': 'readonly'},
         'help': help_for('insertunfocussed')
     },
     'insertwidth': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 999},
         'help': help_for('insertwidth')
     },
     # ttk.Entry
     'invalidcommand': {
-        'editor': 'entryvalidatecommandentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entryvalidatecommandentry'},
         'help': help_for('command-pygubu')
     },
     'jump': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('jump')
     },
     # ttk.Label
     'justify': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'left', 'center', 'right'), 'state': 'readonly'},
         'help': help_for('justify'),
         'ttk.Entry': {
             'help': help_for('justify-ttk.Entry')}
     },
     'label': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('label')
     },
     # ttk.Labelframe
     'labelanchor': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'nw', 'n', 'ne', 'en', 'e', 'es',
                        'se', 's', 'sw', 'ws', 'w'),
             'state': 'readonly'},
@@ -493,184 +570,235 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Progressbar
     'length': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('length')
     },
     'listvariable': {
-        'editor': 'tkvarentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'tkvarentry'},
         'help': help_for('listvariable')
     },
     # ttk.Progressbar
     'maximum': {
-        'editor': 'realnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'realnumber'},
         'help': help_for('maximum')
     },
     'maxundo': {
-        'editor': 'integernumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'integernumber'},
         'help': help_for('maxundo')
     },
     'minsize': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('minsize')
     },
     # ttk.Treeview.Column
     'minwidth': {
-        'editor': 'naturalnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'naturalnumber'},
         'default': '20',
         'help': help_for('minwidth')
     },
     # ttk.Progressbar
     'mode': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'determinate', 'indeterminate'),
             'state': 'readonly'}},
     'offrelief': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
         'help': help_for('offrelief')
     },
     # ttk.Checkbutton
     'offvalue': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('offvalue')
     },
     # ttk.Checkbutton
     'onvalue': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('onvalue')
     },
     'opaqueresize': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('opaqueresize'),
     },
     # ttk.Panedwindow
     'orient': {
-        'editor': 'choice',
-        'params': {'values': (tk.VERTICAL, tk.HORIZONTAL),
-                   'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': (tk.VERTICAL, tk.HORIZONTAL),
+            'state': 'readonly'},
         'default': tk.HORIZONTAL,
         'help': help_for('orient')
     },
     'overrelief': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
         'help': help_for('overrelief')
     },
     # ttk.Frame, ttk.Label
     'padding': {
-        'editor': 'fourdimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'fourdimensionentry'},
         'help': help_for('padding')
     },
     'padx': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('padx')
     },
     'pady': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('pady')
     },
     # ttk.Checkbutton
     'postcommand': {
-        'editor': 'simplecommandentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'simplecommandentry'},
         'help': help_for('postcommand')
     },
     'proxybackground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('proxybackground')
     },
     'proxyborderwidth': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('proxyborderwidth')
     },
     'proxyrelief': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
         'help': help_for('proxyrelief')
     },
     'readonlybackground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('readonlybackground')
     },
     # ttk.Frame,
     'relief': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
         'help': help_for('relief')
     },
     'repeatdelay': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 9999, 'increment': 100},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 9999, 'increment': 100},
         'help': help_for('repeatdelay')
     },
     'repeatinterval': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 9999, 'increment': 100},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 9999, 'increment': 100},
         'help': help_for('repeatinterval')
     },
     'resolution': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999, 'increment': 0.5},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 999, 'increment': 0.5},
         'help': help_for('resolution')
     },
     'sliderlength': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('sliderlength')
     },
     'sliderrelief': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
         'help': help_for('sliderrelief')
     },
     'sashcursor': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_CURSORS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_CURSORS, 'state': 'readonly'},
         'help': help_for('sashcursor')
     },
     'sashpad': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('sashpad')
     },
     'sashrelief': {
-        'editor': 'choice',
-        'params': {'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('',) + TK_RELIEFS, 'state': 'readonly'},
         'help': help_for('sashrelief')
     },
     'sashwidth': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('sashwidth')
     },
     'selectbackground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('selectbackground')
     },
     'selectborderwidth': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 999},
         'help': help_for('selectborderwidth')
     },
     'selectforeground': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('selectforeground')
     },
     'scrollregion': {
-        'editor': 'fourdimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'fourdimensionentry'},
         'help': help_for('scrollregion')
     },
     'selectcolor': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('selectcolor')
     },
     'selectimage': {
-        'editor': 'imageentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'imageentry'},
         'help': help_for('selectimage')
     },
     # ttk.Treeview
     'selectmode': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'help': help_for('selectmode'),
         'params': {
+            'mode': 'choice',
             'values': ('', tk.BROWSE, tk.SINGLE, tk.MULTIPLE, tk.EXTENDED),
             'state': 'readonly'},
         'ttk.Treeview': {
@@ -681,14 +809,18 @@ TK_WIDGET_OPTIONS = {
         }
     },
     'setgrid': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('setgrid')
     },
     # ttk.Entry
     'show': {
-        'editor': 'choice',
-        'params': {'values': ('', '•'), 'state': 'normal'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', '•'), 'state': 'normal'},
         'help': help_for('show'),
         'ttk.Treeview': {
             'params': {
@@ -702,36 +834,46 @@ TK_WIDGET_OPTIONS = {
         },
     },
     'showhandle': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('showhandle')
     },
     'showvalue': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('showvalue')
     },
     'spacing1': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('spacing1')
     },
     'spacing2': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('spacing2')
     },
     'spacing3': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('spacing3')
     },
     'startline': {
-        'editor': 'naturalnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'naturalnumber'},
         'help': help_for('startline')
     },
     'state': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'help': help_for('state'),
-        'params': {'values': ('', tk.NORMAL, tk.DISABLED),
-                   'state': 'readonly'},
+        'params': {
+            'mode': 'choice',
+            'values': ('', tk.NORMAL, tk.DISABLED),
+            'state': 'readonly'},
         'tk.Button': {
             'params': {
                 'values': ('', tk.NORMAL, tk.ACTIVE, tk.DISABLED),
@@ -781,14 +923,15 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Notebook.Tab
     'sticky': {
-        'editor': 'stickyentry',
-        'params': {},
+        'editor': 'dynamic',
+        'params': {'mode': 'stickyentry'},
         'help': help_for('sticky')
     },
     # ttk.Treeview.Column
     'stretch': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'help': help_for('stretch'),
+        'params': {'mode': 'choice'},
         'ttk.Treeview.Column': {
             'params': {'values': ('true', 'false'), 'state': 'readonly'},
             'default': 'true',
@@ -800,81 +943,101 @@ TK_WIDGET_OPTIONS = {
                 'state': 'readonly'}}
     },
     'style': {
-        'editor': 'ttkstylechoice',
+        'editor': 'dynamic',
+        'params': {'mode': 'ttkstylechoice'},
         'ttk.Button': {
             'params': {'values': ('', 'Toolbutton')}
         },
         'help': help_for('style')
     },
     'tabs': {  # FIXME see tk.Text tab property
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('tabs')
     },
     'tabstyle': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'tabular', 'wordprocessor'),
             'state': 'readonly'},
         'help': help_for('tabstyle')
     },
     'takefocus': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('takefocus')
     },
     'tearoff': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('tearoff')
     },
     'tearoffcommand': {
-        'editor': 'simplecommandentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'simplecommandentry'},
         'help': help_for('tearoffcommand')
     },
     # ttk.Label
     'text': {
-        'editor': 'text',
+        'editor': 'dynamic',
+        'params': {'mode': 'text'},
         'help': help_for('text')
     },
     # ttk.Label
     'textvariable': {
-        'editor': 'tkvarentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'tkvarentry'},
         'help': help_for('textvariable')
     },
     'tickinterval': {
-        'editor': 'spinbox',
-        'params': {'from_': 0, 'to': 999, 'increment': 0.5},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'spinbox',
+            'from_': 0, 'to': 999, 'increment': 0.5},
         'help': help_for('tickinterval')
     },
     # ttk.Scale, ttk.Spinbox
     'to': {
-        'editor': 'realnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'realnumber'},
         'help': help_for('to')
     },
     'title': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('title-menu')
     },
     'tristateimage': {
-        'editor': 'imageentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'imageentry'},
         'help': help_for('tristateimage')
     },
     'tristatevalue': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('tristatevalue')
     },
     'troughcolor': {
-        'editor': 'colorentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'colorentry'},
         'help': help_for('troughcolor')
     },
     # ttk.Label
     'underline': {
-        'editor': 'naturalnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'naturalnumber'},
         'help': help_for('underline')
     },
     'undo': {
-        'editor': 'choice',
-        'params': {'values': ('', 'false', 'true'), 'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'choice',
+            'values': ('', 'false', 'true'), 'state': 'readonly'},
         'help': help_for('undo')
     },
     'value': {
@@ -890,32 +1053,37 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Checkbutton
     'values': {
-        'editor': 'entry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entry'},
         'help': help_for('values'),
         'tk.Spinbox': {
             'help': help_for('values-tk.Spinbox')
         }
     },
     'validate': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'none', 'focus', 'focusin',
                        'focusout', 'key', 'all'),
             'state': 'readonly'},
         'help': help_for('validate')
     },
     'validatecommand': {
-        'editor': 'entryvalidatecommandentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'entryvalidatecommandentry'},
         'help': help_for('command-pygubu')
     },
     # ttk.Checkbutton
     'variable': {
-        'editor': 'tkvarentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'tkvarentry'},
         'help': help_for('variable')
     },
     # ttk.Panedwindow.Pane
     'weight': {
-        'editor': 'naturalnumber',
+        'editor': 'dynamic',
+        'params': {'mode': 'naturalnumber'},
         'default': '1',
         'help': help_for('weight')
     },
@@ -1016,8 +1184,9 @@ TK_WIDGET_OPTIONS = {
             'default': 200}},
     # ttk.Spinbox
     'wrap': {
-        'editor': 'choice',
+        'editor': 'dynamic',
         'params': {
+            'mode': 'choice',
             'values': ('', 'false', 'true'),
             'state': 'readonly'},
         'help': help_for('wrap-ttk.Spinbox'),
@@ -1030,33 +1199,40 @@ TK_WIDGET_OPTIONS = {
     },
     # ttk.Label
     'wraplength': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('wraplength')
     },
     # ttk.Entry
     'xscrollcommand': {
-        'editor': 'scrollsetcommandentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'scrollcommandentry'},
         'help': help_for('command-pygubu')
     },
     'xscrollincrement': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('xscrollincrement')
     },
     # ttk.Treeview
     'yscrollcommand': {
-        'editor': 'scrollsetcommandentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'scrollsetcommandentry'},
         'help': help_for('command-pygubu')
     },
     'yscrollincrement': {
-        'editor': 'dimensionentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'dimensionentry'},
         'help': help_for('yscrollincrement')
     },
 }
 
 REQUIRED_OPTIONS = {
     'class': {
-        'editor': 'entry',
-        'params': {'state': 'readonly'},
+        'editor': 'dynamic',
+        'params': {
+            'mode': 'entry',
+            'state': 'readonly'},
         'help': help_for('class')
     },
     'id': {
@@ -1098,7 +1274,8 @@ CUSTOM_OPTIONS = {
         'help': help_for('maxsize-custom')
     },
     'minsize': {
-        'editor': 'whentry',
+        'editor': 'dynamic',
+        'params': {'mode': 'whentry'},
         'help': help_for('minsize-custom')
     },
     'overrideredirect': {
