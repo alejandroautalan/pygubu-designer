@@ -1418,7 +1418,10 @@ def _register_custom(name, descr):
         WIDGET_CUSTOM_OPTIONS.append(name)
         WIDGET_CUSTOM_OPTIONS.sort()
         logger.debug('Registered property: %s', name)
-    WIDGET_PROPERTIES.update(CUSTOM_OPTIONS)
+    if name in WIDGET_PROPERTIES:
+        WIDGET_PROPERTIES[name].update(descr)
+    else:
+        WIDGET_PROPERTIES[name] = descr
 
 
 def register_property(name, descr):
