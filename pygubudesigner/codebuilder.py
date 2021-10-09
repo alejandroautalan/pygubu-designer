@@ -239,7 +239,7 @@ class UI2Code(Builder):
             layout = builder.code_layout(parentid=masterid)
 
             # Prevent duplicate grid properties from making it to the final generated code.
-            
+
             # For example: there may be 2 widgets that have a grid column weight of 1. The generated code
             # will make the parent's columnconfigure property to weight='1', but it'll do it two times (once for each widget).
             # The code below will prevent it from having the same grid configuration code generated twice.
@@ -250,11 +250,11 @@ class UI2Code(Builder):
                     idx_to_remove.append(idx)
                 else:
                     self._unique_grid_properties.append(l)
-            
+
             # Remove duplicate lines that we already have (such as for example: self.frame1.columnconfigure(0, weight='1'))
             layout = [item for idx, item in enumerate(layout)
                       if idx not in idx_to_remove]
-            
+
             self._code.extend(layout)
 
             # callbacks
@@ -315,20 +315,20 @@ class UI2Code(Builder):
         return cb_name
 
     def code_create_image(self, filename):
-        basename = os.path.basename(filename)
-        name, file_ext = os.path.splitext(basename)
-        name = self._make_identifier(basename)
-        varname = 'self.{0}'.format(name)
-
         if filename not in self._tkimages:
+            basename = os.path.basename(filename)
+            name, file_ext = os.path.splitext(basename)
+            name = self._make_identifier(name)
+            varname = 'self.img_{0}'.format(name)
+
             img_class = 'tk.PhotoImage'
             if file_ext in TK_BITMAP_FORMATS:
                 img_class = 'tk.BitmapImage'
             line = "{0} = {1}(file='{2}')".format(
                 varname, img_class, filename)
             self._code.append(line)
-            self._tkvariables[varname] = True
-        return varname
+            self._tkimages[filename] = varname
+        return self._tkimages[filename]
 
     def code_create_iconbitmap(self, filename):
         TPL = '@{0}'
