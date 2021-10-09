@@ -52,7 +52,8 @@ class UI2Code(Builder):
         self._callbacks = {}
         self._import_ttk = True
         self._code = []
-        self._unique_grid_properties = [] # Used for preventing duplicate grid row/column configure lines from ending up in the generated code.
+        # Used for preventing duplicate grid row/column configure lines from ending up in the generated code.
+        self._unique_grid_properties = []
         self.uidefinition = None
         self._builder = Builder()
         self._options = {}
