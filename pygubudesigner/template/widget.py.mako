@@ -1,5 +1,6 @@
 <%inherit file="base.py.mako"/>
 <%block name="imports" filter="trim">
+${self.pathlib_import()}
 ${import_lines}
 </%block>
 
@@ -8,7 +9,7 @@ class ${class_name}(${widget_base_class}):
     def __init__(self, master=None, **kw):
         super(${class_name}, self).__init__(master, **kw)
 ${widget_code}
-${callbacks}
+${callbacks}\
 </%block>
 
 <%block name="main">

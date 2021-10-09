@@ -74,6 +74,10 @@ class ScriptGenerator(object):
             if target_class == 'tk.Toplevel':
                 main_widget_is_toplevel = True
 
+            use_pathlib = False
+            if sys.version_info >= (3, 4):
+                use_pathlib = True
+
             context = {
                 'project_name': self.projectname,
                 'class_name': class_name,
@@ -84,6 +88,7 @@ class ScriptGenerator(object):
                 'import_lines': None,
                 'callbacks': '',
                 'tkvariables': [],
+                'use_pathlib': use_pathlib,
             }
 
             if template == 'application':

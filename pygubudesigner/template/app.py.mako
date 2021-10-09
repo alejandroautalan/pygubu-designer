@@ -16,7 +16,8 @@ class ${class_name}:
         %endif
         builder.connect_callbacks(self)
     
-${callbacks}
     def run(self):
         self.mainwindow.mainloop()
+
+${callbacks}\
 </%block>
