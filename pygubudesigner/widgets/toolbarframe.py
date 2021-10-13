@@ -4,6 +4,7 @@ try:
 except ImportError:
     import Tkinter as tk
     import ttk
+from pygubu import ApplicationLevelBindManager as BindManager
 
 
 class ToolbarFrame(ttk.Frame):
@@ -48,9 +49,30 @@ class ToolbarFrame(ttk.Frame):
         self.SCROLL_INCREMENT = 50
         fvport.bind('<Configure>', self._reposition)
         fcontent.bind('<Configure>', self._reposition)
+        self._configure_mousewheel()
 
     def child_master(self):
         return self.fcontent
+
+    def _configure_mousewheel(self):
+        BindManager.init_mousewheel_binding(self)
+        self.bind(
+            '<Enter>',
+            lambda event: BindManager.mousewheel_bind(self),
+            add='+')
+        self.bind(
+            '<Leave>',
+            lambda event: BindManager.mousewheel_unbind(),
+            add='+')
+        self.on_mousewheel = BindManager.make_onmousewheel_cb(
+            self, 'x', 2)
+
+    def xview(self, mode=None, value=None, units=None):
+        if mode == 'scroll':
+            if value > 0:
+                self.scroll_right()
+            else:
+                self.scroll_left()
 
     def toggle_controls(self):
         self.controls_visible = not self.controls_visible
