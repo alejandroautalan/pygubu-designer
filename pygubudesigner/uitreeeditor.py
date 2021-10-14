@@ -105,7 +105,9 @@ class WidgetsTreeEditor(object):
         self.treeview.bind_all(
             '<<PreviewItemSelected>>',
             self._on_preview_item_clicked)
-        self.treeview.bind_all('<<RefreshLayoutPropertiesView>>', self.synchronize_layout_properties)
+        self.treeview.bind_all(
+            '<<RefreshLayoutPropertiesView>>',
+            self.synchronize_layout_properties)
         # Listen to Grid RC changes from layout
         lframe.bind_all(
             '<<LayoutEditorGridRCChanged>>',
@@ -146,22 +148,22 @@ class WidgetsTreeEditor(object):
 
             if do_delete:
                 self.on_treeview_delete_selection(None)
-    
+
     def selection_different_parents(self) -> bool:
         """
         Check whether any of the selections have different parents.
-        
+
         Return True if at least one selected item has a different parent than the rest of the selected items.
-        
+
         The purpose of this method is: duplicating an item that has a different parent than the rest of the items
         will give the user unexpected results.
-        
+
         For example:
         -> Frame1:
             -> Button1
             -> Frame2
                -> Button2
-        
+
         In the example above, if the user attempts to duplicate Frame1 and Frame2 together, then Frame1 and Frame2 will get
         duplicated into root (because Frame1's parent is root). This may confuse the user.
         If we were to allow this, the end-result would show up like this:
@@ -176,71 +178,78 @@ class WidgetsTreeEditor(object):
                -> Button4
         -> Frame5
             -> Button5
-        
+
         We use this method to decide whether we should allow a duplication to occur or not.
         """
-        
+
         # Get all the selected items in the object treeview.
         all_selections = self.treeview.selection()
-        
+
         if not all_selections:
             return False
-        
+
         # Keep a record of the selected items' parents.
         parent_iids = []
-        
-        # Check whether any of the selected items have a different parent or not.
+
+        # Check whether any of the selected items have a different parent or
+        # not.
         for selected_item in all_selections:
-            
+
             # Get the parent of the current item we are looping on
             item_parent = self.treeview.parent(selected_item)
-            
+
             # If item's parents has not been recorded, record it now.
             if item_parent not in parent_iids:
                 parent_iids.append(item_parent)
-                
-                # Do we now have more than 1 parent? Break out of the loop if that's the case.
+
+                # Do we now have more than 1 parent? Break out of the loop if
+                # that's the case.
                 if len(parent_iids) > 1:
                     item_parent_in_selection = True
                     break
-                
+
         else:
             # There are no selected items that have different parents.
             item_parent_in_selection = False
-            
+
         return item_parent_in_selection
-    
+
     def on_tree_item_duplicate(self, event):
         """
         Make a copy of the selected item (copy into a variable, not the clipboard)
         and 'paste' it in the parent of the selected item.
-        
+
         The clipboard does not get used when making duplicates, but the process is very similar.
         """
-        
+
         # Is the 'Duplicate' menu disabled? Don't allow this method to run.
-        # Without this check here, the user can use Ctrl+D on their keyboard and run this method.
+        # Without this check here, the user can use Ctrl+D on their keyboard
+        # and run this method.
         if self.app.duplicate_menu_state != 'normal':
             return
-        
-        # Get the iids of all the selections. We need this to get the parent iid of the first selection.
+
+        # Get the iids of all the selections. We need this to get the parent
+        # iid of the first selection.
         selected_iid = self.treeview.selection()
-        
+
         if not selected_iid:
             return
         else:
-            # Get the iid of the first selection so we can later find out its parent's iid.
+            # Get the iid of the first selection so we can later find out its
+            # parent's iid.
             selected_iid = selected_iid[0]
-        
-        # Set a flag to indicate to copy_to_clipboard() that we will not 
+
+        # Set a flag to indicate to copy_to_clipboard() that we will not
         # be using the clipboard, but a variable instead.
         self.duplicating = True
         self.copy_to_clipboard()
 
-        # Record the selected items' parent iid (because we're going to paste the widget(s) into the parent)
+        # Record the selected items' parent iid (because we're going to paste
+        # the widget(s) into the parent)
         self.duplicate_parent_iid = self.treeview.parent(selected_iid)
-        
-        # Paste the virtually-copied widget (not with the clipboard) to the parent.
+
+        # Paste the virtually-copied widget (not with the clipboard) to the
+        # parent.
         self.treeview.event_generate(TREE_ITEM_PASTE)
 
     def _on_gridrc_changed(self, event):
@@ -504,7 +513,8 @@ class WidgetsTreeEditor(object):
                 row = data.layout_property('row')
                 col = data.layout_property('column')
                 # Fix grid row position when using copy and paste
-                # Increase the pasted widget by 1 row so that it doesn't overlap
+                # Increase the pasted widget by 1 row so that it doesn't
+                # overlap
                 row_count = self.get_max_row(root)
                 if not from_file:
                     row = str(row_count + 1)
@@ -549,13 +559,13 @@ class WidgetsTreeEditor(object):
                 node = self.build_uidefinition(uidef, '', item)
                 uidef.add_xmlnode(node)
             text = str(uidef)
-            
+
             if self.duplicating:
                 self.virtual_clipboard_for_duplicate = text
             else:
                 tree.clipboard_clear()
                 tree.clipboard_append(text)
-                
+
             self.filter_restore()
 
     def cut_to_clipboard(self):
@@ -645,14 +655,14 @@ class WidgetsTreeEditor(object):
 
     def _generate_id(self, classname, index):
         name = classname.split('.')[-1]
-        
+
         if pref.get_option('widget_naming_separator') == 'UNDERSCORE':
             name = '{0}_{1}'.format(name, index)
         else:
             name = '{0}{1}'.format(name, index)
 
         name = name.lower()
-        
+
         if pref.get_option('widget_naming_ufletter') == 'yes':
             name = name.capitalize()
         return name
@@ -675,9 +685,9 @@ class WidgetsTreeEditor(object):
 
         tree = self.treeview
         selected_item = ''
-        
+
         if self.duplicating:
-            # Simulate the selected item (the one we're pasting to) as the 
+            # Simulate the selected item (the one we're pasting to) as the
             # parent of the first selected item we're duplicating.
             selected_item = self.duplicate_parent_iid
         else:
@@ -685,7 +695,8 @@ class WidgetsTreeEditor(object):
             if selection:
                 selected_item = selection[0]
         try:
-            # If we're duplicating, we should get the copy data from a variable, not the clipboard.
+            # If we're duplicating, we should get the copy data from a
+            # variable, not the clipboard.
             if self.duplicating:
                 # Get the copy/duplicate data.
                 text = self.virtual_clipboard_for_duplicate
@@ -716,11 +727,12 @@ class WidgetsTreeEditor(object):
             self.draw_widget(selected_item)
 
         self.filter_restore()
-        
+
         # Get all the children widgets of the parent that we pasted into.
         children_of_parent = self.treeview.get_children(selected_item)
         if children_of_parent:
-            # Select the last (latest) child so the user can see where the last pasted item is.
+            # Select the last (latest) child so the user can see where the last
+            # pasted item is.
             self.treeview.selection_set(children_of_parent[-1])
 
     def update_layout(self, root, data):
@@ -789,7 +801,8 @@ class WidgetsTreeEditor(object):
 
         # Make sure the selected widget has the same layout properties (weight, uniform, etc.)
         # as its siblings (if any).
-        self.synchronize_layout_properties(event=None, item=item, editor_gui_refresh=False)
+        self.synchronize_layout_properties(
+            event=None, item=item, editor_gui_refresh=False)
 
         # Do redraw
         self.draw_widget(item)
@@ -839,11 +852,12 @@ class WidgetsTreeEditor(object):
 
         if cname in CLASS_MAP:
             pwidget = self._insert_item(master, wmeta, from_file=from_file)
-            
+
             # Make sure the widget has the same layout properties (weight, uniform, etc.)
             # as its siblings (if any).
-            self.synchronize_layout_properties(event=None, item=pwidget, editor_gui_refresh=False)            
-            
+            self.synchronize_layout_properties(
+                event=None, item=pwidget, editor_gui_refresh=False)
+
             for mchild in uidef.widget_children(original_id):
                 self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
         else:
@@ -859,48 +873,50 @@ class WidgetsTreeEditor(object):
             if row > max_row:
                 max_row = row
         return max_row
-    
-    def synchronize_layout_properties(self, event, item=None, editor_gui_refresh=True):
+
+    def synchronize_layout_properties(
+            self, event, item=None, editor_gui_refresh=True):
         """
         Copy sibling properties (such as weight) and select the item in the treeview so the latest properties are shown.
         Used for grid.
-        
-        This was made so that when the grid row/column is changed, the options in the 'Layout' tab also 
+
+        This was made so that when the grid row/column is changed, the options in the 'Layout' tab also
         reflect the changed row/column. It will copy the shared row/column properties from its sibling(s) in
         the same row or same column.
-        
+
         For example: if its sibling has a grid column weight of 1, this item will also end up having a column weight of 1.
-        
+
         Arguments:
-        
+
         - event: this is a regular tk Event which will contain Event data if this method is run via event_generate().
-        
+
         - item: the caller of this method may pass in the treeview item here. Otherwise, we'll use the selected treeview item.
-        
+
         - editor_gui_refresh: specify whether we should reload/refresh the Object Properties pane GUI (Layout tab).
         Some callers of this method will update the Object Properties pane on their own, while others may not (hence the use of this flag).
         The reason this argument is here is to prevent multiple refreshes of the Object Properties pane.
         """
 
-        # Set the widget's row/column properties (such as weight) to be 
-        # the same as the first sibling's row/column properties (such as weight)
-        
+        # Set the widget's row/column properties (such as weight) to be
+        # the same as the first sibling's row/column properties (such as
+        # weight)
+
         # If no treeview item has been provided, get the current selection.
         if item:
             current_item = item
         else:
             current_item = self.current_edit
-            
+
         parent = self.treeview.parent(current_item)
         wmeta = self.treedata[current_item]
         srow = wmeta.layout_property('row')
-        scol = wmeta.layout_property('column')    
-        
+        scol = wmeta.layout_property('column')
+
         if parent:
             children = self.treeview.get_children(parent)
             copied_row_property = False
-            copied_column_property = False 
-            
+            copied_column_property = False
+
             for child in children:
                 if child == current_item:
                     continue
@@ -909,22 +925,26 @@ class WidgetsTreeEditor(object):
                 wu_row = wu.layout_property('row')
                 wu_col = wu.layout_property('column')
 
-                # Is this sibling widget on the same row as our widget? Copy its row properties.
+                # Is this sibling widget on the same row as our widget? Copy
+                # its row properties.
                 if wu_row == srow:
                     wmeta.copy_gridrc(wu, 'row')
                     copied_row_property = True
-                    
-                # Is this sibling widget on the same column as our widget? Copy its column properties.
+
+                # Is this sibling widget on the same column as our widget? Copy
+                # its column properties.
                 if wu_col == scol:
                     wmeta.copy_gridrc(wu, 'col')
                     copied_column_property = True
-                    
-                # If we've copied the row and column properties that we need from sibling widget(s), 
-                # there is no need to check other sibling widgets, so exit the loop.
+
+                # If we've copied the row and column properties that we need from sibling widget(s),
+                # there is no need to check other sibling widgets, so exit the
+                # loop.
                 if copied_row_property and copied_column_property:
                     break
 
-        # Show the new properties of the widget in the object properties pane (this refreshes the Layout tab).
+        # Show the new properties of the widget in the object properties pane
+        # (this refreshes the Layout tab).
         if editor_gui_refresh:
             self.editor_edit(current_item, self.treedata[current_item])
 
@@ -941,7 +961,7 @@ class WidgetsTreeEditor(object):
         else:
             # No selection hide all
             self.editor_hide_all()
-        
+
         # Check if some menu items (such as 'Duplicate') should be disabled or not.
         # The reason is: the treeview selection has changed, so we need to evaluate
         # whether it makes sense to have some menus enabled or not.

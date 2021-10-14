@@ -480,7 +480,8 @@ class PreviewHelper:
 
     def __init__(self, canvas, context_menu_method):
         self.canvas = canvas
-        self.show_context_menu = context_menu_method # The method we will call to show the context menu
+        # The method we will call to show the context menu
+        self.show_context_menu = context_menu_method
         self.previews = OrderedDict()
         self.padding = 20
         self.indicators = None
@@ -733,36 +734,38 @@ class PreviewHelper:
 
     def bind_preview_widget(self, widget, callback):
         widget.bind('<Button-1>', callback)
-        
+
         # The function that will be called when a right-click occurs.
-        # The second argument (callback) is used to select the widget before showing the context menu.
-        right_click_func = partial(self.on_right_clicked_preview_widget, callback)
-        
-        # For right-clicking - bind to button2 for macos and button3 for a different OS.
+        # The second argument (callback) is used to select the widget before
+        # showing the context menu.
+        right_click_func = partial(
+            self.on_right_clicked_preview_widget, callback)
+
+        # For right-clicking - bind to button2 for macos and button3 for a
+        # different OS.
         if sys.platform == 'darwin':
             widget.bind('<Button-2>', right_click_func)
         else:
             widget.bind('<Button-3>', right_click_func)
-            
+
         for w in widget.winfo_children():
             self.bind_preview_widget(w, callback)
 
     def on_right_clicked_preview_widget(self, callback, event):
         """
         A widget in the preview canvas has been right-clicked.
-        
+
         Arguments:
-        
+
         - Callback: we need to run this method before we show the context menu.
         This method will cause the widget to be selected.
-        
+
         - Event: a normal event argument. This will tell us which widget was right-clicked
         on if we ever need that info.
         """
-        
+
         # Select the widget that was right-clicked.
         callback(event)
-        
+
         # Show the right-click context menu.
         self.show_context_menu(event)
-        
