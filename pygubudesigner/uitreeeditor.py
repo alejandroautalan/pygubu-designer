@@ -770,8 +770,9 @@ class WidgetsTreeEditor(object):
         if children_of_parent:
             # Select the last (latest) child so the user can see where the last
             # pasted item is.
-            self.treeview.see(children_of_parent[-1])
-            self.treeview.selection_set(children_of_parent[-1])
+            self.treeview.after_idle(lambda: self.treeview.selection_set(children_of_parent[-1]))
+            self.treeview.after_idle(lambda: self.treeview.focus(children_of_parent[-1]))
+            self.treeview.after_idle(lambda: self.treeview.see(children_of_parent[-1]))            
 
     def update_layout(self, root, data):
         '''Removes layout info from element, when copied from clipboard.'''
