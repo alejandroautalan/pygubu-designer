@@ -283,18 +283,20 @@ class WidgetsTreeEditor(object):
 
             for child in children:
                 widget = self.treedata[child]
-                widget.manager = new_manager  # Change manager
+                # Don't change widgets with place manager
+                if widget.manager != 'place':
+                    widget.manager = new_manager  # Change manager
 
-                # update Tree R/C columns
-                values = self.treeview.item(child, 'values')
-                if new_manager == 'grid':
-                    widget.layout_property('row', str(gridrow))
-                    widget.layout_property('column', '0')
-                    values = (values[0], gridrow, 0)
-                    gridrow += 1
-                else:
-                    values = (values[0], '', '')
-                self.treeview.item(child, values=values)
+                    # update Tree R/C columns
+                    values = self.treeview.item(child, 'values')
+                    if new_manager == 'grid':
+                        widget.layout_property('row', str(gridrow))
+                        widget.layout_property('column', '0')
+                        values = (values[0], gridrow, 0)
+                        gridrow += 1
+                    else:
+                        values = (values[0], '', '')
+                    self.treeview.item(child, values=values)
             self._listen_object_updates = True
             self.editor_edit(item, self.treedata[item])
             self.draw_widget(item)
@@ -305,13 +307,15 @@ class WidgetsTreeEditor(object):
         logger.debug('item-selected %s', wid)
         self.select_by_id(wid)
 
-    def get_children_manager(self, item, current=None):
+    def get_children_manager(self, parent, current_item=None):
         '''Get layout manager for children of item'''
         manager = None
-        children = self.treeview.get_children(item)
+        children = self.treeview.get_children(parent)
         for child in children:
-            if child != current:
-                manager = self.treedata[child].manager
+            child_manager = self.treedata[child].manager
+            if (child != current_item
+                    and child_manager != 'place'):
+                manager = child_manager
                 break
         return manager
 
