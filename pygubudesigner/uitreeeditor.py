@@ -438,8 +438,8 @@ class WidgetsTreeEditor(object):
                         if c and (c not in selection):
                             final_focus = c
                             break
-                # remove item
-                del self.treedata[item]
+                # remove item and all its descendants
+                self.delete_item_data(item)
                 tv.delete(item)
                 self.app.set_changed()
                 if parent and (parent not in selection):
@@ -466,6 +466,23 @@ class WidgetsTreeEditor(object):
 
         # restore filter
         self.filter_restore()
+
+    def delete_item_data(self, item):
+        """
+        Delete the item and all its descendants from self.treedata
+        
+        Arguments:
+        
+        - item: the item iid (str) to delete, such as 'I001'
+        """
+        
+        # Get the children of the item.
+        item_children = self.treeview.get_children(item)
+        
+        for child in item_children:
+            self.delete_item_data(child)
+        
+        del self.treedata[item]
 
     def new_uidefinition(self):
         author = 'PygubuDesigner {0}'.format(pygubudesigner.__version__)
@@ -753,6 +770,7 @@ class WidgetsTreeEditor(object):
         if children_of_parent:
             # Select the last (latest) child so the user can see where the last
             # pasted item is.
+            self.treeview.see(children_of_parent[-1])
             self.treeview.selection_set(children_of_parent[-1])
 
     def update_layout(self, root, data):
@@ -889,7 +907,7 @@ class WidgetsTreeEditor(object):
         else:
             raise Exception('Class "{0}" not mapped'.format(cname))
 
-    def get_available_row(self, parent, new_item_data) -> str:
+    def get_available_row(self, parent, new_item_data):
         """
         Determine if new_item's row and column conflict with 
         its new siblings (the children of parent). 
