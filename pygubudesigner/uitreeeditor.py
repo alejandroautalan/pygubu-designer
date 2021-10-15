@@ -602,7 +602,7 @@ class WidgetsTreeEditor(object):
 
             allowed_parents = new_boclass.allowed_parents
             if (allowed_parents is not None and
-               root_classname not in allowed_parents):
+                    root_classname not in allowed_parents):
                 if show_warnings:
                     msg = trlog(_('{0} not allowed as parent of {1}'),
                                 root_classname, classname)
@@ -859,7 +859,8 @@ class WidgetsTreeEditor(object):
                 event=None, item=pwidget, editor_gui_refresh=False)
 
             for mchild in uidef.widget_children(original_id):
-                self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
+                self.populate_tree(pwidget, uidef, mchild,
+                                   from_file=from_file)
         else:
             raise Exception('Class "{0}" not mapped'.format(cname))
 
@@ -1130,7 +1131,8 @@ class WidgetsTreeEditor(object):
                 data.remove_unused_grid_rc()
             self.filter_restore()
             if using_grid:
-                self.synchronize_layout_properties(event=None, item=item_first)
+                self.synchronize_layout_properties(
+                    event=None, item=item_first)
 
     #
     # Filter functions
