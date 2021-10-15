@@ -492,8 +492,23 @@ class WidgetsTreeEditor(object):
             uidef.add_xmlchild(node, child_node)
         return node
 
-    def _insert_item(self, root, data, from_file=False):
-        """Insert a item on the treeview and fills columns from data"""
+    def _insert_item(self, root, data, from_file=False, is_first_widget_pasted=False):
+        """Insert a item on the treeview and fills columns from data
+        
+        The argument: is_first_widget_pasted (bool) will be True if we're about to
+        insert the first widget that was pasted from the clipboard or duplicated.
+        Here 'first widget' is basically the 'outer widget' - the widget whose direct 
+        parent is the container that it was pasted in.
+        
+        If we're currently on an outer widget (is_first_widget_pasted=True) that was 
+        pasted or duplicated, we need to see if any of its siblings have the same 
+        row AND column, and if they do, we need to give the pasted widget a new unique 
+        row number so it doesn't overlap with its new siblings.
+        
+        If we're not currently dealing with an outer widget, that means it's a child of 
+        the outer widget and we should not change the row/columns of the outer widget's 
+        children widgets.
+        """
 
         data.setup_defaults()  # load default settings for properties and layout
         tree = self.treeview
@@ -504,10 +519,12 @@ class WidgetsTreeEditor(object):
                 row = data.layout_property('row')
                 col = data.layout_property('column')
                 # Fix grid row position when using copy and paste
-                # Increase the pasted widget by 1 row so that it doesn't overlap
-                row_count = self.get_max_row(root)
                 if not from_file:
-                    row = str(row_count + 1)
+                    if is_first_widget_pasted:
+                        # Increase the pasted widget by 1 row (if necessary)
+                        # so that it doesn't overlap
+                        row = self.get_available_row(root, data)
+                        
                     data.layout_property('row', row)
 
         image = ''
@@ -697,7 +714,7 @@ class WidgetsTreeEditor(object):
             for wmeta in uidef.widgets():
                 if self._validate_add(selected_item, wmeta.classname):
                     self.update_layout(selected_item, wmeta)
-                    self.populate_tree(selected_item, uidef, wmeta)
+                    self.populate_tree(selected_item, uidef, wmeta, is_first_widget_pasted=True)
         except ET.ParseError:
             msg = 'The clipboard does not have a valid widget xml definition.'
             logger.error(msg)
@@ -829,8 +846,12 @@ class WidgetsTreeEditor(object):
             self.draw_widget(child)
         self.previewer.show_selected(None, None)
 
-    def populate_tree(self, master, uidef, wmeta, from_file=False):
-        """Reads xml nodes and populates tree item"""
+    def populate_tree(self, master, uidef, wmeta, from_file=False, is_first_widget_pasted=False):
+        """Reads xml nodes and populates tree item
+        
+        The argument: is_first_widget_pasted (bool) will be True if we're currently
+        on the first widget that was pasted from the clipboard or duplicated.
+        """
 
         cname = wmeta.classname
         original_id = wmeta.identifier
@@ -838,7 +859,7 @@ class WidgetsTreeEditor(object):
         wmeta.widget_property('id', uniqueid)
 
         if cname in CLASS_MAP:
-            pwidget = self._insert_item(master, wmeta, from_file=from_file)
+            pwidget = self._insert_item(master, wmeta, from_file=from_file, is_first_widget_pasted=is_first_widget_pasted)
             
             # Make sure the widget has the same layout properties (weight, uniform, etc.)
             # as its siblings (if any).
@@ -849,6 +870,70 @@ class WidgetsTreeEditor(object):
         else:
             raise Exception('Class "{0}" not mapped'.format(cname))
 
+    def get_available_row(self, parent, new_item_data) -> str:
+        """
+        Determine if new_item's row and column conflict with 
+        its new siblings (the children of parent). 
+        
+        If the row AND column of one the siblings matches the new item's row/col, 
+        set new_item's row to be the maximum row of all its siblings + 1.
+        
+        The purpose of this method is to avoid new_item from getting overlapped with any
+        of its sibling and to also avoid unnecessarily increasing the row number of new_item
+        if it's not necessary (for example: new_item may not have any siblings with the same row/col,
+        so in a case like that, there is no point in changing new_item's row number).
+        
+        This method is only used when widget(s) are being pasted/duplicated.
+        
+        Arguments:
+        
+        - parent (str): the parent's item iid (ie: I001). This will be the parent
+        that the new item was pasted into or duplicated into.
+        
+        - new_item_data (str): the wmeta data for the item that is being pasted.
+        """
+        
+        increase_row = False
+        max_row = 0        
+        
+        # Get the row/col for the item being pasted
+        new_item_row = new_item_data.layout_property('row')
+        new_item_column = new_item_data.layout_property('column')
+        new_item_name = new_item_data.identifier
+        
+        # Check new_item's siblings to see if any of them have the exact same row/col.
+        children = self.treeview.get_children(parent)
+        for sibling in children:
+                        
+            sibling_properties = self.treedata[sibling]
+            sibling_name = sibling_properties.identifier
+            
+            # Don't check new_item because we're checking its siblings, not itself.
+            if sibling_name != new_item_name:
+                
+                # Get the row/col of the new item's sibling.
+                sibling_row = sibling_properties.layout_property('row')
+                sibling_col = sibling_properties.layout_property('column')
+                
+                # Keep track of the max row number, because we may need to use it
+                # after the loop is done.
+                if int(sibling_row) > max_row:
+                    max_row = int(sibling_row)            
+                
+                # If the item that is being pasted (the new item) has the same
+                # row AND column as one its new siblings, then we need to set
+                # the new item's row number to max_rows + 1.
+                if sibling_row == new_item_row and sibling_col == new_item_column:
+                    
+                    # Set the flag but keep the loop going because we still
+                    # need to find out what the max row number is.
+                    increase_row = True
+               
+        if increase_row:
+            new_item_row = str(max_row + 1)
+         
+        return new_item_row
+        
     def get_max_row(self, item):
         tree = self.treeview
         max_row = -1
