@@ -116,19 +116,22 @@ class WidgetMeta(WidgetMetaBase, Observable):
         # in self.gridrc_properties, a line will look something like this:
         # GridRCLine(rctype='row', rcid='3', pname='weight', pvalue='6')
         # That means that row #3 has a weight of 6.
-        
+
         # Based on the example above, we would get the widget's current row and column and
-        # remove any references to rows/columns options that don't match this widget's current row/column.
-            
+        # remove any references to rows/columns options that don't match this
+        # widget's current row/column.
+
         # Get the widget's current row and column.
         current_row = self.layout_properties.get("row")
         current_column = self.layout_properties.get("column")
-        
-        # Only keep the gridrc properties that match the widget's row and column.
-        filtered_list = [line for line in self.gridrc_properties
-                         if (line.rctype == "row" and line.rcid == current_row)
-                         or (line.rctype == "col" and line.rcid == current_column)]
-        
+
+        # Only keep the gridrc properties that match the widget's row and
+        # column.
+        filtered_list = [
+            line for line in self.gridrc_properties if (
+                line.rctype == "row" and line.rcid == current_row) or (
+                line.rctype == "col" and line.rcid == current_column)]
+
         # The new filtered list.
         self.gridrc_properties = filtered_list
 
@@ -144,7 +147,8 @@ class WidgetMeta(WidgetMetaBase, Observable):
 
         if wclass in CLASS_MAP:
             # setup default values for properties
-            for pname in CLASS_MAP[wclass].builder.properties:
+            builder = CLASS_MAP[wclass].builder
+            for pname in builder.properties:
                 pdescription = {}
                 if pname in WIDGET_PROPERTIES:
                     pdescription = WIDGET_PROPERTIES[pname]
@@ -154,7 +158,8 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 if default_value:
                     properties[pname] = default_value
                 # default text for widgets with text prop:
-                if pname in ('text', 'label'):
+                if (pname in ('text', 'label')
+                        and pname not in builder.OPTIONS_CUSTOM):
                     properties[pname] = widget_id
 
         # setup default values for layout

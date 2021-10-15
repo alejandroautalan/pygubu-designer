@@ -52,7 +52,8 @@ class UI2Code(Builder):
         self._callbacks = {}
         self._import_ttk = True
         self._code = []
-        # Used for preventing duplicate grid row/column configure lines from ending up in the generated code.
+        # Used for preventing duplicate grid row/column configure lines from
+        # ending up in the generated code.
         self._unique_grid_properties = []
         self.uidefinition = None
         self._builder = Builder()
@@ -238,20 +239,24 @@ class UI2Code(Builder):
             # layout
             layout = builder.code_layout(parentid=masterid)
 
-            # Prevent duplicate grid properties from making it to the final generated code.
+            # Prevent duplicate grid properties from making it to the final
+            # generated code.
 
             # For example: there may be 2 widgets that have a grid column weight of 1. The generated code
             # will make the parent's columnconfigure property to weight='1', but it'll do it two times (once for each widget).
-            # The code below will prevent it from having the same grid configuration code generated twice.
+            # The code below will prevent it from having the same grid
+            # configuration code generated twice.
             idx_to_remove = []
             for idx, l in enumerate(layout):
-                # Do we already have the property added to the code? If so, record the index so we can remove the duplicate line.
+                # Do we already have the property added to the code? If so,
+                # record the index so we can remove the duplicate line.
                 if l in self._unique_grid_properties:
                     idx_to_remove.append(idx)
                 else:
                     self._unique_grid_properties.append(l)
 
-            # Remove duplicate lines that we already have (such as for example: self.frame1.columnconfigure(0, weight='1'))
+            # Remove duplicate lines that we already have (such as for example:
+            # self.frame1.columnconfigure(0, weight='1'))
             layout = [item for idx, item in enumerate(layout)
                       if idx not in idx_to_remove]
 

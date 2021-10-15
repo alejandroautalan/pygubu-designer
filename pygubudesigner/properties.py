@@ -812,7 +812,7 @@ TK_WIDGET_OPTIONS = {
                 'values': (tk.EXTENDED, tk.BROWSE, tk.NONE),
                 'state': 'readonly'},
             'default': tk.EXTENDED,
-        }        
+        }
     },
     'setgrid': {
         'editor': 'dynamic',
