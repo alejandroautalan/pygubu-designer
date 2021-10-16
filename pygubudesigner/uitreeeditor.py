@@ -953,9 +953,9 @@ class WidgetsTreeEditor(object):
                 sibling_row = sibling_properties.layout_property('row')
                 sibling_col = sibling_properties.layout_property('column')
                 
-                # Keep track of the max row number, because we may need to use it
-                # after the loop is done.
-                if int(sibling_row) > max_row:
+                # Keep track of the max row number in the new item's column, 
+                # because we may need to use it after the loop is done.
+                if sibling_col == new_item_column and int(sibling_row) > max_row:
                     max_row = int(sibling_row)            
                 
                 # If the item that is being pasted (the new item) has the same
