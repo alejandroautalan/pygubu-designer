@@ -40,7 +40,6 @@ class DimensionPropertyEditor(EntryPropertyEditor):
     REGEX = RE_DIMENSION
 
     def __init__(self, master=None, **kw):
-        self._empty_data = None
         EntryPropertyEditor.__init__(self, master, **kw)
 
     def _validate(self):
@@ -51,20 +50,6 @@ class DimensionPropertyEditor(EntryPropertyEditor):
             valid = True
         self.show_invalid(not valid)
         return valid
-
-    def _get_value(self):
-        value = self._variable.get()
-
-        if self._empty_data is not None and value == '':
-            value = str(self._empty_data)
-            self._set_value(value)
-
-        return value
-
-    def parameters(self, **kw):
-        pvalue = kw.pop('empty_data', None)
-        self._empty_data = None if pvalue is None else pvalue
-        EntryPropertyEditor.parameters(self, **kw)
 
 
 class TwoDimensionPropertyEditor(DimensionPropertyEditor):
