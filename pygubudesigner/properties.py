@@ -1554,6 +1554,7 @@ LAYOUT_OPTIONS = {
     },
     'weight': {
         'editor': 'naturalnumber',
+        'params': {'empty_data': 0},
         'help': help_for('weight-grid')
     },
     'uniform': {

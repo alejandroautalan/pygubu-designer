@@ -118,6 +118,7 @@ class PropertyEditor(ttk.Frame):
 
 class EntryPropertyEditor(PropertyEditor):
     def _create_ui(self):
+        self._empty_data = None
         self._entry = entry = ttk.Entry(self, textvariable=self._variable)
         entry.grid(sticky='we')
         self.rowconfigure(0, weight=1)
@@ -126,7 +127,18 @@ class EntryPropertyEditor(PropertyEditor):
         entry.bind('<KeyPress>', self._on_keypress)
 
     def parameters(self, **kw):
+        pvalue = kw.pop('empty_data', None)
+        self._empty_data = None if pvalue is None else pvalue
         self._entry.configure(**kw)
+        
+    def _get_value(self):
+        value = self._variable.get()
+
+        if self._empty_data is not None and value == '':
+            value = str(self._empty_data)
+            self._set_value(value)
+
+        return value    
 
 
 class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
@@ -265,7 +277,7 @@ class NaturalNumberEditor(EntryPropertyEditor):
                 pass
         self.show_invalid(not valid)
         return valid
-
+    
 
 class IntegerNumberEditor(EntryPropertyEditor):
     def _validate(self):
