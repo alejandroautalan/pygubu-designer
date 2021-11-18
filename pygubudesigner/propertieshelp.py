@@ -1,7 +1,7 @@
 # encoding: utf-8
+from __future__ import unicode_literals
 
 # translator marker
-
 from pygubudesigner.i18n import translator as _
 
 tooltip_help = {
@@ -20,7 +20,7 @@ tooltip_help = {
     'background-tk': _("Specifies the normal background color to use when displaying the widget."),
     'background-ttk': _("The widget's background color. If unspecified, the theme default is used."),
     'borderwidth': _('Specifies a non-negative value indicating the width of the 3-D border to draw around the outside of the widget.'),
-    'bigincrement': _('Some interactions with the scale cause its value to change by “large” increments; this option specifies the size of the large increments.'),
+    'bigincrement': _('Some interactions with the scale cause its value to change by "large" increments; this option specifies the size of the large increments.'),
     'bitmap': _('Specifies a bitmap to display in the widget.'),
     'blockcursor': _('Specifies a boolean that says whether the blinking insertion cursor should be drawn as a character-sized rectangular block.'),
     'buttonbackground': _("The widget's background color. If unspecified, the theme default is used."),

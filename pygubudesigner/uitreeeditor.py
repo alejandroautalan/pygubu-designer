@@ -149,7 +149,7 @@ class WidgetsTreeEditor(object):
             if do_delete:
                 self.on_treeview_delete_selection(None)
 
-    def selection_different_parents(self) -> bool:
+    def selection_different_parents(self):
         """
         Check whether any of the selections have different parents.
 
