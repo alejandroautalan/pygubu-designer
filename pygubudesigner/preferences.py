@@ -50,7 +50,7 @@ options = {
 SEC_GENERAL = 'GENERAL'
 SEC_CUSTOM_WIDGETS = 'CUSTOM_WIDGETS'
 SEC_RECENT_FILES = 'RECENT_FILES'
-config = configparser.SafeConfigParser()
+config = configparser.ConfigParser()
 config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
