@@ -926,6 +926,12 @@ TK_WIDGET_OPTIONS = {
                 'state': 'readonly'
             }
         },
+        'ttk.Spinbox': {
+            'params': {
+                'values': ('', tk.NORMAL, tk.DISABLED, 'readonly'),
+                'state': 'readonly'
+            }
+        },
     },
     # ttk.Notebook.Tab
     'sticky': {
