@@ -398,6 +398,165 @@
                 </child>
               </object>
             </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="Tab_ttk_styles">
+                <property name="sticky">nsew</property>
+                <property name="text" translatable="yes">Ttk Styles</property>
+                <child>
+                  <object class="ttk.Frame" id="frame_ttkstyles">
+                    <property name="height">200</property>
+                    <property name="padding">5</property>
+                    <property name="width">200</property>
+                    <layout manager="pack">
+                      <property name="expand">true</property>
+                      <property name="fill">both</property>
+                      <property name="propagate">True</property>
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="ttk.Frame" id="frame_title">
+                        <property name="height">200</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="expand">false</property>
+                          <property name="fill">x</property>
+                          <property name="propagate">True</property>
+                          <property name="side">top</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Label" id="lbl_title">
+                            <property name="font">TkHeadingFont</property>
+                            <property name="text" translatable="yes">Ttk Styles</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="propagate">True</property>
+                              <property name="row">0</property>
+                              <property name="sticky">w</property>
+                              <property type="col" id="0" name="weight">1</property>
+                              <property type="row" id="0" name="weight">0</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Frame" id="frame_ttk_files">
+                        <property name="height">200</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="expand">false</property>
+                          <property name="fill">x</property>
+                          <property name="pady">30</property>
+                          <property name="propagate">True</property>
+                          <property name="side">top</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Label" id="lbl_definition_file">
+                            <property name="text" translatable="yes">Style Definition File:</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="propagate">True</property>
+                              <property name="row">0</property>
+                              <property name="sticky">w</property>
+                              <property type="col" id="0" name="weight">1</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Entry" id="entry_style_definition_file">
+                            <property name="state">readonly</property>
+                            <property name="textvariable">string:v_style_definition_file</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="propagate">True</property>
+                              <property name="row">1</property>
+                              <property name="sticky">ew</property>
+                              <property type="col" id="0" name="weight">1</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Button" id="btn_browse_definition_file">
+                            <property name="command" type="command" cbtype="with_wid">on_clicked_select_style_file</property>
+                            <property name="text" translatable="yes">Browse...</property>
+                            <layout manager="grid">
+                              <property name="column">1</property>
+                              <property name="padx">2</property>
+                              <property name="propagate">True</property>
+                              <property name="row">1</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Label" id="label5">
+                            <property name="text" translatable="yes">Style Population File:</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="pady">15 0</property>
+                              <property name="propagate">True</property>
+                              <property name="row">2</property>
+                              <property name="sticky">w</property>
+                              <property type="col" id="0" name="weight">1</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Entry" id="entry_style_population_file">
+                            <property name="state">readonly</property>
+                            <property name="textvariable">string:v_style_population_file</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="propagate">True</property>
+                              <property name="row">3</property>
+                              <property name="sticky">ew</property>
+                              <property type="col" id="0" name="weight">1</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Button" id="btn_browse_population_file">
+                            <property name="command" type="command" cbtype="with_wid">on_clicked_select_style_file</property>
+                            <property name="text" translatable="yes">Browse...</property>
+                            <layout manager="grid">
+                              <property name="column">1</property>
+                              <property name="padx">2</property>
+                              <property name="propagate">True</property>
+                              <property name="row">3</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Button" id="btn_remove_style_definition">
+                            <property name="command" type="command" cbtype="with_wid">on_clicked_remove_style_file</property>
+                            <property name="text" translatable="yes">Remove</property>
+                            <layout manager="grid">
+                              <property name="column">2</property>
+                              <property name="padx">2</property>
+                              <property name="propagate">True</property>
+                              <property name="row">1</property>
+                              <property name="sticky">w</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Button" id="btn_remove_style_population">
+                            <property name="command" type="command" cbtype="with_wid">on_clicked_remove_style_file</property>
+                            <property name="text" translatable="yes">Remove</property>
+                            <layout manager="grid">
+                              <property name="column">2</property>
+                              <property name="padx">2</property>
+                              <property name="propagate">True</property>
+                              <property name="row">3</property>
+                              <property name="sticky">w</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <child>

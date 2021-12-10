@@ -9,6 +9,7 @@ from pygubu.builder.builderobject import (BuilderObject, grouper,
 from pygubu.builder.tkstdwidgets import TKToplevel
 from pygubu.builder.widgetmeta import WidgetMeta
 from pygubu.stockimage import TK_BITMAP_FORMATS
+from stylehandler import StyleHandler
 
 
 class ToplevelOrTk(TKToplevel):
@@ -79,12 +80,14 @@ class UI2Code(Builder):
 
         code_imports = self._process_imports()
         code_imports = '\n'.join(code_imports)
+        code_ttk_styles = self._process_ttk_styles()
         code_callbacks = self._process_callbacks()
         code_callbacks = '\n'.join(code_callbacks)
         code = ''.join(code)
         cc = {
             'imports': code_imports,
             target: code,
+            'ttkstyles': code_ttk_styles,
             'callbacks': code_callbacks,
             'tkvariables': list(self._tkvariables.keys())
         }
@@ -155,6 +158,40 @@ class UI2Code(Builder):
                 else:
                     self._code_imports[module].add(cname)
         return cname
+    
+    def _process_ttk_styles(self):
+        """
+        Generate the ttk style code.
+        """
+        
+        header_ttk = '\n# ttk styles\nself.style = ttk.Style()\n'
+        style_definition = StyleHandler._get_ttk_style_definition()
+        
+        if not style_definition:
+            return ''
+        
+        style_definition = header_ttk + style_definition
+        
+        new_lines = []
+        
+        # Make sure the ttk style code starts with 8 spaces for proper indentication
+        # with the generated class.
+        code_lines = style_definition.split('\n')
+        for line in code_lines:
+            if not line.startswith(' ' * 8):
+                line = ' ' * 8 + line
+            
+            new_lines.append(line)
+            
+        new_code = ''
+        
+        for line in new_lines:
+            new_code += line + '\n'
+            
+        if new_code:
+            new_code = new_code.rstrip('\n')
+            
+        return new_code
 
     def _process_imports(self):
         lines = []

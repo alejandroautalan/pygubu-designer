@@ -6,6 +6,7 @@ class ${class_name}:
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object('${main_widget}', master)
+        ${ttk_styles}
         %if tkvariables:
         
           %for var in tkvariables:

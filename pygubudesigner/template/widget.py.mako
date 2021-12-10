@@ -9,6 +9,7 @@ class ${class_name}(${widget_base_class}):
     def __init__(self, master=None, **kw):
         super(${class_name}, self).__init__(master, **kw)
 ${widget_code}
+${ttk_styles}
 ${callbacks}\
 </%block>
 

@@ -26,12 +26,16 @@ except ImportError:
     import Tkinter as tk
     import ttk
 
+
+from functools import partial
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
 
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import create_editor
+from stylehandler import StyleHandler
+
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
@@ -45,6 +49,9 @@ class PropertiesEditor(object):
         self._propbag = {}
         self._id_validator = kw.get('id_validator', None)
         self._create_properties()
+        self.style_handler = StyleHandler(self)
+        #StyleHandler.update_ttk_styles_func()
+        
         self.hide_all()
 
     def _create_properties(self):
@@ -143,6 +150,10 @@ class PropertiesEditor(object):
         # setup default value
         default = pdescr.get('default', '')
         value = wdescr.widget_property(pname)
+        
+        if pname == "style":
+            self.style_handler.find_style_property_editor(pname, editor)
+        
         if not value and default:
             value = default
         editor.edit(value)

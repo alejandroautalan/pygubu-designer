@@ -39,6 +39,8 @@ import pygubudesigner.actions as actions
 
 from .widgetdescr import WidgetMeta
 from .widgets.toplevelframe import ToplevelFramePreview
+from stylehandler import StyleHandler
+
 
 try:
     basestring
@@ -501,12 +503,31 @@ class PreviewHelper:
         canvas.bind('<5>', lambda event: canvas.yview('scroll', 1, 'units'))
         self._create_indicators()
 
-        s = ttk.Style()
-        s.configure('PreviewFrame.TFrame', background='lightgreen')
+        # We'll need to re-apply the styles if the style definition file
+        # gets modified, so keep a reference to this method in case the style changes
+        # and we need to run it again.
+        StyleHandler.update_ttk_styles_func = self.apply_ttk_style
+        
+        self.style = ttk.Style()
+        self.style.configure('PreviewFrame.TFrame', background='lightgreen')
+        
+        # Apply the ttk styles from the ttk style definition file (if the file is there.)
+        self.apply_ttk_style()
 
         self.selected_widget = None
         canvas.bind_all(actions.PREVIEW_TOPLEVEL_CLOSE_ALL,
                         lambda e: self.close_toplevel_previews())
+
+    def apply_ttk_style(self):
+        try:
+            logger.debug("Applied Ttk style definition")
+
+            style_code = StyleHandler._get_ttk_style_definition()
+            if style_code:
+                exec(style_code)
+        except Exception as e:   
+            msg = ('ttk style definition error: %s')
+            logger.error(msg, e)      
 
     def add_resource_path(self, path):
         self.resource_paths.append(path)

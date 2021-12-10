@@ -8,6 +8,8 @@ ${import_lines}
 <%block name="class_definition" filter="trim">
 class ${class_name}:
     def __init__(self, master=None):
+        ${ttk_styles}
+        
         # build ui
 ${widget_code}
         # Main widget
