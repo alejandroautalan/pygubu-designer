@@ -99,7 +99,7 @@ class WidgetsTreeEditor(object):
         bindingstree = app.builder.get_object('bindingstree')
 
         self.properties_editor = PropertiesEditor(
-            pframe, id_validator=self.is_id_unique, builder=self.app.builder)
+            pframe, id_validator=self.is_id_unique)
         self.layout_editor = LayoutEditor(lframe)
         self.bindings_editor = BindingsEditor(bindingstree, bframe)
         self.treeview.bind_all(
