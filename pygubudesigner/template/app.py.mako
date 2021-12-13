@@ -6,7 +6,6 @@ class ${class_name}:
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object('${main_widget}', master)
-        ${ttk_styles}
         %if tkvariables:
         
           %for var in tkvariables:
@@ -15,10 +14,22 @@ class ${class_name}:
         builder.import_variables(self, ${tkvariables})
         
         %endif
+        %if has_ttk_styles:
+        
+        self.setup_ttk_styles()
+        
+        %endif
         builder.connect_callbacks(self)
     
     def run(self):
         self.mainwindow.mainloop()
+    %if has_ttk_styles:
+    
+    def setup_ttk_styles(self):
+        # ttk styles configuration
+        self.style = style = ttk.Style()
+${ttk_styles}
+    %endif
 
 ${callbacks}\
 </%block>

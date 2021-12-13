@@ -90,12 +90,16 @@ class ScriptGenerator(object):
                 'callbacks': '',
                 'tkvariables': [],
                 'use_pathlib': use_pathlib,
+                'has_ttk_styles': False,
             }
 
             if template == 'application':
                 code = generator.generate(
                     uidef, target, as_class=False, tabspaces=8)
-                context['ttk_styles'] = code['ttkstyles']
+                ttk_styles_code = code['ttkstyles']
+                if ttk_styles_code:
+                    context['has_ttk_styles'] = True
+                context['ttk_styles'] = ttk_styles_code
                 context['callbacks'] = code['callbacks']
                 if self.import_tkvars_var.get():
                     context['tkvariables'] = code['tkvariables']
@@ -106,8 +110,11 @@ class ScriptGenerator(object):
                 code = generator.generate_widget_class(uidef, target)
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
-                context['ttk_styles'] = code['ttkstyles']
                 context['callbacks'] = code['callbacks']
+                ttk_styles_code = code['ttkstyles']
+                if ttk_styles_code:
+                    context['has_ttk_styles'] = True
+                context['ttk_styles'] = ttk_styles_code
                 tpl = makolookup.get_template('widget.py.mako')
                 final_code = tpl.render(**context)
                 self.set_code(final_code)
@@ -116,8 +123,11 @@ class ScriptGenerator(object):
                                           tabspaces=8)
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
-                context['ttk_styles'] = code['ttkstyles']
                 context['callbacks'] = code['callbacks']
+                ttk_styles_code = code['ttkstyles']
+                if ttk_styles_code:
+                    context['has_ttk_styles'] = True
+                context['ttk_styles'] = ttk_styles_code
                 tpl = makolookup.get_template('script.py.mako')
                 final_code = tpl.render(**context)
                 self.set_code(final_code)
