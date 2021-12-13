@@ -32,6 +32,8 @@ from pygubudesigner.widgets.propertyeditor import (ChoicePropertyEditor,
 class TtkStylePropertyEditor(ChoicePropertyEditor):
     RE_TTKSTYLECLASS = re.compile(
         '(?i)$|[_A-Za-z](\\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$')
+    STYLES = []
+    STYLES_FILTER_HINTS = None
 
     def _validate(self):
         valid = False
@@ -41,6 +43,28 @@ class TtkStylePropertyEditor(ChoicePropertyEditor):
             valid = True
         self.show_invalid(not valid)
         return valid
+
+    def parameters(self, **kw):
+        kw['values'] = self._create_style_options(kw.get('values'))
+        self._combobox.configure(**kw)
+
+    @classmethod
+    def set_filter_hints(cls, hints):
+        cls.STYLES_FILTER_HINTS = hints
+
+    @classmethod
+    def set_global_style_list(cls, style_list):
+        cls.STYLES = style_list
+
+    def _create_style_options(self, styles):
+        new_list = [] if styles is None else list(styles)
+        if self.STYLES_FILTER_HINTS:
+            for s in self.STYLES:
+                for hint in self.STYLES_FILTER_HINTS:
+                    if s.endswith(hint):
+                        new_list.append(s)
+                        break
+        return new_list
 
 
 register_editor('ttkstylechoice', TtkStylePropertyEditor)
