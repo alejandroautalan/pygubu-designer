@@ -102,6 +102,13 @@ class StyleHandler:
             contents = None
             with open(style_definition_path) as f:
                 contents = f.read()
+                
+            # Clear and reload all the definitions.
+            
+            # Reason: so that definitions that are no longer in the definition file 
+            # will no longer populate in the style combobox.
+            StyleRegister.STYLE_DEFINITIONS.clear()
+            
             self._apply_ttk_styles(contents)
         # schedule new check
         self.after_token = self.mframe.after(1000, self.check_definition_file)
