@@ -20,7 +20,7 @@ except ImportError:
 
 import pygubu
 from appdirs import AppDirs
-from stylehandler import StyleHandler
+from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -48,10 +48,7 @@ options = {
     },
     'v_style_definition_file': {
         'default': '',
-    },    
-    'v_style_population_file': {
-        'default': '',
-    },     
+    },
 }
 
 SEC_GENERAL = 'GENERAL'
@@ -167,9 +164,9 @@ class PreferencesUI(object):
 
         top = self.master.winfo_toplevel()
         self.dialog = dialog = builder.get_object('preferences', top)
-        
-        self.v_style_definition_file = builder.get_variable('v_style_definition_file')
-        self.v_style_population_file = builder.get_variable('v_style_population_file')
+
+        self.v_style_definition_file = builder.get_variable(
+            'v_style_definition_file')
 
         # setup theme values
         s = get_ttk_style()
@@ -236,16 +233,13 @@ class PreferencesUI(object):
         """
         A 'Browse...' buttonw as clicked on to either select a Ttk
         style definition file or a Ttk style population file.
-        
+
         Which 'Browse...' button was pressed (widget_id) dictates
         which variable will be set.
         """
-        
+
         if widget_id == 'btn_browse_definition_file':
             variable_to_set = self.v_style_definition_file
-        
-        elif widget_id == 'btn_browse_population_file':
-            variable_to_set = self.v_style_population_file
 
         options = {
             'defaultextension': '.py',
@@ -253,19 +247,14 @@ class PreferencesUI(object):
         fname = filedialog.askopenfilename(**options)
         if fname:
             variable_to_set.set(fname)
-            
+
     def on_clicked_remove_style_file(self, widget_id):
         """
         Clear a Ttk style definition or population file.
         """
         if widget_id == 'btn_remove_style_definition':
             variable_to_set = self.v_style_definition_file
-        
-        elif widget_id == 'btn_remove_style_population':
-            variable_to_set = self.v_style_population_file
-            
         variable_to_set.set('')
-        
 
     def on_dialog_close(self, event=None):
         self._save_options()
