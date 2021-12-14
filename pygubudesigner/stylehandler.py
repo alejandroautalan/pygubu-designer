@@ -51,10 +51,14 @@ class StyleHandler:
     last_definition_file = None
     last_modified_time = None
 
-    def __init__(self, mframe):
+    def __init__(self, mframe, reselect_item_func):
         self.mframe = mframe
         self.after_token = None
         self.style = StyleRegister()
+        
+        # Used for refreshing/re-populating the styles combobox.
+        # Used when the style definition gets updated (simulates clicking on the treeview item.)        
+        self.reselect_item_func = reselect_item_func
 
     def start_monitoring(self):
         self.mframe.after_idle(self.check_definition_file)
@@ -110,5 +114,10 @@ class StyleHandler:
             StyleRegister.STYLE_DEFINITIONS.clear()
             
             self._apply_ttk_styles(contents)
+            
+            # Re-select the selected item so the style combobox
+            # will show the latest styles from the definition file.
+            self.reselect_item_func()
+        
         # schedule new check
         self.after_token = self.mframe.after(1000, self.check_definition_file)
