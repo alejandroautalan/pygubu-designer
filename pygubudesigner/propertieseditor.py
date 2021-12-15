@@ -48,7 +48,12 @@ class PropertiesEditor(object):
         self._propbag = {}
         self._id_validator = kw.get('id_validator', None)
         self._create_properties()
-        self.style_handler = StyleHandler(self._sframe)
+        
+        # Used for refreshing/re-populating the styles combobox.
+        # Used when the style definition gets updated (simulates clicking on the treeview item again.)
+        reselect_item_func = kw.get('reselect_item_func', None) 
+        
+        self.style_handler = StyleHandler(self._sframe, reselect_item_func=reselect_item_func)
         self.style_handler.start_monitoring()
 
         self.hide_all()

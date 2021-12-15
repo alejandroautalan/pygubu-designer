@@ -20,6 +20,7 @@ import logging
 import os
 import xml.etree.ElementTree as ET
 from collections import Counter
+from functools import partial
 
 try:
     import tkinter as tk
@@ -97,9 +98,9 @@ class WidgetsTreeEditor(object):
         lframe = app.builder.get_object('layoutframe')
         bframe = app.builder.get_object('bindingsframe')
         bindingstree = app.builder.get_object('bindingstree')
-
         self.properties_editor = PropertiesEditor(
-            pframe, id_validator=self.is_id_unique)
+            pframe, id_validator=self.is_id_unique, 
+            reselect_item_func=partial(self.on_treeview_select, None))
         self.layout_editor = LayoutEditor(lframe)
         self.bindings_editor = BindingsEditor(bindingstree, bframe)
         self.treeview.bind_all(
