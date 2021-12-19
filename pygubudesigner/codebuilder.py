@@ -162,7 +162,7 @@ class UI2Code(Builder):
         """
         Generate the ttk style code.
         """
-        style_definition = StyleHandler.get_ttk_style_difinitions()
+        style_definition = StyleHandler.get_ttk_style_definitions()
 
         if not style_definition:
             return ''
