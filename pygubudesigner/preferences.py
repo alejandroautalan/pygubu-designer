@@ -250,11 +250,21 @@ class PreferencesUI(object):
 
     def on_clicked_remove_style_file(self, widget_id):
         """
-        Clear a Ttk style definition or population file.
+        Clear a Ttk style definition.
         """
+        suggest_restart = False
+        
         if widget_id == 'btn_remove_style_definition':
             variable_to_set = self.v_style_definition_file
+            
+            # Is there an existing style definition path?
+            if self.v_style_definition_file.get():
+                suggest_restart = True
         variable_to_set.set('')
+        
+        if suggest_restart:
+            msg = _("Restart Pygubu Designer for\nchanges to take effect.")
+            messagebox.showinfo(_('Styles'), msg)            
 
     def on_dialog_close(self, event=None):
         self._save_options()
