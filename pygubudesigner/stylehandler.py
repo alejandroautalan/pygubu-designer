@@ -75,7 +75,7 @@ class StyleHandler:
             logger.error(msg, e)
 
     @classmethod
-    def get_ttk_style_difinitions(cls):
+    def get_ttk_style_definitions(cls):
         contents = None
         style_definition_path = pref.get_option('v_style_definition_file')
 
