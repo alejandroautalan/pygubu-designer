@@ -55,13 +55,20 @@ class StyleHandler:
         self.mframe = mframe
         self.after_token = None
         self.style = StyleRegister()
-        
+
+        # Listen to theme change events
+        self.mframe.bind('<<ThemeChanged>>', self._on_theme_changed)
+
         # Used for refreshing/re-populating the styles combobox.
-        # Used when the style definition gets updated (simulates clicking on the treeview item.)        
+        # Used when the style definition gets updated (simulates clicking on the treeview item.)
         self.reselect_item_func = reselect_item_func
 
     def start_monitoring(self):
         self.mframe.after_idle(self.check_definition_file)
+
+    def _on_theme_changed(self, event=None):
+        # Force reloading of definitions when current theme is changed
+        self.check_definition_file(force_reload=True)
 
     def _apply_ttk_styles(self, style_code):
         logger.debug(_("Applying ttk style definitions"))
@@ -84,14 +91,16 @@ class StyleHandler:
                 contents = f.read()
         return contents
 
-    def check_definition_file(self):
+    def check_definition_file(self, force_reload=False):
         # print('checking definitions')
         # Get the path to the style definition file.
         style_definition_path = pref.get_option('v_style_definition_file')
 
         do_reload = False
+        has_definition_file = False
         is_new_file = False
         if path.isfile(style_definition_path):
+            has_definition_file = True
             file_mtime = path.getmtime(style_definition_path)
             if StyleHandler.last_definition_file != style_definition_path:
                 do_reload = True
@@ -102,22 +111,23 @@ class StyleHandler:
                 if file_mtime > StyleHandler.last_modified_time:
                     do_reload = True
                     StyleHandler.last_modified_time = file_mtime
-        if do_reload:
+        if do_reload or (has_definition_file and force_reload):
             contents = None
             with open(style_definition_path) as f:
                 contents = f.read()
-                
+
             # Clear and reload all the definitions.
-            
-            # Reason: so that definitions that are no longer in the definition file 
+
+            # Reason: so that definitions that are no longer in the definition file
             # will no longer populate in the style combobox.
             StyleRegister.STYLE_DEFINITIONS.clear()
-            
+
             self._apply_ttk_styles(contents)
-            
+
             # Re-select the selected item so the style combobox
             # will show the latest styles from the definition file.
-            self.reselect_item_func()
-        
+            if self.reselect_item_func is not None:
+                self.reselect_item_func()
+
         # schedule new check
         self.after_token = self.mframe.after(1000, self.check_definition_file)
