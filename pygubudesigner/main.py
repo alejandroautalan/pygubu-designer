@@ -527,6 +527,8 @@ class PygubuDesigner(object):
         try:
             s.theme_use(theme)
             self._setup_styles()
+            event_name = '<<PygubuDesignerTtkThemeChanged>>'
+            self.mainwindow.event_generate(event_name)
         except tk.TclError as e:
             logger.exception('Invalid ttk theme.')
 
