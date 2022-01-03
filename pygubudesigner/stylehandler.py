@@ -57,7 +57,8 @@ class StyleHandler:
         self.style = StyleRegister()
 
         # Listen to theme change events
-        self.mframe.bind('<<ThemeChanged>>', self._on_theme_changed)
+        self.mframe.bind_all('<<PygubuDesignerTtkThemeChanged>>',
+                             self._on_theme_changed)
 
         # Used for refreshing/re-populating the styles combobox.
         # Used when the style definition gets updated (simulates clicking on the treeview item.)
@@ -67,7 +68,7 @@ class StyleHandler:
         self.mframe.after_idle(self.check_definition_file)
 
     def _on_theme_changed(self, event=None):
-        # Force reloading of definitions when current theme is changed
+        logger.debug('Theme changed. Force reload of style definitions.')
         self.check_definition_file(force_reload=True)
 
     def _apply_ttk_styles(self, style_code):
