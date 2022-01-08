@@ -502,6 +502,28 @@
                         </child>
                       </object>
                     </child>
+                    <child>
+                      <object class="ttk.Frame" id="frame_new_definition_template">
+                        <property name="height">200</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="anchor">n</property>
+                          <property name="propagate">True</property>
+                          <property name="side">left</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Button" id="btn_new_style_definition">
+                            <property name="command" type="command" cbtype="simple">on_create_new_definition_clicked</property>
+                            <property name="text" translatable="yes">Create New Definition File...</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="propagate">True</property>
+                              <property name="row">0</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
