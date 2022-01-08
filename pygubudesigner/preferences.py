@@ -20,6 +20,7 @@ except ImportError:
 
 import pygubu
 from appdirs import AppDirs
+from os import path
 from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
@@ -228,6 +229,49 @@ class PreferencesUI(object):
             self.path_remove.configure(state='normal')
         else:
             self.path_remove.configure(state='disabled')
+
+    def on_create_new_definition_clicked(self):
+        """
+        Prompt the user to save a new Python file which will contain
+        some sample code so the user will have an idea on how to change styles.
+        """
+        
+        sample_script_contents = """# This file is used for defining Ttk styles.
+# Use the 'style' object to define styles.
+
+# Pygubu Designer will need to know which style definition file you wish to use
+# in your project.
+
+# To specify a style definition file in Pygubu Designer:
+# Go to: Edit -> Preferences -> Ttk Styles -> Browse (button)
+
+# In Pygubu Designer:
+# Assuming that you have specified a style definition file,
+# - Use the 'style' combobox drop-down menu in Pygubu Designer to select a style that you have defined.
+# - Changes made to the chosen style definition file will be automatically reflected in Pygubu Designer.
+# ----------------------
+
+# Example code:
+style.configure('Example.TButton', background='green')
+
+"""
+        options = {
+            'defaultextension': '.py',
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+        fname = filedialog.asksaveasfilename(**options)
+        if fname:
+            
+            try:
+                with open(fname, "w") as f:
+                    f.write(sample_script_contents)
+                    
+                if path.isfile(fname):
+                    msg = _("File saved.\n\nPlease edit the style definition file.")
+                    messagebox.showinfo(_('Styles'), msg)    
+                    
+            except (OSError, IOError):
+                msg = _("Error saving template file.")
+                messagebox.showerror(_('Styles'), msg)  
 
     def on_clicked_select_style_file(self, widget_id):
         """
