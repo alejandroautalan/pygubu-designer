@@ -809,7 +809,7 @@
                                             </child>
                                             <child>
                                               <object class="ttk.Labelframe" id="lfoptions">
-                                                <property name="height">120</property>
+                                                <property name="height">130</property>
                                                 <property name="padding">4</property>
                                                 <property name="text" translatable="yes">Options</property>
                                                 <property name="width">100</property>
@@ -877,6 +877,7 @@
                                                         <child>
                                                           <object class="ttk.Entry" id="classname">
                                                             <property name="textvariable">string:classnamevar</property>
+                                                            <property name="width">28</property>
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="propagate">True</property>
@@ -914,6 +915,17 @@
                                                           <object class="ttk.Checkbutton" id="cb_import_tkvars">
                                                             <property name="text" translatable="yes">Import Tk Variables</property>
                                                             <property name="variable">boolean:import_tkvars_var</property>
+                                                            <layout manager="pack">
+                                                              <property name="anchor">w</property>
+                                                              <property name="propagate">True</property>
+                                                              <property name="side">top</property>
+                                                            </layout>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="ttk.Checkbutton" id="cb_use_ttk_definitions">
+                                                            <property name="text" translatable="yes">Use ttk style definitions file</property>
+                                                            <property name="variable">boolean:use_ttkdefs_file_var</property>
                                                             <layout manager="pack">
                                                               <property name="anchor">w</property>
                                                               <property name="propagate">True</property>
