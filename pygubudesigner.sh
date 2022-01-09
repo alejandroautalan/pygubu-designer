@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 <<comment
 tree  -L 1
@@ -119,4 +119,15 @@ bup(){  build_and_upload; }
 bi(){   build_and_install; }
 ts(){   _test; }
 
-$1
+if [ $# -eq 0 ]
+  then
+    echo "Bash utility to facilitate development."
+    echo "usage: pygubudesigner.sh [option] [args]"
+    echo "Available options:"
+    echo "  ts: test"
+    echo "  bi: build and install."
+    echo "  bs: build and serve."
+    echo "  bup: build and upload."
+else
+    $1
+fi
