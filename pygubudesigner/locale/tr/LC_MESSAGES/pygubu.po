@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu Designer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-14 16:33+0800\n"
+"POT-Creation-Date: 2022-01-09 00:02-0300\n"
 "PO-Revision-Date: 2021-01-24 12:27-0300\n"
 "Last-Translator: \n"
 "Language-Team: Onur Oduncu\n"
@@ -18,42 +18,6 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: tr_TR\n"
-
-#: pygubudesigner/ui/about_dialog.ui:8
-msgid "About"
-msgstr "Hakkında"
-
-#: pygubudesigner/ui/about_dialog.ui:34
-msgid "pygubu"
-msgstr "pygubu"
-
-#: pygubudesigner/ui/about_dialog.ui:43
-msgid "v%version%"
-msgstr "v%version%"
-
-#: pygubudesigner/ui/about_dialog.ui:52
-msgid "pygubu-designer v%version%"
-msgstr "pygubu-designer v%version%"
-
-#: pygubudesigner/ui/about_dialog.ui:60
-msgid "pygubu is a graphical user interface designer for tkinter"
-msgstr "pygubu, tkinter için bir kullanıcı arayüzü tasarlayıcısıdır"
-
-#: pygubudesigner/ui/about_dialog.ui:75
-msgid "Copyright © 2012-2021 Alejandro Autalán"
-msgstr "Copyright © 2012-2021 Alejandro Autalán"
-
-#: pygubudesigner/ui/about_dialog.ui:86
-msgid ""
-"This program comes with ABSOLUTELY NO WARRANTY\n"
-"for details, visit http://www.gnu.org/licenses/gpl-3.0.html"
-msgstr ""
-"Bu program kesinlikle garanti sağlamaz\n"
-"detaylar için ziyaret ediniz: http://www.gnu.org/licenses/gpl-3.0.html"
-
-#: pygubudesigner/ui/about_dialog.ui:108
-msgid "Close"
-msgstr "Kapat"
 
 #: pygubudesigner/ui/preferences_dialog.ui:8
 msgid "Pygubu Preferences"
@@ -138,12 +102,33 @@ msgstr "-"
 msgid "+"
 msgstr "+"
 
-#: pygubudesigner/ui/preferences_dialog.ui:415
+#: pygubudesigner/ui/preferences_dialog.ui:404
+#: pygubudesigner/ui/preferences_dialog.ui:429
+msgid "Ttk Styles"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:455
+msgid "Style Definition File:"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:494
+msgid "Browse …"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:504
+msgid "Remove"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:514
+msgid "Create New …"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:542
 #: pygubudesigner/ui/ask_save_changes_dialog.ui:114
 msgid "Cancel"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:428
+#: pygubudesigner/ui/preferences_dialog.ui:555
 msgid "Ok"
 msgstr ""
 
@@ -167,7 +152,7 @@ msgstr "Son dosyayı aç …"
 msgid "Clear list"
 msgstr "Listeyi temizle"
 
-#: pygubudesigner/ui/pygubu-ui.ui:46 pygubudesigner/ui/pygubu-ui.ui:1040
+#: pygubudesigner/ui/pygubu-ui.ui:46 pygubudesigner/ui/pygubu-ui.ui:1052
 #: pygubudesigner/ui/ask_save_changes_dialog.ui:129
 msgid "Save"
 msgstr "Kaydet"
@@ -176,7 +161,7 @@ msgstr "Kaydet"
 msgid "Save as …"
 msgstr "Farklı kaydet …"
 
-#: pygubudesigner/ui/pygubu-ui.ui:62 pygubudesigner/main.py:186
+#: pygubudesigner/ui/pygubu-ui.ui:62 pygubudesigner/main.py:187
 msgid "Quit …"
 msgstr "Çık …"
 
@@ -184,19 +169,19 @@ msgstr "Çık …"
 msgid "Edit"
 msgstr "Düzenle"
 
-#: pygubudesigner/ui/pygubu-ui.ui:76 pygubudesigner/ui/pygubu-ui.ui:1157
+#: pygubudesigner/ui/pygubu-ui.ui:76 pygubudesigner/ui/pygubu-ui.ui:1169
 msgid "Copy"
 msgstr "Kopyala"
 
-#: pygubudesigner/ui/pygubu-ui.ui:83 pygubudesigner/ui/pygubu-ui.ui:1163
+#: pygubudesigner/ui/pygubu-ui.ui:83 pygubudesigner/ui/pygubu-ui.ui:1175
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: pygubudesigner/ui/pygubu-ui.ui:90 pygubudesigner/ui/pygubu-ui.ui:1169
+#: pygubudesigner/ui/pygubu-ui.ui:90 pygubudesigner/ui/pygubu-ui.ui:1181
 msgid "Cut"
 msgstr "Kes"
 
-#: pygubudesigner/ui/pygubu-ui.ui:97 pygubudesigner/ui/pygubu-ui.ui:1184
+#: pygubudesigner/ui/pygubu-ui.ui:97 pygubudesigner/ui/pygubu-ui.ui:1196
 #, fuzzy
 msgid "Duplicate"
 msgstr "Uygulama"
@@ -241,7 +226,7 @@ msgstr "Sağa taşı"
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: pygubudesigner/ui/pygubu-ui.ui:180 pygubudesigner/ui/pygubu-ui.ui:977
+#: pygubudesigner/ui/pygubu-ui.ui:180 pygubudesigner/ui/pygubu-ui.ui:989
 msgid "Preview"
 msgstr "Ön İzleme"
 
@@ -368,28 +353,32 @@ msgstr "Ana araç:"
 msgid "Class Name:"
 msgstr "Class Adı:"
 
-#: pygubudesigner/ui/pygubu-ui.ui:915
+#: pygubudesigner/ui/pygubu-ui.ui:916
 msgid "Import Tk Variables"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:943
+#: pygubudesigner/ui/pygubu-ui.ui:927
+msgid "Use ttk style definitions file"
+msgstr ""
+
+#: pygubudesigner/ui/pygubu-ui.ui:955
 msgid "Generate"
 msgstr "Oluştur"
 
-#: pygubudesigner/ui/pygubu-ui.ui:1028
+#: pygubudesigner/ui/pygubu-ui.ui:1040
 msgid "Copy to Clipboard"
 msgstr "Panoya Kopyala"
 
-#: pygubudesigner/ui/pygubu-ui.ui:1133
+#: pygubudesigner/ui/pygubu-ui.ui:1145
 msgid "Messages"
 msgstr "Mesajlar"
 
-#: pygubudesigner/ui/pygubu-ui.ui:1175
+#: pygubudesigner/ui/pygubu-ui.ui:1187
 #, fuzzy
 msgid "Delete"
 msgstr "Öğeleri sil"
 
-#: pygubudesigner/ui/ask_save_changes_dialog.ui:7 pygubudesigner/main.py:541
+#: pygubudesigner/ui/ask_save_changes_dialog.ui:7 pygubudesigner/main.py:547
 #, fuzzy
 msgid "Save Changes"
 msgstr "Farklı kaydet …"
@@ -411,6 +400,305 @@ msgstr ""
 #: pygubudesigner/ui/ask_save_changes_dialog.ui:98
 msgid "Don't Save"
 msgstr ""
+
+#: pygubudesigner/ui/about_dialog.ui:8
+msgid "About"
+msgstr "Hakkında"
+
+#: pygubudesigner/ui/about_dialog.ui:34
+msgid "pygubu"
+msgstr "pygubu"
+
+#: pygubudesigner/ui/about_dialog.ui:43
+msgid "v%version%"
+msgstr "v%version%"
+
+#: pygubudesigner/ui/about_dialog.ui:52
+msgid "pygubu-designer v%version%"
+msgstr "pygubu-designer v%version%"
+
+#: pygubudesigner/ui/about_dialog.ui:60
+msgid "pygubu is a graphical user interface designer for tkinter"
+msgstr "pygubu, tkinter için bir kullanıcı arayüzü tasarlayıcısıdır"
+
+#: pygubudesigner/ui/about_dialog.ui:75
+msgid "Copyright © 2012-2021 Alejandro Autalán"
+msgstr "Copyright © 2012-2021 Alejandro Autalán"
+
+#: pygubudesigner/ui/about_dialog.ui:86
+msgid ""
+"This program comes with ABSOLUTELY NO WARRANTY\n"
+"for details, visit http://www.gnu.org/licenses/gpl-3.0.html"
+msgstr ""
+"Bu program kesinlikle garanti sağlamaz\n"
+"detaylar için ziyaret ediniz: http://www.gnu.org/licenses/gpl-3.0.html"
+
+#: pygubudesigner/ui/about_dialog.ui:108
+msgid "Close"
+msgstr "Kapat"
+
+#: pygubudesigner/preferences.py:100
+#, python-brace-format
+msgid ""
+"Configuration file at '{0}' is corrupted, program may not work as expected.\n"
+"If you delete this file, configuration will be set to default"
+msgstr ""
+
+#: pygubudesigner/preferences.py:102 pygubudesigner/preferences.py:108
+#: pygubudesigner/main.py:84 pygubudesigner/main.py:99
+#: pygubudesigner/main.py:582 pygubudesigner/main.py:619
+msgid "Error"
+msgstr "Hata"
+
+#: pygubudesigner/preferences.py:105
+#, python-brace-format
+msgid "Faild to parse config file at '{0}', program may not work as expected."
+msgstr ""
+
+#: pygubudesigner/preferences.py:245 pygubudesigner/preferences.py:274
+#: pygubudesigner/preferences.py:309
+msgid "Python module"
+msgstr "Python modülü"
+
+#: pygubudesigner/preferences.py:245 pygubudesigner/preferences.py:274
+#: pygubudesigner/preferences.py:309 pygubudesigner/main.py:589
+#: pygubudesigner/main.py:630 pygubudesigner/scriptgenerator.py:179
+msgid "All"
+msgstr "Hepsi"
+
+#: pygubudesigner/preferences.py:256
+msgid ""
+"File saved.\n"
+"\n"
+"Please edit the style definition file."
+msgstr ""
+
+#: pygubudesigner/preferences.py:257 pygubudesigner/preferences.py:264
+#: pygubudesigner/preferences.py:292
+msgid "Styles"
+msgstr ""
+
+#: pygubudesigner/preferences.py:263
+msgid "Error saving template file."
+msgstr ""
+
+#: pygubudesigner/preferences.py:291
+msgid ""
+"Restart Pygubu Designer for\n"
+"changes to take effect."
+msgstr ""
+
+#: pygubudesigner/layouteditor.py:45
+msgid "Grid"
+msgstr "Izgara"
+
+#: pygubudesigner/layouteditor.py:45
+msgid "Pack"
+msgstr "Yerleştir"
+
+#: pygubudesigner/layouteditor.py:45
+msgid "Place"
+msgstr "Konumlandır"
+
+#: pygubudesigner/layouteditor.py:66
+msgid "Options:"
+msgstr "Seçenekler:"
+
+#: pygubudesigner/layouteditor.py:93
+#, python-brace-format
+msgid "Grid row '{0}' options:"
+msgstr "Izgara (Grid) satırı '{0}' seçenekleri:"
+
+#: pygubudesigner/layouteditor.py:116
+#, python-brace-format
+msgid "Grid column '{0}' options:"
+msgstr "Izgara (Grid) sütunu '{0}' seçenekleri:"
+
+#: pygubudesigner/layouteditor.py:233
+msgid "Change Manager"
+msgstr "Yöneticiyi Değiştir"
+
+#: pygubudesigner/layouteditor.py:234
+#, python-brace-format
+msgid "Change manager from {0} to {1}?"
+msgstr "Yönetici {0}'dan {1}'e değiştirilsin mi?"
+
+#: pygubudesigner/layouteditor.py:236
+msgid "All container widgets will be updated."
+msgstr "Tüm kapsayıcı (container) araçlar güncellenecek."
+
+#: pygubudesigner/propertieseditor.py:64
+msgid "Widget properties"
+msgstr "Araç özellikleri"
+
+#: pygubudesigner/propertieseditor.py:73
+msgid "Required"
+msgstr "Gerekli"
+
+#: pygubudesigner/propertieseditor.py:75
+msgid "Standard"
+msgstr "Standart"
+
+#: pygubudesigner/propertieseditor.py:77
+msgid "Specific"
+msgstr "Özgü"
+
+#: pygubudesigner/propertieseditor.py:79
+msgid "Custom"
+msgstr "Özel"
+
+#: pygubudesigner/stylehandler.py:78
+msgid "Applying ttk style definitions"
+msgstr ""
+
+#: pygubudesigner/stylehandler.py:89
+#, python-format
+msgid "ttk style definition error: %s"
+msgstr ""
+
+#: pygubudesigner/widgets/commandentry.py:107
+msgid "Callback:"
+msgstr ""
+
+#: pygubudesigner/widgets/commandentry.py:120
+msgid "Simple"
+msgstr ""
+
+#: pygubudesigner/widgets/commandentry.py:121
+#, fuzzy
+msgid "Send widget ID"
+msgstr "Araç seçin"
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:54
+msgid "Type of action."
+msgstr ""
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:55
+msgid "Index of character string to be inserted/deleted."
+msgstr ""
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:56
+msgid "The new/current value of the entry."
+msgstr ""
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:57
+msgid "The current value of entry prior to editing."
+msgstr ""
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:58
+msgid "The text string being inserted/deleted."
+msgstr ""
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:59
+msgid "The current value of the -validate option."
+msgstr ""
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:60
+msgid "The validation condition that triggered the callback."
+msgstr ""
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:61
+msgid "The name of the entry widget."
+msgstr ""
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:67
+#, fuzzy
+msgid "Select all"
+msgstr "Şablon seçin"
+
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:68
+#, fuzzy
+msgid "Clear"
+msgstr "Listeyi temizle"
+
+#: pygubudesigner/widgets/imageentry.py:61
+msgid "Tk image formats"
+msgstr "Tk görüntü formatları"
+
+#: pygubudesigner/widgets/imageentry.py:62
+msgid "All Files"
+msgstr "Tüm Dosyalar"
+
+#: pygubudesigner/uitreeeditor.py:146
+msgid "Delete items"
+msgstr "Öğeleri sil"
+
+#: pygubudesigner/uitreeeditor.py:147
+msgid "Delete selected items?"
+msgstr "Seçilen öğeler silinsin mi?"
+
+#: pygubudesigner/uitreeeditor.py:401
+msgid "No item selected."
+msgstr "Hiç öğe seçilmedi."
+
+#: pygubudesigner/uitreeeditor.py:626
+#, python-format
+msgid "Allowed children: %s."
+msgstr "İzin verilen çocuk (child): %s."
+
+#: pygubudesigner/uitreeeditor.py:635
+#, python-brace-format
+msgid "Only {0} children allowed for {1}"
+msgstr "{1} için sadece {0} çocuk (children) için izin verilir."
+
+#: pygubudesigner/uitreeeditor.py:645
+#, python-brace-format
+msgid "{0} not allowed as parent of {1}"
+msgstr "{1}'in içereni (parent) olarak {0}'a izin verilmiyor."
+
+#: pygubudesigner/uitreeeditor.py:653
+#, python-format
+msgid "Not allowed, %s is not a container."
+msgstr "%s bir içeren (container) değil, izin verilmez."
+
+#: pygubudesigner/uitreeeditor.py:665
+#, python-format
+msgid "%s not allowed at root level"
+msgstr "%s'e kök seviyesinde izin verilmez"
+
+#: pygubudesigner/uitreeeditor.py:675
+#, python-format
+msgid "Not allowed at root level, %s is not a container."
+msgstr "%s bir içeren (container) değil, kök seviyesinde izin verilmez."
+
+#: pygubudesigner/main.py:83
+#, fuzzy, python-brace-format
+msgid "Failed to load widget module: '{0}'"
+msgstr "Araç modülü '%s' yüklenirken hata oluştu."
+
+#: pygubudesigner/main.py:98
+#, fuzzy, python-brace-format
+msgid "Failed to load custom widget module: '{0}'"
+msgstr "Özel araç modülü: '%s' yüklenirken hata oluştu."
+
+#: pygubudesigner/main.py:550
+msgid "If you don't save the document, all the changes will be lost."
+msgstr ""
+
+#: pygubudesigner/main.py:563
+msgid "Do you want to save the changes before closing?"
+msgstr ""
+
+#: pygubudesigner/main.py:579
+#, python-format
+msgid "Project saved to %s"
+msgstr "Proje %s'e kaydedildi"
+
+#: pygubudesigner/main.py:589 pygubudesigner/main.py:630
+msgid "pygubu ui"
+msgstr "pygubu arayüzü"
+
+#: pygubudesigner/main.py:624
+msgid "Do you want to save the changes before opening?"
+msgstr ""
+
+#: pygubudesigner/main.py:638
+msgid "Do you want to save the changes before creating?"
+msgstr ""
+
+#: pygubudesigner/main.py:784
+msgid "newproject"
+msgstr "yeniproje"
 
 #: pygubudesigner/propertieshelp.py:8
 #, fuzzy
@@ -488,7 +776,7 @@ msgstr ""
 
 #: pygubudesigner/propertieshelp.py:23
 msgid ""
-"Some interactions with the scale cause its value to change by “large” "
+"Some interactions with the scale cause its value to change by \"large\" "
 "increments; this option specifies the size of the large increments."
 msgstr ""
 
@@ -1535,271 +1823,41 @@ msgid ""
 "other rows that have the same value for uniform."
 msgstr ""
 
-#: pygubudesigner/main.py:83
-#, fuzzy, python-brace-format
-msgid "Failed to load widget module: '{0}'"
-msgstr "Araç modülü '%s' yüklenirken hata oluştu."
-
-#: pygubudesigner/main.py:84 pygubudesigner/main.py:99
-#: pygubudesigner/main.py:576 pygubudesigner/main.py:613
-#: pygubudesigner/preferences.py:93 pygubudesigner/preferences.py:99
-msgid "Error"
-msgstr "Hata"
-
-#: pygubudesigner/main.py:98
-#, fuzzy, python-brace-format
-msgid "Failed to load custom widget module: '{0}'"
-msgstr "Özel araç modülü: '%s' yüklenirken hata oluştu."
-
-#: pygubudesigner/main.py:544
-msgid "If you don't save the document, all the changes will be lost."
-msgstr ""
-
-#: pygubudesigner/main.py:557
-msgid "Do you want to save the changes before closing?"
-msgstr ""
-
-#: pygubudesigner/main.py:573
-#, python-format
-msgid "Project saved to %s"
-msgstr "Proje %s'e kaydedildi"
-
-#: pygubudesigner/main.py:583 pygubudesigner/main.py:624
-msgid "pygubu ui"
-msgstr "pygubu arayüzü"
-
-#: pygubudesigner/main.py:583 pygubudesigner/main.py:624
-#: pygubudesigner/scriptgenerator.py:155 pygubudesigner/preferences.py:240
-msgid "All"
-msgstr "Hepsi"
-
-#: pygubudesigner/main.py:618
-msgid "Do you want to save the changes before opening?"
-msgstr ""
-
-#: pygubudesigner/main.py:632
-msgid "Do you want to save the changes before creating?"
-msgstr ""
-
-#: pygubudesigner/main.py:778
-msgid "newproject"
-msgstr "yeniproje"
-
-#: pygubudesigner/scriptgenerator.py:50
+#: pygubudesigner/scriptgenerator.py:52
 msgid "Script Generator"
 msgstr "Kod Oluşturucu"
 
-#: pygubudesigner/scriptgenerator.py:53
+#: pygubudesigner/scriptgenerator.py:55
 msgid "Create a pygubu application script using the UI definition."
 msgstr "Arayüz tanımı için bir pygubu uygulaması kodu oluşturun."
 
-#: pygubudesigner/scriptgenerator.py:54
+#: pygubudesigner/scriptgenerator.py:56
 msgid "Create a coded version of the UI definition."
 msgstr "Arayüz tanımı için kod oluşturun."
 
-#: pygubudesigner/scriptgenerator.py:55
+#: pygubudesigner/scriptgenerator.py:57
 msgid "Create a base class for your custom widget."
 msgstr "Özel araç için bir temel (base) class oluşturun."
 
-#: pygubudesigner/scriptgenerator.py:127
+#: pygubudesigner/scriptgenerator.py:151
 msgid "Code copied"
 msgstr "Kod kopyalandı"
 
-#: pygubudesigner/scriptgenerator.py:155
+#: pygubudesigner/scriptgenerator.py:179
 msgid "Python Script"
 msgstr "Python Kodu"
 
-#: pygubudesigner/scriptgenerator.py:187
+#: pygubudesigner/scriptgenerator.py:211
 msgid "Select widget"
 msgstr "Araç seçin"
 
-#: pygubudesigner/scriptgenerator.py:192
+#: pygubudesigner/scriptgenerator.py:216
 msgid "Select template"
 msgstr "Şablon seçin"
 
-#: pygubudesigner/scriptgenerator.py:197
+#: pygubudesigner/scriptgenerator.py:221
 msgid "Enter classname"
 msgstr "Class adı girin"
-
-#: pygubudesigner/layouteditor.py:45
-msgid "Grid"
-msgstr "Izgara"
-
-#: pygubudesigner/layouteditor.py:45
-msgid "Pack"
-msgstr "Yerleştir"
-
-#: pygubudesigner/layouteditor.py:45
-msgid "Place"
-msgstr "Konumlandır"
-
-#: pygubudesigner/layouteditor.py:66
-msgid "Options:"
-msgstr "Seçenekler:"
-
-#: pygubudesigner/layouteditor.py:93
-#, python-brace-format
-msgid "Grid row '{0}' options:"
-msgstr "Izgara (Grid) satırı '{0}' seçenekleri:"
-
-#: pygubudesigner/layouteditor.py:116
-#, python-brace-format
-msgid "Grid column '{0}' options:"
-msgstr "Izgara (Grid) sütunu '{0}' seçenekleri:"
-
-#: pygubudesigner/layouteditor.py:233
-msgid "Change Manager"
-msgstr "Yöneticiyi Değiştir"
-
-#: pygubudesigner/layouteditor.py:234
-#, python-brace-format
-msgid "Change manager from {0} to {1}?"
-msgstr "Yönetici {0}'dan {1}'e değiştirilsin mi?"
-
-#: pygubudesigner/layouteditor.py:236
-msgid "All container widgets will be updated."
-msgstr "Tüm kapsayıcı (container) araçlar güncellenecek."
-
-#: pygubudesigner/widgets/imageentry.py:61
-msgid "Tk image formats"
-msgstr "Tk görüntü formatları"
-
-#: pygubudesigner/widgets/imageentry.py:62
-msgid "All Files"
-msgstr "Tüm Dosyalar"
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:54
-msgid "Type of action."
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:55
-msgid "Index of character string to be inserted/deleted."
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:56
-msgid "The new/current value of the entry."
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:57
-msgid "The current value of entry prior to editing."
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:58
-msgid "The text string being inserted/deleted."
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:59
-msgid "The current value of the -validate option."
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:60
-msgid "The validation condition that triggered the callback."
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:61
-msgid "The name of the entry widget."
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:67
-#, fuzzy
-msgid "Select all"
-msgstr "Şablon seçin"
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:68
-#, fuzzy
-msgid "Clear"
-msgstr "Listeyi temizle"
-
-#: pygubudesigner/widgets/commandentry.py:107
-msgid "Callback:"
-msgstr ""
-
-#: pygubudesigner/widgets/commandentry.py:120
-msgid "Simple"
-msgstr ""
-
-#: pygubudesigner/widgets/commandentry.py:121
-#, fuzzy
-msgid "Send widget ID"
-msgstr "Araç seçin"
-
-#: pygubudesigner/preferences.py:91
-#, python-brace-format
-msgid ""
-"Configuration file at '{0}' is corrupted, program may not work as expected.\n"
-"If you delete this file, configuration will be set to default"
-msgstr ""
-
-#: pygubudesigner/preferences.py:96
-#, python-brace-format
-msgid "Faild to parse config file at '{0}', program may not work as expected."
-msgstr ""
-
-#: pygubudesigner/preferences.py:240
-msgid "Python module"
-msgstr "Python modülü"
-
-#: pygubudesigner/uitreeeditor.py:143
-msgid "Delete items"
-msgstr "Öğeleri sil"
-
-#: pygubudesigner/uitreeeditor.py:144
-msgid "Delete selected items?"
-msgstr "Seçilen öğeler silinsin mi?"
-
-#: pygubudesigner/uitreeeditor.py:387
-msgid "No item selected."
-msgstr "Hiç öğe seçilmedi."
-
-#: pygubudesigner/uitreeeditor.py:578
-#, python-format
-msgid "Allowed children: %s."
-msgstr "İzin verilen çocuk (child): %s."
-
-#: pygubudesigner/uitreeeditor.py:587
-#, python-brace-format
-msgid "Only {0} children allowed for {1}"
-msgstr "{1} için sadece {0} çocuk (children) için izin verilir."
-
-#: pygubudesigner/uitreeeditor.py:597
-#, python-brace-format
-msgid "{0} not allowed as parent of {1}"
-msgstr "{1}'in içereni (parent) olarak {0}'a izin verilmiyor."
-
-#: pygubudesigner/uitreeeditor.py:605
-#, python-format
-msgid "Not allowed, %s is not a container."
-msgstr "%s bir içeren (container) değil, izin verilmez."
-
-#: pygubudesigner/uitreeeditor.py:617
-#, python-format
-msgid "%s not allowed at root level"
-msgstr "%s'e kök seviyesinde izin verilmez"
-
-#: pygubudesigner/uitreeeditor.py:627
-#, python-format
-msgid "Not allowed at root level, %s is not a container."
-msgstr "%s bir içeren (container) değil, kök seviyesinde izin verilmez."
-
-#: pygubudesigner/propertieseditor.py:53
-msgid "Widget properties"
-msgstr "Araç özellikleri"
-
-#: pygubudesigner/propertieseditor.py:62
-msgid "Required"
-msgstr "Gerekli"
-
-#: pygubudesigner/propertieseditor.py:64
-msgid "Standard"
-msgstr "Standart"
-
-#: pygubudesigner/propertieseditor.py:66
-msgid "Specific"
-msgstr "Özgü"
-
-#: pygubudesigner/propertieseditor.py:68
-msgid "Custom"
-msgstr "Özel"
 
 #~ msgid "Help (Online)"
 #~ msgstr "Yardım (Çevrim içi)"

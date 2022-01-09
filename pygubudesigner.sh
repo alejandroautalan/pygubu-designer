@@ -124,10 +124,11 @@ if [ $# -eq 0 ]
     echo "Bash utility to facilitate development."
     echo "usage: pygubudesigner.sh [option] [args]"
     echo "Available options:"
-    echo "  ts: test"
-    echo "  bi: build and install."
-    echo "  bs: build and serve."
+    echo "  ts : test"
+    echo "  bi : build and install."
+    echo "  bs : build and serve."
     echo "  bup: build and upload."
+    echo "  po : update po file."
 else
     $1
 fi
