@@ -39,8 +39,10 @@ class ScriptGenerator(object):
         self.classnamevar = None
         self.template_desc_var = None
         self.import_tkvars_var = None
+        self.use_ttkdefs_file_var = None
         myvars = ['widgetlistvar', 'widgetlist_keyvar', 'template_var',
-                  'classnamevar', 'template_desc_var', 'import_tkvars_var']
+                  'classnamevar', 'template_desc_var', 'import_tkvars_var',
+                  'use_ttkdefs_file_var']
         builder.import_variables(self, myvars)
 
         self.txt_code = builder.get_object('txt_code')
@@ -55,6 +57,7 @@ class ScriptGenerator(object):
             'widget': _('Create a base class for your custom widget.')}
         self.template_var.set('application')
         self.import_tkvars_var.set(True)
+        self.use_ttkdefs_file_var.set(True)
 
     def camel_case(self, st):
         output = ''.join(x for x in st.title() if x.isalnum())
@@ -86,15 +89,24 @@ class ScriptGenerator(object):
                 'widget_base_class': target_class,
                 'widget_code': None,
                 'import_lines': None,
+                'ttk_styles': None,
                 'callbacks': '',
                 'tkvariables': [],
                 'use_pathlib': use_pathlib,
+                'has_ttk_styles': False,
             }
 
             if template == 'application':
                 code = generator.generate(
                     uidef, target, as_class=False, tabspaces=8)
+                # Style definitions
+                ttk_styles_code = code['ttkstyles']
+                if self.use_ttkdefs_file_var.get() and ttk_styles_code:
+                    context['has_ttk_styles'] = True
+                context['ttk_styles'] = ttk_styles_code
+                # Callbacks
                 context['callbacks'] = code['callbacks']
+                # Tk Variables
                 if self.import_tkvars_var.get():
                     context['tkvariables'] = code['tkvariables']
                 tpl = makolookup.get_template('app.py.mako')
@@ -105,6 +117,12 @@ class ScriptGenerator(object):
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
                 context['callbacks'] = code['callbacks']
+                # Style definitions
+                ttk_styles_code = code['ttkstyles']
+                if self.use_ttkdefs_file_var.get() and ttk_styles_code:
+                    context['has_ttk_styles'] = True
+                context['ttk_styles'] = ttk_styles_code
+
                 tpl = makolookup.get_template('widget.py.mako')
                 final_code = tpl.render(**context)
                 self.set_code(final_code)
@@ -114,6 +132,12 @@ class ScriptGenerator(object):
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
                 context['callbacks'] = code['callbacks']
+                # Style definitions
+                ttk_styles_code = code['ttkstyles']
+                if self.use_ttkdefs_file_var.get() and ttk_styles_code:
+                    context['has_ttk_styles'] = True
+                context['ttk_styles'] = ttk_styles_code
+
                 tpl = makolookup.get_template('script.py.mako')
                 final_code = tpl.render(**context)
                 self.set_code(final_code)

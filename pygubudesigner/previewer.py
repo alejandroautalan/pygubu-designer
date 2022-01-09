@@ -39,6 +39,8 @@ import pygubudesigner.actions as actions
 
 from .widgetdescr import WidgetMeta
 from .widgets.toplevelframe import ToplevelFramePreview
+from .widgets.ttkstyleentry import TtkStylePropertyEditor
+
 
 try:
     basestring
@@ -56,32 +58,18 @@ class BuilderForPreview(pygubu.Builder):
                      'ttk.Panedwindow.Pane', 'ttk.Notebook.Tab',
                      'pygubudesigner.ToplevelFramePreview']
 
-    def _pre_realize(self, bobject):
-        super(BuilderForPreview, self)._pre_realize(bobject)
-        wmeta = bobject.wmeta
-        cname = wmeta.classname
-        #print('In _pre_process_data', cname)
-
-        #  Do not resize main window when
-        #  Sizegrip is dragged on preview panel.
-        if cname == 'ttk.Sizegrip':
-            wmeta.properties['class_'] = 'DUMMY_CLASS'
-        if cname not in self.normalwidgets:
-            if 'class_' in bobject.properties:
-                wmeta.properties['class_'] = 'PreviewWidget'
-
     def _post_realize(self, bobject):
-        #print('In postProcess', bobject.wmeta.classname)
+        '''Configure widget for "preview" mode.'''
         cname = bobject.wmeta.classname
         if cname not in self.normalwidgets:
             if cname.startswith('tk.Menuitem'):
                 return
             self.make_previewonly(bobject.widget)
+            # TODO: for custom widgets we may need to add a method
+            #   'configure_for_preview(self, widget) in BuilderObject' ?
 
     def make_previewonly(self, w):
         '''Make widget just display with no functionality.'''
-        for child in w.winfo_children():
-            self._crop_widget(child)
         self._crop_widget(w)
 
     def _crop_widget(self, w):
@@ -501,8 +489,8 @@ class PreviewHelper:
         canvas.bind('<5>', lambda event: canvas.yview('scroll', 1, 'units'))
         self._create_indicators()
 
-        s = ttk.Style()
-        s.configure('PreviewFrame.TFrame', background='lightgreen')
+        self.style = ttk.Style()
+        self.style.configure('PreviewFrame.TFrame', background='lightgreen')
 
         self.selected_widget = None
         canvas.bind_all(actions.PREVIEW_TOPLEVEL_CLOSE_ALL,
@@ -672,6 +660,11 @@ class PreviewHelper:
         x, y = self.canvas.canvasx(x), self.canvas.canvasy(y)
         return (x, y)
 
+    def _update_style_editor(self, widget):
+        '''Setup TtkStylePropertyEditor with the real winfo_class and class name.'''
+        hints = (widget.winfo_class(), widget.__class__.__name__)
+        TtkStylePropertyEditor.set_filter_hints(hints)
+
     def show_selected(self, identifier, selected_id=None):
         canvas = self.canvas
         if selected_id is None:
@@ -693,6 +686,7 @@ class PreviewHelper:
                 x, y = self._calculate_indicator_coords(tag, widget)
                 ox, oy = canvas.coords(tag)
                 canvas.move(tag, x - ox, y - oy)
+            self._update_style_editor(widget)
         self._sel_id = identifier
         self._sel_widget = selected_id
 

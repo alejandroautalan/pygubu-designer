@@ -26,12 +26,15 @@ except ImportError:
     import Tkinter as tk
     import ttk
 
+
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
 
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import create_editor
+from .stylehandler import StyleHandler
+
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
@@ -45,6 +48,14 @@ class PropertiesEditor(object):
         self._propbag = {}
         self._id_validator = kw.get('id_validator', None)
         self._create_properties()
+        
+        # Used for refreshing/re-populating the styles combobox.
+        # Used when the style definition gets updated (simulates clicking on the treeview item again.)
+        reselect_item_func = kw.get('reselect_item_func', None) 
+        
+        self.style_handler = StyleHandler(self._sframe, reselect_item_func=reselect_item_func)
+        self.style_handler.start_monitoring()
+
         self.hide_all()
 
     def _create_properties(self):
@@ -143,6 +154,7 @@ class PropertiesEditor(object):
         # setup default value
         default = pdescr.get('default', '')
         value = wdescr.widget_property(pname)
+
         if not value and default:
             value = default
         editor.edit(value)

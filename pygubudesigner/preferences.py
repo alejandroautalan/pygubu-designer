@@ -20,6 +20,8 @@ except ImportError:
 
 import pygubu
 from appdirs import AppDirs
+from os import path
+from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -45,6 +47,9 @@ options = {
         'values': '["yes", "no"]',
         'default': 'no',
     },
+    'v_style_definition_file': {
+        'default': '',
+    },
 }
 
 SEC_GENERAL = 'GENERAL'
@@ -54,6 +59,10 @@ config = configparser.ConfigParser()
 config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
+
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'template')
+NEW_STYLE_FILE_TEMPLATE = os.path.join(TEMPLATE_DIR, 'customstyles.py.mako')
 
 
 def initialize_configfile():
@@ -161,6 +170,9 @@ class PreferencesUI(object):
         top = self.master.winfo_toplevel()
         self.dialog = dialog = builder.get_object('preferences', top)
 
+        self.v_style_definition_file = builder.get_variable(
+            'v_style_definition_file')
+
         # setup theme values
         s = get_ttk_style()
         styles = s.theme_names()
@@ -221,6 +233,63 @@ class PreferencesUI(object):
             self.path_remove.configure(state='normal')
         else:
             self.path_remove.configure(state='disabled')
+
+    def on_create_new_definition_clicked(self):
+        """
+        Prompt the user to save a new Python file which will contain
+        some sample code so the user will have an idea on how to change styles.
+        """
+
+        options = {
+            'defaultextension': '.py',
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+        fname = filedialog.asksaveasfilename(**options)
+        if fname:
+            try:
+                with open(fname, "w") as f:
+                    with open(NEW_STYLE_FILE_TEMPLATE, 'r') as tfile:
+                        sample_script_contents = tfile.read()
+                        f.write(sample_script_contents)
+
+                if path.isfile(fname):
+                    msg = _(
+                        "File saved.\n\nPlease edit the style definition file.")
+                    messagebox.showinfo(_('Styles'), msg)
+
+                    # Auto setup this new file definition:
+                    self.v_style_definition_file.set(fname)
+
+            except (OSError, IOError):
+                msg = _("Error saving template file.")
+                messagebox.showerror(_('Styles'), msg)
+
+    def on_clicked_select_style_file(self):
+        """
+        A 'Browse...' button was clicked on to select a
+        Ttk style definition file.
+        """
+
+        options = {
+            'defaultextension': '.py',
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+        fname = filedialog.askopenfilename(**options)
+        if fname:
+            self.v_style_definition_file.set(fname)
+
+    def on_clicked_remove_style_file(self):
+        """
+        Clear a Ttk style definition.
+        """
+        suggest_restart = False
+
+        # Is there an existing style definition path?
+        if self.v_style_definition_file.get():
+            suggest_restart = True
+        self.v_style_definition_file.set('')
+
+        if suggest_restart:
+            msg = _("Restart Pygubu Designer for\nchanges to take effect.")
+            messagebox.showinfo(_('Styles'), msg)
 
     def on_dialog_close(self, event=None):
         self._save_options()
