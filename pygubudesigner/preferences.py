@@ -60,6 +60,10 @@ config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
 
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'template')
+NEW_STYLE_FILE_TEMPLATE = os.path.join(TEMPLATE_DIR, 'customstyles.py.mako')
+
 
 def initialize_configfile():
     if not os.path.exists(dirs.user_data_dir):
@@ -235,80 +239,57 @@ class PreferencesUI(object):
         Prompt the user to save a new Python file which will contain
         some sample code so the user will have an idea on how to change styles.
         """
-        
-        sample_script_contents = """# This file is used for defining Ttk styles.
-# Use the 'style' object to define styles.
 
-# Pygubu Designer will need to know which style definition file you wish to use
-# in your project.
-
-# To specify a style definition file in Pygubu Designer:
-# Go to: Edit -> Preferences -> Ttk Styles -> Browse (button)
-
-# In Pygubu Designer:
-# Assuming that you have specified a style definition file,
-# - Use the 'style' combobox drop-down menu in Pygubu Designer to select a style that you have defined.
-# - Changes made to the chosen style definition file will be automatically reflected in Pygubu Designer.
-# ----------------------
-
-# Example code:
-style.configure('Example.TButton', background='green')
-
-"""
         options = {
             'defaultextension': '.py',
             'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
         fname = filedialog.asksaveasfilename(**options)
         if fname:
-            
             try:
                 with open(fname, "w") as f:
-                    f.write(sample_script_contents)
-                    
+                    with open(NEW_STYLE_FILE_TEMPLATE, 'r') as tfile:
+                        sample_script_contents = tfile.read()
+                        f.write(sample_script_contents)
+
                 if path.isfile(fname):
-                    msg = _("File saved.\n\nPlease edit the style definition file.")
-                    messagebox.showinfo(_('Styles'), msg)    
-                    
+                    msg = _(
+                        "File saved.\n\nPlease edit the style definition file.")
+                    messagebox.showinfo(_('Styles'), msg)
+
+                    # Auto setup this new file definition:
+                    self.v_style_definition_file.set(fname)
+
             except (OSError, IOError):
                 msg = _("Error saving template file.")
-                messagebox.showerror(_('Styles'), msg)  
+                messagebox.showerror(_('Styles'), msg)
 
-    def on_clicked_select_style_file(self, widget_id):
+    def on_clicked_select_style_file(self):
         """
-        A 'Browse...' buttonw as clicked on to either select a Ttk
-        style definition file or a Ttk style population file.
-
-        Which 'Browse...' button was pressed (widget_id) dictates
-        which variable will be set.
+        A 'Browse...' button was clicked on to select a
+        Ttk style definition file.
         """
-
-        if widget_id == 'btn_browse_definition_file':
-            variable_to_set = self.v_style_definition_file
 
         options = {
             'defaultextension': '.py',
             'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
         fname = filedialog.askopenfilename(**options)
         if fname:
-            variable_to_set.set(fname)
+            self.v_style_definition_file.set(fname)
 
-    def on_clicked_remove_style_file(self, widget_id):
+    def on_clicked_remove_style_file(self):
         """
         Clear a Ttk style definition.
         """
         suggest_restart = False
-        
-        if widget_id == 'btn_remove_style_definition':
-            variable_to_set = self.v_style_definition_file
-            
-            # Is there an existing style definition path?
-            if self.v_style_definition_file.get():
-                suggest_restart = True
-        variable_to_set.set('')
-        
+
+        # Is there an existing style definition path?
+        if self.v_style_definition_file.get():
+            suggest_restart = True
+        self.v_style_definition_file.set('')
+
         if suggest_restart:
             msg = _("Restart Pygubu Designer for\nchanges to take effect.")
-            messagebox.showinfo(_('Styles'), msg)            
+            messagebox.showinfo(_('Styles'), msg)
 
     def on_dialog_close(self, event=None):
         self._save_options()
