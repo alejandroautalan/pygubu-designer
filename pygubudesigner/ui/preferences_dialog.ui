@@ -468,58 +468,55 @@
                             <property name="textvariable">string:v_style_definition_file</property>
                             <layout manager="grid">
                               <property name="column">0</property>
+                              <property name="columnspan">2</property>
                               <property name="propagate">True</property>
                               <property name="row">1</property>
-                              <property name="sticky">ew</property>
+                              <property name="sticky">nsew</property>
                               <property type="col" id="0" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
                         <child>
-                          <object class="ttk.Button" id="btn_browse_definition_file">
-                            <property name="command" type="command" cbtype="with_wid">on_clicked_select_style_file</property>
-                            <property name="text" translatable="yes">Browse...</property>
-                            <layout manager="grid">
-                              <property name="column">1</property>
-                              <property name="padx">2</property>
-                              <property name="propagate">True</property>
-                              <property name="row">1</property>
-                            </layout>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="ttk.Button" id="btn_remove_style_definition">
-                            <property name="command" type="command" cbtype="with_wid">on_clicked_remove_style_file</property>
-                            <property name="text" translatable="yes">Remove</property>
-                            <layout manager="grid">
-                              <property name="column">2</property>
-                              <property name="padx">2</property>
-                              <property name="propagate">True</property>
-                              <property name="row">1</property>
-                              <property name="sticky">w</property>
-                            </layout>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ttk.Frame" id="frame_new_definition_template">
-                        <property name="height">200</property>
-                        <property name="width">200</property>
-                        <layout manager="pack">
-                          <property name="anchor">n</property>
-                          <property name="propagate">True</property>
-                          <property name="side">left</property>
-                        </layout>
-                        <child>
-                          <object class="ttk.Button" id="btn_new_style_definition">
-                            <property name="command" type="command" cbtype="simple">on_create_new_definition_clicked</property>
-                            <property name="text" translatable="yes">Create New Definition File...</property>
+                          <object class="ttk.Frame" id="frame1">
+                            <property name="height">200</property>
+                            <property name="padding">0 5</property>
+                            <property name="width">200</property>
                             <layout manager="grid">
                               <property name="column">0</property>
                               <property name="propagate">True</property>
-                              <property name="row">0</property>
+                              <property name="row">3</property>
+                              <property name="sticky">ew</property>
+                              <property type="col" id="0" name="weight">1</property>
                             </layout>
+                            <child>
+                              <object class="ttk.Button" id="btn_browse_definition_file">
+                                <property name="command" type="command" cbtype="simple">on_clicked_select_style_file</property>
+                                <property name="text" translatable="yes">Browse …</property>
+                                <layout manager="pack">
+                                  <property name="padx">0 10</property>
+                                  <property name="side">left</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Button" id="btn_remove_style_definition">
+                                <property name="command" type="command" cbtype="simple">on_clicked_remove_style_file</property>
+                                <property name="text" translatable="yes">Remove</property>
+                                <layout manager="pack">
+                                  <property name="padx">0 10</property>
+                                  <property name="side">left</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Button" id="btn_new_style_definition">
+                                <property name="command" type="command" cbtype="simple">on_create_new_definition_clicked</property>
+                                <property name="text" translatable="yes">Create New …</property>
+                                <layout manager="pack">
+                                  <property name="side">left</property>
+                                </layout>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
