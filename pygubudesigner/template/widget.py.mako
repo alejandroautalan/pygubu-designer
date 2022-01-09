@@ -15,6 +15,7 @@ ${widget_code}
     def setup_ttk_styles(self):
         # ttk styles configuration
         self.style = style = ttk.Style()
+        optiondb = style.master
 ${ttk_styles}
     %endif
 ${callbacks}\

@@ -15,7 +15,10 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 from os import path
-from tkinter import ttk
+try:
+    from tkinter import ttk
+except ImportError:
+    import ttk
 from pygubudesigner import preferences as pref
 from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
 from .i18n import translator as _
@@ -75,7 +78,11 @@ class StyleHandler:
         logger.debug(_("Applying ttk style definitions"))
         try:
             if style_code:
-                exec(style_code, {'style': self.style})
+                available_vars = {
+                    'style': self.style,
+                    'optiondb': self.style.master
+                }
+                exec(style_code, available_vars)
                 new_styles = self.style.registered_styles()
                 TtkStylePropertyEditor.set_global_style_list(new_styles)
         except Exception as e:
