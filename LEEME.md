@@ -185,9 +185,9 @@ Visita la [wiki](https://github.com/alejandroautalan/pygubu/wiki) para mas docum
 Los siguientes links son buenas referencias (en inglés) de tkinter (y tk):
 
 - [TkDocs](http://www.tkdocs.com)
-- [Graphical User Interfaces with Tk](http://docs.python.org/3.5/library/tk.html)
+- [Graphical User Interfaces with Tk](https://docs.python.org/3/library/tk.html)
 - [Tkinter 8.5 reference: a GUI for Python](https://tkdocs.com/shipman)
-- [An Introduction to Tkinter](http://effbot.org/tkinterbook/)
+- [An Introduction to Tkinter](http://effbot.org/tkinterbook) [(arhive)](http://web.archive.org/web/20200504141939/http://www.effbot.org/tkinterbook)
 - [Tcl/Tk 8.5 Manual](http://www.tcl.tk/man/tcl8.5/)
 
 Tambien puedes buscar en el directorio de [ejemplos](examples) o mirar este ejemplo de 'Hola mundo' en
