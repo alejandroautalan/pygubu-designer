@@ -136,6 +136,14 @@ class UI2Code(Builder):
                     code = builder.code_child_add(childid)
                     self._code.extend(code)
 
+                # configuration
+                configure = builder.code_configure()
+                self._code.extend(configure)
+
+                # layout? TODO: Review if layout is required here.
+                layout = builder.code_layout(parentid=masterid)
+                self._code.extend(layout)
+
         return self._process_results(target)
 
     def code_classname_for(self, bobject):
