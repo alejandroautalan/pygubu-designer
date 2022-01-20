@@ -1581,11 +1581,11 @@ MANAGER_PROPERTIES = (
 
 GRID_PROPERTIES = (
     'row', 'column', 'sticky', 'rowspan', 'columnspan', 'padx', 'pady',
-    'ipadx', 'ipady', 'propagate')
+    'ipadx', 'ipady')
 
 PACK_PROPERTIES = (
     'anchor', 'side', 'expand', 'fill', 'padx', 'pady',
-    'ipadx', 'ipady', 'propagate')
+    'ipadx', 'ipady')
 
 PLACE_PROPERTIES = (
     'anchor', 'relx', 'rely', 'relwidth', 'relheight',
@@ -1593,6 +1593,12 @@ PLACE_PROPERTIES = (
 )
 
 GRID_RC_PROPERTIES = ('minsize', 'pad', 'weight', 'uniform')
+
+# List properties in display order
+CONTAINER_MANAGER_PROPERTIES = ('anchor', 'propagate')   # all properties
+
+CONTAINER_GRID_PROPERTIES = ('anchor', 'propagate')
+CONTAINER_PACK_PROPERTIES = ('propagate',)
 
 TRANSLATABLE_PROPERTIES = (
     'label', 'text', 'title',
