@@ -316,7 +316,13 @@ class WidgetsTreeEditor(object):
                 if col > max_col:
                     max_col = col
             grid_dim = (max_row + 1, max_col + 1)
-        return (count, manager, grid_dim)
+
+        cinfo = {
+            'manager': manager,
+            'has_children': bool(count),
+            'grid_dim': grid_dim,
+        }
+        return cinfo
 
     def editor_edit(self, item, wdescr):
         self.current_edit = item
@@ -333,13 +339,13 @@ class WidgetsTreeEditor(object):
         logger.debug(manager_options)
 
         # Prepare container layout options
-        ccount, cmanager, grid_dim = self.get_container_info(item)
+        cinfo = self.get_container_info(item)
         # if cmanager != wdescr.container_manager:
         #     print('Something is wrong here ...?',
         #         cmanager, wdescr.container_manager)
 
         self.properties_editor.edit(wdescr)
-        self.layout_editor.edit(wdescr, manager_options, ccount, grid_dim)
+        self.layout_editor.edit(wdescr, manager_options, cinfo)
         self.bindings_editor.edit(wdescr)
 
     def editor_hide_all(self):

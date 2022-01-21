@@ -49,6 +49,9 @@ class LayoutEditor(PropertiesEditor):
     def _create_properties(self):
         """Populate a frame with a list of all editable properties"""
 
+        # To mantain container options:
+        self._container_options = {}
+
         # Layout Options editors
         self._rcbag = {}  # bag for row/column prop editors
         # main options frame
@@ -93,10 +96,13 @@ class LayoutEditor(PropertiesEditor):
         self._cleditor = ContainerLayoutEditor(self._sframe.innerframe)
         self._cleditor.grid(row=1, sticky='nswe', pady='5 0')
 
-    def edit(self, wdescr, manager_options,
-             children_count=0,
-             children_grid_dim=None):
+    def edit(self, wdescr, manager_options, container_options=None):
         self._current = wdescr
+
+        # need to save the container info when updating the view.
+        # this function is called again in _layout_manager_changed
+        if container_options is not None:
+            self._container_options = container_options
 
         wclass = wdescr.classname
         #class_descr = CLASS_MAP[wclass].builder
@@ -134,7 +140,10 @@ class LayoutEditor(PropertiesEditor):
                         widget.grid_remove()
 
             # determine if show container layout options
-            if is_container and layout_required and children_count:
+            has_children = self._container_options.get('has_children', False)
+            children_grid_dim = self._container_options.get('grid_dim', None)
+
+            if is_container and layout_required and has_children:
                 self._cleditor.grid()
                 cmanager = wdescr.container_manager
                 self._cleditor.edit(wdescr, cmanager, children_grid_dim)
