@@ -130,7 +130,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         editor.parameters(**params)
         default = pdescr.get('default', '')
 
-        value = wdescr.layout_property(pname)
+        value = wdescr.container_property(pname)
         if not value and default:
             value = default
         editor.edit(value)
@@ -156,7 +156,6 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
 
         value = ''
         value = wdescr.gridrc_property(type_, str(index), pname)
-        print('Get rc editor value for:', type_, index, pname, value)
         if not value and default:
             value = default
         editor.edit(value)
@@ -171,12 +170,10 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             self._edit_gridrc()
 
     def _on_property_changed(self, alias, editor):
-        print('property changed', alias, editor.value)
-
         if alias.startswith('cprop_'):
             # Contaner grid property
             _, pname = alias.split('_')
-            pass
+            self._current.container_property(pname, editor.value)
         else:
             # It's a grid RC change
             rowcol, pname = alias.split('_')
@@ -187,7 +184,6 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
                 number = str(self.gridselector.selection[index])
             target = self._current
             target.gridrc_property(rowcol, number, pname, editor.value)
-            # editor.event_generate('<<LayoutEditorGridRCChanged>>')
 
             # update grid view
             self.gridselector.mark_clear_all()
