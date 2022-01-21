@@ -64,10 +64,13 @@ class LayoutEditor(PropertiesEditor):
         combo.grid(row=0, column=1, sticky=tk.EW, pady=2)
         combo.bind('<<PropertyChanged>>', self._layout_manager_changed)
         self._allowed_managers = self.managers.keys()
+        # Separator
+        w = ttk.Separator(fprop, orient='horizontal')
+        w.grid(row=1, column=0, columnspan=2, sticky='ew', pady=4)
 
         # Other Layout properties
         label_tpl = "{0}:"
-        row = 1
+        row = 2
         col = 0
 
         self._groups = (
