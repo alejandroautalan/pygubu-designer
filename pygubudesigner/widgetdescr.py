@@ -74,6 +74,19 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 self.layout_properties.pop(name, None)
             self.notify('LAYOUT_CHANGED', self)
 
+    def container_property(self, name, value=None):
+        if value is None:
+            # Getter
+            return self.container_properties.get(name, '')
+        else:
+            # Setter
+            if value:
+                self.container_properties[name] = value
+            else:
+                # remove if no value set
+                self.container_properties.pop(name, None)
+            self.notify('LAYOUT_CHANGED', self)
+
     def gridrc_property(self, type_, num, pname, value=None):
         if value is None:
             # Getter
@@ -168,8 +181,8 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 if default_value:
                     properties[pname] = default_value
                 # default text for widgets with text prop:
-                if (pname in ('text', 'label') and
-                        pname not in builder.OPTIONS_CUSTOM):
+                if (pname in ('text', 'label')
+                        and pname not in builder.OPTIONS_CUSTOM):
                     properties[pname] = widget_id
 
         # setup default values for layout
