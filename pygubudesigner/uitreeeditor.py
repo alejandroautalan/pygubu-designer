@@ -106,10 +106,6 @@ class WidgetsTreeEditor(object):
         self.treeview.bind_all(
             '<<PreviewItemSelected>>',
             self._on_preview_item_clicked)
-        # Listen to Grid RC changes from layout
-        lframe.bind_all(
-            '<<LayoutEditorGridRCChanged>>',
-            self._on_gridrc_changed)
         f = lambda e, manager='grid': self.change_container_manager(manager)
         lframe.bind_all('<<LayoutEditorContainerManagerToGrid>>', f)
         f = lambda e, manager='pack': self.change_container_manager(manager)
@@ -250,26 +246,6 @@ class WidgetsTreeEditor(object):
         # parent.
         self.treeview.event_generate(TREE_ITEM_PASTE)
 
-    def _on_gridrc_changed(self, event):
-        # update siblings items that have same row col position
-        current_item = self.current_edit
-        parent = self.treeview.parent(current_item)
-        if parent:
-            wmeta = self.treedata[current_item]
-            srow = wmeta.layout_property('row')
-            scol = wmeta.layout_property('column')
-            children = self.treeview.get_children(parent)
-            for child in children:
-                if child == current_item:
-                    continue
-                wu = self.treedata[child]
-                wu_row = wu.layout_property('row')
-                wu_col = wu.layout_property('column')
-                if wu_row == srow:
-                    wu.copy_gridrc(wmeta, 'row')
-                if wu_col == scol:
-                    wu.copy_gridrc(wmeta, 'col')
-
     def change_container_manager(self, new_manager):
         item = self.current_edit
         parent = self.treeview.parent(item)
@@ -358,9 +334,9 @@ class WidgetsTreeEditor(object):
 
         # Prepare container layout options
         ccount, cmanager, grid_dim = self.get_container_info(item)
-        if cmanager != wdescr.container_manager:
-            print('Something is wrong here ...?',
-                  cmanager, wdescr.container_manager)
+        # if cmanager != wdescr.container_manager:
+        #     print('Something is wrong here ...?',
+        #         cmanager, wdescr.container_manager)
 
         self.properties_editor.edit(wdescr)
         self.layout_editor.edit(wdescr, manager_options, ccount, grid_dim)
