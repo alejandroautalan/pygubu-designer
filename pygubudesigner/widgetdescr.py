@@ -79,6 +79,9 @@ class WidgetMeta(WidgetMetaBase, Observable):
             # Getter
             return self.container_properties.get(name, '')
         else:
+            # do not save propagate if value is True
+            if name == 'propagate' and value.lower() == 'true':
+                value = None
             # Setter
             if value:
                 self.container_properties[name] = value
