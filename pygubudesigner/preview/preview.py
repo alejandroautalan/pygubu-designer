@@ -243,7 +243,7 @@ class OnCanvasMenuPreview(Preview):
         modifiers = ''
         tclobject = False
 
-        if font and isinstance(font, basestring):
+        if font and isinstance(font, str):
             fontname = family = font
         elif isinstance(font, tk._tkinter.Tcl_Obj):
             fontname = family = str(font)
