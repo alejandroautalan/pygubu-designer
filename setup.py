@@ -73,7 +73,7 @@ setup(
     url='https://github.com/alejandroautalan/pygubu-designer',
 
     packages=['pygubudesigner', 'pygubudesigner.util',
-              'pygubudesigner.widgets'],
+              'pygubudesigner.widgets', 'pygubudesigner.preview'],
     package_data={
         'pygubudesigner': [
             'images/images-gif/*.gif',
