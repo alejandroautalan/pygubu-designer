@@ -121,7 +121,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
 
     def update_editor(self, label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
-        manager = wdescr.manager
+        manager = wdescr.container_manager
 
         if manager in pdescr:
             pdescr = dict(pdescr, **pdescr[manager])
