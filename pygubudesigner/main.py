@@ -51,7 +51,7 @@ from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 
 from .i18n import translator
 from .logpanel import LogPanelManager
-from .previewer import PreviewHelper
+from .preview import PreviewHelper
 from .rfilemanager import RecentFilesManager
 from .uitreeeditor import WidgetsTreeEditor
 from .util import get_ttk_style, menu_iter_children, virtual_event

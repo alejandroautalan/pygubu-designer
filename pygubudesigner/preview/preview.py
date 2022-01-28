@@ -14,38 +14,21 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import unicode_literals
-
 import logging
 import re
 import sys
-import xml.etree.ElementTree as ET
-
-from functools import partial
-
-try:
-    import tkinter as tk
-    import tkinter.ttk as ttk
-except ImportError:
-    import Tkinter as tk
-    import ttk
-
+import tkinter as tk
+import tkinter.ttk as ttk
 import pygubu
-from pygubu.stockimage import StockImage
 
-import pygubudesigner.actions as actions
+from pygubudesigner.widgetdescr import WidgetMeta
+from pygubudesigner.widgets.toplevelframe import ToplevelFramePreview
 
-from .widgetdescr import WidgetMeta
-from .widgets.toplevelframe import ToplevelFramePreview
-from .widgets.ttkstyleentry import TtkStylePropertyEditor
+from .builder import BuilderForPreview
 
-
-try:
-    basestring
-except NameError:
-    basestring = str
 
 logger = logging.getLogger(__name__)
+
 RE_FONT = re.compile(
     "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?")
 
@@ -369,6 +352,8 @@ class ToplevelPreview(Preview):
         newroot = WidgetMeta('pygubudesigner.ToplevelFramePreview',
                              widget_id, 'pack')
         newroot.copy_properties(old)
+        # FIX: Why is not copying in the above function ???
+        newroot.gridrc_properties = old.gridrc_properties
         #newroot.widget_property('height', '200')
         #newroot.widget_property('width', '200')
         newroot.layout_property('expand', 'true')
