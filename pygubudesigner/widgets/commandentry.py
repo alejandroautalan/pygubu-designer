@@ -24,7 +24,8 @@ from pygubu.builder.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, register_editor)
+    PropertyEditor, register_editor, EntryPropertyEditor,
+    ChoiceByKeyPropertyEditor)
 
 
 class CommandPropertyBase(PropertyEditor):
