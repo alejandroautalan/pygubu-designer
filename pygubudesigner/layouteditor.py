@@ -110,6 +110,7 @@ class LayoutEditor(PropertiesEditor):
         max_children = 0 if max_children is None else max_children
         is_container = CLASS_MAP[wclass].builder.container
         layout_required = CLASS_MAP[wclass].builder.layout_required
+        allow_container_layout = CLASS_MAP[wclass].builder.container_layout
         show_layout = layout_required
 
         # manager selector
@@ -138,19 +139,18 @@ class LayoutEditor(PropertiesEditor):
                     else:
                         label.grid_remove()
                         widget.grid_remove()
-
-            # determine if show container layout options
-            has_children = self._container_options.get('has_children', False)
-            children_grid_dim = self._container_options.get('grid_dim', None)
-
-            if is_container and layout_required and has_children:
-                self._cleditor.grid()
-                cmanager = wdescr.container_manager
-                self._cleditor.edit(wdescr, cmanager, children_grid_dim)
-            else:
-                self._cleditor.grid_remove()
         else:
             self._fprop.grid_remove()
+
+        # determine if show container layout options
+        has_children = self._container_options.get('has_children', False)
+        children_grid_dim = self._container_options.get('grid_dim', None)
+
+        if is_container and allow_container_layout and has_children:
+            self._cleditor.grid()
+            cmanager = wdescr.container_manager
+            self._cleditor.edit(wdescr, cmanager, children_grid_dim)
+        else:
             self._cleditor.grid_remove()
 
         self._sframe.reposition()
