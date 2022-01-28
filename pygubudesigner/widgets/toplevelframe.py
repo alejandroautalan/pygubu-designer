@@ -90,6 +90,7 @@ class ToplevelFramePreview(tk.Frame):
 class ToplevelFramePreviewBO(BuilderObject):
     class_ = ToplevelFramePreview
     container = True
+    container_layout = True
     # Add fake 'modal' property for Dialog preview
     properties = TKToplevel.properties + ('modal',)
     ro_properties = TKToplevel.ro_properties
@@ -97,7 +98,8 @@ class ToplevelFramePreviewBO(BuilderObject):
     def _set_property(self, target_widget, pname, value):
         tw = target_widget
         tw.tl_attrs[pname] = value
-        method_props = ('iconbitmap', 'iconphoto', 'overrideredirect', 'title')
+        method_props = ('iconbitmap', 'iconphoto',
+                        'overrideredirect', 'title')
         if pname in method_props:
             pass
         elif pname in ('maxsize', 'minsize'):
