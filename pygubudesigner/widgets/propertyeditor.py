@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -13,10 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# For further info, check  http://pygubu.web.here
-
-from __future__ import unicode_literals
 
 __all__ = ['PropertyEditor', 'EntryPropertyEditor', 'SpinboxPropertyEditor',
            'ChoicePropertyEditor', 'ChoiceByKeyPropertyEditor',
@@ -25,13 +21,8 @@ __all__ = ['PropertyEditor', 'EntryPropertyEditor', 'SpinboxPropertyEditor',
 
 import keyword
 import re
-
-try:
-    import tkinter as tk
-    import tkinter.ttk as ttk
-except ImportError:
-    import Tkinter as tk
-    import ttk
+import tkinter as tk
+import tkinter.ttk as ttk
 
 from pygubu.widgets.combobox import Combobox
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
@@ -130,7 +121,7 @@ class EntryPropertyEditor(PropertyEditor):
         pvalue = kw.pop('empty_data', None)
         self._empty_data = None if pvalue is None else pvalue
         self._entry.configure(**kw)
-        
+
     def _get_value(self):
         value = self._variable.get()
 
@@ -138,7 +129,7 @@ class EntryPropertyEditor(PropertyEditor):
             value = str(self._empty_data)
             self._set_value(value)
 
-        return value    
+        return value
 
 
 class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
@@ -277,7 +268,7 @@ class NaturalNumberEditor(EntryPropertyEditor):
                 pass
         self.show_invalid(not valid)
         return valid
-    
+
 
 class IntegerNumberEditor(EntryPropertyEditor):
     def _validate(self):

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -14,24 +14,18 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import unicode_literals
-
 import re
 import sys
-
-try:
-    import tkinter as tk
-    import tkinter.font
-    import tkinter.ttk as ttk
-except ImportError:
-    import tkFont
-    import Tkinter as tk
-    import ttk
-    tk.font = tkFont
+import tkinter as tk
+import tkinter.font
+import tkinter.ttk as ttk
 
 from pygubu.stockimage import StockImage, StockImageException
 
-from pygubudesigner.widgets.propertyeditor import *
+from pygubudesigner.widgets.propertyeditor import (
+    PropertyEditor, ChoicePropertyEditor, CheckbuttonPropertyEditor,
+    register_editor)
+
 
 RE_FONT = re.compile(
     "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?")

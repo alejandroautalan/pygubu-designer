@@ -1,5 +1,4 @@
 # encoding: utf-8
-from __future__ import unicode_literals
 
 # translator marker
 from pygubudesigner.i18n import translator as _

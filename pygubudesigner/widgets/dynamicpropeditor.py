@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -14,9 +14,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import unicode_literals
-
-from pygubudesigner.widgets.propertyeditor import *
+from pygubudesigner.widgets.propertyeditor import (
+    PropertyEditor, create_editor, register_editor)
 
 
 class DynamicPropertyEditor(PropertyEditor):

@@ -13,19 +13,13 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# For further info, check  http://pygubu.web.here
-from __future__ import unicode_literals
 
-try:
-    import tkinter as tk
-    import tkinter.ttk as ttk
-except ImportError:
-    import Tkinter as tk
-    import ttk
+import tkinter as tk
+import tkinter.ttk as ttk
 
 from pygubudesigner.util.selecttool import SelectTool
-from pygubudesigner.widgets.propertyeditor import *
+from pygubudesigner.widgets.propertyeditor import (
+    PropertyEditor, register_editor)
 
 
 class StickyPropertyEditor(PropertyEditor):

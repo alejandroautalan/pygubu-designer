@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -13,15 +13,10 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# For further info, check  http://pygubu.web.here
 
-try:
-    import tkinter as tk
-except ImportError:
-    import Tkinter as tk
+import tkinter as tk
 
-from pygubu.builder.builderobject import *
+from pygubu.builder.builderobject import (BuilderObject, register_widget)
 from pygubu.builder.tkstdwidgets import TKToplevel
 
 

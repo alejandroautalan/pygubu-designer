@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -13,19 +13,10 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# For further info, check  http://pygubu.web.here
-from __future__ import print_function, unicode_literals
 
 import logging
-
-try:
-    import tkinter as tk
-    import tkinter.ttk as ttk
-except ImportError:
-    import Tkinter as tk
-    import ttk
-
+import tkinter as tk
+import tkinter.ttk as ttk
 
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
@@ -48,12 +39,13 @@ class PropertiesEditor(object):
         self._propbag = {}
         self._id_validator = kw.get('id_validator', None)
         self._create_properties()
-        
+
         # Used for refreshing/re-populating the styles combobox.
         # Used when the style definition gets updated (simulates clicking on the treeview item again.)
-        reselect_item_func = kw.get('reselect_item_func', None) 
-        
-        self.style_handler = StyleHandler(self._sframe, reselect_item_func=reselect_item_func)
+        reselect_item_func = kw.get('reselect_item_func', None)
+
+        self.style_handler = StyleHandler(
+            self._sframe, reselect_item_func=reselect_item_func)
         self.style_handler.start_monitoring()
 
         self.hide_all()
@@ -136,8 +128,8 @@ class PropertiesEditor(object):
         params = pdescr.get('params', {})
         # setup default mode if not specified in parameters for
         # specific class
-        if (default_mode is not None
-                and 'mode' not in params):
+        if (default_mode is not None and
+                'mode' not in params):
             params['mode'] = default_mode
         # Configure editor
         editor.parameters(**params)

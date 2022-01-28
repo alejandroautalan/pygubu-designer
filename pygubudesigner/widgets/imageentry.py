@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -13,27 +13,17 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# For further info, check  http://pygubu.web.here
-
-from __future__ import unicode_literals
 
 import os
-
-try:
-    import tkinter as tk
-    import tkinter.filedialog
-    import tkinter.ttk as ttk
-except ImportError:
-    import tkFileDialog
-    import Tkinter as tk
-    import ttk
-    tk.filedialog = tkFileDialog
+import tkinter as tk
+import tkinter.filedialog
+import tkinter.ttk as ttk
 
 from pygubu.stockimage import *
 
 from pygubudesigner.i18n import translator
-from pygubudesigner.widgets.propertyeditor import *
+from pygubudesigner.widgets.propertyeditor import (
+    PropertyEditor, register_editor)
 
 _ = translator
 

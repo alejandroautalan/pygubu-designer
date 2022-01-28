@@ -844,8 +844,6 @@ def start_pygubu():
     # Dependency check
     #
     help = "Hint, If your are using Debian, install package python3-appdirs."
-    if sys.version_info < (3,):
-        help = "Hint, If your are using Debian, install package python-appdirs."
     check_dependency('appdirs', '1.3', help)
 
     #root = tk.Tk()
