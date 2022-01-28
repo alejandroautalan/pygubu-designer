@@ -340,9 +340,11 @@ class WidgetsTreeEditor(object):
 
         # Prepare container layout options
         cinfo = self.get_container_info(item)
-        # if cmanager != wdescr.container_manager:
-        #     print('Something is wrong here ...?',
-        #         cmanager, wdescr.container_manager)
+        cmanager = cinfo['manager']
+        if (cmanager is not None
+                and cmanager != wdescr.container_manager):
+            # Update widged description
+            wdescr.container_manager = cmanager
 
         self.properties_editor.edit(wdescr)
         self.layout_editor.edit(wdescr, manager_options, cinfo)
