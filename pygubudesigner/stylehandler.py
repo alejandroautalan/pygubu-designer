@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2021 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -15,10 +15,8 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 from os import path
-try:
-    from tkinter import ttk
-except ImportError:
-    import ttk
+from tkinter import ttk
+
 from pygubudesigner import preferences as pref
 from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
 from .i18n import translator as _

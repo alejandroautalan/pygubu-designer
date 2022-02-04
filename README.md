@@ -13,7 +13,7 @@ Pygubu is inspired by [Glade](https://glade.gnome.org).
 Installation
 ============
 
-Pygubu works with Python 2.7 or Python 3
+The latest version of pygubu requires Python >= 3.6
 
 You can install pygubu-designer using:
 
@@ -43,10 +43,10 @@ pygubu-designer
 ### Windows
 
 ```
-C:\Python34\Scripts\pygubu-designer.exe
+C:\Python3\Scripts\pygubu-designer.exe
 ```
 
-Where `C:\Python34` is the path to **your** Python installation directory.
+Where `C:\Python3` is the path to **your** Python installation directory.
 
 > **Note**: for versions prior to **0.9.8** the executable script was named _**pygubu-designer.bat**_
 
@@ -60,7 +60,7 @@ The following is a UI definition example called [helloworld.ui](examples/hellowo
 
 ```xml
 <?xml version='1.0' encoding='utf-8'?>
-<interface>
+<interface version="1.2">
   <object class="tk.Toplevel" id="mainwindow">
     <property name="height">200</property>
     <property name="resizable">both</property>
@@ -71,21 +71,9 @@ The following is a UI definition example called [helloworld.ui](examples/hellowo
         <property name="height">200</property>
         <property name="padding">20</property>
         <property name="width">200</property>
-        <layout>
-          <property name="column">0</property>
-          <property name="propagate">True</property>
-          <property name="row">0</property>
-          <property name="sticky">nsew</property>
-          <rows>
-            <row id="0">
-              <property name="weight">1</property>
-            </row>
-          </rows>
-          <columns>
-            <column id="0">
-              <property name="weight">1</property>
-            </column>
-          </columns>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="side">top</property>
         </layout>
         <child>
           <object class="ttk.Label" id="label1">
@@ -93,10 +81,8 @@ The following is a UI definition example called [helloworld.ui](examples/hellowo
             <property name="font">Helvetica 26</property>
             <property name="foreground">#0000b8</property>
             <property name="text" translatable="yes">Hello World !</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="propagate">True</property>
-              <property name="row">0</property>
+            <layout manager="pack">
+              <property name="side">top</property>
             </layout>
           </object>
         </child>
@@ -110,36 +96,44 @@ Then, you should create your _application script_ as shown below ([helloworld.py
 
 ```python
 # helloworld.py
+import pathlib
 import tkinter as tk
+import tkinter.ttk as ttk
 import pygubu
 
+PROJECT_PATH = pathlib.Path(__file__).parent
+PROJECT_UI = PROJECT_PATH / "helloworld.ui"
 
-class HelloWorldApp:
-    
-    def __init__(self):
 
-        #1: Create a builder
+class HelloworldApp:
+    def __init__(self, master=None):
+        # 1: Create a builder and setup resources path (if you have images)
         self.builder = builder = pygubu.Builder()
+        builder.add_resource_path(PROJECT_PATH)
 
-        #2: Load an ui file
-        builder.add_from_file('helloworld.ui')
+        # 2: Load an ui file
+        builder.add_from_file(PROJECT_UI)
 
-        #3: Create the mainwindow
-        self.mainwindow = builder.get_object('mainwindow')
-        
+        # 3: Create the mainwindow
+        self.mainwindow = builder.get_object('mainwindow', master)
+
+        # 4: Connect callbacks
+        builder.connect_callbacks(self)
+
     def run(self):
         self.mainwindow.mainloop()
 
 
 if __name__ == '__main__':
-    app = HelloWorldApp()
+    app = HelloworldApp()
     app.run()
+
 ```
 
 Note that instead of `helloworld.ui` in the following line:
 
 ```python
-builder.add_from_file('helloworld.ui')
+PROJECT_UI = PROJECT_PATH / "helloworld.ui"
 ```
 
 You should insert the _filename_ (or path) of your just saved UI definition.
@@ -148,7 +142,7 @@ You should insert the _filename_ (or path) of your just saved UI definition.
 Note also that instead of `'mainwindow'` in the following line:
 
 ```python
-self.mainwindow = builder.get_object('mainwindow')
+self.mainwindow = builder.get_object('mainwindow', master)
 ```
 
 You should have the name of your _main widget_ (the parent of all widgets), otherwise you will get an error similar to the following:

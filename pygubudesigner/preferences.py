@@ -82,14 +82,7 @@ def load_configfile():
     defaults = {}
     for k in options:
         defaults[k] = options[k]['default']
-    if sys.version_info < (3, 0):
-        # Python 2.7
-        keys = defaults.keys()
-        for i in range(0, len(defaults)):
-            config.set(SEC_GENERAL, keys[i], defaults.get(keys[i]))
-    else:
-        # Python 3
-        config[SEC_GENERAL] = defaults
+    config[SEC_GENERAL] = defaults
     if not os.path.exists(CONFIG_FILE):
         initialize_configfile()
     else:

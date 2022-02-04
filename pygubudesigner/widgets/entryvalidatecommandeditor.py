@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2021 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -14,25 +14,17 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import unicode_literals
-
 import json
+import tkinter as tk
+import tkinter.ttk as ttk
 from collections import OrderedDict
-
-try:
-    import tkinter as tk
-    import tkinter.ttk as ttk
-except ImportError:
-    import Tkinter as tk
-    import ttk
 
 from pygubu.builder.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.commandentry import CommandPropertyBase
-from pygubudesigner.widgets.propertyeditor import register_editor
 
-from .propertyeditor import EntryPropertyEditor
+from .propertyeditor import (EntryPropertyEditor, register_editor)
 
 
 class EntryValidateCommandPropertyEditor(CommandPropertyBase):

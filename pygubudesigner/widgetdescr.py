@@ -1,6 +1,6 @@
 # encoding: UTF-8
 #
-# Copyright 2012-2013 Alejandro Autalán
+# Copyright 2012-2022 Alejandro Autalán
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -13,9 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# For further info, check  http://pygubu.web.here
-from __future__ import unicode_literals
 
 import logging
 
@@ -74,6 +71,22 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 self.layout_properties.pop(name, None)
             self.notify('LAYOUT_CHANGED', self)
 
+    def container_property(self, name, value=None):
+        if value is None:
+            # Getter
+            return self.container_properties.get(name, '')
+        else:
+            # do not save propagate if value is True
+            if name == 'propagate' and value.lower() == 'true':
+                value = None
+            # Setter
+            if value:
+                self.container_properties[name] = value
+            else:
+                # remove if no value set
+                self.container_properties.pop(name, None)
+            self.notify('LAYOUT_CHANGED', self)
+
     def gridrc_property(self, type_, num, pname, value=None):
         if value is None:
             # Getter
@@ -86,6 +99,41 @@ class WidgetMeta(WidgetMetaBase, Observable):
         else:
             # Setter
             self.set_gridrc_value(type_, num, pname, value)
+
+    # def _gridrc_max(self, rctype):
+        #max = 0
+        # for line in self.gridrc_properties:
+            #index = line.rcid
+            # if line.rctype == rctype and index != 'all':
+            #index = int(index)
+            # if index > max:
+            #max = index
+        # return max
+
+    def gridrc_clear(self, notify_change=True):
+        self.gridrc_properties = []
+        if notify_change:
+            self.notify('LAYOUT_CHANGED')
+
+    # def gridrc_maxrow(self):
+        # return self._gridrc_max('row')
+
+    # def gridrc_maxcol(self):
+        # return self._gridrc_max('col')
+
+    def gridrc_row_indexes(self):
+        rows = set()
+        for line in self.gridrc_properties:
+            if (line.rctype == 'row'):
+                rows.add(line.rcid)
+        return list(rows)
+
+    def gridrc_column_indexes(self):
+        cols = set()
+        for line in self.gridrc_properties:
+            if (line.rctype == 'col'):
+                cols.add(line.rcid)
+        return list(cols)
 
     @property
     def manager(self):
@@ -109,31 +157,6 @@ class WidgetMeta(WidgetMetaBase, Observable):
 
     def add_binding(self, seq, handler, add):
         self.bindings.append(BindingMeta(seq, handler, add))
-
-    def remove_unused_grid_rc(self):
-        """Deletes unused grid row/col options (such as weight)"""
-
-        # in self.gridrc_properties, a line will look something like this:
-        # GridRCLine(rctype='row', rcid='3', pname='weight', pvalue='6')
-        # That means that row #3 has a weight of 6.
-
-        # Based on the example above, we would get the widget's current row and column and
-        # remove any references to rows/columns options that don't match this
-        # widget's current row/column.
-
-        # Get the widget's current row and column.
-        current_row = self.layout_properties.get("row")
-        current_column = self.layout_properties.get("column")
-
-        # Only keep the gridrc properties that match the widget's row and
-        # column.
-        filtered_list = [
-            line for line in self.gridrc_properties if (
-                line.rctype == "row" and line.rcid == current_row) or (
-                line.rctype == "col" and line.rcid == current_column)]
-
-        # The new filtered list.
-        self.gridrc_properties = filtered_list
 
     def setup_defaults(self):
         propd, layoutd = WidgetMeta.get_widget_defaults(self, self.identifier)

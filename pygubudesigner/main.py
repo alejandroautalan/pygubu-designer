@@ -51,7 +51,7 @@ from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 
 from .i18n import translator
 from .logpanel import LogPanelManager
-from .previewer import PreviewHelper
+from .preview import PreviewHelper
 from .rfilemanager import RecentFilesManager
 from .uitreeeditor import WidgetsTreeEditor
 from .util import get_ttk_style, menu_iter_children, virtual_event
@@ -101,7 +101,10 @@ def init_pygubu_widgets():
     # initialize custom widget plugins
     for finder, name, ispkg in pkgutil.iter_modules():
         if name.startswith('pygubu_'):
-            importlib.import_module(name)
+            # TODO: Define how the plugins will expose all builders
+            #       to the designer.
+            plugin_builders = f'{name}.builders'
+            importlib.import_module(plugin_builders)
 
 
 # Initialize images
@@ -844,8 +847,6 @@ def start_pygubu():
     # Dependency check
     #
     help = "Hint, If your are using Debian, install package python3-appdirs."
-    if sys.version_info < (3,):
-        help = "Hint, If your are using Debian, install package python-appdirs."
     check_dependency('appdirs', '1.3', help)
 
     #root = tk.Tk()
