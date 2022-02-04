@@ -101,7 +101,10 @@ def init_pygubu_widgets():
     # initialize custom widget plugins
     for finder, name, ispkg in pkgutil.iter_modules():
         if name.startswith('pygubu_'):
-            importlib.import_module(name)
+            # TODO: Define how the plugins will expose all builders
+            #       to the designer.
+            plugin_builders = f'{name}.builders'
+            importlib.import_module(plugin_builders)
 
 
 # Initialize images
