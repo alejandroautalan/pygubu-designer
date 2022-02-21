@@ -254,7 +254,8 @@ class WidgetsTreeEditor(object):
             for child in children:
                 widget = self.treedata[child]
                 # Don't change widgets with place manager
-                if widget.manager != 'place':
+                # unless the selected widget's manager is being changed.
+                if widget.manager != 'place' or child == item:
                     widget.manager = new_manager  # Change manager
 
                     # update Tree R/C columns
