@@ -284,8 +284,8 @@ class WidgetsTreeEditor(object):
         children = self.treeview.get_children(parent)
         for child in children:
             child_manager = self.treedata[child].manager
-            if (child != current_item and
-                    child_manager != 'place'):
+            if (child != current_item
+                    and child_manager != 'place'):
                 manager = child_manager
                 break
         return manager
@@ -644,8 +644,8 @@ class WidgetsTreeEditor(object):
                 return is_valid
 
             allowed_parents = new_boclass.allowed_parents
-            if (allowed_parents is not None
-                    and root_classname not in allowed_parents):
+            if (allowed_parents is not None and
+                    root_classname not in allowed_parents):
                 if show_warnings:
                     msg = trlog(_('{0} not allowed as parent of {1}'),
                                 root_classname, classname)
@@ -1137,27 +1137,24 @@ class WidgetsTreeEditor(object):
                 if data.manager != 'grid':
                     break
 
+                current_row = new_row = int(data.layout_property('row'))
+                current_col = new_col = int(data.layout_property('column'))
                 if direction == self.GRID_UP:
-                    row = int(data.layout_property('row'))
-                    if row > 0:
-                        row = row - 1
-                        data.layout_property('row', str(row))
-                        data.notify()
+                    if current_row > 0:
+                        new_row = current_row - 1
                 elif direction == self.GRID_DOWN:
-                    row = int(data.layout_property('row'))
-                    row = row + 1
-                    data.layout_property('row', str(row))
-                    data.notify()
+                    new_row = current_row + 1
                 elif direction == self.GRID_LEFT:
-                    column = int(data.layout_property('column'))
-                    if column > 0:
-                        column = column - 1
-                        data.layout_property('column', str(column))
-                        data.notify()
+                    if current_col > 0:
+                        new_col = current_col - 1
                 elif direction == self.GRID_RIGHT:
-                    column = int(data.layout_property('column'))
-                    column = column + 1
-                    data.layout_property('column', str(column))
+                    new_col = current_col + 1
+
+                if current_row != new_row:
+                    data.layout_property('row', str(new_row))
+                    data.notify()
+                if current_col != new_col:
+                    data.layout_property('column', str(new_col))
                     data.notify()
                 root = tree.parent(item)
             self.filter_restore()
