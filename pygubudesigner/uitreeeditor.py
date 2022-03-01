@@ -284,8 +284,8 @@ class WidgetsTreeEditor(object):
         children = self.treeview.get_children(parent)
         for child in children:
             child_manager = self.treedata[child].manager
-            if (child != current_item
-                    and child_manager != 'place'):
+            if (child != current_item and
+                    child_manager != 'place'):
                 manager = child_manager
                 break
         return manager
@@ -644,8 +644,8 @@ class WidgetsTreeEditor(object):
                 return is_valid
 
             allowed_parents = new_boclass.allowed_parents
-            if (allowed_parents is not None and
-                    root_classname not in allowed_parents):
+            if (allowed_parents is not None
+                    and root_classname not in allowed_parents):
                 if show_warnings:
                     msg = trlog(_('{0} not allowed as parent of {1}'),
                                 root_classname, classname)
@@ -1002,21 +1002,6 @@ class WidgetsTreeEditor(object):
         # The reason is: the treeview selection has changed, so we need to evaluate
         # whether it makes sense to have some menus enabled or not.
         self.app.evaluate_menu_states()
-
-    def get_max_row_col(self, item):
-        tree = self.treeview
-        max_row = 0
-        max_col = 0
-        children = tree.get_children(item)
-        for child in children:
-            data = self.treedata[child]
-            row = int(data.layout_property('row'))
-            col = int(data.layout_property('column'))
-            if row > max_row:
-                max_row = row
-            if col > max_col:
-                max_col = col
-        return (max_row, max_col)
 
     def update_event(self, hint, obj):
         """Updates tree colums when itemdata is changed."""
