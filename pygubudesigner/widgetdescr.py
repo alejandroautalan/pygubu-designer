@@ -100,26 +100,10 @@ class WidgetMeta(WidgetMetaBase, Observable):
             # Setter
             self.set_gridrc_value(type_, num, pname, value)
 
-    # def _gridrc_max(self, rctype):
-        #max = 0
-        # for line in self.gridrc_properties:
-            #index = line.rcid
-            # if line.rctype == rctype and index != 'all':
-            #index = int(index)
-            # if index > max:
-            #max = index
-        # return max
-
     def gridrc_clear(self, notify_change=True):
         self.gridrc_properties = []
         if notify_change:
             self.notify('LAYOUT_CHANGED')
-
-    # def gridrc_maxrow(self):
-        # return self._gridrc_max('row')
-
-    # def gridrc_maxcol(self):
-        # return self._gridrc_max('col')
 
     def gridrc_row_indexes(self):
         rows = set()
