@@ -177,6 +177,11 @@ class LayoutEditor(PropertiesEditor):
             self._current.manager = new_manager
             self.edit(self._current, self._allowed_managers)
 
+            # If we're moving away from grid, remove the row/col values
+            # in the treeview (so the user knows grid is not being used)
+            if old_manager == 'grid':
+                self._sframe.event_generate('<<ClearSelectedGridTreeInfo>>')
+
     def _ask_manager_change(self, old_manager, new_manager):
         title = _('Change Manager')
         msg = _('Change manager from {0} to {1}?')
