@@ -102,6 +102,7 @@ class WidgetsTreeEditor(object):
         lframe.bind_all('<<LayoutEditorContainerManagerToGrid>>', f)
         f = lambda e, manager='pack': self.change_container_manager(manager)
         lframe.bind_all('<<LayoutEditorContainerManagerToPack>>', f)
+        lframe.bind_all('<<ClearSelectedGridTreeInfo>>', self.clear_selected_grid_tree_info)
 
         # Tree Editing
         tree = self.treeview
@@ -134,6 +135,22 @@ class WidgetsTreeEditor(object):
 
             if do_delete:
                 self.on_treeview_delete_selection(None)
+
+    def clear_selected_grid_tree_info(self, event):
+        """
+        Clear the row/column text in the object treeview
+        for the selected item.
+
+        This gets called when the geometry manager of the
+        currently selected widget changes from grid to pack or to place.
+
+        This does not get used when multiple widgets need to have
+        their geometry managers changed inside a container widget.
+        """
+        if self.current_edit:
+            values = self.treeview.item(self.current_edit, 'values')
+            values = (values[0], '', '')
+            self.treeview.item(self.current_edit, values=values)
 
     def selection_different_parents(self):
         """
