@@ -21,12 +21,17 @@ import tkinter.ttk as ttk
 class ContainerLayoutEditorBase(ttk.Frame):
     def __init__(self, master=None, **kw):
         super(ContainerLayoutEditorBase, self).__init__(master, **kw)
-        self.mainpanel = ttk.Labelframe(self)
+        self.mainpanel = ttk.Frame(self)
+        self.lbl_title = ttk.Label(self.mainpanel)
+        self.lbl_title.configure(
+            font='TkHeadingFont', padding='0 2', text='Options for {0} container')
+        self.lbl_title.grid(column='0', row='0', sticky='ew')
+        self.separator4 = ttk.Separator(self.mainpanel)
+        self.separator4.configure(orient='horizontal')
+        self.separator4.grid(column='0', pady='5', row='1', sticky='ew')
         self.foptions = ttk.Frame(self.mainpanel)
         self.foptions.configure(height='100', padding='5', width='200')
-        self.foptions.grid(column='0', row='0', sticky='ew')
-        self.mainpanel.rowconfigure('0', weight='1')
-        self.mainpanel.columnconfigure('0', weight='1')
+        self.foptions.grid(column='0', row='2', sticky='ew')
         self.gridrcpanel = ttk.Frame(self.mainpanel)
         self.frame2 = ttk.Frame(self.gridrcpanel)
         self.separator1 = ttk.Separator(self.frame2)
@@ -84,9 +89,8 @@ class ContainerLayoutEditorBase(ttk.Frame):
         self.colframe.configure(height='200', padding='5', width='200')
         self.colframe.pack(fill='x', side='top')
         self.gridrcpanel.configure(height='200', width='200')
-        self.gridrcpanel.grid(column='0', row='1', sticky='ew')
-        self.mainpanel.configure(
-            height='200', text='Layout options as {0} container:', width='200')
+        self.gridrcpanel.grid(column='0', row='3', sticky='ew')
+        self.mainpanel.configure(height='200', width='200')
         self.mainpanel.pack(anchor='w', expand='true',
                             fill='both', side='top')
 

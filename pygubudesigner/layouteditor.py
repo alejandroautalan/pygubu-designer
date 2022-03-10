@@ -55,8 +55,9 @@ class LayoutEditor(PropertiesEditor):
         # Layout Options editors
         self._rcbag = {}  # bag for row/column prop editors
         # main options frame
-        self._fprop = fprop = ttk.Labelframe(self._sframe.innerframe,
-                                             text=_('Options:'), padding=4)
+        # self._fprop = fprop = ttk.Labelframe(self._sframe.innerframe,
+        #                                     text=_('Options:'), padding=4)
+        self._fprop = fprop = ttk.Frame(self._sframe.innerframe)
         fprop.grid(row=0, sticky='nswe')
 
         # Layout selector

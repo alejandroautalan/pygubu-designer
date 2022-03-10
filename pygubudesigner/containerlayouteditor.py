@@ -36,7 +36,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         self._propbag = {}
         self._rcbag = {}
         self._current = None
-        self._mainpanel_label = 'Options for {0} container:'
+        self._mainpanel_label = 'Options for {0} container'
         self._rowpanel_label = 'Row index: {0}'
         self._colpanel_label = 'Column index: {0}'
         self._build_editors()
@@ -248,7 +248,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         self._grid_dim = (1, 1) if grid_dim is None else grid_dim
 
         txt_label = self._mainpanel_label.format(str(manager).capitalize())
-        self.mainpanel.configure(text=txt_label)
+        self.lbl_title.configure(text=txt_label)
 
         manager_prop = properties.CONTAINER_GRID_PROPERTIES
         if manager == 'pack':
