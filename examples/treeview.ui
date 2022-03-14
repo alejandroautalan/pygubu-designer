@@ -1,56 +1,69 @@
-<?xml version="1.0" ?>
-<interface>
-  <object class="ttk.Frame" id="mainwindow">
-    <property name="height">250</property>
-    <property name="width">250</property>
-    <layout>
-      <property name="propagate">True</property>
-      <property name="column">0</property>
-      <property name="sticky">nesw</property>
-      <property name="row">0</property>
-    </layout>
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Treeview Example</property>
+    <property name="width">200</property>
     <child>
-      <object class="ttk.Treeview" id="treeview">
-        <layout>
-          <property name="column">0</property>
-          <property name="propagate">True</property>
-          <property name="row">0</property>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="height">250</property>
+        <property name="width">250</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
         </layout>
         <child>
-          <object class="ttk.Treeview.Column" id="treecolumn">
-            <property name="tree_column">True</property>
-            <property name="visible">True</property>
-            <property name="text">Tree</property>
-            <property name="command">on_treecolumn_click</property>
-            <property name="heading_anchor">w</property>
-            <property name="column_anchor">w</property>
-            <property name="minwidth">333</property>
-            <property name="stretch">True</property>
-            <property name="width">333</property>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Treeview.Column" id="column1">
-            <property name="tree_column">False</property>
-            <property name="visible">True</property>
-            <property name="text">Column 1</property>
-            <property name="heading_anchor">center</property>
-            <property name="column_anchor">w</property>
-            <property name="minwidth">333</property>
-            <property name="stretch">False</property>
-            <property name="width">333</property>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Treeview.Column" id="hidden_column">
-            <property name="tree_column">False</property>
-            <property name="visible">False</property>
-            <property name="text">hidden</property>
-            <property name="heading_anchor">w</property>
-            <property name="column_anchor">w</property>
-            <property name="minwidth">333</property>
-            <property name="stretch">True</property>
-            <property name="width">333</property>
+          <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper1">
+            <property name="scrolltype">both</property>
+            <property name="usemousewheel">false</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Treeview" id="treeview">
+                <bind sequence="&lt;&lt;TreeviewSelect&gt;&gt;" handler="on_row_selected" add="" />
+                <layout manager="pack" />
+                <child>
+                  <object class="ttk.Treeview.Column" id="treecolumn">
+                    <property name="column_anchor">w</property>
+                    <property name="command" type="command" cbtype="simple" args="">on_treecolumn_click</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">333</property>
+                    <property name="stretch">True</property>
+                    <property name="text" translatable="yes">Tree</property>
+                    <property name="tree_column">True</property>
+                    <property name="visible">True</property>
+                    <property name="width">333</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column1">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">center</property>
+                    <property name="minwidth">333</property>
+                    <property name="stretch">False</property>
+                    <property name="text" translatable="yes">Column 1</property>
+                    <property name="tree_column">False</property>
+                    <property name="visible">True</property>
+                    <property name="width">333</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="hidden_column">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">333</property>
+                    <property name="stretch">True</property>
+                    <property name="text" translatable="yes">hidden</property>
+                    <property name="tree_column">False</property>
+                    <property name="visible">False</property>
+                    <property name="width">333</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
       </object>
