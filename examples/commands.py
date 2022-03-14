@@ -1,38 +1,33 @@
 # encoding: utf8
-from __future__ import unicode_literals
-import sys
-import os
-
-try:
-    import tkinter as tk
-    from tkinter import messagebox
-except:
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
-
+import pathlib
+import tkinter as tk
+from tkinter import messagebox
 import pygubu
 
 
-class Myapp:
-    def __init__(self, master):
-        self.master = master
-        self.builder = builder = pygubu.Builder()
-        fpath = os.path.join(os.path.dirname(__file__),"commands.ui")
-        builder.add_from_file(fpath)
+PROJECT_PATH = pathlib.Path(__file__).parent
+PROJECT_UI = PROJECT_PATH / "commands.ui"
 
-        mainwindow = builder.get_object('mainwindow', master)
+
+class Myapp:
+    def __init__(self, master=None):
+        self.builder = builder = pygubu.Builder()
+        builder.add_resource_path(PROJECT_PATH)
+        builder.add_from_file(PROJECT_UI)
+        self.mainwindow = builder.get_object('mainwindow', master)
 
         builder.connect_callbacks(self)
         self.set_scrollbars()
+
+    def run(self):
+        self.mainwindow.mainloop()
 
     def on_button_clicked(self):
         messagebox.showinfo('From callback', 'Button clicked !!')
 
     def validate_number(self, P):
         print('On validate number')
-        value = unicode(P)
+        value = str(P)
         return value == '' or value.isnumeric()
 
     def entry_invalid(self):
@@ -71,10 +66,10 @@ class Myapp:
     def on_spinbox_cmd(self):
         def showmessage():
             messagebox.showinfo('Title', 'Spinbox command')
-        self.master.after_idle(showmessage)
+        self.mainwindow.after_idle(showmessage)
 
     def on_combobox_validate(self, P):
-        value = unicode(P)
+        value = str(P)
         return value == '' or value.isnumeric()
 
     def on_combobox_invalid(self, P):
@@ -85,13 +80,13 @@ class Myapp:
 
     def on_menuitem_clicked(self, itemid):
         messagebox.showinfo('Title',
-            'Menu item "{0}" was clicked'.format(itemid))
+                            'Menu item "{0}" was clicked'.format(itemid))
 
     def on_menuitem2_clicked(self):
         messagebox.showinfo('Title', 'Callback on_menuitem2_clicked')
 
+
 if __name__ == '__main__':
-    root = tk.Tk()
-    app = Myapp(root)
-    root.mainloop()
+    app = Myapp()
+    app.run()
 

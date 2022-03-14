@@ -1,32 +1,26 @@
 # encoding: utf8
-import sys
-import os
-
-try:
-    import tkinter as tk
-    from tkinter import messagebox
-except:
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
-
+import pathlib
+import tkinter as tk
+from tkinter import messagebox
 import pygubu
 
 
-class Myapp:
-    def __init__(self, master):
-        self.builder = builder = pygubu.Builder()
-        fpath = os.path.join(os.path.dirname(__file__),"button_cb.ui")
-        builder.add_from_file(fpath)
+PROJECT_PATH = pathlib.Path(__file__).parent
+PROJECT_UI = PROJECT_PATH / "button_cb.ui"
 
-        mainwindow = builder.get_object('mainwindow', master)
+
+class Myapp:
+    def __init__(self, master=None):
+        self.builder = builder = pygubu.Builder()
+        builder.add_from_file(PROJECT_UI)
+
+        self.mainwindow = builder.get_object('mainwindow', master)
 
         builder.connect_callbacks(self)
 
         callbacks = {
             'on_button2_clicked': self.on_button2_clicked
-            }
+        }
 
         builder.connect_callbacks(callbacks)
 
@@ -36,8 +30,11 @@ class Myapp:
     def on_button2_clicked(self):
         messagebox.showinfo('From callback', 'Button 2 was clicked !!')
 
+    def run(self):
+        self.mainwindow.mainloop()
+
+
 if __name__ == '__main__':
-    root = tk.Tk()
-    app = Myapp(root)
-    root.mainloop()
+    app = Myapp()
+    app.run()
 
