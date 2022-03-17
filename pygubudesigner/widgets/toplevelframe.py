@@ -119,6 +119,9 @@ class ToplevelFramePreviewBO(BuilderObject):
                         tw.pack_propagate(0)
                     elif tw.grid_slaves():
                         tw.grid_propagate(0)
+                    # Fix w and h of preview window, when geometry is set
+                    self.wmeta.properties['width'] = w
+                    self.wmeta.properties['height'] = h
         elif pname == 'resizable':
             if value:
                 if value in ('both', 'horizontally'):
