@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="geometry">320x100</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="Label_1">
+            <property name="padding">0 10</property>
+            <property name="text" translatable="yes">A tkcalendar DateEntry Widget:</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tkcalendarwidgets.dateentry" id="dateentry_1">
+            <property name="background">#3400d9</property>
+            <property name="borderwidth">10</property>
+            <property name="disabledbackground">#d97bd9</property>
+            <property name="disabledforeground">#d9d94b</property>
+            <property name="font">{DejaVu Sans Mono} 14 {}</property>
+            <property name="foreground">#d988d9</property>
+            <property name="selectbackground">#d9d951</property>
+            <property name="selectforeground">#6bd9c1</property>
+            <property name="state">normal</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="geometry">300x100</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Control variable properties</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="height">200</property>
+        <property name="padding">10</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="fill">both</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="Label_1">
+            <property name="padding">0 0 5 0</property>
+            <property name="text" translatable="yes">Choose a color:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="rowspan">3</property>
+              <property name="sticky">e</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="Radiobutton_1">
+            <property name="text" translatable="yes">Red</property>
+            <property name="value">R</property>
+            <property name="variable">string:radiovar</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="Radiobutton_2">
+            <property name="text" translatable="yes">Yellow</property>
+            <property name="value">Y</property>
+            <property name="variable">string:radiovar</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">1</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="Radiobutton_3">
+            <property name="text" translatable="yes">Green</property>
+            <property name="value">G</property>
+            <property name="variable">string:radiovar</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">2</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="Label_2">
+            <property name="padding">0 0 5 0</property>
+            <property name="text" translatable="yes">You selected:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">3</property>
+              <property name="sticky">e</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="Label_3">
+            <property name="anchor">center</property>
+            <property name="background">#ffffff</property>
+            <property name="textvariable">string:radiovar</property>
+            <property name="width">4</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

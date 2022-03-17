@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Command Properties Demo</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="height">200</property>
+        <property name="padding">10</property>
+        <property name="width">200</property>
+        <layout manager="pack" />
+        <containerlayout manager="grid">
+          <property type="col" id="all" name="pad">10</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Label" id="Label_1">
+            <property name="anchor">center</property>
+            <property name="font">sans 12 bold</property>
+            <property name="padding">0 0 0 20</property>
+            <property name="text" translatable="yes">Command Properties</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="columnspan">3</property>
+              <property name="row">0</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="Button_1">
+            <property name="command" type="command" cbtype="simple" args="">on_button1_clicked</property>
+            <property name="text" translatable="yes">Button 1</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="Button_2">
+            <property name="command" type="command" cbtype="simple" args="">on_button2_clicked</property>
+            <property name="text" translatable="yes">Button 2</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="Button_3">
+            <property name="command" type="command" cbtype="simple" args="">on_button3_clicked</property>
+            <property name="text" translatable="yes">Button 3</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
