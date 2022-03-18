@@ -119,12 +119,6 @@ class ToplevelFramePreviewBO(BuilderObject):
                         tw.pack_propagate(0)
                     elif tw.grid_slaves():
                         tw.grid_propagate(0)
-        elif pname == 'resizable':
-            if value:
-                if value in ('both', 'horizontally'):
-                    tw.columnconfigure(0, weight=1)
-                if value in ('both', 'vertically'):
-                    tw.rowconfigure(0, weight=1)
         elif pname == 'modal':
             # Do nothing, fake 'modal' property for dialog preview
             pass
