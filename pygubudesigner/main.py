@@ -685,7 +685,7 @@ class PygubuDesigner(object):
 
         # Should we enable the 'Duplicate' menu?
         self.duplicate_menu_state = 'disabled' if self.tree_editor.selection_different_parents() else 'normal'
-        menu_duplicate_context.entryconfig(5, state=self.duplicate_menu_state)
+        menu_duplicate_context.entryconfig(7, state=self.duplicate_menu_state)
         menu_duplicate_edit.entryconfig(3, state=self.duplicate_menu_state)
 
     def show_context_menu(self, event):
@@ -697,6 +697,20 @@ class PygubuDesigner(object):
     # Right-click menu (on object tree)
     def on_right_click_object_tree(self, event):
         self.show_context_menu(event)
+        
+    def on_context_menu_go_to_parent_clicked(self):
+        """
+        Go to parent was clicked from the context menu.
+        
+        Select the parent of the currently selected widget.
+        """
+        current_selected_item = self.tree_editor.current_edit
+        if current_selected_item and self.treeview.exists(current_selected_item):
+            parent_iid = self.treeview.parent(current_selected_item)
+            
+            if parent_iid:
+                self.treeview.selection_set(parent_iid)
+                self.treeview.see(parent_iid)
 
     def on_context_menu_cut_clicked(self):
         """

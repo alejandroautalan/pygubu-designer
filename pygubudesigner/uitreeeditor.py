@@ -487,6 +487,10 @@ class WidgetsTreeEditor(object):
                     i,
                     s))
 
+        # No widget/item is currently selected anymore because
+        # we've just deleted selected items from the treeview.
+        self.current_edit = None
+
         # restore filter
         self.filter_restore()
 
@@ -881,6 +885,7 @@ class WidgetsTreeEditor(object):
             self.treeview.delete(*children)
         self.editor_hide_all()
         self.counter.clear()  # Reset the widget counter (August 19, 2021)
+        self.current_edit = None  # We no longer have a selected item in the treeview
 
     def load_file(self, filename):
         """Load file into treeview"""
