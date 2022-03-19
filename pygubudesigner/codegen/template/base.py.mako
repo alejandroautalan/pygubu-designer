@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 <%block name="imports" filter="trim">
 <%block name="pathlib_import" filter="trim">
 % if use_pathlib:
@@ -24,7 +25,7 @@ PROJECT_UI = os.path.join(PROJECT_PATH, "${project_name}")
 
 <%block name="class_definition"/>
 
-<%block name="main">
+<%block name="main" filter="trim">
 if __name__ == '__main__':
 % if main_widget_is_toplevel:
     app = ${class_name}()

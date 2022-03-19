@@ -14,18 +14,19 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import logging
-import os
+import pathlib
 import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
+import black
 from mako.lookup import TemplateLookup
 
 from .codebuilder import UI2Code
 
 logger = logging.getLogger(__name__)
-CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
-TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'template')
+CURRENT_DIR = pathlib.Path(__file__).parent
+TEMPLATE_DIR = CURRENT_DIR / 'template'
 makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
 
 
@@ -101,6 +102,7 @@ class ScriptGenerator(object):
                 'has_ttk_styles': False,
             }
 
+            black_fm = black.FileMode()
             if template == 'application':
                 code = generator.generate(
                     uidef, target, as_class=False, tabspaces=8)
@@ -116,6 +118,7 @@ class ScriptGenerator(object):
                     context['tkvariables'] = code['tkvariables']
                 tpl = makolookup.get_template('app.py.mako')
                 final_code = tpl.render(**context)
+                final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
             elif template == 'widget':
                 code = generator.generate_widget_class(uidef, target)
@@ -130,6 +133,7 @@ class ScriptGenerator(object):
 
                 tpl = makolookup.get_template('widget.py.mako')
                 final_code = tpl.render(**context)
+                final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
             elif template == 'codescript':
                 code = generator.generate(uidef, target, as_class=True,
@@ -145,6 +149,7 @@ class ScriptGenerator(object):
 
                 tpl = makolookup.get_template('script.py.mako')
                 final_code = tpl.render(**context)
+                final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
 
     def on_code_copy_clicked(self):
@@ -201,7 +206,7 @@ class ScriptGenerator(object):
         self.on_code_template_changed(False)
 
     def get_classname(self):
-        name = os.path.splitext(self.projectname)[0]
+        name = pathlib.Path(self.projectname).stem
         return self.camel_case(name)
 
     def form_valid(self):
@@ -233,7 +238,7 @@ class ScriptGenerator(object):
         self.txt_code.insert('0.0', text)
 
     def get_code(self):
-        return self.txt_code.get('0.0', 'end')
+        return self.txt_code.get('0.0', 'end-1c')
 
     def reset(self):
         self.set_code('')
