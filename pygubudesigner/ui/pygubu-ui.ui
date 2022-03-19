@@ -225,6 +225,15 @@
   <object class="tk.Menu" id="context_menu">
     <property name="tearoff">false</property>
     <child>
+      <object class="tk.Menuitem.Command" id="menu_go_to_parent">
+        <property name="command" type="command" cbtype="simple">on_context_menu_go_to_parent_clicked</property>
+        <property name="label" translatable="yes">Go to parent</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Separator" id="sep_context" />
+    </child>
+    <child>
       <object class="tk.Menuitem.Command" id="menu_copy">
         <property name="command" type="command" cbtype="simple">on_context_menu_copy_clicked</property>
         <property name="label" translatable="yes">Copy</property>
