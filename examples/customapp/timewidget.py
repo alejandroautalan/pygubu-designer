@@ -1,23 +1,18 @@
-from __future__ import print_function
-try:
-    import tkinter as tk
-    import tkinter.ttk as ttk
-except:
-    import Tkinter as tk
-    import ttk
+import tkinter as tk
+import tkinter.ttk as ttk
 
 
 class TimeWidget(ttk.Frame):
     """HH:MM:SS 24 hours widget"""
 
-    def __init__(self , master=None, **kw):
+    def __init__(self, master=None, **kw):
         ttk.Frame.__init__(self, master, **kw)
-        #subwidgets
+        # subwidgets
         self.whour = o = ttk.Entry(self, width=4, justify='right')
         o.grid(row=0, column=0, sticky='nswe')
         o = ttk.Label(self, text='h', width=2)
         o.grid(row=0, column=1)
-        self.wmin = o= ttk.Entry(self, width=4, justify='right')
+        self.wmin = o = ttk.Entry(self, width=4, justify='right')
         o.grid(row=0, column=2, sticky='nswe')
         o = ttk.Label(self, text='m', width=2)
         o.grid(row=0, column=3)
@@ -34,23 +29,23 @@ class TimeWidget(ttk.Frame):
     def configure(self, cnf=None, **kw):
         key = 'hour'
         if key in kw:
-            self.whour.delete(0,'end')
+            self.whour.delete(0, 'end')
             self.whour.insert(0, kw[key])
             del kw[key]
         key = 'minute'
         if key in kw:
-            self.wmin.delete(0,'end')
+            self.wmin.delete(0, 'end')
             self.wmin.insert(0, kw[key])
             del kw[key]
         key = 'second'
         if key in kw:
-            self.wsec.delete(0,'end')
+            self.wsec.delete(0, 'end')
             self.wsec.insert(0, kw[key])
             del kw[key]
         ttk.Frame.configure(self, cnf, **kw)
-    
+
     config = configure
-    
+
     def cget(self, key):
         option = 'hour'
         if key == option:

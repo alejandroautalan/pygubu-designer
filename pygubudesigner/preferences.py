@@ -1,26 +1,14 @@
 # encoding: utf-8
-import logging
 import os
-import sys
+import logging
+import tkinter as tk
+from tkinter import filedialog, messagebox
+import configparser
 
-from pygubudesigner.util import get_ttk_style
-
-try:
-    import tkinter as tk
-    from tkinter import filedialog, messagebox, ttk
-except ImportError:
-    import tkFileDialog as filedialog
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-    import ttk
-try:
-    import ConfigParser as configparser
-except ImportError:
-    import configparser
+from appdirs import AppDirs
 
 import pygubu
-from appdirs import AppDirs
-from os import path
+from pygubudesigner.util import get_ttk_style
 from .i18n import translator as _
 
 logger = logging.getLogger(__name__)

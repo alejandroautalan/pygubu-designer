@@ -14,18 +14,11 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function, unicode_literals
-
 import logging
 
-try:
-    import tkinter as tk
-    import tkinter.ttk as ttk
-    from tkinter import messagebox
-except ImportError:
-    import Tkinter as tk
-    import ttk
-    import tkMessageBox as messagebox
+import tkinter as tk
+import tkinter.ttk as ttk
+from tkinter import messagebox
 
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip

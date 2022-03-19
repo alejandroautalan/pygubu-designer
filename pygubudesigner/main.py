@@ -18,8 +18,6 @@
 #
 # For further info, check  http://pygubu.web.here
 
-from __future__ import print_function, unicode_literals
-
 import argparse
 import importlib
 import logging
@@ -28,14 +26,8 @@ import platform
 import sys
 import webbrowser
 
-try:
-    import tkinter as tk
-    from tkinter import filedialog, messagebox, ttk
-except ImportError:
-    import Tkinter as tk
-    import ttk
-    import tkMessageBox as messagebox
-    import tkFileDialog as filedialog
+import tkinter as tk
+from tkinter import filedialog, messagebox, ttk
 
 import pygubu
 from pygubu import builder
