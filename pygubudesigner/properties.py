@@ -1198,7 +1198,13 @@ TK_WIDGET_OPTIONS = {
                 'values': ('', tk.CHAR, tk.WORD, tk.NONE),
                 'state': 'readonly'},
             'help': help_for('wrap-tk.Text')
-        }
+        },
+        'pygubu.builder.widgets.tkinterscrolledtext': {
+            'params': {
+                'values': ('', tk.CHAR, tk.WORD, tk.NONE),
+                'state': 'readonly'},
+            'help': help_for('wrap-tk.Text')
+        },
     },
     # ttk.Label
     'wraplength': {
