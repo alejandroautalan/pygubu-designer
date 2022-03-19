@@ -82,7 +82,7 @@ setup(
             'images/images-png/widgets/*/*.png',
             'ui/*.ui',
             'locale/*/*/*.mo',
-            'template/*.mako',
+            'codegen/template/*.mako',
         ],
     },
     entry_points={

@@ -22,7 +22,7 @@ from pygubu.builder.builderobject import (BuilderObject, grouper,
 from pygubu.builder.tkstdwidgets import TKToplevel
 from pygubu.builder.widgetmeta import WidgetMeta
 from pygubu.stockimage import TK_BITMAP_FORMATS
-from .stylehandler import StyleHandler
+from pygubudesigner.stylehandler import StyleHandler
 
 
 class ToplevelOrTk(TKToplevel):

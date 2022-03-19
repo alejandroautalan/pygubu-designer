@@ -49,7 +49,7 @@ config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
 
 CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
-TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'template')
+TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'codegen', 'template')
 NEW_STYLE_FILE_TEMPLATE = os.path.join(TEMPLATE_DIR, 'customstyles.py.mako')
 
 
@@ -232,7 +232,7 @@ class PreferencesUI(object):
                         sample_script_contents = tfile.read()
                         f.write(sample_script_contents)
 
-                if path.isfile(fname):
+                if os.path.isfile(fname):
                     msg = _(
                         "File saved.\n\nPlease edit the style definition file.")
                     messagebox.showinfo(_('Styles'), msg)

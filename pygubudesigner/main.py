@@ -37,7 +37,7 @@ import pygubudesigner
 import pygubudesigner.actions as actions
 from pygubudesigner import preferences as pref
 from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
-from pygubudesigner.scriptgenerator import ScriptGenerator
+from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 
@@ -697,17 +697,17 @@ class PygubuDesigner(object):
     # Right-click menu (on object tree)
     def on_right_click_object_tree(self, event):
         self.show_context_menu(event)
-        
+
     def on_context_menu_go_to_parent_clicked(self):
         """
         Go to parent was clicked from the context menu.
-        
+
         Select the parent of the currently selected widget.
         """
         current_selected_item = self.tree_editor.current_edit
         if current_selected_item and self.treeview.exists(current_selected_item):
             parent_iid = self.treeview.parent(current_selected_item)
-            
+
             if parent_iid:
                 self.treeview.selection_set(parent_iid)
                 self.treeview.see(parent_iid)
