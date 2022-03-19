@@ -122,6 +122,9 @@ class ToplevelFramePreviewBO(BuilderObject):
                     # Fix w and h of preview window, when geometry is set
                     self.wmeta.properties['width'] = w
                     self.wmeta.properties['height'] = h
+        elif pname == 'resizable':
+            # Do nothing, fake 'resizable' property for Toplevel preview
+            pass
         elif pname == 'modal':
             # Do nothing, fake 'modal' property for dialog preview
             pass
