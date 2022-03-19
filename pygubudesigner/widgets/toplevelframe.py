@@ -123,11 +123,8 @@ class ToplevelFramePreviewBO(BuilderObject):
                     self.wmeta.properties['width'] = w
                     self.wmeta.properties['height'] = h
         elif pname == 'resizable':
-            if value:
-                if value in ('both', 'horizontally'):
-                    tw.columnconfigure(0, weight=1)
-                if value in ('both', 'vertically'):
-                    tw.rowconfigure(0, weight=1)
+            # Do nothing, fake 'resizable' property for Toplevel preview
+            pass
         elif pname == 'modal':
             # Do nothing, fake 'modal' property for dialog preview
             pass
