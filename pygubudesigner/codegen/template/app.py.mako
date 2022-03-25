@@ -1,4 +1,9 @@
 <%inherit file="base.py.mako"/>
+<%block name="project_paths" filter="trim">
+PROJECT_PATH = pathlib.Path(__file__).parent
+PROJECT_UI = PROJECT_PATH / "${project_name}"
+</%block>
+
 <%block name="class_definition" filter="trim">
 class ${class_name}:
     def __init__(self, master=None):

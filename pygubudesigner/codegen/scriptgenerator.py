@@ -15,8 +15,6 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 import pathlib
-import sys
-import tkinter as tk
 from tkinter import filedialog, messagebox
 
 import black
@@ -83,10 +81,6 @@ class ScriptGenerator(object):
             if target_class == 'tk.Toplevel':
                 main_widget_is_toplevel = True
 
-            use_pathlib = False
-            if sys.version_info >= (3, 4):
-                use_pathlib = True
-
             context = {
                 'project_name': self.projectname,
                 'class_name': class_name,
@@ -98,14 +92,22 @@ class ScriptGenerator(object):
                 'ttk_styles': None,
                 'callbacks': '',
                 'tkvariables': [],
-                'use_pathlib': use_pathlib,
                 'has_ttk_styles': False,
+                'set_project_path': False,
             }
 
             black_fm = black.FileMode()
             if template == 'application':
-                code = generator.generate(
-                    uidef, target, as_class=False, tabspaces=8)
+                generator.add_import_line('pathlib')
+                if self.use_ttkdefs_file_var.get():
+                    generator.add_import_line(
+                        'tkinter.ttk', 'ttk', priority=1)
+                generator.add_import_line('pygubu', priority=10)
+                code = generator.generate_app_with_ui(uidef, target)
+
+                context['import_lines'] = code['imports']
+                # Set project paths
+                context['set_project_path'] = True
                 # Style definitions
                 ttk_styles_code = code['ttkstyles']
                 if self.use_ttkdefs_file_var.get() and ttk_styles_code:
@@ -121,7 +123,11 @@ class ScriptGenerator(object):
                 final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
             elif template == 'widget':
-                code = generator.generate_widget_class(uidef, target)
+                generator.add_import_line('tkinter', 'tk')
+                if self.use_ttkdefs_file_var.get():
+                    generator.add_import_line(
+                        'tkinter.ttk', 'ttk', priority=1)
+                code = generator.generate_app_widget(uidef, target)
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
                 context['callbacks'] = code['callbacks']
@@ -136,8 +142,12 @@ class ScriptGenerator(object):
                 final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
             elif template == 'codescript':
-                code = generator.generate(uidef, target, as_class=True,
-                                          tabspaces=8)
+                if not main_widget_is_toplevel:
+                    generator.add_import_line('tkinter', 'tk')
+                if self.use_ttkdefs_file_var.get():
+                    generator.add_import_line(
+                        'tkinter.ttk', 'ttk', priority=1)
+                code = generator.generate_app_code(uidef, target)
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
                 context['callbacks'] = code['callbacks']

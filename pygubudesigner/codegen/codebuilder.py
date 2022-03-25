@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
+from enum import Enum
 from collections import OrderedDict
 
 from pygubu.builder import CB_TYPES, CLASS_MAP, Builder
@@ -54,17 +55,25 @@ register_widget('pygubudesigner.ToplevelOrTk',
                 ToplevelOrTk, 'ToplevelOrTk', tuple())
 
 
+class ScriptType(Enum):
+    APP_WITH_UI = 1
+    APP_CODE = 2
+    WIDGET = 3
+
+
 class UI2Code(Builder):
     def __init__(self):
         super(UI2Code, self).__init__()
 
-        self.buffer = None
+        self._script_type = None
         self.as_class = False
+        self._extra_imports = {}
         self._code_imports = OrderedDict()
         self._tkvariables = {}
         self._tkimages = {}
         self._callbacks = {}
-        self._import_ttk = True
+        self._import_tk = False
+        self._import_ttk = False
         self._code = []
         # Used for preventing duplicate grid row/column configure lines from
         # ending up in the generated code.
@@ -73,15 +82,21 @@ class UI2Code(Builder):
         self._builder = Builder()
         self._options = {}
 
+    def add_import_line(self, module_name, as_name=None, priority=0):
+        if module_name not in self._extra_imports:
+            self._extra_imports[module_name] = (as_name, priority)
+
     def _process_options(self, kw):
         kwdef = {
             'as_class': True,
-            'tabspaces': 8
+            'tabspaces': 8,
+            'script_type': ScriptType.APP_WITH_UI,
         }
         kwdef.update(kw)
         self._options = kwdef
         self.as_class = self._options['as_class']
         self.tabspaces = self._options['tabspaces']
+        self._script_type = self._options['script_type']
 
     def _process_results(self, target):
         code = []
@@ -124,6 +139,23 @@ class UI2Code(Builder):
             self._code_realize(builder, wmeta)
         return self._process_results(target)
 
+    def generate_app_with_ui(self, uidef, target):
+        return self.generate(
+            uidef, target, as_class=False, tabspaces=8,
+            script_type=ScriptType.APP_WITH_UI
+        )
+
+    def generate_app_code(self, uidef, target):
+        return self.generate(
+            uidef, target, as_class=True, tabspaces=8,
+            script_type=ScriptType.APP_CODE
+        )
+
+    def generate_app_widget(self, uidef, target):
+        return self.generate_widget_class(
+            uidef, target, script_type=ScriptType.WIDGET
+        )
+
     def generate_widget_class(self, uidef, target, **kw):
         self.uidefinition = uidef
         self._process_options(kw)
@@ -164,8 +196,10 @@ class UI2Code(Builder):
         cname = None
         if bobject.class_ is not None:
             if wmeta.classname == 'pygubudesigner.ToplevelOrTk':
+                self._import_tk = True
                 cname = 'tk.Toplevel'
             elif wmeta.classname.startswith('tk.'):
+                self._import_tk = True
                 cname = wmeta.classname
             elif wmeta.classname.startswith('ttk.'):
                 self._import_ttk = True
@@ -205,11 +239,19 @@ class UI2Code(Builder):
 
     def _process_imports(self):
         lines = []
-        s = 'import tkinter as tk'
-        lines.append(s)
-        if self._import_ttk:
-            s = 'import tkinter.ttk as ttk'
-            lines.append(s)
+        if self._script_type in (ScriptType.APP_CODE, ScriptType.WIDGET):
+            if self._import_tk:
+                self.add_import_line('tkinter', 'tk')
+            if self._import_ttk:
+                self.add_import_line('tkinter.ttk', 'ttk', priority=2)
+        sorted_imports = sorted(
+            self._extra_imports.items(),
+            key=lambda x: (x[1][1], x[0]))
+        for module_name, (as_name, _) in sorted_imports:
+            line = f'import {module_name}'
+            if as_name is not None:
+                line = line + f' as {as_name}'
+            lines.append(line)
         skeys = sorted(self._code_imports.keys())
         for mname in skeys:
             names = sorted(self._code_imports[mname])
