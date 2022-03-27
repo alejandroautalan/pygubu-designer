@@ -4,10 +4,10 @@ import pygubu
 
 
 PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "testapp.ui"
+PROJECT_UI = PROJECT_PATH / "timer_main.ui"
 
 
-class MyApplication(object):
+class MyApplication:
 
     def __init__(self, master=None):
         builder = pygubu.Builder()
