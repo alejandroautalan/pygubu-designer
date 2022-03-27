@@ -3,9 +3,10 @@
   <object class="tk.Toplevel" id="mainwindow">
     <property name="geometry">300x50</property>
     <property name="height">200</property>
+    <property name="title" translatable="yes">Timer App with custom widget</property>
     <property name="width">200</property>
     <child>
-      <object class="ttk.Frame" id="Frame_1">
+      <object class="ttk.Frame" id="mainframe">
         <property name="height">100</property>
         <property name="padding">5</property>
         <property name="width">100</property>
@@ -23,7 +24,7 @@
           </object>
         </child>
         <child>
-          <object class="customappwidgets.timewidget" id="timewidget_1">
+          <object class="timerappwidgets.timewidget" id="timewidget_1">
             <layout manager="pack">
               <property name="side">left</property>
             </layout>

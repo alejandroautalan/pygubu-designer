@@ -6,6 +6,6 @@ class TimeWidgetBuilder(BuilderObject):
     class_ = TimeWidget
 
 
-register_widget('customappwidgets.timewidget', TimeWidgetBuilder,
-                'TimeWidget', ('ttk', 'customapp'))
+register_widget('timerappwidgets.timewidget', TimeWidgetBuilder,
+                'TimeWidget', ('ttk', 'Timer App Widgets'))
 
