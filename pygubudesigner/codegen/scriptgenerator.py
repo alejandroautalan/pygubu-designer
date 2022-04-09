@@ -15,6 +15,8 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 import pathlib
+import keyword
+import re
 from tkinter import filedialog, messagebox
 
 import black
@@ -22,10 +24,12 @@ from mako.lookup import TemplateLookup
 
 from .codebuilder import UI2Code
 
+
 logger = logging.getLogger(__name__)
 CURRENT_DIR = pathlib.Path(__file__).parent
 TEMPLATE_DIR = CURRENT_DIR / 'template'
 makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
+RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
 
 
 class ScriptGenerator(object):
@@ -239,6 +243,12 @@ class ScriptGenerator(object):
         if valid and classname == '':
             valid = False
             messagebox.showwarning(title=mbtitle, message=_('Enter classname'),
+                                   parent=parent)
+        if valid and (
+                keyword.iskeyword(classname) or
+                not RE_IDENTIFIER.match(classname)):
+            valid = False
+            messagebox.showwarning(title=mbtitle, message=_('Invalid classname'),
                                    parent=parent)
 
         return valid
