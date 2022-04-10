@@ -572,7 +572,7 @@ class WidgetsTreeEditor(object):
         treelabel = '{0}: {1}'.format(data.identifier, data.classname)
         row = col = ''
         if root != '' and data.has_layout_defined():
-            if data.manager == 'grid':
+            if data.manager == 'grid' and data.layout_required:
                 row = data.layout_property('row')
                 col = data.layout_property('column')
                 # Fix grid row position when using copy and paste
@@ -1107,9 +1107,14 @@ class WidgetsTreeEditor(object):
             if prev:
                 prev_idx = tree.index(prev)
                 tree.move(item, parent, prev_idx)
-                manager = self.treedata[item].manager
+                item_data = self.treedata[item]
+                manager = item_data.manager
+                layout_required = item_data.layout_required
                 self.app.set_changed()
-                if manager in ('pack', 'place'):
+
+                # Always refresh preview for objects that don't
+                # require a layout, such as menus and notebook tabs.
+                if manager in ('pack', 'place') or not layout_required:
                     self.draw_widget(item)
             self.filter_restore()
 
@@ -1124,9 +1129,14 @@ class WidgetsTreeEditor(object):
             if next:
                 next_idx = tree.index(next)
                 tree.move(item, parent, next_idx)
-                manager = self.treedata[item].manager
+                item_data = self.treedata[item]
+                manager = item_data.manager
+                layout_required = item_data.layout_required
                 self.app.set_changed()
-                if manager in ('pack', 'place'):
+
+                # Always refresh preview for objects that don't
+                # require a layout, such as menus and notebook tabs.                
+                if manager in ('pack', 'place') or not layout_required:
                     self.draw_widget(item)
             self.filter_restore()
 
