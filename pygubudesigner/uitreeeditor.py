@@ -572,7 +572,7 @@ class WidgetsTreeEditor(object):
         treelabel = '{0}: {1}'.format(data.identifier, data.classname)
         row = col = ''
         if root != '' and data.has_layout_defined():
-            if data.manager == 'grid':
+            if data.manager == 'grid' and data.layout_required:
                 row = data.layout_property('row')
                 col = data.layout_property('column')
                 # Fix grid row position when using copy and paste
@@ -1039,7 +1039,7 @@ class WidgetsTreeEditor(object):
             if item_text != tree.item(item, 'text'):
                 tree.item(item, text=item_text)
             # if tree.parent(item) != '' and 'layout' in data:
-            if tree.parent(item) != '':
+            if tree.parent(item) != '' and data.layout_required:
                 if data.manager == 'grid':
                     row = data.layout_property('row')
                     col = data.layout_property('column')
