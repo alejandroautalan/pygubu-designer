@@ -17,6 +17,13 @@ class UserinputApp:
 
         # Get from builder all variables we need
         # variables will be accesible from self
+        self.entryvar = None
+        self.spinvar = None
+        self.combovar = None
+        self.option1var = None
+        self.option2var = None
+        self.option3var = None
+        self.group1var = None
         guivars = ('entryvar', 'spinvar', 'combovar',
                    'option1var', 'option2var', 'option3var',
                    'group1var')
@@ -71,7 +78,7 @@ class UserinputApp:
     def run(self):
         self.mainwindow.mainloop()
 
+
 if __name__ == '__main__':
     app = UserinputApp()
     app.run()
-

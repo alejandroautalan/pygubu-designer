@@ -13,7 +13,7 @@ class MyApplication:
         builder = pygubu.Builder()
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
-        self.mainwindow = builder.get_object('mainwindow')
+        self.mainwindow = builder.get_object('mainwindow', master)
 
     def run(self):
         self.mainwindow.mainloop()

@@ -1,6 +1,5 @@
 # encoding: utf8
 import pathlib
-import tkinter as tk
 from tkinter import messagebox
 import pygubu
 
@@ -37,4 +36,3 @@ class Myapp:
 if __name__ == '__main__':
     app = Myapp()
     app.run()
-

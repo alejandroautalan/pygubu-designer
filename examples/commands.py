@@ -1,6 +1,5 @@
 # encoding: utf8
 import pathlib
-import tkinter as tk
 from tkinter import messagebox
 import pygubu
 
@@ -25,9 +24,9 @@ class Myapp:
     def on_button_clicked(self):
         messagebox.showinfo('From callback', 'Button clicked !!')
 
-    def validate_number(self, P):
+    def validate_number(self, p):
         print('On validate number')
-        value = str(P)
+        value = str(p)
         return value == '' or value.isnumeric()
 
     def entry_invalid(self):
@@ -68,11 +67,11 @@ class Myapp:
             messagebox.showinfo('Title', 'Spinbox command')
         self.mainwindow.after_idle(showmessage)
 
-    def on_combobox_validate(self, P):
-        value = str(P)
+    def on_combobox_validate(self, p):
+        value = str(p)
         return value == '' or value.isnumeric()
 
-    def on_combobox_invalid(self, P):
+    def on_combobox_invalid(self, p):
         messagebox.showinfo('Title', 'Invalid combobox input')
 
     def on_combobox_postcmd(self):
@@ -89,4 +88,3 @@ class Myapp:
 if __name__ == '__main__':
     app = Myapp()
     app.run()
-

@@ -1,12 +1,8 @@
-#file: myapp.py
+# file: myapp.py
 import sys
 import os
 import random
 import math
-
-import tkinter as tk
-import tkinter.messagebox
-import tkinter.ttk as ttk
 
 import pygubu
 
@@ -31,7 +27,7 @@ class MyApplication:
         self.mainwindow = b.get_object('mainwindow')
         self.mainmenu = b.get_object('mainmenu', self.mainwindow)
         self.btn_menu = b.get_object('btn_menu')
-        #self.mainwindow['menu'] = menu
+        # self.mainwindow['menu'] = menu
         self.canvas = b.get_object('main_canvas')
 
         # Connect to Delete event
@@ -156,6 +152,7 @@ class MyApplication:
         numsteps_int = int(numsteps)
 
         i = 0
+        x = y = 0
         while i < numsteps_int:
             rad = (start - i * step) * DEG2RAD
             x = rx * math.cos(rad)
@@ -187,4 +184,3 @@ class MyApplication:
 if __name__ == '__main__':
     app = MyApplication()
     app.run()
-

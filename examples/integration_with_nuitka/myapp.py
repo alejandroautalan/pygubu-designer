@@ -1,13 +1,10 @@
-#file: myapp.py
+# file: myapp.py
 import os
 import random
 import math
-import tkinter as tk
-import tkinter.messagebox
-import tkinter.ttk as ttk
 import pygubu
 
-#Help nuitka compiler to include specific modules
+# Help nuitka compiler to include specific modules
 import nuitkahelper
 
 
@@ -27,7 +24,7 @@ class MyApplication:
         self.mainwindow = b.get_object('mainwindow')
         self.mainmenu = b.get_object('mainmenu', self.mainwindow)
         self.btn_menu = b.get_object('btn_menu')
-        #self.mainwindow['menu'] = menu
+        # self.mainwindow['menu'] = menu
         self.canvas = b.get_object('main_canvas')
         
         # Connect to Delete event
@@ -136,7 +133,7 @@ class MyApplication:
         ry = ym - y0
 
         n = sides
-        if n == 0: # 0 sides => circle
+        if n == 0:  # 0 sides => circle
             n = round((rx + ry) * .5)
             if n < 2:
                 n = 4
@@ -151,6 +148,7 @@ class MyApplication:
         numsteps_int = int(numsteps)
 
         i = 0
+        x = y = 0
         while i < numsteps_int:
             rad = (start - i * step) * DEG2RAD
             x = rx * math.cos(rad)
@@ -181,5 +179,4 @@ class MyApplication:
 
 if __name__ == '__main__':
     app = MyApplication()
-    app.run();
-
+    app.run()

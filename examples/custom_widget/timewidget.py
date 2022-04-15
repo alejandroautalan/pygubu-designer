@@ -58,7 +58,7 @@ class TimeWidget(ttk.Frame):
             return self.wsec.get()
         option = 'value'
         if key == option:
-            return (self.whour.get(), self.wmin.get(), self.wsec.get())
+            return self.whour.get(), self.wmin.get(), self.wsec.get()
         return ttk.Frame.cget(self, key)
 
 
@@ -77,4 +77,3 @@ if __name__ == '__main__':
     b = ttk.Button(root, text='Get value', command=showvalue)
     b.grid()
     root.mainloop()
-

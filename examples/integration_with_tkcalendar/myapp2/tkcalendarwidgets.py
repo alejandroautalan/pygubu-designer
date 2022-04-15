@@ -1,6 +1,6 @@
 # file: tkcalendarwidgets.py
 
-from tkcalendar import Calendar, DateEntry
+from tkcalendar import DateEntry
 from pygubu import BuilderObject, register_widget
 
 
@@ -10,7 +10,7 @@ class DateEntryBuilder(BuilderObject):
     OPTIONS_STANDARD = ('cursor', 'font', 'borderwidth', 'state',
                         'foreground', 'background', 'selectbackground',
                         'selectforeground')
-    OPTIONS_SPECIFIC =  ('disabledbackground', 'disabledforeground')
+    OPTIONS_SPECIFIC = ('disabledbackground', 'disabledforeground')
     properties = OPTIONS_STANDARD + OPTIONS_SPECIFIC
 
 

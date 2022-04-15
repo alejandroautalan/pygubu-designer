@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # command_properties.py
 import pathlib
-import tkinter as tk
 from tkinter import messagebox
 import pygubu
 

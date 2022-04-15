@@ -1,6 +1,6 @@
 # file: tkcalendarwidgets.py
 
-from tkcalendar import Calendar, DateEntry
+from tkcalendar import DateEntry
 from pygubu import BuilderObject, register_widget
 
 

@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # command_properties.py
 import pathlib
-import tkinter as tk
 from tkinter import messagebox
 import pygubu
 
@@ -9,7 +8,7 @@ PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "command_properties.ui"
 
 
-class MyApplication():
+class MyApplication:
 
     def __init__(self, master=None):
         # 1: Create a builder

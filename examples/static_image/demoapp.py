@@ -1,4 +1,3 @@
-import os
 import pygubu
 import pathlib
 
@@ -18,7 +17,7 @@ class DemoApp:
     def run(self):
         self.mainwindow.mainloop()
 
+
 if __name__ == '__main__':
     app = DemoApp()
     app.run()
-

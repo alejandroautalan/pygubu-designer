@@ -8,4 +8,3 @@ class TimeWidgetBuilder(BuilderObject):
 
 register_widget('timerappwidgets.timewidget', TimeWidgetBuilder,
                 'TimeWidget', ('ttk', 'Timer App Widgets'))
-
