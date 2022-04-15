@@ -2,13 +2,10 @@
 import sys
 from cx_Freeze import setup, Executable
 
-# Note: I'm using cx_freeze on python 2.7,
-#       change tkinter module names when using python3
-
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options = {
     "packages": [
-        "os", "Tkinter", 'tkMessageBox', 'ttk',
+        "os", "tkinter", 'tkinter.messagebox', 'ttk',
         # Pygubu packages:
         "pygubu.builder.tkstdwidgets",
         "pygubu.builder.ttkstdwidgets",
