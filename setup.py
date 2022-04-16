@@ -103,6 +103,7 @@ setup(
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Utilities",
+        "Topic :: Software Development",
         "Topic :: Software Development :: User Interfaces",
     ],
     python_requires=">=3.6",
