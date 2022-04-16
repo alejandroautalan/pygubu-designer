@@ -17,6 +17,7 @@ class Application:
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.on_close_window)
 
     def on_close_window(self, event=None):
+        print(event)
         print('On close window')
 
         # Since we are capturing the WM_DELETE_WINDOW

@@ -30,13 +30,19 @@ class MyApplication:
     # define the method callbacks:
 
     def on_button1_clicked(self):
-        messagebox.showinfo('Message', 'You clicked Button 1')
+        messagebox.showinfo('Message',
+                            'You clicked Button 1',
+                            parent=self.mainwindow)
 
     def on_button2_clicked(self):
-        messagebox.showinfo('Message', 'You clicked Button 2')
+        messagebox.showinfo('Message',
+                            'You clicked Button 2',
+                            parent=self.mainwindow)
 
     def on_button3_clicked(self):
-        messagebox.showinfo('Message', 'You clicked Button 3')
+        messagebox.showinfo('Message',
+                            'You clicked Button 3',
+                            parent=self.mainwindow)
 
 
 if __name__ == '__main__':

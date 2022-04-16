@@ -39,7 +39,9 @@ class MyApplication:
             self.mainwindow.quit()
 
     def on_about_clicked(self):
-        messagebox.showinfo('About', 'You clicked About menuitem')
+        messagebox.showinfo('About',
+                            'You clicked About menuitem',
+                            parent=self.mainwindow)
 
 
 if __name__ == '__main__':

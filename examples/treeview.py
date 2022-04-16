@@ -38,6 +38,7 @@ class Myapp:
             self._add_tree(name)
 
     def on_row_selected(self, event=None):
+        print(event)
         sel = self.tv.selection()
         if sel:
             item = sel[0]
@@ -45,7 +46,9 @@ class Myapp:
             print('Hidden col value:', values[1])
 
     def on_treecolumn_click(self):
-        messagebox.showinfo('From callback', 'Tree column clicked !!')
+        messagebox.showinfo('From callback',
+                            'Tree column clicked !!',
+                            parent=self.mainwindow)
 
 
 if __name__ == '__main__':

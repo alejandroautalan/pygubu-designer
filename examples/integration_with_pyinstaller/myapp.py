@@ -81,6 +81,7 @@ class MyApplication:
         self._draw_figure('triangle')
 
     def quit(self, event=None):
+        print(event)
         self.mainwindow.quit()
 
     def run(self):
@@ -124,7 +125,8 @@ class MyApplication:
         coords = self.__regpoly_coords(x0, y0, x1, y1, sides, start, extent)
         return self.canvas.create_polygon(*coords, **kw)
 
-    def __regpoly_coords(self, x0, y0, x1, y1, sides, start, extent):
+    @staticmethod
+    def __regpoly_coords(x0, y0, x1, y1, sides, start, extent):
         """Create the coordinates of the regular polygon specified"""
 
         coords = []
