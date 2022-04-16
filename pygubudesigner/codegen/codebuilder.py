@@ -252,21 +252,23 @@ class UI2Code(Builder):
             if as_name is not None:
                 line = line + f' as {as_name}'
             lines.append(line)
-        skeys = sorted(self._code_imports.keys())
-        for mname in skeys:
-            names = sorted(self._code_imports[mname])
-            for group in grouper(names, 4):
-                bag = []
-                for cname in group:
-                    if cname is not None:
-                        bag.append(cname)
-                clist = None
-                if len(bag) > 1:
-                    clist = '({0})'.format(', '.join(bag))
-                else:
-                    clist = ''.join(bag)
-                line = 'from {0} import {1}'.format(mname, clist)
-                lines.append(line)
+        # Do not include code imports if using UI file.
+        if self._script_type != ScriptType.APP_WITH_UI:
+            skeys = sorted(self._code_imports.keys())
+            for mname in skeys:
+                names = sorted(self._code_imports[mname])
+                for group in grouper(names, 4):
+                    bag = []
+                    for cname in group:
+                        if cname is not None:
+                            bag.append(cname)
+                    clist = None
+                    if len(bag) > 1:
+                        clist = '({0})'.format(', '.join(bag))
+                    else:
+                        clist = ''.join(bag)
+                    line = 'from {0} import {1}'.format(mname, clist)
+                    lines.append(line)
         return lines
 
     def code_create_variable(self, name_or_desc, value, vtype=None):
