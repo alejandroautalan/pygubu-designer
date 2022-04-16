@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Scrolled Text Demo</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="fmain">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="frame2">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label1">
+                <property name="anchor">w</property>
+                <property name="padding">0 8</property>
+                <property name="text" translatable="yes">Scrolled Text using tkinter.ScrolledText:</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.builder.widgets.tkinterscrolledtext" id="stext1">
+                <property name="height">10</property>
+                <property name="width">60</property>
+                <property name="wrap">none</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame3">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label2">
+                <property name="padding">0 8</property>
+                <property name="text" translatable="yes">Scrolled Text using Scrollbarhelper + Text widget:</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper1">
+                <property name="scrolltype">both</property>
+                <property name="usemousewheel">true</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="tk.Text" id="stext2">
+                    <property name="height">10</property>
+                    <property name="width">60</property>
+                    <property name="wrap">none</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
