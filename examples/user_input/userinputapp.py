@@ -24,9 +24,10 @@ class UserinputApp:
         self.option2var = None
         self.option3var = None
         self.group1var = None
+        self.validated_entry_var = None
         guivars = ('entryvar', 'spinvar', 'combovar',
                    'option1var', 'option2var', 'option3var',
-                   'group1var')
+                   'group1var', 'validated_entry_var')
         builder.import_variables(self, guivars)
 
         # Fill with random values
@@ -61,8 +62,19 @@ class UserinputApp:
     def on_change_clicked(self):
         self.random_values()
 
+    def validate_entry_cb(self, d_action, p_entry_value):
+        is_valid = True
+        if d_action == '1':  # Insert
+            if not p_entry_value.islower():
+                is_valid = False
+            if len(p_entry_value) > 10:
+                is_valid = False
+        return is_valid
+
     def on_print_clicked(self):
         line = f'Entry value:{self.entryvar.get()}'
+        print(line)
+        line = f'Validated Entry value:{self.validated_entry_var.get()}'
         print(line)
         line = f'Spinbox value:{self.spinvar.get()}'
         print(line)
