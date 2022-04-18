@@ -112,7 +112,7 @@ def set_option(key, value, save=False):
 
 def recent_files_get():
     rf = []
-    for k, f in config.items(SEC_RECENT_FILES):
+    for _, f in config.items(SEC_RECENT_FILES):
         rf.append(f)
     return rf
 

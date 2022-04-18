@@ -66,7 +66,7 @@ def init_pygubu_widgets():
     widgets_pkg = 'pygubu.builder.widgets'
     mwidgets = importlib.import_module(widgets_pkg)
 
-    for x, modulename, x in pkgutil.iter_modules(
+    for _, modulename, _ in pkgutil.iter_modules(
         mwidgets.__path__, mwidgets.__name__ + "."
     ):
         try:
@@ -184,7 +184,7 @@ class PygubuDesigner:
         # Recen Files management
         rfmenu = self.builder.get_object('file_recent_menu')
         self.rfiles_manager = RecentFilesManager(rfmenu, self.do_file_open)
-        self.mainwindow.after_idle(lambda: self.rfiles_manager.load())
+        self.mainwindow.after_idle(self.rfiles_manager.load)
 
         # widget tree
         self.treeview = self.builder.get_object('treeview1')
@@ -786,10 +786,7 @@ class PygubuDesigner:
         return name
 
     def nbmain_tab_changed(self, event):
-        tab_desing = 0
-        tab_code = 1
-        nbook = event.widget
-        if nbook.index('current') == tab_code:
+        if event.widget.index('current') == 1:  # Index 1 is the code-tab
             self.script_generator.configure()
 
     # Tab code management
