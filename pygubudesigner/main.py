@@ -844,10 +844,7 @@ def start_pygubu():
     help = "Hint, If your are using Debian, install package python3-appdirs."
     check_dependency('appdirs', '1.3', help)
 
-    # root = tk.Tk()
-    # root.withdraw()
     app = PygubuDesigner()
-    # root.deiconify()
 
     filename = args.filename
     if filename is not None:

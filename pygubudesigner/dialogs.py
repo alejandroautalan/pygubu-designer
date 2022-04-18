@@ -29,7 +29,6 @@ class AskSaveChangesDialog:
     def __init__(self, master):
         self.master = master
         self.builder = builder = pygubu.Builder(translator)
-        # builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(str(ASK_SAVE_CHANGES_DIALOG_UI))
         self.dialog = builder.get_object('ask_save_changes_dialog', master)
         self.lbl_message = builder.get_object('lbl_message')

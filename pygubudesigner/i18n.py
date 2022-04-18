@@ -73,5 +73,5 @@ translator = language.gettext
 # And now in your modules you can do:
 #
 # import i18n
-# _ = i18n.language.gettext
+# _ = i18n.translator
 #
