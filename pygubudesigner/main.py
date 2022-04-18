@@ -20,10 +20,10 @@
 import argparse
 import importlib
 import logging
-import os
 import platform
 import sys
 import webbrowser
+from pathlib import Path
 
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
@@ -51,6 +51,7 @@ from .util.keyboard import Key, key_bind
 # Initialize logger
 logger = logging.getLogger(__name__)
 
+
 # translator function
 _ = translator
 
@@ -76,18 +77,19 @@ def init_pygubu_widgets():
             messagebox.showerror(_('Error'), msg)
 
     # initialize custom widgets
-    for path in pref.get_custom_widgets():
-        dirname, fname = os.path.split(path)
-        if fname.endswith('.py'):
-            if dirname not in sys.path:
-                sys.path.append(dirname)
-            modulename = fname[:-3]
-            try:
-                importlib.import_module(modulename)
-            except Exception as e:
-                logger.exception(e)
-                msg = _(f"Failed to load custom widget module: '{path}'")
-                messagebox.showerror(_('Error'), msg)
+    for path in map(Path, pref.get_custom_widgets()):
+        if not path.match(".py"):
+            continue
+
+        dirname, modulename = str(file.parent), file.name
+        if dirname not in sys.path:
+            sys.path.append(dirname)
+        try:
+            importlib.import_module(modulename)
+        except Exception as e:
+            logger.exception(e)
+            msg = _(f"Failed to load custom widget module: '{path}'")
+            messagebox.showerror(_("Error"), msg)
 
     # initialize custom widget plugins
     for finder, name, ispkg in pkgutil.iter_modules():
@@ -99,22 +101,22 @@ def init_pygubu_widgets():
 
 
 # Initialize images
-DESIGNER_DIR = os.path.dirname(os.path.abspath(__file__))
+DESIGNER_DIR = Path(__file__).parent
 
 imgformat = 'images-gif'
 if tk.TkVersion >= 8.6:
     imgformat = 'images-png'
 
-IMAGES_DIR = os.path.join(DESIGNER_DIR, "images")
+IMAGES_DIR = DESIGNER_DIR / "images"
 IMAGE_PATHS = [  # (dir, tag)
     (IMAGES_DIR, ''),
-    (os.path.join(IMAGES_DIR, imgformat), ''),
-    (os.path.join(IMAGES_DIR, imgformat, 'widgets', '22x22'), '22x22-'),
-    (os.path.join(IMAGES_DIR, imgformat, 'widgets', '16x16'), '16x16-'),
-    (os.path.join(IMAGES_DIR, imgformat, 'widgets', 'fontentry'), ''),
+    (IMAGES_DIR / imgformat, ''),
+    (IMAGES_DIR / imgformat / 'widgets' / '22x22', '22x22-'),
+    (IMAGES_DIR / imgformat / 'widgets' / '16x16', '16x16-'),
+    (IMAGES_DIR / imgformat / 'widgets' / 'fontentry', ''),
 ]
 for dir_, prefix in IMAGE_PATHS:
-    StockImage.register_from_dir(dir_, prefix)
+    StockImage.register_from_dir(str(dir_), prefix)
 
 
 class StatusBarHandler(logging.Handler):
@@ -136,9 +138,6 @@ class StatusBarHandler(logging.Handler):
             self.handleError(record)
 
 
-FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-
-
 class PygubuDesigner:
     """Main gui class"""
 
@@ -155,9 +154,8 @@ class PygubuDesigner:
         self.is_changed = False
         self.current_title = 'new'
 
-        uifile = os.path.join(FILE_PATH, "ui/pygubu-ui.ui")
-        self.builder.add_from_file(uifile)
-        self.builder.add_resource_path(os.path.join(FILE_PATH, "images"))
+        self.builder.add_from_file(str(DESIGNER_DIR / "ui" / "pygubu-ui.ui"))
+        self.builder.add_resource_path(str(DESIGNER_DIR / "images"))
 
         in_macos = sys.platform == 'darwin'
         # build main ui
@@ -739,9 +737,8 @@ class PygubuDesigner:
 
     def _create_about_dialog(self):
         builder = pygubu.Builder(translator)
-        uifile = os.path.join(FILE_PATH, "ui/about_dialog.ui")
-        builder.add_from_file(uifile)
-        builder.add_resource_path(os.path.join(FILE_PATH, "images"))
+        builder.add_from_file(str(DESIGNER_DIR / "ui" / "about_dialog.ui"))
+        builder.add_resource_path(str("about_dialog.ui" / "images"))
 
         dialog = builder.get_object('aboutdialog', self.mainwindow)
         entry = builder.get_object('version')
@@ -785,7 +782,7 @@ class PygubuDesigner:
         if self.currentfile is None:
             name = _('newproject')
         else:
-            name = os.path.basename(self.currentfile)
+            name = Path(self.currentfile).name
         return name
 
     def nbmain_tab_changed(self, event):
@@ -827,7 +824,7 @@ class PygubuDesigner:
 
 
 def start_pygubu():
-    print("python: {} on {}".format(platform.python_version(), sys.platform))
+    print(f"python: {platform.python_version()} on {sys.platform}")
     print(f"pygubu: {pygubu.__version__}")
     print(f"pygubu-designer: {pygubudesigner.__version__}")
 

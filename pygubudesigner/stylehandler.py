@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import logging
-from os import path
+from pathlib import Path
 from tkinter import ttk
 
 from pygubudesigner import preferences as pref
@@ -87,24 +87,24 @@ class StyleHandler:
     @classmethod
     def get_ttk_style_definitions(cls):
         contents = None
-        style_definition_path = pref.get_option('v_style_definition_file')
+        style_definition_path = Path(pref.get_option('v_style_definition_file'))
 
-        if path.isfile(style_definition_path):
-            with open(style_definition_path) as f:
+        if style_definition_path.is_file():
+            with style_definition_path.open() as f:
                 contents = f.read()
         return contents
 
     def check_definition_file(self, force_reload=False):
         # print('checking definitions')
         # Get the path to the style definition file.
-        style_definition_path = pref.get_option('v_style_definition_file')
+        style_definition_path = Path(pref.get_option('v_style_definition_file'))
 
         do_reload = False
         has_definition_file = False
         is_new_file = False
-        if path.isfile(style_definition_path):
+        if style_definition_path.is_file():
             has_definition_file = True
-            file_mtime = path.getmtime(style_definition_path)
+            file_mtime = style_definition_path.stat().st_mtime
             if StyleHandler.last_definition_file != style_definition_path:
                 do_reload = True
                 is_new_file = True
@@ -116,7 +116,7 @@ class StyleHandler:
                     StyleHandler.last_modified_time = file_mtime
         if do_reload or (has_definition_file and force_reload):
             contents = None
-            with open(style_definition_path) as f:
+            with style_definition_path.open() as f:
                 contents = f.read()
 
             # Clear and reload all the definitions.

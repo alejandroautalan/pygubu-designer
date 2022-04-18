@@ -3,6 +3,7 @@ import logging
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import configparser
+from pathlib import Path
 
 from appdirs import AppDirs
 
@@ -11,13 +12,11 @@ from pygubudesigner.util import get_ttk_style
 from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
-FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-CONFIG_FILE = os.path.join(FILE_PATH, 'config')
 
 dirs = AppDirs('pygubu-designer')
-CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
+CONFIG_FILE = Path(dirs.user_data_dir) / 'config'
 
-logger.info('Using configfile: %s', CONFIG_FILE)
+logger.info(f'Using configfile: {CONFIG_FILE}')
 
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default': 'ttk'},
@@ -50,21 +49,22 @@ config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
 
-CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
-TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'codegen', 'template')
-NEW_STYLE_FILE_TEMPLATE = os.path.join(TEMPLATE_DIR, 'customstyles.py.mako')
+CURRENT_DIR = Path(__file__).parent
+TEMPLATE_DIR = CURRENT_DIR / 'codegen' / 'template'
+NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / 'customstyles.py.mako'
 
 
 def initialize_configfile():
     if not os.path.exists(dirs.user_data_dir):
         os.makedirs(dirs.user_data_dir)
-    if not os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, 'w') as configfile:
+
+    if not CONFIG_FILE.exists():
+        with CONFIG_FILE.open('w') as configfile:
             config.write(configfile)
 
 
 def save_configfile():
-    with open(CONFIG_FILE, 'w') as configfile:
+    with CONFIG_FILE.open('w') as configfile:
         config.write(configfile)
 
 
@@ -73,33 +73,29 @@ def load_configfile():
     for k in options:
         defaults[k] = options[k]['default']
     config[SEC_GENERAL] = defaults
-    if not os.path.exists(CONFIG_FILE):
-        initialize_configfile()
-    else:
+    if CONFIG_FILE.exists():
         try:
             config.read(CONFIG_FILE)
         except configparser.MissingSectionHeaderError as e:
             logger.exception(e)
             msg = _(
-                "Configuration file at '{}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(
-                    CONFIG_FILE
-                )
+                f"Configuration file at '{CONFIG_FILE}' is corrupted, program may not work as expected."
+                + "If you delete this file, configuration will be set to default"
             )
             messagebox.showerror(_('Error'), msg)
         except configparser.Error as e:
             logger.exception(e)
             msg = _(
-                "Faild to parse config file at '{}', program may not work as expected.".format(
-                    CONFIG_FILE
-                )
+                f"Faild to parse config file at '{CONFIG_FILE}', program may not work as expected."
             )
-            msg = msg.format(CONFIG_FILE)
             messagebox.showerror(_('Error'), msg)
+    else:
+        initialize_configfile()
 
 
 def get_custom_widgets():
     paths = []
-    for k, p in config.items(SEC_CUSTOM_WIDGETS):
+    for _, p in config.items(SEC_CUSTOM_WIDGETS):
         paths.append(p)
     return paths
 
@@ -152,8 +148,8 @@ class PreferencesUI:
 
     def _create_preferences_dialog(self):
         self.builder = builder = pygubu.Builder(self.translator)
-        uifile = os.path.join(FILE_PATH, "ui/preferences_dialog.ui")
-        builder.add_from_file(uifile)
+        uifile = CURRENT_DIR / "ui/preferences_dialog.ui"
+        builder.add_from_file(str(uifile))
 
         top = self.master.winfo_toplevel()
         self.dialog = dialog = builder.get_object('preferences', top)
@@ -233,23 +229,25 @@ class PreferencesUI:
             'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
         }
         fname = filedialog.asksaveasfilename(**options)
-        if fname:
-            try:
-                with open(fname, "w") as f:
-                    with open(NEW_STYLE_FILE_TEMPLATE) as tfile:
-                        sample_script_contents = tfile.read()
-                        f.write(sample_script_contents)
+        if not fname:
+            return
 
-                if os.path.isfile(fname):
-                    msg = _("File saved.\n\nPlease edit the style definition file.")
-                    messagebox.showinfo(_('Styles'), msg)
+        try:
+            with open(fname, "w") as f:
+                with NEW_STYLE_FILE_TEMPLATE.open() as tfile:
+                    sample_script_contents = tfile.read()
+                    f.write(sample_script_contents)
 
-                    # Auto setup this new file definition:
-                    self.v_style_definition_file.set(fname)
+            if os.path.isfile(fname):
+                msg = _("File saved.\n\nPlease edit the style definition file.")
+                messagebox.showinfo(_('Styles'), msg)
 
-            except OSError:
-                msg = _("Error saving template file.")
-                messagebox.showerror(_('Styles'), msg)
+                # Auto setup this new file definition:
+                self.v_style_definition_file.set(fname)
+
+        except OSError:
+            msg = _("Error saving template file.")
+            messagebox.showerror(_('Styles'), msg)
 
     def on_clicked_select_style_file(self):
         """
