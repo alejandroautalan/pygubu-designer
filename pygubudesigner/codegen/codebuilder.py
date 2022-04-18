@@ -389,7 +389,7 @@ class UI2Code(Builder):
             img_class = 'tk.PhotoImage'
             if file_ext in TK_BITMAP_FORMATS:
                 img_class = 'tk.BitmapImage'
-            line = "{} = {}(file='{}')".format(varname, img_class, filename)
+            line = f"{varname} = {img_class}(file='{filename}')"
             self._code.append(line)
             self._tkimages[filename] = varname
         return self._tkimages[filename]
