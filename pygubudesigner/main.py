@@ -737,7 +737,7 @@ class PygubuDesigner:
     def _create_about_dialog(self):
         builder = pygubu.Builder(translator)
         builder.add_from_file(str(DESIGNER_DIR / "ui" / "about_dialog.ui"))
-        builder.add_resource_path(str("about_dialog.ui" / "images"))
+        builder.add_resource_path(str(DESIGNER_DIR / "about_dialog.ui" / "images"))
 
         dialog = builder.get_object('aboutdialog', self.mainwindow)
         entry = builder.get_object('version')
