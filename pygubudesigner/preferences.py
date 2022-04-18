@@ -79,14 +79,14 @@ def load_configfile():
         except configparser.MissingSectionHeaderError as e:
             logger.exception(e)
             msg = _(
-                f"Configuration file at '{CONFIG_FILE}' is corrupted, program may not work as expected."
+                f"Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as expected."
                 + "If you delete this file, configuration will be set to default"
             )
             messagebox.showerror(_('Error'), msg)
         except configparser.Error as e:
             logger.exception(e)
             msg = _(
-                f"Faild to parse config file at '{CONFIG_FILE}', program may not work as expected."
+                f"Faild to parse config file at {CONFIG_FILE!s}, program may not work as expected."
             )
             messagebox.showerror(_('Error'), msg)
     else:

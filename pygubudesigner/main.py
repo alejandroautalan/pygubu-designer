@@ -857,14 +857,13 @@ def check_dependency(modulename, version, help_msg=None):
         for attr in ('version', '__version__', 'ver', 'PYQT_VERSION_STR'):
             v = getattr(module, attr, None)
             if v is not None:
-                module_version = v
-        msg = "Module %s imported ok, version %s"
-        logger.info(msg, modulename, module_version)
+                break
+        logger.info(f"Module {modulename} imported ok, version {v}")
     except ImportError as e:
-        msg = "I can't import module '%s'. You need to have installed '%s' version %s or higher. %s"
-        if help_msg is None:
-            help_msg = ''
-        logger.error(msg, modulename, modulename, version, help_msg)
+        logger.error(
+            f"I can't import module {modulename!r}. You need to have installed "
+            + f"{modulename!r} version {version} or higher. {help_msg or ''}"
+        )
         sys.exit(-1)
 
 
