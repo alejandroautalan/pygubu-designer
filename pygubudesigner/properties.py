@@ -16,7 +16,9 @@
 import logging
 import platform
 import tkinter as tk
+
 from pygubu.builder import builderobject
+
 from .propertieshelp import _, help_for
 
 logger = logging.getLogger(__name__)

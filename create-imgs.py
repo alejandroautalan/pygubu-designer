@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 import os
-import sys
-import subprocess
-import shlex
 import os.path as path
+import shlex
+import subprocess
+import sys
 
 gtk_imgs = {
     'widget-gtk-button.png': ('ttk.Button', 'tk.Button'),

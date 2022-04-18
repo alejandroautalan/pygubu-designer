@@ -22,12 +22,11 @@ import tkinter.ttk as ttk
 from pygubu.stockimage import StockImage, StockImageException
 
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor,
-    ChoicePropertyEditor,
     CheckbuttonPropertyEditor,
+    ChoicePropertyEditor,
+    PropertyEditor,
     register_editor,
 )
-
 
 RE_FONT = re.compile(
     "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?"

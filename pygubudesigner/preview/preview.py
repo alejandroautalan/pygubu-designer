@@ -18,13 +18,13 @@ import re
 import sys
 import tkinter as tk
 import tkinter.ttk as ttk
+
 import pygubu
 
 from pygubudesigner.widgetdescr import WidgetMeta
 from pygubudesigner.widgets.toplevelframe import ToplevelFramePreview
 
 from .builder import BuilderForPreview
-
 
 logger = logging.getLogger(__name__)
 

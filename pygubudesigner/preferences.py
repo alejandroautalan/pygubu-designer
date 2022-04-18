@@ -1,14 +1,15 @@
-import os
-import logging
-import tkinter as tk
-from tkinter import filedialog, messagebox
 import configparser
+import logging
+import os
+import tkinter as tk
 from pathlib import Path
-
-from appdirs import AppDirs
+from tkinter import filedialog, messagebox
 
 import pygubu
+from appdirs import AppDirs
+
 from pygubudesigner.util import get_ttk_style
+
 from .i18n import translator as _
 
 logger = logging.getLogger(__name__)

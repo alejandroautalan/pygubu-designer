@@ -16,8 +16,8 @@
 import tkinter.ttk as ttk
 
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor,
     EntryPropertyEditor,
+    PropertyEditor,
     register_editor,
 )
 

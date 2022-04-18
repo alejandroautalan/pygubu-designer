@@ -13,14 +13,15 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
-from enum import Enum
 from collections import OrderedDict
+from enum import Enum
 
 from pygubu.builder import CB_TYPES, CLASS_MAP, Builder
 from pygubu.builder.builderobject import BuilderObject, grouper, register_widget
 from pygubu.builder.tkstdwidgets import TKToplevel
 from pygubu.builder.widgetmeta import WidgetMeta
 from pygubu.stockimage import TK_BITMAP_FORMATS
+
 from pygubudesigner.stylehandler import StyleHandler
 
 

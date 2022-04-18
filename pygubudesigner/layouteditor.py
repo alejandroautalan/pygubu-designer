@@ -14,7 +14,6 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import messagebox
@@ -23,11 +22,10 @@ from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
 
 from pygubudesigner import properties
+from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.propertieseditor import PropertiesEditor
 from pygubudesigner.widgets.propertyeditor import LayoutManagerPropertyEditor
-from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
-
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP

@@ -13,8 +13,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import pygubu
 from pathlib import Path
+
+import pygubu
+
 from pygubudesigner.i18n import translator
 
 FILE_PATH = Path(__file__).parent

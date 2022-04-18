@@ -23,10 +23,10 @@ from pygubu.builder.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import (
+    ChoiceByKeyPropertyEditor,
+    EntryPropertyEditor,
     PropertyEditor,
     register_editor,
-    EntryPropertyEditor,
-    ChoiceByKeyPropertyEditor,
 )
 
 

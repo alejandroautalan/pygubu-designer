@@ -12,9 +12,9 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
+import keyword
 import logging
 import pathlib
-import keyword
 import re
 from tkinter import filedialog, messagebox
 
@@ -22,7 +22,6 @@ import black
 from mako.lookup import TemplateLookup
 
 from .codebuilder import UI2Code
-
 
 logger = logging.getLogger(__name__)
 CURRENT_DIR = pathlib.Path(__file__).parent

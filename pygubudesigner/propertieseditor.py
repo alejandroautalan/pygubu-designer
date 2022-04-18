@@ -23,8 +23,8 @@ from pygubu.widgets.simpletooltip import create as create_tooltip
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import create_editor
-from .stylehandler import StyleHandler
 
+from .stylehandler import StyleHandler
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP

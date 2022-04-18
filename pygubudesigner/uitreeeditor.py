@@ -14,11 +14,11 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 import os
-import xml.etree.ElementTree as ET
 import tkinter as tk
-from tkinter import messagebox
+import xml.etree.ElementTree as ET
 from collections import Counter
 from functools import partial
+from tkinter import messagebox
 
 from pygubu.builder import CLASS_MAP
 from pygubu.builder.uidefinition import UIDefinition

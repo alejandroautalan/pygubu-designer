@@ -15,6 +15,7 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu import builder
 
 CLASS_MAP = builder.CLASS_MAP

@@ -17,6 +17,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 import pygubu.widgets.simpletooltip as tooltip
+
 from .toolbarframe import ToolbarFrame
 
 

@@ -18,8 +18,8 @@ from tkinter import ttk
 
 from pygubudesigner import preferences as pref
 from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
-from .i18n import translator as _
 
+from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
 

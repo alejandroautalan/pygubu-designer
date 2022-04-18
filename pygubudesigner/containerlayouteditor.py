@@ -15,13 +15,14 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
-from pygubudesigner import properties
+
 from pygubu.widgets.simpletooltip import create as create_tooltip
-from pygubudesigner.widgets.propertyeditor import create_editor
+
+from pygubudesigner import properties
+from pygubudesigner.widgetdescr import WidgetMeta
 from pygubudesigner.widgets.containerlayouteditorbase import ContainerLayoutEditorBase
 from pygubudesigner.widgets.gridselector import GridRCselectorWidget
-
-from pygubudesigner.widgetdescr import WidgetMeta
+from pygubudesigner.widgets.propertyeditor import create_editor
 
 
 class ContainerLayoutEditor(ContainerLayoutEditorBase):

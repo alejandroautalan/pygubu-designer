@@ -22,10 +22,9 @@ import importlib
 import logging
 import platform
 import sys
+import tkinter as tk
 import webbrowser
 from pathlib import Path
-
-import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
 import pygubu
@@ -35,8 +34,8 @@ from pygubu.stockimage import StockImage, StockImageException
 import pygubudesigner
 import pygubudesigner.actions as actions
 from pygubudesigner import preferences as pref
-from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
 from pygubudesigner.codegen import ScriptGenerator
+from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
 from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 
