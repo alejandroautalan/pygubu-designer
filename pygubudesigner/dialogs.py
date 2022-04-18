@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -13,13 +12,15 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-import os
+
+from pathlib import Path
+
 import pygubu
+
 from pygubudesigner.i18n import translator
 
-FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-ASK_SAVE_CHANGES_DIALOG_UI = os.path.join(
-    FILE_PATH, 'ui', 'ask_save_changes_dialog.ui')
+FILE_PATH = Path(__file__).parent
+ASK_SAVE_CHANGES_DIALOG_UI = FILE_PATH / "ui" / "ask_save_changes_dialog.ui"
 
 
 class AskSaveChangesDialog:
@@ -30,8 +31,7 @@ class AskSaveChangesDialog:
     def __init__(self, master):
         self.master = master
         self.builder = builder = pygubu.Builder(translator)
-        # builder.add_resource_path(PROJECT_PATH)
-        builder.add_from_file(ASK_SAVE_CHANGES_DIALOG_UI)
+        builder.add_from_file(str(ASK_SAVE_CHANGES_DIALOG_UI))
         self.dialog = builder.get_object('ask_save_changes_dialog', master)
         self.lbl_message = builder.get_object('lbl_message')
         self.lbl_detail = builder.get_object('lbl_detail')
@@ -77,6 +77,7 @@ def ask_save_changes(master, title, message, detail=''):
 
 if __name__ == '__main__':
     import tkinter as tk
+
     root = tk.Tk()
     app = AskSaveChangesDialog(root)
     app.run()

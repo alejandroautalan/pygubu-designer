@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -26,29 +25,26 @@ class ToolbarFrame(ttk.Frame):
 
     def __init__(self, master=None, **kw):
         ttk.Frame.__init__(self, master, **kw)
-        #btonbar = ttk.Frame(master)
+        # btonbar = ttk.Frame(master)
         fvport = ttk.Frame(self)
         fcontent = ttk.Frame(fvport)
         fcontent.config(height='50', width='30', padding=0)
-        fcontent.place(anchor='nw', x='0', y='0', bordermode='inside',
-                       relheight=1)
+        fcontent.place(anchor='nw', x='0', y='0', bordermode='inside', relheight=1)
         fvport.config(height='50', width='30')
         fvport.pack(expand='true', fill='both', side='left')
         fcontrols = ttk.Frame(self)
         bsleft = ttk.Button(fcontrols)
-        bsleft.config(text='<', width='1', takefocus=True,
-                      style=self.BTN_LEFT_STYLE)
+        bsleft.config(text='<', width='1', takefocus=True, style=self.BTN_LEFT_STYLE)
         bsleft.pack(expand='true', fill='y', side='left')
         bsleft.configure(command=self.scroll_left)
         bsright = ttk.Button(fcontrols)
-        bsright.config(text='>', width='1', takefocus=True,
-                       style=self.BTN_RIGHT_STYLE)
+        bsright.config(text='>', width='1', takefocus=True, style=self.BTN_RIGHT_STYLE)
         bsright.pack(expand='true', fill='y', side='left')
         bsright.configure(command=self.scroll_right)
         fcontrols.config(height='50', width='50')
         fcontrols.pack(fill='y', side='left')
-        #btonbar.config(height='50', width='320')
-        #btonbar.pack(expand='true', fill='x', side='top')
+        # btonbar.config(height='50', width='320')
+        # btonbar.pack(expand='true', fill='x', side='top')
         self.config(height='200', width='20')
 
         self.controls_visible = True
@@ -69,16 +65,9 @@ class ToolbarFrame(ttk.Frame):
 
     def _configure_mousewheel(self):
         BindManager.init_mousewheel_binding(self)
-        self.bind(
-            '<Enter>',
-            lambda event: BindManager.mousewheel_bind(self),
-            add='+')
-        self.bind(
-            '<Leave>',
-            lambda event: BindManager.mousewheel_unbind(),
-            add='+')
-        self.on_mousewheel = BindManager.make_onmousewheel_cb(
-            self, 'x', 2)
+        self.bind('<Enter>', lambda event: BindManager.mousewheel_bind(self), add='+')
+        self.bind('<Leave>', lambda event: BindManager.mousewheel_unbind(), add='+')
+        self.on_mousewheel = BindManager.make_onmousewheel_cb(self, 'x', 2)
 
     def xview(self, mode=None, value=None, units=None):
         if mode == 'scroll':
@@ -111,13 +100,13 @@ class ToolbarFrame(ttk.Frame):
             return
 
         fcw = self.fcontent.winfo_reqwidth()
-        #fch = self.fcontent.winfo_reqheight()
+        # fch = self.fcontent.winfo_reqheight()
         fctlw = self.fcontrols.winfo_reqwidth()
-        #fctlh = self.fcontrols.winfo_reqheight()
+        # fctlh = self.fcontrols.winfo_reqheight()
         myw = self.winfo_width()
-        #myh = self.winfo_height()
+        # myh = self.winfo_height()
         vpw = self.fvport.winfo_width()
-        #vph = self.fvport.winfo_height()
+        # vph = self.fvport.winfo_height()
 
         self.SCROLL_INCREMENT = vpw // 3
         hole = myw - fctlw

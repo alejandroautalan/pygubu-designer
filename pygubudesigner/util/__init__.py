@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -45,6 +44,7 @@ def treeview_print(tree, root=''):
             print(root)
         for item in children:
             tree_print(tree, item)
+
     tree_print(tree, root)
 
 
@@ -86,20 +86,19 @@ def menu_iter_children(menu):
                 cascades.append(cascade)
             yield (menu, itemtype, i)
         for m in cascades:
-            for child in menu_iter_children(m):
-                yield child
+            yield from menu_iter_children(m)
 
 
 __style = None
 
 
 def get_ttk_style():
-    '''Use ttkthemes if module is installed
-    '''
+    '''Use ttkthemes if module is installed'''
     global __style
     if __style is None:
         try:
             from ttkthemes.themed_style import ThemedStyle
+
             __style = ThemedStyle()
         except BaseException:
             __style = ttk.Style()

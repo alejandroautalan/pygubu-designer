@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -19,7 +18,7 @@ import os
 from .preferences import recent_files_get, recent_files_save
 
 
-class RecentFilesManager(object):
+class RecentFilesManager:
     def __init__(self, menu, itemcallback):
         self.menu = menu
         self.item_callback = itemcallback
@@ -46,7 +45,7 @@ class RecentFilesManager(object):
 
     def _add_item(self, filepath):
         name = os.path.basename(filepath)
-        itemlabel = '{0} [{1}]'.format(name, filepath)
+        itemlabel = f'{name} [{filepath}]'
 
         def item_command(fname=filepath, cb=self.item_callback):
             cb(filepath)

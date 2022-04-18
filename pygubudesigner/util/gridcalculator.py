@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -15,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-class GridCalculator(object):
+class GridCalculator:
     def __init__(self, rdim, cdim, fwidth, fheight):
         self.rdim = rdim
         self.cdim = cdim
@@ -33,13 +32,13 @@ class GridCalculator(object):
         self.colw = self.fwidth / self.cdim
 
     def i2rc(self, i):
-        '''Index to (row, column) coords'''
+        """Index to (row, column) coords"""
         c = i % self.cdim
         r = (i - c) // self.cdim
         return (r, c)
 
     def rowmajor(self):
-        '''Rowmajor index generator.'''
+        """Rowmajor index generator."""
         size = self.rdim * self.cdim
         for i in range(0, size):
             c = i % self.cdim
@@ -54,7 +53,7 @@ class GridCalculator(object):
         return (x, y, x1, y1)
 
     def cell_coords_gen(self, ox=0, oy=0):
-        '''Generate coords for each cell in the grid.
+        """Generate coords for each cell in the grid.
         Input:
           ox: x origin
           oy: y origin
@@ -67,13 +66,13 @@ class GridCalculator(object):
             x1,  # x1 coordinate
             y1,  # y1 coordinate
           )
-        '''
+        """
         for i, f, c in self.rowmajor():
             coords = self.cell_coords(f, c)
             yield (i, *coords)
 
     def row_coords(self, row, ox=0, oy=0):
-        '''Calculate box coordinates for a given row'''
+        """Calculate box coordinates for a given row"""
         x1 = ox
         y1 = oy + row * self.rowh
         x2 = ox + self.cdim * self.colw
@@ -81,12 +80,12 @@ class GridCalculator(object):
         return (row, x1, y1, x2, y2)
 
     def row_coords_gen(self, ox=0, oy=0):
-        '''Iterate over row coordinates'''
+        """Iterate over row coordinates"""
         for r in range(self.rdim):
             yield self.row_coords(r, ox, oy)
 
     def column_coords(self, col, ox=0, oy=0):
-        '''Calculate column coordinate for a given column col'''
+        """Calculate column coordinate for a given column col"""
         x1 = ox + col * self.colw
         y1 = oy
         x2 = ox + col * self.colw + self.colw
@@ -94,13 +93,14 @@ class GridCalculator(object):
         return (col, x1, y1, x2, y2)
 
     def column_coords_gen(self, ox=0, oy=0):
-        '''Iterate over column coordinates'''
+        """Iterate over column coordinates"""
         for c in range(self.cdim):
             yield self.column_coords(c, ox, oy)
 
     def rowcol_poly(self, row, col, ox=0, oy=0):
-        '''Polygon coords for the row/col insersection shape.'''
+        """Polygon coords for the row/col insersection shape."""
         x1, y1, x2, y2 = self.cell_coords(row, col, ox, oy)
+        # fmt: off
         return (
             x1, y1,  # p1
             x1, 0,  # p2
@@ -115,16 +115,14 @@ class GridCalculator(object):
             0, y2,  # p11
             0, y1,  # p12
         )
+        # fmt: on
 
     def rowcol_center_cross(self, row, col, ox=0, oy=0):
-        '''Coords for the two row/col insersection lines.'''
+        """Coords for the two row/col insersection lines."""
         x1, y1, x2, y2 = self.cell_coords(row, col, ox, oy)
         xc = x1 + self.colw / 2
         yc = y1 + self.rowh / 2
-        return (
-            (xc, oy, xc, self.fheight),
-            (ox, yc, self.fwidth, yc)
-        )
+        return ((xc, oy, xc, self.fheight), (ox, yc, self.fwidth, yc))
 
     def xy2rowcol(self, x, y):
         column = int(x // self.colw)

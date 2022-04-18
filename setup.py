@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# encoding: UTF-8
 
 """Build tar.gz for pygubu
 
@@ -7,11 +6,9 @@ Needed packages to run (using Debian/Ubuntu package names):
 
     python3-tk
 """
-from __future__ import print_function
 
 import os
 import platform
-from io import open
 
 import pygubudesigner
 
@@ -31,8 +28,7 @@ except ImportError:
 
 
 class CustomInstall(install):
-    """Custom installation class on package files.
-    """
+    """Custom installation class on package files."""
 
     def run(self):
         """Run parent install, and then save the install dir in the script."""
@@ -55,7 +51,8 @@ class CustomInstall(install):
 
 def get_requirements():
     requirements = [
-        i.strip('\n') for i in open(product_txt_path, 'r').readlines()
+        i.strip('\n')
+        for i in open(product_txt_path).readlines()
         if not i.startswith('#') and len(i.strip()) > 0
     ]
     return requirements
@@ -68,13 +65,16 @@ setup(
     author='Alejandro Autalán',
     author_email='alejandroautalan@gmail.com',
     description='A tkinter GUI builder.',
-    long_description=open(readme_path, 'r', encoding='utf-8').read(),
+    long_description=open(readme_path, encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/alejandroautalan/pygubu-designer',
-
-    packages=['pygubudesigner', 'pygubudesigner.util',
-              'pygubudesigner.widgets', 'pygubudesigner.preview',
-              'pygubudesigner.codegen'],
+    packages=[
+        'pygubudesigner',
+        'pygubudesigner.util',
+        'pygubudesigner.widgets',
+        'pygubudesigner.preview',
+        'pygubudesigner.codegen',
+    ],
     package_data={
         'pygubudesigner': [
             'images/images-gif/*.gif',

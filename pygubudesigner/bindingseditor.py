@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -16,6 +15,7 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu import builder
 
 CLASS_MAP = builder.CLASS_MAP
@@ -34,12 +34,10 @@ class BindingsEditor:
         self.tv.bind('<<TreeviewCellEdited>>', self._on_cell_edited)
         self.tv.bind('<Double-Button-1>', self._on_add_clicked, add=True)
 
-        self._del_btn = ttk.Button(self.tv, text='-',
-                                   command=self._on_del_clicked)
+        self._del_btn = ttk.Button(self.tv, text='-', command=self._on_del_clicked)
         self._seq_cboxvar = tk.StringVar()
-        self._seq_cbox = cbox = ttk.Combobox(self.tv,
-                                             textvariable=self._seq_cboxvar)
-        #cbox.place(x=-10, y=-10)
+        self._seq_cbox = cbox = ttk.Combobox(self.tv, textvariable=self._seq_cboxvar)
+        # cbox.place(x=-10, y=-10)
         self.hide_all()
 
     def _on_add_clicked(self, event):
@@ -74,7 +72,7 @@ class BindingsEditor:
             for item in items:
                 if item != self._adder:
                     values = self.tv.item(item, 'values')
-#                    print(item, 'values = ', values)
+                    #                    print(item, 'values = ', values)
                     self._curr_data.add_binding(*values[:3])
 
             # Notify the editor that a change has occurred and the project needs saving.
@@ -106,8 +104,7 @@ class BindingsEditor:
         col, item = self.tv.get_event_info()
         if item != self._adder and self._allow_edit:
             if col == 'sequence':
-                self.tv.inplace_custom(col, item, self._seq_cbox,
-                                       self._seq_cboxvar)
+                self.tv.inplace_custom(col, item, self._seq_cbox, self._seq_cboxvar)
             elif col == 'handler':
                 self.tv.inplace_entry(col, item)
             elif col == 'add':

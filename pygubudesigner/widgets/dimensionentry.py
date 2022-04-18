@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -17,11 +16,10 @@
 import re
 import tkinter as tk
 
-from pygubudesigner.widgets.propertyeditor import (
-    EntryPropertyEditor, register_editor)
+from pygubudesigner.widgets.propertyeditor import EntryPropertyEditor, register_editor
 
 re_dim = '\\d+([cimp])?'
-regexp = '({0})?$'.format(re_dim)
+regexp = f'({re_dim})?$'
 RE_DIMENSION = re.compile(regexp)
 regexp = '({0})?$|{0}\\s{0}$'.format(re_dim)
 RE_TWO_DIMENSION = re.compile(regexp)
@@ -67,6 +65,7 @@ if __name__ == '__main__':
         def on_change_cb(event=None):
             print(editor.value)
             print(repr(editor.value))
+
         return on_change_cb
 
     editor = DimensionPropertyEditor(root)

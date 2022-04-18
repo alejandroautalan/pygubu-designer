@@ -1,29 +1,31 @@
-# encoding: utf-8
-import os
-import logging
-import tkinter as tk
-from tkinter import filedialog, messagebox
 import configparser
-
-from appdirs import AppDirs
+import logging
+import os
+import tkinter as tk
+from pathlib import Path
+from tkinter import filedialog, messagebox
 
 import pygubu
+from appdirs import AppDirs
+
 from pygubudesigner.util import get_ttk_style
+
 from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
-FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-CONFIG_FILE = os.path.join(FILE_PATH, 'config')
 
 dirs = AppDirs('pygubu-designer')
-CONFIG_FILE = os.path.join(dirs.user_data_dir, 'config')
+CONFIG_FILE = Path(dirs.user_data_dir) / 'config'
 
-logger.info('Using configfile: %s', CONFIG_FILE)
+logger.info(f'Using configfile: {CONFIG_FILE}')
 
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default': 'ttk'},
     'ttk_theme': {'default': 'default'},
-    'default_layout_manager': {'values': '["pack", "grid", "place"]', 'default': 'pack'},
+    'default_layout_manager': {
+        'values': '["pack", "grid", "place"]',
+        'default': 'pack',
+    },
     'geometry': {
         'default': '640x480',
     },
@@ -48,21 +50,22 @@ config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
 
-CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
-TEMPLATE_DIR = os.path.join(CURRENT_DIR, 'codegen', 'template')
-NEW_STYLE_FILE_TEMPLATE = os.path.join(TEMPLATE_DIR, 'customstyles.py.mako')
+CURRENT_DIR = Path(__file__).parent
+TEMPLATE_DIR = CURRENT_DIR / 'codegen' / 'template'
+NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / 'customstyles.py.mako'
 
 
 def initialize_configfile():
     if not os.path.exists(dirs.user_data_dir):
         os.makedirs(dirs.user_data_dir)
-    if not os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, 'w') as configfile:
+
+    if not CONFIG_FILE.exists():
+        with CONFIG_FILE.open('w') as configfile:
             config.write(configfile)
 
 
 def save_configfile():
-    with open(CONFIG_FILE, 'w') as configfile:
+    with CONFIG_FILE.open('w') as configfile:
         config.write(configfile)
 
 
@@ -71,27 +74,29 @@ def load_configfile():
     for k in options:
         defaults[k] = options[k]['default']
     config[SEC_GENERAL] = defaults
-    if not os.path.exists(CONFIG_FILE):
-        initialize_configfile()
-    else:
+    if CONFIG_FILE.exists():
         try:
             config.read(CONFIG_FILE)
         except configparser.MissingSectionHeaderError as e:
             logger.exception(e)
-            msg = _("Configuration file at '{0}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(
-                CONFIG_FILE))
+            msg = _(
+                f"Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as expected."
+                + "If you delete this file, configuration will be set to default"
+            )
             messagebox.showerror(_('Error'), msg)
         except configparser.Error as e:
             logger.exception(e)
-            msg = _("Faild to parse config file at '{0}', program may not work as expected.".format(
-                CONFIG_FILE))
-            msg = msg.format(CONFIG_FILE)
+            msg = _(
+                f"Faild to parse config file at {CONFIG_FILE!s}, program may not work as expected."
+            )
             messagebox.showerror(_('Error'), msg)
+    else:
+        initialize_configfile()
 
 
 def get_custom_widgets():
     paths = []
-    for k, p in config.items(SEC_CUSTOM_WIDGETS):
+    for _, p in config.items(SEC_CUSTOM_WIDGETS):
         paths.append(p)
     return paths
 
@@ -108,7 +113,7 @@ def set_option(key, value, save=False):
 
 def recent_files_get():
     rf = []
-    for k, f in config.items(SEC_RECENT_FILES):
+    for _, f in config.items(SEC_RECENT_FILES):
         rf.append(f)
     return rf
 
@@ -117,7 +122,7 @@ def recent_files_save(file_list):
     config.remove_section(SEC_RECENT_FILES)
     config.add_section(SEC_RECENT_FILES)
     for j, p in enumerate(file_list):
-        config.set(SEC_RECENT_FILES, 'f{0}'.format(j), p)
+        config.set(SEC_RECENT_FILES, f'f{j}', p)
     save_configfile()
 
 
@@ -133,8 +138,7 @@ def get_window_size():
 load_configfile()
 
 
-class PreferencesUI(object):
-
+class PreferencesUI:
     def __init__(self, master, translator=None):
         self.master = master
         self.translator = translator
@@ -145,14 +149,13 @@ class PreferencesUI(object):
 
     def _create_preferences_dialog(self):
         self.builder = builder = pygubu.Builder(self.translator)
-        uifile = os.path.join(FILE_PATH, "ui/preferences_dialog.ui")
-        builder.add_from_file(uifile)
+        uifile = CURRENT_DIR / "ui/preferences_dialog.ui"
+        builder.add_from_file(str(uifile))
 
         top = self.master.winfo_toplevel()
         self.dialog = dialog = builder.get_object('preferences', top)
 
-        self.v_style_definition_file = builder.get_variable(
-            'v_style_definition_file')
+        self.v_style_definition_file = builder.get_variable('v_style_definition_file')
 
         # setup theme values
         s = get_ttk_style()
@@ -172,7 +175,8 @@ class PreferencesUI(object):
         # Preferred layout manager
         cbox_layout_manager = builder.get_object('cbox_layout_manager')
         cbox_layout_manager.configure(
-            values=options['default_layout_manager']['values'])
+            values=options['default_layout_manager']['values']
+        )
 
         self.cwtv = builder.get_object('cwtv')
         self.path_remove = builder.get_object('path_remove')
@@ -205,7 +209,7 @@ class PreferencesUI(object):
             txt = self.cwtv.item(iid, 'text')
             paths.append(txt)
         for j, p in enumerate(paths):
-            config.set(SEC_CUSTOM_WIDGETS, 'w{0}'.format(j), p)
+            config.set(SEC_CUSTOM_WIDGETS, f'w{j}', p)
         save_configfile()
         self.master.event_generate('<<PygubuDesignerPreferencesSaved>>')
 
@@ -223,26 +227,28 @@ class PreferencesUI(object):
 
         options = {
             'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+        }
         fname = filedialog.asksaveasfilename(**options)
-        if fname:
-            try:
-                with open(fname, "w") as f:
-                    with open(NEW_STYLE_FILE_TEMPLATE, 'r') as tfile:
-                        sample_script_contents = tfile.read()
-                        f.write(sample_script_contents)
+        if not fname:
+            return
 
-                if os.path.isfile(fname):
-                    msg = _(
-                        "File saved.\n\nPlease edit the style definition file.")
-                    messagebox.showinfo(_('Styles'), msg)
+        try:
+            with open(fname, "w") as f:
+                with NEW_STYLE_FILE_TEMPLATE.open() as tfile:
+                    sample_script_contents = tfile.read()
+                    f.write(sample_script_contents)
 
-                    # Auto setup this new file definition:
-                    self.v_style_definition_file.set(fname)
+            if os.path.isfile(fname):
+                msg = _("File saved.\n\nPlease edit the style definition file.")
+                messagebox.showinfo(_('Styles'), msg)
 
-            except (OSError, IOError):
-                msg = _("Error saving template file.")
-                messagebox.showerror(_('Styles'), msg)
+                # Auto setup this new file definition:
+                self.v_style_definition_file.set(fname)
+
+        except OSError:
+            msg = _("Error saving template file.")
+            messagebox.showerror(_('Styles'), msg)
 
     def on_clicked_select_style_file(self):
         """
@@ -252,7 +258,8 @@ class PreferencesUI(object):
 
         options = {
             'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+        }
         fname = filedialog.askopenfilename(**options)
         if fname:
             self.v_style_definition_file.set(fname)
@@ -287,7 +294,8 @@ class PreferencesUI(object):
     def on_pathadd_clicked(self):
         options = {
             'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+        }
         fname = filedialog.askopenfilename(**options)
         if fname:
             self.cwtv.insert('', tk.END, text=fname)

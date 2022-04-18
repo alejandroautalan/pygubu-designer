@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -13,9 +12,9 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
+import keyword
 import logging
 import pathlib
-import keyword
 import re
 from tkinter import filedialog, messagebox
 
@@ -24,7 +23,6 @@ from mako.lookup import TemplateLookup
 
 from .codebuilder import UI2Code
 
-
 logger = logging.getLogger(__name__)
 CURRENT_DIR = pathlib.Path(__file__).parent
 TEMPLATE_DIR = CURRENT_DIR / 'template'
@@ -32,7 +30,7 @@ makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
 RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
 
 
-class ScriptGenerator(object):
+class ScriptGenerator:
     def __init__(self, app):
         self.app = app
         self.builder = builder = app.builder
@@ -48,9 +46,15 @@ class ScriptGenerator(object):
         self.template_desc_var = None
         self.import_tkvars_var = None
         self.use_ttkdefs_file_var = None
-        myvars = ['widgetlistvar', 'widgetlist_keyvar', 'template_var',
-                  'classnamevar', 'template_desc_var', 'import_tkvars_var',
-                  'use_ttkdefs_file_var']
+        myvars = [
+            'widgetlistvar',
+            'widgetlist_keyvar',
+            'template_var',
+            'classnamevar',
+            'template_desc_var',
+            'import_tkvars_var',
+            'use_ttkdefs_file_var',
+        ]
         builder.import_variables(self, myvars)
 
         self.txt_code = builder.get_object('txt_code')
@@ -60,9 +64,12 @@ class ScriptGenerator(object):
         self.msgtitle = _('Script Generator')
 
         self.template_desc = {
-            'application': _('Create a pygubu application script using the UI definition.'),
+            'application': _(
+                'Create a pygubu application script using the UI definition.'
+            ),
             'codescript': _('Create a coded version of the UI definition.'),
-            'widget': _('Create a base class for your custom widget.')}
+            'widget': _('Create a base class for your custom widget.'),
+        }
         self.template_var.set('application')
         self.import_tkvars_var.set(True)
         self.use_ttkdefs_file_var.set(True)
@@ -104,8 +111,7 @@ class ScriptGenerator(object):
             if template == 'application':
                 generator.add_import_line('pathlib')
                 if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line(
-                        'tkinter.ttk', 'ttk', priority=1)
+                    generator.add_import_line('tkinter.ttk', 'ttk', priority=1)
                 generator.add_import_line('pygubu', priority=10)
                 code = generator.generate_app_with_ui(uidef, target)
 
@@ -129,8 +135,7 @@ class ScriptGenerator(object):
             elif template == 'widget':
                 generator.add_import_line('tkinter', 'tk')
                 if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line(
-                        'tkinter.ttk', 'ttk', priority=1)
+                    generator.add_import_line('tkinter.ttk', 'ttk', priority=1)
                 code = generator.generate_app_widget(uidef, target)
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
@@ -149,8 +154,7 @@ class ScriptGenerator(object):
                 if not main_widget_is_toplevel:
                     generator.add_import_line('tkinter', 'tk')
                 if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line(
-                        'tkinter.ttk', 'ttk', priority=1)
+                    generator.add_import_line('tkinter.ttk', 'ttk', priority=1)
                 code = generator.generate_app_code(uidef, target)
                 context['widget_code'] = code[target]
                 context['import_lines'] = code['imports']
@@ -173,22 +177,23 @@ class ScriptGenerator(object):
 
         _ = self.app.translator
         msg = _('Code copied')
-        messagebox.showinfo(title=self.msgtitle, message=msg,
-                            parent=self.widgetlist.winfo_toplevel())
+        messagebox.showinfo(
+            title=self.msgtitle, message=msg, parent=self.widgetlist.winfo_toplevel()
+        )
 
     def on_code_template_changed(self, clear_code=True):
         template = self.template_var.get()
         classname = self.get_classname()
         self.cb_import_tkvars.configure(state="disabled")
         if template == 'application':
-            name = '{0}App'.format(classname)
+            name = f'{classname}App'
             self.classnamevar.set(name)
             self.cb_import_tkvars.configure(state="normal")
         elif template == 'codescript':
-            name = '{0}App'.format(classname)
+            name = f'{classname}App'
             self.classnamevar.set(name)
         elif template == 'widget':
-            name = '{0}Widget'.format(classname)
+            name = f'{classname}Widget'
             self.classnamevar.set(name)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
@@ -201,7 +206,7 @@ class ScriptGenerator(object):
         options = {
             'defaultextension': '.py',
             'filetypes': ((_('Python Script'), '*.py'), (_('All'), '*.*')),
-            'initialfile': '{0}.py'.format(filename),
+            'initialfile': f'{filename}.py',
         }
         fname = filedialog.asksaveasfilename(**options)
         if fname:
@@ -232,24 +237,28 @@ class ScriptGenerator(object):
         parent = self.widgetlist.winfo_toplevel()
         if widget is None:
             valid = False
-            messagebox.showwarning(title=mbtitle, message=_('Select widget'),
-                                   parent=parent)
+            messagebox.showwarning(
+                title=mbtitle, message=_('Select widget'), parent=parent
+            )
         template = self.template_var.get()
         if valid and template is None:
             valid = False
-            messagebox.showwarning(title=mbtitle, message=_('Select template'),
-                                   parent=parent)
+            messagebox.showwarning(
+                title=mbtitle, message=_('Select template'), parent=parent
+            )
         classname = self.classnamevar.get()
         if valid and classname == '':
             valid = False
-            messagebox.showwarning(title=mbtitle, message=_('Enter classname'),
-                                   parent=parent)
+            messagebox.showwarning(
+                title=mbtitle, message=_('Enter classname'), parent=parent
+            )
         if valid and (
-                keyword.iskeyword(classname) or
-                not RE_IDENTIFIER.match(classname)):
+            keyword.iskeyword(classname) or not RE_IDENTIFIER.match(classname)
+        ):
             valid = False
-            messagebox.showwarning(title=mbtitle, message=_('Invalid classname'),
-                                   parent=parent)
+            messagebox.showwarning(
+                title=mbtitle, message=_('Invalid classname'), parent=parent
+            )
 
         return valid
 

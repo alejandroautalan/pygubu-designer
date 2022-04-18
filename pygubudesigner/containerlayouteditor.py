@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -16,18 +15,19 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
-from pygubudesigner import properties
+
 from pygubu.widgets.simpletooltip import create as create_tooltip
-from pygubudesigner.widgets.propertyeditor import create_editor
+
+from pygubudesigner import properties
+from pygubudesigner.widgetdescr import WidgetMeta
 from pygubudesigner.widgets.containerlayouteditorbase import ContainerLayoutEditorBase
 from pygubudesigner.widgets.gridselector import GridRCselectorWidget
-
-from pygubudesigner.widgetdescr import WidgetMeta
+from pygubudesigner.widgets.propertyeditor import create_editor
 
 
 class ContainerLayoutEditor(ContainerLayoutEditorBase):
     def __init__(self, master=None, **kw):
-        super(ContainerLayoutEditor, self).__init__(master, **kw)
+        super().__init__(master, **kw)
         # Add grid selector
         self.gridselector = w = GridRCselectorWidget(self.rcselectorframe)
         w.bind('<<Gridselector:CellSelected>>', self._on_gridcell_clicked)
@@ -46,8 +46,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         label_tpl = "{0}:"
         row = col = 0
         groups = (
-            ('00', properties.CONTAINER_MANAGER_PROPERTIES,
-             properties.LAYOUT_OPTIONS),
+            ('00', properties.CONTAINER_MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
         )
 
         for gcode, plist, propdescr in groups:
@@ -58,7 +57,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
                 tooltip_text = kwdata.get('help', None)
                 label.tooltip = create_tooltip(label, tooltip_text)
-                alias = 'cprop_{0}'.format(name)
+                alias = f'cprop_{name}'
                 widget = self._create_editor(self.foptions, alias, kwdata)
                 widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
                 row += 1
@@ -114,6 +113,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         def make_on_change_cb(pname, editor):
             def on_change_cb(event):
                 self._on_property_changed(pname, editor)
+
             return on_change_cb
 
         editor.bind('<<PropertyChanged>>', make_on_change_cb(pname, editor))
@@ -135,15 +135,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             value = default
         editor.edit(value)
 
-    def update_rc_editor(
-            self,
-            type_,
-            index,
-            label,
-            editor,
-            wdescr,
-            pname,
-            propdescr):
+    def update_rc_editor(self, type_, index, label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
         classname = wdescr.classname
 
@@ -215,8 +207,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             propdescr = properties.LAYOUT_OPTIONS[name]
             index = col if rowcol == 'col' else row
             label, widget = self._rcbag[key]
-            self.update_rc_editor(rowcol, index, label, widget,
-                                  target, name, propdescr)
+            self.update_rc_editor(rowcol, index, label, widget, target, name, propdescr)
         # update labels
         label = self._rowpanel_label.format(row)
         self.rowframe_label.configure(text=label)
@@ -256,8 +247,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
 
         # layout properties
         groups = (
-            ('00', properties.CONTAINER_MANAGER_PROPERTIES,
-             properties.LAYOUT_OPTIONS),
+            ('00', properties.CONTAINER_MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
         )
 
         for gcode, proplist, gproperties in groups:
@@ -297,5 +287,3 @@ if __name__ == '__main__':
     # widget.edit(wd, 'pack')
 
     root.mainloop()
-
-

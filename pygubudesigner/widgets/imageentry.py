@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -22,14 +21,12 @@ import tkinter.ttk as ttk
 from pygubu.stockimage import *
 
 from pygubudesigner.i18n import translator
-from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, register_editor)
+from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
 
 _ = translator
 
 
 class ImagePropertyEditor(PropertyEditor):
-
     def _create_ui(self):
         self._entry = w = ttk.Entry(self, textvariable=self._variable)
         w.grid(sticky='ew')
@@ -45,11 +42,11 @@ class ImagePropertyEditor(PropertyEditor):
         self.columnconfigure(0, weight=1)
 
     def _on_button_click(self):
-        ext = ['*{0}'.format(e) for e in TK_IMAGE_FORMATS]
+        ext = [f'*{e}' for e in TK_IMAGE_FORMATS]
         options = {
             'filetypes': [
                 (_('Tk image formats'), ' '.join(ext)),
-                (_('All Files'), '*.*')
+                (_('All Files'), '*.*'),
             ]
         }
 

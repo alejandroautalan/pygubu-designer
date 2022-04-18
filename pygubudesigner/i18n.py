@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -13,10 +12,12 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import gettext
 import locale
 import os
 import sys
+from pathlib import Path
 
 # Change this variable to your app name!
 #  The translation files will be under
@@ -25,21 +26,16 @@ import sys
 APP_NAME = "pygubu"
 
 # Not sure in a regular desktop:
-#
 
-project_basedir = os.path.abspath(
-    os.path.join(os.path.dirname(__file__)))
+APP_DIR = Path(__file__).parent
+LOCALE_DIR = APP_DIR / "locale"
 
-APP_DIR = project_basedir
-LOCALE_DIR = os.path.join(APP_DIR, 'locale')
-
-first_mo_path = os.path.join(LOCALE_DIR, 'de', 'LC_MESSAGES', 'pygubu.mo')
-
-if not os.path.exists(first_mo_path):
+if not (LOCALE_DIR / "de" / "LC_MESSAGES" / "pygubu.mo").exists():
     print(
-        'You should compile the .po files in the pygubudesigner/locale ' +
-        'directory first if you are a developer, otherwise give us feedback ' +
-        'here: https://github.com/alejandroautalan/pygubu-designer/issues')
+        'You should compile the .po files in the pygubudesigner/locale '
+        + 'directory first if you are a developer, otherwise give us feedback '
+        + 'here: https://github.com/alejandroautalan/pygubu-designer/issues'
+    )
     sys.exit(0)
 
 # Now we need to choose the language. We will provide a list, and gettext
@@ -67,10 +63,9 @@ mo_location = LOCALE_DIR
 gettext.install(True)
 gettext.bindtextdomain(APP_NAME, mo_location)
 gettext.textdomain(APP_NAME)
-language = gettext.translation(APP_NAME,
-                               mo_location,
-                               languages=languages,
-                               fallback=True)
+language = gettext.translation(
+    APP_NAME, mo_location, languages=languages, fallback=True
+)
 
 translator = language.gettext
 
@@ -78,5 +73,5 @@ translator = language.gettext
 # And now in your modules you can do:
 #
 # import i18n
-# _ = i18n.language.gettext
+# _ = i18n.translator
 #

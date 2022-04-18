@@ -1,7 +1,4 @@
-# encoding: utf-8
-
-
-class LogPanelManager(object):
+class LogPanelManager:
     def __init__(self, app):
         self.app = app
         builder = self.app.builder
@@ -46,8 +43,7 @@ class LogPanelManager(object):
             self.gcontainer.pack(side='top', expand=True, fill='both')
             self.gcontainer.after_idle(self.update_sash)
         else:
-            self.gcontainer.after_idle(
-                lambda x='hide': self.update_sash(x))
+            self.gcontainer.after_idle(lambda: self.update_sash("hide"))
             self.gcontainer.pack_forget()
 
     def _log_set_text(self, text):
@@ -66,8 +62,8 @@ class LogPanelManager(object):
 
     def log_message(self, msg, level):
         if self.buttonsvar.get() != 'messages':
-            self.unread = self.unread + 1
+            self.unread += 1
             # log panel is not visible, update label
-            label = '{0} ({1})'.format(self.btn_messages_label, self.unread)
+            label = f'{self.btn_messages_label} ({self.unread})'
             self.btn_messages.config(text=label)
         self._log_add_text(msg)

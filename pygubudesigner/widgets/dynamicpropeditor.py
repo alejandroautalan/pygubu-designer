@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -15,11 +14,13 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, create_editor, register_editor)
+    PropertyEditor,
+    create_editor,
+    register_editor,
+)
 
 
 class DynamicPropertyEditor(PropertyEditor):
-
     def _create_ui(self):
         self._current = None
         self._editors = {}

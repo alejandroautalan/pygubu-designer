@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -16,12 +15,11 @@
 
 import tkinter as tk
 
-from pygubu.builder.builderobject import (BuilderObject, register_widget)
+from pygubu.builder.builderobject import BuilderObject, register_widget
 from pygubu.builder.tkstdwidgets import TKToplevel
 
 
 class ToplevelFramePreview(tk.Frame):
-
     def __init__(self, master=None, **kw):
         tk.Frame.__init__(self, master, **kw)
         self.tl_attrs = {}
@@ -38,9 +36,9 @@ class ToplevelFramePreview(tk.Frame):
             value = int(cnf[key])
             minsize = self.tl_attrs.get('minsize', None)
             maxsize = self.tl_attrs.get('maxsize', None)
-#            print(value, minsize, maxsize)
+            #            print(value, minsize, maxsize)
             remove = False
-#            print('tl_attrs:', self.tl_attrs)
+            #            print('tl_attrs:', self.tl_attrs)
             if minsize and value < minsize[0]:
                 remove = True
             if maxsize and value > maxsize[0]:
@@ -59,7 +57,7 @@ class ToplevelFramePreview(tk.Frame):
             value = int(cnf[key])
             minsize = self.tl_attrs.get('minsize', None)
             maxsize = self.tl_attrs.get('maxsize', None)
-#            print(value, minsize, maxsize)
+            #            print(value, minsize, maxsize)
             remove = False
             if minsize and value < minsize[1]:
                 remove = True
@@ -93,8 +91,7 @@ class ToplevelFramePreviewBO(BuilderObject):
     def _set_property(self, target_widget, pname, value):
         tw = target_widget
         tw.tl_attrs[pname] = value
-        method_props = ('iconbitmap', 'iconphoto',
-                        'overrideredirect', 'title')
+        method_props = ('iconbitmap', 'iconphoto', 'overrideredirect', 'title')
         if pname in method_props:
             pass
         elif pname in ('maxsize', 'minsize'):
@@ -129,8 +126,12 @@ class ToplevelFramePreviewBO(BuilderObject):
             # Do nothing, fake 'modal' property for dialog preview
             pass
         else:
-            super(ToplevelFramePreviewBO, self)._set_property(tw, pname, value)
+            super()._set_property(tw, pname, value)
 
 
-register_widget('pygubudesigner.ToplevelFramePreview',
-                ToplevelFramePreviewBO, 'ToplevelFramePreview', tuple())
+register_widget(
+    'pygubudesigner.ToplevelFramePreview',
+    ToplevelFramePreviewBO,
+    'ToplevelFramePreview',
+    tuple(),
+)

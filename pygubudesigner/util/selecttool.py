@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2013 Alejandro Autalán
 #
@@ -17,7 +16,7 @@
 import tkinter as tk
 
 
-class SelectTool(object):
+class SelectTool:
     def __init__(self, canvas):
         self._canvas = canvas
         self._canvas.region_selected = None
@@ -51,8 +50,7 @@ class SelectTool(object):
         self._sstart = (x, y)
         if not self._sobject:
             self._sobject = canvas.create_rectangle(
-                self._sstart[0], self._sstart[1], x, y,
-                dash=(3, 5), outline='#0000ff'
+                self._sstart[0], self._sstart[1], x, y, dash=(3, 5), outline='#0000ff'
             )
         canvas.itemconfigure(self._sobject, state=tk.NORMAL)
 
@@ -63,8 +61,7 @@ class SelectTool(object):
         canvas = self._canvas
         x = canvas.canvasx(event.x)
         y = canvas.canvasy(event.y)
-        canvas.coords(self._sobject,
-                      self._sstart[0], self._sstart[1], x, y)
+        canvas.coords(self._sobject, self._sstart[0], self._sstart[1], x, y)
 
     def _finish_selecting(self, event):
         """Finaliza la seleccion.

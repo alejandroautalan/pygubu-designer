@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -17,21 +16,21 @@
 import tkinter.ttk as ttk
 
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, EntryPropertyEditor, register_editor)
+    EntryPropertyEditor,
+    PropertyEditor,
+    register_editor,
+)
 
 
 class WHPropertyEditor(PropertyEditor):
-
     def _create_ui(self):
-        self._wlabel = w = ttk.Label(self, text='w:',
-                                     font='TkSmallCaptionFont')
+        self._wlabel = w = ttk.Label(self, text='w:', font='TkSmallCaptionFont')
         w.grid(row=0, column=0)
         self._weditor = w = EntryPropertyEditor(self)
         w.grid(row=0, column=1, sticky='we')
         w.parameters(width=4)
 
-        self._wlabel = w = ttk.Label(self, text='h:',
-                                     font='TkSmallCaptionFont')
+        self._wlabel = w = ttk.Label(self, text='h:', font='TkSmallCaptionFont')
         w.grid(row=0, column=2)
         self._heditor = w = EntryPropertyEditor(self)
         w.grid(row=0, column=3, sticky='we')
@@ -47,7 +46,7 @@ class WHPropertyEditor(PropertyEditor):
     def _get_value(self):
         value = ''
         if self._weditor.value != '' and self._heditor.value != '':
-            value = '{0}|{1}'.format(self._weditor.value, self._heditor.value)
+            value = f'{self._weditor.value}|{self._heditor.value}'
         return value
 
     def _set_value(self, value):

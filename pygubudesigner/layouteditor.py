@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -15,7 +14,6 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import messagebox
@@ -24,11 +22,10 @@ from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
 
 from pygubudesigner import properties
+from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.propertieseditor import PropertiesEditor
 from pygubudesigner.widgets.propertyeditor import LayoutManagerPropertyEditor
-from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
-
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
@@ -99,7 +96,7 @@ class LayoutEditor(PropertiesEditor):
             self._container_options = container_options
 
         wclass = wdescr.classname
-        #class_descr = CLASS_MAP[wclass].builder
+        # class_descr = CLASS_MAP[wclass].builder
         max_children = CLASS_MAP[wclass].builder.maxchildren
         max_children = 0 if max_children is None else max_children
         is_container = CLASS_MAP[wclass].builder.container
@@ -126,8 +123,7 @@ class LayoutEditor(PropertiesEditor):
                     propdescr = gproperties[name]
                     label, widget = self._propbag[gcode + name]
                     if show_layout and name in manager_prop:
-                        self.update_editor(
-                            label, widget, wdescr, name, propdescr)
+                        self.update_editor(label, widget, wdescr, name, propdescr)
                         label.grid()
                         widget.grid()
                     else:
@@ -156,16 +152,14 @@ class LayoutEditor(PropertiesEditor):
 
         old_manager = self._current.manager
         new_manager = self.layout_selector.value
-        needs_container_change = (new_manager not in self._allowed_managers)
+        needs_container_change = new_manager not in self._allowed_managers
 
         if needs_container_change:
             self.layout_selector.edit(old_manager)
 
-            def cb(
-                f=old_manager,
-                t=new_manager): return self._ask_manager_change(
-                f,
-                t)
+            def cb(f=old_manager, t=new_manager):
+                return self._ask_manager_change(f, t)
+
             self._sframe.after_idle(cb)
         else:
             self._current.manager = new_manager
@@ -178,12 +172,11 @@ class LayoutEditor(PropertiesEditor):
 
     def _ask_manager_change(self, old_manager, new_manager):
         title = _('Change Manager')
-        msg = _('Change manager from {0} to {1}?')
-        msg = msg.format(old_manager, new_manager)
+        msg = _('Change manager from {0} to {1}?').format(old_manager, new_manager)
         detail = _('All container widgets will be updated.')
         user_accepts_change = messagebox.askokcancel(
-            title, msg, detail=detail,
-            parent=self.layout_selector.winfo_toplevel())
+            title, msg, detail=detail, parent=self.layout_selector.winfo_toplevel()
+        )
         if user_accepts_change:
             topack = '<<LayoutEditorContainerManagerToPack>>'
             togrid = '<<LayoutEditorContainerManagerToGrid>>'
@@ -213,6 +206,6 @@ class LayoutEditor(PropertiesEditor):
         editor.edit(value)
 
     def hide_all(self):
-        super(LayoutEditor, self).hide_all()
+        super().hide_all()
         self._fprop.grid_remove()
         self._cleditor.grid_remove()

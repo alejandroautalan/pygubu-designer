@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -20,7 +19,11 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, EntryPropertyEditor, ChoicePropertyEditor, register_editor)
+    ChoicePropertyEditor,
+    EntryPropertyEditor,
+    PropertyEditor,
+    register_editor,
+)
 
 
 class TkVarPropertyEditor(PropertyEditor):
@@ -42,7 +45,7 @@ class TkVarPropertyEditor(PropertyEditor):
     def _get_value(self):
         value = ''
         if self._entry.value != '':
-            value = '{0}:{1}'.format(self._cbox.value, self._entry.value)
+            value = f'{self._cbox.value}:{self._entry.value}'
         return value
 
     def _set_value(self, value):
