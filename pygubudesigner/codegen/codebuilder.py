@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -35,11 +34,11 @@ class ToplevelOrTk(TKToplevel):
         init_args = self._get_init_args()
         bag = []
         for pname, value in init_args.items():
-            s = "{0}='{1}'".format(pname, value)
+            s = f"{pname}='{value}'"
             bag.append(s)
         kwargs = ''
         if bag:
-            kwargs = ', {0}'.format(', '.join(bag))
+            kwargs = ', {}'.format(', '.join(bag))
         if init_args:
             # has init args defined so create a TkToplevel
             s = "{0} = {1}({2}{3})"
@@ -63,7 +62,7 @@ class ScriptType(Enum):
 
 class UI2Code(Builder):
     def __init__(self):
-        super(UI2Code, self).__init__()
+        super().__init__()
 
         self._script_type = None
         self.as_class = False
@@ -101,7 +100,7 @@ class UI2Code(Builder):
     def _process_results(self, target):
         code = []
         for line in self._code:
-            line = '{0}{1}\n'.format(' ' * self.tabspaces, line)
+            line = '{}{}\n'.format(' ' * self.tabspaces, line)
             code.append(line)
         code = ''.join(code)
 
@@ -208,7 +207,7 @@ class UI2Code(Builder):
                 module = bobject.class_.__module__
                 cname = bobject.class_.__name__
                 if module not in self._code_imports:
-                    self._code_imports[module] = set((cname,))
+                    self._code_imports[module] = {cname}
                 else:
                     self._code_imports[module].add(cname)
         return cname
@@ -264,10 +263,10 @@ class UI2Code(Builder):
                             bag.append(cname)
                     clist = None
                     if len(bag) > 1:
-                        clist = '({0})'.format(', '.join(bag))
+                        clist = '({})'.format(', '.join(bag))
                     else:
                         clist = ''.join(bag)
-                    line = 'from {0} import {1}'.format(mname, clist)
+                    line = f'from {mname} import {clist}'
                     lines.append(line)
         return lines
 
@@ -281,15 +280,15 @@ class UI2Code(Builder):
                 value = "''"
             else:
                 if type_from_name == 'string':
-                    value = "'{0}'".format(value)
+                    value = f"'{value}'"
             if vtype is None:
-                var_init = 'tk.{0}Var(value={1})'.format(
+                var_init = 'tk.{}Var(value={})'.format(
                     type_from_name.capitalize(), value)
             else:
-                var_init = '{0}(value={1})'.format(str(vtype), value)
+                var_init = f'{str(vtype)}(value={value})'
             if self.as_class:
-                vname_in_code = 'self.{0}'.format(vname)
-            line = '{0} = {1}'.format(vname_in_code, var_init)
+                vname_in_code = f'self.{vname}'
+            line = f'{vname_in_code} = {var_init}'
             self._code.append(line)
             self._tkvariables[vname] = vname_in_code
         return self._tkvariables[vname]
@@ -337,7 +336,7 @@ class UI2Code(Builder):
             self._code.extend(commands)
             self._code.extend(bindings)
         else:
-            msg = 'Class "{0}" not mapped'.format(wmeta.classname)
+            msg = f'Class "{wmeta.classname}" not mapped'
             raise Exception(msg)
 
         return uniqueid
@@ -350,34 +349,34 @@ class UI2Code(Builder):
         for name, value in self._callbacks.items():
             wid, cbtype, args = value
             if cbtype == CB_TYPES.BIND_EVENT:
-                line = '{0}def {1}(self, event=None):'.format(
+                line = '{}def {}(self, event=None):'.format(
                     ' ' * tab2, name)
                 lines.append(line)
-                line = '{0}pass\n'.format(' ' * tabspaces)
+                line = '{}pass\n'.format(' ' * tabspaces)
                 lines.append(line)
             elif cbtype == CB_TYPES.SCROLL:
                 fargs = []
                 for a in args:
-                    fargs.append('{0}=None'.format(a))
+                    fargs.append(f'{a}=None')
                 fargs = ', '.join(fargs)
-                line = '{0}def {1}(self, {2}):'.format(
+                line = '{}def {}(self, {}):'.format(
                     ' ' * tab2, name, fargs)
                 lines.append(line)
-                line = '{0}pass\n'.format(' ' * tabspaces)
+                line = '{}pass\n'.format(' ' * tabspaces)
                 lines.append(line)
             else:
                 # other types: cb_simple, cb_with_id, etc.
                 if args is None:
-                    line = '{0}def {1}(self):'.format(' ' * tab2, name)
+                    line = '{}def {}(self):'.format(' ' * tab2, name)
                     lines.append(line)
-                    line = '{0}pass\n'.format(' ' * tabspaces)
+                    line = '{}pass\n'.format(' ' * tabspaces)
                     lines.append(line)
                 else:
                     fargs = ', '.join(args)
-                    line = '{0}def {1}(self, {2}):'.format(
+                    line = '{}def {}(self, {}):'.format(
                         ' ' * tab2, name, fargs)
                     lines.append(line)
-                    line = '{0}pass\n'.format(' ' * tabspaces)
+                    line = '{}pass\n'.format(' ' * tabspaces)
                     lines.append(line)
         return lines
 
@@ -385,7 +384,7 @@ class UI2Code(Builder):
         #print('on_code_create_callback', widgetid, cbname, cbtype, args)
         if cbname not in self._callbacks:
             self._callbacks[cbname] = (widgetid, cbtype, args)
-        cb_name = 'self.{0}'.format(cbname)
+        cb_name = f'self.{cbname}'
         return cb_name
 
     def code_create_image(self, filename):
@@ -393,12 +392,12 @@ class UI2Code(Builder):
             basename = os.path.basename(filename)
             name, file_ext = os.path.splitext(basename)
             name = self._make_identifier(name)
-            varname = 'self.img_{0}'.format(name)
+            varname = f'self.img_{name}'
 
             img_class = 'tk.PhotoImage'
             if file_ext in TK_BITMAP_FORMATS:
                 img_class = 'tk.BitmapImage'
-            line = "{0} = {1}(file='{2}')".format(
+            line = "{} = {}(file='{}')".format(
                 varname, img_class, filename)
             self._code.append(line)
             self._tkimages[filename] = varname

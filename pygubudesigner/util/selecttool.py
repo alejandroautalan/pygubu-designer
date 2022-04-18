@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2013 Alejandro Autalán
 #
@@ -17,7 +16,7 @@
 import tkinter as tk
 
 
-class SelectTool(object):
+class SelectTool:
     def __init__(self, canvas):
         self._canvas = canvas
         self._canvas.region_selected = None

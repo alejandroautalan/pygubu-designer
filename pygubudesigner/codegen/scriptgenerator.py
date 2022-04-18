@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -32,7 +31,7 @@ makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
 RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
 
 
-class ScriptGenerator(object):
+class ScriptGenerator:
     def __init__(self, app):
         self.app = app
         self.builder = builder = app.builder
@@ -181,14 +180,14 @@ class ScriptGenerator(object):
         classname = self.get_classname()
         self.cb_import_tkvars.configure(state="disabled")
         if template == 'application':
-            name = '{0}App'.format(classname)
+            name = f'{classname}App'
             self.classnamevar.set(name)
             self.cb_import_tkvars.configure(state="normal")
         elif template == 'codescript':
-            name = '{0}App'.format(classname)
+            name = f'{classname}App'
             self.classnamevar.set(name)
         elif template == 'widget':
-            name = '{0}Widget'.format(classname)
+            name = f'{classname}Widget'
             self.classnamevar.set(name)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
@@ -201,7 +200,7 @@ class ScriptGenerator(object):
         options = {
             'defaultextension': '.py',
             'filetypes': ((_('Python Script'), '*.py'), (_('All'), '*.*')),
-            'initialfile': '{0}.py'.format(filename),
+            'initialfile': f'{filename}.py',
         }
         fname = filedialog.asksaveasfilename(**options)
         if fname:

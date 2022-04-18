@@ -1,4 +1,3 @@
-# encoding: utf-8
 import os
 import logging
 import tkinter as tk
@@ -78,12 +77,12 @@ def load_configfile():
             config.read(CONFIG_FILE)
         except configparser.MissingSectionHeaderError as e:
             logger.exception(e)
-            msg = _("Configuration file at '{0}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(
+            msg = _("Configuration file at '{}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(
                 CONFIG_FILE))
             messagebox.showerror(_('Error'), msg)
         except configparser.Error as e:
             logger.exception(e)
-            msg = _("Faild to parse config file at '{0}', program may not work as expected.".format(
+            msg = _("Faild to parse config file at '{}', program may not work as expected.".format(
                 CONFIG_FILE))
             msg = msg.format(CONFIG_FILE)
             messagebox.showerror(_('Error'), msg)
@@ -117,7 +116,7 @@ def recent_files_save(file_list):
     config.remove_section(SEC_RECENT_FILES)
     config.add_section(SEC_RECENT_FILES)
     for j, p in enumerate(file_list):
-        config.set(SEC_RECENT_FILES, 'f{0}'.format(j), p)
+        config.set(SEC_RECENT_FILES, f'f{j}', p)
     save_configfile()
 
 
@@ -133,7 +132,7 @@ def get_window_size():
 load_configfile()
 
 
-class PreferencesUI(object):
+class PreferencesUI:
 
     def __init__(self, master, translator=None):
         self.master = master
@@ -205,7 +204,7 @@ class PreferencesUI(object):
             txt = self.cwtv.item(iid, 'text')
             paths.append(txt)
         for j, p in enumerate(paths):
-            config.set(SEC_CUSTOM_WIDGETS, 'w{0}'.format(j), p)
+            config.set(SEC_CUSTOM_WIDGETS, f'w{j}', p)
         save_configfile()
         self.master.event_generate('<<PygubuDesignerPreferencesSaved>>')
 
@@ -228,7 +227,7 @@ class PreferencesUI(object):
         if fname:
             try:
                 with open(fname, "w") as f:
-                    with open(NEW_STYLE_FILE_TEMPLATE, 'r') as tfile:
+                    with open(NEW_STYLE_FILE_TEMPLATE) as tfile:
                         sample_script_contents = tfile.read()
                         f.write(sample_script_contents)
 
@@ -240,7 +239,7 @@ class PreferencesUI(object):
                     # Auto setup this new file definition:
                     self.v_style_definition_file.set(fname)
 
-            except (OSError, IOError):
+            except OSError:
                 msg = _("Error saving template file.")
                 messagebox.showerror(_('Styles'), msg)
 

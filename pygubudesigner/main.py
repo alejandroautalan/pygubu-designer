@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is part of pygubu.
 
 #
@@ -72,7 +71,7 @@ def init_pygubu_widgets():
             importlib.import_module(modulename)
         except Exception as e:
             logger.exception(e)
-            msg = _("Failed to load widget module: '{0}'".format(modulename))
+            msg = _(f"Failed to load widget module: '{modulename}'")
             messagebox.showerror(_('Error'), msg)
 
     # initialize custom widgets
@@ -87,7 +86,7 @@ def init_pygubu_widgets():
             except Exception as e:
                 logger.exception(e)
                 msg = _(
-                    "Failed to load custom widget module: '{0}'".format(path))
+                    f"Failed to load custom widget module: '{path}'")
                 messagebox.showerror(_('Error'), msg)
 
     # initialize custom widget plugins
@@ -120,7 +119,7 @@ for dir_, prefix in IMAGE_PATHS:
 
 class StatusBarHandler(logging.Handler):
     def __init__(self, app, level=logging.NOTSET):
-        super(StatusBarHandler, self).__init__(level)
+        super().__init__(level)
         self.app = app
         formatter = logging.Formatter(
             '%(asctime)s %(levelname)s:%(message)s',
@@ -140,7 +139,7 @@ class StatusBarHandler(logging.Handler):
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
-class PygubuDesigner(object):
+class PygubuDesigner:
     """Main gui class"""
 
     def __init__(self):
@@ -437,7 +436,7 @@ class PygubuDesigner(object):
                                  variable=self.__theme_var, command=handler)
 
     def create_treelist(self):
-        root_tagset = set(('tk', 'ttk'))
+        root_tagset = {'tk', 'ttk'}
 
         # create unique tag set
         tagset = set()
@@ -454,12 +453,12 @@ class PygubuDesigner(object):
             sections = (tagset & ctags)
             for r in roots:
                 for s in sections:
-                    key = '{0}>{1}'.format(r, s)
+                    key = f'{r}>{s}'
                     treelist.append((key, wc))
 
         # sort tags by label
         def by_label(t):
-            return "{0}{1}".format(t[0], t[1].label)
+            return f"{t[0]}{t[1].label}"
         treelist.sort(key=by_label)
         return treelist
 
@@ -486,7 +485,7 @@ class PygubuDesigner(object):
             # insert widget
             w_image = default_image
             try:
-                w_image = StockImage.get('22x22-{0}'.format(wc.classname))
+                w_image = StockImage.get(f'22x22-{wc.classname}')
             except StockImageException as e:
                 pass
 
@@ -597,7 +596,7 @@ class PygubuDesigner(object):
 
     def set_changed(self, newvalue=True):
         if newvalue and self.is_changed == False:
-            self.set_title('{0} (*)'.format(self.current_title))
+            self.set_title(f'{self.current_title} (*)')
         self.is_changed = newvalue
 
     def load_file(self, filename):
@@ -649,7 +648,7 @@ class PygubuDesigner(object):
 
     # File Menu
     def on_file_menuitem_clicked(self, itemid):
-        action = '<<ACTION_{0}>>'.format(itemid)
+        action = f'<<ACTION_{itemid}>>'
         self.mainwindow.event_generate(action)
 
     # Edit menu
@@ -657,12 +656,12 @@ class PygubuDesigner(object):
         if itemid == 'edit_preferences':
             self._edit_preferences()
         else:
-            action = '<<ACTION_{0}>>'.format(itemid)
+            action = f'<<ACTION_{itemid}>>'
             self.mainwindow.event_generate(action)
 
     # preview menu
     def on_previewmenu_action(self, itemid):
-        action = '<<ACTION_{0}>>'.format(itemid)
+        action = f'<<ACTION_{itemid}>>'
         self.mainwindow.event_generate(action)
 
     # Help menu
@@ -834,10 +833,10 @@ class PygubuDesigner(object):
 
 
 def start_pygubu():
-    print("python: {0} on {1}".format(
+    print("python: {} on {}".format(
         platform.python_version(), sys.platform))
-    print("pygubu: {0}".format(pygubu.__version__))
-    print("pygubu-designer: {0}".format(pygubudesigner.__version__))
+    print(f"pygubu: {pygubu.__version__}")
+    print(f"pygubu-designer: {pygubudesigner.__version__}")
 
     # Setup logging level
     parser = argparse.ArgumentParser()

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -213,6 +212,6 @@ class LayoutEditor(PropertiesEditor):
         editor.edit(value)
 
     def hide_all(self):
-        super(LayoutEditor, self).hide_all()
+        super().hide_all()
         self._fprop.grid_remove()
         self._cleditor.grid_remove()

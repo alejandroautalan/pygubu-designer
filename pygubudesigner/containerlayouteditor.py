@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -27,7 +26,7 @@ from pygubudesigner.widgetdescr import WidgetMeta
 
 class ContainerLayoutEditor(ContainerLayoutEditorBase):
     def __init__(self, master=None, **kw):
-        super(ContainerLayoutEditor, self).__init__(master, **kw)
+        super().__init__(master, **kw)
         # Add grid selector
         self.gridselector = w = GridRCselectorWidget(self.rcselectorframe)
         w.bind('<<Gridselector:CellSelected>>', self._on_gridcell_clicked)
@@ -58,7 +57,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
                 tooltip_text = kwdata.get('help', None)
                 label.tooltip = create_tooltip(label, tooltip_text)
-                alias = 'cprop_{0}'.format(name)
+                alias = f'cprop_{name}'
                 widget = self._create_editor(self.foptions, alias, kwdata)
                 widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
                 row += 1

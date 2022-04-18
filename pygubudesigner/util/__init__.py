@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -86,8 +85,7 @@ def menu_iter_children(menu):
                 cascades.append(cascade)
             yield (menu, itemtype, i)
         for m in cascades:
-            for child in menu_iter_children(m):
-                yield child
+            yield from menu_iter_children(m)
 
 
 __style = None

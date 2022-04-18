@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -33,9 +32,9 @@ RE_FONT = re.compile(
     "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?")
 
 
-class Preview(object):
+class Preview:
     def __init__(self, id_, canvas, x=0, y=0, rpaths=None):
-        self.id = 'preview_{0}'.format(id_)
+        self.id = f'preview_{id_}'
         self.x = x
         self.y = y
         self.w = 10
@@ -226,7 +225,7 @@ class OnCanvasMenuPreview(Preview):
     fonts = {}
 
     def __init__(self, id_, canvas, x=0, y=0, rpaths=None):
-        super(OnCanvasMenuPreview, self).__init__(id_, canvas, x, y, rpaths)
+        super().__init__(id_, canvas, x, y, rpaths)
         self._menu = None
         self._cwidth = 0
         self._cheight = 0
@@ -377,7 +376,7 @@ class ToplevelPreview(Preview):
 
 class DialogPreview(ToplevelPreview):
     def create_toplevel(self, widget_id, uidefinition):
-        top = super(DialogPreview, self).create_toplevel(widget_id,
+        top = super().create_toplevel(widget_id,
                                                          uidefinition)
         top.run()
         return top

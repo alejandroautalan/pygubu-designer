@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -15,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-class GridCalculator(object):
+class GridCalculator:
     def __init__(self, rdim, cdim, fwidth, fheight):
         self.rdim = rdim
         self.cdim = cdim

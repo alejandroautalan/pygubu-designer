@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -21,7 +20,7 @@ from pygubudesigner.widgets.propertyeditor import (
     EntryPropertyEditor, register_editor)
 
 re_dim = '\\d+([cimp])?'
-regexp = '({0})?$'.format(re_dim)
+regexp = f'({re_dim})?$'
 RE_DIMENSION = re.compile(regexp)
 regexp = '({0})?$|{0}\\s{0}$'.format(re_dim)
 RE_TWO_DIMENSION = re.compile(regexp)

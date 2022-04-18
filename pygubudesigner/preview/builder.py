@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -65,7 +64,7 @@ class BuilderForPreview(pygubu.Builder):
             for tab in tabs:
                 # check if selected_id is inside this tab
                 tab_id = tab.get('id')
-                xpath = ".//object[@id='{0}']".format(select_id)
+                xpath = f".//object[@id='{select_id}']"
                 o = tab.find(xpath)
                 if o is not None:
                     # selected_id is inside, find the tab child

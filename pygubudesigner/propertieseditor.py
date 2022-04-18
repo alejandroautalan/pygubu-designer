@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -31,7 +30,7 @@ logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
 
 
-class PropertiesEditor(object):
+class PropertiesEditor:
     def __init__(self, frame, **kw):
         self._current = None
         self._sframe = frame

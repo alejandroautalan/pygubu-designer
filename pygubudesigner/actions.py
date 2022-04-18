@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 '''Pygubu-designer Virtual Events'''
 
 FILE_NEW = '<<ACTION_FILE_NEW>>'

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # translator marker
 from pygubudesigner.i18n import translator as _
 

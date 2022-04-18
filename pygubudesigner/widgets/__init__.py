@@ -1,4 +1,3 @@
-# encoding: utf-8
 from .colorentry import ColorPropertyEditor
 from .commandentry import CommandPropertyEditor
 from .dimensionentry import DimensionPropertyEditor

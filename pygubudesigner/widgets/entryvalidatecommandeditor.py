@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -60,7 +59,7 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
         m.add_command(label=_('Clear'), command=self._on_clear)
         m.add_separator()
         for key, txt in options.items():
-            txt = '{0} {1}'.format(key, txt)
+            txt = f'{key} {txt}'
             m.add_checkbutton(label=txt, variable=self._vars[key],
                               command=self._on_update_args)
         self._mb['menu'] = m

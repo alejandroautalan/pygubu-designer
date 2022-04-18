@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -20,7 +19,7 @@ import tkinter.ttk as ttk
 
 class ContainerLayoutEditorBase(ttk.Frame):
     def __init__(self, master=None, **kw):
-        super(ContainerLayoutEditorBase, self).__init__(master, **kw)
+        super().__init__(master, **kw)
         self.mainpanel = ttk.Frame(self)
         self.lbl_title = ttk.Label(self.mainpanel)
         self.lbl_title.configure(

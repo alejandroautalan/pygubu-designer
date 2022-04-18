@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -129,7 +128,7 @@ class ToplevelFramePreviewBO(BuilderObject):
             # Do nothing, fake 'modal' property for dialog preview
             pass
         else:
-            super(ToplevelFramePreviewBO, self)._set_property(tw, pname, value)
+            super()._set_property(tw, pname, value)
 
 
 register_widget('pygubudesigner.ToplevelFramePreview',

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -43,7 +42,7 @@ logger = logging.getLogger('pygubu.designer')
 _ = translator
 
 
-class WidgetsTreeEditor(object):
+class WidgetsTreeEditor:
     GRID_UP = 0
     GRID_DOWN = 1
     GRID_LEFT = 2
@@ -512,7 +511,7 @@ class WidgetsTreeEditor(object):
         del self.treedata[item]
 
     def new_uidefinition(self):
-        author = 'PygubuDesigner {0}'.format(pygubudesigner.__version__)
+        author = f'PygubuDesigner {pygubudesigner.__version__}'
         uidef = UIDefinition(wmetaclass=WidgetMeta)
         uidef.author = author
         return uidef
@@ -569,7 +568,7 @@ class WidgetsTreeEditor(object):
 
         data.setup_defaults()  # load default settings for properties and layout
         tree = self.treeview
-        treelabel = '{0}: {1}'.format(data.identifier, data.classname)
+        treelabel = f'{data.identifier}: {data.classname}'
         row = col = ''
         if root != '' and data.has_layout_defined():
             if data.manager == 'grid' and data.layout_required:
@@ -592,7 +591,7 @@ class WidgetsTreeEditor(object):
             pass
 
         try:
-            image = StockImage.get('16x16-{0}'.format(data.classname))
+            image = StockImage.get(f'16x16-{data.classname}')
         except StockImageException:
             # TODO: notify something here
             pass
@@ -721,9 +720,9 @@ class WidgetsTreeEditor(object):
         name = classname.split('.')[-1]
 
         if pref.get_option('widget_naming_separator') == 'UNDERSCORE':
-            name = '{0}_{1}'.format(name, index)
+            name = f'{name}_{index}'
         else:
-            name = '{0}{1}'.format(name, index)
+            name = f'{name}{index}'
 
         name = name.lower()
 
@@ -929,7 +928,7 @@ class WidgetsTreeEditor(object):
                 self.populate_tree(pwidget, uidef, mchild,
                                    from_file=from_file)
         else:
-            raise Exception('Class "{0}" not mapped'.format(cname))
+            raise Exception(f'Class "{cname}" not mapped')
 
     def get_available_row(self, parent, new_item_data):
         """
@@ -1034,7 +1033,7 @@ class WidgetsTreeEditor(object):
         tree = self.treeview
         data = obj
         item = self.get_item_by_data(obj)
-        item_text = '{0}: {1}'.format(data.identifier, data.classname)
+        item_text = f'{data.identifier}: {data.classname}'
         if item:
             if item_text != tree.item(item, 'text'):
                 tree.item(item, text=item_text)
@@ -1294,7 +1293,7 @@ class WidgetsTreeEditor(object):
         children = self.treeview.get_children('')
         for item in children:
             data = self.treedata[item]
-            label = u'{0} ({1})'.format(data.identifier, data.classname)
+            label = f'{data.identifier} ({data.classname})'
             element = (item, label)
             wlist.append(element)
         return wlist

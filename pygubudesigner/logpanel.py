@@ -1,7 +1,4 @@
-# encoding: utf-8
-
-
-class LogPanelManager(object):
+class LogPanelManager:
     def __init__(self, app):
         self.app = app
         builder = self.app.builder
@@ -68,6 +65,6 @@ class LogPanelManager(object):
         if self.buttonsvar.get() != 'messages':
             self.unread = self.unread + 1
             # log panel is not visible, update label
-            label = '{0} ({1})'.format(self.btn_messages_label, self.unread)
+            label = f'{self.btn_messages_label} ({self.unread})'
             self.btn_messages.config(text=label)
         self._log_add_text(msg)

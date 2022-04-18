@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -30,7 +29,7 @@ class GridRCselectorWidget(ttk.Frame):
     '''
 
     def __init__(self, master=None, **kw):
-        super(GridRCselectorWidget, self).__init__(master, **kw)
+        super().__init__(master, **kw)
         self.canvas = tk.Canvas(self)
         self.canvas.configure(
             background='#ffffff', borderwidth='0',

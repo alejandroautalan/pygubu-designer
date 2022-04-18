@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -47,7 +46,7 @@ class WHPropertyEditor(PropertyEditor):
     def _get_value(self):
         value = ''
         if self._weditor.value != '' and self._heditor.value != '':
-            value = '{0}|{1}'.format(self._weditor.value, self._heditor.value)
+            value = f'{self._weditor.value}|{self._heditor.value}'
         return value
 
     def _set_value(self, value):

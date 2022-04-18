@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -142,12 +141,12 @@ class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
         return is_valid
 
 
-class IdentifierPropertyEditor(EntryPropertyEditor, object):
+class IdentifierPropertyEditor(EntryPropertyEditor):
     RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
 
     def __init__(self, master=None, **kw):
         self.is_unique_cb = kw.pop('unique_cb', None)
-        super(IdentifierPropertyEditor, self).__init__(master, **kw)
+        super().__init__(master, **kw)
 
     def set_unique_cb(self, callback):
         self.is_unique_cb = callback

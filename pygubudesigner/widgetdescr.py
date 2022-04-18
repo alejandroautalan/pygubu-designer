@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -30,7 +29,7 @@ logger = logging.getLogger(__name__)
 class WidgetMeta(WidgetMetaBase, Observable):
 
     def apply_layout_defaults(self):
-        super(WidgetMeta, self).apply_layout_defaults()
+        super().apply_layout_defaults()
         self.notify('LAYOUT_CHANGED', self)
 
     def widget_property(self, name, value=None):

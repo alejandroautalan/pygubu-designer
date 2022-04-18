@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -45,7 +44,7 @@ class ImagePropertyEditor(PropertyEditor):
         self.columnconfigure(0, weight=1)
 
     def _on_button_click(self):
-        ext = ['*{0}'.format(e) for e in TK_IMAGE_FORMATS]
+        ext = [f'*{e}' for e in TK_IMAGE_FORMATS]
         options = {
             'filetypes': [
                 (_('Tk image formats'), ' '.join(ext)),

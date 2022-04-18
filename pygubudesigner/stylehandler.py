@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Copyright 2012-2022 Alejandro Autalán
 #
@@ -45,7 +44,7 @@ class StyleRegister(ttk.Style):
 
     def configure(self, style, query_opt=None, **kw):
         self._add_style(style)
-        super(StyleRegister, self).configure(style, query_opt, **kw)
+        super().configure(style, query_opt, **kw)
 
 
 class StyleHandler:
