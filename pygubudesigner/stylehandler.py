@@ -57,8 +57,9 @@ class StyleHandler:
         self.style = StyleRegister()
 
         # Listen to theme change events
-        self.mframe.bind_all('<<PygubuDesignerTtkThemeChanged>>',
-                             self._on_theme_changed)
+        self.mframe.bind_all(
+            '<<PygubuDesignerTtkThemeChanged>>', self._on_theme_changed
+        )
 
         # Used for refreshing/re-populating the styles combobox.
         # Used when the style definition gets updated (simulates clicking on the treeview item.)
@@ -75,10 +76,7 @@ class StyleHandler:
         logger.debug(_("Applying ttk style definitions"))
         try:
             if style_code:
-                available_vars = {
-                    'style': self.style,
-                    'optiondb': self.style.master
-                }
+                available_vars = {'style': self.style, 'optiondb': self.style.master}
                 exec(style_code, available_vars)
                 new_styles = self.style.registered_styles()
                 TtkStylePropertyEditor.set_global_style_list(new_styles)

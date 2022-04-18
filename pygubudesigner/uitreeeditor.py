@@ -90,18 +90,20 @@ class WidgetsTreeEditor:
         bframe = app.builder.get_object('bindingsframe')
         bindingstree = app.builder.get_object('bindingstree')
         self.properties_editor = PropertiesEditor(
-            pframe, id_validator=self.is_id_unique,
-            reselect_item_func=partial(self.on_treeview_select, None))
+            pframe,
+            id_validator=self.is_id_unique,
+            reselect_item_func=partial(self.on_treeview_select, None),
+        )
         self.layout_editor = LayoutEditor(lframe)
         self.bindings_editor = BindingsEditor(bindingstree, bframe)
-        self.treeview.bind_all(
-            '<<PreviewItemSelected>>',
-            self._on_preview_item_clicked)
+        self.treeview.bind_all('<<PreviewItemSelected>>', self._on_preview_item_clicked)
         f = lambda e, manager='grid': self.change_container_manager(manager)
         lframe.bind_all('<<LayoutEditorContainerManagerToGrid>>', f)
         f = lambda e, manager='pack': self.change_container_manager(manager)
         lframe.bind_all('<<LayoutEditorContainerManagerToPack>>', f)
-        lframe.bind_all('<<ClearSelectedGridTreeInfo>>', self.clear_selected_grid_tree_info)
+        lframe.bind_all(
+            '<<ClearSelectedGridTreeInfo>>', self.clear_selected_grid_tree_info
+        )
 
         # Tree Editing
         tree = self.treeview
@@ -110,14 +112,16 @@ class WidgetsTreeEditor:
         tree.bind_all(TREE_ITEM_CUT, lambda e: self.cut_to_clipboard())
         tree.bind_all(TREE_ITEM_DELETE, self.on_tree_item_delete)
         tree.bind_all(TREE_ITEM_DUPLICATE, self.on_tree_item_duplicate)
-        tree.bind_all(TREE_ITEM_GRID_DOWN,
-                      lambda e: self.on_item_grid_move(self.GRID_DOWN))
-        tree.bind_all(TREE_ITEM_GRID_LEFT,
-                      lambda e: self.on_item_grid_move(self.GRID_LEFT))
-        tree.bind_all(TREE_ITEM_GRID_RIGHT,
-                      lambda e: self.on_item_grid_move(self.GRID_RIGHT))
-        tree.bind_all(TREE_ITEM_GRID_UP,
-                      lambda e: self.on_item_grid_move(self.GRID_UP))
+        tree.bind_all(
+            TREE_ITEM_GRID_DOWN, lambda e: self.on_item_grid_move(self.GRID_DOWN)
+        )
+        tree.bind_all(
+            TREE_ITEM_GRID_LEFT, lambda e: self.on_item_grid_move(self.GRID_LEFT)
+        )
+        tree.bind_all(
+            TREE_ITEM_GRID_RIGHT, lambda e: self.on_item_grid_move(self.GRID_RIGHT)
+        )
+        tree.bind_all(TREE_ITEM_GRID_UP, lambda e: self.on_item_grid_move(self.GRID_UP))
         tree.bind_all(TREE_ITEM_MOVE_UP, self.on_item_move_up)
         tree.bind_all(TREE_ITEM_MOVE_DOWN, self.on_item_move_down)
         tree.bind_all(TREE_NAV_UP, self.on_item_nav_up)
@@ -130,7 +134,8 @@ class WidgetsTreeEditor:
             do_delete = messagebox.askokcancel(
                 _('Delete items'),
                 _('Delete selected items?'),
-                parent=self.treeview.winfo_toplevel())
+                parent=self.treeview.winfo_toplevel(),
+            )
 
             if do_delete:
                 self.on_treeview_delete_selection(None)
@@ -300,8 +305,7 @@ class WidgetsTreeEditor:
         children = self.treeview.get_children(parent)
         for child in children:
             child_manager = self.treedata[child].manager
-            if (child != current_item and
-                    child_manager != 'place'):
+            if child != current_item and child_manager != 'place':
                 manager = child_manager
                 break
         return manager
@@ -350,8 +354,7 @@ class WidgetsTreeEditor:
         # Prepare container layout options
         cinfo = self.get_container_info(item)
         cmanager = cinfo['manager']
-        if (cmanager is not None
-                and cmanager != wdescr.container_manager):
+        if cmanager is not None and cmanager != wdescr.container_manager:
             # Update widged description
             wdescr.container_manager = cmanager
 
@@ -452,10 +455,7 @@ class WidgetsTreeEditor:
                     self.previewer.delete(item)
                 # determine final focus
                 if final_focus is None:
-                    candidates = (
-                        tv.prev(item),
-                        tv.next(item),
-                        tv.parent(item))
+                    candidates = (tv.prev(item), tv.next(item), tv.parent(item))
                     for c in candidates:
                         if c and (c not in selection):
                             final_focus = c
@@ -481,10 +481,8 @@ class WidgetsTreeEditor:
             tv.after_idle(lambda: tv.focus(final_focus))
             tv.after_idle(lambda: tv.see(final_focus))
             tv.after_idle(
-                lambda i=final_focus,
-                s=selected_id: self.previewer.show_selected(
-                    i,
-                    s))
+                lambda i=final_focus, s=selected_id: self.previewer.show_selected(i, s)
+            )
 
         # No widget/item is currently selected anymore because
         # we've just deleted selected items from the treeview.
@@ -553,16 +551,16 @@ class WidgetsTreeEditor:
 
         The argument: is_first_widget_pasted (bool) will be True if we're about to
         insert the first widget that was pasted from the clipboard or duplicated.
-        Here 'first widget' is basically the 'outer widget' - the widget whose direct 
+        Here 'first widget' is basically the 'outer widget' - the widget whose direct
         parent is the container that it was pasted in.
 
-        If we're currently on an outer widget (is_first_widget_pasted=True) that was 
-        pasted or duplicated, we need to see if any of its siblings have the same 
-        row AND column, and if they do, we need to give the pasted widget a new unique 
+        If we're currently on an outer widget (is_first_widget_pasted=True) that was
+        pasted or duplicated, we need to see if any of its siblings have the same
+        row AND column, and if they do, we need to give the pasted widget a new unique
         row number so it doesn't overlap with its new siblings.
 
-        If we're not currently dealing with an outer widget, that means it's a child of 
-        the outer widget and we should not change the row/columns of the outer widget's 
+        If we're not currently dealing with an outer widget, that means it's a child of
+        the outer widget and we should not change the row/columns of the outer widget's
         children widgets.
         """
 
@@ -597,8 +595,7 @@ class WidgetsTreeEditor:
             pass
 
         values = (data.classname, row, col)
-        item = tree.insert(root, 'end', text=treelabel, values=values,
-                           image=image)
+        item = tree.insert(root, 'end', text=treelabel, values=values, image=image)
         data.attach(self)
         self.treedata[item] = data
 
@@ -657,18 +654,21 @@ class WidgetsTreeEditor:
             maxchildren = root_boclass.maxchildren
             if maxchildren is not None and children_count >= maxchildren:
                 if show_warnings:
-                    msg = trlog(_('Only {0} children allowed for {1}'),
-                                maxchildren, root_classname)
+                    msg = trlog(
+                        _('Only {0} children allowed for {1}'),
+                        maxchildren,
+                        root_classname,
+                    )
                     logger.warning(msg)
                 is_valid = False
                 return is_valid
 
             allowed_parents = new_boclass.allowed_parents
-            if (allowed_parents is not None
-                    and root_classname not in allowed_parents):
+            if allowed_parents is not None and root_classname not in allowed_parents:
                 if show_warnings:
-                    msg = trlog(_('{0} not allowed as parent of {1}'),
-                                root_classname, classname)
+                    msg = trlog(
+                        _('{0} not allowed as parent of {1}'), root_classname, classname
+                    )
                     logger.warning(msg)
                 is_valid = False
                 return is_valid
@@ -771,8 +771,9 @@ class WidgetsTreeEditor:
             for wmeta in uidef.widgets():
                 if self._validate_add(selected_item, wmeta.classname):
                     self.update_layout(selected_item, wmeta)
-                    self.populate_tree(selected_item, uidef,
-                                       wmeta, is_first_widget_pasted=True)
+                    self.populate_tree(
+                        selected_item, uidef, wmeta, is_first_widget_pasted=True
+                    )
         except ET.ParseError:
             msg = 'The clipboard does not have a valid widget xml definition.'
             logger.error(msg)
@@ -798,11 +799,12 @@ class WidgetsTreeEditor:
             # Select the last (latest) child so the user can see where the last
             # pasted item is.
             self.treeview.after_idle(
-                lambda: self.treeview.selection_set(children_of_parent[-1]))
+                lambda: self.treeview.selection_set(children_of_parent[-1])
+            )
             self.treeview.after_idle(
-                lambda: self.treeview.focus(children_of_parent[-1]))
-            self.treeview.after_idle(
-                lambda: self.treeview.see(children_of_parent[-1]))
+                lambda: self.treeview.focus(children_of_parent[-1])
+            )
+            self.treeview.after_idle(lambda: self.treeview.see(children_of_parent[-1]))
 
     def update_layout(self, root, data):
         '''Removes layout info from element, when copied from clipboard.'''
@@ -829,7 +831,7 @@ class WidgetsTreeEditor:
         root = selected_item
         #  check if the widget can be added at selected point
         parent = tree.parent(root)
-        has_parent = (parent != root)
+        has_parent = parent != root
         show_warnings = False if has_parent else True
         if not self._validate_add(root, wclass, show_warnings):
             #  if not try to add at item parent level
@@ -854,8 +856,7 @@ class WidgetsTreeEditor:
             manager = cmanager if cmanager else manager
 
         widget_id = self.get_unique_id(wclass)
-        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(
-            wclass, widget_id)
+        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(wclass, widget_id)
         data = WidgetMeta(wclass, widget_id, manager, pdefaults, ldefaults)
 
         # Recalculate position if manager is grid
@@ -907,7 +908,9 @@ class WidgetsTreeEditor:
             self.draw_widget(child)
         self.previewer.show_selected(None, None)
 
-    def populate_tree(self, master, uidef, wmeta, from_file=False, is_first_widget_pasted=False):
+    def populate_tree(
+        self, master, uidef, wmeta, from_file=False, is_first_widget_pasted=False
+    ):
         """Reads xml nodes and populates tree item
 
         The argument: is_first_widget_pasted (bool) will be True if we're currently
@@ -922,20 +925,23 @@ class WidgetsTreeEditor:
         if cname in CLASS_MAP:
 
             pwidget = self._insert_item(
-                master, wmeta, from_file=from_file, is_first_widget_pasted=is_first_widget_pasted)
+                master,
+                wmeta,
+                from_file=from_file,
+                is_first_widget_pasted=is_first_widget_pasted,
+            )
 
             for mchild in uidef.widget_children(original_id):
-                self.populate_tree(pwidget, uidef, mchild,
-                                   from_file=from_file)
+                self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
         else:
             raise Exception(f'Class "{cname}" not mapped')
 
     def get_available_row(self, parent, new_item_data):
         """
-        Determine if new_item's row and column conflict with 
-        its new siblings (the children of parent). 
+        Determine if new_item's row and column conflict with
+        its new siblings (the children of parent).
 
-        If the row AND column of one the siblings matches the new item's row/col, 
+        If the row AND column of one the siblings matches the new item's row/col,
         set new_item's row to be the maximum row of all its siblings + 1.
 
         The purpose of this method is to avoid new_item from getting overlapped with any
@@ -1043,7 +1049,7 @@ class WidgetsTreeEditor:
                     row = data.layout_property('row')
                     col = data.layout_property('column')
                     values = tree.item(item, 'values')
-                    if (row != values[1] or col != values[2]):
+                    if row != values[1] or col != values[2]:
                         values = (data.classname, row, col)
                     tree.item(item, values=values)
             self.draw_widget(item)
@@ -1134,7 +1140,7 @@ class WidgetsTreeEditor:
                 self.app.set_changed()
 
                 # Always refresh preview for objects that don't
-                # require a layout, such as menus and notebook tabs.                
+                # require a layout, such as menus and notebook tabs.
                 if manager in ('pack', 'place') or not layout_required:
                     self.draw_widget(item)
             self.filter_restore()

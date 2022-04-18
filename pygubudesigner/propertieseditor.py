@@ -44,7 +44,8 @@ class PropertiesEditor:
         reselect_item_func = kw.get('reselect_item_func', None)
 
         self.style_handler = StyleHandler(
-            self._sframe, reselect_item_func=reselect_item_func)
+            self._sframe, reselect_item_func=reselect_item_func
+        )
         self.style_handler.start_monitoring()
 
         self.hide_all()
@@ -62,21 +63,41 @@ class PropertiesEditor:
         col = 0
 
         groups = (
-            ('00', _('Required'), properties.WIDGET_REQUIRED_OPTIONS,
-             properties.REQUIRED_OPTIONS),
-            ('01', _('Standard'), properties.WIDGET_STANDARD_OPTIONS,
-             properties.TK_WIDGET_OPTIONS),
-            ('02', _('Specific'), properties.WIDGET_SPECIFIC_OPTIONS,
-             properties.TK_WIDGET_OPTIONS),
-            ('03', _('Custom'), properties.WIDGET_CUSTOM_OPTIONS,
-             properties.CUSTOM_OPTIONS),
+            (
+                '00',
+                _('Required'),
+                properties.WIDGET_REQUIRED_OPTIONS,
+                properties.REQUIRED_OPTIONS,
+            ),
+            (
+                '01',
+                _('Standard'),
+                properties.WIDGET_STANDARD_OPTIONS,
+                properties.TK_WIDGET_OPTIONS,
+            ),
+            (
+                '02',
+                _('Specific'),
+                properties.WIDGET_SPECIFIC_OPTIONS,
+                properties.TK_WIDGET_OPTIONS,
+            ),
+            (
+                '03',
+                _('Custom'),
+                properties.WIDGET_CUSTOM_OPTIONS,
+                properties.CUSTOM_OPTIONS,
+            ),
         )
 
         for gcode, gname, plist, propdescr in groups:
             padding = '0 0 0 5' if row == 0 else '0 5 0 5'
-            label = ttk.Label(self._frame, text=gname,
-                              font='TkDefaultFont 10 bold', padding=padding,
-                              foreground='#000059')
+            label = ttk.Label(
+                self._frame,
+                text=gname,
+                font='TkDefaultFont 10 bold',
+                padding=padding,
+                foreground='#000059',
+            )
             label.grid(row=row, column=0, sticky='we', columnspan=2)
             row += 1
             for name in plist:
@@ -105,6 +126,7 @@ class PropertiesEditor:
         def make_on_change_cb(pname, editor):
             def on_change_cb(event):
                 self._on_property_changed(pname, editor)
+
             return on_change_cb
 
         editor.bind('<<PropertyChanged>>', make_on_change_cb(pname, editor))
@@ -128,8 +150,7 @@ class PropertiesEditor:
         params = pdescr.get('params', {})
         # setup default mode if not specified in parameters for
         # specific class
-        if (default_mode is not None and
-                'mode' not in params):
+        if default_mode is not None and 'mode' not in params:
             params['mode'] = default_mode
         # Configure editor
         editor.parameters(**params)
@@ -158,14 +179,30 @@ class PropertiesEditor:
 
         # GroupCode, PropertyType, dict, tuple
         groups = (
-            ('00', None, properties.WIDGET_REQUIRED_OPTIONS,
-             properties.REQUIRED_OPTIONS),
-            ('01', 'OPTIONS_STANDARD', properties.WIDGET_STANDARD_OPTIONS,
-             properties.TK_WIDGET_OPTIONS),
-            ('02', 'OPTIONS_SPECIFIC', properties.WIDGET_SPECIFIC_OPTIONS,
-             properties.TK_WIDGET_OPTIONS),
-            ('03', 'OPTIONS_CUSTOM', properties.WIDGET_CUSTOM_OPTIONS,
-             properties.CUSTOM_OPTIONS)
+            (
+                '00',
+                None,
+                properties.WIDGET_REQUIRED_OPTIONS,
+                properties.REQUIRED_OPTIONS,
+            ),
+            (
+                '01',
+                'OPTIONS_STANDARD',
+                properties.WIDGET_STANDARD_OPTIONS,
+                properties.TK_WIDGET_OPTIONS,
+            ),
+            (
+                '02',
+                'OPTIONS_SPECIFIC',
+                properties.WIDGET_SPECIFIC_OPTIONS,
+                properties.TK_WIDGET_OPTIONS,
+            ),
+            (
+                '03',
+                'OPTIONS_CUSTOM',
+                properties.WIDGET_CUSTOM_OPTIONS,
+                properties.CUSTOM_OPTIONS,
+            ),
         )
         for gcode, attrname, proplist, gproperties in groups:
             for name in proplist:

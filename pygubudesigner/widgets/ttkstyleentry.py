@@ -18,13 +18,11 @@ import re
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from pygubudesigner.widgets.propertyeditor import (ChoicePropertyEditor,
-                                                   register_editor)
+from pygubudesigner.widgets.propertyeditor import ChoicePropertyEditor, register_editor
 
 
 class TtkStylePropertyEditor(ChoicePropertyEditor):
-    RE_TTKSTYLECLASS = re.compile(
-        '(?i)$|[_A-Za-z](\\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$')
+    RE_TTKSTYLECLASS = re.compile('(?i)$|[_A-Za-z](\\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$')
     STYLES = []
     STYLES_FILTER_HINTS = None
 
@@ -72,6 +70,7 @@ if __name__ == '__main__':
         def on_change_cb(event=None):
             print(editor.value)
             print(repr(editor.value))
+
         return on_change_cb
 
     editor = TtkStylePropertyEditor(root)

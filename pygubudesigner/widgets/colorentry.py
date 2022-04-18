@@ -17,8 +17,7 @@ import tkinter as tk
 import tkinter.colorchooser
 import tkinter.ttk as ttk
 
-from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, register_editor)
+from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
 
 
 class ColorPropertyEditor(PropertyEditor):
@@ -62,15 +61,11 @@ class ColorPropertyEditor(PropertyEditor):
         if newcolor:
             try:
                 rgb = self.winfo_rgb(newcolor)
-                self._lcolor.configure(
-                    relief=tk.FLAT,
-                    background=newcolor)
+                self._lcolor.configure(relief=tk.FLAT, background=newcolor)
             except tk.TclError:
                 pass
         else:
-            self._lcolor.configure(
-                relief=tk.SUNKEN,
-                background=cls.def_bgcolor)
+            self._lcolor.configure(relief=tk.SUNKEN, background=cls.def_bgcolor)
 
     def edit(self, value):
         PropertyEditor.edit(self, value)

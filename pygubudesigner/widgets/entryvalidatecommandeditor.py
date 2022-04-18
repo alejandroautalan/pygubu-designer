@@ -23,11 +23,10 @@ from pygubu.builder.builderobject import CB_TYPES
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.commandentry import CommandPropertyBase
 
-from .propertyeditor import (EntryPropertyEditor, register_editor)
+from .propertyeditor import EntryPropertyEditor, register_editor
 
 
 class EntryValidateCommandPropertyEditor(CommandPropertyBase):
-
     def _create_ui(self):
         self._cbname = w = EntryPropertyEditor(self)
         w.grid(row=0, column=0, sticky='nswe', columnspan=2)
@@ -60,8 +59,9 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
         m.add_separator()
         for key, txt in options.items():
             txt = f'{key} {txt}'
-            m.add_checkbutton(label=txt, variable=self._vars[key],
-                              command=self._on_update_args)
+            m.add_checkbutton(
+                label=txt, variable=self._vars[key], command=self._on_update_args
+            )
         self._mb['menu'] = m
         self.columnconfigure(0, weight=1)
 
@@ -131,9 +131,7 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
         return is_valid
 
 
-register_editor(
-    'entryvalidatecommandentry',
-    EntryValidateCommandPropertyEditor)
+register_editor('entryvalidatecommandentry', EntryValidateCommandPropertyEditor)
 
 
 if __name__ == '__main__':

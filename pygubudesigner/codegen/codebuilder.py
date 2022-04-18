@@ -17,8 +17,7 @@ from enum import Enum
 from collections import OrderedDict
 
 from pygubu.builder import CB_TYPES, CLASS_MAP, Builder
-from pygubu.builder.builderobject import (BuilderObject, grouper,
-                                          register_widget)
+from pygubu.builder.builderobject import BuilderObject, grouper, register_widget
 from pygubu.builder.tkstdwidgets import TKToplevel
 from pygubu.builder.widgetmeta import WidgetMeta
 from pygubu.stockimage import TK_BITMAP_FORMATS
@@ -44,14 +43,12 @@ class ToplevelOrTk(TKToplevel):
             s = "{0} = {1}({2}{3})"
         else:
             s = "{0} = tk.Tk() if master is None else {1}({2}{3})"
-        s = s.format(self.code_identifier(), self._code_class_name(),
-                     master, kwargs)
+        s = s.format(self.code_identifier(), self._code_class_name(), master, kwargs)
         lines.append(s)
         return lines
 
 
-register_widget('pygubudesigner.ToplevelOrTk',
-                ToplevelOrTk, 'ToplevelOrTk', tuple())
+register_widget('pygubudesigner.ToplevelOrTk', ToplevelOrTk, 'ToplevelOrTk', tuple())
 
 
 class ScriptType(Enum):
@@ -115,7 +112,7 @@ class UI2Code(Builder):
             target: code,
             'ttkstyles': code_ttk_styles,
             'callbacks': code_callbacks,
-            'tkvariables': list(self._tkvariables.keys())
+            'tkvariables': list(self._tkvariables.keys()),
         }
         return cc
 
@@ -140,20 +137,20 @@ class UI2Code(Builder):
 
     def generate_app_with_ui(self, uidef, target):
         return self.generate(
-            uidef, target, as_class=False, tabspaces=8,
-            script_type=ScriptType.APP_WITH_UI
+            uidef,
+            target,
+            as_class=False,
+            tabspaces=8,
+            script_type=ScriptType.APP_WITH_UI,
         )
 
     def generate_app_code(self, uidef, target):
         return self.generate(
-            uidef, target, as_class=True, tabspaces=8,
-            script_type=ScriptType.APP_CODE
+            uidef, target, as_class=True, tabspaces=8, script_type=ScriptType.APP_CODE
         )
 
     def generate_app_widget(self, uidef, target):
-        return self.generate_widget_class(
-            uidef, target, script_type=ScriptType.WIDGET
-        )
+        return self.generate_widget_class(uidef, target, script_type=ScriptType.WIDGET)
 
     def generate_widget_class(self, uidef, target, **kw):
         self.uidefinition = uidef
@@ -174,8 +171,7 @@ class UI2Code(Builder):
                 uniqueid = builder.code_identifier()
                 masterid = bmaster.code_child_master()
 
-                for childmeta in \
-                        self.uidefinition.widget_children(target):
+                for childmeta in self.uidefinition.widget_children(target):
                     childid = self._code_realize(builder, childmeta)
                     code = builder.code_child_add(childid)
                     self._code.extend(code)
@@ -244,8 +240,8 @@ class UI2Code(Builder):
             if self._import_ttk:
                 self.add_import_line('tkinter.ttk', 'ttk', priority=2)
         sorted_imports = sorted(
-            self._extra_imports.items(),
-            key=lambda x: (x[1][1], x[0]))
+            self._extra_imports.items(), key=lambda x: (x[1][1], x[0])
+        )
         for module_name, (as_name, _) in sorted_imports:
             line = f'import {module_name}'
             if as_name is not None:
@@ -271,8 +267,7 @@ class UI2Code(Builder):
         return lines
 
     def code_create_variable(self, name_or_desc, value, vtype=None):
-        vname, type_from_name = self._process_variable_description(
-            name_or_desc)
+        vname, type_from_name = self._process_variable_description(name_or_desc)
         vname_in_code = vname
         if vname not in self._tkvariables:
             var_init = ''
@@ -283,7 +278,8 @@ class UI2Code(Builder):
                     value = f"'{value}'"
             if vtype is None:
                 var_init = 'tk.{}Var(value={})'.format(
-                    type_from_name.capitalize(), value)
+                    type_from_name.capitalize(), value
+                )
             else:
                 var_init = f'{str(vtype)}(value={value})'
             if self.as_class:
@@ -316,8 +312,7 @@ class UI2Code(Builder):
             self._code.extend(create)
 
             # Children
-            for childmeta in \
-                    self.uidefinition.widget_children(originalid):
+            for childmeta in self.uidefinition.widget_children(originalid):
                 childid = self._code_realize(builder, childmeta)
                 code = builder.code_child_add(childid)
                 self._code.extend(code)
@@ -349,8 +344,7 @@ class UI2Code(Builder):
         for name, value in self._callbacks.items():
             wid, cbtype, args = value
             if cbtype == CB_TYPES.BIND_EVENT:
-                line = '{}def {}(self, event=None):'.format(
-                    ' ' * tab2, name)
+                line = '{}def {}(self, event=None):'.format(' ' * tab2, name)
                 lines.append(line)
                 line = '{}pass\n'.format(' ' * tabspaces)
                 lines.append(line)
@@ -359,8 +353,7 @@ class UI2Code(Builder):
                 for a in args:
                     fargs.append(f'{a}=None')
                 fargs = ', '.join(fargs)
-                line = '{}def {}(self, {}):'.format(
-                    ' ' * tab2, name, fargs)
+                line = '{}def {}(self, {}):'.format(' ' * tab2, name, fargs)
                 lines.append(line)
                 line = '{}pass\n'.format(' ' * tabspaces)
                 lines.append(line)
@@ -373,15 +366,14 @@ class UI2Code(Builder):
                     lines.append(line)
                 else:
                     fargs = ', '.join(args)
-                    line = '{}def {}(self, {}):'.format(
-                        ' ' * tab2, name, fargs)
+                    line = '{}def {}(self, {}):'.format(' ' * tab2, name, fargs)
                     lines.append(line)
                     line = '{}pass\n'.format(' ' * tabspaces)
                     lines.append(line)
         return lines
 
     def code_create_callback(self, widgetid, cbname, cbtype, args=None):
-        #print('on_code_create_callback', widgetid, cbname, cbtype, args)
+        # print('on_code_create_callback', widgetid, cbname, cbtype, args)
         if cbname not in self._callbacks:
             self._callbacks[cbname] = (widgetid, cbtype, args)
         cb_name = f'self.{cbname}'
@@ -397,8 +389,7 @@ class UI2Code(Builder):
             img_class = 'tk.PhotoImage'
             if file_ext in TK_BITMAP_FORMATS:
                 img_class = 'tk.BitmapImage'
-            line = "{} = {}(file='{}')".format(
-                varname, img_class, filename)
+            line = "{} = {}(file='{}')".format(varname, img_class, filename)
             self._code.append(line)
             self._tkimages[filename] = varname
         return self._tkimages[filename]

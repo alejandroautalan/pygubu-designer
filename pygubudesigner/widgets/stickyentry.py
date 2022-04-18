@@ -17,8 +17,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from pygubudesigner.util.selecttool import SelectTool
-from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, register_editor)
+from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
 
 
 class StickyPropertyEditor(PropertyEditor):
@@ -31,17 +30,14 @@ class StickyPropertyEditor(PropertyEditor):
 
         self._map = {
             '': [0, 0, 0, 0, 1, 0, 0, 0, 0],
-
             'n': [0, 1, 0, 0, 0, 0, 0, 0, 0],
             's': [0, 0, 0, 0, 0, 0, 0, 1, 0],
             'e': [0, 0, 0, 0, 0, 1, 0, 0, 0],
             'w': [0, 0, 0, 1, 0, 0, 0, 0, 0],
-
             'nw': [1, 0, 0, 0, 0, 0, 0, 0, 0],
             'ne': [0, 0, 1, 0, 0, 0, 0, 0, 0],
             'sw': [0, 0, 0, 0, 0, 0, 1, 0, 0],
             'se': [0, 0, 0, 0, 0, 0, 0, 0, 1],
-
             'new': [1, 1, 1, 0, 0, 0, 0, 0, 0],
             'ew': [0, 0, 0, 1, 1, 1, 0, 0, 0],
             'sew': [0, 0, 0, 0, 0, 0, 1, 1, 1],
@@ -51,8 +47,9 @@ class StickyPropertyEditor(PropertyEditor):
             'nsew': [1, 1, 1, 1, 1, 1, 1, 1, 1],
         }
         self._items = {}
-        self._c = w = tk.Canvas(self, bg='#ffffff', borderwidth=0,
-                                highlightthickness=0, width=50, height=50)
+        self._c = w = tk.Canvas(
+            self, bg='#ffffff', borderwidth=0, highlightthickness=0, width=50, height=50
+        )
         w.bind('<Configure>', self._on_canvas_configure)
         w.bind('<<RegionSelected>>', self._on_region_selected)
         w.grid(row=0, column=0, sticky='w')
@@ -92,8 +89,9 @@ class StickyPropertyEditor(PropertyEditor):
                 y0 = c * rh
                 x1 = x0 + rw
                 y1 = y0 + rh
-                item = canvas.create_rectangle(x0, y0, x1, y1, fill='white',
-                                               outline='gray')
+                item = canvas.create_rectangle(
+                    x0, y0, x1, y1, fill='white', outline='gray'
+                )
                 self._items[item] = k
         else:
             for item in self._items:

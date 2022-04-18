@@ -17,8 +17,7 @@ import pygubu
 from pygubudesigner.i18n import translator
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-ASK_SAVE_CHANGES_DIALOG_UI = os.path.join(
-    FILE_PATH, 'ui', 'ask_save_changes_dialog.ui')
+ASK_SAVE_CHANGES_DIALOG_UI = os.path.join(FILE_PATH, 'ui', 'ask_save_changes_dialog.ui')
 
 
 class AskSaveChangesDialog:
@@ -76,6 +75,7 @@ def ask_save_changes(master, title, message, detail=''):
 
 if __name__ == '__main__':
     import tkinter as tk
+
     root = tk.Tk()
     app = AskSaveChangesDialog(root)
     app.run()

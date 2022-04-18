@@ -16,8 +16,7 @@
 import re
 import tkinter as tk
 
-from pygubudesigner.widgets.propertyeditor import (
-    EntryPropertyEditor, register_editor)
+from pygubudesigner.widgets.propertyeditor import EntryPropertyEditor, register_editor
 
 re_dim = '\\d+([cimp])?'
 regexp = f'({re_dim})?$'
@@ -66,6 +65,7 @@ if __name__ == '__main__':
         def on_change_cb(event=None):
             print(editor.value)
             print(repr(editor.value))
+
         return on_change_cb
 
     editor = DimensionPropertyEditor(root)

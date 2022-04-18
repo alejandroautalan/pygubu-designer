@@ -29,7 +29,8 @@ from .builder import BuilderForPreview
 logger = logging.getLogger(__name__)
 
 RE_FONT = re.compile(
-    "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?")
+    "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?"
+)
 
 
 class Preview:
@@ -69,19 +70,15 @@ class Preview:
         # Preview box
         c = self.canvas
         x, y, x2, y2 = (-1001, -1000, -1001, -1000)
-        s1 = c.create_rectangle(x, y, x2, y2,
-                                width=2, outline='blue', tags=self.id)
-        s2 = c.create_rectangle(x, y, x2, y2, fill='blue', outline='blue',
-                                tags=(self.id, 'resizer'))
-        s3 = c.create_text(x, y, text='widget_id', anchor=tk.NW,
-                           fill='white', tags=self.id)
+        s1 = c.create_rectangle(x, y, x2, y2, width=2, outline='blue', tags=self.id)
+        s2 = c.create_rectangle(
+            x, y, x2, y2, fill='blue', outline='blue', tags=(self.id, 'resizer')
+        )
+        s3 = c.create_text(
+            x, y, text='widget_id', anchor=tk.NW, fill='white', tags=self.id
+        )
         s4 = c.create_window(x, y, anchor=tk.NW, tags=self.id)
-        self.shapes = {
-            'outline': s1,
-            'resizer': s2,
-            'text': s3,
-            'window': s4
-        }
+        self.shapes = {'outline': s1, 'resizer': s2, 'text': s3, 'window': s4}
         self.draw()
 
     def erase(self):
@@ -143,13 +140,14 @@ class Preview:
 
         # Create preview
         canvas_window = ttk.Frame(self.canvas, style='PreviewFrame.TFrame')
-        #canvas_window.rowconfigure(0, weight=1)
-        #canvas_window.columnconfigure(0, weight=1)
+        # canvas_window.rowconfigure(0, weight=1)
+        # canvas_window.columnconfigure(0, weight=1)
 
         self.canvas.itemconfigure(self.shapes['text'], text=widget_id)
 
-        self._preview_widget = \
-            self.create_preview_widget(canvas_window, widget_id, uidefinition)
+        self._preview_widget = self.create_preview_widget(
+            canvas_window, widget_id, uidefinition
+        )
         self.root_widget = self._preview_widget
 
         self.canvas_window = canvas_window
@@ -195,7 +193,6 @@ class Preview:
 
 
 class DefaultMenuPreview(Preview):
-
     def create_preview_widget(self, parent, widget_id, uidefinition):
         self.builder = self._create_builder()
         self.builder.uidefinition = uidefinition
@@ -262,15 +259,20 @@ class OnCanvasMenuPreview(Preview):
             slant = 'italic' if 'italic' in modifiers else 'roman'
             underline = '1' if 'underline' in modifiers else '0'
             overstrike = '1' if 'overstrike' in modifiers else '0'
-            kw = {'family': family, 'weight': weight, 'slant': slant,
-                  'underline': underline, 'overstrike': overstrike}
+            kw = {
+                'family': family,
+                'weight': weight,
+                'slant': slant,
+                'underline': underline,
+                'overstrike': overstrike,
+            }
             if size:
                 kw['size'] = size
             OnCanvasMenuPreview.fonts[fontname] = tk.font.Font(**kw)
         return OnCanvasMenuPreview.fonts[fontname]
 
     def _calculate_menu_wh(self):
-        """ Calculate menu widht and height."""
+        """Calculate menu widht and height."""
         w = iw = 50
         h = ih = 0
         # menu.index returns None if there are no choices
@@ -343,18 +345,16 @@ if sys.platform == 'linux':
 
 
 class ToplevelPreview(Preview):
-
     def create_preview_widget(self, parent, widget_id, uidefinition):
         # Change real Toplevel for a preview replacement:
         # Add same behavior of Toplevel. Default expand both sides:
         old = uidefinition.get_widget(widget_id)
-        newroot = WidgetMeta('pygubudesigner.ToplevelFramePreview',
-                             widget_id, 'pack')
+        newroot = WidgetMeta('pygubudesigner.ToplevelFramePreview', widget_id, 'pack')
         newroot.copy_properties(old)
         # FIX: Why is not copying in the above function ???
         newroot.gridrc_properties = old.gridrc_properties
-        #newroot.widget_property('height', '200')
-        #newroot.widget_property('width', '200')
+        # newroot.widget_property('height', '200')
+        # newroot.widget_property('width', '200')
         newroot.layout_property('expand', 'true')
         newroot.layout_property('fill', 'both')
 
@@ -376,9 +376,6 @@ class ToplevelPreview(Preview):
 
 class DialogPreview(ToplevelPreview):
     def create_toplevel(self, widget_id, uidefinition):
-        top = super().create_toplevel(widget_id,
-                                                         uidefinition)
+        top = super().create_toplevel(widget_id, uidefinition)
         top.run()
         return top
-
-

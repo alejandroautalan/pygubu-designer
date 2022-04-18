@@ -23,7 +23,7 @@ import tkinter.ttk as ttk
 import pygubudesigner.actions as actions
 from pygubu.stockimage import StockImage
 from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
-from .preview import (Preview, MenuPreview, ToplevelPreview, DialogPreview)
+from .preview import Preview, MenuPreview, ToplevelPreview, DialogPreview
 
 logger = logging.getLogger(__name__)
 
@@ -58,8 +58,9 @@ class PreviewHelper:
         self.style.configure('PreviewFrame.TFrame', background='lightgreen')
 
         self.selected_widget = None
-        canvas.bind_all(actions.PREVIEW_TOPLEVEL_CLOSE_ALL,
-                        lambda e: self.close_toplevel_previews())
+        canvas.bind_all(
+            actions.PREVIEW_TOPLEVEL_CLOSE_ALL, lambda e: self.close_toplevel_previews()
+        )
 
     def add_resource_path(self, path):
         self.resource_paths.append(path)
@@ -174,9 +175,9 @@ class PreviewHelper:
             preview_class = DialogPreview
         if identifier not in self.previews:
             x, y = self._get_slot()
-            self.previews[identifier] = preview \
-                = preview_class(identifier, self.canvas, x, y,
-                                self.resource_paths)
+            self.previews[identifier] = preview = preview_class(
+                identifier, self.canvas, x, y, self.resource_paths
+            )
         else:
             preview = self.previews[identifier]
         preview.update(widget_id, uidefinition)
@@ -188,6 +189,7 @@ class PreviewHelper:
             # create callback and bind widgets
             def callback(event, self=self, previewid=identifier):
                 self.preview_click_handler(previewid, event)
+
             widget = preview.root_widget
             self.bind_preview_widget(widget, callback)
 
@@ -196,11 +198,11 @@ class PreviewHelper:
         self.indicators = []
         anchors = {'nw': tk.SE, 'ne': tk.SW, 'sw': tk.NE, 'se': tk.NW}
         for sufix in self.indicators_tag:
-            label = tk.Label(self.canvas,
-                             image=StockImage.get('indicator_' + sufix))
+            label = tk.Label(self.canvas, image=StockImage.get('indicator_' + sufix))
             self.indicators.append(label)
-            self.canvas.create_window(-10, -10, anchor=anchors[sufix],
-                                      window=label, tags=sufix)
+            self.canvas.create_window(
+                -10, -10, anchor=anchors[sufix], window=label, tags=sufix
+            )
 
     def _calculate_indicator_coords(self, tag, widget):
         x = y = 0
@@ -215,9 +217,9 @@ class PreviewHelper:
             y = wy - cy
         if tag == 'ne':
             x = (wx - cx) + ww
-            y = (wy - cy)
+            y = wy - cy
         if tag == 'sw':
-            x = (wx - cx)
+            x = wx - cx
             y = (wy - cy) + wh
         if tag == 'se':
             x = (wx - cx) + ww
@@ -297,8 +299,7 @@ class PreviewHelper:
         # The function that will be called when a right-click occurs.
         # The second argument (callback) is used to select the widget before
         # showing the context menu.
-        right_click_func = partial(
-            self.on_right_clicked_preview_widget, callback)
+        right_click_func = partial(self.on_right_clicked_preview_widget, callback)
 
         # For right-clicking - bind to button2 for macos and button3 for a
         # different OS.

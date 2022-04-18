@@ -27,10 +27,10 @@ class RelativeEntryPropertyEditor(PropertyEditor):
         self.entry.configure(width='4')
         self.entry.pack(side='left')
 
-        self.scale = ttk.Scale(self, variable=self.scalevar,
-                               command=self.on_scale_changed)
-        self.scale.configure(
-            from_='0', orient='horizontal', to='1', value='0')
+        self.scale = ttk.Scale(
+            self, variable=self.scalevar, command=self.on_scale_changed
+        )
+        self.scale.configure(from_='0', orient='horizontal', to='1', value='0')
         self.scale.pack(expand='true', fill='both', side='left')
 
         entry.bind('<FocusOut>', self._on_variable_changed)
@@ -85,6 +85,7 @@ if __name__ == '__main__':
             print('Property changed: ')
             print(editor.value)
             print(repr(editor.value))
+
         return on_change_cb
 
     editor = RelativeEntryPropertyEditor(root)

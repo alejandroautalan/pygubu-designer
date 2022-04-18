@@ -19,15 +19,19 @@ from pygubu.builder import CLASS_MAP
 from pygubu.builder.widgetmeta import BindingMeta
 from pygubu.builder.widgetmeta import WidgetMeta as WidgetMetaBase
 
-from .properties import (GRID_PROPERTIES, LAYOUT_OPTIONS, PACK_PROPERTIES,
-                         PLACE_PROPERTIES, WIDGET_PROPERTIES)
+from .properties import (
+    GRID_PROPERTIES,
+    LAYOUT_OPTIONS,
+    PACK_PROPERTIES,
+    PLACE_PROPERTIES,
+    WIDGET_PROPERTIES,
+)
 from .util.observable import Observable
 
 logger = logging.getLogger(__name__)
 
 
 class WidgetMeta(WidgetMetaBase, Observable):
-
     def apply_layout_defaults(self):
         super().apply_layout_defaults()
         self.notify('LAYOUT_CHANGED', self)
@@ -107,14 +111,14 @@ class WidgetMeta(WidgetMetaBase, Observable):
     def gridrc_row_indexes(self):
         rows = set()
         for line in self.gridrc_properties:
-            if (line.rctype == 'row'):
+            if line.rctype == 'row':
                 rows.add(line.rcid)
         return list(rows)
 
     def gridrc_column_indexes(self):
         cols = set()
         for line in self.gridrc_properties:
-            if (line.rctype == 'col'):
+            if line.rctype == 'col':
                 cols.add(line.rcid)
         return list(cols)
 
@@ -164,8 +168,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 if default_value:
                     properties[pname] = default_value
                 # default text for widgets with text prop:
-                if (pname in ('text', 'label')
-                        and pname not in builder.OPTIONS_CUSTOM):
+                if pname in ('text', 'label') and pname not in builder.OPTIONS_CUSTOM:
                     properties[pname] = widget_id
 
         # setup default values for layout

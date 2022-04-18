@@ -19,7 +19,11 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, EntryPropertyEditor, ChoicePropertyEditor, register_editor)
+    PropertyEditor,
+    EntryPropertyEditor,
+    ChoicePropertyEditor,
+    register_editor,
+)
 
 
 class TkVarPropertyEditor(PropertyEditor):

@@ -43,8 +43,7 @@ class LogPanelManager:
             self.gcontainer.pack(side='top', expand=True, fill='both')
             self.gcontainer.after_idle(self.update_sash)
         else:
-            self.gcontainer.after_idle(
-                lambda x='hide': self.update_sash(x))
+            self.gcontainer.after_idle(lambda x='hide': self.update_sash(x))
             self.gcontainer.pack_forget()
 
     def _log_set_text(self, text):

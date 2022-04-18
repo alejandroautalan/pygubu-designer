@@ -66,7 +66,8 @@ def init_pygubu_widgets():
     mwidgets = importlib.import_module(widgets_pkg)
 
     for x, modulename, x in pkgutil.iter_modules(
-            mwidgets.__path__, mwidgets.__name__ + "."):
+        mwidgets.__path__, mwidgets.__name__ + "."
+    ):
         try:
             importlib.import_module(modulename)
         except Exception as e:
@@ -85,8 +86,7 @@ def init_pygubu_widgets():
                 importlib.import_module(modulename)
             except Exception as e:
                 logger.exception(e)
-                msg = _(
-                    f"Failed to load custom widget module: '{path}'")
+                msg = _(f"Failed to load custom widget module: '{path}'")
                 messagebox.showerror(_('Error'), msg)
 
     # initialize custom widget plugins
@@ -122,8 +122,8 @@ class StatusBarHandler(logging.Handler):
         super().__init__(level)
         self.app = app
         formatter = logging.Formatter(
-            '%(asctime)s %(levelname)s:%(message)s',
-            datefmt='%H:%M:%S')
+            '%(asctime)s %(levelname)s:%(message)s', datefmt='%H:%M:%S'
+        )
         self.setFormatter(formatter)
 
     def emit(self, record):
@@ -159,12 +159,11 @@ class PygubuDesigner:
         self.builder.add_from_file(uifile)
         self.builder.add_resource_path(os.path.join(FILE_PATH, "images"))
 
-        in_macos = (sys.platform == 'darwin')
+        in_macos = sys.platform == 'darwin'
         # build main ui
         self.mainwindow = self.builder.get_object('mainwindow')
         menu = self.builder.get_object('mainmenu', self.mainwindow)
-        self.context_menu = self.builder.get_object(
-            'context_menu', self.mainwindow)
+        self.context_menu = self.builder.get_object('context_menu', self.mainwindow)
 
         # Initialize duplicate menu state
         self.duplicate_menu_state = 'normal'
@@ -172,14 +171,13 @@ class PygubuDesigner:
         if in_macos:
             cmd = 'tk::mac::ShowPreferences'
             self.mainwindow.createcommand(cmd, self._edit_preferences)
-            #cmd = 'tk::mac::ShowHelp'
-            #self.mainwindow.createcommand(cmd, self.on_help_item_clicked)
+            # cmd = 'tk::mac::ShowHelp'
+            # self.mainwindow.createcommand(cmd, self.on_help_item_clicked)
             cmd = 'tk::mac::Quit'
             self.mainwindow.createcommand(cmd, self.quit)
             # In mac add apple menu
             m = tk.Menu(menu, name='apple')
-            m.add_command(label=_('Quit …'), accelerator='Cmd-Q',
-                          command=self.quit)
+            m.add_command(label=_('Quit …'), accelerator='Cmd-Q', command=self.quit)
             menu.insert_cascade(0, menu=m)
 
         # Set top menu
@@ -222,13 +220,11 @@ class PygubuDesigner:
         #
         if in_macos:
             # tree_editor context menu binding (2nd mouse button for macos)
-            self.tree_editor.treeview.bind(
-                '<2>', self.on_right_click_object_tree)
+            self.tree_editor.treeview.bind('<2>', self.on_right_click_object_tree)
         else:
             # tree_editor context menu binding (3rd mouse button for linux and
             # windows)
-            self.tree_editor.treeview.bind(
-                '<3>', self.on_right_click_object_tree)
+            self.tree_editor.treeview.bind('<3>', self.on_right_click_object_tree)
 
         #
         # Application Keyboard bindings
@@ -247,93 +243,92 @@ class PygubuDesigner:
                     m.entryconfigure(index, accelerator=accel)
 
         master = self.mainwindow
-        master.bind_all(CONTROL_KP_SEQUENCE,
-                        key_bind(Key.N,
-                                 virtual_event(actions.FILE_NEW)))
-        master.bind_all(CONTROL_KP_SEQUENCE,
-                        key_bind(Key.O,
-                                 virtual_event(actions.FILE_OPEN)),
-                        add=True)
-        master.bind_all(CONTROL_KP_SEQUENCE,
-                        key_bind(Key.S,
-                                 virtual_event(actions.FILE_SAVE)),
-                        add=True)
-        master.bind_all(CONTROL_KP_SEQUENCE,
-                        key_bind(Key.Q,
-                                 virtual_event(actions.FILE_QUIT)),
-                        add=True)
         master.bind_all(
-            '<F5>',
-            virtual_event(actions.TREE_ITEM_PREVIEW_TOPLEVEL))
+            CONTROL_KP_SEQUENCE, key_bind(Key.N, virtual_event(actions.FILE_NEW))
+        )
         master.bind_all(
-            '<F6>',
-            virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL))
+            CONTROL_KP_SEQUENCE,
+            key_bind(Key.O, virtual_event(actions.FILE_OPEN)),
+            add=True,
+        )
+        master.bind_all(
+            CONTROL_KP_SEQUENCE,
+            key_bind(Key.S, virtual_event(actions.FILE_SAVE)),
+            add=True,
+        )
+        master.bind_all(
+            CONTROL_KP_SEQUENCE,
+            key_bind(Key.Q, virtual_event(actions.FILE_QUIT)),
+            add=True,
+        )
+        master.bind_all('<F5>', virtual_event(actions.TREE_ITEM_PREVIEW_TOPLEVEL))
+        master.bind_all('<F6>', virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL))
 
         # Tree Editing Keyboard events
         for widget in (self.treeview, previewc):
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(Key.I,
-                         virtual_event(actions.TREE_ITEM_MOVE_UP)))
-            widget.bind(
-                CONTROL_KP_SEQUENCE,
-                key_bind(Key.K,
-                         virtual_event(actions.TREE_ITEM_MOVE_DOWN)),
-                add=True
+                key_bind(Key.I, virtual_event(actions.TREE_ITEM_MOVE_UP)),
             )
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(Key.C,
-                         lambda e: self.tree_editor.copy_to_clipboard()),
-                add=True)
+                key_bind(Key.K, virtual_event(actions.TREE_ITEM_MOVE_DOWN)),
+                add=True,
+            )
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(Key.V,
-                         lambda e: self.tree_editor.paste_from_clipboard()),
-                add=True
+                key_bind(Key.C, lambda e: self.tree_editor.copy_to_clipboard()),
+                add=True,
             )
-            widget.bind(CONTROL_KP_SEQUENCE,
-                        key_bind(Key.D,
-                                 virtual_event(actions.TREE_ITEM_DUPLICATE)),
-                        add=True)
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(Key.X,
-                         lambda e: self.tree_editor.cut_to_clipboard()),
-                add=True
+                key_bind(Key.V, lambda e: self.tree_editor.paste_from_clipboard()),
+                add=True,
             )
-            widget.bind('<KeyPress>',
-                        key_bind(Key.I,
-                                 virtual_event(actions.TREE_NAV_UP)))
-            widget.bind('<KeyPress>',
-                        key_bind(Key.K,
-                                 virtual_event(actions.TREE_NAV_DOWN)),
-                        add=True)
+            widget.bind(
+                CONTROL_KP_SEQUENCE,
+                key_bind(Key.D, virtual_event(actions.TREE_ITEM_DUPLICATE)),
+                add=True,
+            )
+            widget.bind(
+                CONTROL_KP_SEQUENCE,
+                key_bind(Key.X, lambda e: self.tree_editor.cut_to_clipboard()),
+                add=True,
+            )
+            widget.bind(
+                '<KeyPress>', key_bind(Key.I, virtual_event(actions.TREE_NAV_UP))
+            )
+            widget.bind(
+                '<KeyPress>',
+                key_bind(Key.K, virtual_event(actions.TREE_NAV_DOWN)),
+                add=True,
+            )
             # avoid double delete dialog in macos
             if not in_macos:
-                widget.bind('<KeyPress-Delete>',
-                            virtual_event(actions.TREE_ITEM_DELETE))
+                widget.bind(
+                    '<KeyPress-Delete>', virtual_event(actions.TREE_ITEM_DELETE)
+                )
 
             # grid move bindings
             widget.bind(
                 ALT_KP_SEQUENCE,
-                key_bind(Key.I,
-                         virtual_event(actions.TREE_ITEM_GRID_UP)))
+                key_bind(Key.I, virtual_event(actions.TREE_ITEM_GRID_UP)),
+            )
             widget.bind(
                 ALT_KP_SEQUENCE,
-                key_bind(Key.K,
-                         virtual_event(actions.TREE_ITEM_GRID_DOWN)), add=True)
+                key_bind(Key.K, virtual_event(actions.TREE_ITEM_GRID_DOWN)),
+                add=True,
+            )
             widget.bind(
                 ALT_KP_SEQUENCE,
-                key_bind(Key.J,
-                         virtual_event(actions.TREE_ITEM_GRID_LEFT)), add=True)
+                key_bind(Key.J, virtual_event(actions.TREE_ITEM_GRID_LEFT)),
+                add=True,
+            )
             widget.bind(
                 ALT_KP_SEQUENCE,
-                key_bind(
-                    Key.L,
-                    virtual_event(
-                        actions.TREE_ITEM_GRID_RIGHT)),
-                add=True)
+                key_bind(Key.L, virtual_event(actions.TREE_ITEM_GRID_RIGHT)),
+                add=True,
+            )
 
         # Actions Bindings
         w = self.mainwindow
@@ -342,11 +337,9 @@ class PygubuDesigner:
         w.bind(actions.FILE_SAVE, self.on_file_save)
         w.bind(actions.FILE_SAVEAS, lambda e: self.do_save_as())
         w.bind(actions.FILE_QUIT, lambda e: self.quit())
-        w.bind(actions.FILE_RECENT_CLEAR,
-               lambda e: self.rfiles_manager.clear())
+        w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
         # On preferences save binding
-        w.bind('<<PygubuDesignerPreferencesSaved>>',
-               self.on_preferences_saved)
+        w.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
 
         # setup app preferences
         self.setup_app_preferences()
@@ -394,25 +387,20 @@ class PygubuDesigner:
         self.mainwindow.option_add("*Dialog.msg.wrapLength", "6i")
 
         s = get_ttk_style()
-        s.configure('ColorSelectorButton.Toolbutton',
-                    image=StockImage.get('mglass'))
-        s.configure('ImageSelectorButton.Toolbutton',
-                    image=StockImage.get('mglass'))
-        s.configure('ComponentPalette.Toolbutton',
-                    font='TkSmallCaptionFont')
-        s.configure('ComponentPalette.TNotebook.Tab',
-                    font='TkSmallCaptionFont')
-        s.configure('PanelTitle.TLabel',
-                    background='#808080',
-                    foreground='white',
-                    font='TkSmallCaptionFont')
-        s.configure('Template.Toolbutton',
-                    padding=5)
+        s.configure('ColorSelectorButton.Toolbutton', image=StockImage.get('mglass'))
+        s.configure('ImageSelectorButton.Toolbutton', image=StockImage.get('mglass'))
+        s.configure('ComponentPalette.Toolbutton', font='TkSmallCaptionFont')
+        s.configure('ComponentPalette.TNotebook.Tab', font='TkSmallCaptionFont')
+        s.configure(
+            'PanelTitle.TLabel',
+            background='#808080',
+            foreground='white',
+            font='TkSmallCaptionFont',
+        )
+        s.configure('Template.Toolbutton', padding=5)
         # ToolbarFrame scroll buttons
-        s.configure(ToolbarFrame.BTN_LEFT_STYLE,
-                    image=StockImage.get('arrow-left2'))
-        s.configure(ToolbarFrame.BTN_RIGHT_STYLE,
-                    image=StockImage.get('arrow-right2'))
+        s.configure(ToolbarFrame.BTN_LEFT_STYLE, image=StockImage.get('arrow-left2'))
+        s.configure(ToolbarFrame.BTN_RIGHT_STYLE, image=StockImage.get('arrow-right2'))
         if sys.platform == 'linux':
             # change background of comboboxes
             color = s.lookup('TEntry', 'fieldbackground')
@@ -432,8 +420,9 @@ class PygubuDesigner:
             def handler(theme=name):
                 self._change_ttk_theme(theme)
 
-            menu.add_radiobutton(label=name, value=name,
-                                 variable=self.__theme_var, command=handler)
+            menu.add_radiobutton(
+                label=name, value=name, variable=self.__theme_var, command=handler
+            )
 
     def create_treelist(self):
         root_tagset = {'tk', 'ttk'}
@@ -449,8 +438,8 @@ class PygubuDesigner:
         for c in builder.CLASS_MAP.keys():
             wc = builder.CLASS_MAP[c]
             ctags = set(wc.tags)
-            roots = (root_tagset & ctags)
-            sections = (tagset & ctags)
+            roots = root_tagset & ctags
+            sections = tagset & ctags
             for r in roots:
                 for s in sections:
                     key = f'{r}>{s}'
@@ -459,6 +448,7 @@ class PygubuDesigner:
         # sort tags by label
         def by_label(t):
             return f"{t[0]}{t[1].label}"
+
         treelist.sort(key=by_label)
         return treelist
 
@@ -497,13 +487,14 @@ class PygubuDesigner:
             if wlabel.startswith('Menuitem.'):
                 wlabel = wlabel.replace('Menuitem.', '')
             callback = create_cb(wc.classname)
-            self._pallete.add_button(section, root, wlabel, wc.classname,
-                                     w_image, callback)
+            self._pallete.add_button(
+                section, root, wlabel, wc.classname, w_image, callback
+            )
         default_group = pref.get_option('widget_set')
         self._pallete.show_group(default_group)
 
     def on_add_widget_event(self, classname):
-        "Adds a widget to the widget tree."""
+        "Adds a widget to the widget tree." ""
 
         self.tree_editor.add_widget(classname)
         self.tree_editor.treeview.focus_set()
@@ -533,15 +524,15 @@ class PygubuDesigner:
 
         # Get the preferred default layout manager, in case it has changed.
         self.tree_editor.default_layout_manager = pref.get_option(
-            'default_layout_manager')
+            'default_layout_manager'
+        )
 
     def ask_save_changes(self, message, detail=None, title=None):
         do_continue = False
         if title is None:
             title = _('Save Changes')
         if detail is None:
-            detail = _(
-                "If you don't save the document, all the changes will be lost.")
+            detail = _("If you don't save the document, all the changes will be lost.")
         choice = ask_save_changes(self.mainwindow, title, message, detail)
         if choice == AskSaveChangesDialog.SAVE:
             do_continue = self.on_file_save()
@@ -580,7 +571,8 @@ class PygubuDesigner:
         saved = False
         options = {
             'defaultextension': '.ui',
-            'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*'))}
+            'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*')),
+        }
         fname = filedialog.asksaveasfilename(**options)
         if fname:
             saved = self.do_save(fname)
@@ -621,7 +613,8 @@ class PygubuDesigner:
             if filename is None:
                 options = {
                     'defaultextension': '.ui',
-                    'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*'))}
+                    'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*')),
+                }
                 filename = filedialog.askopenfilename(**options)
             if filename:
                 self.load_file(filename)
@@ -683,7 +676,9 @@ class PygubuDesigner:
         menu_duplicate_edit = self.builder.get_object('TREE_ITEM_DUPLICATE')
 
         # Should we enable the 'Duplicate' menu?
-        self.duplicate_menu_state = 'disabled' if self.tree_editor.selection_different_parents() else 'normal'
+        self.duplicate_menu_state = (
+            'disabled' if self.tree_editor.selection_different_parents() else 'normal'
+        )
         menu_duplicate_context.entryconfig(7, state=self.duplicate_menu_state)
         menu_duplicate_edit.entryconfig(3, state=self.duplicate_menu_state)
 
@@ -748,8 +743,7 @@ class PygubuDesigner:
         builder.add_from_file(uifile)
         builder.add_resource_path(os.path.join(FILE_PATH, "images"))
 
-        dialog = builder.get_object(
-            'aboutdialog', self.mainwindow)
+        dialog = builder.get_object('aboutdialog', self.mainwindow)
         entry = builder.get_object('version')
         txt = entry.cget('text')
         txt = txt.replace('%version%', str(pygubu.__version__))
@@ -768,7 +762,7 @@ class PygubuDesigner:
 
         dialog_callbacks = {
             'on_ok_execute': on_ok_execute,
-            'on_warranty_clicked': on_warranty_click
+            'on_warranty_clicked': on_warranty_click,
         }
         builder.connect_callbacks(dialog_callbacks)
 
@@ -833,8 +827,7 @@ class PygubuDesigner:
 
 
 def start_pygubu():
-    print("python: {} on {}".format(
-        platform.python_version(), sys.platform))
+    print("python: {} on {}".format(platform.python_version(), sys.platform))
     print(f"pygubu: {pygubu.__version__}")
     print(f"pygubu-designer: {pygubudesigner.__version__}")
 
@@ -854,7 +847,7 @@ def start_pygubu():
     help = "Hint, If your are using Debian, install package python3-appdirs."
     check_dependency('appdirs', '1.3', help)
 
-    #root = tk.Tk()
+    # root = tk.Tk()
     # root.withdraw()
     app = PygubuDesigner()
     # root.deiconify()

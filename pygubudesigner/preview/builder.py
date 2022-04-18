@@ -16,10 +16,16 @@ import pygubu
 
 
 class BuilderForPreview(pygubu.Builder):
-    normalwidgets = ['tk.Menu', 'tk.PanedWindow', 'tk.PanedWindow.Pane',
-                     'ttk.Panedwindow', 'ttk.Notebook',
-                     'ttk.Panedwindow.Pane', 'ttk.Notebook.Tab',
-                     'pygubudesigner.ToplevelFramePreview']
+    normalwidgets = [
+        'tk.Menu',
+        'tk.PanedWindow',
+        'tk.PanedWindow.Pane',
+        'ttk.Panedwindow',
+        'ttk.Notebook',
+        'ttk.Panedwindow.Pane',
+        'ttk.Notebook.Tab',
+        'pygubudesigner.ToplevelFramePreview',
+    ]
 
     def _post_realize(self, bobject):
         '''Configure widget for "preview" mode.'''
@@ -75,4 +81,4 @@ class BuilderForPreview(pygubu.Builder):
                     notebook = self.objects[tab_id].widget
                     current_tab = self.objects[child_id].widget
                     notebook.select(current_tab)
-                    #print(select_id, ' inside', tab_id, 'child', child_id)
+                    # print(select_id, ' inside', tab_id, 'child', child_id)

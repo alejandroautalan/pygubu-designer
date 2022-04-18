@@ -44,6 +44,7 @@ def treeview_print(tree, root=''):
             print(root)
         for item in children:
             tree_print(tree, item)
+
     tree_print(tree, root)
 
 
@@ -92,12 +93,12 @@ __style = None
 
 
 def get_ttk_style():
-    '''Use ttkthemes if module is installed
-    '''
+    '''Use ttkthemes if module is installed'''
     global __style
     if __style is None:
         try:
             from ttkthemes.themed_style import ThemedStyle
+
             __style = ThemedStyle()
         except BaseException:
             __style = ttk.Style()

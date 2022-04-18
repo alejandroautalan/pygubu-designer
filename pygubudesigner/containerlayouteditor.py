@@ -45,8 +45,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         label_tpl = "{0}:"
         row = col = 0
         groups = (
-            ('00', properties.CONTAINER_MANAGER_PROPERTIES,
-             properties.LAYOUT_OPTIONS),
+            ('00', properties.CONTAINER_MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
         )
 
         for gcode, plist, propdescr in groups:
@@ -113,6 +112,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         def make_on_change_cb(pname, editor):
             def on_change_cb(event):
                 self._on_property_changed(pname, editor)
+
             return on_change_cb
 
         editor.bind('<<PropertyChanged>>', make_on_change_cb(pname, editor))
@@ -134,15 +134,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             value = default
         editor.edit(value)
 
-    def update_rc_editor(
-            self,
-            type_,
-            index,
-            label,
-            editor,
-            wdescr,
-            pname,
-            propdescr):
+    def update_rc_editor(self, type_, index, label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
         classname = wdescr.classname
 
@@ -214,8 +206,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             propdescr = properties.LAYOUT_OPTIONS[name]
             index = col if rowcol == 'col' else row
             label, widget = self._rcbag[key]
-            self.update_rc_editor(rowcol, index, label, widget,
-                                  target, name, propdescr)
+            self.update_rc_editor(rowcol, index, label, widget, target, name, propdescr)
         # update labels
         label = self._rowpanel_label.format(row)
         self.rowframe_label.configure(text=label)
@@ -255,8 +246,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
 
         # layout properties
         groups = (
-            ('00', properties.CONTAINER_MANAGER_PROPERTIES,
-             properties.LAYOUT_OPTIONS),
+            ('00', properties.CONTAINER_MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
         )
 
         for gcode, proplist, gproperties in groups:
@@ -296,5 +286,3 @@ if __name__ == '__main__':
     # widget.edit(wd, 'pack')
 
     root.mainloop()
-
-

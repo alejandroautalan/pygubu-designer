@@ -98,7 +98,7 @@ class LayoutEditor(PropertiesEditor):
             self._container_options = container_options
 
         wclass = wdescr.classname
-        #class_descr = CLASS_MAP[wclass].builder
+        # class_descr = CLASS_MAP[wclass].builder
         max_children = CLASS_MAP[wclass].builder.maxchildren
         max_children = 0 if max_children is None else max_children
         is_container = CLASS_MAP[wclass].builder.container
@@ -125,8 +125,7 @@ class LayoutEditor(PropertiesEditor):
                     propdescr = gproperties[name]
                     label, widget = self._propbag[gcode + name]
                     if show_layout and name in manager_prop:
-                        self.update_editor(
-                            label, widget, wdescr, name, propdescr)
+                        self.update_editor(label, widget, wdescr, name, propdescr)
                         label.grid()
                         widget.grid()
                     else:
@@ -155,16 +154,14 @@ class LayoutEditor(PropertiesEditor):
 
         old_manager = self._current.manager
         new_manager = self.layout_selector.value
-        needs_container_change = (new_manager not in self._allowed_managers)
+        needs_container_change = new_manager not in self._allowed_managers
 
         if needs_container_change:
             self.layout_selector.edit(old_manager)
 
-            def cb(
-                f=old_manager,
-                t=new_manager): return self._ask_manager_change(
-                f,
-                t)
+            def cb(f=old_manager, t=new_manager):
+                return self._ask_manager_change(f, t)
+
             self._sframe.after_idle(cb)
         else:
             self._current.manager = new_manager
@@ -181,8 +178,8 @@ class LayoutEditor(PropertiesEditor):
         msg = msg.format(old_manager, new_manager)
         detail = _('All container widgets will be updated.')
         user_accepts_change = messagebox.askokcancel(
-            title, msg, detail=detail,
-            parent=self.layout_selector.winfo_toplevel())
+            title, msg, detail=detail, parent=self.layout_selector.winfo_toplevel()
+        )
         if user_accepts_change:
             topack = '<<LayoutEditorContainerManagerToPack>>'
             togrid = '<<LayoutEditorContainerManagerToGrid>>'

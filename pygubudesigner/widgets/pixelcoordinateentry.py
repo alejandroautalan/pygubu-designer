@@ -16,8 +16,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from pygubudesigner.widgets.propertyeditor import (PropertyEditor,
-                                                   register_editor)
+from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
 
 
 class PixelCoordinatePropertyEditor(PropertyEditor):
@@ -57,6 +56,7 @@ if __name__ == '__main__':
             print('Property changed: ')
             print(editor.value)
             print(repr(editor.value))
+
         return on_change_cb
 
     editor = PixelCoordinatePropertyEditor(root)

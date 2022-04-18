@@ -50,8 +50,7 @@ class SelectTool:
         self._sstart = (x, y)
         if not self._sobject:
             self._sobject = canvas.create_rectangle(
-                self._sstart[0], self._sstart[1], x, y,
-                dash=(3, 5), outline='#0000ff'
+                self._sstart[0], self._sstart[1], x, y, dash=(3, 5), outline='#0000ff'
             )
         canvas.itemconfigure(self._sobject, state=tk.NORMAL)
 
@@ -62,8 +61,7 @@ class SelectTool:
         canvas = self._canvas
         x = canvas.canvasx(event.x)
         y = canvas.canvasy(event.y)
-        canvas.coords(self._sobject,
-                      self._sstart[0], self._sstart[1], x, y)
+        canvas.coords(self._sobject, self._sstart[0], self._sstart[1], x, y)
 
     def _finish_selecting(self, event):
         """Finaliza la seleccion.

@@ -26,8 +26,7 @@ APP_NAME = "pygubu"
 # Not sure in a regular desktop:
 #
 
-project_basedir = os.path.abspath(
-    os.path.join(os.path.dirname(__file__)))
+project_basedir = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 
 APP_DIR = project_basedir
 LOCALE_DIR = os.path.join(APP_DIR, 'locale')
@@ -36,9 +35,10 @@ first_mo_path = os.path.join(LOCALE_DIR, 'de', 'LC_MESSAGES', 'pygubu.mo')
 
 if not os.path.exists(first_mo_path):
     print(
-        'You should compile the .po files in the pygubudesigner/locale ' +
-        'directory first if you are a developer, otherwise give us feedback ' +
-        'here: https://github.com/alejandroautalan/pygubu-designer/issues')
+        'You should compile the .po files in the pygubudesigner/locale '
+        + 'directory first if you are a developer, otherwise give us feedback '
+        + 'here: https://github.com/alejandroautalan/pygubu-designer/issues'
+    )
     sys.exit(0)
 
 # Now we need to choose the language. We will provide a list, and gettext
@@ -66,10 +66,9 @@ mo_location = LOCALE_DIR
 gettext.install(True)
 gettext.bindtextdomain(APP_NAME, mo_location)
 gettext.textdomain(APP_NAME)
-language = gettext.translation(APP_NAME,
-                               mo_location,
-                               languages=languages,
-                               fallback=True)
+language = gettext.translation(
+    APP_NAME, mo_location, languages=languages, fallback=True
+)
 
 translator = language.gettext
 

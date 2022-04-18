@@ -23,7 +23,8 @@ class ContainerLayoutEditorBase(ttk.Frame):
         self.mainpanel = ttk.Frame(self)
         self.lbl_title = ttk.Label(self.mainpanel)
         self.lbl_title.configure(
-            font='TkHeadingFont', padding='0 2', text='Options for {0} container')
+            font='TkHeadingFont', padding='0 2', text='Options for {0} container'
+        )
         self.lbl_title.grid(column='0', row='0', sticky='ew')
         self.separator4 = ttk.Separator(self.mainpanel)
         self.separator4.configure(orient='horizontal')
@@ -35,8 +36,7 @@ class ContainerLayoutEditorBase(ttk.Frame):
         self.frame2 = ttk.Frame(self.gridrcpanel)
         self.separator1 = ttk.Separator(self.frame2)
         self.separator1.configure(orient='horizontal')
-        self.separator1.place(relheight='1', relwidth='1',
-                              rely='0.5', x='0', y='0')
+        self.separator1.place(relheight='1', relwidth='1', rely='0.5', x='0', y='0')
         self.label1 = ttk.Label(self.frame2)
         self.label1.configure(text='Grid Row / Column options')
         self.label1.pack(side='top')
@@ -57,15 +57,12 @@ class ContainerLayoutEditorBase(ttk.Frame):
         self.btn_clear_all.configure(command=self._btn_clearall_clicked)
         self.frame1.configure(height='200', width='200')
         self.frame1.pack(anchor='center', side='left')
-        self.cellselectorframe.configure(
-            height='200', padding='5', width='200')
-        self.cellselectorframe.pack(
-            expand='true', fill='x', pady='0 5', side='top')
+        self.cellselectorframe.configure(height='200', padding='5', width='200')
+        self.cellselectorframe.pack(expand='true', fill='x', pady='0 5', side='top')
         self.frame4 = ttk.Frame(self.gridrcpanel)
         self.separator2 = ttk.Separator(self.frame4)
         self.separator2.configure(orient='horizontal')
-        self.separator2.place(relheight='1', relwidth='1',
-                              rely='0.5', x='0', y='0')
+        self.separator2.place(relheight='1', relwidth='1', rely='0.5', x='0', y='0')
         self.rowframe_label = ttk.Label(self.frame4)
         self.rowframe_label.configure(text='Row {0} options')
         self.rowframe_label.pack(padx='10 0', side='left')
@@ -77,8 +74,7 @@ class ContainerLayoutEditorBase(ttk.Frame):
         self.frame6 = ttk.Frame(self.gridrcpanel)
         self.separator3 = ttk.Separator(self.frame6)
         self.separator3.configure(orient='horizontal')
-        self.separator3.place(relheight='1', relwidth='1',
-                              rely='0.5', x='0', y='0')
+        self.separator3.place(relheight='1', relwidth='1', rely='0.5', x='0', y='0')
         self.colframe_label = ttk.Label(self.frame6)
         self.colframe_label.configure(text='Column {0} options')
         self.colframe_label.pack(padx='10 0', side='left')
@@ -90,8 +86,7 @@ class ContainerLayoutEditorBase(ttk.Frame):
         self.gridrcpanel.configure(height='200', width='200')
         self.gridrcpanel.grid(column='0', row='3', sticky='ew')
         self.mainpanel.configure(height='200', width='200')
-        self.mainpanel.pack(anchor='w', expand='true',
-                            fill='both', side='top')
+        self.mainpanel.pack(anchor='w', expand='true', fill='both', side='top')
 
     def _btn_indexall_clicked(self):
         pass
@@ -105,4 +100,3 @@ if __name__ == '__main__':
     widget = ContainerLayoutEditorBase(root)
     widget.pack(expand=True, fill='both')
     root.mainloop()
-

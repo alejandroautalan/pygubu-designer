@@ -22,7 +22,10 @@ logger.info('Using configfile: %s', CONFIG_FILE)
 options = {
     'widget_set': {'values': '["tk", "ttk"]', 'default': 'ttk'},
     'ttk_theme': {'default': 'default'},
-    'default_layout_manager': {'values': '["pack", "grid", "place"]', 'default': 'pack'},
+    'default_layout_manager': {
+        'values': '["pack", "grid", "place"]',
+        'default': 'pack',
+    },
     'geometry': {
         'default': '640x480',
     },
@@ -77,13 +80,19 @@ def load_configfile():
             config.read(CONFIG_FILE)
         except configparser.MissingSectionHeaderError as e:
             logger.exception(e)
-            msg = _("Configuration file at '{}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(
-                CONFIG_FILE))
+            msg = _(
+                "Configuration file at '{}' is corrupted, program may not work as expected.\nIf you delete this file, configuration will be set to default".format(
+                    CONFIG_FILE
+                )
+            )
             messagebox.showerror(_('Error'), msg)
         except configparser.Error as e:
             logger.exception(e)
-            msg = _("Faild to parse config file at '{}', program may not work as expected.".format(
-                CONFIG_FILE))
+            msg = _(
+                "Faild to parse config file at '{}', program may not work as expected.".format(
+                    CONFIG_FILE
+                )
+            )
             msg = msg.format(CONFIG_FILE)
             messagebox.showerror(_('Error'), msg)
 
@@ -133,7 +142,6 @@ load_configfile()
 
 
 class PreferencesUI:
-
     def __init__(self, master, translator=None):
         self.master = master
         self.translator = translator
@@ -150,8 +158,7 @@ class PreferencesUI:
         top = self.master.winfo_toplevel()
         self.dialog = dialog = builder.get_object('preferences', top)
 
-        self.v_style_definition_file = builder.get_variable(
-            'v_style_definition_file')
+        self.v_style_definition_file = builder.get_variable('v_style_definition_file')
 
         # setup theme values
         s = get_ttk_style()
@@ -171,7 +178,8 @@ class PreferencesUI:
         # Preferred layout manager
         cbox_layout_manager = builder.get_object('cbox_layout_manager')
         cbox_layout_manager.configure(
-            values=options['default_layout_manager']['values'])
+            values=options['default_layout_manager']['values']
+        )
 
         self.cwtv = builder.get_object('cwtv')
         self.path_remove = builder.get_object('path_remove')
@@ -222,7 +230,8 @@ class PreferencesUI:
 
         options = {
             'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+        }
         fname = filedialog.asksaveasfilename(**options)
         if fname:
             try:
@@ -232,8 +241,7 @@ class PreferencesUI:
                         f.write(sample_script_contents)
 
                 if os.path.isfile(fname):
-                    msg = _(
-                        "File saved.\n\nPlease edit the style definition file.")
+                    msg = _("File saved.\n\nPlease edit the style definition file.")
                     messagebox.showinfo(_('Styles'), msg)
 
                     # Auto setup this new file definition:
@@ -251,7 +259,8 @@ class PreferencesUI:
 
         options = {
             'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+        }
         fname = filedialog.askopenfilename(**options)
         if fname:
             self.v_style_definition_file.set(fname)
@@ -286,7 +295,8 @@ class PreferencesUI:
     def on_pathadd_clicked(self):
         options = {
             'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*'))}
+            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+        }
         fname = filedialog.askopenfilename(**options)
         if fname:
             self.cwtv.insert('', tk.END, text=fname)

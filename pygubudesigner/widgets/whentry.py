@@ -16,21 +16,21 @@
 import tkinter.ttk as ttk
 
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, EntryPropertyEditor, register_editor)
+    PropertyEditor,
+    EntryPropertyEditor,
+    register_editor,
+)
 
 
 class WHPropertyEditor(PropertyEditor):
-
     def _create_ui(self):
-        self._wlabel = w = ttk.Label(self, text='w:',
-                                     font='TkSmallCaptionFont')
+        self._wlabel = w = ttk.Label(self, text='w:', font='TkSmallCaptionFont')
         w.grid(row=0, column=0)
         self._weditor = w = EntryPropertyEditor(self)
         w.grid(row=0, column=1, sticky='we')
         w.parameters(width=4)
 
-        self._wlabel = w = ttk.Label(self, text='h:',
-                                     font='TkSmallCaptionFont')
+        self._wlabel = w = ttk.Label(self, text='h:', font='TkSmallCaptionFont')
         w.grid(row=0, column=2)
         self._heditor = w = EntryPropertyEditor(self)
         w.grid(row=0, column=3, sticky='we')

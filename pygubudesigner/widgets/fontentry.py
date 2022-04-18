@@ -22,29 +22,53 @@ import tkinter.ttk as ttk
 from pygubu.stockimage import StockImage, StockImageException
 
 from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, ChoicePropertyEditor, CheckbuttonPropertyEditor,
-    register_editor)
+    PropertyEditor,
+    ChoicePropertyEditor,
+    CheckbuttonPropertyEditor,
+    register_editor,
+)
 
 
 RE_FONT = re.compile(
-    "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?")
+    "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?"
+)
 
 PREDEFINED_FONTS = [
-    'TkDefaultFont', 'TkTextFont', 'TkFixedFont',
-    'TkMenuFont', 'TkHeadingFont', 'TkCaptionFont',
-    'TkSmallCaptionFont', 'TkIconFont', 'TkTooltipFont']
-WIN_FONTS = (
-    'system', 'ansi', 'device', 'systemfixed', 'ansifixed', 'oemfixed')
+    'TkDefaultFont',
+    'TkTextFont',
+    'TkFixedFont',
+    'TkMenuFont',
+    'TkHeadingFont',
+    'TkCaptionFont',
+    'TkSmallCaptionFont',
+    'TkIconFont',
+    'TkTooltipFont',
+]
+WIN_FONTS = ('system', 'ansi', 'device', 'systemfixed', 'ansifixed', 'oemfixed')
 MAC_FONTS = (
-    'system', 'application', 'menu',
-    'systemSystemFont', 'systemEmphasizedSystemFont', 'systemSmallSystemFont',
-    'systemSmallEmphasizedSystemFont', 'systemApplicationFont',
-    'systemLabelFont', 'systemViewsFont', 'systemMenuTitleFont',
-    'systemMenuItemFont', 'systemMenuItemMarkFont', 'systemMenuItemCmdKeyFont',
-    'systemWindowTitleFont', 'systemPushButtonFont',
-    'systemUtilityWindowTitleFont', 'systemAlertHeaderFont',
-    'systemToolbarFont', 'systemMiniSystemFont', 'systemDetailSystemFont',
-    'systemDetailEmphasizedSystemFont')
+    'system',
+    'application',
+    'menu',
+    'systemSystemFont',
+    'systemEmphasizedSystemFont',
+    'systemSmallSystemFont',
+    'systemSmallEmphasizedSystemFont',
+    'systemApplicationFont',
+    'systemLabelFont',
+    'systemViewsFont',
+    'systemMenuTitleFont',
+    'systemMenuItemFont',
+    'systemMenuItemMarkFont',
+    'systemMenuItemCmdKeyFont',
+    'systemWindowTitleFont',
+    'systemPushButtonFont',
+    'systemUtilityWindowTitleFont',
+    'systemAlertHeaderFont',
+    'systemToolbarFont',
+    'systemMiniSystemFont',
+    'systemDetailSystemFont',
+    'systemDetailEmphasizedSystemFont',
+)
 
 _sp = sys.platform
 if _sp in ('win32', 'cygwin'):
@@ -54,7 +78,6 @@ if _sp == 'darwin':
 
 
 class FontPropertyEditor(PropertyEditor):
-
     def _create_ui(self):
         self._dsize = '12'  # default font size
 
@@ -78,29 +101,33 @@ class FontPropertyEditor(PropertyEditor):
 
         self._bold = w = CheckbuttonPropertyEditor(container1)
         img = StockImage.get('format-text-bold')
-        w.parameters(style='Toolbutton', text='B', image=img,
-                     onvalue='bold', offvalue='')
+        w.parameters(
+            style='Toolbutton', text='B', image=img, onvalue='bold', offvalue=''
+        )
         w.grid(row=0, column=3, sticky='we')
         w.bind('<<PropertyChanged>>', self._on_variable_changed)
 
         self._italic = w = CheckbuttonPropertyEditor(container1)
         img = StockImage.get('format-text-italic')
-        w.parameters(style='Toolbutton', text='I', image=img,
-                     onvalue='italic', offvalue='')
+        w.parameters(
+            style='Toolbutton', text='I', image=img, onvalue='italic', offvalue=''
+        )
         w.grid(row=0, column=4, sticky='we')
         w.bind('<<PropertyChanged>>', self._on_variable_changed)
 
         self._underline = w = CheckbuttonPropertyEditor(container1)
         img = StockImage.get('format-text-underline')
-        w.parameters(style='Toolbutton', text='U', image=img,
-                     onvalue='underline', offvalue='')
+        w.parameters(
+            style='Toolbutton', text='U', image=img, onvalue='underline', offvalue=''
+        )
         w.grid(row=0, column=5, sticky='we')
         w.bind('<<PropertyChanged>>', self._on_variable_changed)
 
         self._overstrike = w = CheckbuttonPropertyEditor(container1)
         img = StockImage.get('format-text-strikethrough')
-        w.parameters(style='Toolbutton', text='S', image=img,
-                     onvalue='overstrike', offvalue='')
+        w.parameters(
+            style='Toolbutton', text='S', image=img, onvalue='overstrike', offvalue=''
+        )
         w.grid(row=0, column=6, sticky='we')
         w.bind('<<PropertyChanged>>', self._on_variable_changed)
 
@@ -201,7 +228,7 @@ if __name__ == '__main__':
     root.rowconfigure(0, weight=1)
     editor = FontPropertyEditor(root)
     editor.grid(sticky='nsew')
-    #editor.edit('Anonymous Pro|-50|bold,italic')
+    # editor.edit('Anonymous Pro|-50|bold,italic')
     editor.edit('Anonymous Pro|12|bold,italic')
 
     def see_var():

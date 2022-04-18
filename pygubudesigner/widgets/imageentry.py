@@ -21,14 +21,12 @@ import tkinter.ttk as ttk
 from pygubu.stockimage import *
 
 from pygubudesigner.i18n import translator
-from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor, register_editor)
+from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
 
 _ = translator
 
 
 class ImagePropertyEditor(PropertyEditor):
-
     def _create_ui(self):
         self._entry = w = ttk.Entry(self, textvariable=self._variable)
         w.grid(sticky='ew')
@@ -48,7 +46,7 @@ class ImagePropertyEditor(PropertyEditor):
         options = {
             'filetypes': [
                 (_('Tk image formats'), ' '.join(ext)),
-                (_('All Files'), '*.*')
+                (_('All Files'), '*.*'),
             ]
         }
 

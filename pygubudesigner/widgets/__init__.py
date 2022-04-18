@@ -6,9 +6,13 @@ from .entryvalidatecommandeditor import EntryValidateCommandPropertyEditor
 from .fontentry import FontPropertyEditor
 from .imageentry import ImagePropertyEditor
 from .pixelcoordinateentry import PixelCoordinatePropertyEditor
-from .propertyeditor import (CheckbuttonPropertyEditor, ChoicePropertyEditor,
-                             EntryPropertyEditor, SpinboxPropertyEditor,
-                             TextPropertyEditor)
+from .propertyeditor import (
+    CheckbuttonPropertyEditor,
+    ChoicePropertyEditor,
+    EntryPropertyEditor,
+    SpinboxPropertyEditor,
+    TextPropertyEditor,
+)
 from .relativeentry import RelativeEntryPropertyEditor
 from .stickyentry import StickyPropertyEditor
 from .tkvarentry import TkVarPropertyEditor

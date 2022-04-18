@@ -32,9 +32,12 @@ class GridRCselectorWidget(ttk.Frame):
         super().__init__(master, **kw)
         self.canvas = tk.Canvas(self)
         self.canvas.configure(
-            background='#ffffff', borderwidth='0',
-            cursor='hand1', highlightthickness='0',
-            width=150, height=150
+            background='#ffffff',
+            borderwidth='0',
+            cursor='hand1',
+            highlightthickness='0',
+            width=150,
+            height=150,
         )
         self.canvas.pack(expand='true', fill='both', side='top')
         self.configure(height='200', padding='5', width='200')
@@ -160,18 +163,13 @@ class GridRCselectorWidget(ttk.Frame):
     def _draw_grid(self, redraw=False):
         canvas = self.canvas
         grid = self.grid
-        grid.configure(fwidth=canvas.winfo_width(),
-                       fheight=canvas.winfo_height())
+        grid.configure(fwidth=canvas.winfo_width(), fheight=canvas.winfo_height())
 
         #
         # Draw Grid lines
         #
-        default_options = {
-            'tags': 'grid', 'fill': 'darkgray', 'dash': (1, 3)
-        }
-        marked_options = {
-            'tags': 'grid', 'fill': 'lightgray', 'dash': ''
-        }
+        default_options = {'tags': 'grid', 'fill': 'darkgray', 'dash': (1, 3)}
+        marked_options = {'tags': 'grid', 'fill': 'lightgray', 'dash': ''}
         options = default_options
         if self._grid_mark_allrows:
             options = marked_options
@@ -186,8 +184,7 @@ class GridRCselectorWidget(ttk.Frame):
                 canvas.coords(item, *coords)
                 canvas.itemconfigure(item, **options)
             else:
-                self.row_line_items[r] = item = canvas.create_line(
-                    *coords, **options)
+                self.row_line_items[r] = item = canvas.create_line(*coords, **options)
 
         options = default_options
         if self._grid_mark_allcols:
@@ -202,11 +199,13 @@ class GridRCselectorWidget(ttk.Frame):
                 canvas.coords(item, *coords)
                 canvas.itemconfigure(item, **options)
             else:
-                self.col_line_items[c] = item = canvas.create_line(
-                    *coords, **options)
+                self.col_line_items[c] = item = canvas.create_line(*coords, **options)
 
         # Drak marked rows
-        marked_options = {'fill': '#F2F2F2', 'outline': '', }
+        marked_options = {
+            'fill': '#F2F2F2',
+            'outline': '',
+        }
         for r in self._marked_rows:
             coords = self.grid.row_coords(r)[1:]
             if r not in self._marked_rows_items:
@@ -278,5 +277,3 @@ if __name__ == '__main__':
     root.after(2000, on_start)
     root.after(5000, change_dimension)
     root.mainloop()
-
-
