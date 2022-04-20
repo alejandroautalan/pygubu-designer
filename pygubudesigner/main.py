@@ -65,7 +65,7 @@ def init_pygubu_widgets():
     widgets_pkg = 'pygubu.builder.widgets'
     mwidgets = importlib.import_module(widgets_pkg)
 
-    for _, modulename, _ in pkgutil.iter_modules(
+    for __, modulename, __ in pkgutil.iter_modules(
         mwidgets.__path__, mwidgets.__name__ + "."
     ):
         try:
@@ -77,12 +77,14 @@ def init_pygubu_widgets():
 
     # initialize custom widgets
     for path in map(Path, pref.get_custom_widgets()):
-        if not path.match(".py"):
+        if not path.match("*.py"):
             continue
 
-        dirname, modulename = str(file.parent), file.name
+        dirname = str(path.parent)
+        modulename = path.name[:-3]
         if dirname not in sys.path:
             sys.path.append(dirname)
+
         try:
             importlib.import_module(modulename)
         except Exception as e:
