@@ -493,7 +493,7 @@ class PygubuDesigner:
         self._pallete.show_group(default_group)
 
     def on_add_widget_event(self, classname):
-        "Adds a widget to the widget tree." ""
+        """Adds a widget to the widget tree."""
 
         self.tree_editor.add_widget(classname)
         self.tree_editor.treeview.focus_set()
@@ -632,11 +632,13 @@ class PygubuDesigner:
             self.script_generator.reset()
 
     def on_file_save(self, event=None):
+        file_saved = False
         if self.currentfile:
             if self.is_changed:
-                return self.do_save(self.currentfile)
+                file_saved = self.do_save(self.currentfile)
         else:
-            return self.do_save_as()
+            file_saved = self.do_save_as()
+        return file_saved
 
     # File Menu
     def on_file_menuitem_clicked(self, itemid):
