@@ -161,7 +161,7 @@ class PygubuDesigner:
         in_macos = sys.platform == 'darwin'
         # build main ui
         self.mainwindow = self.builder.get_object('mainwindow')
-        menu = self.builder.get_object('mainmenu', self.mainwindow)
+        self.main_menu = self.builder.get_object('mainmenu', self.mainwindow)
         self.context_menu = self.builder.get_object('context_menu', self.mainwindow)
 
         # Initialize duplicate menu state
@@ -175,12 +175,12 @@ class PygubuDesigner:
             cmd = 'tk::mac::Quit'
             self.mainwindow.createcommand(cmd, self.quit)
             # In mac add apple menu
-            m = tk.Menu(menu, name='apple')
+            m = tk.Menu(self.main_menu, name='apple')
             m.add_command(label=_('Quit …'), accelerator='Cmd-Q', command=self.quit)
-            menu.insert_cascade(0, menu=m)
+            self.main_menu.insert_cascade(0, menu=m)
 
         # Set top menu
-        self.mainwindow.configure(menu=menu)
+        self.mainwindow.configure(menu=self.main_menu)
 
         # Recen Files management
         rfmenu = self.builder.get_object('file_recent_menu')
@@ -192,6 +192,36 @@ class PygubuDesigner:
         self.bindings_frame = self.builder.get_object('bindingsframe')
         self.bindings_tree = self.builder.get_object('bindingstree')
 
+        # Preview
+        self.preview_canvas = self.builder.get_object('preview_canvas')
+        self.previewer = PreviewHelper(self.preview_canvas, self.show_context_menu)
+
+        # Bottom Panel
+        self.setup_bottom_panel()
+
+        self.builder.connect_callbacks(self)
+
+        # setup app preferences
+        self.setup_app_preferences()
+
+        #
+        # Setup tkk styles
+        #
+        self._setup_styles()
+
+        #
+        # Setup dynamic theme submenu
+        #
+        self._setup_theme_menu()
+
+        # App config
+        top = self.mainwindow
+        try:
+            top.wm_iconname('pygubu')
+            top.tk.call('wm', 'iconphoto', '.', StockImage.get('pygubu'))
+        except StockImageException as e:
+            pass
+
         # Load all widgets before creating the component pallete
         init_pygubu_widgets()
 
@@ -199,21 +229,37 @@ class PygubuDesigner:
         self.fpalette = self.builder.get_object('fpalette')
         self.create_component_palette(self.fpalette)
 
-        # Preview
-        previewc = self.builder.get_object('preview_canvas')
-        self.previewer = PreviewHelper(previewc, self.show_context_menu)
-
         # tree editor
         self.tree_editor = WidgetsTreeEditor(self)
 
         # Tab Code
         self.script_generator = ScriptGenerator(self)
 
-        # Bottom Panel
-        self.setup_bottom_panel()
+        # App bindings
+        self._setup_app_bindings()
 
-        self.builder.connect_callbacks(self)
+    def run(self):
+        self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
+        self.mainwindow.mainloop()
 
+    def __on_window_close(self):
+        """Manage WM_DELETE_WINDOW protocol."""
+        if self.on_close_execute():
+            self.mainwindow.withdraw()
+            self.mainwindow.destroy()
+
+    def quit(self):
+        """Exit the app if it is ready for quit."""
+        self.__on_window_close()
+
+    def set_title(self, newtitle):
+        self.current_title = newtitle
+        default_title = 'Pygubu Designer - {0}'
+        title = default_title.format(newtitle)
+        self.mainwindow.wm_title(title)
+
+    def _setup_app_bindings(self):
+        in_macos = sys.platform == 'darwin'
         #
         # Context menu binding for object treeview
         #
@@ -234,7 +280,7 @@ class PygubuDesigner:
             CONTROL_KP_SEQUENCE = '<Command-KeyPress>'
             ALT_KP_SEQUENCE = '<Control-KeyPress>'
             # Fix menu accelerators
-            for m, itemtype, index in menu_iter_children(menu):
+            for m, itemtype, index in menu_iter_children(self.main_menu):
                 if itemtype != 'separator':
                     accel = m.entrycget(index, 'accelerator')
                     accel = accel.replace('Ctrl+', 'Cmd-')
@@ -264,7 +310,7 @@ class PygubuDesigner:
         master.bind_all('<F6>', virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL))
 
         # Tree Editing Keyboard events
-        for widget in (self.treeview, previewc):
+        for widget in (self.treeview, self.preview_canvas):
             widget.bind(
                 CONTROL_KP_SEQUENCE,
                 key_bind(Key.I, virtual_event(actions.TREE_ITEM_MOVE_UP)),
@@ -339,47 +385,6 @@ class PygubuDesigner:
         w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
         # On preferences save binding
         w.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
-
-        # setup app preferences
-        self.setup_app_preferences()
-
-        #
-        # Setup tkk styles
-        #
-        self._setup_styles()
-
-        #
-        # Setup dynamic theme submenu
-        #
-        self._setup_theme_menu()
-
-        # App config
-        top = self.mainwindow
-        try:
-            top.wm_iconname('pygubu')
-            top.tk.call('wm', 'iconphoto', '.', StockImage.get('pygubu'))
-        except StockImageException as e:
-            pass
-
-    def run(self):
-        self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
-        self.mainwindow.mainloop()
-
-    def __on_window_close(self):
-        """Manage WM_DELETE_WINDOW protocol."""
-        if self.on_close_execute():
-            self.mainwindow.withdraw()
-            self.mainwindow.destroy()
-
-    def quit(self):
-        """Exit the app if it is ready for quit."""
-        self.__on_window_close()
-
-    def set_title(self, newtitle):
-        self.current_title = newtitle
-        default_title = 'Pygubu Designer - {0}'
-        title = default_title.format(newtitle)
-        self.mainwindow.wm_title(title)
 
     def _setup_styles(self):
         self.mainwindow.option_add('*Dialog.msg.width', 34)
