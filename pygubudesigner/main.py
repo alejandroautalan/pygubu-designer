@@ -666,7 +666,7 @@ class PygubuDesigner:
     # Help menu
     def on_help_menuitem_clicked(self, itemid):
         if itemid == 'help_online':
-            url = 'https://github.com/alejandroautalan/pygubu/wiki'
+            url = 'https://github.com/alejandroautalan/pygubu-designer/wiki'
             webbrowser.open_new_tab(url)
         elif itemid == 'help_about':
             self.show_about_dialog()
@@ -761,13 +761,23 @@ class PygubuDesigner:
         def on_ok_execute():
             dialog.close()
 
-        def on_warranty_click(e):
-            url = 'http://www.gnu.org/licenses/gpl-3.0.html'
+        def on_gpl3_clicked(e):
+            url = 'https://www.gnu.org/licenses/gpl-3.0.html'
+            webbrowser.open_new_tab(url)
+
+        def on_mit_clicked(e):
+            url = 'https://opensource.org/licenses/MIT'
+            webbrowser.open_new_tab(url)
+
+        def on_moreinfo_clicked(e):
+            url = 'https://github.com/alejandroautalan/pygubu-designer'
             webbrowser.open_new_tab(url)
 
         dialog_callbacks = {
             'on_ok_execute': on_ok_execute,
-            'on_warranty_clicked': on_warranty_click,
+            'on_gpl3_clicked': on_gpl3_clicked,
+            'on_mit_clicked': on_mit_clicked,
+            'on_moreinfo_clicked': on_moreinfo_clicked,
         }
         builder.connect_callbacks(dialog_callbacks)
 
