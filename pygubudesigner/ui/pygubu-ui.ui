@@ -123,7 +123,6 @@
             </child>
             <child>
               <object class="tk.Menuitem.Command" id="TREE_ITEM_DELETE">
-                <property name="accelerator">Delete</property>
                 <property name="command" type="command" cbtype="with_wid" args="">on_edit_menuitem_clicked</property>
                 <property name="label" translatable="yes">Item delete</property>
               </object>

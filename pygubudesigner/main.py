@@ -348,11 +348,7 @@ class PygubuDesigner:
                 key_bind(Key.K, virtual_event(actions.TREE_NAV_DOWN)),
                 add=True,
             )
-            # avoid double delete dialog in macos
-            if not in_macos:
-                widget.bind(
-                    '<KeyPress-Delete>', virtual_event(actions.TREE_ITEM_DELETE)
-                )
+            widget.bind('<KeyPress-Delete>', virtual_event(actions.TREE_ITEM_DELETE))
 
             # grid move bindings
             widget.bind(
