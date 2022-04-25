@@ -65,6 +65,9 @@ class TkVarPropertyEditor(PropertyEditor):
                 is_valid = False
             if is_valid and not self.RE_IDENTIFIER.match(value):
                 is_valid = False
+            # Check if new name is not already used for other object type.
+            if is_valid and value != self._initvalue:
+                is_valid = self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
 

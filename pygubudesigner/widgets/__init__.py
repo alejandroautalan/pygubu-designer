@@ -1,5 +1,5 @@
 from .colorentry import ColorPropertyEditor
-from .commandentry import CommandPropertyEditor
+from .commandentry import CommandPropertyEditor, CommandPropertyBase
 from .dimensionentry import DimensionPropertyEditor
 from .dynamicpropeditor import DynamicPropertyEditor
 from .entryvalidatecommandeditor import EntryValidateCommandPropertyEditor
@@ -12,6 +12,7 @@ from .propertyeditor import (
     EntryPropertyEditor,
     SpinboxPropertyEditor,
     TextPropertyEditor,
+    IdentifierPropertyEditor,
 )
 from .relativeentry import RelativeEntryPropertyEditor
 from .stickyentry import StickyPropertyEditor

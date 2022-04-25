@@ -36,7 +36,6 @@ class PropertiesEditor:
         self._sframe = frame
         self._frame = None
         self._propbag = {}
-        self._id_validator = kw.get('id_validator', None)
         self._create_properties()
 
         # Used for refreshing/re-populating the styles combobox.
@@ -111,9 +110,6 @@ class PropertiesEditor:
                 row += 1
                 self._propbag[gcode + name] = (label, widget)
                 logger.debug('Created property: %s-%s', gname, name)
-                # add validator for widget id
-                if gcode == '00' and name == 'id':
-                    widget.set_unique_cb(self._id_validator)
 
     def _create_editor(self, master, pname, wdata):
         editor = None

@@ -75,7 +75,7 @@ class SimpleCommandEntry(CommandPropertyBase):
         is_valid = True
         value = self._cbname.value
         if len(value) != 0:
-            is_valid = self.is_safe_identifier(value)
+            is_valid = self.is_safe_identifier(value) and self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
 
@@ -150,7 +150,7 @@ class CommandPropertyEditor(CommandPropertyBase):
         is_valid = True
         value = self._cbname.value
         if len(value) != 0:
-            is_valid = self.is_safe_identifier(value)
+            is_valid = self.is_safe_identifier(value) and self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
 

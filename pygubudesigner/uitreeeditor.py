@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
+import json
 import logging
 import os
 import tkinter as tk
@@ -26,6 +27,11 @@ from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
 from pygubudesigner import preferences as pref
+from pygubudesigner.widgets import (
+    TkVarPropertyEditor,
+    IdentifierPropertyEditor,
+    CommandPropertyBase,
+)
 
 from .actions import *
 from .bindingseditor import BindingsEditor
@@ -84,6 +90,13 @@ class WidgetsTreeEditor:
         # current item being edited
         self.current_edit = None
 
+        # set global validator for tkvariables names
+        TkVarPropertyEditor.global_validator = self.is_tkvar_valid
+        # set global validator for IDs
+        IdentifierPropertyEditor.global_validator = self.is_id_unique
+        # set global validator for commands
+        CommandPropertyBase.global_validator = self.is_command_valid
+
         # Widget Editor
         pframe = app.builder.get_object('propertiesframe')
         lframe = app.builder.get_object('layoutframe')
@@ -91,7 +104,6 @@ class WidgetsTreeEditor:
         bindingstree = app.builder.get_object('bindingstree')
         self.properties_editor = PropertiesEditor(
             pframe,
-            id_validator=self.is_id_unique,
             reselect_item_func=partial(self.on_treeview_select, None),
         )
         self.layout_editor = LayoutEditor(lframe)
@@ -703,19 +715,6 @@ class WidgetsTreeEditor:
                 return is_valid
         return is_valid
 
-    def _is_unique_id(self, root, widget_id):
-        unique = True
-        if root != '':
-            data = self.treedata[root]
-            if data.identifier == widget_id:
-                unique = False
-        if unique is True:
-            for item in self.treeview.get_children(root):
-                unique = self._is_unique_id(item, widget_id)
-                if unique is False:
-                    break
-        return unique
-
     def _generate_id(self, classname, index):
         name = classname.split('.')[-1]
 
@@ -735,11 +734,11 @@ class WidgetsTreeEditor:
             self.counter[classname] += 1
             start_id = self._generate_id(classname, self.counter[classname])
 
-        is_unique = self._is_unique_id('', start_id)
-        while is_unique is False:
+        is_defined = self._is_id_defined('', start_id)
+        while is_defined is True:
             self.counter[classname] += 1
             start_id = self._generate_id(classname, self.counter[classname])
-            is_unique = self._is_unique_id('', start_id)
+            is_defined = self._is_id_defined('', start_id)
 
         return start_id
 
@@ -1327,4 +1326,88 @@ class WidgetsTreeEditor:
     def is_id_unique(self, idvalue):
         "Check if idvalue is unique in all UI tree."
         # Used in ID validation
-        return self._is_unique_id('', idvalue)
+        is_unique = (
+            not self._is_id_defined('', idvalue)
+            and not self._is_tkvar_defined('', idvalue)
+            and not self._is_command_defined('', idvalue)
+            and not self._is_binding_defined('', idvalue)
+        )
+        return is_unique
+
+    def _is_id_defined(self, root, widget_id):
+        is_defined = False
+        if root != '':
+            data = self.treedata[root]
+            if data.identifier == widget_id:
+                is_defined = True
+        if is_defined is False:
+            for item in self.treeview.get_children(root):
+                is_defined = self._is_id_defined(item, widget_id)
+                if is_defined is True:
+                    break
+        return is_defined
+
+    def _is_tkvar_defined(self, root, varname):
+        is_defined = False
+        if root != '':
+            data = self.treedata[root]
+            builder = CLASS_MAP[data.classname].builder
+            for pname, value in data.properties.items():
+                if pname in builder.tkvar_properties:
+                    if value == varname:
+                        is_defined = True
+        if is_defined is False:
+            for item in self.treeview.get_children(root):
+                is_defined = self._is_tkvar_defined(item, varname)
+                if is_defined is True:
+                    break
+        return is_defined
+
+    def _is_binding_defined(self, root, cbname):
+        is_defined = False
+        if root != '':
+            data = self.treedata[root]
+            for bind in data.bindings:
+                if bind.handler == cbname:
+                    is_defined = True
+        if is_defined is False:
+            for item in self.treeview.get_children(root):
+                is_defined = self._is_binding_defined(item, cbname)
+                if is_defined is True:
+                    break
+        return is_defined
+
+    def _is_command_defined(self, root, command_name):
+        is_defined = False
+        if root != '':
+            data = self.treedata[root]
+            builder = CLASS_MAP[data.classname].builder
+            for pname, value in data.properties.items():
+                if pname in builder.command_properties:
+                    cmd = json.loads(value)
+                    if command_name == cmd['value']:
+                        is_defined = True
+        if is_defined is False:
+            for item in self.treeview.get_children(root):
+                is_defined = self._is_command_defined(item, command_name)
+                if is_defined is True:
+                    break
+        return is_defined
+
+    def is_command_valid(self, cmdname):
+        """Check if command name does not collide with other names."""
+        is_valid = (
+            not self._is_id_defined('', cmdname)
+            and not self._is_binding_defined('', cmdname)
+            and not self._is_tkvar_defined('', cmdname)
+        )
+        return is_valid
+
+    def is_tkvar_valid(self, varname):
+        """Check if tkvarname does not collide with other names."""
+        is_valid = (
+            not self._is_id_defined('', varname)
+            and not self._is_command_defined('', varname)
+            and not self._is_binding_defined('', varname)
+        )
+        return is_valid

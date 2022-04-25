@@ -49,6 +49,15 @@ def create_editor(name, *args, **kw):
 class PropertyEditor(ttk.Frame):
     style_initialized = False
 
+    global_validator = None
+
+    @classmethod
+    def is_valid_globally(cls, value):
+        result = True
+        if callable(cls.global_validator):
+            result = cls.global_validator(value)
+        return result
+
     def __init__(self, master=None, **kw):
         self._variable = tk.StringVar()
         self._initvalue = None
@@ -106,6 +115,7 @@ class PropertyEditor(ttk.Frame):
         pass
 
     def edit(self, value):
+        self.show_invalid(False)
         self._initvalue = value
         self.value = value
         self._set_value(value)
@@ -149,13 +159,6 @@ class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
 class IdentifierPropertyEditor(EntryPropertyEditor):
     RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
 
-    def __init__(self, master=None, **kw):
-        self.is_unique_cb = kw.pop('unique_cb', None)
-        super().__init__(master, **kw)
-
-    def set_unique_cb(self, callback):
-        self.is_unique_cb = callback
-
     def _validate(self):
         is_valid = True
         value = self._get_value()
@@ -165,9 +168,8 @@ class IdentifierPropertyEditor(EntryPropertyEditor):
             if is_valid and not self.RE_IDENTIFIER.match(value):
                 is_valid = False
             # Check if new id is unique
-            if is_valid and self.is_unique_cb is not None:
-                if value != self._initvalue:
-                    is_valid = self.is_unique_cb(value)
+            if is_valid and value != self._initvalue:
+                is_valid = self.is_valid_globally(value)
         else:
             # ID must have at least one character
             is_valid = False
