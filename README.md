@@ -155,7 +155,7 @@ See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for more 
 Documentation
 =============
 
-Visit the pygubu [wiki](https://github.com/alejandroautalan/pygubu/wiki) for more documentation.
+Visit the [wiki](https://github.com/alejandroautalan/pygubu-designer/wiki) for more documentation.
 
 
 The following are some good tkinter (and tk) references:

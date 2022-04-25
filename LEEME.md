@@ -180,7 +180,7 @@ Mira [este](https://github.com/alejandroautalan/pygubu/issues/40) issue para may
 Documentación
 =============
 
-Visita la [wiki](https://github.com/alejandroautalan/pygubu/wiki) para mas documentación.
+Visita la [wiki](https://github.com/alejandroautalan/pygubu-designer/wiki) para mas documentación.
 
 Los siguientes links son buenas referencias (en inglés) de tkinter (y tk):
 

@@ -188,7 +188,7 @@ See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for more 
 Documentation
 =============
 
-Visitez le [wiki](https://github.com/alejandroautalan/pygubu/wiki) pygubu pour consulter la documentation.
+Visitez le [wiki](https://github.com/alejandroautalan/pygubu-designer/wiki) pour consulter la documentation.
 
 
 Voici quelques bonnes références de tkinter (et tk) :
