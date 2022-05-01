@@ -31,6 +31,7 @@ from pygubudesigner.widgets import (
     TkVarPropertyEditor,
     IdentifierPropertyEditor,
     CommandPropertyBase,
+    EventHandlerEditor,
 )
 
 from .actions import *
@@ -96,6 +97,8 @@ class WidgetsTreeEditor:
         IdentifierPropertyEditor.global_validator = self.is_id_unique
         # set global validator for commands
         CommandPropertyBase.global_validator = self.is_command_valid
+        # set global validator for bindings commands
+        EventHandlerEditor.global_validator = self.is_binding_valid
 
         # Widget Editor
         pframe = app.builder.get_object('propertiesframe')
@@ -1323,7 +1326,7 @@ class WidgetsTreeEditor:
             tree.after_idle(lambda: tree.focus(found))
             tree.after_idle(lambda: tree.see(found))
 
-    def is_id_unique(self, idvalue):
+    def is_id_unique(self, idvalue) -> bool:
         "Check if idvalue is unique in all UI tree."
         # Used in ID validation
         is_unique = (
@@ -1334,7 +1337,8 @@ class WidgetsTreeEditor:
         )
         return is_unique
 
-    def _is_id_defined(self, root, widget_id):
+    def _is_id_defined(self, root, widget_id) -> bool:
+        """Search widget id in the tree."""
         is_defined = False
         if root != '':
             data = self.treedata[root]
@@ -1347,14 +1351,16 @@ class WidgetsTreeEditor:
                     break
         return is_defined
 
-    def _is_tkvar_defined(self, root, varname):
+    def _is_tkvar_defined(self, root, varname) -> bool:
+        """Search variable name in the tree."""
         is_defined = False
         if root != '':
             data = self.treedata[root]
             builder = CLASS_MAP[data.classname].builder
             for pname, value in data.properties.items():
                 if pname in builder.tkvar_properties:
-                    if value == varname:
+                    vtype, vname = value.split(':')
+                    if vname == varname:
                         is_defined = True
         if is_defined is False:
             for item in self.treeview.get_children(root):
@@ -1363,7 +1369,8 @@ class WidgetsTreeEditor:
                     break
         return is_defined
 
-    def _is_binding_defined(self, root, cbname):
+    def _is_binding_defined(self, root, cbname) -> bool:
+        """Search callback binding name in the tree."""
         is_defined = False
         if root != '':
             data = self.treedata[root]
@@ -1377,7 +1384,8 @@ class WidgetsTreeEditor:
                     break
         return is_defined
 
-    def _is_command_defined(self, root, command_name):
+    def _is_command_defined(self, root, command_name) -> bool:
+        """Searh command name in the tree."""
         is_defined = False
         if root != '':
             data = self.treedata[root]
@@ -1409,5 +1417,14 @@ class WidgetsTreeEditor:
             not self._is_id_defined('', varname)
             and not self._is_command_defined('', varname)
             and not self._is_binding_defined('', varname)
+        )
+        return is_valid
+
+    def is_binding_valid(self, cmdname):
+        """Check if binding name does not collide with other names."""
+        is_valid = (
+            not self._is_id_defined('', cmdname)
+            and not self._is_command_defined('', cmdname)
+            and not self._is_tkvar_defined('', cmdname)
         )
         return is_valid

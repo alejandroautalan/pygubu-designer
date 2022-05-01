@@ -7,6 +7,7 @@ from .fontentry import FontPropertyEditor
 from .imageentry import ImagePropertyEditor
 from .pixelcoordinateentry import PixelCoordinatePropertyEditor
 from .propertyeditor import (
+    PropertyEditor,
     CheckbuttonPropertyEditor,
     ChoicePropertyEditor,
     EntryPropertyEditor,
@@ -19,3 +20,4 @@ from .stickyentry import StickyPropertyEditor
 from .tkvarentry import TkVarPropertyEditor
 from .ttkstyleentry import TtkStylePropertyEditor
 from .whentry import WHPropertyEditor
+from .bindingeditor import EventHandlerEditor, SequenceEditor
