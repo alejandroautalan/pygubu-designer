@@ -1,4 +1,4 @@
 black
 appdirs>=1.4.3
 Mako>=1.1.4
-pygubu>=0.20.1
+pygubu>=0.21

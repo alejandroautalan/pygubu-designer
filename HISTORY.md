@@ -1,6 +1,12 @@
 History
 =======
 
+Changes for version 0.26
+
+  * Fix name collisions between widget ids, variables and commands. #115
+  * Fix issue with Delete key in macOS. #119
+  * Fix wiki links. #118
+
 Changes for version 0.25
 
   * Make more intuitive design screen labels. #87
