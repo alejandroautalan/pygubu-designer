@@ -64,7 +64,7 @@
                     </child>
                     <child>
                       <object class="ttk.Label" id="label2">
-                        <property name="font">{sans} 12 {}</property>
+                        <property name="font">{sans} 12 {bold}</property>
                         <property name="text" translatable="yes">pygubu-designer</property>
                         <layout manager="pack">
                           <property name="anchor">center</property>
@@ -157,7 +157,7 @@
                     </child>
                     <child>
                       <object class="ttk.Label" id="label5">
-                        <property name="font">{sans} 11 {}</property>
+                        <property name="font">{sans} 11 {bold}</property>
                         <property name="text" translatable="yes">pygubu</property>
                         <layout manager="pack">
                           <property name="padx">5 0</property>
