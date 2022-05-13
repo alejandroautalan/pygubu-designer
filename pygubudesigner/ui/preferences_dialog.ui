@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.1">
+<interface version="1.2">
   <object class="pygubu.builder.widgets.dialog" id="preferences">
     <property name="geometry">480x360</property>
     <property name="height">200</property>
@@ -16,7 +16,6 @@
         <layout manager="pack">
           <property name="expand">true</property>
           <property name="fill">both</property>
-          <property name="propagate">True</property>
           <property name="side">top</property>
         </layout>
         <child>
@@ -26,7 +25,6 @@
             <layout manager="pack">
               <property name="expand">true</property>
               <property name="fill">both</property>
-              <property name="propagate">True</property>
               <property name="side">top</property>
             </layout>
             <child>
@@ -39,9 +37,11 @@
                     <property name="padding">5</property>
                     <property name="width">200</property>
                     <layout manager="pack">
-                      <property name="propagate">True</property>
                       <property name="side">top</property>
                     </layout>
+                    <containerlayout manager="grid">
+                      <property type="col" id="0" name="weight">1</property>
+                    </containerlayout>
                     <child>
                       <object class="ttk.Labelframe" id="general_frame">
                         <property name="height">200</property>
@@ -51,18 +51,20 @@
                         <layout manager="grid">
                           <property name="column">0</property>
                           <property name="pady">0 5</property>
-                          <property name="propagate">True</property>
                           <property name="row">0</property>
                           <property name="sticky">nsew</property>
-                          <property type="col" id="0" name="weight">1</property>
                         </layout>
+                        <containerlayout manager="grid">
+                          <property type="col" id="1" name="weight">1</property>
+                          <property type="row" id="0" name="pad">4</property>
+                          <property type="row" id="1" name="pad">0</property>
+                          <property type="row" id="2" name="pad">4</property>
+                        </containerlayout>
                         <child>
                           <object class="ttk.Label" id="lblpt">
                             <property name="text" translatable="yes">Preferred widget set:</property>
                             <layout manager="grid">
-                              <property name="propagate">True</property>
                               <property name="sticky">ew</property>
-                              <property type="row" id="0" name="pad">4</property>
                             </layout>
                           </object>
                         </child>
@@ -72,11 +74,8 @@
                             <layout manager="grid">
                               <property name="column">1</property>
                               <property name="pady">4</property>
-                              <property name="propagate">True</property>
                               <property name="row">0</property>
                               <property name="sticky">e</property>
-                              <property type="col" id="1" name="weight">1</property>
-                              <property type="row" id="0" name="pad">4</property>
                             </layout>
                           </object>
                         </child>
@@ -85,10 +84,8 @@
                             <property name="text" translatable="yes">Preferred ttk theme:</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">1</property>
                               <property name="sticky">ew</property>
-                              <property type="row" id="1" name="pad">0</property>
                             </layout>
                           </object>
                         </child>
@@ -98,11 +95,8 @@
                             <layout manager="grid">
                               <property name="column">1</property>
                               <property name="pady">4</property>
-                              <property name="propagate">True</property>
                               <property name="row">1</property>
                               <property name="sticky">e</property>
-                              <property type="col" id="1" name="weight">1</property>
-                              <property type="row" id="1" name="pad">0</property>
                             </layout>
                           </object>
                         </child>
@@ -111,10 +105,8 @@
                             <property name="text" translatable="yes">Preferred layout manager:</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">2</property>
                               <property name="sticky">ew</property>
-                              <property type="row" id="2" name="pad">4</property>
                             </layout>
                           </object>
                         </child>
@@ -124,11 +116,22 @@
                             <layout manager="grid">
                               <property name="column">1</property>
                               <property name="pady">4</property>
-                              <property name="propagate">True</property>
                               <property name="row">2</property>
                               <property name="sticky">e</property>
-                              <property type="col" id="1" name="weight">1</property>
-                              <property type="row" id="2" name="pad">4</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Checkbutton" id="chk_center_preview">
+                            <property name="offvalue">no</property>
+                            <property name="onvalue">yes</property>
+                            <property name="text" translatable="yes">Center toplevel preview window</property>
+                            <property name="variable">string:center_preview</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="pady">4</property>
+                              <property name="row">3</property>
+                              <property name="sticky">w</property>
                             </layout>
                           </object>
                         </child>
@@ -143,11 +146,12 @@
                         <layout manager="grid">
                           <property name="column">0</property>
                           <property name="padx">5 0</property>
-                          <property name="propagate">True</property>
                           <property name="row">1</property>
                           <property name="sticky">nsew</property>
-                          <property type="col" id="0" name="weight">1</property>
                         </layout>
+                        <containerlayout manager="grid">
+                          <property type="col" id="0" name="weight">1</property>
+                        </containerlayout>
                         <child>
                           <object class="ttk.Radiobutton" id="radiobutton_1">
                             <property name="text" translatable="yes">No separator (e.g. button1)</property>
@@ -155,10 +159,8 @@
                             <property name="variable">string:widget_naming_separator</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">0</property>
                               <property name="sticky">w</property>
-                              <property type="col" id="0" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
@@ -169,10 +171,8 @@
                             <property name="variable">string:widget_naming_separator</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">1</property>
                               <property name="sticky">w</property>
-                              <property type="col" id="0" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
@@ -185,10 +185,8 @@
                             <layout manager="grid">
                               <property name="column">0</property>
                               <property name="pady">4</property>
-                              <property name="propagate">True</property>
                               <property name="row">2</property>
                               <property name="sticky">w</property>
-                              <property type="col" id="0" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
@@ -198,10 +196,8 @@
                             <layout manager="grid">
                               <property name="column">0</property>
                               <property name="pady">4</property>
-                              <property name="propagate">True</property>
                               <property name="row">3</property>
                               <property name="sticky">w</property>
-                              <property type="col" id="0" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
@@ -215,17 +211,17 @@
                         <property name="width">200</property>
                         <layout manager="grid">
                           <property name="column">0</property>
-                          <property name="propagate">True</property>
                           <property name="row">2</property>
                           <property name="sticky">nsew</property>
-                          <property type="col" id="0" name="weight">1</property>
                         </layout>
+                        <containerlayout manager="grid">
+                          <property type="col" id="1" name="weight">1</property>
+                        </containerlayout>
                         <child>
                           <object class="ttk.Label" id="label_1_2">
                             <property name="text" translatable="yes">Window geometry:</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">0</property>
                             </layout>
                           </object>
@@ -236,9 +232,7 @@
                             <property name="textvariable">string:geometry</property>
                             <layout manager="grid">
                               <property name="column">1</property>
-                              <property name="propagate">True</property>
                               <property name="row">0</property>
-                              <property type="col" id="1" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
@@ -260,7 +254,6 @@
                     <layout manager="pack">
                       <property name="expand">true</property>
                       <property name="fill">both</property>
-                      <property name="propagate">True</property>
                       <property name="side">top</property>
                     </layout>
                     <child>
@@ -270,20 +263,21 @@
                         <layout manager="pack">
                           <property name="expand">true</property>
                           <property name="fill">both</property>
-                          <property name="propagate">True</property>
                           <property name="side">top</property>
                         </layout>
+                        <containerlayout manager="grid">
+                          <property type="col" id="0" name="weight">1</property>
+                          <property type="row" id="0" name="weight">0</property>
+                          <property type="row" id="1" name="weight">1</property>
+                        </containerlayout>
                         <child>
                           <object class="ttk.Label" id="Label_1">
                             <property name="font">TkHeadingFont</property>
                             <property name="text" translatable="yes">Custom Widgets Builders</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">0</property>
                               <property name="sticky">w</property>
-                              <property type="col" id="0" name="weight">1</property>
-                              <property type="row" id="0" name="weight">0</property>
                             </layout>
                           </object>
                         </child>
@@ -292,12 +286,8 @@
                             <property name="scrolltype">both</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">1</property>
                               <property name="sticky">nsew</property>
-                              <property type="col" id="0" name="weight">1</property>
-                              <property type="row" id="0" name="weight">1</property>
-                              <property type="row" id="1" name="weight">1</property>
                             </layout>
                             <child>
                               <object class="ttk.Treeview" id="cwtv">
@@ -307,7 +297,6 @@
                                 <layout manager="pack">
                                   <property name="expand">true</property>
                                   <property name="fill">both</property>
-                                  <property name="propagate">True</property>
                                   <property name="side">top</property>
                                 </layout>
                                 <child>
@@ -333,25 +322,23 @@
                             <property name="width">200</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">2</property>
                               <property name="sticky">ew</property>
-                              <property type="col" id="0" name="weight">1</property>
-                              <property type="row" id="0" name="weight">1</property>
-                              <property type="row" id="1" name="weight">1</property>
                             </layout>
+                            <containerlayout manager="grid">
+                              <property type="col" id="0" name="weight">0</property>
+                              <property type="col" id="1" name="weight">1</property>
+                              <property type="row" id="0" name="weight">0</property>
+                              <property type="row" id="1" name="weight">1</property>
+                            </containerlayout>
                             <child>
                               <object class="ttk.Label" id="Label_2">
                                 <property name="padding">0 0 0 2</property>
                                 <property name="text" translatable="yes">Requires restart.</property>
                                 <layout manager="grid">
                                   <property name="column">0</property>
-                                  <property name="propagate">True</property>
                                   <property name="row">0</property>
                                   <property name="sticky">w</property>
-                                  <property type="col" id="0" name="weight">0</property>
-                                  <property type="row" id="0" name="weight">0</property>
-                                  <property type="row" id="1" name="weight">1</property>
                                 </layout>
                               </object>
                             </child>
@@ -364,12 +351,8 @@
                                 <layout manager="grid">
                                   <property name="column">1</property>
                                   <property name="padx">0 5</property>
-                                  <property name="propagate">True</property>
                                   <property name="row">0</property>
                                   <property name="sticky">e</property>
-                                  <property type="col" id="1" name="weight">1</property>
-                                  <property type="row" id="0" name="weight">0</property>
-                                  <property type="row" id="1" name="weight">1</property>
                                 </layout>
                               </object>
                             </child>
@@ -381,12 +364,8 @@
                                 <layout manager="grid">
                                   <property name="column">2</property>
                                   <property name="padx">5 0</property>
-                                  <property name="propagate">True</property>
                                   <property name="row">0</property>
                                   <property name="sticky">e</property>
-                                  <property type="col" id="0" name="weight">1</property>
-                                  <property type="row" id="0" name="weight">0</property>
-                                  <property type="row" id="1" name="weight">1</property>
                                 </layout>
                               </object>
                             </child>
@@ -410,7 +389,6 @@
                     <layout manager="pack">
                       <property name="expand">true</property>
                       <property name="fill">both</property>
-                      <property name="propagate">True</property>
                       <property name="side">top</property>
                     </layout>
                     <child>
@@ -420,20 +398,20 @@
                         <layout manager="pack">
                           <property name="expand">false</property>
                           <property name="fill">x</property>
-                          <property name="propagate">True</property>
                           <property name="side">top</property>
                         </layout>
+                        <containerlayout manager="grid">
+                          <property type="col" id="0" name="weight">1</property>
+                          <property type="row" id="0" name="weight">0</property>
+                        </containerlayout>
                         <child>
                           <object class="ttk.Label" id="lbl_title">
                             <property name="font">TkHeadingFont</property>
                             <property name="text" translatable="yes">Ttk Styles</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">0</property>
                               <property name="sticky">w</property>
-                              <property type="col" id="0" name="weight">1</property>
-                              <property type="row" id="0" name="weight">0</property>
                             </layout>
                           </object>
                         </child>
@@ -447,18 +425,18 @@
                           <property name="expand">false</property>
                           <property name="fill">x</property>
                           <property name="pady">20</property>
-                          <property name="propagate">True</property>
                           <property name="side">top</property>
                         </layout>
+                        <containerlayout manager="grid">
+                          <property type="col" id="0" name="weight">1</property>
+                        </containerlayout>
                         <child>
                           <object class="ttk.Label" id="lbl_definition_file">
                             <property name="text" translatable="yes">Style Definition File:</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">0</property>
                               <property name="sticky">w</property>
-                              <property type="col" id="0" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
@@ -469,10 +447,8 @@
                             <layout manager="grid">
                               <property name="column">0</property>
                               <property name="columnspan">2</property>
-                              <property name="propagate">True</property>
                               <property name="row">1</property>
                               <property name="sticky">nsew</property>
-                              <property type="col" id="0" name="weight">1</property>
                             </layout>
                           </object>
                         </child>
@@ -483,10 +459,8 @@
                             <property name="width">200</property>
                             <layout manager="grid">
                               <property name="column">0</property>
-                              <property name="propagate">True</property>
                               <property name="row">3</property>
                               <property name="sticky">ew</property>
-                              <property type="col" id="0" name="weight">1</property>
                             </layout>
                             <child>
                               <object class="ttk.Button" id="btn_browse_definition_file">
@@ -533,7 +507,6 @@
             <property name="padding">0 5 0 0</property>
             <property name="width">200</property>
             <layout manager="pack">
-              <property name="propagate">True</property>
               <property name="side">right</property>
             </layout>
             <child>
@@ -543,7 +516,6 @@
                 <layout manager="grid">
                   <property name="column">0</property>
                   <property name="padx">0 5</property>
-                  <property name="propagate">True</property>
                   <property name="row">0</property>
                 </layout>
               </object>
@@ -556,7 +528,6 @@
                 <layout manager="grid">
                   <property name="column">1</property>
                   <property name="padx">5 0</property>
-                  <property name="propagate">True</property>
                   <property name="row">0</property>
                 </layout>
               </object>

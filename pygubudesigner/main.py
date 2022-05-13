@@ -194,7 +194,9 @@ class PygubuDesigner:
 
         # Preview
         self.preview_canvas = self.builder.get_object('preview_canvas')
-        self.previewer = PreviewHelper(self.preview_canvas, self.show_context_menu)
+        self.previewer = PreviewHelper(self.preview_canvas,
+                                       self.show_context_menu,
+                                       self._should_center_preview_window)
 
         # Bottom Panel
         self.setup_bottom_panel()
@@ -423,6 +425,18 @@ class PygubuDesigner:
             menu.add_radiobutton(
                 label=name, value=name, variable=self.__theme_var, command=handler
             )
+
+    def _should_center_preview_window(self) -> bool:
+        """
+        Check whether the option has been enabled to center
+        the preview window or not.
+        :return: bool (True if we should center the preview window, otherwise False)
+        """
+        self.tree_editor.center_preview = pref.get_option("center_preview")
+        if self.tree_editor.center_preview == "yes":
+            return True
+        else:
+            return False
 
     def create_treelist(self):
         root_tagset = {'tk', 'ttk'}
