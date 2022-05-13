@@ -1,6 +1,3 @@
-#
-# Copyright 2012-2022 Alejandro Autalán
-#
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
@@ -88,6 +85,24 @@ class ToplevelFramePreviewBO(BuilderObject):
     properties = TKToplevel.properties + ('modal',)
     ro_properties = TKToplevel.ro_properties
 
+    def configure(self, target=None):
+        # setup width and height properties if
+        # geometry is defined.
+        geom = 'geometry'
+        if geom in self.wmeta.properties:
+            w, h = self._get_dimwh(self.wmeta.properties[geom])
+            if w and h:
+                self.wmeta.properties['width'] = w
+                self.wmeta.properties['height'] = h
+        super().configure(target)
+
+    def _get_dimwh(self, dimvalue: str):
+        # get width and height from dimension string
+        dim = dimvalue.split('+')[0]
+        dim = dim.split('-')[0]
+        w, h = dim.split('x')
+        return (w, h)
+
     def _set_property(self, target_widget, pname, value):
         tw = target_widget
         tw.tl_attrs[pname] = value
@@ -105,9 +120,7 @@ class ToplevelFramePreviewBO(BuilderObject):
                     del tw.tl_attrs[pname]
         elif pname == 'geometry':
             if value:
-                dim = value.split('+')[0]
-                dim = dim.split('-')[0]
-                w, h = dim.split('x')
+                w, h = self._get_dimwh(value)
                 if w and h:
                     tw.tl_attrs['minsize'] = (int(w), int(h))
                     tw._h_set = tw._w_set = False
@@ -116,9 +129,6 @@ class ToplevelFramePreviewBO(BuilderObject):
                         tw.pack_propagate(0)
                     elif tw.grid_slaves():
                         tw.grid_propagate(0)
-                    # Fix w and h of preview window, when geometry is set
-                    self.wmeta.properties['width'] = w
-                    self.wmeta.properties['height'] = h
         elif pname == 'resizable':
             # Do nothing, fake 'resizable' property for Toplevel preview
             pass
