@@ -76,6 +76,9 @@ class WidgetsTreeEditor:
         # Set the default layout manager
         self.default_layout_manager = self.__preferred_layout_manager_var.get()
 
+        # Get whether we should center the toplevel preview window
+        self.center_preview = pref.get_option('center_preview')
+
         # Filter vars
         self.filter_on = False
         self.filtervar = app.builder.get_variable('filtervar')

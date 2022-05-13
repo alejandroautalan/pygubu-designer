@@ -33,10 +33,15 @@ logger = logging.getLogger(__name__)
 class PreviewHelper:
     indicators_tag = ('nw', 'ne', 'sw', 'se')
 
-    def __init__(self, canvas, context_menu_method):
+    def __init__(self, canvas, context_menu_method, center_window_check):
         self.canvas = canvas
         # The method we will call to show the context menu
         self.show_context_menu = context_menu_method
+
+        # A method that will check if we should center
+        # the toplevel preview window or not.
+        self.center_window_check = center_window_check
+        
         self.previews = OrderedDict()
         self.padding = 20
         self.indicators = None
@@ -281,6 +286,10 @@ class PreviewHelper:
         preview = self.previews[identifier]
         top = preview.create_toplevel(widget_id, uidefinition)
         self.toplevel_previews.append(top)
+
+        # Check if we should center the preview window
+        if self.center_window_check():
+            Preview.center_window_active_monitor(top)
 
     def close_toplevel_previews(self):
         for top in self.toplevel_previews:

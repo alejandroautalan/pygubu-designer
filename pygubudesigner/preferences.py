@@ -26,6 +26,10 @@ options = {
         'values': '["pack", "grid", "place"]',
         'default': 'pack',
     },
+    'center_preview': {
+        'values': '["yes", "no"]',
+        'default': 'no',
+    },
     'geometry': {
         'default': '640x480',
     },
