@@ -1,6 +1,14 @@
 History
 =======
 
+Changes for next release
+
+  * Add option to center the toplevel preview window. PR #124 @jrezai
+
+Changes for version 0.26.1
+
+  * Hot fix: Error when loading old UI files. issue #123
+  
 Changes for version 0.26
 
   * Fix name collisions between widget ids, variables and commands. #115
