@@ -78,6 +78,7 @@ class UI2Code(Builder):
         self.uidefinition = None
         self._builder = Builder()
         self._options = {}
+        self._with_i18n_support = False
 
     def add_import_line(self, module_name, as_name=None, priority=0):
         if module_name not in self._extra_imports:
@@ -405,3 +406,19 @@ class UI2Code(Builder):
         output = name.replace('.', '_')
         output = ''.join(x for x in output if x.isalnum() or x == '_')
         return output
+
+    def code_translate_str(self, value: str) -> str:
+        escaped = BuilderObject.code_escape_str(value)
+        if self.with_i18n_support:
+            trval = f'_({escaped})'
+            return trval
+        else:
+            return escaped
+
+    @property
+    def with_i18n_support(self) -> bool:
+        return self._with_i18n_support
+
+    @with_i18n_support.setter
+    def with_i18n_support(self, value: bool):
+        self._with_i18n_support = value

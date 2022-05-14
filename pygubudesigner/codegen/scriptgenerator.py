@@ -87,6 +87,7 @@ class ScriptGenerator:
             target = self.tree.get_widget_id(tree_item)
             target_class = self.tree.get_widget_class(tree_item)
             class_name = self.classnamevar.get()
+            with_i18n_support = True
 
             main_widget_is_toplevel = False
             if target_class == 'tk.Toplevel':
@@ -105,8 +106,10 @@ class ScriptGenerator:
                 'tkvariables': [],
                 'has_ttk_styles': False,
                 'set_project_path': False,
+                'with_i18n_support': with_i18n_support,
             }
 
+            generator.with_i18n_support = with_i18n_support
             black_fm = black.FileMode()
             if template == 'application':
                 generator.add_import_line('pathlib')

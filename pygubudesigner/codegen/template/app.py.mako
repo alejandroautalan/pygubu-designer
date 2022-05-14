@@ -6,8 +6,13 @@ PROJECT_UI = PROJECT_PATH / "${project_name}"
 
 <%block name="class_definition" filter="trim">
 class ${class_name}:
+%if with_i18n_support:
+    def __init__(self, master=None, translator=None):
+        self.builder = builder = pygubu.Builder(translator)
+%else:
     def __init__(self, master=None):
         self.builder = builder = pygubu.Builder()
+%endif
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object('${main_widget}', master)
