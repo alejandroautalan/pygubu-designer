@@ -1362,7 +1362,9 @@ class WidgetsTreeEditor:
             builder = CLASS_MAP[data.classname].builder
             for pname, value in data.properties.items():
                 if pname in builder.tkvar_properties:
-                    vtype, vname = value.split(':')
+                    vname = value
+                    if ':' in value:
+                        vtype, vname = value.split(':')
                     if vname == varname:
                         is_defined = True
         if is_defined is False:
