@@ -46,6 +46,7 @@ class ScriptGenerator:
         self.template_desc_var = None
         self.import_tkvars_var = None
         self.use_ttkdefs_file_var = None
+        self.add_i18n_var = None
         myvars = [
             'widgetlistvar',
             'widgetlist_keyvar',
@@ -54,11 +55,13 @@ class ScriptGenerator:
             'template_desc_var',
             'import_tkvars_var',
             'use_ttkdefs_file_var',
+            'add_i18n_var',
         ]
         builder.import_variables(self, myvars)
 
         self.txt_code = builder.get_object('txt_code')
         self.cb_import_tkvars = builder.get_object('cb_import_tkvars')
+        self.cb_add_i18n = builder.get_object('cb_add_i18n')
 
         _ = self.app.translator
         self.msgtitle = _('Script Generator')
@@ -72,7 +75,7 @@ class ScriptGenerator:
         }
         self.template_var.set('application')
         self.import_tkvars_var.set(True)
-        self.use_ttkdefs_file_var.set(True)
+        self.use_ttkdefs_file_var.set(False)
 
     def camel_case(self, st):
         output = ''.join(x for x in st.title() if x.isalnum())
@@ -87,7 +90,7 @@ class ScriptGenerator:
             target = self.tree.get_widget_id(tree_item)
             target_class = self.tree.get_widget_class(tree_item)
             class_name = self.classnamevar.get()
-            with_i18n_support = True
+            with_i18n_support = self.add_i18n_var.get()
 
             main_widget_is_toplevel = False
             if target_class == 'tk.Toplevel':
@@ -136,6 +139,7 @@ class ScriptGenerator:
                 final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
             elif template == 'widget':
+                generator.with_i18n_support = False
                 generator.add_import_line('tkinter', 'tk')
                 if self.use_ttkdefs_file_var.get():
                     generator.add_import_line('tkinter.ttk', 'ttk', priority=1)
@@ -188,6 +192,7 @@ class ScriptGenerator:
         template = self.template_var.get()
         classname = self.get_classname()
         self.cb_import_tkvars.configure(state="disabled")
+        self.cb_add_i18n.configure(state="normal")
         if template == 'application':
             name = f'{classname}App'
             self.classnamevar.set(name)
@@ -198,6 +203,7 @@ class ScriptGenerator:
         elif template == 'widget':
             name = f'{classname}Widget'
             self.classnamevar.set(name)
+            self.cb_add_i18n.configure(state="disabled")
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
         if clear_code:
