@@ -37,7 +37,9 @@ class ScriptGenerator:
         self.tree = app.tree_editor
         self.projectname = ''
 
-        self.widgetlist = builder.get_object('widgetlist')
+        self.widgetlist = w = builder.get_object('widgetlist')
+        w.bind('<<ComboboxSelected>>', self._configure_menulist)
+        self.menulist = builder.get_object('menulist')
 
         self.widgetlistvar = None
         self.widgetlist_keyvar = None
@@ -47,6 +49,7 @@ class ScriptGenerator:
         self.import_tkvars_var = None
         self.use_ttkdefs_file_var = None
         self.add_i18n_var = None
+        self.menulist_keyvar = None
         myvars = [
             'widgetlistvar',
             'widgetlist_keyvar',
@@ -56,6 +59,7 @@ class ScriptGenerator:
             'import_tkvars_var',
             'use_ttkdefs_file_var',
             'add_i18n_var',
+            'menulist_keyvar',
         ]
         builder.import_variables(self, myvars)
 
@@ -93,8 +97,16 @@ class ScriptGenerator:
             with_i18n_support = self.add_i18n_var.get()
 
             main_widget_is_toplevel = False
+            set_main_menu = False
+            main_menu_id = None
             if target_class == 'tk.Toplevel':
                 main_widget_is_toplevel = True
+
+                # Main menu definition
+                menu_item = self.menulist_keyvar.get()
+                if menu_item != 'None' and template != 'widget':
+                    main_menu_id = self.tree.get_widget_id(menu_item)
+                    set_main_menu = True
 
             context = {
                 'project_name': self.projectname,
@@ -110,6 +122,8 @@ class ScriptGenerator:
                 'has_ttk_styles': False,
                 'set_project_path': False,
                 'with_i18n_support': with_i18n_support,
+                'set_main_menu': set_main_menu,
+                'main_menu_id': main_menu_id,
             }
 
             generator.with_i18n_support = with_i18n_support
@@ -191,19 +205,24 @@ class ScriptGenerator:
     def on_code_template_changed(self, clear_code=True):
         template = self.template_var.get()
         classname = self.get_classname()
-        self.cb_import_tkvars.configure(state="disabled")
-        self.cb_add_i18n.configure(state="normal")
+        import_tkvars_state = 'disabled'
+        add_i18n_state = 'normal'
+        menulist_state = 'normal'
         if template == 'application':
             name = f'{classname}App'
             self.classnamevar.set(name)
-            self.cb_import_tkvars.configure(state="normal")
+            import_tkvars_state = 'normal'
         elif template == 'codescript':
             name = f'{classname}App'
             self.classnamevar.set(name)
         elif template == 'widget':
             name = f'{classname}Widget'
             self.classnamevar.set(name)
-            self.cb_add_i18n.configure(state="disabled")
+            add_i18n_state = 'disabled'
+            menulist_state = 'disabled'
+        self.cb_import_tkvars.configure(state=import_tkvars_state)
+        self.cb_add_i18n.configure(state=add_i18n_state)
+        self.menulist.configure(state=menulist_state)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
         if clear_code:
@@ -222,11 +241,23 @@ class ScriptGenerator:
             with open(fname, 'w') as out:
                 out.write(self.get_code())
 
+    def _configure_menulist(self, event=None):
+        tree_item = self.widgetlist_keyvar.get()
+        target_class = self.tree.get_widget_class(tree_item)
+        newstate = 'normal' if target_class == 'tk.Toplevel' else 'disabled'
+        self.menulist.configure(state=newstate)
+
     def configure(self):
         self.projectname = self.app.project_name()
-        wlist = self.tree.get_topwidget_list()
+        # Top level widgets
+        wlist = self.tree.get_top_widget_list()
         self.widgetlist.configure(values=wlist)
         self.classnamevar.set(self.get_classname())
+        # Top level menues
+        mlist = self.tree.get_top_menu_list()
+        mlist.insert(0, ('empty', ''))
+        self.menulist.configure(values=mlist)
+        # self.menulist_keyvar.set('None')
 
         if len(wlist) > 0:
             key = wlist[0][0]

@@ -915,6 +915,27 @@
                                                             </layout>
                                                           </object>
                                                         </child>
+                                                        <child>
+                                                          <object class="ttk.Label" id="label2">
+                                                            <property name="text" translatable="yes">Main menu:</property>
+                                                            <layout manager="grid">
+                                                              <property name="column">0</property>
+                                                              <property name="row">2</property>
+                                                              <property name="sticky">ew</property>
+                                                            </layout>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="pygubu.builder.widgets.combobox" id="menulist">
+                                                            <property name="keyvariable">string:menulist_keyvar</property>
+                                                            <property name="textvariable">string:menulist_var</property>
+                                                            <layout manager="grid">
+                                                              <property name="column">1</property>
+                                                              <property name="row">2</property>
+                                                              <property name="sticky">ew</property>
+                                                            </layout>
+                                                          </object>
+                                                        </child>
                                                       </object>
                                                     </child>
                                                     <child>

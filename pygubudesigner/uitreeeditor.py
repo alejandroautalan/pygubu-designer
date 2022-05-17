@@ -1298,15 +1298,28 @@ class WidgetsTreeEditor:
     #
     # End Filter functions
     #
-
-    def get_topwidget_list(self):
-        wlist = []
+    def _top_widget_iterator(self):
         children = self.treeview.get_children('')
         for item in children:
             data = self.treedata[item]
-            label = f'{data.identifier} ({data.classname})'
-            element = (item, label)
-            wlist.append(element)
+            yield (item, data)
+
+    def get_top_widget_list(self):
+        wlist = []
+        for item, data in self._top_widget_iterator():
+            if data.classname != 'tk.Menu':
+                label = f'{data.identifier} ({data.classname})'
+                element = (item, label)
+                wlist.append(element)
+        return wlist
+
+    def get_top_menu_list(self):
+        wlist = []
+        for item, data in self._top_widget_iterator():
+            if data.classname == 'tk.Menu':
+                label = f'{data.identifier} ({data.classname})'
+                element = (item, label)
+                wlist.append(element)
         return wlist
 
     def get_widget_class(self, item):
