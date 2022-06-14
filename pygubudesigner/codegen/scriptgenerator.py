@@ -104,7 +104,7 @@ class ScriptGenerator:
 
                 # Main menu definition
                 menu_item = self.menulist_keyvar.get()
-                if menu_item != 'empty' and template != 'widget':
+                if menu_item not in ('empty', 'None') and template != 'widget':
                     main_menu_id = self.tree.get_widget_id(menu_item)
                     set_main_menu = True
 
