@@ -1640,8 +1640,8 @@ LAYOUT_OPTIONS = {
     # pack/grid/place common properties
     'padx': {'editor': 'twodimensionentry', 'help': help_for('padx-layout')},
     'pady': {'editor': 'twodimensionentry', 'help': help_for('pady-layout')},
-    'ipadx': {'editor': 'twodimensionentry', 'help': help_for('ipadx-layout')},
-    'ipady': {'editor': 'twodimensionentry', 'help': help_for('ipady-layout')},
+    'ipadx': {'editor': 'dimensionentry', 'help': help_for('ipadx-layout')},
+    'ipady': {'editor': 'dimensionentry', 'help': help_for('ipady-layout')},
     'propagate': {
         'editor': 'choice',
         'params': {'values': ('True', 'False'), 'state': 'readonly'},
