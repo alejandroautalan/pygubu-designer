@@ -460,6 +460,57 @@ Validation mode: key</property>
                 </layout>
               </object>
             </child>
+            <child>
+              <object class="ttk.Frame" id="frame1">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="label3">
+                    <property name="text" translatable="yes">Option Menu</property>
+                    <property name="width">-14</property>
+                    <layout manager="pack">
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Frame" id="frame9">
+                    <property name="height">200</property>
+                    <property name="width">200</property>
+                    <layout manager="pack">
+                      <property name="side">left</property>
+                    </layout>
+                    <child>
+                      <object class="ttk.Label" id="label4">
+                        <property name="text" translatable="yes">Select Method:</property>
+                        <layout manager="pack">
+                          <property name="anchor">w</property>
+                          <property name="side">top</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.OptionMenu" id="optionmenu1">
+                        <property name="command" type="command" cbtype="simple">option_menu_clicked</property>
+                        <property name="value">None</property>
+                        <property name="values">None,A,B,C,D</property>
+                        <property name="variable">string:optionmenu_var</property>
+                        <layout manager="pack">
+                          <property name="fill">x</property>
+                          <property name="ipadx">50</property>
+                          <property name="side">top</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <child>

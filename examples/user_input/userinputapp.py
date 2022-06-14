@@ -24,11 +24,21 @@ class UserinputApp:
         self.option2var = None
         self.option3var = None
         self.group1var = None
-        self.validated_entry_var = None
-        guivars = ('entryvar', 'spinvar', 'combovar',
-                   'option1var', 'option2var', 'option3var',
-                   'group1var', 'validated_entry_var')
-        builder.import_variables(self, guivars)
+        self.optionmenu_var = None
+        builder.import_variables(
+            self,
+            [
+                "entryvar",
+                "validated_entry_var",
+                "spinvar",
+                "combovar",
+                "option1var",
+                "option2var",
+                "option3var",
+                "group1var",
+                "optionmenu_var",
+            ],
+        )
 
         # Fill with random values
         self.random_values()
@@ -59,6 +69,10 @@ class UserinputApp:
         value = random.choice(('A', 'B', 'C'))
         self.group1var.set(value)
 
+        # Option Menu
+        value = random.choice(('None', 'A', 'B', 'C', 'D'))
+        self.optionmenu_var.set(value)
+
     def on_change_clicked(self):
         self.random_values()
 
@@ -70,6 +84,9 @@ class UserinputApp:
             if len(p_entry_value) > 10:
                 is_valid = False
         return is_valid
+
+    def option_menu_clicked(self, option):
+        msg = f"You clicked {option} option."
 
     def on_print_clicked(self):
         line = f'Entry value:{self.entryvar.get()}'
@@ -85,6 +102,8 @@ class UserinputApp:
         line = f'Checkbox Option3 value:{self.option3var.get()}'
         print(line)
         line = f'Radiobutton Group value:{self.group1var.get()}'
+        print(line)
+        line = f'Option Menu value:{self.optionmenu_var.get()}'
         print(line)
 
     def run(self):
