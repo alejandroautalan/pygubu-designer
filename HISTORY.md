@@ -1,9 +1,12 @@
 History
 =======
 
-Changes for next release
+Changes for version 0.27
 
   * Add option to center the toplevel preview window. PR #124 @jrezai
+  * Fix error loading ui file. issue #123
+  * Added option for i18n support in code generated. issue #120
+  * Added option for select main menu for generated app. issue #103 (partially fixed)
 
 Changes for version 0.26.1
 
