@@ -277,7 +277,7 @@ class UI2Code(Builder):
                 value = "''"
             else:
                 if type_from_name == 'string':
-                    value = f"'{value}'"
+                    value = f"{value}"
             if vtype is None:
                 var_init = 'tk.{}Var(value={})'.format(
                     type_from_name.capitalize(), value
