@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="geometry">400x320</property>
+    <property name="height">200</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">Main window</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="height">200</property>
+        <property name="padding">2</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="Label_1">
+            <property name="background">#0000ae</property>
+            <property name="foreground">#ffffff</property>
+            <property name="text" translatable="yes">App Main Thread</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="Frame_3">
+            <property name="height">200</property>
+            <property name="padding">2</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="pady">10 0</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="tk.Button" id="Button_2">
+                <property name="command" type="command" cbtype="simple" args="">on_btna_clicked</property>
+                <property name="text" translatable="yes">Button A</property>
+                <layout manager="pack">
+                  <property name="padx">0 20</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="Button_3">
+                <property name="command" type="command" cbtype="simple" args="">on_btnb_clicked</property>
+                <property name="text" translatable="yes">Button B</property>
+                <layout manager="pack">
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Labelframe" id="Labelframe_1">
+            <property name="height">200</property>
+            <property name="padding">2</property>
+            <property name="text" translatable="yes">Long Operation Task:</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="pady">10 0</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="Button_1">
+                <property name="command" type="command" cbtype="simple" args="">on_start_new</property>
+                <property name="text" translatable="yes">Start new Operation</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="Label_2">
+                <property name="text" translatable="yes">Monitor:</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper_1">
+                <property name="scrolltype">vertical</property>
+                <property name="usemousewheel">false</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="tk.Text" id="txtlog">
+                    <property name="height">5</property>
+                    <property name="width">30</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                      <property name="sticky">nsew</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="pygubu.builder.widgets.dialog" id="task1window">
+    <property name="geometry">250x120</property>
+    <property name="height">100</property>
+    <property name="modal">false</property>
+    <property name="resizable">none</property>
+    <property name="title" translatable="yes">Task1Dialog</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="Frame_5">
+        <property name="height">200</property>
+        <property name="padding">4</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="Label_5">
+            <property name="background">#0000ae</property>
+            <property name="foreground">#ffffff</property>
+            <property name="text" translatable="yes">Task Window</property>
+            <layout manager="pack">
+              <property name="pady">0 10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="Frame_6">
+            <property name="borderwidth">2</property>
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Frame" id="Frame_7">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="Label_7">
+                    <property name="text" translatable="yes">Status:</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="lbl_status">
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                      <property name="sticky">ew</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Progressbar" id="pbar">
+                <property name="mode">indeterminate</property>
+                <property name="orient">horizontal</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="pady">0 10</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Frame" id="Frame_8">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Button" id="Button_4">
+                    <property name="command" type="command" cbtype="simple" args="">on_info_clicked</property>
+                    <property name="text" translatable="yes">Info</property>
+                    <layout manager="pack">
+                      <property name="padx">0 10</property>
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Button" id="btn_start">
+                    <property name="command" type="command" cbtype="simple" args="">on_task_start</property>
+                    <property name="text" translatable="yes">Start</property>
+                    <layout manager="pack">
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="geometry">440x380</property>
+    <property name="height">200</property>
+    <property name="padx">2</property>
+    <property name="pady">2</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">My Application</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="Frame1">
+        <property name="height">200</property>
+        <property name="padding">2</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="Label_1">
+            <property name="text" translatable="yes">Main Window</property>
+            <layout manager="pack">
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper_1">
+            <property name="scrolltype">both</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Treeview" id="treeview1">
+                <property name="selectmode">extended</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                  <property name="sticky">nesw</property>
+                </layout>
+                <child>
+                  <object class="ttk.Treeview.Column" id="datacol">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">True</property>
+                    <property name="text" translatable="yes">Data</property>
+                    <property name="tree_column">True</property>
+                    <property name="visible">True</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="pygubu.builder.widgets.dialog" id="progressdialog">
+    <property name="geometry">320x100</property>
+    <property name="height">100</property>
+    <property name="modal">True</property>
+    <property name="overrideredirect">True</property>
+    <property name="resizable">none</property>
+    <property name="title" translatable="yes">Wait</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">4</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="Label_2">
+            <property name="anchor">center</property>
+            <property name="justify">center</property>
+            <property name="text" translatable="yes">Loading application data
+
+Please wait ...</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Progressbar" id="progressbar1">
+            <property name="maximum">10</property>
+            <property name="mode">indeterminate</property>
+            <property name="orient">horizontal</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="pady">10 0</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

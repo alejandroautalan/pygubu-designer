@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="top">
+    <property name="geometry">320x200</property>
+    <property name="height">200</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">Dialog example 1</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="borderwidth">5</property>
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="mainwindow_label">
+            <property name="text" translatable="yes">Main Window Example Text</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame_1">
+            <property name="height">200</property>
+            <property name="padding">0 15 0 0</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="button_1">
+                <property name="command" type="command" cbtype="simple" args="">on_btn1_click</property>
+                <property name="text" translatable="yes">Dialog 1</property>
+                <layout manager="pack">
+                  <property name="fill">both</property>
+                  <property name="padx">0 20</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_2">
+                <property name="command" type="command" cbtype="simple" args="">on_btn2_click</property>
+                <property name="text" translatable="yes">Dialog 2
+(modal)</property>
+                <layout manager="pack">
+                  <property name="fill">both</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="pygubu.builder.widgets.dialog" id="dialog1">
+    <property name="height">100</property>
+    <property name="modal">false</property>
+    <property name="resizable">none</property>
+    <property name="title" translatable="yes">Dialog 1</property>
+    <property name="width">200</property>
+    <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog1_close" add="" />
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="dialog_label">
+            <property name="text" translatable="yes">Dialog Window 1</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="font">{Helvetica} 10 {}</property>
+            <property name="text" translatable="yes">Uses &lt;&lt;DialogClose&gt;&gt; virtual event binding</property>
+            <layout manager="pack">
+              <property name="pady">20 0</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="pygubu.builder.widgets.dialog" id="dialog2">
+    <property name="borderwidth">5</property>
+    <property name="height">100</property>
+    <property name="modal">true</property>
+    <property name="resizable">none</property>
+    <property name="title" translatable="yes">Dialog 2</property>
+    <property name="width">200</property>
+    <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog2_close" add="" />
+    <child>
+      <object class="ttk.Frame" id="frame_2">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="dialog2_label">
+            <property name="text" translatable="yes">Modal dialog with close button
+
+</property>
+            <layout manager="pack" />
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame_3">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="button_3">
+                <property name="command" type="command" cbtype="simple" args="">on_dialog2_close_clicked</property>
+                <property name="text" translatable="yes">Close</property>
+                <layout manager="pack">
+                  <property name="side">right</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
