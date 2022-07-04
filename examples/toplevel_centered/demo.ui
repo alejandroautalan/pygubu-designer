@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="topmain">
+    <property name="geometry">320x240</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Toplevel demo</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="fmain">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="font">{Helvetica} 24 {}</property>
+            <property name="text" translatable="yes">I'm on Center</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
