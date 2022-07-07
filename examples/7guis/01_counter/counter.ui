@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="height">200</property>
+    <property name="padx">5</property>
+    <property name="pady">5</property>
+    <property name="title" translatable="yes">Counter</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Entry" id="entry1">
+        <property name="font">{Helvetica} 12 {}</property>
+        <property name="state">readonly</property>
+        <property name="textvariable">int:counter_var</property>
+        <property name="width">10</property>
+        <layout manager="pack">
+          <property name="fill">both</property>
+          <property name="padx">0 20</property>
+          <property name="side">left</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="button1">
+        <property name="command" type="command" cbtype="simple">on_count_clicked</property>
+        <property name="text" translatable="yes">Count</property>
+        <layout manager="pack">
+          <property name="fill">both</property>
+          <property name="side">left</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
