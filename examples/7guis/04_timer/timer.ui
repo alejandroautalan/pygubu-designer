@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="geometry">300x140</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Flight Booker</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="col" id="1" name="weight">1</property>
+          <property type="col" id="all" name="pad">5</property>
+          <property type="row" id="3" name="weight">1</property>
+          <property type="row" id="all" name="pad">5</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="text" translatable="yes">Elapsed Time:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Progressbar" id="gauge">
+            <property name="mode">determinate</property>
+            <property name="orient">horizontal</property>
+            <property name="variable">double:gauge_var</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">0</property>
+              <property name="sticky">nsew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="lbl_seconds">
+            <property name="textvariable">string:elapsed_time_var</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="columnspan">2</property>
+              <property name="row">1</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="label3">
+            <property name="text" translatable="yes">Duration:</property>
+            <property name="textvariable">string:duration_var</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">2</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Scale" id="slide">
+            <property name="command" type="command" cbtype="scale">on_slider_change</property>
+            <property name="from_">1</property>
+            <property name="orient">horizontal</property>
+            <property name="to">60</property>
+            <property name="value">0</property>
+            <property name="variable">double:slider_var</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">2</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="reset">
+            <property name="command" type="command" cbtype="simple">on_reset_clicked</property>
+            <property name="text" translatable="yes">Reset</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="columnspan">2</property>
+              <property name="row">3</property>
+              <property name="sticky">sew</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

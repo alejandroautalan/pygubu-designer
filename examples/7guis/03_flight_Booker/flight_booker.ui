@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Flight Booker</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Combobox" id="cbox_c">
+            <property name="state">readonly</property>
+            <property name="values">"one-way flight" "return flight"</property>
+            <bind sequence="&lt;&lt;ComboboxSelected&gt;&gt;" handler="on_cbox_changed" add="" />
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entry_t1">
+            <property name="textvariable">string:t1_var</property>
+            <property name="validate">key</property>
+            <property name="validatecommand" type="command" cbtype="entry_validate" args="%P %W">validate_date</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="pady">5</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entry_t2">
+            <property name="textvariable">string:t2_var</property>
+            <property name="validate">key</property>
+            <property name="validatecommand" type="command" cbtype="entry_validate" args="%P %W">validate_date</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="pady">0 5</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="btn_b">
+            <property name="command" type="command" cbtype="simple">book_clicked</property>
+            <property name="text" translatable="yes">Book</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
