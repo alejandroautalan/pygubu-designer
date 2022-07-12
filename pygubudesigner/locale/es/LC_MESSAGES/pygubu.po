@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-13 01:39+0800\n"
+"POT-Creation-Date: 2022-07-13 02:13+0800\n"
 "PO-Revision-Date: 2022-03-10 01:14-0300\n"
 "Last-Translator: Alejandro Autalán <alejandroautalan@gmail.com>\n"
 "Language-Team: \n"
@@ -450,6 +450,9 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #: pygubudesigner/ui/container_layout_editor_base.ui:25
+#: pygubudesigner/widgets/containerlayouteditorbase.py:28
+#: pygubudesigner/containerlayouteditor.py:41
+#, python-brace-format
 msgid "Options for {0} container"
 msgstr "Opciones para contenedor {0}"
 
@@ -770,6 +773,16 @@ msgstr "Formatos de imagen Tk"
 #: pygubudesigner/widgets/imageentry.py:52
 msgid "All Files"
 msgstr "Todos los archivos"
+
+#: pygubudesigner/containerlayouteditor.py:42
+#, fuzzy, python-brace-format
+msgid "Row index: {0}"
+msgstr "Fila {0}:"
+
+#: pygubudesigner/containerlayouteditor.py:43
+#, fuzzy, python-brace-format
+msgid "Column index: {0}"
+msgstr "Columna {0}:"
 
 #: pygubudesigner/propertieseditor.py:67
 msgid "Required"
@@ -1973,12 +1986,6 @@ msgstr ""
 
 #~ msgid "Status Bar"
 #~ msgstr "Barra de estado"
-
-#~ msgid "Row {0}:"
-#~ msgstr "Fila {0}:"
-
-#~ msgid "Column {0}:"
-#~ msgstr "Columna {0}:"
 
 #~ msgid "Pygubu a GUI builder for tkinter"
 #~ msgstr "Pygubu, un diseñador de interfaces para tkinter"

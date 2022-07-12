@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-13 01:39+0800\n"
+"POT-Creation-Date: 2022-07-13 02:13+0800\n"
 "PO-Revision-Date: 2021-10-14 21:34+0800\n"
 "Last-Translator: larryw3i <larryw3i@163.com>\n"
 "Language-Team: Chinese - China <larryw3i@163.com>\n"
@@ -453,6 +453,9 @@ msgid "Messages"
 msgstr "信息"
 
 #: pygubudesigner/ui/container_layout_editor_base.ui:25
+#: pygubudesigner/widgets/containerlayouteditorbase.py:28
+#: pygubudesigner/containerlayouteditor.py:41
+#, python-brace-format
 msgid "Options for {0} container"
 msgstr ""
 
@@ -775,6 +778,16 @@ msgstr "Tk图片格式"
 #: pygubudesigner/widgets/imageentry.py:52
 msgid "All Files"
 msgstr "全部文件"
+
+#: pygubudesigner/containerlayouteditor.py:42
+#, fuzzy, python-brace-format
+msgid "Row index: {0}"
+msgstr "Fila {0}:"
+
+#: pygubudesigner/containerlayouteditor.py:43
+#, fuzzy, python-brace-format
+msgid "Column index: {0}"
+msgstr "Columna {0}:"
 
 #: pygubudesigner/propertieseditor.py:67
 msgid "Required"
@@ -2065,12 +2078,6 @@ msgstr "当提供非空值时，将行与其他具有相同统一值的行放在
 
 #~ msgid "Status Bar"
 #~ msgstr "Barra de estado"
-
-#~ msgid "Row {0}:"
-#~ msgstr "Fila {0}:"
-
-#~ msgid "Column {0}:"
-#~ msgstr "Columna {0}:"
 
 #~ msgid "Pygubu a GUI builder for tkinter"
 #~ msgstr "Pygubu, un diseñador de interfaces para tkinter"

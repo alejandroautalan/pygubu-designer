@@ -2,21 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# larryw3i <larryw3i@163.com>, 2021.
+# larry <larryw3i@163.com>, 2021-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-13 01:39+0800\n"
-"PO-Revision-Date: 2021-10-14 21:34+0800\n"
-"Last-Translator: larryw3i <larryw3i@163.com>\n"
-"Language-Team: Chinese - China <larryw3i@163.com>\n"
-"Language: zh_CN\n"
+"POT-Creation-Date: 2022-07-13 02:13+0800\n"
+"PO-Revision-Date: 2022-07-13 02:15+0800\n"
+"Last-Translator: larry <larryw3i@163.com>\n"
+"Language-Team: Chinese (Simplified) <larryw3i@163.com>\n"
+"Language: zh_CHS\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Gtranslator 41.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: pygubudesigner/ui/preferences_dialog.ui:8
@@ -44,9 +44,8 @@ msgid "Preferred layout manager:"
 msgstr "首选布局管理器:"
 
 #: pygubudesigner/ui/preferences_dialog.ui:128
-#, fuzzy
 msgid "Center toplevel preview window"
-msgstr "关闭预览窗口"
+msgstr "将预览窗口居中"
 
 #: pygubudesigner/ui/preferences_dialog.ui:144
 msgid "Widget naming"
@@ -103,23 +102,23 @@ msgstr "+"
 #: pygubudesigner/ui/preferences_dialog.ui:383
 #: pygubudesigner/ui/preferences_dialog.ui:410
 msgid "Ttk Styles"
-msgstr ""
+msgstr "Ttk 样式"
 
 #: pygubudesigner/ui/preferences_dialog.ui:435
 msgid "Style Definition File:"
-msgstr ""
+msgstr "样式定义文件："
 
 #: pygubudesigner/ui/preferences_dialog.ui:468
 msgid "Browse …"
-msgstr ""
+msgstr "浏览 ..."
 
 #: pygubudesigner/ui/preferences_dialog.ui:478
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #: pygubudesigner/ui/preferences_dialog.ui:488
 msgid "Create New …"
-msgstr ""
+msgstr "新建 ..."
 
 #: pygubudesigner/ui/preferences_dialog.ui:515
 #: pygubudesigner/ui/ask_save_changes_dialog.ui:114
@@ -140,49 +139,51 @@ msgstr "pygubu"
 
 #: pygubudesigner/ui/about_dialog.ui:58
 msgid "This program:"
-msgstr ""
+msgstr "此程序："
 
 #: pygubudesigner/ui/about_dialog.ui:68
-#, fuzzy
 msgid "pygubu-designer"
-msgstr "Pygubu设计器"
+msgstr "pygubu 设计器"
 
 #: pygubudesigner/ui/about_dialog.ui:82
 msgid ""
 "A visual design tool for tkinter that generates Python code for the user "
 "interface portion of your desktop application."
 msgstr ""
+"tkinter 的可视化设计工具，它可以为桌面应用程序的部分用户界面生成 Python 代"
+"码。"
 
 #: pygubudesigner/ui/about_dialog.ui:94 pygubudesigner/ui/about_dialog.ui:186
-#, fuzzy
 msgid "Version: %version%"
-msgstr "版本 %version%"
+msgstr "版本： %version%"
 
 #: pygubudesigner/ui/about_dialog.ui:110 pygubudesigner/ui/about_dialog.ui:200
 msgid "Licence:"
-msgstr ""
+msgstr "授权："
 
 #: pygubudesigner/ui/about_dialog.ui:122
 msgid "GPL3"
-msgstr ""
+msgstr "GNU 通用公共许可证 第3版"
 
 #: pygubudesigner/ui/about_dialog.ui:152
 msgid "Associated program:"
-msgstr ""
+msgstr "相关程序："
 
 #: pygubudesigner/ui/about_dialog.ui:174
 msgid ""
 "A run-time library that the designer requires. It is optional for your "
 "application."
 msgstr ""
+"设计器需要的运行时库。（如果你使用 pygubu-designer 生成纯 Python 代码则你的程"
+"序不需要它）"
 
 #: pygubudesigner/ui/about_dialog.ui:212
 msgid "MIT"
-msgstr ""
+msgstr "MIT 许可证"
 
 #: pygubudesigner/ui/about_dialog.ui:238
 msgid "More info."
-msgstr ""
+msgstr "了解更多。"
 
 #: pygubudesigner/ui/about_dialog.ui:261
 msgid "Close"
@@ -312,7 +313,7 @@ msgstr "关于 Pygubu"
 
 #: pygubudesigner/ui/pygubu-ui.ui:229
 msgid "Go to parent"
-msgstr ""
+msgstr "到父控件"
 
 #: pygubudesigner/ui/pygubu-ui.ui:256
 msgid "Delete"
@@ -328,7 +329,7 @@ msgstr "设计"
 
 #: pygubudesigner/ui/pygubu-ui.ui:356
 msgid "Tree"
-msgstr ""
+msgstr "树"
 
 #: pygubudesigner/ui/pygubu-ui.ui:376
 msgid "Filter:"
@@ -340,7 +341,7 @@ msgstr "✖"
 
 #: pygubudesigner/ui/pygubu-ui.ui:427
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: pygubudesigner/ui/pygubu-ui.ui:439
 msgid "Class"
@@ -356,16 +357,15 @@ msgstr "C"
 
 #: pygubudesigner/ui/pygubu-ui.ui:475
 msgid " "
-msgstr ""
+msgstr " "
 
 #: pygubudesigner/ui/pygubu-ui.ui:557
-#, fuzzy
 msgid "Properties"
-msgstr "对象属性"
+msgstr "属性"
 
 #: pygubudesigner/ui/pygubu-ui.ui:579
 msgid "Appearance"
-msgstr ""
+msgstr "外观"
 
 #: pygubudesigner/ui/pygubu-ui.ui:598
 msgid "Layout"
@@ -424,9 +424,8 @@ msgid "Class Name:"
 msgstr "类名:"
 
 #: pygubudesigner/ui/pygubu-ui.ui:920
-#, fuzzy
 msgid "Main menu:"
-msgstr "主控件: "
+msgstr "主菜单："
 
 #: pygubudesigner/ui/pygubu-ui.ui:952
 msgid "Import Tk Variables"
@@ -434,11 +433,11 @@ msgstr "导入 Tk 变量"
 
 #: pygubudesigner/ui/pygubu-ui.ui:962
 msgid "Use ttk style definitions file"
-msgstr ""
+msgstr "使用 ttk 样式的定义文件"
 
 #: pygubudesigner/ui/pygubu-ui.ui:972
 msgid "Add i18n support"
-msgstr ""
+msgstr "增加国际化（多语言）支持"
 
 #: pygubudesigner/ui/pygubu-ui.ui:1058
 msgid "Generate"
@@ -453,32 +452,31 @@ msgid "Messages"
 msgstr "信息"
 
 #: pygubudesigner/ui/container_layout_editor_base.ui:25
+#: pygubudesigner/widgets/containerlayouteditorbase.py:28
+#: pygubudesigner/containerlayouteditor.py:41
+#, python-brace-format
 msgid "Options for {0} container"
-msgstr ""
+msgstr "{0} 控件的选项"
 
 #: pygubudesigner/ui/container_layout_editor_base.ui:87
-#, fuzzy
 msgid "Grid Row / Column options"
-msgstr "表格第'{0}'列的选项: "
+msgstr "表格行列选项："
 
 #: pygubudesigner/ui/container_layout_editor_base.ui:126
 msgid "All row/cols"
-msgstr ""
+msgstr "所有行列"
 
 #: pygubudesigner/ui/container_layout_editor_base.ui:137
-#, fuzzy
 msgid "Clear all"
-msgstr "清除列表"
+msgstr "清除所有"
 
 #: pygubudesigner/ui/container_layout_editor_base.ui:170
-#, fuzzy
 msgid "Row {0} options"
-msgstr "表格第'{0}'行的选项: "
+msgstr "第'{0}'行的选项"
 
 #: pygubudesigner/ui/container_layout_editor_base.ui:212
-#, fuzzy
 msgid "Column {0} options"
-msgstr "表格第'{0}'列的选项: "
+msgstr "第'{0}'列的选项"
 
 #: pygubudesigner/ui/ask_save_changes_dialog.ui:7 pygubudesigner/main.py:578
 msgid "Save Changes"
@@ -501,13 +499,12 @@ msgid "Don't Save"
 msgstr "不保存"
 
 #: pygubudesigner/preferences.py:87
-#, fuzzy
 msgid ""
 "Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as "
 "expected.If you delete this file, configuration will be set to default"
 msgstr ""
-"\"{0}\"的配置文件已损坏，程序可能无法按预期工作。\n"
-"如果删除此文件，配置将设置为默认配置"
+"\"{CONFIG_FILE!s}\"的配置文件已损坏，程序可能无法按预期工作。如果删除此文件，"
+"配置将设置为默认配置"
 
 #: pygubudesigner/preferences.py:90 pygubudesigner/preferences.py:96
 #: pygubudesigner/main.py:76 pygubudesigner/main.py:93
@@ -516,16 +513,15 @@ msgid "Error"
 msgstr "出错"
 
 #: pygubudesigner/preferences.py:94
-#, fuzzy
 msgid ""
 "Faild to parse config file at {CONFIG_FILE!s}, program may not work as "
 "expected."
-msgstr "未能解析\"{0}\"的配置文件，程序可能无法按预期工作。"
+msgstr "未能解析\"{CONFIG_FILE!s}\"的配置文件，程序可能无法按预期工作。"
 
 #: pygubudesigner/preferences.py:236 pygubudesigner/preferences.py:267
 #: pygubudesigner/preferences.py:303
 msgid "Python module"
-msgstr "Python模块"
+msgstr "Python 模块"
 
 #: pygubudesigner/preferences.py:236 pygubudesigner/preferences.py:267
 #: pygubudesigner/preferences.py:303 pygubudesigner/main.py:621
@@ -539,21 +535,26 @@ msgid ""
 "\n"
 "Please edit the style definition file."
 msgstr ""
+"文件已保存。\n"
+"\n"
+"请编辑样式定义文件。"
 
 #: pygubudesigner/preferences.py:250 pygubudesigner/preferences.py:257
 #: pygubudesigner/preferences.py:286
 msgid "Styles"
-msgstr ""
+msgstr "样式"
 
 #: pygubudesigner/preferences.py:256
 msgid "Error saving template file."
-msgstr ""
+msgstr "保存模板文件时出错。"
 
 #: pygubudesigner/preferences.py:285
 msgid ""
 "Restart Pygubu Designer for\n"
 "changes to take effect."
 msgstr ""
+"重新启动 pygubu-designer\n"
+"更改将生效。"
 
 #: pygubudesigner/uitreeeditor.py:160
 msgid "Delete items"
@@ -598,14 +599,14 @@ msgid "Not allowed at root level, %s is not a container."
 msgstr "不能成为根级, %s不是一个容器"
 
 #: pygubudesigner/main.py:75
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Failed to load widget module: '{modulename}'"
-msgstr "加载控件模块失败: '{0}'"
+msgstr "加载控件模块失败： '{modulename}'"
 
 #: pygubudesigner/main.py:92
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Failed to load custom widget module: '{path}'"
-msgstr "加载自定义控件模块失败: '{0}'"
+msgstr "加载自定义控件模块失败： '{path}'"
 
 #: pygubudesigner/main.py:581
 msgid "If you don't save the document, all the changes will be lost."
@@ -673,9 +674,8 @@ msgid "Enter classname"
 msgstr "输入类名"
 
 #: pygubudesigner/codegen/scriptgenerator.py:302
-#, fuzzy
 msgid "Invalid classname"
-msgstr "输入类名"
+msgstr "无效类名"
 
 #: pygubudesigner/layouteditor.py:36
 msgid "Grid"
@@ -690,9 +690,8 @@ msgid "Place"
 msgstr "Place"
 
 #: pygubudesigner/layouteditor.py:54
-#, fuzzy
 msgid "Manager:"
-msgstr "Cambiar Manager"
+msgstr "管理器："
 
 #: pygubudesigner/layouteditor.py:176
 msgid "Change Manager"
@@ -709,12 +708,12 @@ msgstr "所有容器控件会被更新。"
 
 #: pygubudesigner/stylehandler.py:76
 msgid "Applying ttk style definitions"
-msgstr ""
+msgstr "正在运用 ttk 样式定义"
 
 #: pygubudesigner/stylehandler.py:87
 #, python-format
 msgid "ttk style definition error: %s"
-msgstr ""
+msgstr "ttk 样式定义错误： %s"
 
 #: pygubudesigner/widgets/entryvalidatecommandeditor.py:44
 msgid "Type of action."
@@ -775,6 +774,16 @@ msgstr "Tk图片格式"
 #: pygubudesigner/widgets/imageentry.py:52
 msgid "All Files"
 msgstr "全部文件"
+
+#: pygubudesigner/containerlayouteditor.py:42
+#, python-brace-format
+msgid "Row index: {0}"
+msgstr "行索引： {0}"
+
+#: pygubudesigner/containerlayouteditor.py:43
+#, python-brace-format
+msgid "Column index: {0}"
+msgstr "列索引： {0}"
 
 #: pygubudesigner/propertieseditor.py:67
 msgid "Required"
@@ -869,11 +878,11 @@ msgid ""
 msgstr "指定非负值表示控件的3D外框。"
 
 #: pygubudesigner/propertieshelp.py:45
-#, fuzzy
 msgid ""
 "Some interactions with the scale cause its value to change by \"large\" "
 "increments; this option specifies the size of the large increments."
-msgstr "值变大的增量, 这个选项指定增量的大小。"
+msgstr ""
+"与缩放的一些交互作用导致其值以“large”增量变化；此选项指定大增量的大小。"
 
 #: pygubudesigner/propertieshelp.py:47
 msgid "Specifies a bitmap to display in the widget."
@@ -2065,12 +2074,6 @@ msgstr "当提供非空值时，将行与其他具有相同统一值的行放在
 
 #~ msgid "Status Bar"
 #~ msgstr "Barra de estado"
-
-#~ msgid "Row {0}:"
-#~ msgstr "Fila {0}:"
-
-#~ msgid "Column {0}:"
-#~ msgstr "Columna {0}:"
 
 #~ msgid "Pygubu a GUI builder for tkinter"
 #~ msgstr "Pygubu, un diseñador de interfaces para tkinter"
