@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
         if arg in ["start"]:
             from pygubudesigner.main import start_pygubu
-            sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-            # del sys.argv[1] # sys.argv[1] -> 'start' is not a path.
-            sys.exit(start_pygubu())
 
+            sys.argv[0] = re.sub(r"(-script\.pyw|\.exe)?$", "", sys.argv[0])
+            del sys.argv[1] # sys.argv[1] -> 'start' is not a path.
+            sys.exit(start_pygubu())

@@ -107,6 +107,7 @@ _test(){
 }
 
 start(){
+    style
     python3 pygubudesigner_.py start
 }
 
