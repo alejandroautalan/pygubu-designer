@@ -34,21 +34,21 @@ logger = logging.getLogger(__name__)
 class WidgetMeta(WidgetMetaBase, Observable):
     def apply_layout_defaults(self):
         super().apply_layout_defaults()
-        self.notify('LAYOUT_CHANGED', self)
+        self.notify("LAYOUT_CHANGED", self)
 
     def widget_property(self, name, value=None):
         if value is None:
-            if name == 'id':
+            if name == "id":
                 return self.identifier
-            elif name == 'class':
+            elif name == "class":
                 return self.classname
             else:
-                return self.properties.get(name, '')
+                return self.properties.get(name, "")
         else:
             # Setter
-            if name == 'id':
+            if name == "id":
                 self.identifier = value
-            elif name == 'class':
+            elif name == "class":
                 self.classname = value
             else:
                 if value:
@@ -56,14 +56,14 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 else:
                     # remove if no value set
                     self.properties.pop(name, None)
-            self.notify('PROPERTY_CHANGED', self)
+            self.notify("PROPERTY_CHANGED", self)
 
     def layout_property(self, name, value=None):
         if value is None:
             # Getter
-            default = ''
-            if name in ('row', 'column'):
-                default = '0'
+            default = ""
+            if name in ("row", "column"):
+                default = "0"
             return self.layout_properties.get(name, default)
         else:
             # Setter
@@ -72,15 +72,15 @@ class WidgetMeta(WidgetMetaBase, Observable):
             else:
                 # remove if no value set
                 self.layout_properties.pop(name, None)
-            self.notify('LAYOUT_CHANGED', self)
+            self.notify("LAYOUT_CHANGED", self)
 
     def container_property(self, name, value=None):
         if value is None:
             # Getter
-            return self.container_properties.get(name, '')
+            return self.container_properties.get(name, "")
         else:
             # do not save propagate if value is True
-            if name == 'propagate' and value.lower() == 'true':
+            if name == "propagate" and value.lower() == "true":
                 value = None
             # Setter
             if value:
@@ -88,14 +88,14 @@ class WidgetMeta(WidgetMetaBase, Observable):
             else:
                 # remove if no value set
                 self.container_properties.pop(name, None)
-            self.notify('LAYOUT_CHANGED', self)
+            self.notify("LAYOUT_CHANGED", self)
 
     def gridrc_property(self, type_, num, pname, value=None):
         if value is None:
             # Getter
-            default = '0'
-            if pname == 'uniform':
-                default = ''
+            default = "0"
+            if pname == "uniform":
+                default = ""
             pvalue = self.get_gridrc_value(type_, num, pname)
             pvalue = pvalue if pvalue is not None else default
             return pvalue
@@ -106,19 +106,19 @@ class WidgetMeta(WidgetMetaBase, Observable):
     def gridrc_clear(self, notify_change=True):
         self.gridrc_properties = []
         if notify_change:
-            self.notify('LAYOUT_CHANGED')
+            self.notify("LAYOUT_CHANGED")
 
     def gridrc_row_indexes(self):
         rows = set()
         for line in self.gridrc_properties:
-            if line.rctype == 'row':
+            if line.rctype == "row":
                 rows.add(line.rcid)
         return list(rows)
 
     def gridrc_column_indexes(self):
         cols = set()
         for line in self.gridrc_properties:
-            if line.rctype == 'col':
+            if line.rctype == "col":
                 cols.add(line.rcid)
         return list(cols)
 
@@ -131,7 +131,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
         if self._manager != value:
             self._manager = value
             self.clear_layout()
-        self.notify('LAYOUT_CHANGED', self)
+        self.notify("LAYOUT_CHANGED", self)
 
     def get_bindings(self):
         blist = []
@@ -164,18 +164,21 @@ class WidgetMeta(WidgetMetaBase, Observable):
                     pdescription = WIDGET_PROPERTIES[pname]
                 if wclass in pdescription:
                     pdescription = dict(pdescription, **pdescription[wclass])
-                default_value = str(pdescription.get('default', ''))
+                default_value = str(pdescription.get("default", ""))
                 if default_value:
                     properties[pname] = default_value
                 # default text for widgets with text prop:
-                if pname in ('text', 'label') and pname not in builder.OPTIONS_CUSTOM:
+                if (
+                    pname in ("text", "label")
+                    and pname not in builder.OPTIONS_CUSTOM
+                ):
                     properties[pname] = widget_id
 
         # setup default values for layout
         groups = (
-            ('pack', PACK_PROPERTIES),
-            ('place', PLACE_PROPERTIES),
-            ('grid', GRID_PROPERTIES),
+            ("pack", PACK_PROPERTIES),
+            ("place", PLACE_PROPERTIES),
+            ("grid", GRID_PROPERTIES),
         )
         for manager, manager_prop in groups:
             layout[manager] = {}
@@ -184,7 +187,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 if manager in pdescr:
                     pdescr = pdescr.copy()
                     pdescr = dict(pdescr, **pdescr[manager])
-                default_value = pdescr.get('default', None)
+                default_value = pdescr.get("default", None)
                 if default_value:
                     layout[manager][pname] = default_value
         return properties, layout

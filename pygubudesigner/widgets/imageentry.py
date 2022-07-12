@@ -21,7 +21,10 @@ import tkinter.ttk as ttk
 from pygubu.stockimage import *
 
 from pygubudesigner.i18n import translator
-from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
+from pygubudesigner.widgets.propertyeditor import (
+    PropertyEditor,
+    register_editor,
+)
 
 _ = translator
 
@@ -29,12 +32,12 @@ _ = translator
 class ImagePropertyEditor(PropertyEditor):
     def _create_ui(self):
         self._entry = w = ttk.Entry(self, textvariable=self._variable)
-        w.grid(sticky='ew')
-        w.bind('<FocusOut>', self._on_variable_changed)
-        w.bind('<KeyPress>', self._on_keypress)
+        w.grid(sticky="ew")
+        w.bind("<FocusOut>", self._on_variable_changed)
+        w.bind("<KeyPress>", self._on_keypress)
 
-        btn_style = 'ImageSelectorButton.Toolbutton'
-        self._button = w = ttk.Button(self, text='…', style=btn_style)
+        btn_style = "ImageSelectorButton.Toolbutton"
+        self._button = w = ttk.Button(self, text="…", style=btn_style)
         w.grid(row=0, column=1, padx="5 0")
         w.configure(command=self._on_button_click)
 
@@ -42,11 +45,11 @@ class ImagePropertyEditor(PropertyEditor):
         self.columnconfigure(0, weight=1)
 
     def _on_button_click(self):
-        ext = [f'*{e}' for e in TK_IMAGE_FORMATS]
+        ext = [f"*{e}" for e in TK_IMAGE_FORMATS]
         options = {
-            'filetypes': [
-                (_('Tk image formats'), ' '.join(ext)),
-                (_('All Files'), '*.*'),
+            "filetypes": [
+                (_("Tk image formats"), " ".join(ext)),
+                (_("All Files"), "*.*"),
             ]
         }
 
@@ -60,10 +63,10 @@ class ImagePropertyEditor(PropertyEditor):
             self._on_variable_changed(event=None)
 
 
-register_editor('imageentry', ImagePropertyEditor)
+register_editor("imageentry", ImagePropertyEditor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
 
     def see_var():
@@ -72,8 +75,8 @@ if __name__ == '__main__':
     entry = ImagePropertyEditor(root)
     entry.grid()
 
-    entry.edit('image.gif')
-    btn = ttk.Button(root, text='Value', command=see_var)
+    entry.edit("image.gif")
+    btn = ttk.Button(root, text="Value", command=see_var)
     btn.grid(row=0, column=1)
 
     root.mainloop()

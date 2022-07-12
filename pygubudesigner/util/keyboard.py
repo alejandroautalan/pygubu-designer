@@ -21,33 +21,33 @@ from collections import namedtuple
 # Begin shortcut helpers
 #
 
-Keydef = namedtuple('Keydef', 'sym code')
+Keydef = namedtuple("Keydef", "sym code")
 
-osnt = True if os.name == 'nt' else False
-oslinux = True if sys.platform == 'linux' else False
+osnt = True if os.name == "nt" else False
+oslinux = True if sys.platform == "linux" else False
 
 
 class Key:
     # Default keys used in pygubu-designer
     # TODO extend this keycode list
     # keysym, keycode (windows, linux)
-    C = Keydef('c', 67 if osnt else 54)
-    D = Keydef('d', 68 if osnt else 40)
-    I = Keydef('i', 73 if osnt else 31)
-    J = Keydef('j', 74 if osnt else 44)
-    K = Keydef('k', 75 if osnt else 45)
-    L = Keydef('l', 76 if osnt else 46)
-    N = Keydef('n', 78 if osnt else 57)
-    O = Keydef('o', 79 if osnt else 32)
-    Q = Keydef('q', 81 if osnt else 24)
-    S = Keydef('s', 83 if osnt else 39)
-    V = Keydef('v', 86 if osnt else 55)
-    X = Keydef('x', 88 if osnt else 53)
+    C = Keydef("c", 67 if osnt else 54)
+    D = Keydef("d", 68 if osnt else 40)
+    I = Keydef("i", 73 if osnt else 31)
+    J = Keydef("j", 74 if osnt else 44)
+    K = Keydef("k", 75 if osnt else 45)
+    L = Keydef("l", 76 if osnt else 46)
+    N = Keydef("n", 78 if osnt else 57)
+    O = Keydef("o", 79 if osnt else 32)
+    Q = Keydef("q", 81 if osnt else 24)
+    S = Keydef("s", 83 if osnt else 39)
+    V = Keydef("v", 86 if osnt else 55)
+    X = Keydef("x", 88 if osnt else 53)
 
 
 def key_bind(key, callback):
-    '''Key Event decorator.
-    Run callback if key of event match'''
+    """Key Event decorator.
+    Run callback if key of event match"""
 
     def key_event_manager(event):
         if osnt or oslinux:

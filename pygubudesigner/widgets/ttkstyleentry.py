@@ -17,11 +17,16 @@ import re
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from pygubudesigner.widgets.propertyeditor import ChoicePropertyEditor, register_editor
+from pygubudesigner.widgets.propertyeditor import (
+    ChoicePropertyEditor,
+    register_editor,
+)
 
 
 class TtkStylePropertyEditor(ChoicePropertyEditor):
-    RE_TTKSTYLECLASS = re.compile('(?i)$|[_A-Za-z](\\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$')
+    RE_TTKSTYLECLASS = re.compile(
+        "(?i)$|[_A-Za-z](\\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$"
+    )
     STYLES = []
     STYLES_FILTER_HINTS = None
 
@@ -35,7 +40,7 @@ class TtkStylePropertyEditor(ChoicePropertyEditor):
         return valid
 
     def parameters(self, **kw):
-        kw['values'] = self._create_style_options(kw.get('values'))
+        kw["values"] = self._create_style_options(kw.get("values"))
         self._combobox.configure(**kw)
 
     @classmethod
@@ -57,10 +62,10 @@ class TtkStylePropertyEditor(ChoicePropertyEditor):
         return new_list
 
 
-register_editor('ttkstylechoice', TtkStylePropertyEditor)
+register_editor("ttkstylechoice", TtkStylePropertyEditor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
@@ -73,8 +78,8 @@ if __name__ == '__main__':
         return on_change_cb
 
     editor = TtkStylePropertyEditor(root)
-    editor.pack(expand=True, fill='x')
-    editor.edit('mystyle.TButton')
-    editor.bind('<<PropertyChanged>>', make_on_change_cb(editor))
+    editor.pack(expand=True, fill="x")
+    editor.edit("mystyle.TButton")
+    editor.bind("<<PropertyChanged>>", make_on_change_cb(editor))
 
     root.mainloop()

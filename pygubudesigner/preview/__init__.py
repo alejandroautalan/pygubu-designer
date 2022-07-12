@@ -1,3 +1,3 @@
-__all__ = ['PreviewHelper']
+__all__ = ["PreviewHelper"]
 
 from .helper import PreviewHelper

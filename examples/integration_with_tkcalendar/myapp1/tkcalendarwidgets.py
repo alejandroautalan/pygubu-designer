@@ -8,5 +8,9 @@ class DateEntryBuilder(BuilderObject):
     class_ = DateEntry
 
 
-register_widget('tkcalendarwidgets.dateentry', DateEntryBuilder,
-                'DateEntry', ('ttk', 'My Tkcalendar widgets')) 
+register_widget(
+    "tkcalendarwidgets.dateentry",
+    DateEntryBuilder,
+    "DateEntry",
+    ("ttk", "My Tkcalendar widgets"),
+)

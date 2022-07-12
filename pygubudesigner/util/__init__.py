@@ -37,10 +37,10 @@ def indent(elem, level=0):
             elem.tail = i
 
 
-def treeview_print(tree, root=''):
+def treeview_print(tree, root=""):
     def tree_print(tree, root):
         children = tree.get_children(root)
-        if root != '' and children:
+        if root != "" and children:
             print(root)
         for item in children:
             tree_print(tree, item)
@@ -49,7 +49,7 @@ def treeview_print(tree, root=''):
 
 
 class BraceMessage:
-    '''Helper class to use braces {} in log messages'''
+    """Helper class to use braces {} in log messages"""
 
     def __init__(self, fmt, *args, **kwargs):
         self.fmt = fmt
@@ -65,7 +65,7 @@ trlog = BraceMessage
 
 
 def virtual_event(event_name):
-    '''Generate virtual event event_name'''
+    """Generate virtual event event_name"""
 
     def virtual_event_gen(event):
         event.widget.event_generate(event_name)
@@ -74,15 +74,15 @@ def virtual_event(event_name):
 
 
 def menu_iter_children(menu):
-    '''Iterates all menu items (including submenus).
-    Returns (menu, itemtype, index)'''
+    """Iterates all menu items (including submenus).
+    Returns (menu, itemtype, index)"""
     count = menu.index(tk.END)
     if count is not None:
         cascades = []
         for i in range(0, count + 1):
             itemtype = menu.type(i)
-            if itemtype == 'cascade':
-                cascade = menu.nametowidget(menu.entrycget(i, 'menu'))
+            if itemtype == "cascade":
+                cascade = menu.nametowidget(menu.entrycget(i, "menu"))
                 cascades.append(cascade)
             yield (menu, itemtype, i)
         for m in cascades:
@@ -93,7 +93,7 @@ __style = None
 
 
 def get_ttk_style():
-    '''Use ttkthemes if module is installed'''
+    """Use ttkthemes if module is installed"""
     global __style
     if __style is None:
         try:

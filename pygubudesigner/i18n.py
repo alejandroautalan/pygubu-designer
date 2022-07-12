@@ -32,9 +32,9 @@ LOCALE_DIR = APP_DIR / "locale"
 
 if not (LOCALE_DIR / "de" / "LC_MESSAGES" / "pygubu.mo").exists():
     print(
-        'You should compile the .po files in the pygubudesigner/locale '
-        + 'directory first if you are a developer, otherwise give us feedback '
-        + 'here: https://github.com/alejandroautalan/pygubu-designer/issues'
+        "You should compile the .po files in the pygubudesigner/locale "
+        + "directory first if you are a developer, otherwise give us feedback "
+        + "here: https://github.com/alejandroautalan/pygubu-designer/issues"
     )
     sys.exit(0)
 
@@ -44,7 +44,7 @@ if not (LOCALE_DIR / "de" / "LC_MESSAGES" / "pygubu.mo").exists():
 #  In maemo it is in the LANG environment variable
 #  (on desktop is usually LANGUAGES)
 #
-DEFAULT_LANGUAGES = os.environ.get('LANG', '').split(':')
+DEFAULT_LANGUAGES = os.environ.get("LANG", "").split(":")
 
 # Try to get the languages from the default locale
 languages = []
@@ -55,7 +55,7 @@ if lc:
 # Concat all languages (env + default locale),
 #  and here we have the languages and location of the translations
 #
-languages = DEFAULT_LANGUAGES + languages + ['en_US']
+languages = DEFAULT_LANGUAGES + languages + ["en_US"]
 mo_location = LOCALE_DIR
 
 # Lets tell those details to gettext

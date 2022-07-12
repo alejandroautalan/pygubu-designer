@@ -20,7 +20,9 @@ from pygubu.widgets.simpletooltip import create as create_tooltip
 
 from pygubudesigner import properties
 from pygubudesigner.widgetdescr import WidgetMeta
-from pygubudesigner.widgets.containerlayouteditorbase import ContainerLayoutEditorBase
+from pygubudesigner.widgets.containerlayouteditorbase import (
+    ContainerLayoutEditorBase,
+)
 from pygubudesigner.widgets.gridselector import GridRCselectorWidget
 from pygubudesigner.widgets.propertyeditor import create_editor
 
@@ -30,15 +32,15 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         super().__init__(master, **kw)
         # Add grid selector
         self.gridselector = w = GridRCselectorWidget(self.rcselectorframe)
-        w.bind('<<Gridselector:CellSelected>>', self._on_gridcell_clicked)
+        w.bind("<<Gridselector:CellSelected>>", self._on_gridcell_clicked)
         w.pack()
 
         self._propbag = {}
         self._rcbag = {}
         self._current = None
-        self._mainpanel_label = 'Options for {0} container'
-        self._rowpanel_label = 'Row index: {0}'
-        self._colpanel_label = 'Column index: {0}'
+        self._mainpanel_label = "Options for {0} container"
+        self._rowpanel_label = "Row index: {0}"
+        self._colpanel_label = "Column index: {0}"
         self._build_editors()
 
     def _build_editors(self):
@@ -46,7 +48,11 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         label_tpl = "{0}:"
         row = col = 0
         groups = (
-            ('00', properties.CONTAINER_MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
+            (
+                "00",
+                properties.CONTAINER_MANAGER_PROPERTIES,
+                properties.LAYOUT_OPTIONS,
+            ),
         )
 
         for gcode, plist, propdescr in groups:
@@ -55,9 +61,9 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
                 labeltext = label_tpl.format(name)
                 label = ttk.Label(self.foptions, text=labeltext, anchor=tk.W)
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
-                tooltip_text = kwdata.get('help', None)
+                tooltip_text = kwdata.get("help", None)
                 label.tooltip = create_tooltip(label, tooltip_text)
-                alias = f'cprop_{name}'
+                alias = f"cprop_{name}"
                 widget = self._create_editor(self.foptions, alias, kwdata)
                 widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
                 row += 1
@@ -65,7 +71,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
 
         # Row/Column Editors
         fgr = self.rowframe
-        name_format = 'row_{0}'  # row_{name}
+        name_format = "row_{0}"  # row_{name}
         row = 0
         label_tpl = "{0}:"
         for pname in properties.GRID_RC_PROPERTIES:
@@ -74,7 +80,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             labeltext = label_tpl.format(pname)
             label = ttk.Label(fgr, text=labeltext, anchor=tk.W)
             label.grid(row=row, column=0, sticky=tk.EW, pady=2)
-            tooltip_text = kwdata.get('help', None)
+            tooltip_text = kwdata.get("help", None)
             label.tooltip = create_tooltip(label, tooltip_text)
 
             widget = self._create_editor(fgr, alias, kwdata)
@@ -84,7 +90,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         fgr.columnconfigure(1, weight=1)
 
         fgc = self.colframe
-        name_format = 'col_{0}'  # row_{name}
+        name_format = "col_{0}"  # row_{name}
         row = 0
         label_tpl = "{0}:"
         for pname in properties.GRID_RC_PROPERTIES:
@@ -93,7 +99,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             labeltext = label_tpl.format(pname)
             label = ttk.Label(fgc, text=labeltext, anchor=tk.W)
             label.grid(row=row, column=0, sticky=tk.EW, pady=2)
-            tooltip_text = kwdata.get('help', None)
+            tooltip_text = kwdata.get("help", None)
             label.tooltip = create_tooltip(label, tooltip_text)
 
             widget = self._create_editor(fgc, alias, kwdata)
@@ -104,7 +110,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
 
     def _create_editor(self, master, pname, wdata):
         editor = None
-        wtype = wdata.get('editor', None)
+        wtype = wdata.get("editor", None)
 
         # I don't have class name at this moment
         # so setup class specific values on update_property_widget
@@ -116,7 +122,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
 
             return on_change_cb
 
-        editor.bind('<<PropertyChanged>>', make_on_change_cb(pname, editor))
+        editor.bind("<<PropertyChanged>>", make_on_change_cb(pname, editor))
         return editor
 
     def update_editor(self, label, editor, wdescr, pname, propdescr):
@@ -126,27 +132,29 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         if manager in pdescr:
             pdescr = dict(pdescr, **pdescr[manager])
 
-        params = pdescr.get('params', {})
+        params = pdescr.get("params", {})
         editor.parameters(**params)
-        default = pdescr.get('default', '')
+        default = pdescr.get("default", "")
 
         value = wdescr.container_property(pname)
         if not value and default:
             value = default
         editor.edit(value)
 
-    def update_rc_editor(self, type_, index, label, editor, wdescr, pname, propdescr):
+    def update_rc_editor(
+        self, type_, index, label, editor, wdescr, pname, propdescr
+    ):
         pdescr = propdescr.copy()
         classname = wdescr.classname
 
         if classname in pdescr:
             pdescr = dict(pdescr, **pdescr[classname])
 
-        params = pdescr.get('params', {})
+        params = pdescr.get("params", {})
         editor.parameters(**params)
-        default = pdescr.get('default', '')
+        default = pdescr.get("default", "")
 
-        value = ''
+        value = ""
         value = wdescr.gridrc_property(type_, str(index), pname)
         if not value and default:
             value = default
@@ -154,7 +162,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
 
     def _btn_indexall_clicked(self):
         self.gridselector.selection_clear()
-        self._edit_grid_cell('all', 'all')
+        self._edit_grid_cell("all", "all")
 
     def _btn_clearall_clicked(self):
         if self._current:
@@ -162,16 +170,16 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             self._edit_gridrc()
 
     def _on_property_changed(self, alias, editor):
-        if alias.startswith('cprop_'):
+        if alias.startswith("cprop_"):
             # Contaner grid property
-            _, pname = alias.split('_')
+            _, pname = alias.split("_")
             self._current.container_property(pname, editor.value)
         else:
             # It's a grid RC change
-            rowcol, pname = alias.split('_')
-            index = 0 if rowcol == 'row' else 1
+            rowcol, pname = alias.split("_")
+            index = 0 if rowcol == "row" else 1
             if self.gridselector.selection is None:
-                number = 'all'
+                number = "all"
             else:
                 number = str(self.gridselector.selection[index])
             target = self._current
@@ -183,18 +191,18 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
             self.gridselector.mark_grid_cols(False)
 
             for row in self._current.gridrc_row_indexes():
-                if row == 'all':
+                if row == "all":
                     self.gridselector.mark_grid_rows()
                 else:
                     self.gridselector.mark_row(int(row))
             for col in self._current.gridrc_column_indexes():
-                if col == 'all':
+                if col == "all":
                     self.gridselector.mark_grid_cols()
                 else:
                     self.gridselector.mark_column(int(col))
 
             # Update the preview now, after the grid rc changes have been made.
-            target.notify('LAYOUT_GRIDRC_CHANGED', target)
+            target.notify("LAYOUT_GRIDRC_CHANGED", target)
 
     def _on_gridcell_clicked(self, event=None):
         self._edit_grid_cell(*self.gridselector.selection)
@@ -203,11 +211,13 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         # Update RC properties editors for cell
         target = self._current
         for key in self._rcbag:
-            rowcol, name = key.split('_')
+            rowcol, name = key.split("_")
             propdescr = properties.LAYOUT_OPTIONS[name]
-            index = col if rowcol == 'col' else row
+            index = col if rowcol == "col" else row
             label, widget = self._rcbag[key]
-            self.update_rc_editor(rowcol, index, label, widget, target, name, propdescr)
+            self.update_rc_editor(
+                rowcol, index, label, widget, target, name, propdescr
+            )
         # update labels
         label = self._rowpanel_label.format(row)
         self.rowframe_label.configure(text=label)
@@ -224,12 +234,12 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         self.gridselector.select_cell(0, 0)
 
         for row in self._current.gridrc_row_indexes():
-            if row == 'all':
+            if row == "all":
                 self.gridselector.mark_grid_rows()
             else:
                 self.gridselector.mark_row(int(row))
         for col in self._current.gridrc_column_indexes():
-            if col == 'all':
+            if col == "all":
                 self.gridselector.mark_grid_cols()
             else:
                 self.gridselector.mark_column(int(col))
@@ -242,12 +252,16 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         self.lbl_title.configure(text=txt_label)
 
         manager_prop = properties.CONTAINER_GRID_PROPERTIES
-        if manager == 'pack':
+        if manager == "pack":
             manager_prop = properties.CONTAINER_PACK_PROPERTIES
 
         # layout properties
         groups = (
-            ('00', properties.CONTAINER_MANAGER_PROPERTIES, properties.LAYOUT_OPTIONS),
+            (
+                "00",
+                properties.CONTAINER_MANAGER_PROPERTIES,
+                properties.LAYOUT_OPTIONS,
+            ),
         )
 
         for gcode, proplist, gproperties in groups:
@@ -263,27 +277,27 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
                     widget.grid_remove()
 
         self.gridrcpanel.grid_remove()
-        if manager == 'grid':
+        if manager == "grid":
             self._edit_gridrc()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     widget = ContainerLayoutEditor(root)
-    widget.pack(expand=True, fill='both')
+    widget.pack(expand=True, fill="both")
 
-    wd = WidgetMeta('tk.Frame', 'frame1')
-    wd.gridrc_property('row', '0', 'minsize', '25')
-    wd.gridrc_property('col', '0', 'minsize', '125')
+    wd = WidgetMeta("tk.Frame", "frame1")
+    wd.gridrc_property("row", "0", "minsize", "25")
+    wd.gridrc_property("col", "0", "minsize", "125")
 
-    wd.gridrc_property('row', '0', 'minsize', '25')
-    wd.gridrc_property('col', '2', 'minsize', '125')
+    wd.gridrc_property("row", "0", "minsize", "25")
+    wd.gridrc_property("col", "2", "minsize", "125")
 
-    wd.gridrc_property('row', '3', 'minsize', '5')
-    wd.gridrc_property('col', '2', 'minsize', '75')
+    wd.gridrc_property("row", "3", "minsize", "5")
+    wd.gridrc_property("col", "2", "minsize", "75")
 
     print(wd)
-    widget.edit(wd, 'grid', (10, 10))
+    widget.edit(wd, "grid", (10, 10))
     # widget.edit(wd, 'pack')
 
     root.mainloop()

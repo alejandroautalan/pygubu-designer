@@ -31,11 +31,13 @@ class CustomInplaceEditor(InplaceEditor):
         self._widget = frame = ttk.Frame(master)
         self._label = ttk.Label(frame, width=5, anchor=tk.E)
         self._label.pack(side=tk.LEFT)
-        self._scale = ttk.Scale(frame, from_=10, to=100, command=self._onscalechange)
+        self._scale = ttk.Scale(
+            frame, from_=10, to=100, command=self._onscalechange
+        )
         self._scale.pack(side=tk.LEFT, fill=tk.X)
 
     def _onscalechange(self, value):
-        strval = f'{float(value):.2f}'
+        strval = f"{float(value):.2f}"
         self._label.configure(text=strval)
         # Notify treeview that value was changed
         if not self._notify_blocked:
@@ -74,7 +76,7 @@ class EditableTreeviewDemoApp:
 
         builder.connect_callbacks(self)
 
-        self.combo_values = ('A', 'B', 'C', 'D', 'E', 'F')
+        self.combo_values = ("A", "B", "C", "D", "E", "F")
         self.custom_editor = None
         self._setup_data()
 
@@ -82,12 +84,12 @@ class EditableTreeviewDemoApp:
 
         # Add some data to the treeview
         data = [
-            ('news', 'http://www.realnews.com.ar', True, 'A', 0, 10),
-            ('games', 'https://www.gogamer.com.ar', True, 'F', 0, 20),
-            ('search', 'https://duckduckgo.com.ar', False, 'D', 0, 30),
+            ("news", "http://www.realnews.com.ar", True, "A", 0, 10),
+            ("games", "https://www.gogamer.com.ar", True, "F", 0, 20),
+            ("search", "https://duckduckgo.com.ar", False, "D", 0, 30),
         ]
         for d in data:
-            self.etv.insert('', tk.END, text=d[0], values=d[1:])
+            self.etv.insert("", tk.END, text=d[0], values=d[1:])
 
     def run(self):
         self.mainwindow.mainloop()
@@ -96,10 +98,10 @@ class EditableTreeviewDemoApp:
         # This method is connected with the <<TreeviewCellEdited>>
         # virtual event of the Editabletreeview
         col, item = self.etv.get_event_info()
-        msg = f'Column {col} of item {item} was changed'
+        msg = f"Column {col} of item {item} was changed"
         print(msg)
-        data = self.etv.item(item, 'values')
-        print('New values:', data)
+        data = self.etv.item(item, "values")
+        print("New values:", data)
 
     def on_inplace_edit(self, event=None):
         # This method is connected with the <<TreeviewInplaceEdit>>
@@ -112,17 +114,21 @@ class EditableTreeviewDemoApp:
         # Allow edition only if allow_edit variable is checked
         if self.allow_edit.get() == True:
             # Define the widget editor to be used to edit the column value
-            if col in ('col1',):
+            if col in ("col1",):
                 self.etv.inplace_entry(col, item)
-            if col == 'col2':
+            if col == "col2":
                 self.etv.inplace_checkbutton(col, item)
-            if col == 'col3':
+            if col == "col3":
                 self.etv.inplace_combobox(
-                    col, item, self.combo_values, readonly=True, update_values=False
+                    col,
+                    item,
+                    self.combo_values,
+                    readonly=True,
+                    update_values=False,
                 )
-            if col == 'col4':
+            if col == "col4":
                 self.etv.inplace_spinbox(col, item, 0, 100, 5)
-            if col == 'col5':
+            if col == "col5":
                 # create editor here, so all editors are created in order.
                 if self.custom_editor is None:
                     self.custom_editor = CustomInplaceEditor(self.etv)
@@ -136,7 +142,7 @@ class EditableTreeviewDemoApp:
         sel = self.etv.selection()
         if sel:
             item = sel[0]
-            print(f'Row item {item} was selected.')
+            print(f"Row item {item} was selected.")
 
 
 if __name__ == "__main__":

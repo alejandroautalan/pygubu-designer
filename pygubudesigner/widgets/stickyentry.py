@@ -17,7 +17,10 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from pygubudesigner.util.selecttool import SelectTool
-from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
+from pygubudesigner.widgets.propertyeditor import (
+    PropertyEditor,
+    register_editor,
+)
 
 
 class StickyPropertyEditor(PropertyEditor):
@@ -29,36 +32,41 @@ class StickyPropertyEditor(PropertyEditor):
         w.grid(row=0, column=1)
 
         self._map = {
-            '': [0, 0, 0, 0, 1, 0, 0, 0, 0],
-            'n': [0, 1, 0, 0, 0, 0, 0, 0, 0],
-            's': [0, 0, 0, 0, 0, 0, 0, 1, 0],
-            'e': [0, 0, 0, 0, 0, 1, 0, 0, 0],
-            'w': [0, 0, 0, 1, 0, 0, 0, 0, 0],
-            'nw': [1, 0, 0, 0, 0, 0, 0, 0, 0],
-            'ne': [0, 0, 1, 0, 0, 0, 0, 0, 0],
-            'sw': [0, 0, 0, 0, 0, 0, 1, 0, 0],
-            'se': [0, 0, 0, 0, 0, 0, 0, 0, 1],
-            'new': [1, 1, 1, 0, 0, 0, 0, 0, 0],
-            'ew': [0, 0, 0, 1, 1, 1, 0, 0, 0],
-            'sew': [0, 0, 0, 0, 0, 0, 1, 1, 1],
-            'nsw': [1, 0, 0, 1, 0, 0, 1, 0, 0],
-            'ns': [0, 1, 0, 0, 1, 0, 0, 1, 0],
-            'nse': [0, 0, 1, 0, 0, 1, 0, 0, 1],
-            'nsew': [1, 1, 1, 1, 1, 1, 1, 1, 1],
+            "": [0, 0, 0, 0, 1, 0, 0, 0, 0],
+            "n": [0, 1, 0, 0, 0, 0, 0, 0, 0],
+            "s": [0, 0, 0, 0, 0, 0, 0, 1, 0],
+            "e": [0, 0, 0, 0, 0, 1, 0, 0, 0],
+            "w": [0, 0, 0, 1, 0, 0, 0, 0, 0],
+            "nw": [1, 0, 0, 0, 0, 0, 0, 0, 0],
+            "ne": [0, 0, 1, 0, 0, 0, 0, 0, 0],
+            "sw": [0, 0, 0, 0, 0, 0, 1, 0, 0],
+            "se": [0, 0, 0, 0, 0, 0, 0, 0, 1],
+            "new": [1, 1, 1, 0, 0, 0, 0, 0, 0],
+            "ew": [0, 0, 0, 1, 1, 1, 0, 0, 0],
+            "sew": [0, 0, 0, 0, 0, 0, 1, 1, 1],
+            "nsw": [1, 0, 0, 1, 0, 0, 1, 0, 0],
+            "ns": [0, 1, 0, 0, 1, 0, 0, 1, 0],
+            "nse": [0, 0, 1, 0, 0, 1, 0, 0, 1],
+            "nsew": [1, 1, 1, 1, 1, 1, 1, 1, 1],
         }
         self._items = {}
         self._c = w = tk.Canvas(
-            self, bg='#ffffff', borderwidth=0, highlightthickness=0, width=50, height=50
+            self,
+            bg="#ffffff",
+            borderwidth=0,
+            highlightthickness=0,
+            width=50,
+            height=50,
         )
-        w.bind('<Configure>', self._on_canvas_configure)
-        w.bind('<<RegionSelected>>', self._on_region_selected)
-        w.grid(row=0, column=0, sticky='w')
+        w.bind("<Configure>", self._on_canvas_configure)
+        w.bind("<<RegionSelected>>", self._on_region_selected)
+        w.grid(row=0, column=0, sticky="w")
 
         self._tool = t = SelectTool(w)
 
-        w.bind('<Button-1>', t.click_handler)
-        w.bind('<ButtonRelease-1>', t.release_handler)
-        w.bind('<Motion>', t.motion_handler)
+        w.bind("<Button-1>", t.click_handler)
+        w.bind("<ButtonRelease-1>", t.release_handler)
+        w.bind("<Motion>", t.motion_handler)
 
         self._on_canvas_configure()
 
@@ -72,7 +80,7 @@ class StickyPropertyEditor(PropertyEditor):
         if state in self._map:
             self._paint_state(self._map[state])
         else:
-            self._paint_state(self._map[''])
+            self._paint_state(self._map[""])
 
     def _on_canvas_configure(self, event=None):
         # Draw grid
@@ -90,7 +98,7 @@ class StickyPropertyEditor(PropertyEditor):
                 x1 = x0 + rw
                 y1 = y0 + rh
                 item = canvas.create_rectangle(
-                    x0, y0, x1, y1, fill='white', outline='gray'
+                    x0, y0, x1, y1, fill="white", outline="gray"
                 )
                 self._items[item] = k
         else:
@@ -113,11 +121,11 @@ class StickyPropertyEditor(PropertyEditor):
     def _clear(self):
         self._paint(self._items)
 
-    def _paint(self, items, color='white'):
+    def _paint(self, items, color="white"):
         for item in items:
             self._c.itemconfigure(item, fill=color)
 
-    def _paint_state(self, state, color='#9999cc'):
+    def _paint_state(self, state, color="#9999cc"):
         for item in self._items:
             pos = self._items[item]
             if state[pos]:
@@ -130,26 +138,26 @@ class StickyPropertyEditor(PropertyEditor):
             pos = self._items[item]
             state[pos] = 1
         # check valid state
-        found = ''
+        found = ""
         for k, v in self._map.items():
             if v == state:
                 found = k
                 break
-        self._paint_state(self._map[found], color='#9999cc')
+        self._paint_state(self._map[found], color="#9999cc")
         self._set_value(found)
         self._on_variable_changed()
 
 
-register_editor('stickyentry', StickyPropertyEditor)
+register_editor("stickyentry", StickyPropertyEditor)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     editor = StickyPropertyEditor(root)
     editor.grid()
-    editor.edit('nsew')
+    editor.edit("nsew")
 
     def see_var(event=None):
         print(editor.value)
 
-    editor.bind('<<PropertyChanged>>', see_var)
+    editor.bind("<<PropertyChanged>>", see_var)
     root.mainloop()

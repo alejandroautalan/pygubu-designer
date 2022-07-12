@@ -12,20 +12,20 @@ class DemoApp:
         self.builder = builder = pygubu.Builder()
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
-        self.mainwindow = builder.get_object('topdemo')
+        self.mainwindow = builder.get_object("topdemo")
         builder.connect_callbacks(self)
-        
-        canvas = builder.get_object('canvas1')
+
+        canvas = builder.get_object("canvas1")
         # Load image in canvas
-        fpath = os.path.join(PROJECT_PATH, 'seaside400.jpg')
+        fpath = os.path.join(PROJECT_PATH, "seaside400.jpg")
         aux = Image.open(fpath)
         self.img = ImageTk.PhotoImage(aux)
-        canvas.create_image(0, 0, image=self.img, anchor='nw')
-        
+        canvas.create_image(0, 0, image=self.img, anchor="nw")
+
     def run(self):
         self.mainwindow.mainloop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = DemoApp()
     app.run()

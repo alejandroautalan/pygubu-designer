@@ -29,40 +29,42 @@ from .propertyeditor import EntryPropertyEditor, register_editor
 class EntryValidateCommandPropertyEditor(CommandPropertyBase):
     def _create_ui(self):
         self._cbname = w = EntryPropertyEditor(self)
-        w.grid(row=0, column=0, sticky='nswe', columnspan=2)
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
+        w.grid(row=0, column=0, sticky="nswe", columnspan=2)
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
 
-        self._arg_var = var = tk.StringVar(self, '')
+        self._arg_var = var = tk.StringVar(self, "")
         self._argd = w = EntryPropertyEditor(self)
-        w.parameters(state='readonly', textvariable=var)
-        w.grid(row=1, column=0, sticky='nswe')
+        w.parameters(state="readonly", textvariable=var)
+        w.grid(row=1, column=0, sticky="nswe")
 
-        self._mb = w = ttk.Menubutton(self, text='Args')
-        w.grid(row=1, column=1, sticky='nswe')
+        self._mb = w = ttk.Menubutton(self, text="Args")
+        w.grid(row=1, column=1, sticky="nswe")
 
         olist = (
-            ('%d', _('Type of action.')),
-            ('%i', _('Index of character string to be inserted/deleted.')),
-            ('%P', _("The new/current value of the entry.")),
-            ('%s', _('The current value of entry prior to editing.')),
-            ('%S', _('The text string being inserted/deleted.')),
-            ('%v', _('The current value of the -validate option.')),
-            ('%V', _('The validation condition that triggered the callback.')),
-            ('%W', _('The name of the entry widget.')),
+            ("%d", _("Type of action.")),
+            ("%i", _("Index of character string to be inserted/deleted.")),
+            ("%P", _("The new/current value of the entry.")),
+            ("%s", _("The current value of entry prior to editing.")),
+            ("%S", _("The text string being inserted/deleted.")),
+            ("%v", _("The current value of the -validate option.")),
+            ("%V", _("The validation condition that triggered the callback.")),
+            ("%W", _("The name of the entry widget.")),
         )
         options = OrderedDict(olist)
         self._vars = {k: tk.BooleanVar(self) for k in options.keys()}
 
         self._menu = m = tk.Menu(self._mb, tearoff=False)
-        m.add_command(label=_('Select all'), command=self._on_select_all)
-        m.add_command(label=_('Clear'), command=self._on_clear)
+        m.add_command(label=_("Select all"), command=self._on_select_all)
+        m.add_command(label=_("Clear"), command=self._on_clear)
         m.add_separator()
         for key, txt in options.items():
-            txt = f'{key} {txt}'
+            txt = f"{key} {txt}"
             m.add_checkbutton(
-                label=txt, variable=self._vars[key], command=self._on_update_args
+                label=txt,
+                variable=self._vars[key],
+                command=self._on_update_args,
             )
-        self._mb['menu'] = m
+        self._mb["menu"] = m
         self.columnconfigure(0, weight=1)
 
     def _on_select_all(self):
@@ -86,11 +88,11 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
         for key, var in self._vars.items():
             if var.get():
                 args.append(key)
-        args = ' '.join(args)
+        args = " ".join(args)
         return args
 
     def _set_args(self, args):
-        arglist = args.split(' ')
+        arglist = args.split(" ")
         for key, var in self._vars.items():
             var.set(False)
             if key in arglist:
@@ -98,26 +100,26 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
 
     def _set_value(self, value):
         """Save value on storage"""
-        cbname = ''
-        args = ''
+        cbname = ""
+        args = ""
         if len(value) != 0:
             vd = json.loads(value)
-            cbname = vd['value']
-            args = vd['args']
+            cbname = vd["value"]
+            args = vd["args"]
         self._cbname.edit(cbname)
         self._set_args(args)
         self._arg_var.set(self._get_args())
         self._variable.set(value)
 
     def _get_value(self):
-        value = ''
+        value = ""
         if len(self._cbname.value) != 0:
             args = self._get_args()
             cmd = {
-                'type': 'command',
-                'value': self._cbname.value,
-                'cbtype': CB_TYPES.ENTRY_VALIDATE,
-                'args': args,
+                "type": "command",
+                "value": self._cbname.value,
+                "cbtype": CB_TYPES.ENTRY_VALIDATE,
+                "args": args,
             }
             value = json.dumps(cmd)
         return value
@@ -131,22 +133,22 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
         return is_valid
 
 
-register_editor('entryvalidatecommandentry', EntryValidateCommandPropertyEditor)
+register_editor("entryvalidatecommandentry", EntryValidateCommandPropertyEditor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
     editor = EntryValidateCommandPropertyEditor(root)
-    editor.grid(sticky='nsew')
+    editor.grid(sticky="nsew")
 
     def on_change_cb(self, event=None):
-        print('change cb')
+        print("change cb")
         print(editor.value)
 
-    editor.bind('<<PropertyChanged>>', on_change_cb)
+    editor.bind("<<PropertyChanged>>", on_change_cb)
     value = '{"value":"mycb", "cbtype": "entryvalidate"}'
     editor.edit(value)
 

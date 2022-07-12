@@ -9,7 +9,6 @@ PROJECT_UI = PROJECT_PATH / "command_properties.ui"
 
 
 class MyApplication:
-
     def __init__(self, master=None):
         # 1: Create a builder
         self.builder = builder = pygubu.Builder()
@@ -18,7 +17,7 @@ class MyApplication:
         builder.add_from_file(PROJECT_UI)
 
         # 3: Create the widget using self.master as parent
-        self.mainwindow = builder.get_object('mainwindow', master)
+        self.mainwindow = builder.get_object("mainwindow", master)
 
         # Method 2: Connect callbacks with methods
         # defined in this class
@@ -30,21 +29,21 @@ class MyApplication:
     # define the method callbacks:
 
     def on_button1_clicked(self):
-        messagebox.showinfo('Message',
-                            'You clicked Button 1',
-                            parent=self.mainwindow)
+        messagebox.showinfo(
+            "Message", "You clicked Button 1", parent=self.mainwindow
+        )
 
     def on_button2_clicked(self):
-        messagebox.showinfo('Message',
-                            'You clicked Button 2',
-                            parent=self.mainwindow)
+        messagebox.showinfo(
+            "Message", "You clicked Button 2", parent=self.mainwindow
+        )
 
     def on_button3_clicked(self):
-        messagebox.showinfo('Message',
-                            'You clicked Button 3',
-                            parent=self.mainwindow)
+        messagebox.showinfo(
+            "Message", "You clicked Button 3", parent=self.mainwindow
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = MyApplication()
     app.run()

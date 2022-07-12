@@ -31,7 +31,7 @@ from pygubudesigner.widgets.propertyeditor import (
 
 
 class CommandPropertyBase(PropertyEditor):
-    RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
+    RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
 
     def is_safe_identifier(self, value):
         is_valid = True
@@ -47,26 +47,26 @@ class SimpleCommandEntry(CommandPropertyBase):
 
     def _create_ui(self):
         self._cbname = w = EntryPropertyEditor(self)
-        w.grid(row=0, column=0, sticky='nswe', columnspan=2)
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
+        w.grid(row=0, column=0, sticky="nswe", columnspan=2)
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
         self.columnconfigure(0, weight=1)
 
     def _set_value(self, value):
         """Save value on storage"""
-        cbname = ''
+        cbname = ""
         if len(value) != 0:
             vd = json.loads(value)
-            cbname = vd['value']
+            cbname = vd["value"]
         self._cbname.edit(cbname)
         self._variable.set(value)
 
     def _get_value(self):
-        value = ''
+        value = ""
         if len(self._cbname.value) != 0:
             cmd = {
-                'type': 'command',
-                'value': self._cbname.value,
-                'cbtype': self.cmd_type,
+                "type": "command",
+                "value": self._cbname.value,
+                "cbtype": self.cmd_type,
             }
             value = json.dumps(cmd)
         return value
@@ -75,7 +75,9 @@ class SimpleCommandEntry(CommandPropertyBase):
         is_valid = True
         value = self._cbname.value
         if len(value) != 0:
-            is_valid = self.is_safe_identifier(value) and self.is_valid_globally(value)
+            is_valid = self.is_safe_identifier(
+                value
+            ) and self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
 
@@ -92,56 +94,56 @@ class ScaleCommandEntry(SimpleCommandEntry):
     cmd_type = CB_TYPES.SCALE
 
 
-register_editor('simplecommandentry', SimpleCommandEntry)
-register_editor('scrollcommandentry', ScrollCommandEntry)
-register_editor('scrollsetcommandentry', ScrollSetCommandEntry)
-register_editor('scalecommandentry', ScaleCommandEntry)
+register_editor("simplecommandentry", SimpleCommandEntry)
+register_editor("scrollcommandentry", ScrollCommandEntry)
+register_editor("scrollsetcommandentry", ScrollSetCommandEntry)
+register_editor("scalecommandentry", ScaleCommandEntry)
 
 
 class CommandPropertyEditor(CommandPropertyBase):
     def _create_ui(self):
-        self._lbl_callback = _('Callback:')
+        self._lbl_callback = _("Callback:")
         self._plabel = w = ttk.Label(
-            self, text=self._lbl_callback, font='TkSmallCaptionFont'
+            self, text=self._lbl_callback, font="TkSmallCaptionFont"
         )
-        w.grid(row=0, column=0, sticky='nswe')
+        w.grid(row=0, column=0, sticky="nswe")
 
         self._cbname = w = EntryPropertyEditor(self)
-        w.grid(row=0, column=1, sticky='nswe')
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
+        w.grid(row=0, column=1, sticky="nswe")
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
         # type label:
-        w = ttk.Label(self, text='Type:', font='TkSmallCaptionFont')
-        w.grid(row=1, column=0, sticky='nsew')
+        w = ttk.Label(self, text="Type:", font="TkSmallCaptionFont")
+        w.grid(row=1, column=0, sticky="nsew")
         # type combo
         cmdtypes = (
-            (CB_TYPES.SIMPLE, _('Simple')),
-            (CB_TYPES.WITH_WID, _('Send widget ID')),
+            (CB_TYPES.SIMPLE, _("Simple")),
+            (CB_TYPES.WITH_WID, _("Send widget ID")),
         )
         self._cmdtype = w = ChoiceByKeyPropertyEditor(self)
         w.parameters(values=cmdtypes)
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
-        w.grid(row=1, column=1, sticky='nswe')
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
+        w.grid(row=1, column=1, sticky="nswe")
         self.columnconfigure(1, weight=1)
 
     def _set_value(self, value):
         """Save value on storage"""
-        cbname = ''
+        cbname = ""
         cbtype = CB_TYPES.SIMPLE
         if len(value) != 0:
             vd = json.loads(value)
-            cbname = vd['value']
-            cbtype = vd['cbtype']
+            cbname = vd["value"]
+            cbtype = vd["cbtype"]
         self._cbname.edit(cbname)
         self._cmdtype.edit(cbtype)
         self._variable.set(value)
 
     def _get_value(self):
-        value = ''
+        value = ""
         if len(self._cbname.value) != 0:
             cmd = {
-                'type': 'command',
-                'value': self._cbname.value,
-                'cbtype': self._cmdtype.value,
+                "type": "command",
+                "value": self._cbname.value,
+                "cbtype": self._cmdtype.value,
             }
             value = json.dumps(cmd)
         return value
@@ -150,25 +152,27 @@ class CommandPropertyEditor(CommandPropertyBase):
         is_valid = True
         value = self._cbname.value
         if len(value) != 0:
-            is_valid = self.is_safe_identifier(value) and self.is_valid_globally(value)
+            is_valid = self.is_safe_identifier(
+                value
+            ) and self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
 
 
-register_editor('commandentry', CommandPropertyEditor)
+register_editor("commandentry", CommandPropertyEditor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
     editor = CommandPropertyEditor(root)
-    editor.grid(sticky='nsew')
+    editor.grid(sticky="nsew")
 
     def change_cb(self, event=None):
-        print('change cb')
+        print("change cb")
 
-    editor.bind('<<PropertyChanged>>', change_cb)
+    editor.bind("<<PropertyChanged>>", change_cb)
     value = '{"value":"mycb", "cbtype": "simple"}'
     editor.edit(value)
 

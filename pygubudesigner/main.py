@@ -62,7 +62,7 @@ def init_pygubu_widgets():
     import pygubu.builder.ttkstdwidgets
 
     # initialize extra widgets
-    widgets_pkg = 'pygubu.builder.widgets'
+    widgets_pkg = "pygubu.builder.widgets"
     mwidgets = importlib.import_module(widgets_pkg)
 
     for __, modulename, __ in pkgutil.iter_modules(
@@ -73,7 +73,7 @@ def init_pygubu_widgets():
         except Exception as e:
             logger.exception(e)
             msg = _(f"Failed to load widget module: '{modulename}'")
-            messagebox.showerror(_('Error'), msg)
+            messagebox.showerror(_("Error"), msg)
 
     # initialize custom widgets
     for path in map(Path, pref.get_custom_widgets()):
@@ -94,27 +94,27 @@ def init_pygubu_widgets():
 
     # initialize custom widget plugins
     for finder, name, ispkg in pkgutil.iter_modules():
-        if name.startswith('pygubu_'):
+        if name.startswith("pygubu_"):
             # TODO: Define how the plugins will expose all builders
             #       to the designer.
-            plugin_builders = f'{name}.builders'
+            plugin_builders = f"{name}.builders"
             importlib.import_module(plugin_builders)
 
 
 # Initialize images
 DESIGNER_DIR = Path(__file__).parent
 
-imgformat = 'images-gif'
+imgformat = "images-gif"
 if tk.TkVersion >= 8.6:
-    imgformat = 'images-png'
+    imgformat = "images-png"
 
 IMAGES_DIR = DESIGNER_DIR / "images"
 IMAGE_PATHS = [  # (dir, tag)
-    (IMAGES_DIR, ''),
-    (IMAGES_DIR / imgformat, ''),
-    (IMAGES_DIR / imgformat / 'widgets' / '22x22', '22x22-'),
-    (IMAGES_DIR / imgformat / 'widgets' / '16x16', '16x16-'),
-    (IMAGES_DIR / imgformat / 'widgets' / 'fontentry', ''),
+    (IMAGES_DIR, ""),
+    (IMAGES_DIR / imgformat, ""),
+    (IMAGES_DIR / imgformat / "widgets" / "22x22", "22x22-"),
+    (IMAGES_DIR / imgformat / "widgets" / "16x16", "16x16-"),
+    (IMAGES_DIR / imgformat / "widgets" / "fontentry", ""),
 ]
 for dir_, prefix in IMAGE_PATHS:
     StockImage.register_from_dir(str(dir_), prefix)
@@ -125,7 +125,7 @@ class StatusBarHandler(logging.Handler):
         super().__init__(level)
         self.app = app
         formatter = logging.Formatter(
-            '%(asctime)s %(levelname)s:%(message)s', datefmt='%H:%M:%S'
+            "%(asctime)s %(levelname)s:%(message)s", datefmt="%H:%M:%S"
         )
         self.setFormatter(formatter)
 
@@ -153,50 +153,56 @@ class PygubuDesigner:
         self.builder = pygubu.Builder(translator)
         self.currentfile = None
         self.is_changed = False
-        self.current_title = 'new'
+        self.current_title = "new"
 
         self.builder.add_from_file(str(DESIGNER_DIR / "ui" / "pygubu-ui.ui"))
         self.builder.add_resource_path(str(DESIGNER_DIR / "images"))
 
-        in_macos = sys.platform == 'darwin'
+        in_macos = sys.platform == "darwin"
         # build main ui
-        self.mainwindow = self.builder.get_object('mainwindow')
-        self.main_menu = self.builder.get_object('mainmenu', self.mainwindow)
-        self.context_menu = self.builder.get_object('context_menu', self.mainwindow)
+        self.mainwindow = self.builder.get_object("mainwindow")
+        self.main_menu = self.builder.get_object("mainmenu", self.mainwindow)
+        self.context_menu = self.builder.get_object(
+            "context_menu", self.mainwindow
+        )
 
         # Initialize duplicate menu state
-        self.duplicate_menu_state = 'normal'
+        self.duplicate_menu_state = "normal"
 
         if in_macos:
-            cmd = 'tk::mac::ShowPreferences'
+            cmd = "tk::mac::ShowPreferences"
             self.mainwindow.createcommand(cmd, self._edit_preferences)
             # cmd = 'tk::mac::ShowHelp'
             # self.mainwindow.createcommand(cmd, self.on_help_item_clicked)
-            cmd = 'tk::mac::Quit'
+            cmd = "tk::mac::Quit"
             self.mainwindow.createcommand(cmd, self.quit)
             # In mac add apple menu
-            m = tk.Menu(self.main_menu, name='apple')
-            m.add_command(label=_('Quit …'), accelerator='Cmd-Q', command=self.quit)
+            m = tk.Menu(self.main_menu, name="apple")
+            m.add_command(
+                label=_("Quit …"), accelerator="Cmd-Q", command=self.quit
+            )
             self.main_menu.insert_cascade(0, menu=m)
 
         # Set top menu
         self.mainwindow.configure(menu=self.main_menu)
 
         # Recen Files management
-        rfmenu = self.builder.get_object('file_recent_menu')
+        rfmenu = self.builder.get_object("file_recent_menu")
         self.rfiles_manager = RecentFilesManager(rfmenu, self.do_file_open)
         self.mainwindow.after_idle(self.rfiles_manager.load)
 
         # widget tree
-        self.treeview = self.builder.get_object('treeview1')
-        self.bindings_frame = self.builder.get_object('bindingsframe')
-        self.bindings_tree = self.builder.get_object('bindingstree')
+        self.treeview = self.builder.get_object("treeview1")
+        self.bindings_frame = self.builder.get_object("bindingsframe")
+        self.bindings_tree = self.builder.get_object("bindingstree")
 
         # Preview
-        self.preview_canvas = self.builder.get_object('preview_canvas')
-        self.previewer = PreviewHelper(self.preview_canvas,
-                                       self.show_context_menu,
-                                       self._should_center_preview_window)
+        self.preview_canvas = self.builder.get_object("preview_canvas")
+        self.previewer = PreviewHelper(
+            self.preview_canvas,
+            self.show_context_menu,
+            self._should_center_preview_window,
+        )
 
         # Bottom Panel
         self.setup_bottom_panel()
@@ -219,8 +225,8 @@ class PygubuDesigner:
         # App config
         top = self.mainwindow
         try:
-            top.wm_iconname('pygubu')
-            top.tk.call('wm', 'iconphoto', '.', StockImage.get('pygubu'))
+            top.wm_iconname("pygubu")
+            top.tk.call("wm", "iconphoto", ".", StockImage.get("pygubu"))
         except StockImageException as e:
             pass
 
@@ -228,7 +234,7 @@ class PygubuDesigner:
         init_pygubu_widgets()
 
         # _pallete
-        self.fpalette = self.builder.get_object('fpalette')
+        self.fpalette = self.builder.get_object("fpalette")
         self.create_component_palette(self.fpalette)
 
         # tree editor
@@ -256,42 +262,47 @@ class PygubuDesigner:
 
     def set_title(self, newtitle):
         self.current_title = newtitle
-        default_title = 'Pygubu Designer - {0}'
+        default_title = "Pygubu Designer - {0}"
         title = default_title.format(newtitle)
         self.mainwindow.wm_title(title)
 
     def _setup_app_bindings(self):
-        in_macos = sys.platform == 'darwin'
+        in_macos = sys.platform == "darwin"
         #
         # Context menu binding for object treeview
         #
         if in_macos:
             # tree_editor context menu binding (2nd mouse button for macos)
-            self.tree_editor.treeview.bind('<2>', self.on_right_click_object_tree)
+            self.tree_editor.treeview.bind(
+                "<2>", self.on_right_click_object_tree
+            )
         else:
             # tree_editor context menu binding (3rd mouse button for linux and
             # windows)
-            self.tree_editor.treeview.bind('<3>', self.on_right_click_object_tree)
+            self.tree_editor.treeview.bind(
+                "<3>", self.on_right_click_object_tree
+            )
 
         #
         # Application Keyboard bindings
         #
-        CONTROL_KP_SEQUENCE = '<Control-KeyPress>'
-        ALT_KP_SEQUENCE = '<Alt-KeyPress>'
+        CONTROL_KP_SEQUENCE = "<Control-KeyPress>"
+        ALT_KP_SEQUENCE = "<Alt-KeyPress>"
         if in_macos:
-            CONTROL_KP_SEQUENCE = '<Command-KeyPress>'
-            ALT_KP_SEQUENCE = '<Control-KeyPress>'
+            CONTROL_KP_SEQUENCE = "<Command-KeyPress>"
+            ALT_KP_SEQUENCE = "<Control-KeyPress>"
             # Fix menu accelerators
             for m, itemtype, index in menu_iter_children(self.main_menu):
-                if itemtype != 'separator':
-                    accel = m.entrycget(index, 'accelerator')
-                    accel = accel.replace('Ctrl+', 'Cmd-')
-                    accel = accel.replace('Alt+', 'Ctrl+')
+                if itemtype != "separator":
+                    accel = m.entrycget(index, "accelerator")
+                    accel = accel.replace("Ctrl+", "Cmd-")
+                    accel = accel.replace("Alt+", "Ctrl+")
                     m.entryconfigure(index, accelerator=accel)
 
         master = self.mainwindow
         master.bind_all(
-            CONTROL_KP_SEQUENCE, key_bind(Key.N, virtual_event(actions.FILE_NEW))
+            CONTROL_KP_SEQUENCE,
+            key_bind(Key.N, virtual_event(actions.FILE_NEW)),
         )
         master.bind_all(
             CONTROL_KP_SEQUENCE,
@@ -308,8 +319,12 @@ class PygubuDesigner:
             key_bind(Key.Q, virtual_event(actions.FILE_QUIT)),
             add=True,
         )
-        master.bind_all('<F5>', virtual_event(actions.TREE_ITEM_PREVIEW_TOPLEVEL))
-        master.bind_all('<F6>', virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL))
+        master.bind_all(
+            "<F5>", virtual_event(actions.TREE_ITEM_PREVIEW_TOPLEVEL)
+        )
+        master.bind_all(
+            "<F6>", virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL)
+        )
 
         # Tree Editing Keyboard events
         for widget in (self.treeview, self.preview_canvas):
@@ -329,7 +344,9 @@ class PygubuDesigner:
             )
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(Key.V, lambda e: self.tree_editor.paste_from_clipboard()),
+                key_bind(
+                    Key.V, lambda e: self.tree_editor.paste_from_clipboard()
+                ),
                 add=True,
             )
             widget.bind(
@@ -343,14 +360,17 @@ class PygubuDesigner:
                 add=True,
             )
             widget.bind(
-                '<KeyPress>', key_bind(Key.I, virtual_event(actions.TREE_NAV_UP))
+                "<KeyPress>",
+                key_bind(Key.I, virtual_event(actions.TREE_NAV_UP)),
             )
             widget.bind(
-                '<KeyPress>',
+                "<KeyPress>",
                 key_bind(Key.K, virtual_event(actions.TREE_NAV_DOWN)),
                 add=True,
             )
-            widget.bind('<KeyPress-Delete>', virtual_event(actions.TREE_ITEM_DELETE))
+            widget.bind(
+                "<KeyPress-Delete>", virtual_event(actions.TREE_ITEM_DELETE)
+            )
 
             # grid move bindings
             widget.bind(
@@ -382,39 +402,47 @@ class PygubuDesigner:
         w.bind(actions.FILE_QUIT, lambda e: self.quit())
         w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
         # On preferences save binding
-        w.bind('<<PygubuDesignerPreferencesSaved>>', self.on_preferences_saved)
+        w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)
 
     def _setup_styles(self):
-        self.mainwindow.option_add('*Dialog.msg.width', 34)
+        self.mainwindow.option_add("*Dialog.msg.width", 34)
         self.mainwindow.option_add("*Dialog.msg.wrapLength", "6i")
 
         s = get_ttk_style()
-        s.configure('ColorSelectorButton.Toolbutton', image=StockImage.get('mglass'))
-        s.configure('ImageSelectorButton.Toolbutton', image=StockImage.get('mglass'))
-        s.configure('ComponentPalette.Toolbutton', font='TkSmallCaptionFont')
-        s.configure('ComponentPalette.TNotebook.Tab', font='TkSmallCaptionFont')
         s.configure(
-            'PanelTitle.TLabel',
-            background='#808080',
-            foreground='white',
-            font='TkSmallCaptionFont',
+            "ColorSelectorButton.Toolbutton", image=StockImage.get("mglass")
         )
-        s.configure('Template.Toolbutton', padding=5)
+        s.configure(
+            "ImageSelectorButton.Toolbutton", image=StockImage.get("mglass")
+        )
+        s.configure("ComponentPalette.Toolbutton", font="TkSmallCaptionFont")
+        s.configure("ComponentPalette.TNotebook.Tab", font="TkSmallCaptionFont")
+        s.configure(
+            "PanelTitle.TLabel",
+            background="#808080",
+            foreground="white",
+            font="TkSmallCaptionFont",
+        )
+        s.configure("Template.Toolbutton", padding=5)
         # ToolbarFrame scroll buttons
-        s.configure(ToolbarFrame.BTN_LEFT_STYLE, image=StockImage.get('arrow-left2'))
-        s.configure(ToolbarFrame.BTN_RIGHT_STYLE, image=StockImage.get('arrow-right2'))
-        if sys.platform == 'linux':
+        s.configure(
+            ToolbarFrame.BTN_LEFT_STYLE, image=StockImage.get("arrow-left2")
+        )
+        s.configure(
+            ToolbarFrame.BTN_RIGHT_STYLE, image=StockImage.get("arrow-right2")
+        )
+        if sys.platform == "linux":
             # change background of comboboxes
-            color = s.lookup('TEntry', 'fieldbackground')
-            s.map('TCombobox', fieldbackground=[('readonly', color)])
-            s.map('TSpinbox', fieldbackground=[('readonly', color)])
+            color = s.lookup("TEntry", "fieldbackground")
+            s.map("TCombobox", fieldbackground=[("readonly", color)])
+            s.map("TSpinbox", fieldbackground=[("readonly", color)])
 
     def _setup_theme_menu(self):
-        menu = self.builder.get_object('preview_themes_submenu')
+        menu = self.builder.get_object("preview_themes_submenu")
         s = get_ttk_style()
         styles = sorted(s.theme_names())
         self.__theme_var = var = tk.StringVar()
-        theme = pref.get_option('ttk_theme')
+        theme = pref.get_option("ttk_theme")
         var.set(theme)
 
         for name in styles:
@@ -423,7 +451,10 @@ class PygubuDesigner:
                 self._change_ttk_theme(theme)
 
             menu.add_radiobutton(
-                label=name, value=name, variable=self.__theme_var, command=handler
+                label=name,
+                value=name,
+                variable=self.__theme_var,
+                command=handler,
             )
 
     def _should_center_preview_window(self) -> bool:
@@ -439,7 +470,7 @@ class PygubuDesigner:
             return False
 
     def create_treelist(self):
-        root_tagset = {'tk', 'ttk'}
+        root_tagset = {"tk", "ttk"}
 
         # create unique tag set
         tagset = set()
@@ -456,7 +487,7 @@ class PygubuDesigner:
             sections = tagset & ctags
             for r in roots:
                 for s in sections:
-                    key = f'{r}>{s}'
+                    key = f"{r}>{s}"
                     treelist.append((key, wc))
 
         # sort tags by label
@@ -468,9 +499,9 @@ class PygubuDesigner:
 
     def create_component_palette(self, fpalette):
         # Default widget image:
-        default_image = ''
+        default_image = ""
         try:
-            default_image = StockImage.get('22x22-tk.default')
+            default_image = StockImage.get("22x22-tk.default")
         except StockImageException as e:
             pass
 
@@ -481,7 +512,7 @@ class PygubuDesigner:
         roots = {}
         sections = {}
         for key, wc in treelist:
-            root, section = key.split('>')
+            root, section = key.split(">")
             if section not in sections:
                 roots[root] = self._pallete.add_tab(section, section)
                 sections[section] = 1
@@ -489,7 +520,7 @@ class PygubuDesigner:
             # insert widget
             w_image = default_image
             try:
-                w_image = StockImage.get(f'22x22-{wc.classname}')
+                w_image = StockImage.get(f"22x22-{wc.classname}")
             except StockImageException as e:
                 pass
 
@@ -498,13 +529,13 @@ class PygubuDesigner:
                 return lambda: self.on_add_widget_event(cname)
 
             wlabel = wc.label
-            if wlabel.startswith('Menuitem.'):
-                wlabel = wlabel.replace('Menuitem.', '')
+            if wlabel.startswith("Menuitem."):
+                wlabel = wlabel.replace("Menuitem.", "")
             callback = create_cb(wc.classname)
             self._pallete.add_button(
                 section, root, wlabel, wc.classname, w_image, callback
             )
-        default_group = pref.get_option('widget_set')
+        default_group = pref.get_option("widget_set")
         self._pallete.show_group(default_group)
 
     def on_add_widget_event(self, classname):
@@ -518,7 +549,7 @@ class PygubuDesigner:
         geom = pref.get_window_size()
         self.mainwindow.geometry(geom)
         # Load preferred ttk theme
-        theme = pref.get_option('ttk_theme')
+        theme = pref.get_option("ttk_theme")
         self._change_ttk_theme(theme)
 
     def _change_ttk_theme(self, theme):
@@ -526,27 +557,29 @@ class PygubuDesigner:
         try:
             s.theme_use(theme)
             self._setup_styles()
-            event_name = '<<PygubuDesignerTtkThemeChanged>>'
+            event_name = "<<PygubuDesignerTtkThemeChanged>>"
             self.mainwindow.event_generate(event_name)
         except tk.TclError as e:
-            logger.exception('Invalid ttk theme.')
+            logger.exception("Invalid ttk theme.")
 
     def on_preferences_saved(self, event=None):
         # Setup ttk theme if changed
-        theme = pref.get_option('ttk_theme')
+        theme = pref.get_option("ttk_theme")
         self._change_ttk_theme(theme)
 
         # Get the preferred default layout manager, in case it has changed.
         self.tree_editor.default_layout_manager = pref.get_option(
-            'default_layout_manager'
+            "default_layout_manager"
         )
 
     def ask_save_changes(self, message, detail=None, title=None):
         do_continue = False
         if title is None:
-            title = _('Save Changes')
+            title = _("Save Changes")
         if detail is None:
-            detail = _("If you don't save the document, all the changes will be lost.")
+            detail = _(
+                "If you don't save the document, all the changes will be lost."
+            )
         choice = ask_save_changes(self.mainwindow, title, message, detail)
         if choice == AskSaveChangesDialog.SAVE:
             do_continue = self.on_file_save()
@@ -559,7 +592,7 @@ class PygubuDesigner:
     def on_close_execute(self):
         quit = True
         if self.is_changed:
-            msg = _('Do you want to save the changes before closing?')
+            msg = _("Do you want to save the changes before closing?")
             quit = self.ask_save_changes(msg)
         if quit:
             # prevent tk image errors on python2 ?
@@ -575,17 +608,17 @@ class PygubuDesigner:
         try:
             self.save_file(fname)
             self.set_changed(False)
-            logger.info(_('Project saved to %s'), fname)
+            logger.info(_("Project saved to %s"), fname)
             saved = True
         except Exception as e:
-            messagebox.showerror(_('Error'), str(e), parent=self.mainwindow)
+            messagebox.showerror(_("Error"), str(e), parent=self.mainwindow)
         return saved
 
     def do_save_as(self):
         saved = False
         options = {
-            'defaultextension': '.ui',
-            'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*')),
+            "defaultextension": ".ui",
+            "filetypes": ((_("pygubu ui"), "*.ui"), (_("All"), "*.*")),
         }
         fname = filedialog.asksaveasfilename(**options)
         if fname:
@@ -602,7 +635,7 @@ class PygubuDesigner:
 
     def set_changed(self, newvalue=True):
         if newvalue and self.is_changed == False:
-            self.set_title(f'{self.current_title} (*)')
+            self.set_title(f"{self.current_title} (*)")
         self.is_changed = newvalue
 
     def load_file(self, filename):
@@ -616,18 +649,18 @@ class PygubuDesigner:
             self.set_changed(False)
             self.rfiles_manager.addfile(filename)
         except Exception as e:
-            messagebox.showerror(_('Error'), str(e), parent=self.mainwindow)
+            messagebox.showerror(_("Error"), str(e), parent=self.mainwindow)
 
     def do_file_open(self, filename=None):
         openfile = True
         if self.is_changed:
-            msg = _('Do you want to save the changes before opening?')
+            msg = _("Do you want to save the changes before opening?")
             openfile = self.ask_save_changes(msg)
         if openfile:
             if filename is None:
                 options = {
-                    'defaultextension': '.ui',
-                    'filetypes': ((_('pygubu ui'), '*.ui'), (_('All'), '*.*')),
+                    "defaultextension": ".ui",
+                    "filetypes": ((_("pygubu ui"), "*.ui"), (_("All"), "*.*")),
                 }
                 filename = filedialog.askopenfilename(**options)
             if filename:
@@ -636,7 +669,7 @@ class PygubuDesigner:
     def on_file_new(self, event=None):
         new = True
         if self.is_changed:
-            msg = _('Do you want to save the changes before creating?')
+            msg = _("Do you want to save the changes before creating?")
             new = self.ask_save_changes(msg)
         if new:
             self.previewer.remove_all()
@@ -657,28 +690,28 @@ class PygubuDesigner:
 
     # File Menu
     def on_file_menuitem_clicked(self, itemid):
-        action = f'<<ACTION_{itemid}>>'
+        action = f"<<ACTION_{itemid}>>"
         self.mainwindow.event_generate(action)
 
     # Edit menu
     def on_edit_menuitem_clicked(self, itemid):
-        if itemid == 'edit_preferences':
+        if itemid == "edit_preferences":
             self._edit_preferences()
         else:
-            action = f'<<ACTION_{itemid}>>'
+            action = f"<<ACTION_{itemid}>>"
             self.mainwindow.event_generate(action)
 
     # preview menu
     def on_previewmenu_action(self, itemid):
-        action = f'<<ACTION_{itemid}>>'
+        action = f"<<ACTION_{itemid}>>"
         self.mainwindow.event_generate(action)
 
     # Help menu
     def on_help_menuitem_clicked(self, itemid):
-        if itemid == 'help_online':
-            url = 'https://github.com/alejandroautalan/pygubu-designer/wiki'
+        if itemid == "help_online":
+            url = "https://github.com/alejandroautalan/pygubu-designer/wiki"
             webbrowser.open_new_tab(url)
-        elif itemid == 'help_about':
+        elif itemid == "help_about":
             self.show_about_dialog()
 
     def evaluate_menu_states(self):
@@ -688,12 +721,14 @@ class PygubuDesigner:
         The state of the menus is dependant on whether they can be used at the current time or not.
         """
 
-        menu_duplicate_context = self.builder.get_object('menu_duplicate')
-        menu_duplicate_edit = self.builder.get_object('TREE_ITEM_DUPLICATE')
+        menu_duplicate_context = self.builder.get_object("menu_duplicate")
+        menu_duplicate_edit = self.builder.get_object("TREE_ITEM_DUPLICATE")
 
         # Should we enable the 'Duplicate' menu?
         self.duplicate_menu_state = (
-            'disabled' if self.tree_editor.selection_different_parents() else 'normal'
+            "disabled"
+            if self.tree_editor.selection_different_parents()
+            else "normal"
         )
         menu_duplicate_context.entryconfig(7, state=self.duplicate_menu_state)
         menu_duplicate_edit.entryconfig(3, state=self.duplicate_menu_state)
@@ -715,7 +750,9 @@ class PygubuDesigner:
         Select the parent of the currently selected widget.
         """
         current_selected_item = self.tree_editor.current_edit
-        if current_selected_item and self.treeview.exists(current_selected_item):
+        if current_selected_item and self.treeview.exists(
+            current_selected_item
+        ):
             parent_iid = self.treeview.parent(current_selected_item)
 
             if parent_iid:
@@ -758,36 +795,36 @@ class PygubuDesigner:
         builder.add_from_file(str(DESIGNER_DIR / "ui" / "about_dialog.ui"))
         builder.add_resource_path(str(DESIGNER_DIR / "images"))
 
-        dialog = builder.get_object('aboutdialog', self.mainwindow)
-        entry = builder.get_object('version')
-        txt = entry.cget('text')
-        txt = txt.replace('%version%', str(pygubu.__version__))
+        dialog = builder.get_object("aboutdialog", self.mainwindow)
+        entry = builder.get_object("version")
+        txt = entry.cget("text")
+        txt = txt.replace("%version%", str(pygubu.__version__))
         entry.configure(text=txt)
-        entry = builder.get_object('designer_version')
-        txt = entry.cget('text')
-        txt = txt.replace('%version%', str(pygubudesigner.__version__))
+        entry = builder.get_object("designer_version")
+        txt = entry.cget("text")
+        txt = txt.replace("%version%", str(pygubudesigner.__version__))
         entry.configure(text=txt)
 
         def on_ok_execute():
             dialog.close()
 
         def on_gpl3_clicked(e):
-            url = 'https://www.gnu.org/licenses/gpl-3.0.html'
+            url = "https://www.gnu.org/licenses/gpl-3.0.html"
             webbrowser.open_new_tab(url)
 
         def on_mit_clicked(e):
-            url = 'https://opensource.org/licenses/MIT'
+            url = "https://opensource.org/licenses/MIT"
             webbrowser.open_new_tab(url)
 
         def on_moreinfo_clicked(e):
-            url = 'https://github.com/alejandroautalan/pygubu-designer'
+            url = "https://github.com/alejandroautalan/pygubu-designer"
             webbrowser.open_new_tab(url)
 
         dialog_callbacks = {
-            'on_ok_execute': on_ok_execute,
-            'on_gpl3_clicked': on_gpl3_clicked,
-            'on_mit_clicked': on_mit_clicked,
-            'on_moreinfo_clicked': on_moreinfo_clicked,
+            "on_ok_execute": on_ok_execute,
+            "on_gpl3_clicked": on_gpl3_clicked,
+            "on_mit_clicked": on_mit_clicked,
+            "on_moreinfo_clicked": on_moreinfo_clicked,
         }
         builder.connect_callbacks(dialog_callbacks)
 
@@ -808,13 +845,13 @@ class PygubuDesigner:
     def project_name(self):
         name = None
         if self.currentfile is None:
-            name = _('newproject')
+            name = _("newproject")
         else:
             name = Path(self.currentfile).name
         return name
 
     def nbmain_tab_changed(self, event):
-        if event.widget.index('current') == 1:  # Index 1 is the code-tab
+        if event.widget.index("current") == 1:  # Index 1 is the code-tab
             self.script_generator.configure()
 
     # Tab code management
@@ -855,19 +892,19 @@ def start_pygubu():
 
     # Setup logging level
     parser = argparse.ArgumentParser()
-    parser.add_argument('filename', nargs='?')
-    parser.add_argument('--loglevel')
+    parser.add_argument("filename", nargs="?")
+    parser.add_argument("--loglevel")
     args = parser.parse_args()
 
     loglevel = str(args.loglevel).upper()
     loglevel = getattr(logging, loglevel, logging.WARNING)
-    logging.getLogger('').setLevel(loglevel)
+    logging.getLogger("").setLevel(loglevel)
 
     #
     # Dependency check
     #
     help = "Hint, If your are using Debian, install package python3-appdirs."
-    check_dependency('appdirs', '1.3', help)
+    check_dependency("appdirs", "1.3", help)
 
     app = PygubuDesigner()
 
@@ -882,7 +919,7 @@ def check_dependency(modulename, version, help_msg=None):
     try:
         module = importlib.import_module(modulename)
         module_version = "<unknown>"
-        for attr in ('version', '__version__', 'ver', 'PYQT_VERSION_STR'):
+        for attr in ("version", "__version__", "ver", "PYQT_VERSION_STR"):
             v = getattr(module, attr, None)
             if v is not None:
                 break
@@ -895,5 +932,5 @@ def check_dependency(modulename, version, help_msg=None):
         sys.exit(-1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     start_pygubu()

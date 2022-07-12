@@ -40,7 +40,7 @@ class FlightBookerApp:
         self.mainwindow.mainloop()
 
     def form_init(self):
-        value = '10.07.2022'
+        value = "10.07.2022"
         self.t1_var.set(value)
         self.t2_var.set(value)
         self.cbox.current(self.ONE_WAY_FLIGHT)
@@ -72,11 +72,11 @@ class FlightBookerApp:
         if flight_type == self.RETURN_FLIGHT:
             if date1 is not None and date2 is not None and (date2 < date1):
                 button_enabled = False
-        btn_state = 'normal' if button_enabled else 'disabled'
+        btn_state = "normal" if button_enabled else "disabled"
         self.button.configure(state=btn_state)
 
         # Entry 2 status
-        t2_state = 'normal' if t2_enabled else 'disabled'
+        t2_state = "normal" if t2_enabled else "disabled"
         self.t2.configure(state=t2_state)
 
     def on_cbox_changed(self, event=None):
@@ -98,7 +98,9 @@ class FlightBookerApp:
         fdate = self.t1_var.get()
         ftype = self.cbox.get()
         msg = f"You have booked a {ftype} on {fdate}."
-        tk.messagebox.showinfo(title='Message', message=msg, parent=self.mainwindow)
+        tk.messagebox.showinfo(
+            title="Message", message=msg, parent=self.mainwindow
+        )
 
 
 if __name__ == "__main__":

@@ -26,16 +26,16 @@ class DynamicPropertyEditor(PropertyEditor):
         self._editors = {}
         self._indexes = {}
         self._last_idx = -1
-        self._current = self._create_editor('entry')
+        self._current = self._create_editor("entry")
         self.columnconfigure(0, weight=1)
 
     def _create_editor(self, mode):
         editor = e = create_editor(mode, self)
         self._last_idx += 1
-        e.grid(row=self._last_idx, column=0, sticky='we')
+        e.grid(row=self._last_idx, column=0, sticky="we")
         self._editors[mode] = editor
         self._indexes[mode] = self._last_idx
-        editor.bind('<<PropertyChanged>>', self._on_variable_changed)
+        editor.bind("<<PropertyChanged>>", self._on_variable_changed)
         return editor
 
     def _get_value(self):
@@ -45,10 +45,10 @@ class DynamicPropertyEditor(PropertyEditor):
         self._current.edit(value)
 
     def parameters(self, **kw):
-        modes = kw.pop('modes', None)
+        modes = kw.pop("modes", None)
         if modes is not None:
             self._configure_modes(modes)
-        current = kw.pop('mode', 'entry')
+        current = kw.pop("mode", "entry")
         self.set_mode(current)
         self._current.parameters(**kw)
 
@@ -68,4 +68,4 @@ class DynamicPropertyEditor(PropertyEditor):
         self._current = self._editors[mode]
 
 
-register_editor('dynamic', DynamicPropertyEditor)
+register_editor("dynamic", DynamicPropertyEditor)

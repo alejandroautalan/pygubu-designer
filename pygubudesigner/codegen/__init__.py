@@ -1,3 +1,3 @@
-__all__ = ['ScriptGenerator']
+__all__ = ["ScriptGenerator"]
 
 from .scriptgenerator import ScriptGenerator

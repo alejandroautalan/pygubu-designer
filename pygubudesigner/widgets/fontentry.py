@@ -33,108 +33,120 @@ RE_FONT = re.compile(
 )
 
 PREDEFINED_FONTS = [
-    'TkDefaultFont',
-    'TkTextFont',
-    'TkFixedFont',
-    'TkMenuFont',
-    'TkHeadingFont',
-    'TkCaptionFont',
-    'TkSmallCaptionFont',
-    'TkIconFont',
-    'TkTooltipFont',
+    "TkDefaultFont",
+    "TkTextFont",
+    "TkFixedFont",
+    "TkMenuFont",
+    "TkHeadingFont",
+    "TkCaptionFont",
+    "TkSmallCaptionFont",
+    "TkIconFont",
+    "TkTooltipFont",
 ]
-WIN_FONTS = ('system', 'ansi', 'device', 'systemfixed', 'ansifixed', 'oemfixed')
+WIN_FONTS = ("system", "ansi", "device", "systemfixed", "ansifixed", "oemfixed")
 MAC_FONTS = (
-    'system',
-    'application',
-    'menu',
-    'systemSystemFont',
-    'systemEmphasizedSystemFont',
-    'systemSmallSystemFont',
-    'systemSmallEmphasizedSystemFont',
-    'systemApplicationFont',
-    'systemLabelFont',
-    'systemViewsFont',
-    'systemMenuTitleFont',
-    'systemMenuItemFont',
-    'systemMenuItemMarkFont',
-    'systemMenuItemCmdKeyFont',
-    'systemWindowTitleFont',
-    'systemPushButtonFont',
-    'systemUtilityWindowTitleFont',
-    'systemAlertHeaderFont',
-    'systemToolbarFont',
-    'systemMiniSystemFont',
-    'systemDetailSystemFont',
-    'systemDetailEmphasizedSystemFont',
+    "system",
+    "application",
+    "menu",
+    "systemSystemFont",
+    "systemEmphasizedSystemFont",
+    "systemSmallSystemFont",
+    "systemSmallEmphasizedSystemFont",
+    "systemApplicationFont",
+    "systemLabelFont",
+    "systemViewsFont",
+    "systemMenuTitleFont",
+    "systemMenuItemFont",
+    "systemMenuItemMarkFont",
+    "systemMenuItemCmdKeyFont",
+    "systemWindowTitleFont",
+    "systemPushButtonFont",
+    "systemUtilityWindowTitleFont",
+    "systemAlertHeaderFont",
+    "systemToolbarFont",
+    "systemMiniSystemFont",
+    "systemDetailSystemFont",
+    "systemDetailEmphasizedSystemFont",
 )
 
 _sp = sys.platform
-if _sp in ('win32', 'cygwin'):
+if _sp in ("win32", "cygwin"):
     PREDEFINED_FONTS.extend(WIN_FONTS)
-if _sp == 'darwin':
+if _sp == "darwin":
     PREDEFINED_FONTS.extend(MAC_FONTS)
 
 
 class FontPropertyEditor(PropertyEditor):
     def _create_ui(self):
-        self._dsize = '12'  # default font size
+        self._dsize = "12"  # default font size
 
         self._name = w = ChoicePropertyEditor(self)
-        w.grid(row=0, column=0, sticky='we')
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
-        w.bind('<<PropertyChanged>>', self._on_fontname_changed, add=True)
+        w.grid(row=0, column=0, sticky="we")
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
+        w.bind("<<PropertyChanged>>", self._on_fontname_changed, add=True)
 
         self._optionsframe = container1 = ttk.Frame(self)
-        container1.grid(row=1, column=0, sticky='we')
+        container1.grid(row=1, column=0, sticky="we")
 
-        w = ttk.Label(container1, text='size:', font='TkSmallCaptionFont')
+        w = ttk.Label(container1, text="size:", font="TkSmallCaptionFont")
         w.grid(row=0, column=0)
         self._size = w = ChoicePropertyEditor(container1)
         w.parameters(width=4)
-        w.grid(row=0, column=1, sticky='w')
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
+        w.grid(row=0, column=1, sticky="w")
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
 
-        w = ttk.Label(container1, text='style:', font='TkSmallCaptionFont')
-        w.grid(row=0, column=2, sticky='w', padx=5)
+        w = ttk.Label(container1, text="style:", font="TkSmallCaptionFont")
+        w.grid(row=0, column=2, sticky="w", padx=5)
 
         self._bold = w = CheckbuttonPropertyEditor(container1)
-        img = StockImage.get('format-text-bold')
+        img = StockImage.get("format-text-bold")
         w.parameters(
-            style='Toolbutton', text='B', image=img, onvalue='bold', offvalue=''
+            style="Toolbutton", text="B", image=img, onvalue="bold", offvalue=""
         )
-        w.grid(row=0, column=3, sticky='we')
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
+        w.grid(row=0, column=3, sticky="we")
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
 
         self._italic = w = CheckbuttonPropertyEditor(container1)
-        img = StockImage.get('format-text-italic')
+        img = StockImage.get("format-text-italic")
         w.parameters(
-            style='Toolbutton', text='I', image=img, onvalue='italic', offvalue=''
+            style="Toolbutton",
+            text="I",
+            image=img,
+            onvalue="italic",
+            offvalue="",
         )
-        w.grid(row=0, column=4, sticky='we')
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
+        w.grid(row=0, column=4, sticky="we")
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
 
         self._underline = w = CheckbuttonPropertyEditor(container1)
-        img = StockImage.get('format-text-underline')
+        img = StockImage.get("format-text-underline")
         w.parameters(
-            style='Toolbutton', text='U', image=img, onvalue='underline', offvalue=''
+            style="Toolbutton",
+            text="U",
+            image=img,
+            onvalue="underline",
+            offvalue="",
         )
-        w.grid(row=0, column=5, sticky='we')
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
+        w.grid(row=0, column=5, sticky="we")
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
 
         self._overstrike = w = CheckbuttonPropertyEditor(container1)
-        img = StockImage.get('format-text-strikethrough')
+        img = StockImage.get("format-text-strikethrough")
         w.parameters(
-            style='Toolbutton', text='S', image=img, onvalue='overstrike', offvalue=''
+            style="Toolbutton",
+            text="S",
+            image=img,
+            onvalue="overstrike",
+            offvalue="",
         )
-        w.grid(row=0, column=6, sticky='we')
-        w.bind('<<PropertyChanged>>', self._on_variable_changed)
+        w.grid(row=0, column=6, sticky="we")
+        w.bind("<<PropertyChanged>>", self._on_variable_changed)
 
         self.columnconfigure(0, weight=1)
         self._populate_options()
 
     def _get_value(self):
-        value = ''
+        value = ""
         name = self._name.value
         if name:
             if name in PREDEFINED_FONTS:
@@ -150,8 +162,8 @@ class FontPropertyEditor(PropertyEditor):
                     modifiers.append(self._underline.value)
                 if self._overstrike.value:
                     modifiers.append(self._overstrike.value)
-                modifiers = ' '.join(modifiers)
-                tkformat = '{{{0}}} {1} {{{2}}}'
+                modifiers = " ".join(modifiers)
+                tkformat = "{{{0}}} {1} {{{2}}}"
                 value = tkformat.format(name, size, modifiers)
         else:
             self._clear_editors()
@@ -161,31 +173,31 @@ class FontPropertyEditor(PropertyEditor):
     def _set_value(self, value):
         family = value
         size = None
-        modifiers = ''
+        modifiers = ""
 
         s = RE_FONT.search(value)
         if s:
             g = s.groupdict()
-            family = g['family'].replace('{', '').replace('}', '')
-            size = g['size']
-            modifiers = g['modifiers']
+            family = g["family"].replace("{", "").replace("}", "")
+            size = g["size"]
+            modifiers = g["modifiers"]
             if modifiers is not None:
-                modifiers = modifiers.replace('{', '').replace('}', '')
+                modifiers = modifiers.replace("{", "").replace("}", "")
             else:
-                modifiers = ''
+                modifiers = ""
         self._name.edit(family)
         if size:
             self._size.edit(size)
         if modifiers:
-            modifiers = modifiers.split(' ')
+            modifiers = modifiers.split(" ")
             for m in modifiers:
-                if m == 'bold':
+                if m == "bold":
                     self._bold.edit(m)
-                if m == 'italic':
+                if m == "italic":
                     self._italic.edit(m)
-                if m == 'underline':
+                if m == "underline":
                     self._underline.edit(m)
-                if m == 'overstrike':
+                if m == "overstrike":
                     self._overstrike.edit(m)
 
     def edit(self, value):
@@ -203,45 +215,45 @@ class FontPropertyEditor(PropertyEditor):
                 self._size.edit(self._dsize)
 
     def _clear_editors(self):
-        self._size.edit('')
-        self._bold.edit('')
-        self._italic.edit('')
-        self._underline.edit('')
-        self._overstrike.edit('')
+        self._size.edit("")
+        self._bold.edit("")
+        self._italic.edit("")
+        self._underline.edit("")
+        self._overstrike.edit("")
 
     def _populate_options(self):
         sizes = (6, 8, 9, 10, 11, 12, 14, 16, 20, 24, 36, 48, 72)
         self._size.parameters(values=sizes)
 
         families = sorted(tk.font.families())
-        values = [''] + PREDEFINED_FONTS + families
+        values = [""] + PREDEFINED_FONTS + families
         self._name.parameters(values=values)
 
 
-register_editor('fontentry', FontPropertyEditor)
+register_editor("fontentry", FontPropertyEditor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
     editor = FontPropertyEditor(root)
-    editor.grid(sticky='nsew')
+    editor.grid(sticky="nsew")
     # editor.edit('Anonymous Pro|-50|bold,italic')
-    editor.edit('Anonymous Pro|12|bold,italic')
+    editor.edit("Anonymous Pro|12|bold,italic")
 
     def see_var():
         print(editor.value)
 
-    btn = ttk.Button(root, text='Value', command=see_var)
+    btn = ttk.Button(root, text="Value", command=see_var)
     btn.grid(row=0, column=1)
-    lbl = ttk.Label(root, text='Lorem ipsum dolor sit amet.')
+    lbl = ttk.Label(root, text="Lorem ipsum dolor sit amet.")
     lbl.grid(row=1, column=0)
 
     def font_cb(event=None):
-        font = editor.value.split('|')
+        font = editor.value.split("|")
         lbl.configure(font=font)
 
-    editor.bind('<<PropertyChanged>>', font_cb)
+    editor.bind("<<PropertyChanged>>", font_cb)
 
     root.mainloop()

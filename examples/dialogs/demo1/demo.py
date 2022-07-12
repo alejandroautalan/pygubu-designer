@@ -13,10 +13,10 @@ class DemoApp:
         builder.add_from_file(PROJECT_UI)
         # Main widget
         self.mainwindow = builder.get_object("top", master)
-        
+
         self.dialog1 = builder.get_object("dialog1", self.mainwindow)
-        self.dialog2 = builder.get_object("dialog2", self.mainwindow)        
-        
+        self.dialog2 = builder.get_object("dialog2", self.mainwindow)
+
         builder.connect_callbacks(self)
 
     def run(self):

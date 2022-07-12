@@ -12,7 +12,7 @@ class UserinputApp:
         self.builder = builder = pygubu.Builder()
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
-        self.mainwindow = builder.get_object('mainwindow')
+        self.mainwindow = builder.get_object("mainwindow")
         builder.connect_callbacks(self)
 
         # Get from builder all variables we need
@@ -45,9 +45,9 @@ class UserinputApp:
 
     def random_values(self):
         # Entry
-        txt = 'Random string '
-        rand = random.sample('0123456789abcdefghijklmnoprstuvwxyz', 10)
-        txt = txt + ''.join(rand)
+        txt = "Random string "
+        rand = random.sample("0123456789abcdefghijklmnoprstuvwxyz", 10)
+        txt = txt + "".join(rand)
         self.entryvar.set(txt)
 
         # Spinbox
@@ -55,8 +55,8 @@ class UserinputApp:
         self.spinvar.set(val)
 
         # combobox
-        combo = self.builder.get_object('combobox')
-        options = combo.cget('values')
+        combo = self.builder.get_object("combobox")
+        options = combo.cget("values")
         selection = random.choice(options)
         self.combovar.set(selection)
 
@@ -66,11 +66,11 @@ class UserinputApp:
             var.set(value)
 
         # Radiobuttons
-        value = random.choice(('A', 'B', 'C'))
+        value = random.choice(("A", "B", "C"))
         self.group1var.set(value)
 
         # Option Menu
-        value = random.choice(('None', 'A', 'B', 'C', 'D'))
+        value = random.choice(("None", "A", "B", "C", "D"))
         self.optionmenu_var.set(value)
 
     def on_change_clicked(self):
@@ -78,7 +78,7 @@ class UserinputApp:
 
     def validate_entry_cb(self, d_action, p_entry_value):
         is_valid = True
-        if d_action == '1':  # Insert
+        if d_action == "1":  # Insert
             if not p_entry_value.islower():
                 is_valid = False
             if len(p_entry_value) > 10:
@@ -89,27 +89,27 @@ class UserinputApp:
         msg = f"You clicked {option} option."
 
     def on_print_clicked(self):
-        line = f'Entry value:{self.entryvar.get()}'
+        line = f"Entry value:{self.entryvar.get()}"
         print(line)
-        line = f'Validated Entry value:{self.validated_entry_var.get()}'
+        line = f"Validated Entry value:{self.validated_entry_var.get()}"
         print(line)
-        line = f'Spinbox value:{self.spinvar.get()}'
+        line = f"Spinbox value:{self.spinvar.get()}"
         print(line)
-        line = f'Checkbox Option1 value:{self.option1var.get()}'
+        line = f"Checkbox Option1 value:{self.option1var.get()}"
         print(line)
-        line = f'Checkbox Option2 value:{self.option2var.get()}'
+        line = f"Checkbox Option2 value:{self.option2var.get()}"
         print(line)
-        line = f'Checkbox Option3 value:{self.option3var.get()}'
+        line = f"Checkbox Option3 value:{self.option3var.get()}"
         print(line)
-        line = f'Radiobutton Group value:{self.group1var.get()}'
+        line = f"Radiobutton Group value:{self.group1var.get()}"
         print(line)
-        line = f'Option Menu value:{self.optionmenu_var.get()}'
+        line = f"Option Menu value:{self.optionmenu_var.get()}"
         print(line)
 
     def run(self):
         self.mainwindow.mainloop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = UserinputApp()
     app.run()
