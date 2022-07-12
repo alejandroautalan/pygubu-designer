@@ -13,7 +13,7 @@ import platform
 import pygubudesigner
 
 VERSION = pygubudesigner.__version__
-
+setup_requirements = pygubudesigner.get_setup_requirements()
 _dirname_ = os.path.dirname(__file__)
 
 readme_path = os.path.join(_dirname_, "README.md")
@@ -47,16 +47,6 @@ class CustomInstall(install):
             spath = os.path.join(self.install_scripts, "pygubu-designer.bat")
             if os.path.exists(spath):
                 os.remove(spath)
-
-
-def get_requirements():
-    requirements = [
-        i.strip("\n")
-        for i in open(product_txt_path).readlines()
-        if not i.startswith("#") and len(i.strip()) > 0
-    ]
-    return requirements
-
 
 setup(
     name="pygubu-designer",
@@ -94,7 +84,7 @@ setup(
     cmdclass={
         "install": CustomInstall,
     },
-    install_requires=get_requirements(),
+    install_requires=setup_requirements,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",

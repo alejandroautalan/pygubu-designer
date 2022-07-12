@@ -1,5 +1,0 @@
-black
-appdirs>=1.4.3
-Mako>=1.1.4
-screeninfo>=0.8
-pygubu>=0.22
