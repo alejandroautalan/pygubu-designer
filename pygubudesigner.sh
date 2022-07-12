@@ -106,6 +106,10 @@ _test(){
     pygubu-designer
 }
 
+start(){
+    python3 pygubudesigner_.py start
+}
+
 ir(){   install_req;            }
 po(){   _xgettext;              }
 msgf(){ _msgfmt;                }
@@ -123,6 +127,7 @@ if [ $# -eq 0 ]
     echo "Bash utility to facilitate development."
     echo "usage: pygubudesigner.sh [option] [args]"
     echo "Available options:"
+    echo "  start : start pygubudesigner use development environment."
     echo "     ir : install all development requirements."
     echo "     ts : test."
     echo "     bi : build and install."
