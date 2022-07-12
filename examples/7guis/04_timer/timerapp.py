@@ -20,7 +20,8 @@ class TimerApp:
         self.duration_var = None
         self.slider_var = None
         builder.import_variables(
-            self, ["gauge_var", "elapsed_time_var", "duration_var", "slider_var"]
+            self,
+            ["gauge_var", "elapsed_time_var", "duration_var", "slider_var"],
         )
 
         builder.connect_callbacks(self)

@@ -20,31 +20,31 @@ from pygubudesigner.util.gridcalculator import GridCalculator
 
 
 class GridRCselectorWidget(ttk.Frame):
-    '''Grid cell selector widget.
+    """Grid cell selector widget.
     Select a cell when clicked on the grid.
 
     Properties:
         selection: None or tuple of row and column number.
     Events:
         <<Gridselector:CellSelected>>: generated on mouse click.
-    '''
+    """
 
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
         self.canvas = tk.Canvas(self)
         self.canvas.configure(
-            background='#ffffff',
-            borderwidth='0',
-            cursor='hand1',
-            highlightthickness='0',
+            background="#ffffff",
+            borderwidth="0",
+            cursor="hand1",
+            highlightthickness="0",
             width=150,
             height=150,
         )
-        self.canvas.pack(expand='true', fill='both', side='top')
-        self.configure(height='200', padding='5', width='200')
-        self.pack(side='top')
+        self.canvas.pack(expand="true", fill="both", side="top")
+        self.configure(height="200", padding="5", width="200")
+        self.pack(side="top")
 
-        self.canvas.create_line(-100, -100, -99, -99, tag='grid')
+        self.canvas.create_line(-100, -100, -99, -99, tag="grid")
         self.grid = GridCalculator(1, 1, 1, 1)
         self.__redraw_cb = None
         self._motion_rowcol = None
@@ -59,10 +59,10 @@ class GridRCselectorWidget(ttk.Frame):
         self._marked_cols_items = {}
         self._grid_mark_allrows = False
         self._grid_mark_allcols = False
-        self.canvas.bind('<Configure>', self._on_canvas_configure)
-        self.canvas.bind('<Motion>', self._motion_handler)
-        self.canvas.bind('<Leave>', self._leave_handler)
-        self.canvas.bind('<Button-1>', self._on_cell_clicked)
+        self.canvas.bind("<Configure>", self._on_canvas_configure)
+        self.canvas.bind("<Motion>", self._motion_handler)
+        self.canvas.bind("<Leave>", self._leave_handler)
+        self.canvas.bind("<Button-1>", self._on_cell_clicked)
         self._draw_grid()
 
     def _clear_canvas(self):
@@ -91,7 +91,7 @@ class GridRCselectorWidget(ttk.Frame):
     def select_cell(self, row, col):
         self._selection = (row, col)
         self._call_redraw()
-        self.event_generate('<<Gridselector:CellSelected>>')
+        self.event_generate("<<Gridselector:CellSelected>>")
 
     def selection_clear(self):
         self._selection = None
@@ -137,7 +137,7 @@ class GridRCselectorWidget(ttk.Frame):
         rc = self.grid.xy2rowcol(event.x, event.y)
 
         # Draw Row-Col indicators:
-        options = {'fill': '#E2E21D'}
+        options = {"fill": "#E2E21D"}
         if self._motion_rowcol != rc:
             self._motion_rowcol = rc
             row, col = rc
@@ -149,8 +149,8 @@ class GridRCselectorWidget(ttk.Frame):
             else:
                 self.canvas.coords(self._sel_hover[0], *line1c)
                 self.canvas.coords(self._sel_hover[1], *line2c)
-            self.canvas.tag_lower(self._sel_hover[0], 'grid')
-            self.canvas.tag_lower(self._sel_hover[1], 'grid')
+            self.canvas.tag_lower(self._sel_hover[0], "grid")
+            self.canvas.tag_lower(self._sel_hover[1], "grid")
 
     def _call_redraw(self):
         if self.__redraw_cb is None:
@@ -164,13 +164,15 @@ class GridRCselectorWidget(ttk.Frame):
     def _draw_grid(self, redraw=False):
         canvas = self.canvas
         grid = self.grid
-        grid.configure(fwidth=canvas.winfo_width(), fheight=canvas.winfo_height())
+        grid.configure(
+            fwidth=canvas.winfo_width(), fheight=canvas.winfo_height()
+        )
 
         #
         # Draw Grid lines
         #
-        default_options = {'tags': 'grid', 'fill': 'darkgray', 'dash': (1, 3)}
-        marked_options = {'tags': 'grid', 'fill': 'lightgray', 'dash': ''}
+        default_options = {"tags": "grid", "fill": "darkgray", "dash": (1, 3)}
+        marked_options = {"tags": "grid", "fill": "lightgray", "dash": ""}
         options = default_options
         if self._grid_mark_allrows:
             options = marked_options
@@ -185,7 +187,9 @@ class GridRCselectorWidget(ttk.Frame):
                 canvas.coords(item, *coords)
                 canvas.itemconfigure(item, **options)
             else:
-                self.row_line_items[r] = item = canvas.create_line(*coords, **options)
+                self.row_line_items[r] = item = canvas.create_line(
+                    *coords, **options
+                )
 
         options = default_options
         if self._grid_mark_allcols:
@@ -200,12 +204,14 @@ class GridRCselectorWidget(ttk.Frame):
                 canvas.coords(item, *coords)
                 canvas.itemconfigure(item, **options)
             else:
-                self.col_line_items[c] = item = canvas.create_line(*coords, **options)
+                self.col_line_items[c] = item = canvas.create_line(
+                    *coords, **options
+                )
 
         # Drak marked rows
         marked_options = {
-            'fill': '#F2F2F2',
-            'outline': '',
+            "fill": "#F2F2F2",
+            "outline": "",
         }
         for r in self._marked_rows:
             coords = self.grid.row_coords(r)[1:]
@@ -214,7 +220,7 @@ class GridRCselectorWidget(ttk.Frame):
                 self._marked_rows_items[r] = item
             else:
                 self.canvas.coords(self._marked_rows_items[r], *coords)
-            self.canvas.tag_lower(self._marked_rows_items[r], 'grid')
+            self.canvas.tag_lower(self._marked_rows_items[r], "grid")
 
         # Drak marked columns
         for r in self._marked_cols:
@@ -224,11 +230,11 @@ class GridRCselectorWidget(ttk.Frame):
                 self._marked_cols_items[r] = item
             else:
                 self.canvas.coords(self._marked_cols_items[r], *coords)
-            self.canvas.tag_lower(self._marked_cols_items[r], 'grid')
+            self.canvas.tag_lower(self._marked_cols_items[r], "grid")
 
         #
         # Draw current selection
-        options = {'fill': 'blue'}
+        options = {"fill": "blue"}
         if self._selection is None:
             for item in self._selection_items:
                 self.canvas.delete(item)
@@ -243,8 +249,8 @@ class GridRCselectorWidget(ttk.Frame):
             else:
                 self.canvas.coords(self._selection_items[0], *line1c)
                 self.canvas.coords(self._selection_items[1], *line2c)
-            self.canvas.tag_lower(self._selection_items[0], 'grid')
-            self.canvas.tag_lower(self._selection_items[1], 'grid')
+            self.canvas.tag_lower(self._selection_items[0], "grid")
+            self.canvas.tag_lower(self._selection_items[1], "grid")
 
     @property
     def selection(self):
@@ -252,10 +258,10 @@ class GridRCselectorWidget(ttk.Frame):
         return self._selection
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     widget = GridRCselectorWidget(root)
-    widget.pack(expand=True, fill='both')
+    widget.pack(expand=True, fill="both")
 
     def on_start():
         widget.set_dim(3, 3)
@@ -273,7 +279,7 @@ if __name__ == '__main__':
     def on_cell_selected(event):
         print(widget.selection)
 
-    widget.bind('<<Gridselector:CellSelected>>', on_cell_selected)
+    widget.bind("<<Gridselector:CellSelected>>", on_cell_selected)
 
     root.after(2000, on_start)
     root.after(5000, change_dimension)

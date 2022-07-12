@@ -12,26 +12,25 @@ DEG2RAD = 4 * math.atan(1) * 2 / 360
 
 
 class MyApplication:
-
     def __init__(self):
         self.builder = builder = pygubu.Builder()
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
-        self.mainwindow = builder.get_object('mainwindow')
+        self.mainwindow = builder.get_object("mainwindow")
 
-        self.canvas = builder.get_object('main_canvas')
+        self.canvas = builder.get_object("main_canvas")
         # Connect to Delete event
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.quit)
 
         builder.connect_callbacks(self)
 
     def btn_draw_clicked(self):
-        figures = ['square', 'cross', 'circle', 'triangle']
+        figures = ["square", "cross", "circle", "triangle"]
         figure = random.choice(figures)
         self._draw_figure(figure)
 
         # Update Canvas scroll region
-        bbox = self.canvas.bbox('all')
+        bbox = self.canvas.bbox("all")
         self.canvas.configure(scrollregion=bbox)
 
     def quit(self, event=None):
@@ -54,26 +53,61 @@ class MyApplication:
             y = random.randint(0, canvash) - int(max_width * 0.5)
             start = random.randint(0, 180)
 
-            if figure == 'circle':
-                canvas.create_oval(x, y, x + w, y + w,
-                                   outline='#FF6666', width=borderw)
-            if figure == 'square':
-                self.create_regpoly(x, y, x + w, y + w,
-                                    sides=4, start=start,
-                                    outline='#ED9DE9', width=borderw, fill='')
-            if figure == 'triangle':
-                self.create_regpoly(x, y, x + w, y + w,
-                                    sides=3, start=start,
-                                    outline='#40E2A0', width=borderw, fill='')
-            if figure == 'cross':
-                self.create_regpoly(x, y, x + w, y + w,
-                                    sides=2, start=start,
-                                    outline='#80B3E7', width=borderw, fill='')
-                self.create_regpoly(x, y, x + w, y + w,
-                                    sides=2, start=start + 90,
-                                    outline='#80B3E7', width=borderw, fill='')
+            if figure == "circle":
+                canvas.create_oval(
+                    x, y, x + w, y + w, outline="#FF6666", width=borderw
+                )
+            if figure == "square":
+                self.create_regpoly(
+                    x,
+                    y,
+                    x + w,
+                    y + w,
+                    sides=4,
+                    start=start,
+                    outline="#ED9DE9",
+                    width=borderw,
+                    fill="",
+                )
+            if figure == "triangle":
+                self.create_regpoly(
+                    x,
+                    y,
+                    x + w,
+                    y + w,
+                    sides=3,
+                    start=start,
+                    outline="#40E2A0",
+                    width=borderw,
+                    fill="",
+                )
+            if figure == "cross":
+                self.create_regpoly(
+                    x,
+                    y,
+                    x + w,
+                    y + w,
+                    sides=2,
+                    start=start,
+                    outline="#80B3E7",
+                    width=borderw,
+                    fill="",
+                )
+                self.create_regpoly(
+                    x,
+                    y,
+                    x + w,
+                    y + w,
+                    sides=2,
+                    start=start + 90,
+                    outline="#80B3E7",
+                    width=borderw,
+                    fill="",
+                )
 
-    def create_regpoly(self, x0, y0, x1, y1, sides=0, start=90, extent=360, **kw):
+    def create_regpoly(
+        self, x0, y0, x1, y1, sides=0, start=90, extent=360, **kw
+    ):
         """Create a regular polygon"""
         coords = self.__regpoly_coords(x0, y0, x1, y1, sides, start, extent)
         return self.canvas.create_polygon(*coords, **kw)
@@ -85,14 +119,14 @@ class MyApplication:
         if extent == 0:
             return coords
 
-        xm = (x0 + x1) / 2.
-        ym = (y0 + y1) / 2.
+        xm = (x0 + x1) / 2.0
+        ym = (y0 + y1) / 2.0
         rx = xm - x0
         ry = ym - y0
 
         n = sides
         if n == 0:  # 0 sides => circle
-            n = round((rx + ry) * .5)
+            n = round((rx + ry) * 0.5)
             if n < 2:
                 n = 4
 
@@ -135,6 +169,6 @@ class MyApplication:
         return coords
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = MyApplication()
     app.run()

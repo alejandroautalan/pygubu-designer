@@ -24,17 +24,17 @@ class RelativeEntryPropertyEditor(PropertyEditor):
         self._scheduled = None
         self.scalevar = tk.DoubleVar()
         self.entry = entry = ttk.Entry(self, textvariable=self._variable)
-        self.entry.configure(width='4')
-        self.entry.pack(side='left')
+        self.entry.configure(width="4")
+        self.entry.pack(side="left")
 
         self.scale = ttk.Scale(
             self, variable=self.scalevar, command=self.on_scale_changed
         )
-        self.scale.configure(from_='0', orient='horizontal', to='1', value='0')
-        self.scale.pack(expand='true', fill='both', side='left')
+        self.scale.configure(from_="0", orient="horizontal", to="1", value="0")
+        self.scale.pack(expand="true", fill="both", side="left")
 
-        entry.bind('<FocusOut>', self._on_variable_changed)
-        entry.bind('<KeyPress>', self._on_keypress)
+        entry.bind("<FocusOut>", self._on_variable_changed)
+        entry.bind("<KeyPress>", self._on_keypress)
 
     def _validate(self):
         is_valid = False
@@ -72,24 +72,24 @@ class RelativeEntryPropertyEditor(PropertyEditor):
         self.scalevar.set(self._variable.get())
 
 
-register_editor('relativeentry', RelativeEntryPropertyEditor)
+register_editor("relativeentry", RelativeEntryPropertyEditor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
     def make_on_change_cb(editor):
         def on_change_cb(event=None):
-            print('Property changed: ')
+            print("Property changed: ")
             print(editor.value)
             print(repr(editor.value))
 
         return on_change_cb
 
     editor = RelativeEntryPropertyEditor(root)
-    editor.pack(expand=True, fill='x')
-    editor.edit('0.5')
-    editor.bind('<<PropertyChanged>>', make_on_change_cb(editor))
+    editor.pack(expand=True, fill="x")
+    editor.edit("0.5")
+    editor.bind("<<PropertyChanged>>", make_on_change_cb(editor))
     root.mainloop()

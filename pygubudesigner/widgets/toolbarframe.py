@@ -20,32 +20,38 @@ from pygubu import ApplicationLevelBindManager as BindManager
 
 
 class ToolbarFrame(ttk.Frame):
-    BTN_LEFT_STYLE = 'BtnLeft.ToolbarFrame.Toolbutton'
-    BTN_RIGHT_STYLE = 'btnRight.ToolbarFrame.Toolbutton'
+    BTN_LEFT_STYLE = "BtnLeft.ToolbarFrame.Toolbutton"
+    BTN_RIGHT_STYLE = "btnRight.ToolbarFrame.Toolbutton"
 
     def __init__(self, master=None, **kw):
         ttk.Frame.__init__(self, master, **kw)
         # btonbar = ttk.Frame(master)
         fvport = ttk.Frame(self)
         fcontent = ttk.Frame(fvport)
-        fcontent.config(height='50', width='30', padding=0)
-        fcontent.place(anchor='nw', x='0', y='0', bordermode='inside', relheight=1)
-        fvport.config(height='50', width='30')
-        fvport.pack(expand='true', fill='both', side='left')
+        fcontent.config(height="50", width="30", padding=0)
+        fcontent.place(
+            anchor="nw", x="0", y="0", bordermode="inside", relheight=1
+        )
+        fvport.config(height="50", width="30")
+        fvport.pack(expand="true", fill="both", side="left")
         fcontrols = ttk.Frame(self)
         bsleft = ttk.Button(fcontrols)
-        bsleft.config(text='<', width='1', takefocus=True, style=self.BTN_LEFT_STYLE)
-        bsleft.pack(expand='true', fill='y', side='left')
+        bsleft.config(
+            text="<", width="1", takefocus=True, style=self.BTN_LEFT_STYLE
+        )
+        bsleft.pack(expand="true", fill="y", side="left")
         bsleft.configure(command=self.scroll_left)
         bsright = ttk.Button(fcontrols)
-        bsright.config(text='>', width='1', takefocus=True, style=self.BTN_RIGHT_STYLE)
-        bsright.pack(expand='true', fill='y', side='left')
+        bsright.config(
+            text=">", width="1", takefocus=True, style=self.BTN_RIGHT_STYLE
+        )
+        bsright.pack(expand="true", fill="y", side="left")
         bsright.configure(command=self.scroll_right)
-        fcontrols.config(height='50', width='50')
-        fcontrols.pack(fill='y', side='left')
+        fcontrols.config(height="50", width="50")
+        fcontrols.pack(fill="y", side="left")
         # btonbar.config(height='50', width='320')
         # btonbar.pack(expand='true', fill='x', side='top')
-        self.config(height='200', width='20')
+        self.config(height="200", width="20")
 
         self.controls_visible = True
         self.controls_required = False
@@ -56,8 +62,8 @@ class ToolbarFrame(ttk.Frame):
         self.fcontent = fcontent
         self.fcstart = 0
         self.SCROLL_INCREMENT = 50
-        fvport.bind('<Configure>', self._reposition)
-        fcontent.bind('<Configure>', self._reposition)
+        fvport.bind("<Configure>", self._reposition)
+        fcontent.bind("<Configure>", self._reposition)
         self._configure_mousewheel()
 
     def child_master(self):
@@ -65,12 +71,16 @@ class ToolbarFrame(ttk.Frame):
 
     def _configure_mousewheel(self):
         BindManager.init_mousewheel_binding(self)
-        self.bind('<Enter>', lambda event: BindManager.mousewheel_bind(self), add='+')
-        self.bind('<Leave>', lambda event: BindManager.mousewheel_unbind(), add='+')
-        self.on_mousewheel = BindManager.make_onmousewheel_cb(self, 'x', 2)
+        self.bind(
+            "<Enter>", lambda event: BindManager.mousewheel_bind(self), add="+"
+        )
+        self.bind(
+            "<Leave>", lambda event: BindManager.mousewheel_unbind(), add="+"
+        )
+        self.on_mousewheel = BindManager.make_onmousewheel_cb(self, "x", 2)
 
     def xview(self, mode=None, value=None, units=None):
-        if mode == 'scroll':
+        if mode == "scroll":
             if value > 0:
                 self.scroll_right()
             else:
@@ -79,7 +89,7 @@ class ToolbarFrame(ttk.Frame):
     def toggle_controls(self):
         self.controls_visible = not self.controls_visible
         if self.controls_visible:
-            self.fcontrols.pack(side='left', fill='y')
+            self.fcontrols.pack(side="left", fill="y")
         else:
             self.fcontrols.pack_forget()
 
@@ -140,8 +150,8 @@ class ToolbarFrame(ttk.Frame):
             self.fcontent.place(x=self.fcstart)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     widget = ToolbarFrame(root)
-    widget.pack(expand=True, fill='both')
+    widget.pack(expand=True, fill="both")
     root.mainloop()

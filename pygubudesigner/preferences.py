@@ -14,49 +14,49 @@ from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
 
-dirs = AppDirs('pygubu-designer')
-CONFIG_FILE = Path(dirs.user_data_dir) / 'config'
+dirs = AppDirs("pygubu-designer")
+CONFIG_FILE = Path(dirs.user_data_dir) / "config"
 
-logger.info(f'Using configfile: {CONFIG_FILE}')
+logger.info(f"Using configfile: {CONFIG_FILE}")
 
 options = {
-    'widget_set': {'values': '["tk", "ttk"]', 'default': 'ttk'},
-    'ttk_theme': {'default': 'default'},
-    'default_layout_manager': {
-        'values': '["pack", "grid", "place"]',
-        'default': 'pack',
+    "widget_set": {"values": '["tk", "ttk"]', "default": "ttk"},
+    "ttk_theme": {"default": "default"},
+    "default_layout_manager": {
+        "values": '["pack", "grid", "place"]',
+        "default": "pack",
     },
-    'center_preview': {
-        'values': '["yes", "no"]',
-        'default': 'no',
+    "center_preview": {
+        "values": '["yes", "no"]',
+        "default": "no",
     },
-    'geometry': {
-        'default': '640x480',
+    "geometry": {
+        "default": "640x480",
     },
-    'widget_naming_separator': {
-        'values': '["NONE", "UNDERSCORE"]',
-        'default': 'NONE',
+    "widget_naming_separator": {
+        "values": '["NONE", "UNDERSCORE"]',
+        "default": "NONE",
     },
-    'widget_naming_ufletter': {
-        'values': '["yes", "no"]',
-        'default': 'no',
+    "widget_naming_ufletter": {
+        "values": '["yes", "no"]',
+        "default": "no",
     },
-    'v_style_definition_file': {
-        'default': '',
+    "v_style_definition_file": {
+        "default": "",
     },
 }
 
-SEC_GENERAL = 'GENERAL'
-SEC_CUSTOM_WIDGETS = 'CUSTOM_WIDGETS'
-SEC_RECENT_FILES = 'RECENT_FILES'
+SEC_GENERAL = "GENERAL"
+SEC_CUSTOM_WIDGETS = "CUSTOM_WIDGETS"
+SEC_RECENT_FILES = "RECENT_FILES"
 config = configparser.ConfigParser()
 config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
 
 CURRENT_DIR = Path(__file__).parent
-TEMPLATE_DIR = CURRENT_DIR / 'codegen' / 'template'
-NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / 'customstyles.py.mako'
+TEMPLATE_DIR = CURRENT_DIR / "codegen" / "template"
+NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / "customstyles.py.mako"
 
 
 def initialize_configfile():
@@ -64,19 +64,19 @@ def initialize_configfile():
         os.makedirs(dirs.user_data_dir)
 
     if not CONFIG_FILE.exists():
-        with CONFIG_FILE.open('w') as configfile:
+        with CONFIG_FILE.open("w") as configfile:
             config.write(configfile)
 
 
 def save_configfile():
-    with CONFIG_FILE.open('w') as configfile:
+    with CONFIG_FILE.open("w") as configfile:
         config.write(configfile)
 
 
 def load_configfile():
     defaults = {}
     for k in options:
-        defaults[k] = options[k]['default']
+        defaults[k] = options[k]["default"]
     config[SEC_GENERAL] = defaults
     if CONFIG_FILE.exists():
         try:
@@ -87,13 +87,13 @@ def load_configfile():
                 f"Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as expected."
                 + "If you delete this file, configuration will be set to default"
             )
-            messagebox.showerror(_('Error'), msg)
+            messagebox.showerror(_("Error"), msg)
         except configparser.Error as e:
             logger.exception(e)
             msg = _(
                 f"Faild to parse config file at {CONFIG_FILE!s}, program may not work as expected."
             )
-            messagebox.showerror(_('Error'), msg)
+            messagebox.showerror(_("Error"), msg)
     else:
         initialize_configfile()
 
@@ -126,16 +126,16 @@ def recent_files_save(file_list):
     config.remove_section(SEC_RECENT_FILES)
     config.add_section(SEC_RECENT_FILES)
     for j, p in enumerate(file_list):
-        config.set(SEC_RECENT_FILES, f'f{j}', p)
+        config.set(SEC_RECENT_FILES, f"f{j}", p)
     save_configfile()
 
 
 def save_window_size(geom):
-    set_option('geometry', geom, save=True)
+    set_option("geometry", geom, save=True)
 
 
 def get_window_size():
-    return get_option('geometry')
+    return get_option("geometry")
 
 
 # Get user configuration
@@ -157,9 +157,11 @@ class PreferencesUI:
         builder.add_from_file(str(uifile))
 
         top = self.master.winfo_toplevel()
-        self.dialog = dialog = builder.get_object('preferences', top)
+        self.dialog = dialog = builder.get_object("preferences", top)
 
-        self.v_style_definition_file = builder.get_variable('v_style_definition_file')
+        self.v_style_definition_file = builder.get_variable(
+            "v_style_definition_file"
+        )
 
         # setup theme values
         s = get_ttk_style()
@@ -168,26 +170,26 @@ class PreferencesUI:
         for name in styles:
             themelist.append((name, name))
         themelist.sort()
-        cbox = builder.get_object('cbox_ttk_theme')
+        cbox = builder.get_object("cbox_ttk_theme")
         cbox.configure(values=themelist)
 
         # General
-        for key in ('widget_set',):
+        for key in ("widget_set",):
             cbox = builder.get_object(key)
-            cbox.configure(values=options[key]['values'])
+            cbox.configure(values=options[key]["values"])
 
         # Preferred layout manager
-        cbox_layout_manager = builder.get_object('cbox_layout_manager')
+        cbox_layout_manager = builder.get_object("cbox_layout_manager")
         cbox_layout_manager.configure(
-            values=options['default_layout_manager']['values']
+            values=options["default_layout_manager"]["values"]
         )
 
-        self.cwtv = builder.get_object('cwtv')
-        self.path_remove = builder.get_object('path_remove')
+        self.cwtv = builder.get_object("cwtv")
+        self.path_remove = builder.get_object("path_remove")
         builder.connect_callbacks(self)
 
         # hide options
-        fhide = builder.get_object('fhidden')
+        fhide = builder.get_object("fhidden")
         fhide.grid_forget()
 
     def _load_options(self):
@@ -197,7 +199,7 @@ class PreferencesUI:
             var.set(get_option(key))
         # Custom widgets
         for k, p in config.items(SEC_CUSTOM_WIDGETS):
-            self.cwtv.insert('', 'end', text=p)
+            self.cwtv.insert("", "end", text=p)
         self._configure_path_remove()
 
     def _save_options(self):
@@ -210,18 +212,18 @@ class PreferencesUI:
         config.add_section(SEC_CUSTOM_WIDGETS)
         paths = []
         for iid in self.cwtv.get_children():
-            txt = self.cwtv.item(iid, 'text')
+            txt = self.cwtv.item(iid, "text")
             paths.append(txt)
         for j, p in enumerate(paths):
-            config.set(SEC_CUSTOM_WIDGETS, f'w{j}', p)
+            config.set(SEC_CUSTOM_WIDGETS, f"w{j}", p)
         save_configfile()
-        self.master.event_generate('<<PygubuDesignerPreferencesSaved>>')
+        self.master.event_generate("<<PygubuDesignerPreferencesSaved>>")
 
     def _configure_path_remove(self):
         if len(self.cwtv.get_children()):
-            self.path_remove.configure(state='normal')
+            self.path_remove.configure(state="normal")
         else:
-            self.path_remove.configure(state='disabled')
+            self.path_remove.configure(state="disabled")
 
     def on_create_new_definition_clicked(self):
         """
@@ -230,8 +232,8 @@ class PreferencesUI:
         """
 
         options = {
-            'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+            "defaultextension": ".py",
+            "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
         }
         fname = filedialog.asksaveasfilename(**options)
         if not fname:
@@ -245,14 +247,14 @@ class PreferencesUI:
 
             if os.path.isfile(fname):
                 msg = _("File saved.\n\nPlease edit the style definition file.")
-                messagebox.showinfo(_('Styles'), msg)
+                messagebox.showinfo(_("Styles"), msg)
 
                 # Auto setup this new file definition:
                 self.v_style_definition_file.set(fname)
 
         except OSError:
             msg = _("Error saving template file.")
-            messagebox.showerror(_('Styles'), msg)
+            messagebox.showerror(_("Styles"), msg)
 
     def on_clicked_select_style_file(self):
         """
@@ -261,8 +263,8 @@ class PreferencesUI:
         """
 
         options = {
-            'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+            "defaultextension": ".py",
+            "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
         }
         fname = filedialog.askopenfilename(**options)
         if fname:
@@ -277,11 +279,11 @@ class PreferencesUI:
         # Is there an existing style definition path?
         if self.v_style_definition_file.get():
             suggest_restart = True
-        self.v_style_definition_file.set('')
+        self.v_style_definition_file.set("")
 
         if suggest_restart:
             msg = _("Restart Pygubu Designer for\nchanges to take effect.")
-            messagebox.showinfo(_('Styles'), msg)
+            messagebox.showinfo(_("Styles"), msg)
 
     def on_dialog_close(self, event=None):
         self._save_options()
@@ -297,10 +299,10 @@ class PreferencesUI:
 
     def on_pathadd_clicked(self):
         options = {
-            'defaultextension': '.py',
-            'filetypes': ((_('Python module'), '*.py'), (_('All'), '*.*')),
+            "defaultextension": ".py",
+            "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
         }
         fname = filedialog.askopenfilename(**options)
         if fname:
-            self.cwtv.insert('', tk.END, text=fname)
+            self.cwtv.insert("", tk.END, text=fname)
             self._configure_path_remove()

@@ -45,7 +45,7 @@ class RecentFilesManager:
 
     def _add_item(self, filepath):
         name = os.path.basename(filepath)
-        itemlabel = f'{name} [{filepath}]'
+        itemlabel = f"{name} [{filepath}]"
 
         def item_command(fname=filepath, cb=self.item_callback):
             cb(filepath)
@@ -53,7 +53,7 @@ class RecentFilesManager:
         self.menu.insert_command(0, label=itemlabel, command=item_command)
 
     def clear(self):
-        count = self.menu.index('end')
+        count = self.menu.index("end")
         index_to = count - 2
         if index_to > 0:
             self.menu.delete(0, index_to)

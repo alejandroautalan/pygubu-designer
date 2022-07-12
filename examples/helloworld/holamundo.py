@@ -16,7 +16,7 @@ class HolamundoApp:
         builder.add_from_file(PROJECT_UI)
 
         # 3: Crear la ventana principal
-        self.mainwindow = builder.get_object('mainwindow', master)
+        self.mainwindow = builder.get_object("mainwindow", master)
 
         # 4: Conectar callbacks
         builder.connect_callbacks(self)
@@ -25,6 +25,6 @@ class HolamundoApp:
         self.mainwindow.mainloop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = HolamundoApp()
     app.run()

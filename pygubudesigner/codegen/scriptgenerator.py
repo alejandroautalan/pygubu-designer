@@ -25,9 +25,9 @@ from .codebuilder import UI2Code
 
 logger = logging.getLogger(__name__)
 CURRENT_DIR = pathlib.Path(__file__).parent
-TEMPLATE_DIR = CURRENT_DIR / 'template'
+TEMPLATE_DIR = CURRENT_DIR / "template"
 makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
-RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
+RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
 
 
 class ScriptGenerator:
@@ -35,11 +35,11 @@ class ScriptGenerator:
         self.app = app
         self.builder = builder = app.builder
         self.tree = app.tree_editor
-        self.projectname = ''
+        self.projectname = ""
 
-        self.widgetlist = w = builder.get_object('widgetlist')
-        w.bind('<<ComboboxSelected>>', self._configure_menulist)
-        self.menulist = builder.get_object('menulist')
+        self.widgetlist = w = builder.get_object("widgetlist")
+        w.bind("<<ComboboxSelected>>", self._configure_menulist)
+        self.menulist = builder.get_object("menulist")
 
         self.widgetlistvar = None
         self.widgetlist_keyvar = None
@@ -51,38 +51,38 @@ class ScriptGenerator:
         self.add_i18n_var = None
         self.menulist_keyvar = None
         myvars = [
-            'widgetlistvar',
-            'widgetlist_keyvar',
-            'template_var',
-            'classnamevar',
-            'template_desc_var',
-            'import_tkvars_var',
-            'use_ttkdefs_file_var',
-            'add_i18n_var',
-            'menulist_keyvar',
+            "widgetlistvar",
+            "widgetlist_keyvar",
+            "template_var",
+            "classnamevar",
+            "template_desc_var",
+            "import_tkvars_var",
+            "use_ttkdefs_file_var",
+            "add_i18n_var",
+            "menulist_keyvar",
         ]
         builder.import_variables(self, myvars)
 
-        self.txt_code = builder.get_object('txt_code')
-        self.cb_import_tkvars = builder.get_object('cb_import_tkvars')
-        self.cb_add_i18n = builder.get_object('cb_add_i18n')
+        self.txt_code = builder.get_object("txt_code")
+        self.cb_import_tkvars = builder.get_object("cb_import_tkvars")
+        self.cb_add_i18n = builder.get_object("cb_add_i18n")
 
         _ = self.app.translator
-        self.msgtitle = _('Script Generator')
+        self.msgtitle = _("Script Generator")
 
         self.template_desc = {
-            'application': _(
-                'Create a pygubu application script using the UI definition.'
+            "application": _(
+                "Create a pygubu application script using the UI definition."
             ),
-            'codescript': _('Create a coded version of the UI definition.'),
-            'widget': _('Create a base class for your custom widget.'),
+            "codescript": _("Create a coded version of the UI definition."),
+            "widget": _("Create a base class for your custom widget."),
         }
-        self.template_var.set('application')
+        self.template_var.set("application")
         self.import_tkvars_var.set(True)
         self.use_ttkdefs_file_var.set(False)
 
     def camel_case(self, st):
-        output = ''.join(x for x in st.title() if x.isalnum())
+        output = "".join(x for x in st.title() if x.isalnum())
         return output
 
     def on_code_generate_clicked(self):
@@ -99,94 +99,94 @@ class ScriptGenerator:
             main_widget_is_toplevel = False
             set_main_menu = False
             main_menu_id = None
-            if target_class == 'tk.Toplevel':
+            if target_class == "tk.Toplevel":
                 main_widget_is_toplevel = True
 
                 # Main menu definition
                 menu_item = self.menulist_keyvar.get()
-                if menu_item not in ('empty', 'None') and template != 'widget':
+                if menu_item not in ("empty", "None") and template != "widget":
                     main_menu_id = self.tree.get_widget_id(menu_item)
                     set_main_menu = True
 
             context = {
-                'project_name': self.projectname,
-                'class_name': class_name,
-                'main_widget_is_toplevel': main_widget_is_toplevel,
-                'main_widget': target,
-                'widget_base_class': target_class,
-                'widget_code': None,
-                'import_lines': None,
-                'ttk_styles': None,
-                'callbacks': '',
-                'tkvariables': [],
-                'has_ttk_styles': False,
-                'set_project_path': False,
-                'with_i18n_support': with_i18n_support,
-                'set_main_menu': set_main_menu,
-                'main_menu_id': main_menu_id,
+                "project_name": self.projectname,
+                "class_name": class_name,
+                "main_widget_is_toplevel": main_widget_is_toplevel,
+                "main_widget": target,
+                "widget_base_class": target_class,
+                "widget_code": None,
+                "import_lines": None,
+                "ttk_styles": None,
+                "callbacks": "",
+                "tkvariables": [],
+                "has_ttk_styles": False,
+                "set_project_path": False,
+                "with_i18n_support": with_i18n_support,
+                "set_main_menu": set_main_menu,
+                "main_menu_id": main_menu_id,
             }
 
             generator.with_i18n_support = with_i18n_support
             black_fm = black.FileMode()
-            if template == 'application':
-                generator.add_import_line('pathlib')
+            if template == "application":
+                generator.add_import_line("pathlib")
                 if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line('tkinter.ttk', 'ttk', priority=1)
-                generator.add_import_line('pygubu', priority=10)
+                    generator.add_import_line("tkinter.ttk", "ttk", priority=1)
+                generator.add_import_line("pygubu", priority=10)
                 code = generator.generate_app_with_ui(uidef, target)
 
-                context['import_lines'] = code['imports']
+                context["import_lines"] = code["imports"]
                 # Set project paths
-                context['set_project_path'] = True
+                context["set_project_path"] = True
                 # Style definitions
-                ttk_styles_code = code['ttkstyles']
+                ttk_styles_code = code["ttkstyles"]
                 if self.use_ttkdefs_file_var.get() and ttk_styles_code:
-                    context['has_ttk_styles'] = True
-                context['ttk_styles'] = ttk_styles_code
+                    context["has_ttk_styles"] = True
+                context["ttk_styles"] = ttk_styles_code
                 # Callbacks
-                context['callbacks'] = code['callbacks']
+                context["callbacks"] = code["callbacks"]
                 # Tk Variables
                 if self.import_tkvars_var.get():
-                    context['tkvariables'] = code['tkvariables']
-                tpl = makolookup.get_template('app.py.mako')
+                    context["tkvariables"] = code["tkvariables"]
+                tpl = makolookup.get_template("app.py.mako")
                 final_code = tpl.render(**context)
                 final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
-            elif template == 'widget':
+            elif template == "widget":
                 generator.with_i18n_support = False
-                generator.add_import_line('tkinter', 'tk')
+                generator.add_import_line("tkinter", "tk")
                 if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line('tkinter.ttk', 'ttk', priority=1)
+                    generator.add_import_line("tkinter.ttk", "ttk", priority=1)
                 code = generator.generate_app_widget(uidef, target)
-                context['widget_code'] = code[target]
-                context['import_lines'] = code['imports']
-                context['callbacks'] = code['callbacks']
+                context["widget_code"] = code[target]
+                context["import_lines"] = code["imports"]
+                context["callbacks"] = code["callbacks"]
                 # Style definitions
-                ttk_styles_code = code['ttkstyles']
+                ttk_styles_code = code["ttkstyles"]
                 if self.use_ttkdefs_file_var.get() and ttk_styles_code:
-                    context['has_ttk_styles'] = True
-                context['ttk_styles'] = ttk_styles_code
+                    context["has_ttk_styles"] = True
+                context["ttk_styles"] = ttk_styles_code
 
-                tpl = makolookup.get_template('widget.py.mako')
+                tpl = makolookup.get_template("widget.py.mako")
                 final_code = tpl.render(**context)
                 final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
-            elif template == 'codescript':
+            elif template == "codescript":
                 if not main_widget_is_toplevel:
-                    generator.add_import_line('tkinter', 'tk')
+                    generator.add_import_line("tkinter", "tk")
                 if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line('tkinter.ttk', 'ttk', priority=1)
+                    generator.add_import_line("tkinter.ttk", "ttk", priority=1)
                 code = generator.generate_app_code(uidef, target)
-                context['widget_code'] = code[target]
-                context['import_lines'] = code['imports']
-                context['callbacks'] = code['callbacks']
+                context["widget_code"] = code[target]
+                context["import_lines"] = code["imports"]
+                context["callbacks"] = code["callbacks"]
                 # Style definitions
-                ttk_styles_code = code['ttkstyles']
+                ttk_styles_code = code["ttkstyles"]
                 if self.use_ttkdefs_file_var.get() and ttk_styles_code:
-                    context['has_ttk_styles'] = True
-                context['ttk_styles'] = ttk_styles_code
+                    context["has_ttk_styles"] = True
+                context["ttk_styles"] = ttk_styles_code
 
-                tpl = makolookup.get_template('script.py.mako')
+                tpl = makolookup.get_template("script.py.mako")
                 final_code = tpl.render(**context)
                 final_code = black.format_str(final_code, mode=black_fm)
                 self.set_code(final_code)
@@ -197,54 +197,56 @@ class ScriptGenerator:
         self.txt_code.clipboard_append(text)
 
         _ = self.app.translator
-        msg = _('Code copied')
+        msg = _("Code copied")
         messagebox.showinfo(
-            title=self.msgtitle, message=msg, parent=self.widgetlist.winfo_toplevel()
+            title=self.msgtitle,
+            message=msg,
+            parent=self.widgetlist.winfo_toplevel(),
         )
 
     def on_code_template_changed(self, clear_code=True):
         template = self.template_var.get()
         classname = self.get_classname()
-        import_tkvars_state = 'disabled'
-        add_i18n_state = 'normal'
-        menulist_state = 'normal'
-        if template == 'application':
-            name = f'{classname}App'
+        import_tkvars_state = "disabled"
+        add_i18n_state = "normal"
+        menulist_state = "normal"
+        if template == "application":
+            name = f"{classname}App"
             self.classnamevar.set(name)
-            import_tkvars_state = 'normal'
-        elif template == 'codescript':
-            name = f'{classname}App'
+            import_tkvars_state = "normal"
+        elif template == "codescript":
+            name = f"{classname}App"
             self.classnamevar.set(name)
-        elif template == 'widget':
-            name = f'{classname}Widget'
+        elif template == "widget":
+            name = f"{classname}Widget"
             self.classnamevar.set(name)
-            add_i18n_state = 'disabled'
-            menulist_state = 'disabled'
+            add_i18n_state = "disabled"
+            menulist_state = "disabled"
         self.cb_import_tkvars.configure(state=import_tkvars_state)
         self.cb_add_i18n.configure(state=add_i18n_state)
         self.menulist.configure(state=menulist_state)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
         if clear_code:
-            self.set_code('')
+            self.set_code("")
 
     def on_code_save_clicked(self):
         _ = self.app.translator
         filename = (self.classnamevar.get()).lower()
         options = {
-            'defaultextension': '.py',
-            'filetypes': ((_('Python Script'), '*.py'), (_('All'), '*.*')),
-            'initialfile': f'{filename}.py',
+            "defaultextension": ".py",
+            "filetypes": ((_("Python Script"), "*.py"), (_("All"), "*.*")),
+            "initialfile": f"{filename}.py",
         }
         fname = filedialog.asksaveasfilename(**options)
         if fname:
-            with open(fname, 'w') as out:
+            with open(fname, "w") as out:
                 out.write(self.get_code())
 
     def _configure_menulist(self, event=None):
         tree_item = self.widgetlist_keyvar.get()
         target_class = self.tree.get_widget_class(tree_item)
-        newstate = 'normal' if target_class == 'tk.Toplevel' else 'disabled'
+        newstate = "normal" if target_class == "tk.Toplevel" else "disabled"
         self.menulist.configure(state=newstate)
 
     def configure(self):
@@ -255,7 +257,7 @@ class ScriptGenerator:
         self.classnamevar.set(self.get_classname())
         # Top level menues
         mlist = self.tree.get_top_menu_list()
-        mlist.insert(0, ('empty', ''))
+        mlist.insert(0, ("empty", ""))
         self.menulist.configure(values=mlist)
         # self.menulist_keyvar.set('None')
 
@@ -278,37 +280,37 @@ class ScriptGenerator:
         if widget is None:
             valid = False
             messagebox.showwarning(
-                title=mbtitle, message=_('Select widget'), parent=parent
+                title=mbtitle, message=_("Select widget"), parent=parent
             )
         template = self.template_var.get()
         if valid and template is None:
             valid = False
             messagebox.showwarning(
-                title=mbtitle, message=_('Select template'), parent=parent
+                title=mbtitle, message=_("Select template"), parent=parent
             )
         classname = self.classnamevar.get()
-        if valid and classname == '':
+        if valid and classname == "":
             valid = False
             messagebox.showwarning(
-                title=mbtitle, message=_('Enter classname'), parent=parent
+                title=mbtitle, message=_("Enter classname"), parent=parent
             )
         if valid and (
             keyword.iskeyword(classname) or not RE_IDENTIFIER.match(classname)
         ):
             valid = False
             messagebox.showwarning(
-                title=mbtitle, message=_('Invalid classname'), parent=parent
+                title=mbtitle, message=_("Invalid classname"), parent=parent
             )
 
         return valid
 
     def set_code(self, text):
-        self.txt_code.delete('0.0', 'end')
-        self.txt_code.insert('0.0', text)
+        self.txt_code.delete("0.0", "end")
+        self.txt_code.insert("0.0", text)
 
     def get_code(self):
-        return self.txt_code.get('0.0', 'end-1c')
+        return self.txt_code.get("0.0", "end-1c")
 
     def reset(self):
-        self.set_code('')
+        self.set_code("")
         self.configure()

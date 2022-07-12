@@ -13,24 +13,21 @@ class MyApp:
         self.builder = builder = pygubu.Builder()
         builder.add_from_file(PROJECT_UI)
 
-        self.mainwindow = builder.get_object('mainwindow', master)
-        self.filepath = builder.get_object('filepath')
+        self.mainwindow = builder.get_object("mainwindow", master)
+        self.filepath = builder.get_object("filepath")
 
         builder.connect_callbacks(self)
 
     def on_path_changed(self, event=None):
         # Get the path choosed by the user
-        path = self.filepath.cget('path')
+        path = self.filepath.cget("path")
         # show the path
-        messagebox.showinfo(
-            'You choosed:', path,
-            parent=self.mainwindow
-        )
+        messagebox.showinfo("You choosed:", path, parent=self.mainwindow)
 
     def run(self):
         self.mainwindow.mainloop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = MyApp()
     app.run()

@@ -9,16 +9,14 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-import re
 import keyword
-from pygubudesigner.widgets import (
-    ChoicePropertyEditor,
-    EntryPropertyEditor,
-)
+import re
+
+from .propertyeditor import ChoicePropertyEditor, EntryPropertyEditor
 
 
 class EventHandlerEditor(EntryPropertyEditor):
-    RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
+    RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
 
     def is_safe_identifier(self, value):
         is_valid = True
@@ -31,7 +29,9 @@ class EventHandlerEditor(EntryPropertyEditor):
     def _validate(self):
         is_valid = True
         value = self._get_value()
-        is_valid = self.is_safe_identifier(value) and self.is_valid_globally(value)
+        is_valid = self.is_safe_identifier(value) and self.is_valid_globally(
+            value
+        )
         self.show_invalid(not is_valid)
         return is_valid
 
@@ -104,8 +104,8 @@ seq_types = [
 
 
 def build_seq_re(modifiers, types):
-    modlist = '|'.join(seq_modifiers)
-    typelist = '|'.join(seq_types)
+    modlist = "|".join(seq_modifiers)
+    typelist = "|".join(seq_types)
     detail = ".+"
     re_seq = f"<(?P<mod>({modlist})-)*(?P<type>{typelist})(?P<det>-{detail})?>"
     re_vseq = "(?P<vseq><<.+>>)"

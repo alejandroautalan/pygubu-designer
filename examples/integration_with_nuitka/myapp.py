@@ -10,19 +10,18 @@ DEG2RAD = 4 * math.atan(1) * 2 / 360
 
 
 class MyApplication:
-
     def __init__(self):
         self.about_dialog = None
 
         self.builder = b = pygubu.Builder()
-        b.add_from_file(os.path.join(CURRENT_DIR, 'myapp.ui'))
-        b.add_resource_path(os.path.join(CURRENT_DIR, 'imgs'))
+        b.add_from_file(os.path.join(CURRENT_DIR, "myapp.ui"))
+        b.add_resource_path(os.path.join(CURRENT_DIR, "imgs"))
 
-        self.mainwindow = b.get_object('mainwindow')
-        self.mainmenu = b.get_object('mainmenu', self.mainwindow)
-        self.btn_menu = b.get_object('btn_menu')
+        self.mainwindow = b.get_object("mainwindow")
+        self.mainmenu = b.get_object("mainmenu", self.mainwindow)
+        self.btn_menu = b.get_object("btn_menu")
         # self.mainwindow['menu'] = menu
-        self.canvas = b.get_object('main_canvas')
+        self.canvas = b.get_object("main_canvas")
 
         # Connect to Delete event
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.quit)
@@ -30,11 +29,11 @@ class MyApplication:
         b.connect_callbacks(self)
 
     def on_mainmenu_action(self, option_id=None):
-        if option_id == 'mm_clear':
-            self.canvas.delete('all')
-        if option_id == 'mm_about':
+        if option_id == "mm_clear":
+            self.canvas.delete("all")
+        if option_id == "mm_about":
             self.show_about_dialog()
-        if option_id == 'mm_quit':
+        if option_id == "mm_quit":
             self.mainwindow.quit()
 
     def btn_menu_clicked(self):
@@ -42,37 +41,37 @@ class MyApplication:
         x, y = (self.btn_menu.winfo_rootx(), self.btn_menu.winfo_rooty())
         y = y + self.btn_menu.winfo_height()
         try:
-            self.mainmenu.tk_popup(x, y, '')
+            self.mainmenu.tk_popup(x, y, "")
         finally:
             # make sure to release the grab (Tk 8.0a1 only)
             self.mainmenu.grab_release()
 
     def show_about_dialog(self):
         if self.about_dialog is None:
-            dialog = self.builder.get_object('dlg_about', self.mainwindow)
+            dialog = self.builder.get_object("dlg_about", self.mainwindow)
             self.about_dialog = dialog
 
             def dialog_btnclose_clicked():
                 dialog.close()
 
-            btnclose = self.builder.get_object('about_btnclose')
-            btnclose['command'] = dialog_btnclose_clicked
+            btnclose = self.builder.get_object("about_btnclose")
+            btnclose["command"] = dialog_btnclose_clicked
 
             dialog.run()
         else:
             self.about_dialog.show()
 
     def btn_square_clicked(self):
-        self._draw_figure('square')
+        self._draw_figure("square")
 
     def btn_cross_clicked(self):
-        self._draw_figure('cross')
+        self._draw_figure("cross")
 
     def btn_circle_clicked(self):
-        self._draw_figure('circle')
+        self._draw_figure("circle")
 
     def btn_triangle_clicked(self):
-        self._draw_figure('triangle')
+        self._draw_figure("triangle")
 
     def quit(self, event=None):
         print(event)
@@ -95,26 +94,61 @@ class MyApplication:
             y = random.randint(0, canvash) - int(max_width * 0.5)
             start = random.randint(0, 180)
 
-            if figure == 'circle':
-                canvas.create_oval(x, y, x + w, y + w,
-                                   outline='#FF6666', width=borderw)
-            if figure == 'square':
-                self.create_regpoly(x, y, x + w, y + w,
-                                    sides=4, start=start,
-                                    outline='#ED9DE9', width=borderw, fill='')
-            if figure == 'triangle':
-                self.create_regpoly(x, y, x + w, y + w,
-                                    sides=3, start=start,
-                                    outline='#40E2A0', width=borderw, fill='')
-            if figure == 'cross':
-                self.create_regpoly(x, y, x + w, y + w,
-                                    sides=2, start=start,
-                                    outline='#80B3E7', width=borderw, fill='')
-                self.create_regpoly(x, y, x + w, y + w,
-                                    sides=2, start=start + 90,
-                                    outline='#80B3E7', width=borderw, fill='')
+            if figure == "circle":
+                canvas.create_oval(
+                    x, y, x + w, y + w, outline="#FF6666", width=borderw
+                )
+            if figure == "square":
+                self.create_regpoly(
+                    x,
+                    y,
+                    x + w,
+                    y + w,
+                    sides=4,
+                    start=start,
+                    outline="#ED9DE9",
+                    width=borderw,
+                    fill="",
+                )
+            if figure == "triangle":
+                self.create_regpoly(
+                    x,
+                    y,
+                    x + w,
+                    y + w,
+                    sides=3,
+                    start=start,
+                    outline="#40E2A0",
+                    width=borderw,
+                    fill="",
+                )
+            if figure == "cross":
+                self.create_regpoly(
+                    x,
+                    y,
+                    x + w,
+                    y + w,
+                    sides=2,
+                    start=start,
+                    outline="#80B3E7",
+                    width=borderw,
+                    fill="",
+                )
+                self.create_regpoly(
+                    x,
+                    y,
+                    x + w,
+                    y + w,
+                    sides=2,
+                    start=start + 90,
+                    outline="#80B3E7",
+                    width=borderw,
+                    fill="",
+                )
 
-    def create_regpoly(self, x0, y0, x1, y1, sides=0, start=90, extent=360, **kw):
+    def create_regpoly(
+        self, x0, y0, x1, y1, sides=0, start=90, extent=360, **kw
+    ):
         """Create a regular polygon"""
         coords = self.__regpoly_coords(x0, y0, x1, y1, sides, start, extent)
         return self.canvas.create_polygon(*coords, **kw)
@@ -127,14 +161,14 @@ class MyApplication:
         if extent == 0:
             return coords
 
-        xm = (x0 + x1) / 2.
-        ym = (y0 + y1) / 2.
+        xm = (x0 + x1) / 2.0
+        ym = (y0 + y1) / 2.0
         rx = xm - x0
         ry = ym - y0
 
         n = sides
         if n == 0:  # 0 sides => circle
-            n = round((rx + ry) * .5)
+            n = round((rx + ry) * 0.5)
             if n < 2:
                 n = 4
 
@@ -177,6 +211,6 @@ class MyApplication:
         return coords
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = MyApplication()
     app.run()

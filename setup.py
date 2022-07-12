@@ -13,11 +13,11 @@ import platform
 import pygubudesigner
 
 VERSION = pygubudesigner.__version__
-
+setup_requirements = pygubudesigner.get_setup_requirements()
 _dirname_ = os.path.dirname(__file__)
 
-readme_path = os.path.join(_dirname_, 'README.md')
-product_txt_path = os.path.join(_dirname_, 'requirements', 'product.txt')
+readme_path = os.path.join(_dirname_, "README.md")
+product_txt_path = os.path.join(_dirname_, "requirements", "product.txt")
 
 try:
     from setuptools import setup
@@ -36,65 +36,55 @@ class CustomInstall(install):
 
         #
         # Remove old pygubu.py from scripts path if exists
-        spath = os.path.join(self.install_scripts, 'pygubu')
-        for ext in ('.py', '.pyw'):
+        spath = os.path.join(self.install_scripts, "pygubu")
+        for ext in (".py", ".pyw"):
             filename = spath + ext
             if os.path.exists(filename):
                 os.remove(filename)
         #
         # Remove old pygubu-designer.bat
-        if platform.system() == 'Windows':
-            spath = os.path.join(self.install_scripts, 'pygubu-designer.bat')
+        if platform.system() == "Windows":
+            spath = os.path.join(self.install_scripts, "pygubu-designer.bat")
             if os.path.exists(spath):
                 os.remove(spath)
 
-
-def get_requirements():
-    requirements = [
-        i.strip('\n')
-        for i in open(product_txt_path).readlines()
-        if not i.startswith('#') and len(i.strip()) > 0
-    ]
-    return requirements
-
-
 setup(
-    name='pygubu-designer',
+    name="pygubu-designer",
     version=VERSION,
-    license='GPL-3',
-    author='Alejandro Autalán',
-    author_email='alejandroautalan@gmail.com',
-    description='A tkinter GUI builder.',
-    long_description=open(readme_path, encoding='utf-8').read(),
-    long_description_content_type='text/markdown',
-    url='https://github.com/alejandroautalan/pygubu-designer',
+    license="GPL-3",
+    author="Alejandro Autalán",
+    author_email="alejandroautalan@gmail.com",
+    description="A tkinter GUI builder.",
+    long_description=open(readme_path, encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/alejandroautalan/pygubu-designer",
     packages=[
-        'pygubudesigner',
-        'pygubudesigner.util',
-        'pygubudesigner.widgets',
-        'pygubudesigner.preview',
-        'pygubudesigner.codegen',
+        "pygubudesigner",
+        "pygubudesigner.util",
+        "pygubudesigner.widgets",
+        "pygubudesigner.preview",
+        "pygubudesigner.codegen",
     ],
     package_data={
-        'pygubudesigner': [
-            'images/images-gif/*.gif',
-            'images/images-gif/widgets/*/*.gif',
-            'images/images-png/*.png',
-            'images/images-png/widgets/*/*.png',
-            'ui/*.ui',
-            'locale/*/*/*.mo',
-            'codegen/template/*.mako',
+        "pygubudesigner": [
+            "images/images-gif/*.gif",
+            "images/images-gif/widgets/*/*.gif",
+            "images/images-png/*.png",
+            "images/images-png/widgets/*/*.png",
+            "ui/*.ui",
+            "locale/*/*/*.mo",
+            "codegen/template/*.mako",
         ],
     },
     entry_points={
-        'gui_scripts': [
-            'pygubu-designer = pygubudesigner.main:start_pygubu',
+        "gui_scripts": [
+            "pygubu-designer = pygubudesigner.main:start_pygubu",
         ]
     },
     cmdclass={
-        'install': CustomInstall,
+        "install": CustomInstall,
     },
-    install_requires=get_requirements(),
+    install_requires=setup_requirements,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",

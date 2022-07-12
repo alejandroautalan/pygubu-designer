@@ -50,7 +50,12 @@ class SelectTool:
         self._sstart = (x, y)
         if not self._sobject:
             self._sobject = canvas.create_rectangle(
-                self._sstart[0], self._sstart[1], x, y, dash=(3, 5), outline='#0000ff'
+                self._sstart[0],
+                self._sstart[1],
+                x,
+                y,
+                dash=(3, 5),
+                outline="#0000ff",
             )
         canvas.itemconfigure(self._sobject, state=tk.NORMAL)
 
@@ -77,4 +82,4 @@ class SelectTool:
 
         sel_region = self._sstart[0], self._sstart[1], x, y
         canvas.region_selected = sel_region
-        canvas.event_generate('<<RegionSelected>>')
+        canvas.event_generate("<<RegionSelected>>")

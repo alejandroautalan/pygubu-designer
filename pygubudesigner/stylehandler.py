@@ -39,7 +39,7 @@ class StyleRegister(ttk.Style):
             self.STYLE_DEFINITIONS.add(style)
 
     def registered_styles(self):
-        '''Return list of captured styles'''
+        """Return list of captured styles"""
         return list(self.STYLE_DEFINITIONS)
 
     def configure(self, style, query_opt=None, **kw):
@@ -58,7 +58,7 @@ class StyleHandler:
 
         # Listen to theme change events
         self.mframe.bind_all(
-            '<<PygubuDesignerTtkThemeChanged>>', self._on_theme_changed
+            "<<PygubuDesignerTtkThemeChanged>>", self._on_theme_changed
         )
 
         # Used for refreshing/re-populating the styles combobox.
@@ -69,25 +69,28 @@ class StyleHandler:
         self.mframe.after_idle(self.check_definition_file)
 
     def _on_theme_changed(self, event=None):
-        logger.debug('Theme changed. Force reload of style definitions.')
+        logger.debug("Theme changed. Force reload of style definitions.")
         self.check_definition_file(force_reload=True)
 
     def _apply_ttk_styles(self, style_code):
         logger.debug(_("Applying ttk style definitions"))
         try:
             if style_code:
-                available_vars = {'style': self.style, 'optiondb': self.style.master}
+                available_vars = {
+                    "style": self.style,
+                    "optiondb": self.style.master,
+                }
                 exec(style_code, available_vars)
                 new_styles = self.style.registered_styles()
                 TtkStylePropertyEditor.set_global_style_list(new_styles)
         except Exception as e:
-            msg = _('ttk style definition error: %s')
+            msg = _("ttk style definition error: %s")
             logger.error(msg, e)
 
     @classmethod
     def get_ttk_style_definitions(cls):
         contents = None
-        style_definition_path = Path(pref.get_option('v_style_definition_file'))
+        style_definition_path = Path(pref.get_option("v_style_definition_file"))
 
         if style_definition_path.is_file():
             with style_definition_path.open() as f:
@@ -97,7 +100,7 @@ class StyleHandler:
     def check_definition_file(self, force_reload=False):
         # print('checking definitions')
         # Get the path to the style definition file.
-        style_definition_path = Path(pref.get_option('v_style_definition_file'))
+        style_definition_path = Path(pref.get_option("v_style_definition_file"))
 
         do_reload = False
         has_definition_file = False

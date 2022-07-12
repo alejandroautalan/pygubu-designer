@@ -40,7 +40,7 @@ class PropertiesEditor:
 
         # Used for refreshing/re-populating the styles combobox.
         # Used when the style definition gets updated (simulates clicking on the treeview item again.)
-        reselect_item_func = kw.get('reselect_item_func', None)
+        reselect_item_func = kw.get("reselect_item_func", None)
 
         self.style_handler = StyleHandler(
             self._sframe, reselect_item_func=reselect_item_func
@@ -55,7 +55,7 @@ class PropertiesEditor:
         #                                 text=_('Widget properties'))
         self._frame = f = ttk.Frame(self._sframe.innerframe)
         # f.configure(padding=4)
-        f.grid(sticky='nswe')
+        f.grid(sticky="nswe")
 
         label_tpl = "{0}:"
         row = 0
@@ -63,57 +63,57 @@ class PropertiesEditor:
 
         groups = (
             (
-                '00',
-                _('Required'),
+                "00",
+                _("Required"),
                 properties.WIDGET_REQUIRED_OPTIONS,
                 properties.REQUIRED_OPTIONS,
             ),
             (
-                '01',
-                _('Standard'),
+                "01",
+                _("Standard"),
                 properties.WIDGET_STANDARD_OPTIONS,
                 properties.TK_WIDGET_OPTIONS,
             ),
             (
-                '02',
-                _('Specific'),
+                "02",
+                _("Specific"),
                 properties.WIDGET_SPECIFIC_OPTIONS,
                 properties.TK_WIDGET_OPTIONS,
             ),
             (
-                '03',
-                _('Custom'),
+                "03",
+                _("Custom"),
                 properties.WIDGET_CUSTOM_OPTIONS,
                 properties.CUSTOM_OPTIONS,
             ),
         )
 
         for gcode, gname, plist, propdescr in groups:
-            padding = '0 0 0 5' if row == 0 else '0 5 0 5'
+            padding = "0 0 0 5" if row == 0 else "0 5 0 5"
             label = ttk.Label(
                 self._frame,
                 text=gname,
-                font='TkDefaultFont 10 bold',
+                font="TkDefaultFont 10 bold",
                 padding=padding,
-                foreground='#000059',
+                foreground="#000059",
             )
-            label.grid(row=row, column=0, sticky='we', columnspan=2)
+            label.grid(row=row, column=0, sticky="we", columnspan=2)
             row += 1
             for name in plist:
                 kwdata = propdescr[name]
                 labeltext = label_tpl.format(name)
                 label = ttk.Label(self._frame, text=labeltext, anchor=tk.W)
                 label.grid(row=row, column=col, sticky=tk.EW, pady=2)
-                label.tooltip = create_tooltip(label, '?')
+                label.tooltip = create_tooltip(label, "?")
                 widget = self._create_editor(self._frame, name, kwdata)
                 widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
                 row += 1
                 self._propbag[gcode + name] = (label, widget)
-                logger.debug('Created property: %s-%s', gname, name)
+                logger.debug("Created property: %s-%s", gname, name)
 
     def _create_editor(self, master, pname, wdata):
         editor = None
-        wtype = wdata.get('editor', None)
+        wtype = wdata.get("editor", None)
 
         # I don't have class name at this moment
         # so setup class specific values on update_property_widget
@@ -125,7 +125,7 @@ class PropertiesEditor:
 
             return on_change_cb
 
-        editor.bind('<<PropertyChanged>>', make_on_change_cb(pname, editor))
+        editor.bind("<<PropertyChanged>>", make_on_change_cb(pname, editor))
         return editor
 
     def _on_property_changed(self, name, editor):
@@ -137,22 +137,22 @@ class PropertiesEditor:
 
         # Get editor default mode
         default_mode = None
-        if 'params' in pdescr:
-            default_mode = pdescr['params'].get('mode', None)
+        if "params" in pdescr:
+            default_mode = pdescr["params"].get("mode", None)
         # Get editor parameters for a specific class
         if classname in pdescr:
             pdescr = dict(pdescr, **pdescr[classname])
 
-        params = pdescr.get('params', {})
+        params = pdescr.get("params", {})
         # setup default mode if not specified in parameters for
         # specific class
-        if default_mode is not None and 'mode' not in params:
-            params['mode'] = default_mode
+        if default_mode is not None and "mode" not in params:
+            params["mode"] = default_mode
         # Configure editor
         editor.parameters(**params)
 
         # Setup tooltip
-        help = pdescr.get('help', None)
+        help = pdescr.get("help", None)
         if isinstance(help, dict):
             for k, v in help.items():
                 if classname.startswith(k):
@@ -161,7 +161,7 @@ class PropertiesEditor:
         label.tooltip.text = help
 
         # setup default value
-        default = pdescr.get('default', '')
+        default = pdescr.get("default", "")
         value = wdescr.widget_property(pname)
 
         if not value and default:
@@ -176,26 +176,26 @@ class PropertiesEditor:
         # GroupCode, PropertyType, dict, tuple
         groups = (
             (
-                '00',
+                "00",
                 None,
                 properties.WIDGET_REQUIRED_OPTIONS,
                 properties.REQUIRED_OPTIONS,
             ),
             (
-                '01',
-                'OPTIONS_STANDARD',
+                "01",
+                "OPTIONS_STANDARD",
                 properties.WIDGET_STANDARD_OPTIONS,
                 properties.TK_WIDGET_OPTIONS,
             ),
             (
-                '02',
-                'OPTIONS_SPECIFIC',
+                "02",
+                "OPTIONS_SPECIFIC",
                 properties.WIDGET_SPECIFIC_OPTIONS,
                 properties.TK_WIDGET_OPTIONS,
             ),
             (
-                '03',
-                'OPTIONS_CUSTOM',
+                "03",
+                "OPTIONS_CUSTOM",
                 properties.WIDGET_CUSTOM_OPTIONS,
                 properties.CUSTOM_OPTIONS,
             ),
@@ -204,7 +204,7 @@ class PropertiesEditor:
             for name in proplist:
                 propdescr = gproperties[name]
                 label, widget = self._propbag[gcode + name]
-                if gcode == '00' or name in getattr(class_descr, attrname):
+                if gcode == "00" or name in getattr(class_descr, attrname):
                     self.update_editor(label, widget, wdescr, name, propdescr)
                     label.grid()
                     widget.grid()

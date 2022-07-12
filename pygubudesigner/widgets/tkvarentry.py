@@ -27,35 +27,35 @@ from pygubudesigner.widgets.propertyeditor import (
 
 
 class TkVarPropertyEditor(PropertyEditor):
-    RE_IDENTIFIER = re.compile('[_A-Za-z][_a-zA-Z0-9]*$')
+    RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
 
     def _create_ui(self):
         self._entry = w = EntryPropertyEditor(self)
-        w.grid(sticky='we')
+        w.grid(sticky="we")
         self._cbox = w = ChoicePropertyEditor(self)
-        w.grid(row=0, column=1, sticky='we')
+        w.grid(row=0, column=1, sticky="we")
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
-        self._entry.bind('<<PropertyChanged>>', self._on_variable_changed)
-        self._cbox.bind('<<PropertyChanged>>', self._on_variable_changed)
-        cbvalues = ('string', 'int', 'double', 'boolean')
-        self._cbox.parameters(width=8, values=cbvalues, state='readonly')
+        self._entry.bind("<<PropertyChanged>>", self._on_variable_changed)
+        self._cbox.bind("<<PropertyChanged>>", self._on_variable_changed)
+        cbvalues = ("string", "int", "double", "boolean")
+        self._cbox.parameters(width=8, values=cbvalues, state="readonly")
 
     def _get_value(self):
-        value = ''
-        if self._entry.value != '':
-            value = f'{self._cbox.value}:{self._entry.value}'
+        value = ""
+        if self._entry.value != "":
+            value = f"{self._cbox.value}:{self._entry.value}"
         return value
 
     def _set_value(self, value):
-        if ':' in value:
-            type_, name = value.split(':')
+        if ":" in value:
+            type_, name = value.split(":")
             self._entry.edit(name)
             self._cbox.edit(type_)
         else:
-            self._entry.edit('')
-            self._cbox.edit('string')
+            self._entry.edit("")
+            self._cbox.edit("string")
 
     def _validate(self):
         is_valid = True
@@ -72,19 +72,19 @@ class TkVarPropertyEditor(PropertyEditor):
         return is_valid
 
 
-register_editor('tkvarentry', TkVarPropertyEditor)
+register_editor("tkvarentry", TkVarPropertyEditor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     editor = TkVarPropertyEditor(root)
     editor.grid()
-    editor.edit('double:mydouble')
+    editor.edit("double:mydouble")
 
     def see_var():
         print(editor.value)
 
-    btn = ttk.Button(root, text='Value', command=see_var)
+    btn = ttk.Button(root, text="Value", command=see_var)
     btn.grid(row=0, column=1)
 
     root.mainloop()

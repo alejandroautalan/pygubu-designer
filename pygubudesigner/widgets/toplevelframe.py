@@ -28,11 +28,11 @@ class ToplevelFramePreview(tk.Frame):
             cnf = tk._cnfmerge((cnf, kw))
         elif cnf:
             cnf = tk._cnfmerge(cnf)
-        key = 'width'
+        key = "width"
         if key in cnf:
             value = int(cnf[key])
-            minsize = self.tl_attrs.get('minsize', None)
-            maxsize = self.tl_attrs.get('maxsize', None)
+            minsize = self.tl_attrs.get("minsize", None)
+            maxsize = self.tl_attrs.get("maxsize", None)
             #            print(value, minsize, maxsize)
             remove = False
             #            print('tl_attrs:', self.tl_attrs)
@@ -41,7 +41,7 @@ class ToplevelFramePreview(tk.Frame):
             if maxsize and value > maxsize[0]:
                 remove = True
             if self._w_set:
-                resizable = self.tl_attrs.get('resizable', None)
+                resizable = self.tl_attrs.get("resizable", None)
                 if resizable and not TKToplevel.RESIZABLE[resizable][0]:
                     remove = True
             if remove:
@@ -49,11 +49,11 @@ class ToplevelFramePreview(tk.Frame):
                 cnf.pop(key)
             else:
                 self._w_set = True
-        key = 'height'
+        key = "height"
         if key in cnf:
             value = int(cnf[key])
-            minsize = self.tl_attrs.get('minsize', None)
-            maxsize = self.tl_attrs.get('maxsize', None)
+            minsize = self.tl_attrs.get("minsize", None)
+            maxsize = self.tl_attrs.get("maxsize", None)
             #            print(value, minsize, maxsize)
             remove = False
             if minsize and value < minsize[1]:
@@ -61,7 +61,7 @@ class ToplevelFramePreview(tk.Frame):
             if maxsize and value > maxsize[1]:
                 remove = True
             if self._h_set:
-                resizable = self.tl_attrs.get('resizable', None)
+                resizable = self.tl_attrs.get("resizable", None)
                 if resizable and not TKToplevel.RESIZABLE[resizable][1]:
                     remove = True
             if remove:
@@ -69,7 +69,7 @@ class ToplevelFramePreview(tk.Frame):
                 cnf.pop(key)
             else:
                 self._h_set = True
-        key = 'menu'
+        key = "menu"
         if key in cnf:
             # No menu preview available
             cnf.pop(key)
@@ -82,57 +82,57 @@ class ToplevelFramePreviewBO(BuilderObject):
     container = True
     container_layout = True
     # Add fake 'modal' property for Dialog preview
-    properties = TKToplevel.properties + ('modal',)
+    properties = TKToplevel.properties + ("modal",)
     ro_properties = TKToplevel.ro_properties
 
     def configure(self, target=None):
         # setup width and height properties if
         # geometry is defined.
-        geom = 'geometry'
+        geom = "geometry"
         if geom in self.wmeta.properties:
             w, h = self._get_dimwh(self.wmeta.properties[geom])
             if w and h:
-                self.wmeta.properties['width'] = w
-                self.wmeta.properties['height'] = h
+                self.wmeta.properties["width"] = w
+                self.wmeta.properties["height"] = h
         super().configure(target)
 
     def _get_dimwh(self, dimvalue: str):
         # get width and height from dimension string
-        dim = dimvalue.split('+')[0]
-        dim = dim.split('-')[0]
-        w, h = dim.split('x')
+        dim = dimvalue.split("+")[0]
+        dim = dim.split("-")[0]
+        w, h = dim.split("x")
         return (w, h)
 
     def _set_property(self, target_widget, pname, value):
         tw = target_widget
         tw.tl_attrs[pname] = value
-        method_props = ('iconbitmap', 'iconphoto', 'overrideredirect', 'title')
+        method_props = ("iconbitmap", "iconphoto", "overrideredirect", "title")
         if pname in method_props:
             pass
-        elif pname in ('maxsize', 'minsize'):
+        elif pname in ("maxsize", "minsize"):
             if not value:
                 del tw.tl_attrs[pname]
-            elif '|' in value:
-                w, h = value.split('|')
+            elif "|" in value:
+                w, h = value.split("|")
                 if w and h:
                     tw.tl_attrs[pname] = (int(w), int(h))
                 else:
                     del tw.tl_attrs[pname]
-        elif pname == 'geometry':
+        elif pname == "geometry":
             if value:
                 w, h = self._get_dimwh(value)
                 if w and h:
-                    tw.tl_attrs['minsize'] = (int(w), int(h))
+                    tw.tl_attrs["minsize"] = (int(w), int(h))
                     tw._h_set = tw._w_set = False
                     tw.configure(width=w, height=h)
                     if tw.pack_slaves():
                         tw.pack_propagate(0)
                     elif tw.grid_slaves():
                         tw.grid_propagate(0)
-        elif pname == 'resizable':
+        elif pname == "resizable":
             # Do nothing, fake 'resizable' property for Toplevel preview
             pass
-        elif pname == 'modal':
+        elif pname == "modal":
             # Do nothing, fake 'modal' property for dialog preview
             pass
         else:
@@ -140,8 +140,8 @@ class ToplevelFramePreviewBO(BuilderObject):
 
 
 register_widget(
-    'pygubudesigner.ToplevelFramePreview',
+    "pygubudesigner.ToplevelFramePreview",
     ToplevelFramePreviewBO,
-    'ToplevelFramePreview',
+    "ToplevelFramePreview",
     tuple(),
 )

@@ -16,7 +16,7 @@ class HelloworldApp:
         builder.add_from_file(PROJECT_UI)
 
         # 3: Create the mainwindow
-        self.mainwindow = builder.get_object('mainwindow', master)
+        self.mainwindow = builder.get_object("mainwindow", master)
 
         # 4: Connect callbacks
         builder.connect_callbacks(self)
@@ -25,6 +25,6 @@ class HelloworldApp:
         self.mainwindow.mainloop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = HelloworldApp()
     app.run()

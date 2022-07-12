@@ -36,7 +36,7 @@ RE_FONT = re.compile(
 
 class Preview:
     def __init__(self, id_, canvas, x=0, y=0, rpaths=None):
-        self.id = f'preview_{id_}'
+        self.id = f"preview_{id_}"
         self.x = x
         self.y = y
         self.w = 10
@@ -71,15 +71,17 @@ class Preview:
         # Preview box
         c = self.canvas
         x, y, x2, y2 = (-1001, -1000, -1001, -1000)
-        s1 = c.create_rectangle(x, y, x2, y2, width=2, outline='blue', tags=self.id)
+        s1 = c.create_rectangle(
+            x, y, x2, y2, width=2, outline="blue", tags=self.id
+        )
         s2 = c.create_rectangle(
-            x, y, x2, y2, fill='blue', outline='blue', tags=(self.id, 'resizer')
+            x, y, x2, y2, fill="blue", outline="blue", tags=(self.id, "resizer")
         )
         s3 = c.create_text(
-            x, y, text='widget_id', anchor=tk.NW, fill='white', tags=self.id
+            x, y, text="widget_id", anchor=tk.NW, fill="white", tags=self.id
         )
         s4 = c.create_window(x, y, anchor=tk.NW, tags=self.id)
-        self.shapes = {'outline': s1, 'resizer': s2, 'text': s3, 'window': s4}
+        self.shapes = {"outline": s1, "resizer": s2, "text": s3, "window": s4}
         self.draw()
 
     def erase(self):
@@ -90,19 +92,19 @@ class Preview:
     def draw(self):
         c = self.canvas
         x, y, x2, y2 = (self.x, self.y, self.x + self.w, self.y + self.h)
-        c.coords(self.shapes['outline'], x, y, x2, y2)
-        tbbox = c.bbox(self.shapes['text'])
+        c.coords(self.shapes["outline"], x, y, x2, y2)
+        tbbox = c.bbox(self.shapes["text"])
         tw, th = tbbox[2] - tbbox[0] + 10, tbbox[3] - tbbox[1] + 6
         self.resizer_h = th
         rx2 = self.x + self.w
         ry2 = self.y + self.h + self.resizer_h
         rx = rx2 - tw
         ry = self.y + self.h
-        c.coords(self.shapes['resizer'], rx, ry, rx2, ry2)
+        c.coords(self.shapes["resizer"], rx, ry, rx2, ry2)
         tx = rx + 5
         ty = ry + 3
-        c.coords(self.shapes['text'], tx, ty)
-        c.coords(self.shapes['window'], x, y)
+        c.coords(self.shapes["text"], tx, ty)
+        c.coords(self.shapes["window"], x, y)
 
     def move_by(self, dx, dy):
         self.x += dx
@@ -135,16 +137,16 @@ class Preview:
         # FIXME maybe do something to update preview without re-creating all ?
         del self.builder
         self.builder = None
-        self.canvas.itemconfigure(self.shapes['window'], window='')
+        self.canvas.itemconfigure(self.shapes["window"], window="")
         if self.canvas_window:
             self.canvas_window.destroy()
 
         # Create preview
-        canvas_window = ttk.Frame(self.canvas, style='PreviewFrame.TFrame')
+        canvas_window = ttk.Frame(self.canvas, style="PreviewFrame.TFrame")
         # canvas_window.rowconfigure(0, weight=1)
         # canvas_window.columnconfigure(0, weight=1)
 
-        self.canvas.itemconfigure(self.shapes['text'], text=widget_id)
+        self.canvas.itemconfigure(self.shapes["text"], text=widget_id)
 
         self._preview_widget = self.create_preview_widget(
             canvas_window, widget_id, uidefinition
@@ -152,7 +154,7 @@ class Preview:
         self.root_widget = self._preview_widget
 
         self.canvas_window = canvas_window
-        self.canvas.itemconfigure(self.shapes['window'], window=canvas_window)
+        self.canvas.itemconfigure(self.shapes["window"], window=canvas_window)
         canvas_window.update_idletasks()
         if canvas_window.pack_slaves():
             canvas_window.pack_propagate(0)
@@ -301,7 +303,7 @@ class DefaultMenuPreview(Preview):
     def create_preview_widget(self, parent, widget_id, uidefinition):
         self.builder = self._create_builder()
         self.builder.uidefinition = uidefinition
-        menubutton = ttk.Menubutton(parent, text='Menu preview')
+        menubutton = ttk.Menubutton(parent, text="Menu preview")
         menubutton.grid()
         widget = self.builder.get_object(widget_id, menubutton)
         menubutton.configure(menu=widget)
@@ -316,7 +318,7 @@ class DefaultMenuPreview(Preview):
         top.rowconfigure(0, weight=1)
 
         menu = builder.get_object(widget_id, top)
-        top['menu'] = menu
+        top["menu"] = menu
         return top
 
     def resize_by(self, dw, hw):
@@ -339,9 +341,9 @@ class OnCanvasMenuPreview(Preview):
         return self._cheight
 
     def _get_font(self, font):
-        fontname = family = 'TkMenuFont'
+        fontname = family = "TkMenuFont"
         size = 12
-        modifiers = ''
+        modifiers = ""
         tclobject = False
 
         if font and isinstance(font, str):
@@ -356,23 +358,23 @@ class OnCanvasMenuPreview(Preview):
             s = RE_FONT.search(fontname)
             if s:
                 g = s.groupdict()
-                family = g['family'].replace('{', '').replace('}', '')
-                size = g['size']
-                modifiers = g['modifiers'] if g['modifiers'] else ''
+                family = g["family"].replace("{", "").replace("}", "")
+                size = g["size"]
+                modifiers = g["modifiers"] if g["modifiers"] else ""
         if fontname not in OnCanvasMenuPreview.fonts:
-            weight = 'bold' if 'bold' in modifiers else 'normal'
-            slant = 'italic' if 'italic' in modifiers else 'roman'
-            underline = '1' if 'underline' in modifiers else '0'
-            overstrike = '1' if 'overstrike' in modifiers else '0'
+            weight = "bold" if "bold" in modifiers else "normal"
+            slant = "italic" if "italic" in modifiers else "roman"
+            underline = "1" if "underline" in modifiers else "0"
+            overstrike = "1" if "overstrike" in modifiers else "0"
             kw = {
-                'family': family,
-                'weight': weight,
-                'slant': slant,
-                'underline': underline,
-                'overstrike': overstrike,
+                "family": family,
+                "weight": weight,
+                "slant": slant,
+                "underline": underline,
+                "overstrike": overstrike,
             }
             if size:
-                kw['size'] = size
+                kw["size"] = size
             OnCanvasMenuPreview.fonts[fontname] = tk.font.Font(**kw)
         return OnCanvasMenuPreview.fonts[fontname]
 
@@ -386,26 +388,26 @@ class OnCanvasMenuPreview(Preview):
         count = index + 1
 
         # First calculate using the font paramters of root menu:
-        font = self._menu.cget('font')
+        font = self._menu.cget("font")
         font = self._get_font(font)
         for i in range(0, count):
             mtype = self._menu.type(i)
-            if mtype == 'tearoff':
+            if mtype == "tearoff":
                 continue
-            label = 'default'
-            ifont = 'TkMenuFont'
-            if mtype != 'separator':
-                label = self._menu.entrycget(i, 'label')
-                ifont = self._menu.entrycget(i, 'font')
+            label = "default"
+            ifont = "TkMenuFont"
+            if mtype != "separator":
+                label = self._menu.entrycget(i, "label")
+                ifont = self._menu.entrycget(i, "font")
             wpx = font.measure(label)
-            hpx = font.metrics('linespace')
+            hpx = font.metrics("linespace")
             w += wpx
             if hpx > h:
                 h = hpx * 2
             # Calculate using font configured for each subitem
             ifont = self._get_font(ifont)
             wpx = ifont.measure(label)
-            hpx = ifont.metrics('linespace')
+            hpx = ifont.metrics("linespace")
             iw += wpx
             if hpx > ih:
                 ih = hpx * 2
@@ -417,7 +419,7 @@ class OnCanvasMenuPreview(Preview):
 
     def create_preview_widget(self, parent, widget_id, uidefinition):
         container = tk.Frame(parent, container=True, height=50)
-        container.pack(fill='both', expand=True)
+        container.pack(fill="both", expand=True)
 
         self._top = top = tk.Toplevel(parent, use=container.winfo_id())
         top.maxsize(2048, 50)
@@ -440,12 +442,12 @@ class OnCanvasMenuPreview(Preview):
         top.rowconfigure(0, weight=1)
 
         menu = builder.get_object(widget_id, top)
-        top['menu'] = menu
+        top["menu"] = menu
         return top
 
 
 MenuPreview = DefaultMenuPreview
-if sys.platform == 'linux':
+if sys.platform == "linux":
     MenuPreview = OnCanvasMenuPreview
 
 
@@ -454,14 +456,16 @@ class ToplevelPreview(Preview):
         # Change real Toplevel for a preview replacement:
         # Add same behavior of Toplevel. Default expand both sides:
         old = uidefinition.get_widget(widget_id)
-        newroot = WidgetMeta('pygubudesigner.ToplevelFramePreview', widget_id, 'pack')
+        newroot = WidgetMeta(
+            "pygubudesigner.ToplevelFramePreview", widget_id, "pack"
+        )
         newroot.copy_properties(old)
         # FIX: Why is not copying in the above function ???
         newroot.gridrc_properties = old.gridrc_properties
         # newroot.widget_property('height', '200')
         # newroot.widget_property('width', '200')
-        newroot.layout_property('expand', 'true')
-        newroot.layout_property('fill', 'both')
+        newroot.layout_property("expand", "true")
+        newroot.layout_property("fill", "both")
 
         uidefinition.replace_widget(widget_id, newroot)
         # end add behaviour

@@ -17,28 +17,31 @@ import tkinter as tk
 import tkinter.colorchooser
 import tkinter.ttk as ttk
 
-from pygubudesigner.widgets.propertyeditor import PropertyEditor, register_editor
+from pygubudesigner.widgets.propertyeditor import (
+    PropertyEditor,
+    register_editor,
+)
 
 
 class ColorPropertyEditor(PropertyEditor):
     ttk_style = None  # style instance for all color instances
-    def_bgcolor = ''  # default background color picked from current theme
+    def_bgcolor = ""  # default background color picked from current theme
 
     def _create_ui(self):
         cls = ColorPropertyEditor
         if cls.ttk_style is None:
             cls.ttk_style = ttk.Style()
-            cls.def_bgcolor = cls.ttk_style.lookup('TFrame', 'background')
+            cls.def_bgcolor = cls.ttk_style.lookup("TFrame", "background")
 
-        self._lcolor = w = ttk.Label(self, text='', width=-1)
-        w.grid(sticky='ns', padx='0 2')
+        self._lcolor = w = ttk.Label(self, text="", width=-1)
+        w.grid(sticky="ns", padx="0 2")
         self._entry = w = ttk.Entry(self, textvariable=self._variable)
-        w.grid(row=0, column=1, sticky='nsew')
-        w.bind('<FocusOut>', self._on_variable_changed)
-        w.bind('<KeyPress>', self._on_keypress)
+        w.grid(row=0, column=1, sticky="nsew")
+        w.bind("<FocusOut>", self._on_variable_changed)
+        w.bind("<KeyPress>", self._on_keypress)
 
-        stylename = 'ColorSelectorButton.Toolbutton'
-        self._button = w = ttk.Button(self, text='…', style=stylename)
+        stylename = "ColorSelectorButton.Toolbutton"
+        self._button = w = ttk.Button(self, text="…", style=stylename)
         w.grid(row=0, column=2, padx="5 0")
         w.configure(command=self._on_button_click)
 
@@ -79,7 +82,7 @@ class ColorPropertyEditor(PropertyEditor):
         is_valid = True
         value = self._get_value()
         if len(value) != 0:
-            default = self._entry.cget('background')
+            default = self._entry.cget("background")
             try:
                 self._entry.configure(background=value)
                 self._entry.configure(background=default)
@@ -89,17 +92,17 @@ class ColorPropertyEditor(PropertyEditor):
         return is_valid
 
 
-register_editor('colorentry', ColorPropertyEditor)
+register_editor("colorentry", ColorPropertyEditor)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     editor = ColorPropertyEditor(root)
     editor.grid()
-    editor.edit('red')
+    editor.edit("red")
 
     def see_var(event=None):
         print(editor.value)
 
-    editor.bind('<<PropertyChanged>>', see_var)
+    editor.bind("<<PropertyChanged>>", see_var)
     root.mainloop()

@@ -38,7 +38,7 @@ class TempconvApp:
 
     def temp_validate(self, d_action, p_entry_value, w_entry_name):
         is_valid = True
-        if d_action == '1':  # Insert
+        if d_action == "1":  # Insert
             try:
                 temperature = float(p_entry_value)
                 widget = self.mainwindow.nametowidget(w_entry_name)

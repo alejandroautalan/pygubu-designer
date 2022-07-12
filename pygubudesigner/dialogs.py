@@ -32,10 +32,10 @@ class AskSaveChangesDialog:
         self.master = master
         self.builder = builder = pygubu.Builder(translator)
         builder.add_from_file(str(ASK_SAVE_CHANGES_DIALOG_UI))
-        self.dialog = builder.get_object('ask_save_changes_dialog', master)
-        self.lbl_message = builder.get_object('lbl_message')
-        self.lbl_detail = builder.get_object('lbl_detail')
-        self.btn_save = builder.get_object('btn_save')
+        self.dialog = builder.get_object("ask_save_changes_dialog", master)
+        self.lbl_message = builder.get_object("lbl_message")
+        self.lbl_detail = builder.get_object("lbl_detail")
+        self.btn_save = builder.get_object("btn_save")
         builder.connect_callbacks(self)
 
         self.user_choice = None
@@ -60,22 +60,22 @@ class AskSaveChangesDialog:
         self.dialog.close()
         self.dialog.destroy()
 
-    def run(self, title, message, detail=''):
+    def run(self, title, message, detail=""):
         self.dialog.set_title(title)
-        self.lbl_message['text'] = message
-        self.lbl_detail['text'] = detail
+        self.lbl_message["text"] = message
+        self.lbl_detail["text"] = detail
         self.btn_save.focus_set()
         self.dialog.run()
         self.master.wait_window(self.dialog.toplevel)
         return self.user_choice
 
 
-def ask_save_changes(master, title, message, detail=''):
+def ask_save_changes(master, title, message, detail=""):
     dialog = AskSaveChangesDialog(master)
     return dialog.run(title, message, detail)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import tkinter as tk
 
     root = tk.Tk()

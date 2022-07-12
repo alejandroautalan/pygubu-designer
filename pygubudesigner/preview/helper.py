@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 
 class PreviewHelper:
-    indicators_tag = ('nw', 'ne', 'sw', 'se')
+    indicators_tag = ("nw", "ne", "sw", "se")
 
     def __init__(self, canvas, context_menu_method, center_window_check):
         self.canvas = canvas
@@ -41,7 +41,7 @@ class PreviewHelper:
         # A method that will check if we should center
         # the toplevel preview window or not.
         self.center_window_check = center_window_check
-        
+
         self.previews = OrderedDict()
         self.padding = 20
         self.indicators = None
@@ -53,20 +53,21 @@ class PreviewHelper:
         self._moving = False
         self._last_event = None
         self._objects_moving = None
-        canvas.bind('<Button-1>', self.click_handler)
-        canvas.bind('<Button-1>', lambda e: canvas.focus_set(), add=True)
-        canvas.bind('<ButtonRelease-1>', self.release_handler)
-        canvas.bind('<Motion>', self.motion_handler)
-        canvas.bind('<4>', lambda event: canvas.yview('scroll', -1, 'units'))
-        canvas.bind('<5>', lambda event: canvas.yview('scroll', 1, 'units'))
+        canvas.bind("<Button-1>", self.click_handler)
+        canvas.bind("<Button-1>", lambda e: canvas.focus_set(), add=True)
+        canvas.bind("<ButtonRelease-1>", self.release_handler)
+        canvas.bind("<Motion>", self.motion_handler)
+        canvas.bind("<4>", lambda event: canvas.yview("scroll", -1, "units"))
+        canvas.bind("<5>", lambda event: canvas.yview("scroll", 1, "units"))
         self._create_indicators()
 
         self.style = ttk.Style()
-        self.style.configure('PreviewFrame.TFrame', background='lightgreen')
+        self.style.configure("PreviewFrame.TFrame", background="lightgreen")
 
         self.selected_widget = None
         canvas.bind_all(
-            actions.PREVIEW_TOPLEVEL_CLOSE_ALL, lambda e: self.close_toplevel_previews()
+            actions.PREVIEW_TOPLEVEL_CLOSE_ALL,
+            lambda e: self.close_toplevel_previews(),
         )
 
     def add_resource_path(self, path):
@@ -78,9 +79,9 @@ class PreviewHelper:
             x = c.canvasx(event.x)
             y = c.canvasy(event.y)
             if self._over_resizer(x, y):
-                c.configure(cursor='fleur')
+                c.configure(cursor="fleur")
             else:
-                c.configure(cursor='')
+                c.configure(cursor="")
         else:
             dx = event.x - self._last_event.x
             dy = event.y - self._last_event.y
@@ -98,7 +99,7 @@ class PreviewHelper:
             if ids:
                 self._moving = True
                 self._objects_moving = ids
-                c.configure(cursor='fleur')
+                c.configure(cursor="fleur")
                 self._last_event = event
 
     def release_handler(self, event):
@@ -114,7 +115,7 @@ class PreviewHelper:
         if ids:
             o = ids[0]
             tags = c.gettags(o)
-            if 'resizer' in tags:
+            if "resizer" in tags:
                 over_resizer = True
         return over_resizer
 
@@ -126,8 +127,8 @@ class PreviewHelper:
             id_ = self._objects_moving[0]
             tags = self.canvas.gettags(id_)
             for tag in tags:
-                if tag.startswith('preview_'):
-                    _, ident = tag.split('preview_')
+                if tag.startswith("preview_"):
+                    _, ident = tag.split("preview_")
                     preview = self.previews[ident]
                     preview.resize_by(dw, dh)
                     self.move_previews()
@@ -172,13 +173,13 @@ class PreviewHelper:
         return x, y
 
     def draw(self, identifier, widget_id, uidefinition, wclass):
-        logger.debug('Preview.draw: %s,%s', identifier, widget_id)
+        logger.debug("Preview.draw: %s,%s", identifier, widget_id)
         preview_class = Preview
-        if wclass == 'tk.Menu':
+        if wclass == "tk.Menu":
             preview_class = MenuPreview
-        elif wclass == 'tk.Toplevel':
+        elif wclass == "tk.Toplevel":
             preview_class = ToplevelPreview
-        elif wclass == 'pygubu.builder.widgets.dialog':
+        elif wclass == "pygubu.builder.widgets.dialog":
             preview_class = DialogPreview
         if identifier not in self.previews:
             x, y = self._get_slot()
@@ -203,9 +204,11 @@ class PreviewHelper:
     def _create_indicators(self):
         # selected indicators
         self.indicators = []
-        anchors = {'nw': tk.SE, 'ne': tk.SW, 'sw': tk.NE, 'se': tk.NW}
+        anchors = {"nw": tk.SE, "ne": tk.SW, "sw": tk.NE, "se": tk.NW}
         for sufix in self.indicators_tag:
-            label = tk.Label(self.canvas, image=StockImage.get('indicator_' + sufix))
+            label = tk.Label(
+                self.canvas, image=StockImage.get("indicator_" + sufix)
+            )
             self.indicators.append(label)
             self.canvas.create_window(
                 -10, -10, anchor=anchors[sufix], window=label, tags=sufix
@@ -219,23 +222,23 @@ class PreviewHelper:
         wh = widget.winfo_height()
         cx = self.canvas.winfo_rootx()
         cy = self.canvas.winfo_rooty()
-        if tag == 'nw':
+        if tag == "nw":
             x = wx - cx
             y = wy - cy
-        if tag == 'ne':
+        if tag == "ne":
             x = (wx - cx) + ww
             y = wy - cy
-        if tag == 'sw':
+        if tag == "sw":
             x = wx - cx
             y = (wy - cy) + wh
-        if tag == 'se':
+        if tag == "se":
             x = (wx - cx) + ww
             y = (wy - cy) + wh
         x, y = self.canvas.canvasx(x), self.canvas.canvasy(y)
         return (x, y)
 
     def _update_style_editor(self, widget):
-        '''Setup TtkStylePropertyEditor with the real winfo_class and class name.'''
+        """Setup TtkStylePropertyEditor with the real winfo_class and class name."""
         hints = (widget.winfo_class(), widget.__class__.__name__)
         TtkStylePropertyEditor.set_filter_hints(hints)
 
@@ -301,23 +304,25 @@ class PreviewHelper:
         wid = preview.builder.get_widget_id(event.widget)
         if wid is not None:
             self.selected_widget = wid
-            self.canvas.event_generate('<<PreviewItemSelected>>')
+            self.canvas.event_generate("<<PreviewItemSelected>>")
             self.canvas.focus_set()  # add focus to canvas
 
     def bind_preview_widget(self, widget, callback):
-        widget.bind('<Button-1>', callback)
+        widget.bind("<Button-1>", callback)
 
         # The function that will be called when a right-click occurs.
         # The second argument (callback) is used to select the widget before
         # showing the context menu.
-        right_click_func = partial(self.on_right_clicked_preview_widget, callback)
+        right_click_func = partial(
+            self.on_right_clicked_preview_widget, callback
+        )
 
         # For right-clicking - bind to button2 for macos and button3 for a
         # different OS.
-        if sys.platform == 'darwin':
-            widget.bind('<Button-2>', right_click_func)
+        if sys.platform == "darwin":
+            widget.bind("<Button-2>", right_click_func)
         else:
-            widget.bind('<Button-3>', right_click_func)
+            widget.bind("<Button-3>", right_click_func)
 
         for w in widget.winfo_children():
             self.bind_preview_widget(w, callback)
