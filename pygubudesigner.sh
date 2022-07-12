@@ -1,88 +1,87 @@
 #!/bin/bash
 
-<<comment
-tree  -L 1
-.
-├── pygubu
-├── pygubu-designer
-└── venv
-comment
+[[ -x $(which virtualenv) ]] && virtualenv venv
 
 # Use virtualenv 'venv' if exists
-if [[ -f "../venv/bin/activate" ]];then
-    source ../venv/bin/activate
-fi
+for v in \
+    "./venv/bin/activate" \
+    "./venv/local/bin/activate" # python 3.10
+do
+    [[ -f $v ]] && . $v
+done
 
-args=("$@") # All parameters from terminal.
-
-install_r(){
-    pip3 install -U -r ./requirements/development.txt
+get_dev_req(){
+    echo "\
+    'black>=22.3.0'         'isort>=5.9.2' \
+    'setuptools>=57.3.0'    'wheel>=0.37.0' \
+    'twine>=4.0.0'          'pip>=22.1.1'\
+    "
 }
 
-auto_sort_pep8(){
+install_req(){
+    eval "pip3 install \
+    $(python3 pygubudesigner_.py prt_req) \
+    $(get_dev_req)"
+}
+
+blk(){
+    black -l 80 --exclude="venv/" \
+    $([[ $# -eq 0 ]] && echo '.' || echo $@)
+}
+
+sort_imports(){
     isort -v ./setup.py
     isort -v ./pygubudesigner/
-    autopep8 -i -a -a -r -v ./setup.py
-    autopep8 -i -a -a -r -v ./pygubudesigner/
-
-    isort -v ../pygubu/setup.py
-    isort -v ../pygubu/pygubu/
-    autopep8 -v -i -a -a -r  ../pygubu/setup.py
-    autopep8 -v -i -a -a -r  ../pygubu/pygubu/
+    if [[ -d ./pygubu ]] # if submodule exists.
+    then
+        isort -v ./pygubu/setup.py
+        isort -v ./pygubu/pygubu/
+    fi
 }
 
-auto_sort_pep8_commit(){
-    auto_sort_pep8
-
-    git_commit_m='sort imports and autopep8'
-    cd ../pygubu/
-    git add . ; git commit -m "$git_commit_m"
-    cd ../pygubu-designer/
-    git add . ; git commit -m "$git_commit_m"
+style(){
+    sort_imports; blk
 }
 
 _xgettext(){
-    xgettext -L glade --output=pygubudesigner/locale/pygubu.pot \
-    $(find ./pygubudesigner/ui -name "*.ui")
-
-    xgettext --join-existing --language=Python --keyword=_ \
-    --output=pygubudesigner/locale/pygubu.pot --from-code=UTF-8 \
-    `find ./pygubudesigner -name "*.py"`
-
-    for _po in $(find ./pygubudesigner/locale -name "*.po"); do
+    xgettext -L glade \
+        --output=pygubudesigner/locale/pygubu.pot \
+        $(find ./pygubudesigner/ui -name "*.ui")
+    xgettext --join-existing \
+        --language=Python \
+        --keyword=_ \
+        --output=pygubudesigner/locale/pygubu.pot \
+        --from-code=UTF-8 \
+        `find ./pygubudesigner -name "*.py"`
+    for _po in $(find ./pygubudesigner/locale -name "*.po")
+    do
         msgmerge $_po ./pygubudesigner/locale/pygubu.pot -U
     done
-
 }
 
 _msgfmt(){
-    for _po in $(find ./pygubudesigner/locale -name "*.po"); do
+    for _po in $(find ./pygubudesigner/locale -name "*.po")
+    do
         msgfmt -o ${_po/.po/.mo}  $_po
     done
 }
 
 _build(){
-    _msgfmt # compile .po files
-    cd ../pygubu
+    _msgfmt
     rm -rf ./dist/* ./build/*
-    python3 setup.py sdist bdist_wheel
-    
-    cd ../pygubu-designer
-    rm -rf ./dist/* ./build/*
-    cp -r ../pygubu/dist/ .
     python3 setup.py sdist bdist_wheel
 }
 
 _serve(){
     # default port is 8080
-    _port=`[[ -z ${args[1]} ]] && echo "8080" || echo ${args[1]}`
+    _port=`[[ -z $1 ]] && echo "8080" || echo $1`
     python3 -m http.server $_port
 }
 
 build_and_serve(){
     _build
     cd dist
-    _serve
+    _serve $1
     cd ..
 }
 
@@ -107,28 +106,29 @@ _test(){
     pygubu-designer
 }
 
-ir(){   install_r; }
-p8(){   auto_sort_pep8; }
-p8c(){  auto_sort_pep8_commit; }
-po(){   _xgettext; }
-msgf(){ _msgfmt; }
-_b(){   _build; }
-_s(){   _serve; }
-bs(){   build_and_serve; }
-bup(){  build_and_upload; }
-bi(){   build_and_install; }
-ts(){   _test; }
+ir(){   install_req;            }
+po(){   _xgettext;              }
+msgf(){ _msgfmt;                }
+
+_b(){   _build;                 }
+_s(){   _serve;                 }
+bs(){   build_and_serve $1;     }
+
+bup(){  build_and_upload;       }
+bi(){   build_and_install;      }
+ts(){   _test;                  }
 
 if [ $# -eq 0 ]
   then
     echo "Bash utility to facilitate development."
     echo "usage: pygubudesigner.sh [option] [args]"
     echo "Available options:"
-    echo "  ts : test"
-    echo "  bi : build and install."
-    echo "  bs : build and serve."
-    echo "  bup: build and upload."
-    echo "  po : update po file."
+    echo "     ts : test."
+    echo "     bi : build and install."
+    echo "     bs : build and serve."
+    echo "    bup : build and upload."
+    echo "     po : update po file."
+    echo "  style : format all *.py files."
 else
-    $1
+    $@
 fi
