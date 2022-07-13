@@ -1,5 +1,9 @@
 #!/bin/bash
 
+[[ -n $project_dir_path ]] \
+&& project_dir_path=$project_dir_path \
+|| project_dir_path="pygubudesigner"
+
 activate_venv(){
     # Use virtualenv 'venv' if exists
     echo "virtualenv is used, enter 'deactivate' to exit."
@@ -22,6 +26,7 @@ get_setup_requirements(){
 get_dev_req(){  get_setup_requirements;     }
 
 install_req(){
+    [[ -f ./pygubudesigner_.py ]] && \
     eval "pip3 install \
     $(python3 pygubudesigner_.py prt_req) \
     $(get_dev_req)"
@@ -29,12 +34,13 @@ install_req(){
 
 blk(){
     black -l 80 --exclude="venv/" --verbose \
-    $([[ $# -eq 0 ]] && echo '.' || echo $@)
+    $([[ $# -eq 0 ]] && echo '.' || echo $*)
 }
 
 sort_imports(){
     isort -v ./setup.py
-    isort -v ./pygubudesigner/
+    [[ -d ./pygubudesigner ]]   && isort -v ./pygubudesigner/
+    [[ -d ./pygubu ]]           && isort -v ./pygubu/
 }
 
 style(){
@@ -42,25 +48,27 @@ style(){
 }
 
 _xgettext(){
-    xgettext -L glade \
-        --verbose \
-        --output=pygubudesigner/locale/pygubu.pot \
-        $(find ./pygubudesigner/ui -name "*.ui")
+    pot_path=${project_dir_path}/locale/pygubu.pot
+    [[ -d ./${project_dir_path}/ui ]] && \
+        xgettext -L glade \
+            --verbose \
+            --output=${pot_path} \
+            $(find ./${project_dir_path}/ui -name "*.ui")
     xgettext --join-existing \
         --verbose \
         --language=Python \
         --keyword=_ \
-        --output=pygubudesigner/locale/pygubu.pot \
+        --output=${pot_path} \
         --from-code=UTF-8 \
-        `find ./pygubudesigner -name "*.py"`
-    for _po in $(find ./pygubudesigner/locale -name "*.po")
+        `find ./${project_dir_path} -name "*.py"`
+    for _po in $(find ./${project_dir_path}/locale -name "*.po")
     do
-        msgmerge --verbose $_po ./pygubudesigner/locale/pygubu.pot -U
+        msgmerge --verbose $_po ${pot_path} -U
     done
 }
 
 _msgfmt(){
-    for _po in $(find ./pygubudesigner/locale -name "*.po")
+    for _po in $(find ./${project_dir_path}/locale -name "*.po")
     do
         msgfmt --verbose -o ${_po/.po/.mo}  $_po
     done
@@ -107,6 +115,7 @@ _test(){
 
 start(){
     style
+    [[ -f ./pygubudesigner_.py ]] && \
     python3 pygubudesigner_.py start
 }
 
@@ -141,7 +150,7 @@ ts(){   _test;                  }
 if [ $# -eq 0 ]
   then
     echo "Bash utility to facilitate development."
-    echo "usage: pygubudesigner.sh [option] [args]"
+    echo "usage: ${project_dir_path}.sh [option] [args]"
     echo "Available options:"
     echo "  start : start pygubudesigner use development environment."
     echo "     ir : install all development requirements."
@@ -153,5 +162,5 @@ if [ $# -eq 0 ]
     echo "  style : format all *.py files."
     echo "   msgf : compile message catalog to binary format."
 else
-    $@
+    [[ $0 == *"pygubudesigner.sh" ]] && $*
 fi
