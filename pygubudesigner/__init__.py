@@ -28,6 +28,12 @@ def get_requirements():
             "MIT License",
             "https://github.com/alejandroautalan/pygubu",
         ),
+        (
+            "black",
+            ">=22.1.0",
+            "MIT License",
+            "https://github.com/psf/black",
+        ),
     ]
 
 
