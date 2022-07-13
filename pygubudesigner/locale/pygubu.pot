@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-10 00:56-0300\n"
+"POT-Creation-Date: 2022-07-13 02:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Pygubu Preferences"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:35
+#: pygubudesigner/ui/preferences_dialog.ui:33
 msgid "General"
 msgstr ""
 
@@ -29,27 +29,31 @@ msgstr ""
 msgid "General preferences"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:61
+#: pygubudesigner/ui/preferences_dialog.ui:65
 msgid "Preferred widget set:"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:85
+#: pygubudesigner/ui/preferences_dialog.ui:84
 msgid "Preferred ttk theme:"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:111
+#: pygubudesigner/ui/preferences_dialog.ui:105
 msgid "Preferred layout manager:"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:141
+#: pygubudesigner/ui/preferences_dialog.ui:128
+msgid "Center toplevel preview window"
+msgstr ""
+
+#: pygubudesigner/ui/preferences_dialog.ui:144
 msgid "Widget naming"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:153
+#: pygubudesigner/ui/preferences_dialog.ui:157
 msgid "No separator (e.g. button1)"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:167
+#: pygubudesigner/ui/preferences_dialog.ui:169
 msgid "Use \"_\" as separator (e.g. button_1)"
 msgstr ""
 
@@ -57,94 +61,126 @@ msgstr ""
 msgid "Uppercase first letter (e.g. Button…)"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:197
+#: pygubudesigner/ui/preferences_dialog.ui:195
 msgid "This does not affect previously generated names."
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:214
+#: pygubudesigner/ui/preferences_dialog.ui:210
 msgid "Hidden options"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:225
+#: pygubudesigner/ui/preferences_dialog.ui:222
 msgid "Window geometry:"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:254
+#: pygubudesigner/ui/preferences_dialog.ui:248
 msgid "Custom Widgets"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:279
+#: pygubudesigner/ui/preferences_dialog.ui:276
 msgid "Custom Widgets Builders"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:319
+#: pygubudesigner/ui/preferences_dialog.ui:308
 msgid "modules"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:346
+#: pygubudesigner/ui/preferences_dialog.ui:337
 msgid "Requires restart."
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:362
+#: pygubudesigner/ui/preferences_dialog.ui:349
 msgid "-"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:379
+#: pygubudesigner/ui/preferences_dialog.ui:362
 msgid "+"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:404
-#: pygubudesigner/ui/preferences_dialog.ui:429
+#: pygubudesigner/ui/preferences_dialog.ui:383
+#: pygubudesigner/ui/preferences_dialog.ui:410
 msgid "Ttk Styles"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:455
+#: pygubudesigner/ui/preferences_dialog.ui:435
 msgid "Style Definition File:"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:494
+#: pygubudesigner/ui/preferences_dialog.ui:468
 msgid "Browse …"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:504
+#: pygubudesigner/ui/preferences_dialog.ui:478
 msgid "Remove"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:514
+#: pygubudesigner/ui/preferences_dialog.ui:488
 msgid "Create New …"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:542
+#: pygubudesigner/ui/preferences_dialog.ui:515
 #: pygubudesigner/ui/ask_save_changes_dialog.ui:114
 msgid "Cancel"
 msgstr ""
 
-#: pygubudesigner/ui/preferences_dialog.ui:555
+#: pygubudesigner/ui/preferences_dialog.ui:527
 msgid "Ok"
 msgstr ""
 
-#: pygubudesigner/ui/container_layout_editor_base.ui:25
-msgid "Options for {0} container"
+#: pygubudesigner/ui/about_dialog.ui:8
+msgid "About"
 msgstr ""
 
-#: pygubudesigner/ui/container_layout_editor_base.ui:87
-msgid "Grid Row / Column options"
+#: pygubudesigner/ui/about_dialog.ui:33 pygubudesigner/ui/about_dialog.ui:161
+msgid "pygubu"
 msgstr ""
 
-#: pygubudesigner/ui/container_layout_editor_base.ui:126
-msgid "All row/cols"
+#: pygubudesigner/ui/about_dialog.ui:58
+msgid "This program:"
 msgstr ""
 
-#: pygubudesigner/ui/container_layout_editor_base.ui:137
-msgid "Clear all"
+#: pygubudesigner/ui/about_dialog.ui:68
+msgid "pygubu-designer"
 msgstr ""
 
-#: pygubudesigner/ui/container_layout_editor_base.ui:170
-msgid "Row {0} options"
+#: pygubudesigner/ui/about_dialog.ui:82
+msgid ""
+"A visual design tool for tkinter that generates Python code for the user "
+"interface portion of your desktop application."
 msgstr ""
 
-#: pygubudesigner/ui/container_layout_editor_base.ui:212
-msgid "Column {0} options"
+#: pygubudesigner/ui/about_dialog.ui:94 pygubudesigner/ui/about_dialog.ui:186
+msgid "Version: %version%"
+msgstr ""
+
+#: pygubudesigner/ui/about_dialog.ui:110 pygubudesigner/ui/about_dialog.ui:200
+msgid "Licence:"
+msgstr ""
+
+#: pygubudesigner/ui/about_dialog.ui:122
+msgid "GPL3"
+msgstr ""
+
+#: pygubudesigner/ui/about_dialog.ui:152
+msgid "Associated program:"
+msgstr ""
+
+#: pygubudesigner/ui/about_dialog.ui:174
+msgid ""
+"A run-time library that the designer requires. It is optional for your "
+"application."
+msgstr ""
+
+#: pygubudesigner/ui/about_dialog.ui:212
+msgid "MIT"
+msgstr ""
+
+#: pygubudesigner/ui/about_dialog.ui:238
+msgid "More info."
+msgstr ""
+
+#: pygubudesigner/ui/about_dialog.ui:261
+msgid "Close"
 msgstr ""
 
 #: pygubudesigner/ui/pygubu-ui.ui:7
@@ -167,7 +203,7 @@ msgstr ""
 msgid "Clear list"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:46 pygubudesigner/ui/pygubu-ui.ui:1030
+#: pygubudesigner/ui/pygubu-ui.ui:46 pygubudesigner/ui/pygubu-ui.ui:1078
 #: pygubudesigner/ui/ask_save_changes_dialog.ui:129
 msgid "Save"
 msgstr ""
@@ -176,7 +212,7 @@ msgstr ""
 msgid "Save as …"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:62 pygubudesigner/main.py:190
+#: pygubudesigner/ui/pygubu-ui.ui:62 pygubudesigner/main.py:182
 msgid "Quit …"
 msgstr ""
 
@@ -184,19 +220,19 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:76 pygubudesigner/ui/pygubu-ui.ui:230
+#: pygubudesigner/ui/pygubu-ui.ui:76 pygubudesigner/ui/pygubu-ui.ui:238
 msgid "Copy"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:83 pygubudesigner/ui/pygubu-ui.ui:236
+#: pygubudesigner/ui/pygubu-ui.ui:83 pygubudesigner/ui/pygubu-ui.ui:244
 msgid "Paste"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:90 pygubudesigner/ui/pygubu-ui.ui:242
+#: pygubudesigner/ui/pygubu-ui.ui:90 pygubudesigner/ui/pygubu-ui.ui:250
 msgid "Cut"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:97 pygubudesigner/ui/pygubu-ui.ui:257
+#: pygubudesigner/ui/pygubu-ui.ui:97 pygubudesigner/ui/pygubu-ui.ui:265
 msgid "Duplicate"
 msgstr ""
 
@@ -212,136 +248,140 @@ msgstr ""
 msgid "Item down"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:128
+#: pygubudesigner/ui/pygubu-ui.ui:127
 msgid "Item delete"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:135
+#: pygubudesigner/ui/pygubu-ui.ui:134
 msgid "Widget grid"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:141
+#: pygubudesigner/ui/pygubu-ui.ui:140
 msgid "Move up"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:148
+#: pygubudesigner/ui/pygubu-ui.ui:147
 msgid "Move down"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:155
+#: pygubudesigner/ui/pygubu-ui.ui:154
 msgid "Move left"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:162
+#: pygubudesigner/ui/pygubu-ui.ui:161
 msgid "Move right"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:173
+#: pygubudesigner/ui/pygubu-ui.ui:172
 msgid "Preferences"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:180 pygubudesigner/ui/pygubu-ui.ui:498
-#: pygubudesigner/ui/pygubu-ui.ui:975
+#: pygubudesigner/ui/pygubu-ui.ui:179 pygubudesigner/ui/pygubu-ui.ui:506
+#: pygubudesigner/ui/pygubu-ui.ui:1013
 msgid "Preview"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:187
+#: pygubudesigner/ui/pygubu-ui.ui:186
 msgid "Preview in Toplevel"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:194
+#: pygubudesigner/ui/pygubu-ui.ui:193
 msgid "Close Toplevel previews"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:199
+#: pygubudesigner/ui/pygubu-ui.ui:198
 msgid "ttk theme"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:207
+#: pygubudesigner/ui/pygubu-ui.ui:206
 msgid "Help"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:213
+#: pygubudesigner/ui/pygubu-ui.ui:212
 msgid "Pygubu wiki"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:219
+#: pygubudesigner/ui/pygubu-ui.ui:218
 msgid "About Pygubu"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:248
+#: pygubudesigner/ui/pygubu-ui.ui:229
+msgid "Go to parent"
+msgstr ""
+
+#: pygubudesigner/ui/pygubu-ui.ui:256
 msgid "Delete"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:265
+#: pygubudesigner/ui/pygubu-ui.ui:273
 msgid "Pygubu Designer"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:306
+#: pygubudesigner/ui/pygubu-ui.ui:314
 msgid "Design"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:348
+#: pygubudesigner/ui/pygubu-ui.ui:356
 msgid "Tree"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:368
+#: pygubudesigner/ui/pygubu-ui.ui:376
 msgid "Filter:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:389
+#: pygubudesigner/ui/pygubu-ui.ui:397
 msgid "✖"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:419
+#: pygubudesigner/ui/pygubu-ui.ui:427
 msgid "ID"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:431
+#: pygubudesigner/ui/pygubu-ui.ui:439
 msgid "Class"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:443
+#: pygubudesigner/ui/pygubu-ui.ui:451
 msgid "R"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:455
+#: pygubudesigner/ui/pygubu-ui.ui:463
 msgid "C"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:467
+#: pygubudesigner/ui/pygubu-ui.ui:475
 msgid " "
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:549
+#: pygubudesigner/ui/pygubu-ui.ui:557
 msgid "Properties"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:571
+#: pygubudesigner/ui/pygubu-ui.ui:579
 msgid "Appearance"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:590
+#: pygubudesigner/ui/pygubu-ui.ui:598
 msgid "Layout"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:608
+#: pygubudesigner/ui/pygubu-ui.ui:616
 msgid "Bindings"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:642
+#: pygubudesigner/ui/pygubu-ui.ui:650
 msgid "Sequence descriptor"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:654
+#: pygubudesigner/ui/pygubu-ui.ui:662
 msgid "Event Handler"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:666
+#: pygubudesigner/ui/pygubu-ui.ui:674
 msgid "Add"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:706
+#: pygubudesigner/ui/pygubu-ui.ui:714
 msgid "Code"
 msgstr ""
 
@@ -365,39 +405,74 @@ msgstr ""
 msgid "Custom Widget"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:815
+#: pygubudesigner/ui/pygubu-ui.ui:836
 msgid "Options:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:848
+#: pygubudesigner/ui/pygubu-ui.ui:870
 msgid "Main widget:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:869
+#: pygubudesigner/ui/pygubu-ui.ui:891
 msgid "Class Name:"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:909
+#: pygubudesigner/ui/pygubu-ui.ui:920
+msgid "Main menu:"
+msgstr ""
+
+#: pygubudesigner/ui/pygubu-ui.ui:952
 msgid "Import Tk Variables"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:919
+#: pygubudesigner/ui/pygubu-ui.ui:962
 msgid "Use ttk style definitions file"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:945
+#: pygubudesigner/ui/pygubu-ui.ui:972
+msgid "Add i18n support"
+msgstr ""
+
+#: pygubudesigner/ui/pygubu-ui.ui:1058
 msgid "Generate"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:1020
+#: pygubudesigner/ui/pygubu-ui.ui:1068
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: pygubudesigner/ui/pygubu-ui.ui:1109
+#: pygubudesigner/ui/pygubu-ui.ui:1161
 msgid "Messages"
 msgstr ""
 
-#: pygubudesigner/ui/ask_save_changes_dialog.ui:7 pygubudesigner/main.py:550
+#: pygubudesigner/ui/container_layout_editor_base.ui:25
+#: pygubudesigner/widgets/containerlayouteditorbase.py:28
+#: pygubudesigner/containerlayouteditor.py:41
+#, python-brace-format
+msgid "Options for {0} container"
+msgstr ""
+
+#: pygubudesigner/ui/container_layout_editor_base.ui:87
+msgid "Grid Row / Column options"
+msgstr ""
+
+#: pygubudesigner/ui/container_layout_editor_base.ui:126
+msgid "All row/cols"
+msgstr ""
+
+#: pygubudesigner/ui/container_layout_editor_base.ui:137
+msgid "Clear all"
+msgstr ""
+
+#: pygubudesigner/ui/container_layout_editor_base.ui:170
+msgid "Row {0} options"
+msgstr ""
+
+#: pygubudesigner/ui/container_layout_editor_base.ui:212
+msgid "Column {0} options"
+msgstr ""
+
+#: pygubudesigner/ui/ask_save_changes_dialog.ui:7 pygubudesigner/main.py:578
 msgid "Save Changes"
 msgstr ""
 
@@ -417,66 +492,32 @@ msgstr ""
 msgid "Don't Save"
 msgstr ""
 
-#: pygubudesigner/ui/about_dialog.ui:8
-msgid "About"
-msgstr ""
-
-#: pygubudesigner/ui/about_dialog.ui:34
-msgid "pygubu"
-msgstr ""
-
-#: pygubudesigner/ui/about_dialog.ui:43
-msgid "v%version%"
-msgstr ""
-
-#: pygubudesigner/ui/about_dialog.ui:52
-msgid "pygubu-designer v%version%"
-msgstr ""
-
-#: pygubudesigner/ui/about_dialog.ui:60
-msgid "pygubu is a graphical user interface designer for tkinter"
-msgstr ""
-
-#: pygubudesigner/ui/about_dialog.ui:75
-msgid "Copyright © 2012-2022 Alejandro Autalán"
-msgstr ""
-
-#: pygubudesigner/ui/about_dialog.ui:86
+#: pygubudesigner/preferences.py:87
 msgid ""
-"This program comes with ABSOLUTELY NO WARRANTY\n"
-"for details, visit http://www.gnu.org/licenses/gpl-3.0.html"
+"Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as "
+"expected.If you delete this file, configuration will be set to default"
 msgstr ""
 
-#: pygubudesigner/ui/about_dialog.ui:108
-msgid "Close"
-msgstr ""
-
-#: pygubudesigner/preferences.py:93
-#, python-brace-format
-msgid ""
-"Configuration file at '{0}' is corrupted, program may not work as expected.\n"
-"If you delete this file, configuration will be set to default"
-msgstr ""
-
-#: pygubudesigner/preferences.py:95 pygubudesigner/preferences.py:101
-#: pygubudesigner/main.py:84 pygubudesigner/main.py:99
-#: pygubudesigner/main.py:585 pygubudesigner/main.py:622
+#: pygubudesigner/preferences.py:90 pygubudesigner/preferences.py:96
+#: pygubudesigner/main.py:76 pygubudesigner/main.py:93
+#: pygubudesigner/main.py:614 pygubudesigner/main.py:652
 msgid "Error"
 msgstr ""
 
-#: pygubudesigner/preferences.py:98
-#, python-brace-format
-msgid "Faild to parse config file at '{0}', program may not work as expected."
+#: pygubudesigner/preferences.py:94
+msgid ""
+"Faild to parse config file at {CONFIG_FILE!s}, program may not work as "
+"expected."
 msgstr ""
 
-#: pygubudesigner/preferences.py:238 pygubudesigner/preferences.py:267
-#: pygubudesigner/preferences.py:302
+#: pygubudesigner/preferences.py:236 pygubudesigner/preferences.py:267
+#: pygubudesigner/preferences.py:303
 msgid "Python module"
 msgstr ""
 
-#: pygubudesigner/preferences.py:238 pygubudesigner/preferences.py:267
-#: pygubudesigner/preferences.py:302 pygubudesigner/main.py:592
-#: pygubudesigner/main.py:633 pygubudesigner/scriptgenerator.py:184
+#: pygubudesigner/preferences.py:236 pygubudesigner/preferences.py:267
+#: pygubudesigner/preferences.py:303 pygubudesigner/main.py:621
+#: pygubudesigner/main.py:663 pygubudesigner/codegen/scriptgenerator.py:238
 msgid "All"
 msgstr ""
 
@@ -488,7 +529,7 @@ msgid ""
 msgstr ""
 
 #: pygubudesigner/preferences.py:250 pygubudesigner/preferences.py:257
-#: pygubudesigner/preferences.py:285
+#: pygubudesigner/preferences.py:286
 msgid "Styles"
 msgstr ""
 
@@ -496,55 +537,160 @@ msgstr ""
 msgid "Error saving template file."
 msgstr ""
 
-#: pygubudesigner/preferences.py:284
+#: pygubudesigner/preferences.py:285
 msgid ""
 "Restart Pygubu Designer for\n"
 "changes to take effect."
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:46
+#: pygubudesigner/uitreeeditor.py:160
+msgid "Delete items"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:161
+msgid "Delete selected items?"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:450
+msgid "No item selected."
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:679
+#, python-format
+msgid "Allowed children: %s."
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:689
+#, python-brace-format
+msgid "Only {0} children allowed for {1}"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:704
+#, python-brace-format
+msgid "{0} not allowed as parent of {1}"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:714
+#, python-format
+msgid "Not allowed, %s is not a container."
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:726
+#, python-format
+msgid "%s not allowed at root level"
+msgstr ""
+
+#: pygubudesigner/uitreeeditor.py:736
+#, python-format
+msgid "Not allowed at root level, %s is not a container."
+msgstr ""
+
+#: pygubudesigner/main.py:75
+#, python-brace-format
+msgid "Failed to load widget module: '{modulename}'"
+msgstr ""
+
+#: pygubudesigner/main.py:92
+#, python-brace-format
+msgid "Failed to load custom widget module: '{path}'"
+msgstr ""
+
+#: pygubudesigner/main.py:581
+msgid "If you don't save the document, all the changes will be lost."
+msgstr ""
+
+#: pygubudesigner/main.py:595
+msgid "Do you want to save the changes before closing?"
+msgstr ""
+
+#: pygubudesigner/main.py:611
+#, python-format
+msgid "Project saved to %s"
+msgstr ""
+
+#: pygubudesigner/main.py:621 pygubudesigner/main.py:663
+msgid "pygubu ui"
+msgstr ""
+
+#: pygubudesigner/main.py:657
+msgid "Do you want to save the changes before opening?"
+msgstr ""
+
+#: pygubudesigner/main.py:672
+msgid "Do you want to save the changes before creating?"
+msgstr ""
+
+#: pygubudesigner/main.py:848
+msgid "newproject"
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:71
+msgid "Script Generator"
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:75
+msgid "Create a pygubu application script using the UI definition."
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:77
+msgid "Create a coded version of the UI definition."
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:78
+msgid "Create a base class for your custom widget."
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:200
+msgid "Code copied"
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:238
+msgid "Python Script"
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:283
+msgid "Select widget"
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:289
+msgid "Select template"
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:295
+msgid "Enter classname"
+msgstr ""
+
+#: pygubudesigner/codegen/scriptgenerator.py:302
+msgid "Invalid classname"
+msgstr ""
+
+#: pygubudesigner/layouteditor.py:36
 msgid "Grid"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:46
+#: pygubudesigner/layouteditor.py:36
 msgid "Pack"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:46
+#: pygubudesigner/layouteditor.py:36
 msgid "Place"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:64
+#: pygubudesigner/layouteditor.py:54
 msgid "Manager:"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:187
+#: pygubudesigner/layouteditor.py:176
 msgid "Change Manager"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:188
+#: pygubudesigner/layouteditor.py:177
 #, python-brace-format
 msgid "Change manager from {0} to {1}?"
 msgstr ""
 
-#: pygubudesigner/layouteditor.py:190
+#: pygubudesigner/layouteditor.py:180
 msgid "All container widgets will be updated."
-msgstr ""
-
-#: pygubudesigner/propertieseditor.py:66
-msgid "Required"
-msgstr ""
-
-#: pygubudesigner/propertieseditor.py:68
-msgid "Standard"
-msgstr ""
-
-#: pygubudesigner/propertieseditor.py:70
-msgid "Specific"
-msgstr ""
-
-#: pygubudesigner/propertieseditor.py:72
-msgid "Custom"
 msgstr ""
 
 #: pygubudesigner/stylehandler.py:76
@@ -556,56 +702,56 @@ msgstr ""
 msgid "ttk style definition error: %s"
 msgstr ""
 
-#: pygubudesigner/widgets/commandentry.py:102
-msgid "Callback:"
-msgstr ""
-
-#: pygubudesigner/widgets/commandentry.py:115
-msgid "Simple"
-msgstr ""
-
-#: pygubudesigner/widgets/commandentry.py:116
-msgid "Send widget ID"
-msgstr ""
-
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:46
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:44
 msgid "Type of action."
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:47
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:45
 msgid "Index of character string to be inserted/deleted."
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:48
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:46
 msgid "The new/current value of the entry."
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:49
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:47
 msgid "The current value of entry prior to editing."
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:50
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:48
 msgid "The text string being inserted/deleted."
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:51
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:49
 msgid "The current value of the -validate option."
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:52
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:50
 msgid "The validation condition that triggered the callback."
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:53
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:51
 msgid "The name of the entry widget."
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:59
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:57
 msgid "Select all"
 msgstr ""
 
-#: pygubudesigner/widgets/entryvalidatecommandeditor.py:60
+#: pygubudesigner/widgets/entryvalidatecommandeditor.py:58
 msgid "Clear"
+msgstr ""
+
+#: pygubudesigner/widgets/commandentry.py:105
+msgid "Callback:"
+msgstr ""
+
+#: pygubudesigner/widgets/commandentry.py:119
+msgid "Simple"
+msgstr ""
+
+#: pygubudesigner/widgets/commandentry.py:120
+msgid "Send widget ID"
 msgstr ""
 
 #: pygubudesigner/widgets/imageentry.py:51
@@ -616,130 +762,75 @@ msgstr ""
 msgid "All Files"
 msgstr ""
 
-#: pygubudesigner/uitreeeditor.py:132
-msgid "Delete items"
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:133
-msgid "Delete selected items?"
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:423
-msgid "No item selected."
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:648
-#, python-format
-msgid "Allowed children: %s."
-msgstr ""
-
-#: pygubudesigner/uitreeeditor.py:657
+#: pygubudesigner/containerlayouteditor.py:42
 #, python-brace-format
-msgid "Only {0} children allowed for {1}"
+msgid "Row index: {0}"
 msgstr ""
 
-#: pygubudesigner/uitreeeditor.py:667
+#: pygubudesigner/containerlayouteditor.py:43
 #, python-brace-format
-msgid "{0} not allowed as parent of {1}"
+msgid "Column index: {0}"
 msgstr ""
 
-#: pygubudesigner/uitreeeditor.py:675
-#, python-format
-msgid "Not allowed, %s is not a container."
+#: pygubudesigner/propertieseditor.py:67
+msgid "Required"
 msgstr ""
 
-#: pygubudesigner/uitreeeditor.py:687
-#, python-format
-msgid "%s not allowed at root level"
+#: pygubudesigner/propertieseditor.py:73
+msgid "Standard"
 msgstr ""
 
-#: pygubudesigner/uitreeeditor.py:697
-#, python-format
-msgid "Not allowed at root level, %s is not a container."
+#: pygubudesigner/propertieseditor.py:79
+msgid "Specific"
 msgstr ""
 
-#: pygubudesigner/main.py:83
-#, python-brace-format
-msgid "Failed to load widget module: '{0}'"
+#: pygubudesigner/propertieseditor.py:85
+msgid "Custom"
 msgstr ""
 
-#: pygubudesigner/main.py:98
-#, python-brace-format
-msgid "Failed to load custom widget module: '{0}'"
-msgstr ""
-
-#: pygubudesigner/main.py:553
-msgid "If you don't save the document, all the changes will be lost."
-msgstr ""
-
-#: pygubudesigner/main.py:566
-msgid "Do you want to save the changes before closing?"
-msgstr ""
-
-#: pygubudesigner/main.py:582
-#, python-format
-msgid "Project saved to %s"
-msgstr ""
-
-#: pygubudesigner/main.py:592 pygubudesigner/main.py:633
-msgid "pygubu ui"
-msgstr ""
-
-#: pygubudesigner/main.py:627
-msgid "Do you want to save the changes before opening?"
-msgstr ""
-
-#: pygubudesigner/main.py:641
-msgid "Do you want to save the changes before creating?"
-msgstr ""
-
-#: pygubudesigner/main.py:787
-msgid "newproject"
-msgstr ""
-
-#: pygubudesigner/propertieshelp.py:7
+#: pygubudesigner/propertieshelp.py:5
 msgid "Object class name."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:8
+#: pygubudesigner/propertieshelp.py:6
 msgid "Object unique identifier."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:9
+#: pygubudesigner/propertieshelp.py:8
 msgid "Specifies a string to display at the right side of the menu entry."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:10
+#: pygubudesigner/propertieshelp.py:11
 msgid ""
 "Specifies the relief to use when displaying the element that is active, if "
 "any."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:11
+#: pygubudesigner/propertieshelp.py:14
 msgid "Specifies the style in which to draw the active element."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:12
+#: pygubudesigner/propertieshelp.py:17
 msgid "Specifies background color to use when drawing active elements."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:13
+#: pygubudesigner/propertieshelp.py:20
 msgid ""
 "Specifies a non-negative value indicating the width of the 3-D border drawn "
 "around active elements."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:14
+#: pygubudesigner/propertieshelp.py:23
 msgid "Specifies foreground color to use when drawing active elements."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:16
+#: pygubudesigner/propertieshelp.py:27
 msgid ""
 "Specifies how the information in the widget is positioned relative to the "
 "inner margins."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:17
+#: pygubudesigner/propertieshelp.py:30
 msgid ""
 "Specifies a non-negative integer value indicating desired aspect ratio for "
 "the text. The aspect ratio is specified as 100*width/height. 100 means the "
@@ -748,81 +839,81 @@ msgid ""
 "and so on."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:18
+#: pygubudesigner/propertieshelp.py:33
 msgid ""
 "Specifies a boolean that says whether separators are automatically inserted "
 "in the undo stack. Only meaningful when the undo option is true."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:19
+#: pygubudesigner/propertieshelp.py:36
 msgid ""
 "Specifies the normal background color to use when displaying the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:20 pygubudesigner/propertieshelp.py:25
+#: pygubudesigner/propertieshelp.py:39 pygubudesigner/propertieshelp.py:52
 msgid ""
 "The widget's background color. If unspecified, the theme default is used."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:21
+#: pygubudesigner/propertieshelp.py:42
 msgid ""
 "Specifies a non-negative value indicating the width of the 3-D border to "
 "draw around the outside of the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:22
+#: pygubudesigner/propertieshelp.py:45
 msgid ""
 "Some interactions with the scale cause its value to change by \"large\" "
 "increments; this option specifies the size of the large increments."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:23
+#: pygubudesigner/propertieshelp.py:47
 msgid "Specifies a bitmap to display in the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:24
+#: pygubudesigner/propertieshelp.py:49
 msgid ""
 "Specifies a boolean that says whether the blinking insertion cursor should "
 "be drawn as a character-sized rectangular block."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:26
+#: pygubudesigner/propertieshelp.py:55
 msgid "The background color to be used for the spin buttons."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:27
+#: pygubudesigner/propertieshelp.py:57
 msgid "The cursor to be used when over the spin buttons."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:28
+#: pygubudesigner/propertieshelp.py:58
 msgid "The relief to be used for the upper spin button."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:29
+#: pygubudesigner/propertieshelp.py:59
 msgid "The relief to be used for the lower spin button."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:30
+#: pygubudesigner/propertieshelp.py:61
 msgid ""
 "Specifies the window class. The class is used when querying the option "
 "database for the window's other options, to determine the default bindtags "
 "for the window, and to select the widget's default layout and style."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:31
+#: pygubudesigner/propertieshelp.py:64
 msgid ""
 "Specifies a floating-point value indicating how close the mouse cursor must "
 "be to an item before it is considered to be “inside” the item. Defaults to "
 "1.0."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:32
+#: pygubudesigner/propertieshelp.py:67
 msgid ""
 "Specifies how the text in this column should be aligned with respect to the "
 "cell."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:33
+#: pygubudesigner/propertieshelp.py:70
 msgid ""
 "When this option is False, the entry appears below the previous entry. When "
 "this option is True, the entry appears at the top of a new column in the "
@@ -830,75 +921,75 @@ msgid ""
 "column."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:35
+#: pygubudesigner/propertieshelp.py:74
 msgid ""
 "In pygubu-designer, a python function name used as the callback for the "
 "widget command property."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:36
+#: pygubudesigner/propertieshelp.py:77
 msgid ""
 "Specifies if the widget should display text and bitmaps/images at the same "
 "time, and if so, where the bitmap/image should be placed relative to the "
 "text."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:37
+#: pygubudesigner/propertieshelp.py:80
 msgid ""
 "Specifies how to display the image relative to the text, in the case both "
 "text and image are present."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:38
+#: pygubudesigner/propertieshelp.py:83
 msgid ""
 "Specifies a boolean value that indicates whether or not it should be "
 "allowable to set the canvas's view outside the region defined by the "
 "scrollRegion argument."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:39
+#: pygubudesigner/propertieshelp.py:86
 msgid ""
 "If true, it means that this window will be used as a container in which some "
 "other application will be embedded. The window should not have any children "
 "of its own in this application."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:40
+#: pygubudesigner/propertieshelp.py:88
 msgid "Specifies the mouse cursor to be used for the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:41
+#: pygubudesigner/propertieshelp.py:90
 msgid ""
 "In a dialog box, one button may be designated the “default” button. active "
 "indicates that this is currently the default button; normal means that it "
 "may become the default button, and disabled means that it is not defaultable."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:42
+#: pygubudesigner/propertieshelp.py:93
 msgid ""
 "An integer specifying how many significant digits should be retained when "
 "converting the value of the scale to a string."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:43
+#: pygubudesigner/propertieshelp.py:96
 msgid "Specifies where the menu is to be popped up relative to the menubutton."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:44
+#: pygubudesigner/propertieshelp.py:99
 msgid "Specifies the background color to use when the widget is disabled."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:45
+#: pygubudesigner/propertieshelp.py:102
 msgid "Specifies foreground color to use when drawing a disabled element."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:46
+#: pygubudesigner/propertieshelp.py:105
 msgid ""
 "Specifies the width of borders drawn around the internal elements of the "
 "scrollbar (the two arrows and the slider)."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:47
+#: pygubudesigner/propertieshelp.py:108
 msgid ""
 "Specifies an integer line index representing the line of the underlying "
 "textual data store that should be just after the last line contained in the "
@@ -906,174 +997,174 @@ msgid ""
 "piece of text."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:48
+#: pygubudesigner/propertieshelp.py:111
 msgid ""
 "Specifies whether or not a selection in the widget should be linked to the X "
 "selection."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:49
+#: pygubudesigner/propertieshelp.py:113
 msgid "Specifies the font to use when drawing text inside the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:50
+#: pygubudesigner/propertieshelp.py:115
 msgid ""
 "Specifies the normal foreground color to use when displaying the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:51
+#: pygubudesigner/propertieshelp.py:118
 msgid ""
 "The widget's foreground color. If unspecified, the theme default is used."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:52
+#: pygubudesigner/propertieshelp.py:121
 msgid ""
 "Specifies an alternate format to use when setting the string value when "
 "using the from and to range. This must be a format specifier of the form "
 "%<pad>.<pad>f, as it will format a floating-point number."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:53
+#: pygubudesigner/propertieshelp.py:124
 msgid "A floating-point value specifying the lowest value for the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:54
+#: pygubudesigner/propertieshelp.py:127
 msgid ""
 "When sash handles are drawn, specifies the distance from the top or left end "
 "of the sash (depending on the orientation of the widget) at which to draw "
 "the handle."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:55
+#: pygubudesigner/propertieshelp.py:130
 msgid ""
 "Specifies the side length of a sash handle. Handles are always drawn as "
 "squares."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:56
+#: pygubudesigner/propertieshelp.py:132
 msgid "Specifies how the heading text should be aligned."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:57
+#: pygubudesigner/propertieshelp.py:133
 msgid "Specifies the desired height for the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:58
+#: pygubudesigner/propertieshelp.py:135
 msgid ""
 "Specifies a desired height for the button. If an image or bitmap is being "
 "displayed in the button then the value is in screen units; for text it is in "
 "lines of text."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:59
+#: pygubudesigner/propertieshelp.py:138
 msgid ""
 "Specifies the desired height for the window, in units of characters in the "
 "font given by the font option."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:60
+#: pygubudesigner/propertieshelp.py:141
 msgid ""
 "Specifies a desired height for the menubutton. If an image or bitmap is "
 "being displayed in the menubutton then the value is in screen units; for "
 "text it is in lines of text."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:61
+#: pygubudesigner/propertieshelp.py:144
 msgid "Specifies the number of rows which should be visible."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:62
+#: pygubudesigner/propertieshelp.py:147
 msgid "Specifies the height of the pop-down listbox, in rows."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:63
+#: pygubudesigner/propertieshelp.py:150
 msgid ""
 "Specifies whether the standard margins should be drawn for this menu entry. "
 "This is useful when creating palette with images in them."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:64
+#: pygubudesigner/propertieshelp.py:153
 msgid ""
 "Specifies the color to display in the traversal highlight region when the "
 "widget does not have the input focus."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:65
+#: pygubudesigner/propertieshelp.py:156
 msgid ""
 "Specifies the color to use for the traversal highlight rectangle that is "
 "drawn around the widget when it has the input focus."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:66
+#: pygubudesigner/propertieshelp.py:159
 msgid ""
 "Specifies a non-negative value indicating the width of the highlight "
 "rectangle to draw around the outside of the widget when it has the input "
 "focus."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:67
+#: pygubudesigner/propertieshelp.py:161
 msgid "Specifies an image to display in the widget"
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:68
+#: pygubudesigner/propertieshelp.py:163
 msgid ""
 "Specifies an image to display. This is a list of 1 or more elements. The "
 "first element is the default image name."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:69
+#: pygubudesigner/propertieshelp.py:166
 msgid "Specifies an image to display to the right of the column heading."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:70
+#: pygubudesigner/propertieshelp.py:169
 msgid ""
 "Specifies the colour to use for the selection (the sel tag) when the window "
 "does not have the input focus."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:71
+#: pygubudesigner/propertieshelp.py:171
 msgid "A floating-point value specifying the increment."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:72
+#: pygubudesigner/propertieshelp.py:172
 msgid "Specifies whether or not the indicator should be drawn."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:73
+#: pygubudesigner/propertieshelp.py:174
 msgid ""
 "Specifies the color to use as background in the area covered by the "
 "insertion cursor."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:74
+#: pygubudesigner/propertieshelp.py:177
 msgid ""
 "Specifies a non-negative value indicating the width of the 3-D border to "
 "draw around the insertion cursor."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:75
+#: pygubudesigner/propertieshelp.py:180
 msgid ""
 "Specifies a non-negative integer value indicating the number of milliseconds "
 "the insertion cursor should remain “off” in each blink cycle."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:76
+#: pygubudesigner/propertieshelp.py:183
 msgid ""
 "Specifies a non-negative integer value indicating the number of milliseconds "
 "the insertion cursor should remain “on” in each blink cycle."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:77
+#: pygubudesigner/propertieshelp.py:186
 msgid ""
 "Specifies how to display the insertion cursor when the widget does not have "
 "the focus."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:78
+#: pygubudesigner/propertieshelp.py:189
 msgid "Specifies a value indicating the total width of the insertion cursor."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:80
+#: pygubudesigner/propertieshelp.py:193
 msgid ""
 "For widgets with a slider that can be dragged to adjust a value, such as "
 "scrollbars, this option determines when notifications are made about changes "
@@ -1083,75 +1174,75 @@ msgid ""
 "made."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:81
+#: pygubudesigner/propertieshelp.py:196
 msgid ""
 "If there are multiple lines of text, specifies how the lines are laid out "
 "relative to one another."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:82
+#: pygubudesigner/propertieshelp.py:199
 msgid "Specifies how the text is aligned within the entry widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:83
+#: pygubudesigner/propertieshelp.py:201
 msgid "A string to display as a label for the scale."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:84
+#: pygubudesigner/propertieshelp.py:203
 msgid ""
 "Specifies where to place the label. The default value is theme-dependent."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:85
+#: pygubudesigner/propertieshelp.py:206
 msgid "Specifies the desired long dimension of the scale in screen units."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:86
+#: pygubudesigner/propertieshelp.py:209
 msgid "A variable name to be used as source of items for the Listbox"
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:87
+#: pygubudesigner/propertieshelp.py:212
 msgid "A floating point number specifying the maximum value. Defaults to 100."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:88
+#: pygubudesigner/propertieshelp.py:215
 msgid ""
 "Specifies the maximum number of compound undo actions on the undo stack. A "
 "zero or a negative value imply an unlimited undo stack."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:89
+#: pygubudesigner/propertieshelp.py:218
 msgid ""
 "Specifies that the size of the window cannot be made less than n. This "
 "constraint only affects the size of the widget in the paned dimension"
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:90
+#: pygubudesigner/propertieshelp.py:221
 msgid ""
 "The minimum width of the column in pixels. The treeview widget will not make "
 "the column any smaller than minwidth when the widget is resized or the user "
 "drags a column separator."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:92
+#: pygubudesigner/propertieshelp.py:225
 msgid ""
 "Specifies the relief for the checkbutton when the indicator is not drawn and "
 "the checkbutton is off. The default value is “raised”."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:93
+#: pygubudesigner/propertieshelp.py:228
 msgid ""
 "The value to store in the associated variable when the widget is deselected. "
 "Defaults to 0."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:94
+#: pygubudesigner/propertieshelp.py:231
 msgid ""
 "The value to store in the associated variable when the widget is selected. "
 "Defaults to 1."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:95
+#: pygubudesigner/propertieshelp.py:234
 msgid ""
 "Specifies whether panes should be resized as a sash is moved (true), or if "
 "resizing should be deferred until the sash is placed (false). In the latter "
@@ -1160,37 +1251,37 @@ msgid ""
 "“ghost” version of the sash is the proxy."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:96
+#: pygubudesigner/propertieshelp.py:237
 msgid ""
 "For widgets that can lay themselves out with either a horizontal or vertical "
 "orientation, this option specifies which orientation should be used."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:97
+#: pygubudesigner/propertieshelp.py:240
 msgid ""
 "Specifies an alternative relief for the button, to be used when the mouse "
 "cursor is over the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:98
+#: pygubudesigner/propertieshelp.py:243
 msgid ""
 "Specifies the internal padding for the widget. The padding is a list of up "
 "to four length specifications left top right bottom."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:99
+#: pygubudesigner/propertieshelp.py:246
 msgid ""
 "Specifies a non-negative value indicating how much extra space to request "
 "for the widget in the X-direction."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:100
+#: pygubudesigner/propertieshelp.py:249
 msgid ""
 "Specifies a non-negative value indicating how much extra space to request "
 "for the widget in the Y-direction."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:101
+#: pygubudesigner/propertieshelp.py:252
 msgid ""
 "In pygubu-designer, a python function name used as the callback for the "
 "widget postcommand property. The function is executed immediately before "
@@ -1198,196 +1289,196 @@ msgid ""
 "display."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:102
+#: pygubudesigner/propertieshelp.py:254
 msgid "Background color to use when drawing the proxy."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:103
+#: pygubudesigner/propertieshelp.py:255
 msgid "Specifies the borderwidth of the proxy."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:104
+#: pygubudesigner/propertieshelp.py:257
 msgid ""
 "Relief to use when drawing the proxy. May be any of the standard Tk relief "
 "values."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:105
+#: pygubudesigner/propertieshelp.py:260
 msgid "Specifies the background color to use when the entry is readonly."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:106
+#: pygubudesigner/propertieshelp.py:262
 msgid "Specifies the 3-D effect desired for the widget border."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:107
+#: pygubudesigner/propertieshelp.py:264
 msgid ""
 "Specifies the number of milliseconds a button or key must be held down "
 "before it begins to auto-repeat."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:108
+#: pygubudesigner/propertieshelp.py:267
 msgid ""
 "Used in conjunction with repeatdelay: once auto-repeat begins, this option "
 "determines the number of milliseconds between auto-repeats."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:109
+#: pygubudesigner/propertieshelp.py:269
 msgid "A real value specifying the resolution for the scale."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:110
+#: pygubudesigner/propertieshelp.py:271
 msgid ""
 "Specifies the size of the slider, measured in screen units along the "
 "slider's long dimension."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:111
+#: pygubudesigner/propertieshelp.py:273
 msgid "Specifies the relief to use when drawing the slider."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:112
+#: pygubudesigner/propertieshelp.py:274
 msgid "Mouse cursor to use when over a sash."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:113
+#: pygubudesigner/propertieshelp.py:276
 msgid "Specifies the amount of padding to leave of each side of a sash."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:114
+#: pygubudesigner/propertieshelp.py:278
 msgid "Relief to use when drawing a sash."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:115
+#: pygubudesigner/propertieshelp.py:279
 msgid "Specifies the width of each sash."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:116
+#: pygubudesigner/propertieshelp.py:281
 msgid "Specifies the background color to use when displaying selected items."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:117
+#: pygubudesigner/propertieshelp.py:284
 msgid ""
 "Specifies a non-negative value indicating the width of the 3-D border to "
 "draw around selected items."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:118
+#: pygubudesigner/propertieshelp.py:287
 msgid "Specifies the foreground color to use when displaying selected items."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:119
+#: pygubudesigner/propertieshelp.py:290
 msgid ""
 "Specifies a list with four coordinates describing the left, top, right, and "
 "bottom coordinates of a rectangular region."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:120
+#: pygubudesigner/propertieshelp.py:293
 msgid "Specifies a background color to use when the button is selected."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:121
+#: pygubudesigner/propertieshelp.py:296
 msgid ""
 "Specifies an image to display (in place of the image option) when the "
 "checkbutton is selected. This option is ignored unless the image option has "
 "been specified."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:122
+#: pygubudesigner/propertieshelp.py:299
 msgid "Controls how the built-in class bindings manage the selection."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:123
+#: pygubudesigner/propertieshelp.py:302
 msgid ""
 "Specifies a boolean value that determines whether this widget controls the "
 "resizing grid for its top-level window."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:124
+#: pygubudesigner/propertieshelp.py:305
 msgid ""
 "If this option is specified, then the true contents of the entry are not "
 "displayed in the window. Instead, each character in the entry's value will "
 "be displayed as the first character in the value of this option."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:125
+#: pygubudesigner/propertieshelp.py:307
 msgid "Specifies which elements of the tree to display."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:126
+#: pygubudesigner/propertieshelp.py:308
 msgid "Specifies whether sash handles should be shown."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:127
+#: pygubudesigner/propertieshelp.py:310
 msgid ""
 "Specifies a boolean value indicating whether or not the current value of the "
 "scale is to be displayed."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:128
+#: pygubudesigner/propertieshelp.py:313
 msgid ""
 "Requests additional space above each text line in the widget, using any of "
 "the standard forms for screen distances.  If a line wraps, this option only "
 "applies to the first line on the display."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:129
+#: pygubudesigner/propertieshelp.py:316
 msgid ""
 "For lines that wrap (so that they cover more than one line on the display) "
 "this option specifies additional space to provide between the display lines "
 "that represent a single line of text."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:130
+#: pygubudesigner/propertieshelp.py:319
 msgid ""
 "Requests additional space below each text line in the widget, using any of "
 "the standard forms for screen distances. If a line wraps, this option only "
 "applies to the last line on the display."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:131
+#: pygubudesigner/propertieshelp.py:322
 msgid ""
 "Specifies an integer line index representing the first line of the "
 "underlying textual data store that should be contained in the widget. This "
 "allows a text widget to reflect only a portion of a larger piece of text."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:132
+#: pygubudesigner/propertieshelp.py:325
 msgid "May be set to normal or disabled to control the disabled state bit."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:133
+#: pygubudesigner/propertieshelp.py:328
 msgid ""
 "Specifies one of three states for the checkbutton: normal, active, or "
 "disabled."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:134
+#: pygubudesigner/propertieshelp.py:331
 msgid ""
 "Modifies the default state of the canvas where state may be set to one of: "
 "normal, disabled, or hidden. Individual canvas objects all have their own "
 "state option which may override the default state."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:135
+#: pygubudesigner/propertieshelp.py:334
 msgid "Specifies how the content window is positioned within the pane area."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:136
+#: pygubudesigner/propertieshelp.py:336
 msgid "Controls how extra space is allocated to each of the panes."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:137
+#: pygubudesigner/propertieshelp.py:338
 msgid ""
 "Specifies whether or not the column width should be adjusted when the widget "
 "is resized or the user drags a column separator."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:138
+#: pygubudesigner/propertieshelp.py:340
 msgid "May be used to specify a custom widget style."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:139
+#: pygubudesigner/propertieshelp.py:342
 msgid ""
 "Specifies a set of tab stops for the window. The option's value consists of "
 "a list of screen distances giving the positions of the tab stops, each of "
@@ -1395,130 +1486,130 @@ msgid ""
 "borders, padding, etc)."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:140
+#: pygubudesigner/propertieshelp.py:345
 msgid ""
 "Specifies how to interpret the relationship between tab stops on a line and "
 "tabs in the text of that line."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:141
+#: pygubudesigner/propertieshelp.py:348
 msgid ""
 "Determines whether the window accepts the focus during keyboard traversal."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:142
+#: pygubudesigner/propertieshelp.py:351
 msgid ""
 "Specifies whether or not the menu should include a tear-off entry at the top."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:143
+#: pygubudesigner/propertieshelp.py:354
 msgid "Specifies a function callback to invoke whenever the menu is torn off."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:144
+#: pygubudesigner/propertieshelp.py:356
 msgid "Specifies a text string to be displayed inside the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:145
+#: pygubudesigner/propertieshelp.py:357
 msgid "Custom option to set the widget text."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:146
+#: pygubudesigner/propertieshelp.py:359
 msgid ""
 "Specifies the name of a variable whose value will be used in place of the "
 "text resource."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:147
+#: pygubudesigner/propertieshelp.py:362
 msgid ""
 "Must be a real value. Determines the spacing between numerical tick marks "
 "displayed below or to the left of the slider."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:149
+#: pygubudesigner/propertieshelp.py:366
 msgid ""
 "A floating-point value specifying the highest permissible value for the "
 "widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:150
+#: pygubudesigner/propertieshelp.py:369
 msgid ""
 "Specifies an image to display (in place of the image option) when the "
 "checkbutton is in tri-state mode. This option is ignored unless the image "
 "option has been specified."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:151
+#: pygubudesigner/propertieshelp.py:372
 msgid ""
 "Specifies the value that causes the checkbutton to display the multi-value "
 "selection, also known as the tri-state mode. Defaults to “”."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:152
+#: pygubudesigner/propertieshelp.py:375
 msgid ""
 "Specifies the color to use for the rectangular trough areas in widgets such "
 "as scrollbars and scales."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:153
+#: pygubudesigner/propertieshelp.py:378
 msgid ""
 "Specifies the integer index (0-based) of a character to underline in the "
 "text string."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:154
+#: pygubudesigner/propertieshelp.py:381
 msgid ""
 "Specifies a boolean that says whether the undo mechanism is active or not."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:155
+#: pygubudesigner/propertieshelp.py:383
 msgid "Specifies the current value of the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:156
+#: pygubudesigner/propertieshelp.py:385
 msgid "Specifies the list of values to display in the drop-down listbox."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:157
+#: pygubudesigner/propertieshelp.py:388
 msgid ""
 "Must be a proper list value. If specified, the spinbox will use these values "
 "as to control its contents, starting with the first value. This option has "
 "precedence over the from and to range."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:158
+#: pygubudesigner/propertieshelp.py:390
 msgid "Specifies the mode in which validation should operate."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:160
+#: pygubudesigner/propertieshelp.py:393
 msgid "The name of a variable whose value is linked to the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:161
+#: pygubudesigner/propertieshelp.py:396
 msgid ""
 "An integer specifying the relative stretchability of the pane. When the "
 "paned window is resized, the extra space is added or subtracted to each pane "
 "proportionally to its weight."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:162
+#: pygubudesigner/propertieshelp.py:398
 msgid "Specifies the desired width for the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:163 pygubudesigner/propertieshelp.py:165
+#: pygubudesigner/propertieshelp.py:400 pygubudesigner/propertieshelp.py:406
 msgid ""
 "Specifies a desired width for the label. If an image or bitmap is being "
 "displayed in the label then the value is in screen units; for text it is in "
 "characters."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:164 pygubudesigner/propertieshelp.py:172
+#: pygubudesigner/propertieshelp.py:403 pygubudesigner/propertieshelp.py:427
 msgid ""
 "If greater than zero, specifies how much space, in character widths, to "
 "allocate for the text label. If less than zero, specifies a minimum width."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:166
+#: pygubudesigner/propertieshelp.py:409
 msgid ""
 "Specifies a desired width for the button. If an image or bitmap is being "
 "displayed in the button then the value is in screen units. For a text button "
@@ -1527,13 +1618,13 @@ msgid ""
 "this specifies a minimum width."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:167
+#: pygubudesigner/propertieshelp.py:412
 msgid ""
 "Specifies an integer value indicating the desired width of the entry window, "
 "in average-size characters of the widget's font."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:168
+#: pygubudesigner/propertieshelp.py:415
 msgid ""
 "Specifies an integer value indicating the desired width of the spinbox "
 "window, in average-size characters of the widget's font. If the value is "
@@ -1541,7 +1632,7 @@ msgid ""
 "hold its current text."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:169
+#: pygubudesigner/propertieshelp.py:418
 msgid ""
 "Specifies the length of lines in the window. If this option has a value "
 "greater than zero then the aspect option is ignored and the width option "
@@ -1549,7 +1640,7 @@ msgid ""
 "zero, then the aspect option determines the line length."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:170
+#: pygubudesigner/propertieshelp.py:421
 msgid ""
 "Specifies a desired width for the menubutton. If an image or bitmap is being "
 "displayed in the menubutton then the value is in screen units; for text it "
@@ -1558,174 +1649,174 @@ msgid ""
 "displayed in it."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:171
+#: pygubudesigner/propertieshelp.py:424
 msgid ""
 "Specifies the desired width for the window in units of characters in the "
 "font given by the font option."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:173
+#: pygubudesigner/propertieshelp.py:430
 msgid ""
 "Specifies the desired narrow dimension of the scrollbar window, not "
 "including 3-D border, if any. For vertical scrollbars this will be the width "
 "and for horizontal scrollbars this will be the height."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:174
+#: pygubudesigner/propertieshelp.py:433
 msgid ""
 "Specifies the desired narrow dimension of the scale in screen units.  For "
 "vertical scales this is the scale's width; for horizontal scales this is the "
 "scale's height."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:175
+#: pygubudesigner/propertieshelp.py:436
 msgid "The width of the column in pixels. Default is 200 pixels."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:176
+#: pygubudesigner/propertieshelp.py:439
 msgid "If on, the spinbox will wrap around the values of data in the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:177
+#: pygubudesigner/propertieshelp.py:442
 msgid ""
 "Specifies how to handle lines in the text that are too long to be displayed "
 "in a single line of the text's window."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:178
+#: pygubudesigner/propertieshelp.py:444
 msgid "Specifies the maximum line length (in pixels)."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:180
+#: pygubudesigner/propertieshelp.py:447
 msgid ""
 "Specifies an increment for horizontal scrolling, in any of the usual forms "
 "permitted for screen distances."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:182
+#: pygubudesigner/propertieshelp.py:451
 msgid ""
 "Specifies an increment for vertical scrolling, in any of the usual forms "
 "permitted for screen distances."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:185
+#: pygubudesigner/propertieshelp.py:456
 msgid "Set the window geometry. Allowed string format: 'wxh'"
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:186
+#: pygubudesigner/propertieshelp.py:458
 msgid "Set the maximum window size."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:187
+#: pygubudesigner/propertieshelp.py:459
 msgid "Set the minimum window size."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:188
+#: pygubudesigner/propertieshelp.py:461
 msgid ""
 "Sets the override redirect flag. If True, removes all window manager "
 "decorations from the window, so that it cannot be moved, resized, iconified, "
 "or closed."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:189
+#: pygubudesigner/propertieshelp.py:463
 msgid "Sets the window title."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:190
+#: pygubudesigner/propertieshelp.py:464
 msgid "If True, set this column as the tree column #0"
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:191
+#: pygubudesigner/propertieshelp.py:466
 msgid ""
 "Determines whether or not the column is included in the displaycolumns list."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:192
+#: pygubudesigner/propertieshelp.py:468
 msgid "Determines if the window can be resized."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:193
+#: pygubudesigner/propertieshelp.py:469
 msgid "Sets bitmap for the iconified widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:194
+#: pygubudesigner/propertieshelp.py:470
 msgid "Sets the titlebar icon for this window."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:195
+#: pygubudesigner/propertieshelp.py:471
 msgid "Determines scroll type for the widget."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:196
+#: pygubudesigner/propertieshelp.py:472
 msgid "Enable scrolling using mousewheel"
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:200
+#: pygubudesigner/propertieshelp.py:477
 msgid ""
 "Specifies how much horizontal external padding to leave on each side of the "
 "content."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:201
+#: pygubudesigner/propertieshelp.py:480
 msgid ""
 "Specifies how much vertical external padding to leave on each side of the "
 "content."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:202
+#: pygubudesigner/propertieshelp.py:483
 msgid ""
 "Specifies how much horizontal internal padding to leave on each side of the "
 "content."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:203
+#: pygubudesigner/propertieshelp.py:486
 msgid ""
 "Specifies how much vertical internal padding to leave on each side of the "
 "content."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:204
+#: pygubudesigner/propertieshelp.py:488
 msgid "Enable/Disable Geometry Propagation"
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:205
+#: pygubudesigner/propertieshelp.py:490
 msgid "It specifies where to position each content in its parcel."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:206
+#: pygubudesigner/propertieshelp.py:493
 msgid ""
 "Specifies which point of window is to be positioned at the (x,y) location "
 "selected by the x, y, relx, and rely options."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:208
+#: pygubudesigner/propertieshelp.py:497
 msgid ""
 "Specifies whether the content should be expanded to consume extra space in "
 "their container."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:209
+#: pygubudesigner/propertieshelp.py:500
 msgid ""
 "If a content's parcel is larger than its requested dimensions, this option "
 "may be used to stretch the content."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:210
+#: pygubudesigner/propertieshelp.py:503
 msgid ""
 "Specifies which side of the container the content will be packed against."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:211
+#: pygubudesigner/propertieshelp.py:506
 msgid ""
 "Determines the degree to which borders within the container are used in "
 "determining the placement of the content."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:212
+#: pygubudesigner/propertieshelp.py:508
 msgid "Specifies the height for window in screen units"
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:213
+#: pygubudesigner/propertieshelp.py:510
 msgid ""
 "Specifies the height for window. In this case the height is specified as a "
 "floating-point number relative to the height of the container: 0.5 means "
@@ -1734,7 +1825,7 @@ msgid ""
 "specified for a content, their values are summed."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:214
+#: pygubudesigner/propertieshelp.py:513
 msgid ""
 "Specifies the width for window. In this case the width is specified as a "
 "floating-point number relative to the width of the container: 0.5 means "
@@ -1743,7 +1834,7 @@ msgid ""
 "specified for a content, their values are summed."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:215
+#: pygubudesigner/propertieshelp.py:516
 msgid ""
 "Specifies the x-coordinate within the container window of the anchor point "
 "for window. In this case the location is specified in a relative fashion as "
@@ -1751,7 +1842,7 @@ msgid ""
 "and 1.0 corresponds to the right edge of the container."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:216
+#: pygubudesigner/propertieshelp.py:519
 msgid ""
 "Specifies the y-coordinate within the container window of the anchor point "
 "for window. In this case the value is specified in a relative fashion as a "
@@ -1759,98 +1850,62 @@ msgid ""
 "1.0 corresponds to the bottom edge of the container."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:217
+#: pygubudesigner/propertieshelp.py:521
 msgid "Specifies the width for window in screen units."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:218
+#: pygubudesigner/propertieshelp.py:523
 msgid ""
 "Specifies the x-coordinate within the container window of the anchor point "
 "for window."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:219
+#: pygubudesigner/propertieshelp.py:526
 msgid ""
 "Specifies the y-coordinate within the container window of the anchor point "
 "for window."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:222
+#: pygubudesigner/propertieshelp.py:531
 msgid "Insert the content so that it occupies the nth row in the grid."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:223
+#: pygubudesigner/propertieshelp.py:534
 msgid "Insert the window so that it occupies the nth column in the grid."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:224
+#: pygubudesigner/propertieshelp.py:537
 msgid ""
 "If a content's cell is larger than its requested dimensions, this option may "
 "be used to position (or stretch) the content within its cell."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:225
+#: pygubudesigner/propertieshelp.py:540
 msgid "Insert the content so that it occupies n rows in the grid."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:226
+#: pygubudesigner/propertieshelp.py:543
 msgid "Insert the window so that it occupies n columns in the grid."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:229
+#: pygubudesigner/propertieshelp.py:548
 msgid ""
 "Sets the minimum size, in screen units, that will be permitted for this row."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:230
+#: pygubudesigner/propertieshelp.py:551
 msgid ""
 "Specifies the number of screen units that will be added to the largest "
 "window contained completely in that row when the grid geometry manager "
 "requests a size from the containing window."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:231
+#: pygubudesigner/propertieshelp.py:554
 msgid "Sets the relative weight for apportioning any extra spaces among rows."
 msgstr ""
 
-#: pygubudesigner/propertieshelp.py:232
+#: pygubudesigner/propertieshelp.py:557
 msgid ""
 "When a non-empty value is supplied, places the row in a uniform group with "
 "other rows that have the same value for uniform."
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:57
-msgid "Script Generator"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:60
-msgid "Create a pygubu application script using the UI definition."
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:61
-msgid "Create a coded version of the UI definition."
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:62
-msgid "Create a base class for your custom widget."
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:156
-msgid "Code copied"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:184
-msgid "Python Script"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:216
-msgid "Select widget"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:221
-msgid "Select template"
-msgstr ""
-
-#: pygubudesigner/scriptgenerator.py:226
-msgid "Enter classname"
 msgstr ""

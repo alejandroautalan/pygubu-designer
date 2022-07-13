@@ -1,22 +1,25 @@
 #!/bin/bash
 
-[[ -x $(which virtualenv) ]] && virtualenv venv
+activate_venv(){
+    # Use virtualenv 'venv' if exists
+    echo "virtualenv is used, enter 'deactivate' to exit."
+    for v in \
+        "./venv/bin/activate" \
+        "./venv/local/bin/activate" # python 3.10
+    do
+        [[ -f $v ]] && . $v
+    done
+}
 
-# Use virtualenv 'venv' if exists
-for v in \
-    "./venv/bin/activate" \
-    "./venv/local/bin/activate" # python 3.10
-do
-    [[ -f $v ]] && . $v
-done
-
-get_dev_req(){
+get_setup_requirements(){
     echo "\
     'black>=22.3.0'         'isort>=5.9.2' \
     'setuptools>=57.3.0'    'wheel>=0.37.0' \
     'twine>=4.0.0'          'pip>=22.1.1'\
     "
 }
+
+get_dev_req(){  get_setup_requirements;     }
 
 install_req(){
     eval "pip3 install \
@@ -25,18 +28,13 @@ install_req(){
 }
 
 blk(){
-    black -l 80 --exclude="venv/" \
+    black -l 80 --exclude="venv/" --verbose \
     $([[ $# -eq 0 ]] && echo '.' || echo $@)
 }
 
 sort_imports(){
     isort -v ./setup.py
     isort -v ./pygubudesigner/
-    if [[ -d ./pygubu ]] # if submodule exists.
-    then
-        isort -v ./pygubu/setup.py
-        isort -v ./pygubu/pygubu/
-    fi
 }
 
 style(){
@@ -45,9 +43,11 @@ style(){
 
 _xgettext(){
     xgettext -L glade \
+        --verbose \
         --output=pygubudesigner/locale/pygubu.pot \
         $(find ./pygubudesigner/ui -name "*.ui")
     xgettext --join-existing \
+        --verbose \
         --language=Python \
         --keyword=_ \
         --output=pygubudesigner/locale/pygubu.pot \
@@ -55,14 +55,14 @@ _xgettext(){
         `find ./pygubudesigner -name "*.py"`
     for _po in $(find ./pygubudesigner/locale -name "*.po")
     do
-        msgmerge $_po ./pygubudesigner/locale/pygubu.pot -U
+        msgmerge --verbose $_po ./pygubudesigner/locale/pygubu.pot -U
     done
 }
 
 _msgfmt(){
     for _po in $(find ./pygubudesigner/locale -name "*.po")
     do
-        msgfmt -o ${_po/.po/.mo}  $_po
+        msgfmt --verbose -o ${_po/.po/.mo}  $_po
     done
 }
 
@@ -72,8 +72,7 @@ _build(){
     python3 setup.py sdist bdist_wheel
 }
 
-_serve(){
-    # default port is 8080
+_serve(){   # default port is 8080
     _port=`[[ -z $1 ]] && echo "8080" || echo $1`
     python3 -m http.server $_port
 }
@@ -111,6 +110,22 @@ start(){
     python3 pygubudesigner_.py start
 }
 
+if [[ \
+    $PATH != *"${PWD}/venv/local/bin"* && \
+    $PATH != *"${PWD}/venv/bin"* ]]
+then
+    if [[ -d "${PWD}/venv" ]];then
+        activate_venv
+    elif [[ -x $(which virtualenv) ]]
+    then 
+        virtualenv venv
+        activate_venv
+    else
+        echo "virtualenv is not installed, cancel virtual environment."
+    fi
+
+fi
+
 ir(){   install_req;            }
 po(){   _xgettext;              }
 msgf(){ _msgfmt;                }
@@ -136,6 +151,7 @@ if [ $# -eq 0 ]
     echo "    bup : build and upload."
     echo "     po : update po file."
     echo "  style : format all *.py files."
+    echo "   msgf : compile message catalog to binary format."
 else
     $@
 fi

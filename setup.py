@@ -48,6 +48,7 @@ class CustomInstall(install):
             if os.path.exists(spath):
                 os.remove(spath)
 
+
 setup(
     name="pygubu-designer",
     version=VERSION,

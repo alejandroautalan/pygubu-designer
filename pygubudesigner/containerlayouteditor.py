@@ -38,9 +38,9 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
         self._propbag = {}
         self._rcbag = {}
         self._current = None
-        self._mainpanel_label = "Options for {0} container"
-        self._rowpanel_label = "Row index: {0}"
-        self._colpanel_label = "Column index: {0}"
+        self._mainpanel_label = _("Options for {0} container")
+        self._rowpanel_label = _("Row index: {0}")
+        self._colpanel_label = _("Column index: {0}")
         self._build_editors()
 
     def _build_editors(self):
