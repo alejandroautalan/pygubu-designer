@@ -67,7 +67,7 @@ language = gettext.translation(
     APP_NAME, mo_location, languages=languages, fallback=True
 )
 
-translator = language.gettext
+_ = T = translator = language.gettext
 
 
 # And now in your modules you can do:
