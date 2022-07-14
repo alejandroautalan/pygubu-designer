@@ -147,6 +147,7 @@ class PreferencesUI:
         self.master = master
         self.translator = translator
         self.dialog = None
+        self.dialog_toplevel = None
         self.builder = None
         self._create_preferences_dialog()
         self._load_options()
@@ -158,6 +159,7 @@ class PreferencesUI:
 
         top = self.master.winfo_toplevel()
         self.dialog = dialog = builder.get_object("preferences", top)
+        self.dialog_toplevel = self.dialog.toplevel
 
         self.v_style_definition_file = builder.get_variable(
             "v_style_definition_file"
@@ -235,7 +237,9 @@ class PreferencesUI:
             "defaultextension": ".py",
             "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
         }
-        fname = filedialog.asksaveasfilename(**options)
+        fname = filedialog.asksaveasfilename(
+            parent=self.dialog_toplevel, **options
+        )
         if not fname:
             return
 
@@ -266,7 +270,9 @@ class PreferencesUI:
             "defaultextension": ".py",
             "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
         }
-        fname = filedialog.askopenfilename(**options)
+        fname = filedialog.askopenfilename(
+            parent=self.dialog_toplevel, **options
+        )
         if fname:
             self.v_style_definition_file.set(fname)
 
@@ -302,7 +308,9 @@ class PreferencesUI:
             "defaultextension": ".py",
             "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
         }
-        fname = filedialog.askopenfilename(**options)
+        fname = filedialog.askopenfilename(
+            parent=self.dialog_toplevel, **options
+        )
         if fname:
             self.cwtv.insert("", tk.END, text=fname)
             self._configure_path_remove()

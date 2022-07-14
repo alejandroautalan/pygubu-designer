@@ -40,7 +40,7 @@ def get_requirements():
             ">=22.1.0",
             "MIT License",
             "https://github.com/psf/black",
-        ), 
+        ),
     ]
 
 
