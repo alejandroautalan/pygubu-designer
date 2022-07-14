@@ -18,9 +18,9 @@ activate_venv(){
 # product environment in 'pygubudesigner/__init__.py' file.
 get_dev_requirements(){
     echo "\
-    'black>=22.3.0'         'isort>=5.9.2' \
-    'setuptools>=57.3.0'    'wheel>=0.37.0' \
-    'twine>=4.0.0'          'pip>=22.1.1'\
+    'isort>=5.9.2'          'setuptools>=57.3.0' \
+    'wheel>=0.37.0'         'twine>=4.0.0' \
+    'pip>=22.1.1' \
     "
 }
 
