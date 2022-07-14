@@ -1,8 +1,8 @@
 __version__ = "0.27"
 
-# 
+#
 def get_requirements():
-    """Get requirements for product environment, write the requirements of 
+    """Get requirements for product environment, write the requirements of
     development environment in 'pygubudesigner.sh' file.
 
     Returns:
@@ -35,10 +35,18 @@ def get_requirements():
             "MIT License",
             "https://github.com/alejandroautalan/pygubu",
         ),
+        (
+            "black",
+            ">=22.1.0",
+            "MIT License",
+            "https://github.com/psf/black",
+        ), 
     ]
 
-def  get_product_requirements():
+
+def get_product_requirements():
     return get_requirements()
+
 
 def get_setup_requirements():
     return [r[0] + r[1] for r in get_requirements()]
