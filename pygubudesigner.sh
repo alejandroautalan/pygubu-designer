@@ -1,8 +1,7 @@
 #!/bin/bash
 
-[[ -n $project_dir_path ]] \
-&& project_dir_path=$project_dir_path \
-|| project_dir_path="pygubudesigner"
+[[ -n $project_dir_path ]] || \
+project_dir_path="pygubudesigner"
 
 activate_venv(){
     # Use virtualenv 'venv' if exists
@@ -15,15 +14,17 @@ activate_venv(){
     done
 }
 
-get_setup_requirements(){
+# Echo requirements for development environment, write the requirements of 
+# product environment in 'pygubudesigner/__init__.py' file.
+get_dev_requirements(){
     echo "\
-    'black>=22.3.0'         'isort>=5.9.2' \
-    'setuptools>=57.3.0'    'wheel>=0.37.0' \
-    'twine>=4.0.0'          'pip>=22.1.1'\
+    'isort>=5.9.2'          'setuptools>=57.3.0' \
+    'wheel>=0.37.0'         'twine>=4.0.0' \
+    'pip>=22.1.1' \
     "
 }
 
-get_dev_req(){  get_setup_requirements;     }
+get_dev_req(){  get_dev_requirements;     }
 
 install_req(){
     [[ -f ./pygubudesigner_.py ]] && \
@@ -162,5 +163,7 @@ if [ $# -eq 0 ]
     echo "  style : format all *.py files."
     echo "   msgf : compile message catalog to binary format."
 else
+    # './pygubudesigner.sh' is approved, 
+    # if enter '. pygubudesigner.sh', '$0' gets 'bash'.
     [[ $0 == *"pygubudesigner.sh" ]] && $*
 fi
