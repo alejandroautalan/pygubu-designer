@@ -49,7 +49,7 @@ style(){
 }
 
 _xgettext(){
-    pot_path=${project_dir_path}/locale/pygubu.pot
+    pot_path=${project_dir_path}/locale/pygubu-designer.pot
     [[ -d ./${project_dir_path}/ui ]] && \
         xgettext -L glade \
             --verbose \

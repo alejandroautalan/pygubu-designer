@@ -23,14 +23,14 @@ from pathlib import Path
 #  The translation files will be under
 #  @LOCALE_DIR@/@LANGUAGE@/LC_MESSAGES/@APP_NAME@.mo
 #
-APP_NAME = "pygubu"
+APP_NAME = "pygubu-designer"
 
 # Not sure in a regular desktop:
 
 APP_DIR = Path(__file__).parent
 LOCALE_DIR = APP_DIR / "locale"
 
-if not (LOCALE_DIR / "de" / "LC_MESSAGES" / "pygubu.mo").exists():
+if not (LOCALE_DIR / "de" / "LC_MESSAGES" / "pygubu-designer.mo").exists():
     print(
         "You should compile the .po files in the pygubudesigner/locale "
         + "directory first if you are a developer, otherwise give us feedback "
