@@ -1,6 +1,12 @@
 History
 =======
 
+Changes for version 0.28
+  
+  * Added more examples
+  * Fix: 'filedialog.askopenfilename' is blocked by 'preferences.dialog' (larryw3i).
+  * Translations for pygubu strings in pygubu-designer (larryw3i)
+
 Changes for version 0.27
 
   * Add option to center the toplevel preview window. PR #124 @jrezai
