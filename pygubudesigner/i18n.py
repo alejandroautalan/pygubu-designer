@@ -18,6 +18,7 @@ import locale
 import os
 import sys
 from pathlib import Path
+import pygubu.i18n as pygubu_i18n
 
 # Change this variable to your app name!
 #  The translation files will be under
@@ -70,8 +71,8 @@ language = gettext.translation(
 _ = T = translator = language.gettext
 
 
-# And now in your modules you can do:
-#
-# import i18n
-# _ = i18n.translator
-#
+# Setup pygubu translations
+pygubu_app = gettext.translation(
+    "pygubu", mo_location, languages=languages, fallback=True
+)
+pygubu_i18n.setup_translator(pygubu_app.gettext)
