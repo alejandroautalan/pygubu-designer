@@ -163,7 +163,7 @@ if [ $# -eq 0 ]
     echo "  style : format all *.py files."
     echo "   msgf : compile message catalog to binary format."
 else
-    # './pygubudesigner.sh' is approved, 
-    # if enter '. pygubudesigner.sh', '$0' gets 'bash'.
-    [[ $0 == *"pygubudesigner.sh" ]] && $*
+    # './devtool.sh' is approved, 
+    # if enter '. devtool.sh', '$0' gets 'bash'.
+    [[ $0 == *"devtool.sh" ]] && $*
 fi
