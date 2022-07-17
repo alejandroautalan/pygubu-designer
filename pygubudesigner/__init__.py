@@ -1,4 +1,4 @@
-__version__ = "0.27"
+__version__ = "0.28"
 
 #
 def get_requirements():
@@ -31,7 +31,7 @@ def get_requirements():
         ),
         (
             "pygubu",
-            ">=0.22",
+            ">=0.23",
             "MIT License",
             "https://github.com/alejandroautalan/pygubu",
         ),
