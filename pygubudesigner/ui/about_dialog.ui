@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <interface version="1.2">
   <object class="pygubu.builder.widgets.dialog" id="aboutdialog">
-    <property name="geometry">420x520</property>
+    <property name="geometry">420x550</property>
     <property name="height">100</property>
     <property name="modal">False</property>
     <property name="resizable">none</property>
