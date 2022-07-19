@@ -30,7 +30,7 @@ from tkinter import filedialog, messagebox
 
 import pygubu
 from pygubu import builder
-from pygubu.component.builderloader import BUILDER_PLUGINS
+from pygubu.component.plugin_manager import PluginManager
 from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
@@ -61,7 +61,7 @@ def init_pygubu_widgets():
 
     # Initialize all builders from plugins
     all_modules = []
-    for plugin in BUILDER_PLUGINS:
+    for plugin in PluginManager.builder_plugins():
         all_modules.extend(plugin.get_all_modules())
     for _module in all_modules:
         try:
