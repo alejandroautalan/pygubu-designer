@@ -22,7 +22,7 @@ from functools import partial
 from tkinter import messagebox
 
 from pygubu.builder import CLASS_MAP
-from pygubu.builder.uidefinition import UIDefinition
+from pygubu.component.uidefinition import UIDefinition
 from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
@@ -74,7 +74,9 @@ class WidgetsTreeEditor:
             self.__preferred_layout_manager_var.set(current_default_layout)
 
         # Set the default layout manager
-        self.default_layout_manager = self.__preferred_layout_manager_var.get()
+        self.default_layout_manager = (
+            self.__preferred_layout_manager_var.get()
+        )
 
         # Get whether we should center the toplevel preview window
         self.center_preview = pref.get_option("center_preview")
@@ -122,7 +124,8 @@ class WidgetsTreeEditor:
         f = lambda e, manager="pack": self.change_container_manager(manager)
         lframe.bind_all("<<LayoutEditorContainerManagerToPack>>", f)
         lframe.bind_all(
-            "<<ClearSelectedGridTreeInfo>>", self.clear_selected_grid_tree_info
+            "<<ClearSelectedGridTreeInfo>>",
+            self.clear_selected_grid_tree_info,
         )
 
         # Tree Editing
@@ -480,7 +483,11 @@ class WidgetsTreeEditor:
                     self.previewer.delete(item)
                 # determine final focus
                 if final_focus is None:
-                    candidates = (tv.prev(item), tv.next(item), tv.parent(item))
+                    candidates = (
+                        tv.prev(item),
+                        tv.next(item),
+                        tv.parent(item),
+                    )
                     for c in candidates:
                         if c and (c not in selection):
                             final_focus = c
@@ -733,7 +740,9 @@ class WidgetsTreeEditor:
             # only containers are allowed at root level
             if new_boclass.container is False:
                 if show_warnings:
-                    msg = _("Not allowed at root level, %s is not a container.")
+                    msg = _(
+                        "Not allowed at root level, %s is not a container."
+                    )
                     logger.warning(msg, classname)
                 is_valid = False
                 return is_valid
@@ -795,7 +804,10 @@ class WidgetsTreeEditor:
                 if self._validate_add(selected_item, wmeta.classname):
                     self.update_layout(selected_item, wmeta)
                     self.populate_tree(
-                        selected_item, uidef, wmeta, is_first_widget_pasted=True
+                        selected_item,
+                        uidef,
+                        wmeta,
+                        is_first_widget_pasted=True,
                     )
         except ET.ParseError:
             msg = "The clipboard does not have a valid widget xml definition."
@@ -883,7 +895,9 @@ class WidgetsTreeEditor:
             manager = cmanager if cmanager else manager
 
         widget_id = self.get_unique_id(wclass)
-        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(wclass, widget_id)
+        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(
+            wclass, widget_id
+        )
         data = WidgetMeta(wclass, widget_id, manager, pdefaults, ldefaults)
 
         # Recalculate position if manager is grid
@@ -966,7 +980,9 @@ class WidgetsTreeEditor:
             )
 
             for mchild in uidef.widget_children(original_id):
-                self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
+                self.populate_tree(
+                    pwidget, uidef, mchild, from_file=from_file
+                )
         else:
             raise Exception(f'Class "{cname}" not mapped')
 

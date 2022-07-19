@@ -16,7 +16,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from pygubu import ApplicationLevelBindManager as BindManager
+from pygubu.binding import ApplicationLevelBindManager as BindManager
 
 
 class ToolbarFrame(ttk.Frame):
@@ -72,7 +72,9 @@ class ToolbarFrame(ttk.Frame):
     def _configure_mousewheel(self):
         BindManager.init_mousewheel_binding(self)
         self.bind(
-            "<Enter>", lambda event: BindManager.mousewheel_bind(self), add="+"
+            "<Enter>",
+            lambda event: BindManager.mousewheel_bind(self),
+            add="+",
         )
         self.bind(
             "<Leave>", lambda event: BindManager.mousewheel_unbind(), add="+"

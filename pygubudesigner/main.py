@@ -19,16 +19,18 @@
 
 import argparse
 import importlib
+import pkgutil
 import logging
 import platform
 import sys
 import tkinter as tk
 import webbrowser
 from pathlib import Path
-from tkinter import filedialog, messagebox, ttk
+from tkinter import filedialog, messagebox
 
 import pygubu
 from pygubu import builder
+from pygubu.component.builderloader import BUILDER_PLUGINS
 from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
@@ -56,23 +58,17 @@ _ = translator
 
 
 def init_pygubu_widgets():
-    import pkgutil
 
-    # initialize standard ttk widgets
-    import pygubu.builder.ttkstdwidgets
-
-    # initialize extra widgets
-    widgets_pkg = "pygubu.builder.widgets"
-    mwidgets = importlib.import_module(widgets_pkg)
-
-    for __, modulename, __ in pkgutil.iter_modules(
-        mwidgets.__path__, mwidgets.__name__ + "."
-    ):
+    # Initialize all builders from plugins
+    all_modules = []
+    for plugin in BUILDER_PLUGINS:
+        all_modules.extend(plugin.get_all_modules())
+    for _module in all_modules:
         try:
-            importlib.import_module(modulename)
-        except Exception as e:
+            importlib.import_module(_module)
+        except (ModuleNotFoundError, ImportError) as e:
             logger.exception(e)
-            msg = _(f"Failed to load widget module: '{modulename}'")
+            msg = _(f"Failed to load widget module: '{_module}'")
             messagebox.showerror(_("Error"), msg)
 
     # initialize custom widgets
@@ -339,7 +335,9 @@ class PygubuDesigner:
             )
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(Key.C, lambda e: self.tree_editor.copy_to_clipboard()),
+                key_bind(
+                    Key.C, lambda e: self.tree_editor.copy_to_clipboard()
+                ),
                 add=True,
             )
             widget.bind(
@@ -356,7 +354,9 @@ class PygubuDesigner:
             )
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(Key.X, lambda e: self.tree_editor.cut_to_clipboard()),
+                key_bind(
+                    Key.X, lambda e: self.tree_editor.cut_to_clipboard()
+                ),
                 add=True,
             )
             widget.bind(
@@ -400,9 +400,13 @@ class PygubuDesigner:
         w.bind(actions.FILE_SAVE, self.on_file_save)
         w.bind(actions.FILE_SAVEAS, lambda e: self.do_save_as())
         w.bind(actions.FILE_QUIT, lambda e: self.quit())
-        w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
+        w.bind(
+            actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear()
+        )
         # On preferences save binding
-        w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)
+        w.bind(
+            "<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved
+        )
 
     def _setup_styles(self):
         self.mainwindow.option_add("*Dialog.msg.width", 34)
@@ -416,7 +420,9 @@ class PygubuDesigner:
             "ImageSelectorButton.Toolbutton", image=StockImage.get("mglass")
         )
         s.configure("ComponentPalette.Toolbutton", font="TkSmallCaptionFont")
-        s.configure("ComponentPalette.TNotebook.Tab", font="TkSmallCaptionFont")
+        s.configure(
+            "ComponentPalette.TNotebook.Tab", font="TkSmallCaptionFont"
+        )
         s.configure(
             "PanelTitle.TLabel",
             background="#808080",
@@ -660,7 +666,10 @@ class PygubuDesigner:
             if filename is None:
                 options = {
                     "defaultextension": ".ui",
-                    "filetypes": ((_("pygubu ui"), "*.ui"), (_("All"), "*.*")),
+                    "filetypes": (
+                        (_("pygubu ui"), "*.ui"),
+                        (_("All"), "*.*"),
+                    ),
                 }
                 filename = filedialog.askopenfilename(**options)
             if filename:

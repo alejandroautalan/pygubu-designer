@@ -18,7 +18,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from collections import OrderedDict
 
-from pygubu.builder.builderobject import CB_TYPES
+from pygubu.component.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.commandentry import CommandPropertyBase
@@ -47,7 +47,10 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
             ("%s", _("The current value of entry prior to editing.")),
             ("%S", _("The text string being inserted/deleted.")),
             ("%v", _("The current value of the -validate option.")),
-            ("%V", _("The validation condition that triggered the callback.")),
+            (
+                "%V",
+                _("The validation condition that triggered the callback."),
+            ),
             ("%W", _("The name of the entry widget.")),
         )
         options = OrderedDict(olist)
@@ -133,7 +136,9 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
         return is_valid
 
 
-register_editor("entryvalidatecommandentry", EntryValidateCommandPropertyEditor)
+register_editor(
+    "entryvalidatecommandentry", EntryValidateCommandPropertyEditor
+)
 
 
 if __name__ == "__main__":

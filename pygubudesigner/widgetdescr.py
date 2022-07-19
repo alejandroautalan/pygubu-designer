@@ -15,9 +15,9 @@
 
 import logging
 
-from pygubu.builder import CLASS_MAP
-from pygubu.builder.widgetmeta import BindingMeta
-from pygubu.builder.widgetmeta import WidgetMeta as WidgetMetaBase
+from pygubu.component.builderobject import CLASS_MAP
+from pygubu.component.widgetmeta import BindingMeta
+from pygubu.component.widgetmeta import WidgetMeta as WidgetMetaBase
 
 from .properties import (
     GRID_PROPERTIES,

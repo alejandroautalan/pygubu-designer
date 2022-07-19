@@ -19,7 +19,7 @@ import re
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from pygubu.builder.builderobject import CB_TYPES
+from pygubu.component.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import (

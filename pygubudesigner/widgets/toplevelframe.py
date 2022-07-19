@@ -12,8 +12,8 @@
 
 import tkinter as tk
 
-from pygubu.builder.builderobject import BuilderObject, register_widget
-from pygubu.builder.tkstdwidgets import TKToplevel
+from pygubu.api.v1 import BuilderObject, register_widget
+from pygubu.plugins.tk.tkstdwidgets import TKToplevel
 
 
 class ToplevelFramePreview(tk.Frame):
@@ -106,7 +106,12 @@ class ToplevelFramePreviewBO(BuilderObject):
     def _set_property(self, target_widget, pname, value):
         tw = target_widget
         tw.tl_attrs[pname] = value
-        method_props = ("iconbitmap", "iconphoto", "overrideredirect", "title")
+        method_props = (
+            "iconbitmap",
+            "iconphoto",
+            "overrideredirect",
+            "title",
+        )
         if pname in method_props:
             pass
         elif pname in ("maxsize", "minsize"):

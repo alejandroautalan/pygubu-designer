@@ -16,10 +16,11 @@ import os
 from collections import OrderedDict
 from enum import Enum
 
-from pygubu.builder import CB_TYPES, CLASS_MAP, Builder
-from pygubu.builder.builderobject import BuilderObject, grouper, register_widget
-from pygubu.builder.tkstdwidgets import TKToplevel
-from pygubu.builder.widgetmeta import WidgetMeta
+from pygubu.api.v1 import BuilderObject, register_widget
+from pygubu.component.builderobject import CB_TYPES, CLASS_MAP, grouper
+from pygubu import Builder
+from pygubu.plugins.tk.tkstdwidgets import TKToplevel
+from pygubu.component.widgetmeta import WidgetMeta
 from pygubu.stockimage import TK_BITMAP_FORMATS
 
 from pygubudesigner.stylehandler import StyleHandler
@@ -279,7 +280,9 @@ class UI2Code(Builder):
         return lines
 
     def code_create_variable(self, name_or_desc, value, vtype=None):
-        vname, type_from_name = self._process_variable_description(name_or_desc)
+        vname, type_from_name = self._process_variable_description(
+            name_or_desc
+        )
         vname_in_code = vname
         if vname not in self._tkvariables:
             var_init = ""
@@ -378,7 +381,9 @@ class UI2Code(Builder):
                     lines.append(line)
                 else:
                     fargs = ", ".join(args)
-                    line = "{}def {}(self, {}):".format(" " * tab2, name, fargs)
+                    line = "{}def {}(self, {}):".format(
+                        " " * tab2, name, fargs
+                    )
                     lines.append(line)
                     line = "{}pass\n".format(" " * tabspaces)
                     lines.append(line)
