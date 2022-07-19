@@ -19,8 +19,8 @@
 
 import argparse
 import importlib
-import pkgutil
 import logging
+import pkgutil
 import platform
 import sys
 import tkinter as tk
@@ -335,9 +335,7 @@ class PygubuDesigner:
             )
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(
-                    Key.C, lambda e: self.tree_editor.copy_to_clipboard()
-                ),
+                key_bind(Key.C, lambda e: self.tree_editor.copy_to_clipboard()),
                 add=True,
             )
             widget.bind(
@@ -354,9 +352,7 @@ class PygubuDesigner:
             )
             widget.bind(
                 CONTROL_KP_SEQUENCE,
-                key_bind(
-                    Key.X, lambda e: self.tree_editor.cut_to_clipboard()
-                ),
+                key_bind(Key.X, lambda e: self.tree_editor.cut_to_clipboard()),
                 add=True,
             )
             widget.bind(
@@ -400,13 +396,9 @@ class PygubuDesigner:
         w.bind(actions.FILE_SAVE, self.on_file_save)
         w.bind(actions.FILE_SAVEAS, lambda e: self.do_save_as())
         w.bind(actions.FILE_QUIT, lambda e: self.quit())
-        w.bind(
-            actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear()
-        )
+        w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
         # On preferences save binding
-        w.bind(
-            "<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved
-        )
+        w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)
 
     def _setup_styles(self):
         self.mainwindow.option_add("*Dialog.msg.width", 34)
@@ -420,9 +412,7 @@ class PygubuDesigner:
             "ImageSelectorButton.Toolbutton", image=StockImage.get("mglass")
         )
         s.configure("ComponentPalette.Toolbutton", font="TkSmallCaptionFont")
-        s.configure(
-            "ComponentPalette.TNotebook.Tab", font="TkSmallCaptionFont"
-        )
+        s.configure("ComponentPalette.TNotebook.Tab", font="TkSmallCaptionFont")
         s.configure(
             "PanelTitle.TLabel",
             background="#808080",

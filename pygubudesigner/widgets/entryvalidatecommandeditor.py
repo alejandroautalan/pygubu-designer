@@ -136,9 +136,7 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
         return is_valid
 
 
-register_editor(
-    "entryvalidatecommandentry", EntryValidateCommandPropertyEditor
-)
+register_editor("entryvalidatecommandentry", EntryValidateCommandPropertyEditor)
 
 
 if __name__ == "__main__":

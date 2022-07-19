@@ -19,6 +19,7 @@ import tkinter as tk
 
 import pygubu.api.v1 as pygubu_api
 from pygubu.component.builderobject import CUSTOM_PROPERTIES
+
 from .propertieshelp import _, help_for
 
 logger = logging.getLogger(__name__)

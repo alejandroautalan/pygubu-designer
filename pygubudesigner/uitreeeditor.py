@@ -74,9 +74,7 @@ class WidgetsTreeEditor:
             self.__preferred_layout_manager_var.set(current_default_layout)
 
         # Set the default layout manager
-        self.default_layout_manager = (
-            self.__preferred_layout_manager_var.get()
-        )
+        self.default_layout_manager = self.__preferred_layout_manager_var.get()
 
         # Get whether we should center the toplevel preview window
         self.center_preview = pref.get_option("center_preview")
@@ -740,9 +738,7 @@ class WidgetsTreeEditor:
             # only containers are allowed at root level
             if new_boclass.container is False:
                 if show_warnings:
-                    msg = _(
-                        "Not allowed at root level, %s is not a container."
-                    )
+                    msg = _("Not allowed at root level, %s is not a container.")
                     logger.warning(msg, classname)
                 is_valid = False
                 return is_valid
@@ -895,9 +891,7 @@ class WidgetsTreeEditor:
             manager = cmanager if cmanager else manager
 
         widget_id = self.get_unique_id(wclass)
-        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(
-            wclass, widget_id
-        )
+        pdefaults, ldefaults = WidgetMeta.get_widget_defaults(wclass, widget_id)
         data = WidgetMeta(wclass, widget_id, manager, pdefaults, ldefaults)
 
         # Recalculate position if manager is grid
@@ -980,9 +974,7 @@ class WidgetsTreeEditor:
             )
 
             for mchild in uidef.widget_children(original_id):
-                self.populate_tree(
-                    pwidget, uidef, mchild, from_file=from_file
-                )
+                self.populate_tree(pwidget, uidef, mchild, from_file=from_file)
         else:
             raise Exception(f'Class "{cname}" not mapped')
 
