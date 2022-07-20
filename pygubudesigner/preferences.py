@@ -149,8 +149,11 @@ class PreferencesUI:
         self.dialog = None
         self.dialog_toplevel = None
         self.builder = None
+        self.restore_tk_variables = {}
+        self.restore_custom_widgets_list = []
         self._create_preferences_dialog()
         self._load_options()
+        self._save_settings_snapshot()
 
     def _create_preferences_dialog(self):
         self.builder = builder = pygubu.Builder(self.translator)
@@ -219,6 +222,7 @@ class PreferencesUI:
         for j, p in enumerate(paths):
             config.set(SEC_CUSTOM_WIDGETS, f"w{j}", p)
         save_configfile()
+        self._save_settings_snapshot()
         self.master.event_generate("<<PygubuDesignerPreferencesSaved>>")
 
     def _configure_path_remove(self):
@@ -226,6 +230,62 @@ class PreferencesUI:
             self.path_remove.configure(state="normal")
         else:
             self.path_remove.configure(state="disabled")
+
+    def _cancel_changes(self):
+        """
+        Restore the preferences Tk variables back to what they were
+        from when the user first opened the preferences window.
+
+        This is because the user doesn't want to save the changes.
+        """
+
+        # Restore Tk variable values
+        for v_name, tk_var in self.builder.tkvariables.items():
+            if v_name in self.restore_tk_variables:
+                tk_var.set(self.restore_tk_variables[v_name])
+
+        # Restore custom widgets treeview list
+        all_items = self.cwtv.get_children()
+        self.cwtv.delete(*all_items)
+        for custom_widget_path in self.restore_custom_widgets_list:
+            self.cwtv.insert(parent="",
+                             index=tk.END,
+                             text=custom_widget_path)
+
+        # If the treeview list is empty, disable the '-' (remove) button.
+        self._configure_path_remove()
+
+    def _deselect_combobox_text(self):
+        """
+        Deselect all text in all combo boxes.
+
+        If we don't do this, the next time the preference window opens,
+        One of the combo boxes may have all its text selected.
+        """
+        general_frame = self.builder.get_object("general_frame")
+        for w in general_frame.winfo_children():
+            if w.winfo_class() == "TCombobox":
+                w.select_clear()
+
+    def _save_settings_snapshot(self):
+        """
+        Save the value of all Tk variables related to preferences
+        and also the custom widgets list.
+
+        The purpose is: if the user clicks Cancel or closes the window
+        without clicking 'OK', we need to revert the Tk variables
+        changes the user made.
+        """
+
+        # Save Tk variable values
+        for v_name, tk_var in self.builder.tkvariables.items():
+            self.restore_tk_variables[v_name] = tk_var.get()
+
+        # Save the custom widgets treeview list
+        self.restore_custom_widgets_list.clear()
+        for custom_widget_path_iid in self.cwtv.get_children():
+            item_text = self.cwtv.item(custom_widget_path_iid).get("text")
+            self.restore_custom_widgets_list.append(item_text)
 
     def on_create_new_definition_clicked(self):
         """
@@ -292,10 +352,22 @@ class PreferencesUI:
             messagebox.showinfo(_("Styles"), msg)
 
     def on_dialog_close(self, event=None):
-        self._save_options()
+        # If the user closed this window from the window manager (ie: 'X' button),
+        # event will have a value, which means the user doesn't want to save changes.
+        if event:
+            # The user closed the window from the window manager.
+            # Reverse any preference changes made.
+            self._cancel_changes()
+        else:
+            # The user clicked the OK button, so save the changes.
+            self._save_options()
+
+        self._deselect_combobox_text()
         self.dialog.close()
 
     def on_cancel(self, event=None):
+        self._cancel_changes()
+        self._deselect_combobox_text()
         self.dialog.close()
 
     def on_pathremove_clicked(self):
