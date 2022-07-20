@@ -2024,15 +2024,6 @@ def _register_custom(name, descr):
         WIDGET_PROPERTIES[name] = descr
 
 
-def register_property(name, descr):
-    _register_custom(name, descr)
-    pygubu_api._old_register_property(name, descr)
-
-
-if not hasattr(pygubu_api, "_register_fixed_"):
+def load_custom_properties():
     for name, descr in CUSTOM_PROPERTIES.items():
         _register_custom(name, descr)
-    pygubu_api._register_fixed_ = True
-    pygubu_api._old_register_property = pygubu_api.register_property
-    pygubu_api.register_property = register_property
-    logger.debug("Installed custom register_property function")
