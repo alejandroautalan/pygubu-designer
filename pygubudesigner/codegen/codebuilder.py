@@ -324,15 +324,19 @@ class UI2Code(Builder):
             create = builder.code_realize(bmaster, uniqueid)
             self._code.extend(create)
 
+            # configuration
+            configure = builder.code_configure()
+            self._code.extend(configure)
+
             # Children
             for childmeta in self.uidefinition.widget_children(originalid):
                 childid = self._code_realize(builder, childmeta)
                 code = builder.code_child_add(childid)
                 self._code.extend(code)
 
-            # configuration
-            configure = builder.code_configure()
-            self._code.extend(configure)
+            # Configuration after adding all children
+            children_config = builder.code_configure_children()
+            self._code.extend(children_config)
 
             # layout
             layout = builder.code_layout(parentid=masterid)
