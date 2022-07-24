@@ -213,12 +213,22 @@ class UI2Code(Builder):
                 self._import_ttk = True
                 cname = wmeta.classname
             else:
-                module = bobject.class_.__module__
-                cname = bobject.class_.__name__
-                if module not in self._code_imports:
-                    self._code_imports[module] = {cname}
+                imports_ = bobject.code_imports()
+                if imports_ is None:
+                    module = bobject.class_.__module__
+                    cname = bobject.class_.__name__
+                    if module not in self._code_imports:
+                        self._code_imports[module] = {cname}
+                    else:
+                        self._code_imports[module].add(cname)
                 else:
-                    self._code_imports[module].add(cname)
+                    # FIXME: review this process.
+                    cname = bobject.class_.__name__
+                    for module, obj in imports_:
+                        if module not in self._code_imports:
+                            self._code_imports[module] = {obj}
+                        else:
+                            self._code_imports[module].add(obj)
         return cname
 
     def _process_ttk_styles(self):
