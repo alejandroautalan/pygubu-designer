@@ -18,7 +18,7 @@ from enum import Enum
 
 from pygubu import Builder
 from pygubu.api.v1 import BuilderObject, register_widget
-from pygubu.component.builderobject import CB_TYPES, CLASS_MAP, grouper
+from pygubu.component.builderobject import CB_TYPES, CLASS_MAP
 from pygubu.component.widgetmeta import WidgetMeta
 from pygubu.plugins.tk.tkstdwidgets import TKToplevel
 from pygubu.stockimage import TK_BITMAP_FORMATS
@@ -274,19 +274,17 @@ class UI2Code(Builder):
         if self._script_type != ScriptType.APP_WITH_UI:
             skeys = sorted(self._code_imports.keys())
             for mname in skeys:
-                names = sorted(self._code_imports[mname])
-                for group in grouper(names, 4):
-                    bag = []
-                    for cname in group:
-                        if cname is not None:
-                            bag.append(cname)
-                    clist = None
-                    if len(bag) > 1:
-                        clist = "({})".format(", ".join(bag))
-                    else:
-                        clist = "".join(bag)
-                    line = f"from {mname} import {clist}"
-                    lines.append(line)
+                bag = []
+                for cname in sorted(self._code_imports[mname]):
+                    if cname is not None:
+                        bag.append(cname)
+                clist = None
+                if len(bag) > 1:
+                    clist = "({})".format(", ".join(bag))
+                else:
+                    clist = "".join(bag)
+                line = f"from {mname} import {clist}"
+                lines.append(line)
         return lines
 
     def code_create_variable(self, name_or_desc, value, vtype=None):
