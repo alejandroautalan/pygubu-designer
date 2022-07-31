@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface>
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Demo 2  - With Toplevel as root</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="Frame_2">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">0</property>
+        </layout>
+        <child>
+          <object class="tk.Message" id="Message_1">
+            <property name="anchor">center</property>
+            <property name="font">TkHeadingFont</property>
+            <property name="justify">center</property>
+            <property name="text" translatable="yes">Window Delete Event
+
+Demo 2</property>
+            <property name="width">300</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
