@@ -21,3 +21,4 @@ from .stickyentry import StickyPropertyEditor
 from .tkvarentry import TkVarPropertyEditor
 from .ttkstyleentry import TtkStylePropertyEditor
 from .whentry import WHPropertyEditor
+from .cursorentry import CursorPropertyEditor
