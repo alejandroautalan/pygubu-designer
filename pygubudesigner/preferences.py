@@ -248,9 +248,7 @@ class PreferencesUI:
         all_items = self.cwtv.get_children()
         self.cwtv.delete(*all_items)
         for custom_widget_path in self.restore_custom_widgets_list:
-            self.cwtv.insert(parent="",
-                             index=tk.END,
-                             text=custom_widget_path)
+            self.cwtv.insert(parent="", index=tk.END, text=custom_widget_path)
 
         # If the treeview list is empty, disable the '-' (remove) button.
         self._configure_path_remove()
