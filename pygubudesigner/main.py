@@ -490,9 +490,9 @@ class PygubuDesigner:
                     key = f"{r}>{s}"
                     treelist.append((key, wc))
 
-        # sort tags by label
+        # sort tags by group and label
         def by_label(t):
-            return f"{t[0]}{t[1].label}"
+            return f"{t[0]}{t[1].group}{t[1].label}"
 
         treelist.sort(key=by_label)
         return treelist
