@@ -154,10 +154,15 @@ class PropertiesEditor:
         # Setup tooltip
         help = pdescr.get("help", None)
         if isinstance(help, dict):
+            found_match = False
             for k, v in help.items():
                 if classname.startswith(k):
                     help = v
+                    found_match = True
                     break
+            # FIXME: review this process for custom properties.
+            if not found_match:
+                help = ""  # No help string found
         label.tooltip.text = help
 
         # setup default value
