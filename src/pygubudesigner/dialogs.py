@@ -19,8 +19,8 @@ import pygubu
 
 from pygubudesigner.i18n import translator
 
-FILE_PATH = Path(__file__).parent
-ASK_SAVE_CHANGES_DIALOG_UI = FILE_PATH / "ui" / "ask_save_changes_dialog.ui"
+DATA_DIR = Path(__file__).parent / "data"
+ASK_SAVE_CHANGES_DIALOG_UI = DATA_DIR / "ui" / "ask_save_changes_dialog.ui"
 
 
 class AskSaveChangesDialog:
