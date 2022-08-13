@@ -102,13 +102,13 @@ def init_pygubu_widgets():
 
 
 # Initialize images
-DESIGNER_DIR = Path(__file__).parent
+DATA_DIR = Path(__file__).parent / "data"
 
 imgformat = "images-gif"
 if tk.TkVersion >= 8.6:
     imgformat = "images-png"
 
-IMAGES_DIR = DESIGNER_DIR / "images"
+IMAGES_DIR = DATA_DIR / "images"
 IMAGE_PATHS = [  # (dir, tag)
     (IMAGES_DIR, ""),
     (IMAGES_DIR / imgformat, ""),
@@ -155,8 +155,8 @@ class PygubuDesigner:
         self.is_changed = False
         self.current_title = "new"
 
-        self.builder.add_from_file(str(DESIGNER_DIR / "ui" / "pygubu-ui.ui"))
-        self.builder.add_resource_path(str(DESIGNER_DIR / "images"))
+        self.builder.add_from_file(str(DATA_DIR / "ui" / "pygubu-ui.ui"))
+        self.builder.add_resource_path(str(DATA_DIR / "images"))
 
         in_macos = sys.platform == "darwin"
         # build main ui
@@ -795,8 +795,8 @@ class PygubuDesigner:
 
     def _create_about_dialog(self):
         builder = pygubu.Builder(translator)
-        builder.add_from_file(str(DESIGNER_DIR / "ui" / "about_dialog.ui"))
-        builder.add_resource_path(str(DESIGNER_DIR / "images"))
+        builder.add_from_file(str(DATA_DIR / "ui" / "about_dialog.ui"))
+        builder.add_resource_path(str(DATA_DIR / "images"))
 
         dialog = builder.get_object("aboutdialog", self.mainwindow)
         entry = builder.get_object("version")
