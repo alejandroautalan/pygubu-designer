@@ -18,6 +18,7 @@ import locale
 import os
 import sys
 from pathlib import Path
+
 import pygubu.i18n as pygubu_i18n
 
 # Change this variable to your app name!
@@ -28,8 +29,8 @@ APP_NAME = "pygubu-designer"
 
 # Not sure in a regular desktop:
 
-APP_DIR = Path(__file__).parent
-LOCALE_DIR = APP_DIR / "locale"
+DATA_DIR = Path(__file__).parent / "data"
+LOCALE_DIR = DATA_DIR / "locale"
 
 if not (LOCALE_DIR / "de" / "LC_MESSAGES" / "pygubu-designer.mo").exists():
     print(

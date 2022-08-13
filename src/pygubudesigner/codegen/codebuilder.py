@@ -16,10 +16,11 @@ import os
 from collections import OrderedDict
 from enum import Enum
 
-from pygubu.builder import CB_TYPES, CLASS_MAP, Builder
-from pygubu.builder.builderobject import BuilderObject, grouper, register_widget
-from pygubu.builder.tkstdwidgets import TKToplevel
-from pygubu.builder.widgetmeta import WidgetMeta
+from pygubu import Builder
+from pygubu.api.v1 import BuilderObject, register_widget
+from pygubu.component.builderobject import CB_TYPES, CLASS_MAP
+from pygubu.component.widgetmeta import WidgetMeta
+from pygubu.plugins.tk.tkstdwidgets import TKToplevel
 from pygubu.stockimage import TK_BITMAP_FORMATS
 
 from pygubudesigner.stylehandler import StyleHandler
@@ -212,12 +213,22 @@ class UI2Code(Builder):
                 self._import_ttk = True
                 cname = wmeta.classname
             else:
-                module = bobject.class_.__module__
-                cname = bobject.class_.__name__
-                if module not in self._code_imports:
-                    self._code_imports[module] = {cname}
+                imports_ = bobject.code_imports()
+                if imports_ is None:
+                    module = bobject.class_.__module__
+                    cname = bobject.class_.__name__
+                    if module not in self._code_imports:
+                        self._code_imports[module] = {cname}
+                    else:
+                        self._code_imports[module].add(cname)
                 else:
-                    self._code_imports[module].add(cname)
+                    # FIXME: review this process.
+                    cname = bobject.class_.__name__
+                    for module, obj in imports_:
+                        if module not in self._code_imports:
+                            self._code_imports[module] = {obj}
+                        else:
+                            self._code_imports[module].add(obj)
         return cname
 
     def _process_ttk_styles(self):
@@ -263,19 +274,17 @@ class UI2Code(Builder):
         if self._script_type != ScriptType.APP_WITH_UI:
             skeys = sorted(self._code_imports.keys())
             for mname in skeys:
-                names = sorted(self._code_imports[mname])
-                for group in grouper(names, 4):
-                    bag = []
-                    for cname in group:
-                        if cname is not None:
-                            bag.append(cname)
-                    clist = None
-                    if len(bag) > 1:
-                        clist = "({})".format(", ".join(bag))
-                    else:
-                        clist = "".join(bag)
-                    line = f"from {mname} import {clist}"
-                    lines.append(line)
+                bag = []
+                for cname in sorted(self._code_imports[mname]):
+                    if cname is not None:
+                        bag.append(cname)
+                clist = None
+                if len(bag) > 1:
+                    clist = "({})".format(", ".join(bag))
+                else:
+                    clist = "".join(bag)
+                line = f"from {mname} import {clist}"
+                lines.append(line)
         return lines
 
     def code_create_variable(self, name_or_desc, value, vtype=None):
@@ -323,15 +332,19 @@ class UI2Code(Builder):
             create = builder.code_realize(bmaster, uniqueid)
             self._code.extend(create)
 
+            # configuration
+            configure = builder.code_configure()
+            self._code.extend(configure)
+
             # Children
             for childmeta in self.uidefinition.widget_children(originalid):
                 childid = self._code_realize(builder, childmeta)
                 code = builder.code_child_add(childid)
                 self._code.extend(code)
 
-            # configuration
-            configure = builder.code_configure()
-            self._code.extend(configure)
+            # Configuration after adding all children
+            children_config = builder.code_configure_children()
+            self._code.extend(children_config)
 
             # layout
             layout = builder.code_layout(parentid=masterid)

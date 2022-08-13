@@ -17,9 +17,9 @@ import logging
 import platform
 import tkinter as tk
 
-from pygubu.builder import builderobject
+from pygubu.component.builderobject import CUSTOM_PROPERTIES
 
-from .propertieshelp import _, help_for
+from .propertieshelp import help_for
 
 logger = logging.getLogger(__name__)
 
@@ -189,7 +189,14 @@ TK_WIDGET_OPTIONS = {
         "editor": "dynamic",
         "params": {
             "mode": "choice",
-            "values": ("", tk.FLAT, tk.RAISED, tk.SUNKEN, tk.GROOVE, tk.RIDGE),
+            "values": (
+                "",
+                tk.FLAT,
+                tk.RAISED,
+                tk.SUNKEN,
+                tk.GROOVE,
+                tk.RIDGE,
+            ),
             "state": "readonly",
         },
         "help": help_for("activerelief"),
@@ -633,12 +640,22 @@ TK_WIDGET_OPTIONS = {
     },
     "insertofftime": {
         "editor": "dynamic",
-        "params": {"mode": "spinbox", "from_": 0, "to": 9999, "increment": 100},
+        "params": {
+            "mode": "spinbox",
+            "from_": 0,
+            "to": 9999,
+            "increment": 100,
+        },
         "help": help_for("insertofftime"),
     },
     "insertontime": {
         "editor": "dynamic",
-        "params": {"mode": "spinbox", "from_": 0, "to": 9999, "increment": 100},
+        "params": {
+            "mode": "spinbox",
+            "from_": 0,
+            "to": 9999,
+            "increment": 100,
+        },
         "help": help_for("insertontime"),
     },
     "insertunfocussed": {
@@ -860,17 +877,32 @@ TK_WIDGET_OPTIONS = {
     },
     "repeatdelay": {
         "editor": "dynamic",
-        "params": {"mode": "spinbox", "from_": 0, "to": 9999, "increment": 100},
+        "params": {
+            "mode": "spinbox",
+            "from_": 0,
+            "to": 9999,
+            "increment": 100,
+        },
         "help": help_for("repeatdelay"),
     },
     "repeatinterval": {
         "editor": "dynamic",
-        "params": {"mode": "spinbox", "from_": 0, "to": 9999, "increment": 100},
+        "params": {
+            "mode": "spinbox",
+            "from_": 0,
+            "to": 9999,
+            "increment": 100,
+        },
         "help": help_for("repeatinterval"),
     },
     "resolution": {
         "editor": "dynamic",
-        "params": {"mode": "spinbox", "from_": 0, "to": 999, "increment": 0.5},
+        "params": {
+            "mode": "spinbox",
+            "from_": 0,
+            "to": 999,
+            "increment": 0.5,
+        },
         "help": help_for("resolution"),
     },
     "sliderlength": {
@@ -984,11 +1016,17 @@ TK_WIDGET_OPTIONS = {
         "params": {"mode": "choice", "values": ("", "•"), "state": "normal"},
         "help": help_for("show"),
         "ttk.Treeview": {
-            "params": {"values": ("", "tree", "headings"), "state": "readonly"},
+            "params": {
+                "values": ("", "tree", "headings"),
+                "state": "readonly",
+            },
             "help": help_for("show-ttk.Treeview"),
         },
         "pygubu.builder.widgets.editabletreeview": {
-            "params": {"values": ("", "tree", "headings"), "state": "readonly"},
+            "params": {
+                "values": ("", "tree", "headings"),
+                "state": "readonly",
+            },
             "help": help_for("show-ttk.Treeview"),
         },
     },
@@ -1184,7 +1222,12 @@ TK_WIDGET_OPTIONS = {
     },
     "tickinterval": {
         "editor": "dynamic",
-        "params": {"mode": "spinbox", "from_": 0, "to": 999, "increment": 0.5},
+        "params": {
+            "mode": "spinbox",
+            "from_": 0,
+            "to": 999,
+            "increment": 0.5,
+        },
         "help": help_for("tickinterval"),
     },
     # ttk.Scale, ttk.Spinbox
@@ -1824,10 +1867,16 @@ LAYOUT_OPTIONS = {
         "editor": "relativeentry",
         "help": help_for("relheight-pack"),
     },
-    "relwidth": {"editor": "relativeentry", "help": help_for("relwidth-pack")},
+    "relwidth": {
+        "editor": "relativeentry",
+        "help": help_for("relwidth-pack"),
+    },
     "relx": {"editor": "relativeentry", "help": help_for("relx-pack")},
     "rely": {"editor": "relativeentry", "help": help_for("rely-pack")},
-    "width": {"editor": "pixelcoordinateentry", "help": help_for("width-pack")},
+    "width": {
+        "editor": "pixelcoordinateentry",
+        "help": help_for("width-pack"),
+    },
     "x": {
         "editor": "pixelcoordinateentry",
         "default": "0",
@@ -1974,15 +2023,6 @@ def _register_custom(name, descr):
         WIDGET_PROPERTIES[name] = descr
 
 
-def register_property(name, descr):
-    _register_custom(name, descr)
-    builderobject._old_register_property(name, descr)
-
-
-if not hasattr(builderobject, "_register_fixed_"):
-    for name, descr in builderobject.CUSTOM_PROPERTIES.items():
+def load_custom_properties():
+    for name, descr in CUSTOM_PROPERTIES.items():
         _register_custom(name, descr)
-    builderobject._register_fixed_ = True
-    builderobject._old_register_property = builderobject.register_property
-    builderobject.register_property = register_property
-    logger.debug("Installed custom register_property function")

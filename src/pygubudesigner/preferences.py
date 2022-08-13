@@ -54,8 +54,8 @@ config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
 
-CURRENT_DIR = Path(__file__).parent
-TEMPLATE_DIR = CURRENT_DIR / "codegen" / "template"
+DATA_DIR = Path(__file__).parent / "data"
+TEMPLATE_DIR = DATA_DIR / "codegen" / "template"
 NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / "customstyles.py.mako"
 
 
@@ -157,7 +157,7 @@ class PreferencesUI:
 
     def _create_preferences_dialog(self):
         self.builder = builder = pygubu.Builder(self.translator)
-        uifile = CURRENT_DIR / "ui/preferences_dialog.ui"
+        uifile = DATA_DIR / "ui/preferences_dialog.ui"
         builder.add_from_file(str(uifile))
 
         top = self.master.winfo_toplevel()
@@ -248,9 +248,7 @@ class PreferencesUI:
         all_items = self.cwtv.get_children()
         self.cwtv.delete(*all_items)
         for custom_widget_path in self.restore_custom_widgets_list:
-            self.cwtv.insert(parent="",
-                             index=tk.END,
-                             text=custom_widget_path)
+            self.cwtv.insert(parent="", index=tk.END, text=custom_widget_path)
 
         # If the treeview list is empty, disable the '-' (remove) button.
         self._configure_path_remove()

@@ -22,7 +22,7 @@ from functools import partial
 from tkinter import messagebox
 
 from pygubu.builder import CLASS_MAP
-from pygubu.builder.uidefinition import UIDefinition
+from pygubu.component.uidefinition import UIDefinition
 from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
@@ -122,7 +122,8 @@ class WidgetsTreeEditor:
         f = lambda e, manager="pack": self.change_container_manager(manager)
         lframe.bind_all("<<LayoutEditorContainerManagerToPack>>", f)
         lframe.bind_all(
-            "<<ClearSelectedGridTreeInfo>>", self.clear_selected_grid_tree_info
+            "<<ClearSelectedGridTreeInfo>>",
+            self.clear_selected_grid_tree_info,
         )
 
         # Tree Editing
@@ -480,7 +481,11 @@ class WidgetsTreeEditor:
                     self.previewer.delete(item)
                 # determine final focus
                 if final_focus is None:
-                    candidates = (tv.prev(item), tv.next(item), tv.parent(item))
+                    candidates = (
+                        tv.prev(item),
+                        tv.next(item),
+                        tv.parent(item),
+                    )
                     for c in candidates:
                         if c and (c not in selection):
                             final_focus = c
@@ -795,7 +800,10 @@ class WidgetsTreeEditor:
                 if self._validate_add(selected_item, wmeta.classname):
                     self.update_layout(selected_item, wmeta)
                     self.populate_tree(
-                        selected_item, uidef, wmeta, is_first_widget_pasted=True
+                        selected_item,
+                        uidef,
+                        wmeta,
+                        is_first_widget_pasted=True,
                     )
         except ET.ParseError:
             msg = "The clipboard does not have a valid widget xml definition."

@@ -20,15 +20,17 @@
 import argparse
 import importlib
 import logging
+import pkgutil
 import platform
 import sys
 import tkinter as tk
 import webbrowser
 from pathlib import Path
-from tkinter import filedialog, messagebox, ttk
+from tkinter import filedialog, messagebox
 
 import pygubu
 from pygubu import builder
+from pygubu.component.plugin_manager import PluginManager
 from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
@@ -42,6 +44,7 @@ from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 from .i18n import translator
 from .logpanel import LogPanelManager
 from .preview import PreviewHelper
+from .properties import load_custom_properties
 from .rfilemanager import RecentFilesManager
 from .uitreeeditor import WidgetsTreeEditor
 from .util import get_ttk_style, menu_iter_children, virtual_event
@@ -56,23 +59,17 @@ _ = translator
 
 
 def init_pygubu_widgets():
-    import pkgutil
 
-    # initialize standard ttk widgets
-    import pygubu.builder.ttkstdwidgets
-
-    # initialize extra widgets
-    widgets_pkg = "pygubu.builder.widgets"
-    mwidgets = importlib.import_module(widgets_pkg)
-
-    for __, modulename, __ in pkgutil.iter_modules(
-        mwidgets.__path__, mwidgets.__name__ + "."
-    ):
+    # Initialize all builders from plugins
+    all_modules = []
+    for plugin in PluginManager.builder_plugins():
+        all_modules.extend(plugin.get_all_modules())
+    for _module in all_modules:
         try:
-            importlib.import_module(modulename)
-        except Exception as e:
+            importlib.import_module(_module)
+        except (ModuleNotFoundError, ImportError) as e:
             logger.exception(e)
-            msg = _(f"Failed to load widget module: '{modulename}'")
+            msg = _(f"Failed to load widget module: '{_module}'")
             messagebox.showerror(_("Error"), msg)
 
     # initialize custom widgets
@@ -100,15 +97,18 @@ def init_pygubu_widgets():
             plugin_builders = f"{name}.builders"
             importlib.import_module(plugin_builders)
 
+    # Register custom properties
+    load_custom_properties()
+
 
 # Initialize images
-DESIGNER_DIR = Path(__file__).parent
+DATA_DIR = Path(__file__).parent / "data"
 
 imgformat = "images-gif"
 if tk.TkVersion >= 8.6:
     imgformat = "images-png"
 
-IMAGES_DIR = DESIGNER_DIR / "images"
+IMAGES_DIR = DATA_DIR / "images"
 IMAGE_PATHS = [  # (dir, tag)
     (IMAGES_DIR, ""),
     (IMAGES_DIR / imgformat, ""),
@@ -155,8 +155,8 @@ class PygubuDesigner:
         self.is_changed = False
         self.current_title = "new"
 
-        self.builder.add_from_file(str(DESIGNER_DIR / "ui" / "pygubu-ui.ui"))
-        self.builder.add_resource_path(str(DESIGNER_DIR / "images"))
+        self.builder.add_from_file(str(DATA_DIR / "ui" / "pygubu-ui.ui"))
+        self.builder.add_resource_path(str(DATA_DIR / "images"))
 
         in_macos = sys.platform == "darwin"
         # build main ui
@@ -490,9 +490,9 @@ class PygubuDesigner:
                     key = f"{r}>{s}"
                     treelist.append((key, wc))
 
-        # sort tags by label
+        # sort tags by group and label
         def by_label(t):
-            return f"{t[0]}{t[1].label}"
+            return f"{t[0]}{t[1].group}{t[1].label}"
 
         treelist.sort(key=by_label)
         return treelist
@@ -660,7 +660,10 @@ class PygubuDesigner:
             if filename is None:
                 options = {
                     "defaultextension": ".ui",
-                    "filetypes": ((_("pygubu ui"), "*.ui"), (_("All"), "*.*")),
+                    "filetypes": (
+                        (_("pygubu ui"), "*.ui"),
+                        (_("All"), "*.*"),
+                    ),
                 }
                 filename = filedialog.askopenfilename(**options)
             if filename:
@@ -792,8 +795,8 @@ class PygubuDesigner:
 
     def _create_about_dialog(self):
         builder = pygubu.Builder(translator)
-        builder.add_from_file(str(DESIGNER_DIR / "ui" / "about_dialog.ui"))
-        builder.add_resource_path(str(DESIGNER_DIR / "images"))
+        builder.add_from_file(str(DATA_DIR / "ui" / "about_dialog.ui"))
+        builder.add_resource_path(str(DATA_DIR / "images"))
 
         dialog = builder.get_object("aboutdialog", self.mainwindow)
         entry = builder.get_object("version")
