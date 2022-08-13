@@ -24,8 +24,8 @@ from mako.lookup import TemplateLookup
 from .codebuilder import UI2Code
 
 logger = logging.getLogger(__name__)
-CURRENT_DIR = pathlib.Path(__file__).parent
-TEMPLATE_DIR = CURRENT_DIR / "template"
+DATA_DIR = pathlib.Path(__file__).parent.parent / "data"
+TEMPLATE_DIR = DATA_DIR / "code_templates"
 makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
 RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
 

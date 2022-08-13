@@ -54,8 +54,8 @@ config.add_section(SEC_CUSTOM_WIDGETS)
 config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
 
-CURRENT_DIR = Path(__file__).parent
-TEMPLATE_DIR = CURRENT_DIR / "codegen" / "template"
+DATA_DIR = Path(__file__).parent / "data"
+TEMPLATE_DIR = DATA_DIR / "codegen" / "template"
 NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / "customstyles.py.mako"
 
 
@@ -157,7 +157,7 @@ class PreferencesUI:
 
     def _create_preferences_dialog(self):
         self.builder = builder = pygubu.Builder(self.translator)
-        uifile = CURRENT_DIR / "ui/preferences_dialog.ui"
+        uifile = DATA_DIR / "ui/preferences_dialog.ui"
         builder.add_from_file(str(uifile))
 
         top = self.master.winfo_toplevel()

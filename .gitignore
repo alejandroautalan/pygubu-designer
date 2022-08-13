@@ -15,6 +15,7 @@ designer.wpr
 designer.wpu
 *.egg-info*
 *.kdev4
+*.wpr
 
 # *.mo don't need to be committed
 *.mo

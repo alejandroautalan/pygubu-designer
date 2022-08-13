@@ -1,16 +1,13 @@
-include COPYING
-include LEEME.txt
+include LEEME.md
 include README.md
 include LISEZMOI.md
 include AUTHORS
-include pygubu-designer.png 
-
+include pygubu-designer.png
+graft development
+graft examples
+recursive-include src/pygubudesigner/data *
 global-include *.mo
+
 global-exclude *.po
-
-recursive-include pygubudesigner/images *
-recursive-include pygubudesigner/codegen/template *
-recursive-include examples *
-recursive-include requirements product.txt
-
 global-exclude *~
+exclude venv
