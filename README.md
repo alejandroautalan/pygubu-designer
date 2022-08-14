@@ -146,7 +146,7 @@ self.mainwindow = builder.get_object('mainwindow', master)
 ```
 
 You should have the name of your _main widget_ (the parent of all widgets), otherwise you will get an error similar to the following:
-    
+
     Exception: Widget not defined.
 
 See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for more information.
@@ -174,4 +174,3 @@ History
 =======
 
 See the list of changes [here](HISTORY.md).
-

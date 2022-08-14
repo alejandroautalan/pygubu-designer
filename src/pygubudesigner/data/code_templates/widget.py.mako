@@ -7,7 +7,7 @@ class ${class_name}(${widget_base_class}):
 ${widget_code}
     %if has_ttk_styles:
         self.setup_ttk_styles()
-    
+
     def setup_ttk_styles(self):
         # ttk styles configuration
         self.style = style = ttk.Style()

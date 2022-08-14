@@ -39,7 +39,7 @@ Dans le cas précédent, j'utilise l'outil `pip` de Python 3.5
 Pour vérifier le succès de l'installation, vous pouvez essayer d'importer `pygubu` - par exemple depuis [IDLE](https://fr.wikipedia.org/wiki/IDLE_(Python))
 
     import pygubu
-    
+
 Si vous n'avez pas d'erreur [`ImportError`](https://docs.python.org/3.5/library/exceptions.html#ImportError), alors votre installation s'est faite avec succès.
 
 Utilisation
@@ -81,7 +81,7 @@ Maintenant, vous pouvez commancer à créer votre application tkinter en utilisa
 
 Après que vous ayez terminé de créer votre _interface UI_, sauvegardez-la en tant que fichier `.ui`  par l'usage du menu `File > Save`.
 
-Ce qui suit est un exemple d'interface UI, appelé [helloworld.ui](examples/helloworld/helloworld.ui), créé en utilisant pygubu : 
+Ce qui suit est un exemple d'interface UI, appelé [helloworld.ui](examples/helloworld/helloworld.ui), créé en utilisant pygubu :
 
 
 ```xml
@@ -142,7 +142,7 @@ import pygubu
 
 
 class HelloWorldApp:
-    
+
     def __init__(self):
 
         #1: Create a builder
@@ -153,7 +153,7 @@ class HelloWorldApp:
 
         #3: Create the mainwindow
         self.mainwindow = builder.get_object('mainwindow')
-        
+
     def run(self):
         self.mainwindow.mainloop()
 
@@ -169,16 +169,16 @@ Notez l'ajout de `helloworld.ui` dans la ligne suivante :
 builder.add_from_file('helloworld.ui')
 ```
 
-Vous devez insérer le _nom du fichier_ (ou son chemin). 
+Vous devez insérer le _nom du fichier_ (ou son chemin).
 
-Notez aussi l'ajout de `'mainwindow'` dans la ligne suivante : 
+Notez aussi l'ajout de `'mainwindow'` dans la ligne suivante :
 
 ```python
 self.mainwindow = builder.get_object('mainwindow')
 ```
 
-Vous devez avoir le nom de votre _widget main_ (le parent de tous les widgets), sinon vous obtiendrez l'erreur similaire : 
-    
+Vous devez avoir le nom de votre _widget main_ (le parent de tous les widgets), sinon vous obtiendrez l'erreur similaire :
+
     Exception: Widget not defined.
 
 See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for more information.
@@ -207,5 +207,3 @@ Histoire
 =======
 
 Consultez la liste des changements [ici](HISTORY.md).
-
-

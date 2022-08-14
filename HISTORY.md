@@ -2,7 +2,7 @@ History
 =======
 
 Changes for version 0.28
-  
+
   * Added more examples
   * Fix: 'filedialog.askopenfilename' is blocked by 'preferences.dialog' (larryw3i).
   * Translations for pygubu strings in pygubu-designer (larryw3i)
@@ -17,7 +17,7 @@ Changes for version 0.27
 Changes for version 0.26.1
 
   * Hot fix: Error when loading old UI files. issue #123
-  
+
 Changes for version 0.26
 
   * Fix name collisions between widget ids, variables and commands. #115

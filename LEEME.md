@@ -42,7 +42,7 @@ En el caso anterior, estoy usando la herramienta `pip` de Python 3.5.
 Para verificar que la instalación se completó correctamente, puedes intentar importar `pygubu` (por ejemplo desde [IDLE](https://en.wikipedia.org/wiki/IDLE_(Python)))
 
     import pygubu
-    
+
 Si no tienes un error de importación ([`ImportError`](https://docs.python.org/3.5/library/exceptions.html#ImportError)), entonces la instalación fue exitosa.
 
 Modo de uso
@@ -134,7 +134,7 @@ import pygubu
 
 
 class HelloWorldApp:
-    
+
     def __init__(self):
 
         #1: Create a builder
@@ -145,7 +145,7 @@ class HelloWorldApp:
 
         #3: Create the mainwindow
         self.mainwindow = builder.get_object('mainwindow')
-        
+
     def run(self):
         self.mainwindow.mainloop()
 

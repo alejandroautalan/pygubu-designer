@@ -23,24 +23,24 @@ class ${class_name}:
         self.mainwindow.configure(menu=_main_menu)
 %endif
         %if tkvariables:
-        
+
           %for var in tkvariables:
         self.${var} = None
           %endfor
         builder.import_variables(self, ${tkvariables})
-        
+
         %endif
         %if has_ttk_styles:
-        
+
         self.setup_ttk_styles()
-        
+
         %endif
         builder.connect_callbacks(self)
-    
+
     def run(self):
         self.mainwindow.mainloop()
     %if has_ttk_styles:
-    
+
     def setup_ttk_styles(self):
         # ttk styles configuration
         self.style = style = ttk.Style()
