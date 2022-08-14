@@ -107,7 +107,7 @@
                     <child>
                       <object class="ttk.Label" id="label7">
                         <property name="font">{sans} 10 {}</property>
-                        <property name="text" translatable="yes">Licence:</property>
+                        <property name="text" translatable="yes">License:</property>
                         <layout manager="pack">
                           <property name="side">left</property>
                         </layout>
@@ -197,7 +197,7 @@
                     <child>
                       <object class="ttk.Label" id="label10">
                         <property name="font">{sans} 10 {}</property>
-                        <property name="text" translatable="yes">Licence:</property>
+                        <property name="text" translatable="yes">License:</property>
                         <layout manager="pack">
                           <property name="side">left</property>
                         </layout>
