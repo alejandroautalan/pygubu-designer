@@ -227,7 +227,7 @@ class PygubuDesigner:
         try:
             top.wm_iconname("pygubu")
             top.tk.call("wm", "iconphoto", ".", StockImage.get("pygubu"))
-        except StockImageException as e:
+        except StockImageException:
             pass
 
         # Load all widgets before creating the component pallete
@@ -502,7 +502,7 @@ class PygubuDesigner:
         default_image = ""
         try:
             default_image = StockImage.get("22x22-tk.default")
-        except StockImageException as e:
+        except StockImageException:
             pass
 
         treelist = self.create_treelist()
@@ -521,7 +521,7 @@ class PygubuDesigner:
             w_image = default_image
             try:
                 w_image = StockImage.get(f"22x22-{wc.classname}")
-            except StockImageException as e:
+            except StockImageException:
                 pass
 
             # define callback for button
@@ -559,7 +559,7 @@ class PygubuDesigner:
             self._setup_styles()
             event_name = "<<PygubuDesignerTtkThemeChanged>>"
             self.mainwindow.event_generate(event_name)
-        except tk.TclError as e:
+        except tk.TclError:
             logger.exception("Invalid ttk theme.")
 
     def on_preferences_saved(self, event=None):
@@ -634,7 +634,7 @@ class PygubuDesigner:
         self.rfiles_manager.addfile(filename)
 
     def set_changed(self, newvalue=True):
-        if newvalue and self.is_changed == False:
+        if newvalue and not self.is_changed:
             self.set_title(f"{self.current_title} (*)")
         self.is_changed = newvalue
 
@@ -921,13 +921,12 @@ def start_pygubu():
 def check_dependency(modulename, version, help_msg=None):
     try:
         module = importlib.import_module(modulename)
-        module_version = "<unknown>"
         for attr in ("version", "__version__", "ver", "PYQT_VERSION_STR"):
             v = getattr(module, attr, None)
             if v is not None:
                 break
         logger.info(f"Module {modulename} imported ok, version {v}")
-    except ImportError as e:
+    except ImportError:
         logger.error(
             f"I can't import module {modulename!r}. You need to have installed "
             + f"{modulename!r} version {version} or higher. {help_msg or ''}"

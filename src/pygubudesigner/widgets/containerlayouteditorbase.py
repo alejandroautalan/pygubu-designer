@@ -25,7 +25,7 @@ class ContainerLayoutEditorBase(ttk.Frame):
         self.lbl_title.configure(
             font="TkHeadingFont",
             padding="0 2",
-            text=_("Options for {0} container"),
+            text="Options for {0} container",
         )
         self.lbl_title.grid(column="0", row="0", sticky="ew")
         self.separator4 = ttk.Separator(self.mainpanel)

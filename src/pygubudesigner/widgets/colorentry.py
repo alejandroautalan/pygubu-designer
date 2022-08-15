@@ -63,7 +63,7 @@ class ColorPropertyEditor(PropertyEditor):
         cls = ColorPropertyEditor
         if newcolor:
             try:
-                rgb = self.winfo_rgb(newcolor)
+                self.winfo_rgb(newcolor)
                 self._lcolor.configure(relief=tk.FLAT, background=newcolor)
             except tk.TclError:
                 pass

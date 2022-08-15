@@ -26,10 +26,6 @@ class SelectTool:
         self._sstart = None
 
     def click_handler(self, event):
-        canvas = self._canvas
-        x = canvas.canvasx(event.x)
-        y = canvas.canvasy(event.y)
-
         self._start_selecting(event)
 
     def motion_handler(self, event):

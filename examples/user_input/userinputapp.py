@@ -87,6 +87,7 @@ class UserinputApp:
 
     def option_menu_clicked(self, option):
         msg = f"You clicked {option} option."
+        print(msg)
 
     def on_print_clicked(self):
         line = f"Entry value:{self.entryvar.get()}"

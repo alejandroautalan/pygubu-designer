@@ -25,6 +25,7 @@ from pygubudesigner.widgets.containerlayouteditorbase import (
 )
 from pygubudesigner.widgets.gridselector import GridRCselectorWidget
 from pygubudesigner.widgets.propertyeditor import create_editor
+from pygubudesigner.i18n import _
 
 
 class ContainerLayoutEditor(ContainerLayoutEditorBase):
@@ -172,7 +173,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
     def _on_property_changed(self, alias, editor):
         if alias.startswith("cprop_"):
             # Contaner grid property
-            _, pname = alias.split("_")
+            __, pname = alias.split("_")
             self._current.container_property(pname, editor.value)
         else:
             # It's a grid RC change

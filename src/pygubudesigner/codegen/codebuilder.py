@@ -172,7 +172,7 @@ class UI2Code(Builder):
         mastermeta = wmeta = self.uidefinition.get_widget(target)
         builder = bmaster = BuilderObject(self, mastermeta)
         if wmeta is not None:
-            originalid = wmeta.identifier
+            originalid = wmeta.identifier  # noqa: F841
             wmeta.identifier = "self"
 
             if wmeta.classname not in CLASS_MAP:
@@ -181,7 +181,7 @@ class UI2Code(Builder):
             if wmeta.classname in CLASS_MAP:
                 bclass = CLASS_MAP[wmeta.classname].builder
                 builder = bclass.factory(self, wmeta)
-                uniqueid = builder.code_identifier()
+                uniqueid = builder.code_identifier()  # noqa: F841
                 masterid = bmaster.code_child_master()
 
                 for childmeta in self.uidefinition.widget_children(target):

@@ -86,7 +86,7 @@ class FlightBookerApp:
         result = None
         try:
             result = datetime.strptime(date, "%d.%m.%Y")
-        except ValueError as e:
+        except ValueError:
             pass
         return result
 

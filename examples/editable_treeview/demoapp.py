@@ -112,7 +112,7 @@ class EditableTreeviewDemoApp:
         col, item = self.etv.get_event_info()
 
         # Allow edition only if allow_edit variable is checked
-        if self.allow_edit.get() == True:
+        if self.allow_edit.get():
             # Define the widget editor to be used to edit the column value
             if col in ("col1",):
                 self.etv.inplace_entry(col, item)

@@ -18,7 +18,7 @@ import tkinter as tk
 import tkinter.filedialog
 import tkinter.ttk as ttk
 
-from pygubu.stockimage import *
+from pygubu.stockimage import StockImage, TK_IMAGE_FORMATS
 
 from pygubudesigner.i18n import translator
 from pygubudesigner.widgets.propertyeditor import (
@@ -69,11 +69,11 @@ register_editor("imageentry", ImagePropertyEditor)
 if __name__ == "__main__":
     root = tk.Tk()
 
-    def see_var():
-        print(var.get())
-
     entry = ImagePropertyEditor(root)
     entry.grid()
+
+    def see_var():
+        print(entry._variable.get())
 
     entry.edit("image.gif")
     btn = ttk.Button(root, text="Value", command=see_var)

@@ -100,7 +100,7 @@ def load_configfile():
 
 def get_custom_widgets():
     paths = []
-    for _, p in config.items(SEC_CUSTOM_WIDGETS):
+    for __, p in config.items(SEC_CUSTOM_WIDGETS):
         paths.append(p)
     return paths
 
@@ -117,7 +117,7 @@ def set_option(key, value, save=False):
 
 def recent_files_get():
     rf = []
-    for _, f in config.items(SEC_RECENT_FILES):
+    for __, f in config.items(SEC_RECENT_FILES):
         rf.append(f)
     return rf
 
@@ -161,7 +161,7 @@ class PreferencesUI:
         builder.add_from_file(str(uifile))
 
         top = self.master.winfo_toplevel()
-        self.dialog = dialog = builder.get_object("preferences", top)
+        self.dialog = builder.get_object("preferences", top)
         self.dialog_toplevel = self.dialog.toplevel
 
         self.v_style_definition_file = builder.get_variable(

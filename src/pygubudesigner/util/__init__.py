@@ -17,8 +17,6 @@ import sys
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from pygubu.stockimage import *
-
 
 # in-place prettyprint formatter
 def indent(elem, level=0):

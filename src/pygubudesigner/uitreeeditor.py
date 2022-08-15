@@ -34,9 +34,8 @@ from pygubudesigner.widgets import (
     TkVarPropertyEditor,
 )
 
-from .actions import *
+import pygubudesigner.actions as action
 from .bindingseditor import BindingsEditor
-from .i18n import translator
 from .i18n import translator as _
 from .layouteditor import LayoutEditor
 from .propertieseditor import PropertiesEditor
@@ -44,9 +43,6 @@ from .util import trlog
 from .widgetdescr import WidgetMeta
 
 logger = logging.getLogger("pygubu.designer")
-
-# translator function
-_ = translator
 
 
 class WidgetsTreeEditor:
@@ -117,9 +113,15 @@ class WidgetsTreeEditor:
         self.treeview.bind_all(
             "<<PreviewItemSelected>>", self._on_preview_item_clicked
         )
-        f = lambda e, manager="grid": self.change_container_manager(manager)
+
+        def f(e, manager="grid"):
+            self.change_container_manager(manager)
+
         lframe.bind_all("<<LayoutEditorContainerManagerToGrid>>", f)
-        f = lambda e, manager="pack": self.change_container_manager(manager)
+
+        def f(e, manager="pack"):
+            self.change_container_manager(manager)
+
         lframe.bind_all("<<LayoutEditorContainerManagerToPack>>", f)
         lframe.bind_all(
             "<<ClearSelectedGridTreeInfo>>",
@@ -128,31 +130,36 @@ class WidgetsTreeEditor:
 
         # Tree Editing
         tree = self.treeview
-        tree.bind_all(TREE_ITEM_COPY, lambda e: self.copy_to_clipboard())
-        tree.bind_all(TREE_ITEM_PASTE, lambda e: self.paste_from_clipboard())
-        tree.bind_all(TREE_ITEM_CUT, lambda e: self.cut_to_clipboard())
-        tree.bind_all(TREE_ITEM_DELETE, self.on_tree_item_delete)
-        tree.bind_all(TREE_ITEM_DUPLICATE, self.on_tree_item_duplicate)
+        tree.bind_all(action.TREE_ITEM_COPY, lambda e: self.copy_to_clipboard())
         tree.bind_all(
-            TREE_ITEM_GRID_DOWN,
+            action.TREE_ITEM_PASTE, lambda e: self.paste_from_clipboard()
+        )
+        tree.bind_all(action.TREE_ITEM_CUT, lambda e: self.cut_to_clipboard())
+        tree.bind_all(action.TREE_ITEM_DELETE, self.on_tree_item_delete)
+        tree.bind_all(action.TREE_ITEM_DUPLICATE, self.on_tree_item_duplicate)
+        tree.bind_all(
+            action.TREE_ITEM_GRID_DOWN,
             lambda e: self.on_item_grid_move(self.GRID_DOWN),
         )
         tree.bind_all(
-            TREE_ITEM_GRID_LEFT,
+            action.TREE_ITEM_GRID_LEFT,
             lambda e: self.on_item_grid_move(self.GRID_LEFT),
         )
         tree.bind_all(
-            TREE_ITEM_GRID_RIGHT,
+            action.TREE_ITEM_GRID_RIGHT,
             lambda e: self.on_item_grid_move(self.GRID_RIGHT),
         )
         tree.bind_all(
-            TREE_ITEM_GRID_UP, lambda e: self.on_item_grid_move(self.GRID_UP)
+            action.TREE_ITEM_GRID_UP,
+            lambda e: self.on_item_grid_move(self.GRID_UP),
         )
-        tree.bind_all(TREE_ITEM_MOVE_UP, self.on_item_move_up)
-        tree.bind_all(TREE_ITEM_MOVE_DOWN, self.on_item_move_down)
-        tree.bind_all(TREE_NAV_UP, self.on_item_nav_up)
-        tree.bind_all(TREE_NAV_DOWN, self.on_item_nav_down)
-        tree.bind_all(TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel)
+        tree.bind_all(action.TREE_ITEM_MOVE_UP, self.on_item_move_up)
+        tree.bind_all(action.TREE_ITEM_MOVE_DOWN, self.on_item_move_down)
+        tree.bind_all(action.TREE_NAV_UP, self.on_item_nav_up)
+        tree.bind_all(action.TREE_NAV_DOWN, self.on_item_nav_down)
+        tree.bind_all(
+            action.TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel
+        )
 
     def on_tree_item_delete(self, event):
         selection = self.treeview.selection()
@@ -283,7 +290,7 @@ class WidgetsTreeEditor:
 
         # Paste the virtually-copied widget (not with the clipboard) to the
         # parent.
-        self.treeview.event_generate(TREE_ITEM_PASTE)
+        self.treeview.event_generate(action.TREE_ITEM_PASTE)
 
     def change_container_manager(self, new_manager):
         item = self.current_edit
@@ -1226,7 +1233,6 @@ class WidgetsTreeEditor:
                 if current_col != new_col:
                     data.layout_property("column", str(new_col))
                     data.notify()
-                root = tree.parent(item)
             self.filter_restore()
 
     #

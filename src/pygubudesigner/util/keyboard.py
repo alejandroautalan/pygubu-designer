@@ -33,12 +33,12 @@ class Key:
     # keysym, keycode (windows, linux)
     C = Keydef("c", 67 if osnt else 54)
     D = Keydef("d", 68 if osnt else 40)
-    I = Keydef("i", 73 if osnt else 31)
+    I = Keydef("i", 73 if osnt else 31)  # noqa: E741
     J = Keydef("j", 74 if osnt else 44)
     K = Keydef("k", 75 if osnt else 45)
     L = Keydef("l", 76 if osnt else 46)
     N = Keydef("n", 78 if osnt else 57)
-    O = Keydef("o", 79 if osnt else 32)
+    O = Keydef("o", 79 if osnt else 32)  # noqa: E741
     Q = Keydef("q", 81 if osnt else 24)
     S = Keydef("s", 83 if osnt else 39)
     V = Keydef("v", 86 if osnt else 55)
