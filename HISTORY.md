@@ -1,6 +1,13 @@
 History
 =======
 
+Changes for version 0.xx
+
+  * Changed project structure to use src folder.
+  * Added internal cursor property editor.
+  * Adapted code to use pygubu plugin engine
+  * Merged pull request #138 from jrezai/master
+
 Changes for version 0.28
 
   * Added more examples
