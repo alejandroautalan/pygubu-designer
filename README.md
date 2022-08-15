@@ -48,14 +48,14 @@ C:\Python3\Scripts\pygubu-designer.exe
 
 Where `C:\Python3` is the path to **your** Python installation directory.
 
-> **Note**: for versions prior to **0.9.8** the executable script was named _**pygubu-designer.bat**_
+Now, you can start creating your tkinter application using the widgets that you
+find in the top panel called `Widget Palette`.
 
+After you finished creating your _UI definition_, save it to a `.ui` file by 
+going to the top menu `File > Save`.
 
-Now, you can start creating your tkinter application using the widgets that you find in the left panel called `Widget List`.
-
-After you finished creating your _UI definition_, save it to a `.ui` file by going to the top menu `File > Save`.
-
-The following is a UI definition example called [helloworld.ui](examples/helloworld/helloworld.ui) created using pygubu:
+The following is a UI definition example called 
+[helloworld.ui](examples/helloworld/helloworld.ui) created using pygubu:
 
 
 ```xml
@@ -92,7 +92,8 @@ The following is a UI definition example called [helloworld.ui](examples/hellowo
 </interface>
 ```
 
-Then, you should create your _application script_ as shown below ([helloworld.py](examples/helloworld/helloworld.py)):
+Then, you should create your _application script_ as shown below 
+([helloworld.py](examples/helloworld/helloworld.py)):
 
 ```python
 # helloworld.py
@@ -145,17 +146,20 @@ Note also that instead of `'mainwindow'` in the following line:
 self.mainwindow = builder.get_object('mainwindow', master)
 ```
 
-You should have the name of your _main widget_ (the parent of all widgets), otherwise you will get an error similar to the following:
+You should have the name of your _main widget_ (the parent of all widgets), 
+otherwise you will get an error similar to the following:
 
     Exception: Widget not defined.
 
-See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for more information.
+See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for 
+more information.
 
 
 Documentation
 =============
 
-Visit the [wiki](https://github.com/alejandroautalan/pygubu-designer/wiki) for more documentation.
+Visit the [wiki](https://github.com/alejandroautalan/pygubu-designer/wiki) for 
+more documentation.
 
 
 The following are some good tkinter (and tk) references:
