@@ -1,4 +1,7 @@
-TODO:
+TODO
+====
+
+- #117: wx.ID_ANY ?
 - ADD designer plugin with sun valley ttk theme!!!!!
 - Issue: redraw previews on theme change.
 - Treeview with scrollHelper. Srollbars are not shown depending on the
@@ -10,16 +13,12 @@ TODO:
 - ttkstyles branch: add optiondb_initializer=None to builder and codebuilder.
   or name it on_first_widget_cb. Function that will execute only once after
   the first widget is created, generally the root widget.
-- Commands generation are not working. Entry: validatecommand, invalidcommand
-- https://code.activestate.com/recipes/users/4189907/
-- Add a tk.Spinbox, set from_:8  to:5  This show error on build, but 
+- Add widgets from https://code.activestate.com/recipes/users/4189907/ ?
+- Add a tk.Spinbox, set from_:8  to:5  This show error on build, but
   howto validate this combination of properties?
 - Allow to define custom font.
   This font can be defined selecting an specific font or can be defined
   based on a default TK font. For example I want TkTextFont but with size 60.
-- Add support for AwesomeTkinter
-- Add support for tkintertable
-- Add support for tksheet +1
 - Add PDFviewer widget based on tkPDFView
 - Add widget for CanvasPlus
 - Add support to tkinterpp?
@@ -28,11 +27,6 @@ TODO:
     Create combobox selector for default theme engine (in this case ttkbootstrap)
     If ttkbootstrap is active show the diferent styles provided by ttkbootstrap
     in the style property for each widget. (Eg: primary.TButton)
-- Tip for this issue, Make a class for Translator that will have a translate method
-  that will receive the string to translate and the current widget.
-  So the function can modify the widget acording to translation.
-  Also will need to move transtation from xml loading (Uidefinition) to 
-  widget creation and configuration.
 - Tcl 8.7 alpha adds new properties to widgets. Investigate that.
   For example, for tk.Toplevel: backgroundimage, tile
 - ttk image property (label), allows to use more than one image? test in python first.
@@ -43,9 +37,9 @@ TODO:
   so code editors can find them.
 - Tk 8.5 added anchor to grid manager, investigate how it works.
 
-active disabled focus pressed selected background readonly alternate invalid hover
-
 Theming notes:
+=============
+
 resources
   - image (name, filename, format, data)
   - named font
@@ -71,120 +65,62 @@ Style Editor
 Element Editor:
   configure
   imagespect
-  
+
 LayoutElement Editor (layoutspect)
   properties: elementname, side, sticky
 
 
-DONE:
-- FIX: Create a frame, set padding 5. Go to code tab, generate widget code.
-  padding property is not set in the code generated.
-- Create a PathChooserInput widget, set a textvariable. Go to generate code,
-  check Import tk variables. Click Generate, code for import variable not generated.
-- When generating script code, add tk variables to self class.
-- Wrong code generate for application. missing master parameter for class?
-- Add missing proxybackground, proxy* missing options of tk.Panedwindow.
-- Add missing title of tk.Menu (for tearoff)
-- Make dynamic editor the default property editor, at least for custom properties.
-- add property validatecommand_args to tk.Spinbox, same as tk.entry
-- Remover Generate virtual event, hay que bindear el mismo widget que
-  genera el evento. No siempre es posible.
-- improve command property, remove idtocommand, and command_id_arg properties
-- add validation to 'id' property
-- When changin manager from pack to grid, add row and column info.
-- on Mac OS, Select item, press Delete, click Cancel, dialog apears again. Fixed
-- On OS windows, dialog Change layout managers is shown two times. Fixed
-- Use command and control in mac. change menu accelerator strings.
-- on OS Mac, Alt key does not work. Review.
-  Solution: on mac use Control instead Alt, and Command instead Control
-- Preferences, allow  to setup default layout manager.
-- New translation to Turkish thanks to: Onur Oduncu <onuroduncu90 AT gm ail>
-- PathChooserInput. Add some method to specify dialog options as:
-    defaultextension, or filetypes
-- Code generation for Basic widgets. DONE
-- Rescue old message handler (log viewer) DONE
-- When a widget is deleted, find the prev or next sibling, or
-  maybe the parent, and select it. (this affects when working on a 
-  notebook tab) DONE
-- Add recent files menu. DONE
-- Add a selectable binding list in the bindings tab.  DONE
-- Code generation for commands and bindings. DONE
-- show error on color entry. when input invalid color. DONE
-- Create a tk.Label paste a color in a color property, click treeview, 
-  preview becomes inconsistent. An error is show in the console. FIXED
-- Add a toplevel, set geometry to 400x400. Preview does not show correct size.
-  Fix other toplevel preview properties. DONE
-- Defaults for BuilderHelpers example PanedWindowPane in BuilderObjec?. FIXED
-- Create frame, insert label, delete label, preview becomes inconsistent. (needs a redraw). FIXED
-- Fix Tkvarentry editor. Validate varnames like if, else, ), etc. DONE
-- Fix calendar frame, gridding error, after inserting in a packed frame. (1)
-- Add Toplevel>Frame>Calendarframe/Frame> change manager, preview gets inconsistent.
-  Fixed. Posible related to (1)
-- Fix main ui, widgets panel is not auto resizing. DONE.
-- Change how grid/rc data is saved in xml? CHANGED. Done.
-- Add version to generated xml UI. DONE
-- Review treevieweditor cut/paste move items change grid/rc. DONE
-- Click on Preview and select current widget in Treeview. DONE
-- Calculate manager options based on parent and current children. DONE
-- Put grid r/c options in each widget. DONE
-
-
-The standard Tk <<Cut>>, <<Copy>>, <<Paste>>, and <<Clear>> 
+The standard Tk <<Cut>>, <<Copy>>, <<Paste>>, and <<Clear>>
 
 Increase version to sync with pypi.
 
-Remove tk.Toplevel children restriction
-refs alejandroautalan/pygubu-designer#37
-
-Fix code generation for grid layout
-refs alejandroautalan/pygubu-designer#79
-
-tk 7.0
+tk 8.7
+======
 
 WIDGET STANDARD OPTIONS  http://www.tcl.tk/man/tcl8.7/TkCmd/options.htm
 
-    -activebackground, activeBackground, Foreground 
-    -activeborderwidth, activeBorderWidth, BorderWidth 
-    -activeforeground, activeForeground, Background 
-    -activerelief, activeRelief, Relief 
-    -anchor, anchor, Anchor 
-    -background or -bg, background, Background 
-    -bitmap, bitmap, Bitmap 
-    -borderwidth or -bd, borderWidth, BorderWidth 
-    -cursor, cursor, Cursor 
-    -compound, compound, Compound 
-    -disabledforeground, disabledForeground, DisabledForeground 
-    -exportselection, exportSelection, ExportSelection 
-    -font, font, Font 
-    -foreground or -fg, foreground, Foreground 
-    -highlightbackground, highlightBackground, HighlightBackground 
-    -highlightcolor, highlightColor, HighlightColor 
-    -highlightthickness, highlightThickness, HighlightThickness 
-    -image, image, Image 
-    -insertbackground, insertBackground, Foreground 
-    -insertborderwidth, insertBorderWidth, BorderWidth 
-    -insertofftime, insertOffTime, OffTime 
-    -insertontime, insertOnTime, OnTime 
-    -insertwidth, insertWidth, InsertWidth 
-    -jump, jump, Jump 
-    -justify, justify, Justify 
-    -orient, orient, Orient 
-    -padx, padX, Pad 
-    -pady, padY, Pad 
-    -placeholder, placeHolder, PlaceHolder 
-    -placeholderforeground, placeholderForeground, PlaceholderForeground 
-    -relief, relief, Relief 
-    -repeatdelay, repeatDelay, RepeatDelay 
-    -repeatinterval, repeatInterval, RepeatInterval 
-    -selectbackground, selectBackground, Foreground 
-    -selectborderwidth, selectBorderWidth, BorderWidth 
-    -selectforeground, selectForeground, Background 
-    -setgrid, setGrid, SetGrid 
-    -takefocus, takeFocus, TakeFocus 
-    -text, text, Text 
-    -textvariable, textVariable, Variable 
-    -troughcolor, troughColor, Background 
-    -underline, underline, Underline 
-    -wraplength, wrapLength, WrapLength 
-    -xscrollcommand, xScrollCommand, ScrollCommand 
-    -yscrollcommand, yScrollCommand, ScrollCommand 
+    -activebackground, activeBackground, Foreground
+    -activeborderwidth, activeBorderWidth, BorderWidth
+    -activeforeground, activeForeground, Background
+    -activerelief, activeRelief, Relief
+    -anchor, anchor, Anchor
+    -background or -bg, background, Background
+    -bitmap, bitmap, Bitmap
+    -borderwidth or -bd, borderWidth, BorderWidth
+    -cursor, cursor, Cursor
+    -compound, compound, Compound
+    -disabledforeground, disabledForeground, DisabledForeground
+    -exportselection, exportSelection, ExportSelection
+    -font, font, Font
+    -foreground or -fg, foreground, Foreground
+    -highlightbackground, highlightBackground, HighlightBackground
+    -highlightcolor, highlightColor, HighlightColor
+    -highlightthickness, highlightThickness, HighlightThickness
+    -image, image, Image
+    -insertbackground, insertBackground, Foreground
+    -insertborderwidth, insertBorderWidth, BorderWidth
+    -insertofftime, insertOffTime, OffTime
+    -insertontime, insertOnTime, OnTime
+    -insertwidth, insertWidth, InsertWidth
+    -jump, jump, Jump
+    -justify, justify, Justify
+    -orient, orient, Orient
+    -padx, padX, Pad
+    -pady, padY, Pad
+    -placeholder, placeHolder, PlaceHolder
+    -placeholderforeground, placeholderForeground, PlaceholderForeground
+    -relief, relief, Relief
+    -repeatdelay, repeatDelay, RepeatDelay
+    -repeatinterval, repeatInterval, RepeatInterval
+    -selectbackground, selectBackground, Foreground
+    -selectborderwidth, selectBorderWidth, BorderWidth
+    -selectforeground, selectForeground, Background
+    -setgrid, setGrid, SetGrid
+    -takefocus, takeFocus, TakeFocus
+    -text, text, Text
+    -textvariable, textVariable, Variable
+    -troughcolor, troughColor, Background
+    -underline, underline, Underline
+    -wraplength, wrapLength, WrapLength
+    -xscrollcommand, xScrollCommand, ScrollCommand
+    -yscrollcommand, yScrollCommand, ScrollCommand
