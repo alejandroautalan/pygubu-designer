@@ -4,4 +4,4 @@ import os
 os.environ["PYGUBU_LAZY_TRANSLATOR"] = "Y"
 
 
-__version__ = "0.28"
+__version__ = "0.29"

@@ -1,7 +1,7 @@
 History
 =======
 
-Changes for version 0.xx
+Changes for version 0.29
 
   * Changed project structure to use src folder.
   * Added internal cursor property editor.
