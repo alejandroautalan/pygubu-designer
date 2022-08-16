@@ -8,17 +8,49 @@ build_exe_options = {
         "os",
         "tkinter",
         "tkinter.messagebox",
-        "ttk",
+        "tkinter.ttk",
         # Pygubu packages:
-        "pygubu.builder.tkstdwidgets",
-        "pygubu.builder.ttkstdwidgets",
-        "pygubu.builder.widgets.dialog",
-        "pygubu.builder.widgets.editabletreeview",
-        "pygubu.builder.widgets.scrollbarhelper",
-        "pygubu.builder.widgets.scrolledframe",
-        "pygubu.builder.widgets.tkscrollbarhelper",
-        "pygubu.builder.widgets.tkscrolledframe",
-        "pygubu.builder.widgets.pathchooserinput",
+        "pygubu.plugins.tk.tkstdwidgets",
+        "pygubu.plugins.ttk.ttkstdwidgets",
+        "pygubu.plugins.pygubu.dialog",
+        "pygubu.plugins.pygubu.editabletreeview",
+        "pygubu.plugins.pygubu.scrollbarhelper",
+        "pygubu.plugins.pygubu.scrolledframe",
+        "pygubu.plugins.pygubu.tkscrollbarhelper",
+        "pygubu.plugins.pygubu.tkscrolledframe",
+        "pygubu.plugins.pygubu.pathchooserinput",
+        #
+        # Uncomment the following module lines if you are using this plugins:
+        #
+        # awesometkinter:
+        #   'pygubu.plugins.awesometkinter.button',
+        #   'pygubu.plugins.awesometkinter.frame',
+        #   'pygubu.plugins.awesometkinter.label',
+        #   'pygubu.plugins.awesometkinter.progressbar',
+        #   'pygubu.plugins.awesometkinter.scrollbar',
+        #   'pygubu.plugins.awesometkinter.text',
+        # tkcalendar:
+        #   'pygubu.plugins.tkcalendar.calendar',
+        #   'pygubu.plugins.tkcalendar.dateentry',
+        # tkintertable:
+        #   'pygubu.plugins.tkintertable.table',
+        # tksheet:
+        #   'pygubu.plugins.tksheet.sheet',
+        # ttkwidgets:
+        #   'pygubu.plugins.ttkwidgets.calendar',
+        #   'pygubu.plugins.ttkwidgets.autocomplete',
+        #   'pygubu.plugins.ttkwidgets.checkboxtreeview',
+        #   'pygubu.plugins.ttkwidgets.color',
+        #   'pygubu.plugins.ttkwidgets.font',
+        #   'pygubu.plugins.ttkwidgets.frames',
+        #   'pygubu.plugins.ttkwidgets.itemscanvas',
+        #   'pygubu.plugins.ttkwidgets.linklabel',
+        #   'pygubu.plugins.ttkwidgets.scaleentry',
+        #   'pygubu.plugins.ttkwidgets.scrolledlistbox',
+        #   'pygubu.plugins.ttkwidgets.table',
+        #   'pygubu.plugins.ttkwidgets.tickscale',
+        # tkinterweb:
+        #   'pygubu.plugins.tkinterweb.htmlwidgets',
     ],
     "include_files": ["myapp.ui", "imgs"],
 }
