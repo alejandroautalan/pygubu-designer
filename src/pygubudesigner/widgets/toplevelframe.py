@@ -45,7 +45,6 @@ class ToplevelFramePreview(tk.Frame):
                 if resizable and not TKToplevel.RESIZABLE[resizable][0]:
                     remove = True
             if remove:
-                #                print('rm', key, value)
                 cnf.pop(key)
             else:
                 self._w_set = True
@@ -65,7 +64,6 @@ class ToplevelFramePreview(tk.Frame):
                 if resizable and not TKToplevel.RESIZABLE[resizable][1]:
                     remove = True
             if remove:
-                #                print('rm', key, value)
                 cnf.pop(key)
             else:
                 self._h_set = True
@@ -74,7 +72,7 @@ class ToplevelFramePreview(tk.Frame):
             # No menu preview available
             cnf.pop(key)
 
-        return tk.Frame.configure(self, cnf)
+        return super().configure(**cnf)
 
 
 class ToplevelFramePreviewBO(BuilderObject):
@@ -95,6 +93,15 @@ class ToplevelFramePreviewBO(BuilderObject):
                 self.wmeta.properties["width"] = w
                 self.wmeta.properties["height"] = h
         super().configure(target)
+
+    def configure_children(self, target=None):
+        w = self.widget
+        # Set a fixed size in preview if geometry is set.
+        if "geometry" in self.wmeta.properties:
+            if w.pack_slaves():
+                w.pack_propagate(0)
+            elif w.grid_slaves():
+                w.grid_propagate(0)
 
     def _get_dimwh(self, dimvalue: str):
         # get width and height from dimension string
@@ -130,10 +137,6 @@ class ToplevelFramePreviewBO(BuilderObject):
                     tw.tl_attrs["minsize"] = (int(w), int(h))
                     tw._h_set = tw._w_set = False
                     tw.configure(width=w, height=h)
-                    if tw.pack_slaves():
-                        tw.pack_propagate(0)
-                    elif tw.grid_slaves():
-                        tw.grid_propagate(0)
         elif pname == "resizable":
             # Do nothing, fake 'resizable' property for Toplevel preview
             pass
