@@ -1,7 +1,7 @@
 # file: tkcalendarwidgets.py
 
 from tkcalendar import DateEntry
-from pygubu import BuilderObject, register_widget
+from pygubu.api.v1 import BuilderObject, register_widget
 
 
 class DateEntryBuilder(BuilderObject):

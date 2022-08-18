@@ -1,4 +1,4 @@
-from pygubu import BuilderObject, register_widget
+from pygubu.api.v1 import BuilderObject, register_widget
 from timewidget import TimeWidget
 
 
