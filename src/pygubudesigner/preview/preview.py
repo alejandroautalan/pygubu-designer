@@ -94,7 +94,7 @@ class Preview:
         x, y, x2, y2 = (self.x, self.y, self.x + self.w, self.y + self.h)
         c.coords(self.shapes["outline"], x, y, x2, y2)
         tbbox = c.bbox(self.shapes["text"])
-        tw, th = tbbox[2] - tbbox[0] + 10, tbbox[3] - tbbox[1] + 6
+        tw, th = tbbox[2] - tbbox[0] + 10, tbbox[3] - tbbox[1] + 8
         self.resizer_h = th
         rx2 = self.x + self.w
         ry2 = self.y + self.h + self.resizer_h
@@ -102,7 +102,7 @@ class Preview:
         ry = self.y + self.h
         c.coords(self.shapes["resizer"], rx, ry, rx2, ry2)
         tx = rx + 5
-        ty = ry + 3
+        ty = ry + 6
         c.coords(self.shapes["text"], tx, ty)
         c.coords(self.shapes["window"], x, y)
 

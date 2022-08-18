@@ -431,6 +431,9 @@ class PygubuDesigner:
         s.configure(
             ToolbarFrame.BTN_RIGHT_STYLE, image=StockImage.get("arrow-right2")
         )
+        # Preview panel, Selection indicator color
+        s.configure("PreviewIndicator.TFrame", background="#FF5C35")
+
         if sys.platform == "linux":
             # change background of comboboxes
             color = s.lookup("TEntry", "fieldbackground")

@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 
 class PreviewHelper:
-    indicators_tag = ("nw", "ne", "sw", "se")
+    indicators_tag = ("top", "bottom", "left", "right")
 
     def __init__(self, canvas, context_menu_method, center_window_check):
         self.canvas = canvas
@@ -44,6 +44,8 @@ class PreviewHelper:
 
         self.previews = OrderedDict()
         self.padding = 20
+        self.indicator_stroke = 2
+        self.indicator_offset = 2
         self.indicators = None
         self._sel_id = None
         self._sel_widget = None
@@ -203,18 +205,22 @@ class PreviewHelper:
 
     def _create_indicators(self):
         # selected indicators
-        self.indicators = []
-        anchors = {"nw": tk.SE, "ne": tk.SW, "sw": tk.NE, "se": tk.NW}
-        for sufix in self.indicators_tag:
-            label = tk.Label(
-                self.canvas, image=StockImage.get("indicator_" + sufix)
+        anchors = {"top": tk.SW, "bottom": tk.NW, "left": tk.NE, "right": tk.NW}
+        self.indicators = {}
+        for tag in anchors:
+            frame = ttk.Frame(
+                self.canvas,
+                style="PreviewIndicator.TFrame",
+                width=1,
+                height=1,
+                borderwidth=0,
             )
-            self.indicators.append(label)
             self.canvas.create_window(
-                -10, -10, anchor=anchors[sufix], window=label, tags=sufix
+                -10, -10, window=frame, anchor=anchors[tag], tags=tag
             )
+            self.indicators[tag] = frame
 
-    def _calculate_indicator_coords(self, tag, widget):
+    def _update_indicator_coords(self, tag, widget):
         x = y = 0
         wx = widget.winfo_rootx()
         wy = widget.winfo_rooty()
@@ -222,20 +228,40 @@ class PreviewHelper:
         wh = widget.winfo_height()
         cx = self.canvas.winfo_rootx()
         cy = self.canvas.winfo_rooty()
-        if tag == "nw":
-            x = wx - cx
-            y = wy - cy
-        if tag == "ne":
-            x = (wx - cx) + ww
-            y = wy - cy
-        if tag == "sw":
-            x = wx - cx
-            y = (wy - cy) + wh
-        if tag == "se":
-            x = (wx - cx) + ww
-            y = (wy - cy) + wh
+        x = wx - cx
+        y = wy - cy
         x, y = self.canvas.canvasx(x), self.canvas.canvasy(y)
-        return (x, y)
+
+        wx2 = x + ww
+        wy2 = y + wh
+        stroke = self.indicator_stroke
+        offset = self.indicator_offset
+        if tag == "top":
+            ix = x - (stroke + offset)
+            iy = y - offset
+            iw = ww + stroke * 2 + offset * 2
+            ih = stroke
+        if tag == "bottom":
+            ix = x - (stroke + offset)
+            iy = wy2 + offset
+            iw = ww + stroke * 2 + offset * 2
+            ih = stroke
+        if tag == "right":
+            ix = wx2 + offset
+            iy = y - (stroke + offset)
+            iw = stroke
+            ih = wh + stroke * 2 + offset * 2
+        if tag == "left":
+            ix = x - offset
+            iy = y - (stroke + offset)
+            iw = stroke
+            ih = wh + stroke * 2 + offset * 2
+
+        ox, oy = self.canvas.coords(tag)
+        self.canvas.move(tag, ix - ox, iy - oy)
+        f = self.indicators[tag]
+        f.configure(width=iw, height=ih)
+        f.lift()
 
     def _update_style_editor(self, widget):
         """Setup TtkStylePropertyEditor with the real winfo_class and class name."""
@@ -254,15 +280,8 @@ class PreviewHelper:
             canvas.update_idletasks()
             preview.show_selected(selected_id)
             widget = preview.get_widget_by_id(selected_id)
-            for indicatorw in self.indicators:
-                try:
-                    indicatorw.lift(widget)
-                except tk.TclError:
-                    pass
-            for tag in self.indicators_tag:
-                x, y = self._calculate_indicator_coords(tag, widget)
-                ox, oy = canvas.coords(tag)
-                canvas.move(tag, x - ox, y - oy)
+            for tag in self.indicators:
+                self._update_indicator_coords(tag, widget)
             self._update_style_editor(widget)
         self._sel_id = identifier
         self._sel_widget = selected_id
