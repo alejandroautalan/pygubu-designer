@@ -157,7 +157,9 @@ class ScriptGenerator:
                 generator.add_import_line("tkinter", "tk")
                 if self.use_ttkdefs_file_var.get():
                     generator.add_import_line("tkinter.ttk", "ttk", priority=1)
+                # Generate code
                 code = generator.generate_app_widget(uidef, target)
+                # Prepare template context
                 context["widget_code"] = code[target]
                 context["import_lines"] = code["imports"]
                 context["callbacks"] = code["callbacks"]
@@ -176,10 +178,20 @@ class ScriptGenerator:
                     generator.add_import_line("tkinter", "tk")
                 if self.use_ttkdefs_file_var.get():
                     generator.add_import_line("tkinter.ttk", "ttk", priority=1)
-                code = generator.generate_app_code(uidef, target)
+
+                methods = []
+                if set_main_menu:
+                    methods.append(main_menu_id)
+                # Generate code
+                code = generator.generate_app_code(
+                    uidef, target, methods_for=methods
+                )
+
+                # Prepare template context
                 context["widget_code"] = code[target]
                 context["import_lines"] = code["imports"]
                 context["callbacks"] = code["callbacks"]
+                context["methods"] = code["methods"]
                 # Style definitions
                 ttk_styles_code = code["ttkstyles"]
                 if self.use_ttkdefs_file_var.get() and ttk_styles_code:

@@ -14,6 +14,11 @@ class ${class_name}:
 ${widget_code}
         # Main widget
         self.mainwindow = self.${main_widget}
+%if set_main_menu:
+        # Main menu
+        _main_menu = self.create_${main_menu_id}(self.mainwindow)
+        self.mainwindow.configure(menu=_main_menu)
+%endif
         %if has_ttk_styles:
 
         self.setup_ttk_styles()
@@ -29,6 +34,8 @@ ${widget_code}
         optiondb = style.master
 ${ttk_styles}
     %endif
+
+${methods}\
 
 ${callbacks}\
 </%block>

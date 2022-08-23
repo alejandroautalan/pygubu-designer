@@ -61,6 +61,13 @@ class ScriptType(Enum):
     APP_WITH_UI = 1
     APP_CODE = 2
     WIDGET = 3
+    APP_UI_METHOD = 4
+    APP_CODE_METHOD = 5
+
+
+class RealizeMode(Enum):
+    APP = 1
+    METHOD = 2
 
 
 class UI2Code(Builder):
@@ -84,6 +91,9 @@ class UI2Code(Builder):
         self._builder = Builder()
         self._options = {}
         self._with_i18n_support = False
+        self._methods = OrderedDict()
+        self._realize_mode = RealizeMode.APP
+        self._current_method = None
 
     def add_import_line(self, module_name, as_name=None, priority=0):
         if module_name not in self._extra_imports:
@@ -113,6 +123,7 @@ class UI2Code(Builder):
         code_ttk_styles = self._process_ttk_styles()
         code_callbacks = self._process_callbacks()
         code_callbacks = "\n".join(code_callbacks)
+        code_methods = "\n".join(self._process_methods())
         code = "".join(code)
         cc = {
             "imports": code_imports,
@@ -120,6 +131,7 @@ class UI2Code(Builder):
             "ttkstyles": code_ttk_styles,
             "callbacks": code_callbacks,
             "tkvariables": list(self._tkvariables.keys()),
+            "methods": code_methods,
         }
         return cc
 
@@ -140,30 +152,44 @@ class UI2Code(Builder):
 
         if wmeta is not None:
             self._code_realize(builder, wmeta)
-        return self._process_results(target)
 
     def generate_app_with_ui(self, uidef, target):
-        return self.generate(
+        self.generate(
             uidef,
             target,
             as_class=False,
             tabspaces=8,
             script_type=ScriptType.APP_WITH_UI,
         )
+        return self._process_results(target)
 
-    def generate_app_code(self, uidef, target):
-        return self.generate(
+    def generate_app_code(self, uidef, target, methods_for: list = None):
+        self.generate(
             uidef,
             target,
             as_class=True,
             tabspaces=8,
             script_type=ScriptType.APP_CODE,
         )
+        if methods_for is not None:
+            self._realize_mode = RealizeMode.METHOD
+            for target_id in methods_for:
+                self._current_method = target_id
+                self._methods[target_id] = []
+                self.generate(
+                    uidef,
+                    target_id,
+                    as_class=True,
+                    tabspaces=8,
+                    script_type=ScriptType.APP_CODE,
+                )
+            self._realize_mode = RealizeMode.APP
+
+        return self._process_results(target)
 
     def generate_app_widget(self, uidef, target):
-        return self.generate_widget_class(
-            uidef, target, script_type=ScriptType.WIDGET
-        )
+        self.generate_widget_class(uidef, target, script_type=ScriptType.WIDGET)
+        return self._process_results(target)
 
     def generate_widget_class(self, uidef, target, **kw):
         self.uidefinition = uidef
@@ -187,17 +213,15 @@ class UI2Code(Builder):
                 for childmeta in self.uidefinition.widget_children(target):
                     childid = self._code_realize(builder, childmeta)
                     code = builder.code_child_add(childid)
-                    self._code.extend(code)
+                    self._add_new_code(code)
 
                 # configuration
                 configure = builder.code_configure()
-                self._code.extend(configure)
+                self._add_new_code(configure)
 
                 # layout? TODO: Review if layout is required here.
                 layout = builder.code_layout(parentid=masterid)
-                self._code.extend(layout)
-
-        return self._process_results(target)
+                self._add_new_code(layout)
 
     def code_classname_for(self, bobject):
         wmeta = bobject.wmeta
@@ -306,9 +330,15 @@ class UI2Code(Builder):
             if self.as_class:
                 vname_in_code = f"self.{vname}"
             line = f"{vname_in_code} = {var_init}"
-            self._code.append(line)
+            self._add_new_code([line])
             self._tkvariables[vname] = vname_in_code
         return self._tkvariables[vname]
+
+    def _add_new_code(self, newcode: list):
+        if self._realize_mode == RealizeMode.APP:
+            self._code.extend(newcode)
+        else:
+            self._methods[self._current_method].extend(newcode)
 
     def _code_realize(self, bmaster, wmeta):
         originalid = wmeta.identifier
@@ -330,36 +360,51 @@ class UI2Code(Builder):
                     uniqueid = "self." + uniqueid
 
             create = builder.code_realize(bmaster, uniqueid)
-            self._code.extend(create)
+            self._add_new_code(create)
 
             # configuration
             configure = builder.code_configure()
-            self._code.extend(configure)
+            self._add_new_code(configure)
 
             # Children
             for childmeta in self.uidefinition.widget_children(originalid):
                 childid = self._code_realize(builder, childmeta)
                 code = builder.code_child_add(childid)
-                self._code.extend(code)
+                self._add_new_code(code)
 
             # Configuration after adding all children
             children_config = builder.code_configure_children()
-            self._code.extend(children_config)
+            self._add_new_code(children_config)
 
             # layout
             layout = builder.code_layout(parentid=masterid)
-            self._code.extend(layout)
+            self._add_new_code(layout)
 
             # callbacks
             commands = builder.code_connect_commands()
             bindings = builder.code_connect_bindings()
-            self._code.extend(commands)
-            self._code.extend(bindings)
+            self._add_new_code(commands)
+            self._add_new_code(bindings)
         else:
             msg = f'Class "{wmeta.classname}" not mapped'
             raise Exception(msg)
 
         return uniqueid
+
+    def _process_methods(self):
+        tabspaces = self._options["tabspaces"]
+        tab2 = tabspaces // 2 if tabspaces == 8 else 1
+
+        code = []
+        for target_id, mlines in self._methods.items():
+            line = f"{' '*tab2}def create_{target_id}(self, master):"
+            code.append(line)
+            for line in mlines:
+                line = f"{' '*tabspaces}{line}"
+                code.append(line)
+            line = f"{' '*tabspaces}return self.{target_id}"
+            code.append(line)
+        return code
 
     def _process_callbacks(self):
         tabspaces = self._options["tabspaces"]
@@ -415,7 +460,7 @@ class UI2Code(Builder):
             if file_ext in TK_BITMAP_FORMATS:
                 img_class = "tk.BitmapImage"
             line = f"{varname} = {img_class}(file='{filename}')"
-            self._code.append(line)
+            self._add_new_code([line])
             self._tkimages[filename] = varname
         return self._tkimages[filename]
 
