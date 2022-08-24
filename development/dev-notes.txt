@@ -33,9 +33,22 @@ TODO
   Add proper editor for this.
 - Do not rebuild entire preview for simple property changes
 - On code generation, allow to select which tk_variables import in the class.
-  See example in userinputapp.py. Add option to define this variables as None,
-  so code editors can find them.
-- Tk 8.5 added anchor to grid manager, investigate how it works.
+  See example in userinputapp.py.
+
+Commands
+========
+
+python3 -m build
+
+twine upload -r test_pygubu dist/*
+pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu[all]==0.23.1
+
+twine upload -r test_pygubu_designer dist/*
+pip install --no-cache-dir -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu-designer[all]
+
+alejandroautalan/pygubu
+alejandroautalan/pygubu-designer#99
+
 
 Theming notes:
 =============
