@@ -192,6 +192,7 @@ class ScriptGenerator:
                 context["import_lines"] = code["imports"]
                 context["callbacks"] = code["callbacks"]
                 context["methods"] = code["methods"]
+                context["target_code_id"] = code["target_code_id"]
                 # Style definitions
                 ttk_styles_code = code["ttkstyles"]
                 if self.use_ttkdefs_file_var.get() and ttk_styles_code:

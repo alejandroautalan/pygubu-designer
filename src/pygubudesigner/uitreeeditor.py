@@ -40,6 +40,7 @@ from .i18n import translator as _
 from .layouteditor import LayoutEditor
 from .propertieseditor import PropertiesEditor
 from .util import trlog
+from .util.idgenerator import IDGenerator
 from .widgetdescr import WidgetMeta
 
 logger = logging.getLogger("pygubu.designer")
@@ -60,6 +61,16 @@ class WidgetsTreeEditor:
         self.virtual_clipboard_for_duplicate = None
         self.duplicating = False
         self.duplicate_parent_iid = None
+
+        self._id_generator = IDGenerator(
+            pref.get_option("widget_naming_ufletter") == "yes",
+            pref.get_option("widget_naming_separator") == "UNDERSCORE",
+        )
+        app.treeview.bind_all(
+            "<<PygubuDesignerPreferencesSaved>>",
+            self.on_preferences_changed,
+            add=True,
+        )
 
         # Get the default layout manager based on the user's configuration.
         self.__preferred_layout_manager_var = tk.StringVar()
@@ -159,6 +170,12 @@ class WidgetsTreeEditor:
         tree.bind_all(action.TREE_NAV_DOWN, self.on_item_nav_down)
         tree.bind_all(
             action.TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel
+        )
+
+    def on_preferences_changed(self, event):
+        self._id_generator = IDGenerator(
+            pref.get_option("widget_naming_ufletter") == "yes",
+            pref.get_option("widget_naming_separator") == "UNDERSCORE",
         )
 
     def on_tree_item_delete(self, event):
@@ -607,7 +624,9 @@ class WidgetsTreeEditor:
 
         data.setup_defaults()  # load default settings for properties and layout
         tree = self.treeview
-        treelabel = f"{data.identifier}: {data.classname}"
+        is_unnamed = IDGenerator.is_unnamed(data.classname, data.identifier)
+        identifier = " " if is_unnamed else f"{data.identifier}: "
+        treelabel = f"{identifier}{data.classname}"
         row = col = ""
         if root != "" and data.has_layout_defined():
             if data.manager == "grid" and data.layout_required:
@@ -751,29 +770,19 @@ class WidgetsTreeEditor:
                 return is_valid
         return is_valid
 
-    def _generate_id(self, classname, index):
-        name = classname.split(".")[-1]
-
-        if pref.get_option("widget_naming_separator") == "UNDERSCORE":
-            name = f"{name}_{index}"
-        else:
-            name = f"{name}{index}"
-
-        name = name.lower()
-
-        if pref.get_option("widget_naming_ufletter") == "yes":
-            name = name.capitalize()
-        return name
-
     def get_unique_id(self, classname, start_id=None):
         if start_id is None:
             self.counter[classname] += 1
-            start_id = self._generate_id(classname, self.counter[classname])
+            start_id = self._id_generator.generate(
+                classname, self.counter[classname]
+            )
 
         is_defined = self._is_id_defined("", start_id)
         while is_defined is True:
             self.counter[classname] += 1
-            start_id = self._generate_id(classname, self.counter[classname])
+            start_id = self._id_generator.generate(
+                classname, self.counter[classname]
+            )
             is_defined = self._is_id_defined("", start_id)
 
         return start_id
@@ -1094,7 +1103,9 @@ class WidgetsTreeEditor:
         tree = self.treeview
         data = obj
         item = self.get_item_by_data(obj)
-        item_text = f"{data.identifier}: {data.classname}"
+        is_unnamed = IDGenerator.is_unnamed(data.classname, data.identifier)
+        identifier = " " if is_unnamed else f"{data.identifier}: "
+        item_text = f"{identifier}{data.classname}"
         if item:
             if item_text != tree.item(item, "text"):
                 tree.item(item, text=item_text)

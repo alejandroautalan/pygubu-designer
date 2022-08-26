@@ -24,6 +24,7 @@ from pygubu.plugins.tk.tkstdwidgets import TKToplevel
 from pygubu.stockimage import TK_BITMAP_FORMATS
 
 from pygubudesigner.stylehandler import StyleHandler
+from ..util.idgenerator import IDGenerator
 
 
 class ToplevelOrTk(TKToplevel):
@@ -92,8 +93,11 @@ class UI2Code(Builder):
         self._options = {}
         self._with_i18n_support = False
         self._methods = OrderedDict()
+        self._methods_target_code_ids = {}
         self._realize_mode = RealizeMode.APP
         self._current_method = None
+        self._current_target = None
+        self._generated_target_id = None
 
     def add_import_line(self, module_name, as_name=None, priority=0):
         if module_name not in self._extra_imports:
@@ -128,6 +132,7 @@ class UI2Code(Builder):
         cc = {
             "imports": code_imports,
             target: code,
+            "target_code_id": self._generated_target_id,
             "ttkstyles": code_ttk_styles,
             "callbacks": code_callbacks,
             "tkvariables": list(self._tkvariables.keys()),
@@ -149,6 +154,9 @@ class UI2Code(Builder):
         builder = BuilderObject(self, mastermeta)
         self._toplevel_or_tk(target)
         wmeta = self.uidefinition.get_widget(target)
+
+        if self._realize_mode == RealizeMode.APP:
+            self._current_target = target
 
         if wmeta is not None:
             self._code_realize(builder, wmeta)
@@ -176,6 +184,7 @@ class UI2Code(Builder):
             for target_id in methods_for:
                 self._current_method = target_id
                 self._methods[target_id] = []
+                self._methods_target_code_ids = {}
                 self.generate(
                     uidef,
                     target_id,
@@ -340,6 +349,14 @@ class UI2Code(Builder):
         else:
             self._methods[self._current_method].extend(newcode)
 
+    def _get_unique_id(self, wclassname, widgetid, masterid):
+        uniqueid = widgetid
+        if self.as_class:
+            is_unnamed = IDGenerator.is_unnamed(wclassname, widgetid)
+            if not is_unnamed:
+                uniqueid = "self." + uniqueid if masterid else "self"
+        return uniqueid
+
     def _code_realize(self, bmaster, wmeta):
         originalid = wmeta.identifier
         uniqueid = None
@@ -353,11 +370,21 @@ class UI2Code(Builder):
             uniqueid = builder.code_identifier()
             masterid = bmaster.code_child_master()
 
-            if self.as_class:
-                if not masterid:
-                    uniqueid = "self"
-                else:
-                    uniqueid = "self." + uniqueid
+            fixed_classname = self.code_classname_for(builder)
+            cls = fixed_classname if fixed_classname else wmeta.classname
+            uniqueid = self._get_unique_id(cls, uniqueid, masterid)
+
+            if (
+                self._realize_mode == RealizeMode.APP
+                and originalid == self._current_target
+            ):
+                self._generated_target_id = uniqueid
+
+            if (
+                self._realize_mode == RealizeMode.METHOD
+                and originalid == self._current_method
+            ):
+                self._methods_target_code_ids[self._current_method] = uniqueid
 
             create = builder.code_realize(bmaster, uniqueid)
             self._add_new_code(create)
@@ -402,7 +429,7 @@ class UI2Code(Builder):
             for line in mlines:
                 line = f"{' '*tabspaces}{line}"
                 code.append(line)
-            line = f"{' '*tabspaces}return self.{target_id}"
+            line = f"{' '*tabspaces}return {self._methods_target_code_ids[target_id]}"
             code.append(line)
         return code
 
