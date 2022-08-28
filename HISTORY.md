@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.29.1
+
+  Hotfix:  Fix template path in preferences window #147 (jrezai)
+  
 Changes for version 0.29
 
   * Changed project structure to use src folder.
