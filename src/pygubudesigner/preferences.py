@@ -56,7 +56,7 @@ config.add_section(SEC_RECENT_FILES)
 
 DATA_DIR = Path(__file__).parent / "data"
 TEMPLATE_DIR = DATA_DIR / "codegen" / "template"
-NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / "customstyles.py.mako"
+NEW_STYLE_FILE_TEMPLATE = DATA_DIR / "code_templates" / "customstyles.py.mako"
 
 
 def initialize_configfile():
