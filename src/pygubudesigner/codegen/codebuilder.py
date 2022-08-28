@@ -24,7 +24,6 @@ from pygubu.plugins.tk.tkstdwidgets import TKToplevel
 from pygubu.stockimage import TK_BITMAP_FORMATS
 
 from pygubudesigner.stylehandler import StyleHandler
-from ..util.idgenerator import IDGenerator
 
 
 class ToplevelOrTk(TKToplevel):
@@ -349,11 +348,9 @@ class UI2Code(Builder):
         else:
             self._methods[self._current_method].extend(newcode)
 
-    def _get_unique_id(self, wclassname, widgetid, masterid):
-        uniqueid = widgetid
+    def _get_unique_id(self, wmeta, uniqueid, masterid):
         if self.as_class:
-            is_unnamed = IDGenerator.is_unnamed(wclassname, widgetid)
-            if not is_unnamed:
+            if wmeta.is_named:
                 uniqueid = "self." + uniqueid if masterid else "self"
         return uniqueid
 
@@ -370,9 +367,7 @@ class UI2Code(Builder):
             uniqueid = builder.code_identifier()
             masterid = bmaster.code_child_master()
 
-            fixed_classname = self.code_classname_for(builder)
-            cls = fixed_classname if fixed_classname else wmeta.classname
-            uniqueid = self._get_unique_id(cls, uniqueid, masterid)
+            uniqueid = self._get_unique_id(wmeta, uniqueid, masterid)
 
             if (
                 self._realize_mode == RealizeMode.APP

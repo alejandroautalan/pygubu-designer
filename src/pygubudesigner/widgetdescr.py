@@ -42,6 +42,8 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 return self.identifier
             elif name == "class":
                 return self.classname
+            elif name == "uid":
+                return self.uid
             else:
                 return self.properties.get(name, "")
         else:
@@ -50,6 +52,8 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 self.identifier = value
             elif name == "class":
                 self.classname = value
+            elif name == "uid":
+                self.uid = value
             else:
                 if value:
                     self.properties[name] = value

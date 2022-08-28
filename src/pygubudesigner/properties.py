@@ -1459,6 +1459,7 @@ REQUIRED_OPTIONS = {
         "help": help_for("class"),
     },
     "id": {"editor": "identifierentry", "help": help_for("id")},
+    "uid": {"editor": "uidentry"},
 }
 
 CUSTOM_OPTIONS = {
@@ -1605,7 +1606,7 @@ CUSTOM_OPTIONS = {
     },
 }
 
-WIDGET_REQUIRED_OPTIONS = ("class", "id")
+WIDGET_REQUIRED_OPTIONS = ("class", "uid")
 WIDGET_STANDARD_OPTIONS = (
     "activerelief",
     "activestyle",
