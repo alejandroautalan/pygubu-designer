@@ -55,7 +55,7 @@ config.add_section(SEC_GENERAL)
 config.add_section(SEC_RECENT_FILES)
 
 DATA_DIR = Path(__file__).parent / "data"
-TEMPLATE_DIR = DATA_DIR / "codegen" / "template"
+TEMPLATE_DIR = DATA_DIR / "code_templates"
 NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / "customstyles.py.mako"
 
 
