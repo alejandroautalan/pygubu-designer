@@ -903,6 +903,8 @@ class WidgetsTreeEditor:
         widget_id = self.get_unique_id(wclass)
         pdefaults, ldefaults = WidgetMeta.get_widget_defaults(wclass, widget_id)
         data = WidgetMeta(wclass, widget_id, manager, pdefaults, ldefaults)
+        data.is_named = False
+        data.identifier = widget_id
 
         # Recalculate position if manager is grid
         if manager == "grid":
