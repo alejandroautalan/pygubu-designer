@@ -22,4 +22,4 @@ from .tkvarentry import TkVarPropertyEditor
 from .ttkstyleentry import TtkStylePropertyEditor
 from .whentry import WHPropertyEditor
 from .cursorentry import CursorPropertyEditor
-from .uidpropeditor import NamedIDPropertyEditor
+from .namedideditor import NamedIDPropertyEditor
