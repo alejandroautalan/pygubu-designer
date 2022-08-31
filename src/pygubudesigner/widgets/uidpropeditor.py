@@ -16,7 +16,7 @@ import tkinter.ttk as ttk
 from .propertyeditor import PropertyEditor, register_editor
 
 
-class UidPropertyEditor(PropertyEditor):
+class NamedIDPropertyEditor(PropertyEditor):
     RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$", re.UNICODE)
 
     def _create_ui(self):
@@ -49,14 +49,16 @@ class UidPropertyEditor(PropertyEditor):
 
     def _get_value(self):
         value = self._variable.get()
-        if value == self._placeholder:
-            value = ""
+        if not value:
+            value = self._placeholder
+        print(f"getting value: {value}")
         return value
 
     def _set_value(self, value):
         """Save value on storage"""
         if not value:
             value = self._placeholder
+        print(f"setting value: {value}")
         self._variable.set(value)
 
     def _on_focusin(self, event):
@@ -70,4 +72,4 @@ class UidPropertyEditor(PropertyEditor):
         self._on_variable_changed()
 
 
-register_editor("uidentry", UidPropertyEditor)
+register_editor("namedid", NamedIDPropertyEditor)

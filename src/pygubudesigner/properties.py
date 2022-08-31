@@ -1458,8 +1458,7 @@ REQUIRED_OPTIONS = {
         "params": {"mode": "entry", "state": "readonly"},
         "help": help_for("class"),
     },
-    "id": {"editor": "identifierentry", "help": help_for("id")},
-    "uid": {"editor": "uidentry"},
+    "id": {"editor": "namedid", "help": help_for("id")},
 }
 
 CUSTOM_OPTIONS = {
@@ -1606,7 +1605,7 @@ CUSTOM_OPTIONS = {
     },
 }
 
-WIDGET_REQUIRED_OPTIONS = ("class", "uid")
+WIDGET_REQUIRED_OPTIONS = ("class", "id")
 WIDGET_STANDARD_OPTIONS = (
     "activerelief",
     "activestyle",

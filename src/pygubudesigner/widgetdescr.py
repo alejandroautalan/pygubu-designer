@@ -32,6 +32,35 @@ logger = logging.getLogger(__name__)
 
 
 class WidgetMeta(WidgetMetaBase, Observable):
+    def __init__(
+        self,
+        cname,
+        identifier,
+        manager=None,
+        properties_defaults=None,
+        layout_defaults=None,
+    ):
+        super().__init__(
+            cname, identifier, manager, properties_defaults, layout_defaults
+        )
+        self.start_id = None
+        self.start_named = None
+
+    @WidgetMetaBase.identifier.setter
+    def identifier(self, value: str):
+        if self.start_id is None:
+            self.start_id = value
+        else:
+            if self.start_named is not None and not self.start_named:
+                self.is_named = True if self.start_id != value else False
+        super(WidgetMeta, type(self)).identifier.fset(self, value)
+
+    @WidgetMetaBase.is_named.setter
+    def is_named(self, value: bool):
+        if self.start_named is None:
+            self.start_named = value
+        super(WidgetMeta, type(self)).is_named.fset(self, value)
+
     def apply_layout_defaults(self):
         super().apply_layout_defaults()
         self.notify("LAYOUT_CHANGED", self)
@@ -42,8 +71,6 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 return self.identifier
             elif name == "class":
                 return self.classname
-            elif name == "uid":
-                return self.uid
             else:
                 return self.properties.get(name, "")
         else:
@@ -52,8 +79,6 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 self.identifier = value
             elif name == "class":
                 self.classname = value
-            elif name == "uid":
-                self.uid = value
             else:
                 if value:
                     self.properties[name] = value
