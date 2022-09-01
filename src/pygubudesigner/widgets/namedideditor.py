@@ -51,14 +51,12 @@ class NamedIDPropertyEditor(PropertyEditor):
         value = self._variable.get()
         if not value:
             value = self._placeholder
-        print(f"getting value: {value}")
         return value
 
     def _set_value(self, value):
         """Save value on storage"""
         if not value:
             value = self._placeholder
-        print(f"setting value: {value}")
         self._variable.set(value)
 
     def _on_focusin(self, event):

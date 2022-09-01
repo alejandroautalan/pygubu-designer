@@ -151,7 +151,6 @@ class PropertiesEditor:
 
         # Setup name placeholder
         if pname == "id" and isinstance(editor, NamedIDPropertyEditor):
-            print("setting placeholder")
             params["placeholder"] = wdescr.start_id
 
         # Configure editor
