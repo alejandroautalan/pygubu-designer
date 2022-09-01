@@ -13,7 +13,10 @@
 import keyword
 import re
 import tkinter.ttk as ttk
+from pygubu.stockimage import StockImage
+import pygubu.widgets.simpletooltip as tooltip
 from .propertyeditor import PropertyEditor, register_editor
+from ..i18n import _
 
 
 class NamedIDPropertyEditor(PropertyEditor):
@@ -23,12 +26,26 @@ class NamedIDPropertyEditor(PropertyEditor):
         self._placeholder = ""
         self._entry = entry = ttk.Entry(self, textvariable=self._variable)
         entry.grid(sticky="we")
+        self._btn_reset = ttk.Button(self)
+        img = StockImage.get("bin-16")
+        self._btn_reset.configure(
+            text="×",
+            image=img,
+            style="Toolbutton",
+            command=self._on_reset_clicked,
+        )
+        self._btn_reset.grid(column=1, padx="5 0", row=0)
+        msg = _("Request new ID and set widget as nameless.")
+        tooltip.create(self._btn_reset, msg)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
         entry.bind("<FocusIn>", self._on_focusin)
         entry.bind("<FocusOut>", self._on_focusout)
         entry.bind("<KeyPress>", self._on_keypress)
+
+    def _on_reset_clicked(self):
+        self.event_generate("<<NamedIDPropertyEditor::ResetID>>")
 
     def _validate(self):
         is_valid = True

@@ -129,6 +129,9 @@ class WidgetsTreeEditor:
             "<<ClearSelectedGridTreeInfo>>",
             self.clear_selected_grid_tree_info,
         )
+        lframe.bind_all(
+            "<<NamedIDPropertyEditor::ResetID>>", self._on_reset_id_requested
+        )
 
         # Tree Editing
         tree = self.treeview
@@ -1500,3 +1503,20 @@ class WidgetsTreeEditor:
             and not self._is_tkvar_defined("", cmdname)
         )
         return is_valid
+
+    def _on_reset_id_requested(self, event=None):
+        item = self.current_edit
+        wmeta = self.treedata[item]
+        # Stop listening object updates
+        self._listen_object_updates = False
+        # Reset object identifier
+        newid = self.get_unique_id(wmeta.classname)
+        wmeta.start_id = None
+        wmeta.start_named = None
+        wmeta.identifier = newid
+        wmeta.is_named = False
+
+        self._listen_object_updates = True
+        self.editor_edit(item, wmeta)
+        self.draw_widget(item)
+        self.app.set_changed()
