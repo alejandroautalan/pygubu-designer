@@ -60,12 +60,14 @@ class ScriptGenerator:
             "use_ttkdefs_file_var",
             "add_i18n_var",
             "menulist_keyvar",
+            "all_ids_attributes_var",
         ]
         builder.import_variables(self, myvars)
 
         self.txt_code = builder.get_object("txt_code")
         self.cb_import_tkvars = builder.get_object("cb_import_tkvars")
         self.cb_add_i18n = builder.get_object("cb_add_i18n")
+        self.cb_all_ids_attributes = builder.get_object("cb_all_ids_attributes")
 
         _ = self.app.translator
         self.msgtitle = _("Script Generator")
@@ -95,6 +97,7 @@ class ScriptGenerator:
             target_class = self.tree.get_widget_class(tree_item)
             class_name = self.classnamevar.get()
             with_i18n_support = self.add_i18n_var.get()
+            all_ids_attributes = self.all_ids_attributes_var.get()
 
             main_widget_is_toplevel = False
             set_main_menu = False
@@ -127,6 +130,7 @@ class ScriptGenerator:
             }
 
             generator.with_i18n_support = with_i18n_support
+            generator.all_ids_as_attributes = all_ids_attributes
             black_fm = black.FileMode()
             if template == "application":
                 generator.add_import_line("pathlib")
@@ -192,6 +196,7 @@ class ScriptGenerator:
                 context["import_lines"] = code["imports"]
                 context["callbacks"] = code["callbacks"]
                 context["methods"] = code["methods"]
+                context["target_code_id"] = code["target_code_id"]
                 # Style definitions
                 ttk_styles_code = code["ttkstyles"]
                 if self.use_ttkdefs_file_var.get() and ttk_styles_code:
@@ -222,10 +227,12 @@ class ScriptGenerator:
         import_tkvars_state = "disabled"
         add_i18n_state = "normal"
         menulist_state = "normal"
+        all_ids_state = "normal"
         if template == "application":
             name = f"{classname}App"
             self.classnamevar.set(name)
             import_tkvars_state = "normal"
+            all_ids_state = "disabled"
         elif template == "codescript":
             name = f"{classname}App"
             self.classnamevar.set(name)
@@ -236,6 +243,7 @@ class ScriptGenerator:
             menulist_state = "disabled"
         self.cb_import_tkvars.configure(state=import_tkvars_state)
         self.cb_add_i18n.configure(state=add_i18n_state)
+        self.cb_all_ids_attributes.configure(state=all_ids_state)
         self.menulist.configure(state=menulist_state)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])

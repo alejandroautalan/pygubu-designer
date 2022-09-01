@@ -1458,7 +1458,7 @@ REQUIRED_OPTIONS = {
         "params": {"mode": "entry", "state": "readonly"},
         "help": help_for("class"),
     },
-    "id": {"editor": "identifierentry", "help": help_for("id")},
+    "id": {"editor": "namedid", "help": help_for("id")},
 }
 
 CUSTOM_OPTIONS = {

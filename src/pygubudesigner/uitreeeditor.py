@@ -32,6 +32,7 @@ from pygubudesigner.widgets import (
     EventHandlerEditor,
     IdentifierPropertyEditor,
     TkVarPropertyEditor,
+    NamedIDPropertyEditor,
 )
 
 import pygubudesigner.actions as action
@@ -94,6 +95,7 @@ class WidgetsTreeEditor:
         TkVarPropertyEditor.global_validator = self.is_tkvar_valid
         # set global validator for IDs
         IdentifierPropertyEditor.global_validator = self.is_id_unique
+        NamedIDPropertyEditor.global_validator = self.is_id_unique
         # set global validator for commands
         CommandPropertyBase.global_validator = self.is_command_valid
         # set global validator for bindings commands
@@ -126,6 +128,9 @@ class WidgetsTreeEditor:
         lframe.bind_all(
             "<<ClearSelectedGridTreeInfo>>",
             self.clear_selected_grid_tree_info,
+        )
+        lframe.bind_all(
+            "<<NamedIDPropertyEditor::ResetID>>", self._on_reset_id_requested
         )
 
         # Tree Editing
@@ -607,7 +612,8 @@ class WidgetsTreeEditor:
 
         data.setup_defaults()  # load default settings for properties and layout
         tree = self.treeview
-        treelabel = f"{data.identifier}: {data.classname}"
+        identifier = f"{data.identifier}: " if data.is_named else " "
+        treelabel = f"{identifier}{data.classname}"
         row = col = ""
         if root != "" and data.has_layout_defined():
             if data.manager == "grid" and data.layout_required:
@@ -900,6 +906,8 @@ class WidgetsTreeEditor:
         widget_id = self.get_unique_id(wclass)
         pdefaults, ldefaults = WidgetMeta.get_widget_defaults(wclass, widget_id)
         data = WidgetMeta(wclass, widget_id, manager, pdefaults, ldefaults)
+        data.is_named = False
+        data.identifier = widget_id
 
         # Recalculate position if manager is grid
         if manager == "grid":
@@ -1094,7 +1102,8 @@ class WidgetsTreeEditor:
         tree = self.treeview
         data = obj
         item = self.get_item_by_data(obj)
-        item_text = f"{data.identifier}: {data.classname}"
+        identifier = f"{data.identifier}: " if data.is_named else " "
+        item_text = f"{identifier}{data.classname}"
         if item:
             if item_text != tree.item(item, "text"):
                 tree.item(item, text=item_text)
@@ -1393,7 +1402,6 @@ class WidgetsTreeEditor:
 
     def is_id_unique(self, idvalue) -> bool:
         "Check if idvalue is unique in all UI tree."
-        # Used in ID validation
         is_unique = (
             not self._is_id_defined("", idvalue)
             and not self._is_tkvar_defined("", idvalue)
@@ -1495,3 +1503,20 @@ class WidgetsTreeEditor:
             and not self._is_tkvar_defined("", cmdname)
         )
         return is_valid
+
+    def _on_reset_id_requested(self, event=None):
+        item = self.current_edit
+        wmeta = self.treedata[item]
+        # Stop listening object updates
+        self._listen_object_updates = False
+        # Reset object identifier
+        newid = self.get_unique_id(wmeta.classname)
+        wmeta.start_id = None
+        wmeta.start_named = None
+        wmeta.identifier = newid
+        wmeta.is_named = False
+
+        self._listen_object_updates = True
+        self.editor_edit(item, wmeta)
+        self.draw_widget(item)
+        self.app.set_changed()

@@ -23,7 +23,7 @@ from pygubu.widgets.simpletooltip import create as create_tooltip
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import create_editor
-
+from .widgets import NamedIDPropertyEditor
 from .stylehandler import StyleHandler
 
 logger = logging.getLogger(__name__)
@@ -148,6 +148,11 @@ class PropertiesEditor:
         # specific class
         if default_mode is not None and "mode" not in params:
             params["mode"] = default_mode
+
+        # Setup name placeholder
+        if pname == "id" and isinstance(editor, NamedIDPropertyEditor):
+            params["placeholder"] = wdescr.start_id
+
         # Configure editor
         editor.parameters(**params)
 

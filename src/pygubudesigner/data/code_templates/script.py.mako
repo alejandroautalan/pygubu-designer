@@ -13,7 +13,7 @@ class ${class_name}:
         # build ui
 ${widget_code}
         # Main widget
-        self.mainwindow = self.${main_widget}
+        self.mainwindow = ${target_code_id}
 %if set_main_menu:
         # Main menu
         _main_menu = self.create_${main_menu_id}(self.mainwindow)
