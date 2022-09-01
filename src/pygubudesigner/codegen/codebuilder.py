@@ -97,6 +97,7 @@ class UI2Code(Builder):
         self._current_method = None
         self._current_target = None
         self._generated_target_id = None
+        self.all_ids_as_attributes = False
 
     def add_import_line(self, module_name, as_name=None, priority=0):
         if module_name not in self._extra_imports:
@@ -350,7 +351,7 @@ class UI2Code(Builder):
 
     def _get_unique_id(self, wmeta, uniqueid, masterid):
         if self.as_class:
-            if wmeta.is_named:
+            if wmeta.is_named or self.all_ids_as_attributes:
                 uniqueid = "self." + uniqueid if masterid else "self"
         return uniqueid
 
