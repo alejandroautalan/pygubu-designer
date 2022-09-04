@@ -32,14 +32,6 @@ APP_NAME = "pygubu-designer"
 DATA_DIR = Path(__file__).parent / "data"
 LOCALE_DIR = DATA_DIR / "locale"
 
-if not (LOCALE_DIR / "de" / "LC_MESSAGES" / "pygubu-designer.mo").exists():
-    print(
-        "You should compile the .po files in the pygubudesigner/locale "
-        + "directory first if you are a developer, otherwise give us feedback "
-        + "here: https://github.com/alejandroautalan/pygubu-designer/issues"
-    )
-    sys.exit(0)
-
 # Now we need to choose the language. We will provide a list, and gettext
 # will use the first translation available in the list
 #

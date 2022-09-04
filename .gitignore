@@ -17,5 +17,6 @@ designer.wpu
 *.kdev4
 *.wpr
 
-# *.mo don't need to be committed
-*.mo
+# *.mo don't need to be committed, but are included back again to
+#      easy the installation from a git branch.
+# *.mo  
