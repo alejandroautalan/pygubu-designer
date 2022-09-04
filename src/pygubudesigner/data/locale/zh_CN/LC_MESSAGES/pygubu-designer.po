@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-13 20:48-0300\n"
+"POT-Creation-Date: 2022-09-04 18:27-0300\n"
 "PO-Revision-Date: 2022-07-13 02:15+0800\n"
 "Last-Translator: larry <larryw3i@163.com>\n"
 "Language-Team: Chinese (Simplified) <larryw3i@163.com>\n"
@@ -20,8 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: src/pygubudesigner/data/ui/container_layout_editor_base.ui:25
-#: src/pygubudesigner/containerlayouteditor.py:41
-#: src/pygubudesigner/widgets/containerlayouteditorbase.py:28
+#: src/pygubudesigner/containerlayouteditor.py:42
 #, python-brace-format
 msgid "Options for {0} container"
 msgstr "{0} 控件的选项"
@@ -47,7 +46,7 @@ msgid "Column {0} options"
 msgstr "第'{0}'列的选项"
 
 #: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:7
-#: src/pygubudesigner/main.py:578
+#: src/pygubudesigner/main.py:581
 msgid "Save Changes"
 msgstr "保存变化"
 
@@ -74,7 +73,7 @@ msgstr "取消"
 
 #: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:129
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:46
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1078
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1088
 msgid "Save"
 msgstr "保存"
 
@@ -172,7 +171,7 @@ msgstr "首选项"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:179
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:506
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1013
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1023
 msgid "Preview"
 msgstr "预览"
 
@@ -328,15 +327,19 @@ msgstr "使用 ttk 样式的定义文件"
 msgid "Add i18n support"
 msgstr "增加国际化（多语言）支持"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1058
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:982
+msgid "All IDs as class attributes"
+msgstr ""
+
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1068
 msgid "Generate"
 msgstr "生成"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1068
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1078
 msgid "Copy to Clipboard"
 msgstr "复制到剪切板"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1161
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1171
 msgid "Messages"
 msgstr "信息"
 
@@ -509,12 +512,12 @@ msgstr "新建 ..."
 msgid "Ok"
 msgstr "好"
 
-#: src/pygubudesigner/containerlayouteditor.py:42
+#: src/pygubudesigner/containerlayouteditor.py:43
 #, python-brace-format
 msgid "Row index: {0}"
 msgstr "行索引： {0}"
 
-#: src/pygubudesigner/containerlayouteditor.py:43
+#: src/pygubudesigner/containerlayouteditor.py:44
 #, python-brace-format
 msgid "Column index: {0}"
 msgstr "列索引： {0}"
@@ -529,7 +532,7 @@ msgstr ""
 
 #: src/pygubudesigner/preferences.py:90 src/pygubudesigner/preferences.py:96
 #: src/pygubudesigner/main.py:73 src/pygubudesigner/main.py:90
-#: src/pygubudesigner/main.py:614 src/pygubudesigner/main.py:652
+#: src/pygubudesigner/main.py:617 src/pygubudesigner/main.py:655
 msgid "Error"
 msgstr "出错"
 
@@ -545,9 +548,9 @@ msgid "Python module"
 msgstr "Python 模块"
 
 #: src/pygubudesigner/preferences.py:296 src/pygubudesigner/preferences.py:329
-#: src/pygubudesigner/preferences.py:379
-#: src/pygubudesigner/codegen/scriptgenerator.py:238
-#: src/pygubudesigner/main.py:621 src/pygubudesigner/main.py:665
+#: src/pygubudesigner/preferences.py:379 src/pygubudesigner/main.py:624
+#: src/pygubudesigner/main.py:668
+#: src/pygubudesigner/codegen/scriptgenerator.py:258
 msgid "All"
 msgstr "全部"
 
@@ -607,46 +610,6 @@ msgstr "转换{0}布局管理器为{1}布局管理器?"
 msgid "All container widgets will be updated."
 msgstr "所有容器控件会被更新。"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:71
-msgid "Script Generator"
-msgstr "脚本生成"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:75
-msgid "Create a pygubu application script using the UI definition."
-msgstr "使用用户界面定义创建一个pygubu应用脚本。"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:77
-msgid "Create a coded version of the UI definition."
-msgstr "创建一个用户界面定义的代码版本。"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:78
-msgid "Create a base class for your custom widget."
-msgstr "给你的自定义控件创建一个base类"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:200
-msgid "Code copied"
-msgstr "代码被复制"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:238
-msgid "Python Script"
-msgstr "Python脚本"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:283
-msgid "Select widget"
-msgstr "选择控件"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:289
-msgid "Select template"
-msgstr "选择模板"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:295
-msgid "Enter classname"
-msgstr "输入类名"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:302
-msgid "Invalid classname"
-msgstr "无效类名"
-
 #: src/pygubudesigner/propertieseditor.py:67
 msgid "Required"
 msgstr "必要属性"
@@ -672,104 +635,44 @@ msgstr "正在运用 ttk 样式定义"
 msgid "ttk style definition error: %s"
 msgstr "ttk 样式定义错误： %s"
 
-#: src/pygubudesigner/widgets/commandentry.py:105
-msgid "Callback:"
-msgstr "回调:"
-
-#: src/pygubudesigner/widgets/commandentry.py:119
-msgid "Simple"
-msgstr "简易"
-
-#: src/pygubudesigner/widgets/commandentry.py:120
-msgid "Send widget ID"
-msgstr "发送控件ID"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:44
-msgid "Type of action."
-msgstr "Action类型"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:45
-msgid "Index of character string to be inserted/deleted."
-msgstr "欲取代或删除的字符（串）索引。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:46
-msgid "The new/current value of the entry."
-msgstr "Entry的当前值。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:47
-msgid "The current value of entry prior to editing."
-msgstr "Entry当前编辑的值。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:48
-msgid "The text string being inserted/deleted."
-msgstr "文本已被取代/删除"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:49
-msgid "The current value of the -validate option."
-msgstr "-validate选项的当前值"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:52
-msgid "The validation condition that triggered the callback."
-msgstr "触发回调的验证条件。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:54
-msgid "The name of the entry widget."
-msgstr "Entry控件名："
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:60
-msgid "Select all"
-msgstr "全选"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:61
-msgid "Clear"
-msgstr "清除"
-
-#: src/pygubudesigner/widgets/imageentry.py:51
-msgid "Tk image formats"
-msgstr "Tk图片格式"
-
-#: src/pygubudesigner/widgets/imageentry.py:52
-msgid "All Files"
-msgstr "全部文件"
-
-#: src/pygubudesigner/uitreeeditor.py:161
+#: src/pygubudesigner/uitreeeditor.py:173
 msgid "Delete items"
 msgstr "删除项"
 
-#: src/pygubudesigner/uitreeeditor.py:162
+#: src/pygubudesigner/uitreeeditor.py:174
 msgid "Delete selected items?"
 msgstr "删除被选项？"
 
-#: src/pygubudesigner/uitreeeditor.py:451
+#: src/pygubudesigner/uitreeeditor.py:463
 msgid "No item selected."
 msgstr "无被选项。"
 
-#: src/pygubudesigner/uitreeeditor.py:684
+#: src/pygubudesigner/uitreeeditor.py:697
 #, python-format
 msgid "Allowed children: %s."
 msgstr "被允许的子项: %s."
 
-#: src/pygubudesigner/uitreeeditor.py:694
+#: src/pygubudesigner/uitreeeditor.py:707
 #, python-brace-format
 msgid "Only {0} children allowed for {1}"
 msgstr "仅{0}被允许成为{1}的子项"
 
-#: src/pygubudesigner/uitreeeditor.py:709
+#: src/pygubudesigner/uitreeeditor.py:722
 #, python-brace-format
 msgid "{0} not allowed as parent of {1}"
 msgstr "{0}不允许作为{1}的父项"
 
-#: src/pygubudesigner/uitreeeditor.py:719
+#: src/pygubudesigner/uitreeeditor.py:732
 #, python-format
 msgid "Not allowed, %s is not a container."
 msgstr "不被允许, %s不是一个容器。"
 
-#: src/pygubudesigner/uitreeeditor.py:731
+#: src/pygubudesigner/uitreeeditor.py:744
 #, python-format
 msgid "%s not allowed at root level"
 msgstr "%s不能成为根级"
 
-#: src/pygubudesigner/uitreeeditor.py:741
+#: src/pygubudesigner/uitreeeditor.py:754
 #, python-format
 msgid "Not allowed at root level, %s is not a container."
 msgstr "不能成为根级, %s不是一个容器"
@@ -784,32 +687,32 @@ msgstr "加载控件模块失败： '{modulename}'"
 msgid "Failed to load custom widget module: '{path}'"
 msgstr "加载自定义控件模块失败： '{path}'"
 
-#: src/pygubudesigner/main.py:581
+#: src/pygubudesigner/main.py:584
 msgid "If you don't save the document, all the changes will be lost."
 msgstr "如果你不保存文档，所有更改会丢失。"
 
-#: src/pygubudesigner/main.py:595
+#: src/pygubudesigner/main.py:598
 msgid "Do you want to save the changes before closing?"
 msgstr "关闭之前要保存文档吗？"
 
-#: src/pygubudesigner/main.py:611
+#: src/pygubudesigner/main.py:614
 #, python-format
 msgid "Project saved to %s"
 msgstr "项目保存到：%s"
 
-#: src/pygubudesigner/main.py:621 src/pygubudesigner/main.py:664
+#: src/pygubudesigner/main.py:624 src/pygubudesigner/main.py:667
 msgid "pygubu ui"
 msgstr "pygubu用户界面"
 
-#: src/pygubudesigner/main.py:657
+#: src/pygubudesigner/main.py:660
 msgid "Do you want to save the changes before opening?"
 msgstr "打开之前您要保存所做的更改吗？"
 
-#: src/pygubudesigner/main.py:675
+#: src/pygubudesigner/main.py:678
 msgid "Do you want to save the changes before creating?"
 msgstr "新建前您要保存所做的更改吗？"
 
-#: src/pygubudesigner/main.py:851
+#: src/pygubudesigner/main.py:854
 msgid "newproject"
 msgstr "新项目"
 
@@ -2021,6 +1924,110 @@ msgid ""
 "When a non-empty value is supplied, places the row in a uniform group with "
 "other rows that have the same value for uniform."
 msgstr "当提供非空值时，将行与其他具有相同统一值的行放在一个统一组中。"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:73
+msgid "Script Generator"
+msgstr "脚本生成"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:77
+msgid "Create a pygubu application script using the UI definition."
+msgstr "使用用户界面定义创建一个pygubu应用脚本。"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:79
+msgid "Create a coded version of the UI definition."
+msgstr "创建一个用户界面定义的代码版本。"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:80
+msgid "Create a base class for your custom widget."
+msgstr "给你的自定义控件创建一个base类"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:217
+msgid "Code copied"
+msgstr "代码被复制"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:258
+msgid "Python Script"
+msgstr "Python脚本"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:303
+msgid "Select widget"
+msgstr "选择控件"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:309
+msgid "Select template"
+msgstr "选择模板"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:315
+msgid "Enter classname"
+msgstr "输入类名"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:322
+msgid "Invalid classname"
+msgstr "无效类名"
+
+#: src/pygubudesigner/widgets/commandentry.py:105
+msgid "Callback:"
+msgstr "回调:"
+
+#: src/pygubudesigner/widgets/commandentry.py:119
+msgid "Simple"
+msgstr "简易"
+
+#: src/pygubudesigner/widgets/commandentry.py:120
+msgid "Send widget ID"
+msgstr "发送控件ID"
+
+#: src/pygubudesigner/widgets/namedideditor.py:38
+msgid "Request new ID and set widget as nameless."
+msgstr ""
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:44
+msgid "Type of action."
+msgstr "Action类型"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:45
+msgid "Index of character string to be inserted/deleted."
+msgstr "欲取代或删除的字符（串）索引。"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:46
+msgid "The new/current value of the entry."
+msgstr "Entry的当前值。"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:47
+msgid "The current value of entry prior to editing."
+msgstr "Entry当前编辑的值。"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:48
+msgid "The text string being inserted/deleted."
+msgstr "文本已被取代/删除"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:49
+msgid "The current value of the -validate option."
+msgstr "-validate选项的当前值"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:52
+msgid "The validation condition that triggered the callback."
+msgstr "触发回调的验证条件。"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:54
+msgid "The name of the entry widget."
+msgstr "Entry控件名："
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:60
+msgid "Select all"
+msgstr "全选"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:61
+msgid "Clear"
+msgstr "清除"
+
+#: src/pygubudesigner/widgets/imageentry.py:51
+msgid "Tk image formats"
+msgstr "Tk图片格式"
+
+#: src/pygubudesigner/widgets/imageentry.py:52
+msgid "All Files"
+msgstr "全部文件"
 
 #~ msgid "pygubu-designer v%version%"
 #~ msgstr "pygubu-designer 版本 %version%"
