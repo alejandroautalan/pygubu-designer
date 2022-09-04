@@ -1,9 +1,15 @@
 History
 =======
 
+Changes for version 0.30
+
+  * New selected indicator in preview.
+  * Completed menu support for code generator (issue #103)
+  * Decluttering for widget IDs (issue #117)
+
 Changes for version 0.29.1
 
-  Hotfix:  Fix template path in preferences window #147 (jrezai)
+  * Hotfix:  Fix template path in preferences window #147 (jrezai)
   
 Changes for version 0.29
 
