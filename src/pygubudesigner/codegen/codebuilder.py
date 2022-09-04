@@ -324,21 +324,22 @@ class UI2Code(Builder):
         vname, type_from_name = self._process_variable_description(name_or_desc)
         vname_in_code = vname
         if vname not in self._tkvariables:
-            var_init = ""
-            if value is None:
-                value = "''"
-            else:
+            var_create = ""
+            var_value = ""
+
+            if value:
                 if type_from_name == "string":
-                    value = f"{value}"
+                    value = f"{self.code_translate_str(value)}"
+                var_value = f"value={value}"
+
             if vtype is None:
-                var_init = "tk.{}Var(value={})".format(
-                    type_from_name.capitalize(), value
-                )
+                var_create = f"tk.{type_from_name.capitalize()}Var({var_value})"
             else:
-                var_init = f"{str(vtype)}(value={value})"
+                var_create = f"{str(vtype)}({var_value})"
+
             if self.as_class:
                 vname_in_code = f"self.{vname}"
-            line = f"{vname_in_code} = {var_init}"
+            line = f"{vname_in_code} = {var_create}"
             self._add_new_code([line])
             self._tkvariables[vname] = vname_in_code
         return self._tkvariables[vname]
