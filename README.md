@@ -22,6 +22,10 @@ You can install pygubu-designer using:
 ```
 pip install pygubu-designer
 ```
+### Arch Linux ([AUR](https://aur.archlinux.org/packages/pygubu-designer))
+```
+yay pygubu-designer
+```
 
 Screenshot
 ==========
