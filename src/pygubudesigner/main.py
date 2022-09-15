@@ -89,14 +89,6 @@ def init_pygubu_widgets():
             msg = _(f"Failed to load custom widget module: '{path}'")
             messagebox.showerror(_("Error"), msg)
 
-    # initialize custom widget plugins
-    for finder, name, ispkg in pkgutil.iter_modules():
-        if name.startswith("pygubu_"):
-            # TODO: Define how the plugins will expose all builders
-            #       to the designer.
-            plugin_builders = f"{name}.builders"
-            importlib.import_module(plugin_builders)
-
     # Register custom properties
     load_custom_properties()
 
