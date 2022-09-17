@@ -73,6 +73,9 @@ class UserinputApp:
         value = random.choice(("None", "A", "B", "C", "D"))
         self.optionmenu_var.set(value)
 
+        # Menubutton
+        self._clicked_commands = []
+
     def on_change_clicked(self):
         self.random_values()
 
@@ -87,6 +90,12 @@ class UserinputApp:
 
     def option_menu_clicked(self, option):
         msg = f"You clicked {option} option."
+        print(msg)
+
+    def mb_option_clicked(self, itemid):
+        msg = f"You clicked {itemid} menu option"
+        if itemid not in self._clicked_commands:
+            self._clicked_commands.append(itemid)
         print(msg)
 
     def on_print_clicked(self):
@@ -105,6 +114,8 @@ class UserinputApp:
         line = f"Radiobutton Group value:{self.group1var.get()}"
         print(line)
         line = f"Option Menu value:{self.optionmenu_var.get()}"
+        print(line)
+        line = f"Menubutton commands clicked: {self._clicked_commands}"
         print(line)
 
     def run(self):
