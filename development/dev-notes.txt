@@ -1,7 +1,7 @@
 TODO
 ====
 
-- #117: wx.ID_ANY ?
+- Add a mechanism to test code generation.
 - ADD designer plugin with sun valley ttk theme!!!!!
 - Issue: redraw previews on theme change.
 - Treeview with scrollHelper. Srollbars are not shown depending on the
