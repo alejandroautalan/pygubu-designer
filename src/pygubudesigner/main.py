@@ -109,7 +109,7 @@ IMAGE_PATHS = [  # (dir, tag)
     (IMAGES_DIR / imgformat / "widgets" / "fontentry", ""),
 ]
 for dir_, prefix in IMAGE_PATHS:
-    StockImage.register_from_dir(str(dir_), prefix)
+    StockImage.register_all_from_dir(dir_, prefix)
 
 
 class StatusBarHandler(logging.Handler):
