@@ -18,7 +18,7 @@ import pathlib
 import re
 from tkinter import filedialog, messagebox
 
-import black
+import autopep8
 from mako.lookup import TemplateLookup
 
 from .codebuilder import UI2Code
@@ -131,7 +131,7 @@ class ScriptGenerator:
 
             generator.with_i18n_support = with_i18n_support
             generator.all_ids_as_attributes = all_ids_attributes
-            black_fm = black.FileMode()
+
             if template == "application":
                 generator.add_import_line("pathlib")
                 if self.use_ttkdefs_file_var.get():
@@ -154,7 +154,7 @@ class ScriptGenerator:
                     context["tkvariables"] = code["tkvariables"]
                 tpl = makolookup.get_template("app.py.mako")
                 final_code = tpl.render(**context)
-                final_code = black.format_str(final_code, mode=black_fm)
+                final_code = self._format_code(final_code)
                 self.set_code(final_code)
             elif template == "widget":
                 generator.with_i18n_support = False
@@ -175,7 +175,7 @@ class ScriptGenerator:
 
                 tpl = makolookup.get_template("widget.py.mako")
                 final_code = tpl.render(**context)
-                final_code = black.format_str(final_code, mode=black_fm)
+                final_code = self._format_code(final_code)
                 self.set_code(final_code)
             elif template == "codescript":
                 if not main_widget_is_toplevel:
@@ -205,7 +205,7 @@ class ScriptGenerator:
 
                 tpl = makolookup.get_template("script.py.mako")
                 final_code = tpl.render(**context)
-                final_code = black.format_str(final_code, mode=black_fm)
+                final_code = self._format_code(final_code)
                 self.set_code(final_code)
 
     def on_code_copy_clicked(self):
@@ -334,3 +334,6 @@ class ScriptGenerator:
     def reset(self):
         self.set_code("")
         self.configure()
+
+    def _format_code(self, code):
+        return autopep8.fix_code(code, options={"aggressive": 1})

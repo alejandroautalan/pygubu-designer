@@ -31,7 +31,7 @@ dependencies = [
     "appdirs >=1.4.3",
     "Mako >=1.1.4",
     "screeninfo >=0.8",
-    "black >=22.1.0",
+    "autopep8 >=1.7",
     "pygubu >=0.25"
 ]
 dynamic = ["version"]
