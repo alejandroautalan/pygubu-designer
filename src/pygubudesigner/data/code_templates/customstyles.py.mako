@@ -17,6 +17,6 @@
 # --------------------
 
 # Example code:
-style.configure('MySpecialButton.TButton',
-                font=('helvetica', 12, 'bold'),
-                background='green', foreground='white')
+style.configure("MySpecialButton.TButton",
+                font=("helvetica", 12, "bold"),
+                background="green", foreground="white")

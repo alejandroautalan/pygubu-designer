@@ -35,7 +35,7 @@ class ToplevelOrTk(TKToplevel):
         init_args = self._get_init_args()
         bag = []
         for pname, value in init_args.items():
-            s = f"{pname}='{value}'"
+            s = f'{pname}="{value}"'
             bag.append(s)
         kwargs = ""
         if bag:
@@ -420,13 +420,14 @@ class UI2Code(Builder):
         tab2 = tabspaces // 2 if tabspaces == 8 else 1
 
         code = []
+        bsp = " "
         for target_id, mlines in self._methods.items():
-            line = f"{' '*tab2}def create_{target_id}(self, master):"
+            line = f"{bsp*tab2}def create_{target_id}(self, master):"
             code.append(line)
             for line in mlines:
-                line = f"{' '*tabspaces}{line}"
+                line = f"{bsp*tabspaces}{line}"
                 code.append(line)
-            line = f"{' '*tabspaces}return {self._methods_target_code_ids[target_id]}"
+            line = f"{bsp*tabspaces}return {self._methods_target_code_ids[target_id]}"
             code.append(line)
         return code
 
@@ -483,7 +484,7 @@ class UI2Code(Builder):
             img_class = "tk.PhotoImage"
             if file_ext in TK_BITMAP_FORMATS:
                 img_class = "tk.BitmapImage"
-            line = f"{varname} = {img_class}(file='{filename}')"
+            line = f'{varname} = {img_class}(file="{filename}")'
             self._add_new_code([line])
             self._tkimages[filename] = varname
         return self._tkimages[filename]

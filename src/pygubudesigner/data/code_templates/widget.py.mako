@@ -18,9 +18,9 @@ ${callbacks}\
 </%block>
 
 <%block name="main">
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = tk.Tk()
     widget = ${class_name}(root)
-    widget.pack(expand=True, fill='both')
+    widget.pack(expand=True, fill="both")
     root.mainloop()
 </%block>

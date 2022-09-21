@@ -6,7 +6,7 @@ ${import_lines}
 <%block name="class_definition"/>
 
 <%block name="main" filter="trim">
-if __name__ == '__main__':
+if __name__ == "__main__":
 % if main_widget_is_toplevel:
     app = ${class_name}()
     app.run()
