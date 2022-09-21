@@ -885,6 +885,7 @@ class PygubuDesigner:
 
 def start_pygubu():
     print(f"python: {platform.python_version()} on {sys.platform}")
+    print(f"tk: {tk.TkVersion}")
     print(f"pygubu: {pygubu.__version__}")
     print(f"pygubu-designer: {pygubudesigner.__version__}")
 
