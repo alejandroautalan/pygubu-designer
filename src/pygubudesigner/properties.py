@@ -280,6 +280,10 @@ TK_WIDGET_OPTIONS = {
             "ttk": help_for("background-ttk"),
         },
     },
+    "backgroundimage": {
+        "editor": "dynamic",
+        "params": {"mode": "imageentry"},
+    },
     # ttk.Frame, ttk.Label
     "borderwidth": {
         "editor": "dynamic",
@@ -1236,6 +1240,15 @@ TK_WIDGET_OPTIONS = {
         "params": {"mode": "realnumber"},
         "help": help_for("to"),
     },
+    "tile": {
+        "editor": "dynamic",
+        "params": {
+            "mode": "choice",
+            "values": ("true", "false"),
+            "state": "readonly",
+        },
+        "default": "false",
+    },
     "title": {
         "editor": "dynamic",
         "params": {"mode": "entry"},
@@ -1667,6 +1680,7 @@ WIDGET_SPECIFIC_OPTIONS = (
     "aspect",
     "autoseparators",
     "background",
+    "backgroundimage",
     "bigincrement",
     "blockcursor",
     "borderwidth",
@@ -1756,6 +1770,7 @@ WIDGET_SPECIFIC_OPTIONS = (
     "tabstyle",
     "text",
     "textvariable",
+    "tile",
     "title",
     "tickinterval",
     "tristateimage",
