@@ -13,12 +13,12 @@ Instalación
 
 La última versión de pygubu requiere Python >= 3.6
 
-Puedes instalar pygubu usando:
+Puedes instalar pygubu-designer usando:
 
 ### pip:
 
 ```
-pip install pygubu
+pip install pygubu-designer
 ```
 
 Captura de pantalla
