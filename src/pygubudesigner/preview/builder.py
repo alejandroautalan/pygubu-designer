@@ -33,13 +33,12 @@ class BuilderForPreview(pygubu.Builder):
         if cname not in self.normalwidgets:
             if cname.startswith("tk.Menuitem"):
                 return
-            self.make_previewonly(bobject.widget)
-            # TODO: for custom widgets we may need to add a method
-            #   'configure_for_preview(self, widget) in BuilderObject' ?
+            self.make_previewonly(bobject)
 
-    def make_previewonly(self, w):
+    def make_previewonly(self, bobject):
         """Make widget just display with no functionality."""
-        self._crop_widget(w)
+        self._crop_widget(bobject.widget)
+        bobject.configure_for_preview(bobject.widget)
 
     def _crop_widget(self, w):
         """Remove standard widget functionality."""
