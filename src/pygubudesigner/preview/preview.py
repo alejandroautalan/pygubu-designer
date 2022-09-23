@@ -487,4 +487,4 @@ class DialogPreview(ToplevelPreview):
     def create_toplevel(self, widget_id, uidefinition):
         top = super().create_toplevel(widget_id, uidefinition)
         top.run()
-        return top
+        return top.toplevel
