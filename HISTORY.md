@@ -1,7 +1,7 @@
 History
 =======
 
-Changes for version 0.31.1
+Changes for version 0.31.2
 
  * Hotfix, reset code tab on load file.
 
