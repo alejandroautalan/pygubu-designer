@@ -643,6 +643,7 @@ class PygubuDesigner:
             self.set_title(title)
             self.set_changed(False)
             self.rfiles_manager.addfile(filename)
+            self.script_generator.reset()
         except Exception as e:
             messagebox.showerror(_("Error"), str(e), parent=self.mainwindow)
 
