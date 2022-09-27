@@ -1,6 +1,12 @@
 History
 =======
 
+Changes for version 0.31
+
+ * Use a lighter code formatter. Removed black, use autopep8. refs #152
+ * Fix AttributeError: 'Dialog' object has no attribute 'update_idletasks' when pressing F5
+ * Add example integration with python zipapp module. refs alejandroautalan/pygubu#269
+
 Changes for version 0.30
 
   * New selected indicator in preview.
