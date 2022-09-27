@@ -1,6 +1,9 @@
 TODO
 ====
-
+- Tooltips:
+  We need to save a "manager" or something similar in the xml
+  to later know howto process the property in pygubu.
+  There is a "type" that is used already, see that way.
 - Add a mechanism to test code generation.
 - ADD designer plugin with sun valley ttk theme!!!!!
 - Issue: redraw previews on theme change.
@@ -45,9 +48,12 @@ pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/
 
 twine upload -r test_pygubu_designer dist/*
 pip install --no-cache-dir -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu-designer[all]
+pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu-designer
 
 alejandroautalan/pygubu
 alejandroautalan/pygubu-designer#99
+
+pip install git+https://github.com/alejandroautalan/pygubu git+https://github.com/alejandroautalan/pygubu-designer
 
 
 Theming notes:
