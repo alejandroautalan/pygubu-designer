@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.31.1
+
+ * Hotfix, reset code tab on load file.
+
 Changes for version 0.31
 
  * Use a lighter code formatter. Removed black, use autopep8. refs #152
