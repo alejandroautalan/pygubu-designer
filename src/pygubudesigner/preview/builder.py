@@ -27,6 +27,10 @@ class BuilderForPreview(pygubu.Builder):
         "pygubudesigner.ToplevelFramePreview",
     ]
 
+    def _get_builder_for(self, builder_uid):
+        print("calling _get_builder_for")
+        return super()._get_builder_for(builder_uid)
+
     def _post_realize(self, bobject):
         """Configure widget for "preview" mode."""
         cname = bobject.wmeta.classname
