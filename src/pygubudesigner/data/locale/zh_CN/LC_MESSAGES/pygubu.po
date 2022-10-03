@@ -9,153 +9,155 @@ msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-04 18:27-0300\n"
-"PO-Revision-Date: 2022-07-13 04:56+0800\n"
+"PO-Revision-Date: 2022-10-03 13:48+0800\n"
 "Last-Translator: larry <larryw3i@163.com>\n"
-"Language-Team: Chinese (Simplified) <larryw3i@163.com>\n"
-"Language: zh_CHS\n"
+"Language-Team: Chinese - China <larryw3i@163.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 41.0\n"
+"X-Generator: Gtranslator 42.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:55
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:98
 msgid "background color"
-msgstr ""
+msgstr "背景颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:58
 msgid "foreground color"
-msgstr ""
+msgstr "前景颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:61
 msgid "border width"
-msgstr ""
+msgstr "边宽"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:69
 msgid "include vertical scrollbar"
-msgstr ""
+msgstr "包括竖向滚动条"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:77
 msgid "include horizontal scrollbar"
-msgstr ""
+msgstr "包括横向滚动条"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:85
 msgid "automatic vertical scrolling"
-msgstr ""
+msgstr "自动竖向滚动"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:92
 msgid ""
 "maximum characters allowed in Text widget, text will be truncated from the "
 "beginning to match the max chars"
-msgstr ""
+msgstr "控件内文本（字符）的最大数量，超过指定数量的文本会被切出"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:96
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:102
 msgid "color of scrollbars' slider"
-msgstr ""
+msgstr "滚动条的颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:102
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:109
 msgid "color of scrollbars' trough, default to frame's background"
-msgstr ""
+msgstr "滚动条内部的颜色，默认是 frame 的背景颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:108
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:116
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:123
 msgid "vertical scrollbar width"
-msgstr ""
+msgstr "竖向滚动条的宽 "
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:114
 msgid "horizontal scrollbar width"
-msgstr ""
+msgstr "横向滚动条的宽"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/progressbar.py:48
 msgid "color of base ring"
-msgstr ""
+msgstr "底环的颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/progressbar.py:54
 msgid "color of indicator ring"
-msgstr ""
+msgstr "指示环的颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/progressbar.py:60
 msgid "percentage text color"
-msgstr ""
+msgstr "百分比文本颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/progressbar.py:66
 msgid "tkinter font for percentage text"
-msgstr ""
+msgstr "百分比文本的 tkinter 字体"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/progressbar.py:76
 msgid ""
 "font size to progressbar width ratio, e.g. for a progressbar size 100 "
 "pixels, a 0.1 ratio means font size 10"
 msgstr ""
+"文本尺寸相对于进度条宽的比例，例如：给进度条尺寸100个像素，当此处值为 0.1 时"
+"字体大小为 10。"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/progressbar.py:83
 msgid "base image for progressbar"
-msgstr ""
+msgstr "进度条的底部图片"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/progressbar.py:89
 msgid "indicator image for progressbar"
-msgstr ""
+msgstr "进度条的指示图片"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/progressbar.py:95
 msgid "color of parent container"
-msgstr ""
+msgstr "父容器的颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/label.py:41
 msgid "milliseconds"
-msgstr ""
+msgstr "毫秒"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:30
 msgid "color of frame"
-msgstr ""
+msgstr "frame 的颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:76
 msgid "use vertical scrollbar"
-msgstr ""
+msgstr "使用竖向滚动条"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:85
 msgid "use horizontal scrollbar"
-msgstr ""
+msgstr "使用横向滚动条"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:94
 msgid "auto scroll to bottom if new items added to frame"
-msgstr ""
+msgstr "自动滚动到底部如果新项被增加到 frame"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/button.py:22
 msgid "button color"
-msgstr ""
+msgstr "按钮颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/button.py:25
 #: ../pygubu/src/pygubu/plugins/awesometkinter/button.py:63
 msgid "text color"
-msgstr ""
+msgstr "文本颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/button.py:61
 msgid "background color \"should match parent bg\""
-msgstr ""
+msgstr "背景颜色（应该匹配父控件背景颜色）"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/button.py:68
 msgid "indicator ring background \"fill color\""
-msgstr ""
+msgstr "指示环的背景填充色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/button.py:74
 msgid "indicator outline / ring color"
-msgstr ""
+msgstr "指示轮廓/环的颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/button.py:77
 msgid "check mark color"
-msgstr ""
+msgstr "检查标记颜色"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/__init__.py:5
 msgid "AwesomeTkinter"
-msgstr ""
+msgstr "AwesomeTkinter"
 
 #: ../pygubu/src/pygubu/plugins/tksheet/__init__.py:6
 msgid "tksheet"
-msgstr ""
+msgstr "tksheet"
 
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:133
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:163
@@ -225,57 +227,57 @@ msgstr "Pygubu 助手"
 
 #: ../pygubu/src/pygubu/plugins/tkintertable/__init__.py:6
 msgid "tkintertable"
-msgstr ""
+msgstr "tkinter 表"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:72
 msgid "intinitially displayed year, default is current year."
-msgstr ""
+msgstr "初始显示年份，默认是当年。"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:77
 msgid "initially displayed month, default is current month."
-msgstr ""
+msgstr "初始显示月份，默认是当月。"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:86
 msgid "first day of the week"
-msgstr ""
+msgstr "当前周的第一天"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:92
 msgid "minimum allowed date (string with format yyyy-mm-dd)"
-msgstr ""
+msgstr "最小的允许日期（格式：年年年年-月月-日日）"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:97
 msgid "maximum allowed date (string with format yyyy-mm-dd)"
-msgstr ""
+msgstr "最大的允许日期（格式：年年年年-月月-日日）"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:105
 msgid "whether to display week numbers"
-msgstr ""
+msgstr "是否显示周数"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:115
 msgid ""
 "whether to display the last days of the previous month and the first of the "
 "next month."
-msgstr ""
+msgstr "是否显示上个月的最后一天和下个月的第一天。"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:132
 msgid "date pattern used to format the date as a string."
-msgstr ""
+msgstr "日期的显示格式"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:143
 msgid "connect the currently selected date to the variable."
-msgstr ""
+msgstr "连接被选中的日期到一个变量。"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:175
 msgid "tooltip opacity between 0 and 1"
-msgstr ""
+msgstr "提示的透明度（0 ～ 1）"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:181
 msgid "delay in ms before displaying the tooltip"
-msgstr ""
+msgstr "显示提示前延迟的毫秒数"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/__init__.py:6
 msgid "tkcalendar"
-msgstr ""
+msgstr "tk日历"
 
 #: ../pygubu/src/pygubu/plugins/pygubu/dialog.py:51
 #: ../pygubu/src/pygubu/plugins/pygubu/tkscrolledframe.py:78
@@ -289,145 +291,147 @@ msgstr "Pygubu 控件"
 
 #: ../pygubu/src/pygubu/plugins/tkinterweb/__init__.py:6
 msgid "TkinterWeb"
-msgstr ""
+msgstr "TkinterWeb"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/linklabel.py:27
 msgid "link to be opened"
-msgstr ""
+msgstr "要打开的链接"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/linklabel.py:33
 msgid "text color when widget is created"
-msgstr ""
+msgstr "控件被创建时的文本颜色"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/linklabel.py:39
 msgid "text color when hovering over the widget"
-msgstr ""
+msgstr "鼠标悬停于控件时的文本颜色"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/linklabel.py:45
 msgid "text color when link is clicked"
-msgstr ""
+msgstr "链接被点击时的文本颜色"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/__init__.py:5
 msgid "ttkwidgets"
-msgstr ""
+msgstr "ttk 控件"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/itemscanvas.py:63
 msgid "width of the canvas in pixels"
-msgstr ""
+msgstr "画布的宽（单位：像素）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/itemscanvas.py:69
 msgid "height of the canvas in pixels"
-msgstr ""
+msgstr "画布的高（单位：像素）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/itemscanvas.py:76
 msgid ""
 "callback for when an item is created, with args: (int item, int rectangle)"
-msgstr ""
+msgstr "项被创建时的回调函数，参数：(int item, int rectangle)"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/itemscanvas.py:84
 msgid ""
 "callback for when an item is deleted, with args: (int item, int rectangle)"
-msgstr ""
+msgstr "项被删除时的回调函数，参数：(int item, int rectangle)"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/itemscanvas.py:92
 msgid ""
 "callback for when an item is moved, with args: (int item, int rectangle, int "
 "x, int y)"
-msgstr ""
+msgstr "项被移动时的回调函数，参数：(int item, int rectangle, int x, int y)"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/itemscanvas.py:100
 msgid ""
 "user defined function for when an item is created, with arg (add_item).\n"
 "Where add_item is a function of this widget."
 msgstr ""
+"项被创建时的用户自定义函数，参数：(add_item)。add_item 是控件的一个函数。"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/calendar.py:42
 msgid "calendar locale (defines the language, date formatting)"
-msgstr ""
+msgstr "本地化日历（定义语言和日期格式）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/calendar.py:50
 msgid "first day of the week, 0 is monday"
-msgstr ""
+msgstr "指定周的第一天，0 是周一"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/calendar.py:53
-#, fuzzy
 msgid "year to display"
-msgstr "控件和显示"
+msgstr "显示的年 "
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/calendar.py:61
-#, fuzzy
 msgid "month to display"
-msgstr "控件和显示"
+msgstr "显示的月"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/calendar.py:67
 msgid "background color of the selected day"
-msgstr ""
+msgstr "被选择的“日”的背景颜色"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/calendar.py:73
 msgid "selectforeground color of the selected day"
-msgstr ""
+msgstr "被选择“日”的前景颜色"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:58
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:117
 msgid "name of the callback function with one argument: the font family name"
-msgstr ""
+msgstr "回调函数名（带一个参数：字体系列名）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:156
 msgid ""
 "name of the callback function with arguments: (family: str, size: int, bold: "
 "bool, italic: bool, underline: bool)"
 msgstr ""
+"回调函数名，参数：(family: str, size: int, bold: bool, italic: bool, "
+"underline: bool)"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:197
 msgid ""
 "name of the callback function with arguments: (bold: bool, italic: bool, "
 "underline: bool, overstrike: bool)"
 msgstr ""
+"回调函数名：(bold: bool, italic: bool, underline: bool, overstrike: bool)"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:207
 msgid "Show/hide Header label"
-msgstr ""
+msgstr "显示/隐藏顶标签"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:213
 msgid "size of the font on the buttons"
-msgstr ""
+msgstr "按钮的字体大小"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:257
 msgid "name of the callback function on click with single argument: size: int"
-msgstr ""
+msgstr "回调函数名，参数：size: int"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/autocomplete.py:44
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/autocomplete.py:171
 msgid "Values separated by space. In code you can pass a full list"
-msgstr ""
+msgstr "值之间用空格分隔。在代码中，您可以传递完整列表"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/autocomplete.py:110
 msgid "font in entry and listbox"
-msgstr ""
+msgstr "entry 和 listbox 的字体"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/autocomplete.py:118
 msgid "whether the user is allowed to enter values not in the list"
-msgstr ""
+msgstr "是否允许输入不在列表中的值"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/autocomplete.py:126
 msgid "whether to automatically export selected text to the clipboard"
-msgstr ""
+msgstr "是否自动地把选中的文本传递到剪切板"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/autocomplete.py:134
 msgid "text alignment in entry and listbox"
-msgstr ""
+msgstr "entry 和 listbox 的文本对齐"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/autocomplete.py:141
 msgid "Values separated by space. In code you can pass a full python list."
-msgstr ""
+msgstr "值之间用空格分隔。在代码中，您可以传递完整的 Python 列表。"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/table.py:41
 msgid "whether columns are draggable"
-msgstr ""
+msgstr "是否列可以被拖动"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/table.py:49
 msgid "whether rows are draggable"
-msgstr ""
+msgstr "是否行可以被拖动"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/table.py:58
 msgid ""
@@ -435,90 +439,92 @@ msgid ""
 "order depends on the type of data (str, float, ...) which can be set with "
 "the column method."
 msgstr ""
+"是否列需要排序当点击顶行。排序依赖数据于类型（str, float, ...），它可以在列方"
+"法里被设置。"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/color.py:51
 msgid "initially selected alpha value (between 0 and 255)"
-msgstr ""
+msgstr "初始的被选中项的透明度值（0 ～ 255）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/color.py:54
 msgid "gradient color"
-msgstr ""
+msgstr "渐变色"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/color.py:60
 msgid "variable linked to the alpha value"
-msgstr ""
+msgstr "链接到 透明度值 的变量"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/color.py:123
 msgid "hue (between 0 and 360) of the color square gradient"
-msgstr ""
+msgstr "颜色方形渐变的色调（ 0 ～ 360 ）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/color.py:126
 msgid "initially selected color"
-msgstr ""
+msgstr "初始的选中颜色"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/color.py:168
 msgid "initially selected hue value (between 0 and 360)"
-msgstr ""
+msgstr "初始的被选中的色调值（0 ～ 360）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/color.py:174
 msgid "variable linked to the hue value"
-msgstr ""
+msgstr "链接到色调值的变量"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/scaleentry.py:67
 msgid "side the Entry must be on."
-msgstr ""
+msgstr "滑动输入框必须启用。"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/scaleentry.py:76
 msgid "scale orientation"
-msgstr ""
+msgstr "滑块控件方向"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/scaleentry.py:84
 msgid "width of the Scale in pixels"
-msgstr ""
+msgstr "滑块控件的宽度（单位：像素）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/scaleentry.py:90
 msgid "width of the Entry in characters"
-msgstr ""
+msgstr "输入框的宽度（单位：字符数）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/scaleentry.py:93
 msgid "start value of the scale"
-msgstr ""
+msgstr "滑块控件的起始值"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/scaleentry.py:96
 msgid "end value of the scale"
-msgstr ""
+msgstr "滑块控件的结束值"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/scaleentry.py:102
 msgid "space between the entry and the scale"
-msgstr ""
+msgstr "输入框和滑块间的空间"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/frames.py:62
 msgid "side the scrollbar should be on"
-msgstr ""
+msgstr "滑动滚动条应该开启"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/frames.py:124
 msgid "position of the toggle arrow compared to the text"
-msgstr ""
+msgstr "切换箭头相对于文本的位置"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/frames.py:132
 msgid "width of the closed ToggledFrame (in characters)"
-msgstr ""
+msgstr "被关闭的 ToggledFrame 的宽度（单位：字符数）"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/frames.py:138
 msgid "text to display next to the toggle arrow"
-msgstr ""
+msgstr "切换箭头旁边显示的文本"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/tickscale.py:54
 msgid "increment by which the slider can be moved. 0 means continuous sliding."
-msgstr ""
+msgstr "滑块移动的增量。0表示连续滑动。"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/tickscale.py:61
 msgid "if not 0, display ticks with the given interval"
-msgstr ""
+msgstr "如果不是0，则显示具有给定间隔的刻度"
 
 #: ../pygubu/src/pygubu/plugins/ttkwidgets/tickscale.py:82
 msgid "if tickinterval is not 0, position of the ticks"
-msgstr ""
+msgstr "如果刻度间隔不是0，则是刻度的位置"
 
 #~ msgid "Label1"
 #~ msgstr "标签1"
