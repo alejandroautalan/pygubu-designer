@@ -382,7 +382,7 @@ tooltip_help = {
     ),
     "value": _("Specifies the current value of the widget."),
     "values": _(
-        "Specifies the list of values to display in the drop-down listbox."
+        'Specifies the list of values to display in the drop-down listbox. In code you can pass any iterable. In Designer, a space separated list: value1 value2 "long value3"'
     ),
     "values-tk.Spinbox": _(
         "Must be a proper list value. If specified, the spinbox will use these values as to control its contents, starting with the first value. This option has precedence over the from and to range."
