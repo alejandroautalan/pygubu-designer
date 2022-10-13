@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import pygubu
+from pygubu.utils.widget import crop_widget
 
 
 class BuilderForPreview(pygubu.Builder):
@@ -41,24 +42,25 @@ class BuilderForPreview(pygubu.Builder):
 
     def make_previewonly(self, bobject):
         """Make widget just display with no functionality."""
-        self._crop_widget(bobject.widget)
+        crop_widget(bobject.widget, recursive=True)
         bobject.configure_for_preview(bobject.widget)
-
-    def _crop_widget(self, w):
-        """Remove standard widget functionality."""
-        wclass = w.winfo_class()
-        bindtags = w.bindtags()
-        if wclass in bindtags:
-            bindtags = list(bindtags)
-            bindtags.remove(wclass)
-            w.bindtags(bindtags)
 
     def get_widget_id(self, widget):
         wid = None
+        # first search for exact match
         for key, o in self.objects.items():
             if o.widget == widget:
                 wid = key
                 break
+        if wid is None:
+            # If no match found, try to match with a children widget
+            for key, o in self.objects.items():
+                for childw in o.widget.winfo_children():
+                    if childw == widget:
+                        wid = key
+                        break
+                if wid is not None:
+                    break
         return wid
 
     def show_selected(self, select_id):
