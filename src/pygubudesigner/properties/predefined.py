@@ -766,7 +766,11 @@ PROPERTY_DEFINITIONS = {
         "help": help_for("minsize"),
         "tk.Toplevel": {
             "params": {"mode": "whentry"},
-            "help": help_for("minsize-custom"),
+            "help": help_for("minsize-toplevel"),
+        },
+        "pygubu.builder.widgets.dialog": {
+            "params": {"mode": "whentry"},
+            "help": help_for("minsize-toplevel"),
         },
     },
     # ttk.Treeview.Column
@@ -1267,7 +1271,11 @@ PROPERTY_DEFINITIONS = {
         "help": help_for("title-menu"),
         "tk.Toplevel": {
             "params": {"mode": "entry"},
-            "help": help_for("title-custom"),
+            "help": help_for("title-toplevel"),
+        },
+        "pygubu.builder.widgets.dialog": {
+            "params": {"mode": "entry"},
+            "help": help_for("title-toplevel"),
         },
     },
     "tristateimage": {
@@ -1541,7 +1549,7 @@ PROPERTY_DEFINITIONS = {
     "maxsize": {
         "editor": "dynamic",
         "params": {"mode": "whentry"},
-        "help": help_for("maxsize-custom"),
+        "help": help_for("maxsize-toplevel"),
     },
     "overrideredirect": {
         "editor": "dynamic",
