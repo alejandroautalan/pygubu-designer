@@ -24,7 +24,7 @@ from .properties import (
     LAYOUT_OPTIONS,
     PACK_PROPERTIES,
     PLACE_PROPERTIES,
-    WIDGET_PROPERTIES,
+    PROPERTY_DEFINITIONS,
 )
 from .util.observable import Observable
 
@@ -189,8 +189,8 @@ class WidgetMeta(WidgetMetaBase, Observable):
             builder = CLASS_MAP[wclass].builder
             for pname in builder.properties:
                 pdescription = {}
-                if pname in WIDGET_PROPERTIES:
-                    pdescription = WIDGET_PROPERTIES[pname]
+                if pname in PROPERTY_DEFINITIONS:
+                    pdescription = PROPERTY_DEFINITIONS[pname]
                 if wclass in pdescription:
                     pdescription = dict(pdescription, **pdescription[wclass])
                 default_value = str(pdescription.get("default", ""))

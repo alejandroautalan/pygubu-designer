@@ -354,7 +354,6 @@ tooltip_help = {
         "Specifies a function callback to invoke whenever the menu is torn off."
     ),
     "text": _("Specifies a text string to be displayed inside the widget."),
-    "text-custom": _("Custom option to set the widget text."),
     "textvariable": _(
         "Specifies the name of a variable whose value will be used in place of the text resource."
     ),

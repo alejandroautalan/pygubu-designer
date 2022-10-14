@@ -20,11 +20,11 @@ import tkinter.ttk as ttk
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
 
-from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import create_editor
 from .widgets import NamedIDPropertyEditor
 from .stylehandler import StyleHandler
+from pygubudesigner.properties.manager import PropertiesManager
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
@@ -51,65 +51,24 @@ class PropertiesEditor:
 
     def _create_properties(self):
         """Populate a frame with a list of all editable properties"""
-        # self._frame = f = ttk.Labelframe(self._sframe.innerframe,
-        #                                 text=_('Widget properties'))
         self._frame = f = ttk.Frame(self._sframe.innerframe)
-        # f.configure(padding=4)
         f.grid(sticky="nswe")
 
         label_tpl = "{0}:"
         row = 0
         col = 0
 
-        groups = (
-            (
-                "00",
-                _("Required"),
-                properties.WIDGET_REQUIRED_OPTIONS,
-                properties.REQUIRED_OPTIONS,
-            ),
-            (
-                "01",
-                _("Standard"),
-                properties.WIDGET_STANDARD_OPTIONS,
-                properties.TK_WIDGET_OPTIONS,
-            ),
-            (
-                "02",
-                _("Specific"),
-                properties.WIDGET_SPECIFIC_OPTIONS,
-                properties.TK_WIDGET_OPTIONS,
-            ),
-            (
-                "03",
-                _("Custom"),
-                properties.WIDGET_CUSTOM_OPTIONS,
-                properties.CUSTOM_OPTIONS,
-            ),
-        )
-
-        for gcode, gname, plist, propdescr in groups:
-            padding = "0 0 0 5" if row == 0 else "0 5 0 5"
-            label = ttk.Label(
-                self._frame,
-                text=gname,
-                font="TkDefaultFont 10 bold",
-                padding=padding,
-                foreground="#000059",
-            )
-            label.grid(row=row, column=0, sticky="we", columnspan=2)
+        for name in PropertiesManager.iternames():
+            kwdata = PropertiesManager.get_definition(name)
+            labeltext = label_tpl.format(name)
+            label = ttk.Label(self._frame, text=labeltext, anchor=tk.W)
+            label.grid(row=row, column=col, sticky=tk.EW, pady=2)
+            label.tooltip = create_tooltip(label, "?")
+            widget = self._create_editor(self._frame, name, kwdata)
+            widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
             row += 1
-            for name in plist:
-                kwdata = propdescr[name]
-                labeltext = label_tpl.format(name)
-                label = ttk.Label(self._frame, text=labeltext, anchor=tk.W)
-                label.grid(row=row, column=col, sticky=tk.EW, pady=2)
-                label.tooltip = create_tooltip(label, "?")
-                widget = self._create_editor(self._frame, name, kwdata)
-                widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
-                row += 1
-                self._propbag[gcode + name] = (label, widget)
-                logger.debug("Created property: %s-%s", gname, name)
+            self._propbag[name] = (label, widget)
+            logger.debug("Created property: %s", name)
 
     def _create_editor(self, master, pname, wdata):
         editor = None
@@ -150,7 +109,7 @@ class PropertiesEditor:
             params["mode"] = default_mode
 
         # Setup name placeholder
-        if pname == "id" and isinstance(editor, NamedIDPropertyEditor):
+        if pname == "id" and params["mode"] == "namedid":
             params["placeholder"] = wdescr.start_id
 
         # Configure editor
@@ -183,45 +142,19 @@ class PropertiesEditor:
         wclass = wdescr.classname
         class_descr = CLASS_MAP[wclass].builder
 
-        # GroupCode, PropertyType, dict, tuple
-        groups = (
-            (
-                "00",
-                None,
-                properties.WIDGET_REQUIRED_OPTIONS,
-                properties.REQUIRED_OPTIONS,
-            ),
-            (
-                "01",
-                "OPTIONS_STANDARD",
-                properties.WIDGET_STANDARD_OPTIONS,
-                properties.TK_WIDGET_OPTIONS,
-            ),
-            (
-                "02",
-                "OPTIONS_SPECIFIC",
-                properties.WIDGET_SPECIFIC_OPTIONS,
-                properties.TK_WIDGET_OPTIONS,
-            ),
-            (
-                "03",
-                "OPTIONS_CUSTOM",
-                properties.WIDGET_CUSTOM_OPTIONS,
-                properties.CUSTOM_OPTIONS,
-            ),
-        )
-        for gcode, attrname, proplist, gproperties in groups:
-            for name in proplist:
-                propdescr = gproperties[name]
-                label, widget = self._propbag[gcode + name]
-                if gcode == "00" or name in getattr(class_descr, attrname):
-                    self.update_editor(label, widget, wdescr, name, propdescr)
-                    label.grid()
-                    widget.grid()
-                else:
-                    # hide property widget
-                    label.grid_remove()
-                    widget.grid_remove()
+        for name in PropertiesManager.iternames():
+            propdescr = PropertiesManager.get_definition(name)
+            label, widget = self._propbag[name]
+            if name in ("class", "id") or name in getattr(
+                class_descr, "properties"
+            ):
+                self.update_editor(label, widget, wdescr, name, propdescr)
+                label.grid()
+                widget.grid()
+            else:
+                # hide property widget
+                label.grid_remove()
+                widget.grid_remove()
         self._sframe.reposition()
 
     def hide_all(self):

@@ -1,6 +1,3 @@
-#
-# Copyright 2012-2022 Alejandro Autalán
-#
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
@@ -179,7 +176,18 @@ elif platform.system() == "Windows":
 
 TK_RELIEFS = (tk.FLAT, tk.RAISED, tk.SUNKEN, tk.GROOVE, tk.RIDGE)
 
-TK_WIDGET_OPTIONS = {
+PROPERTY_DEFINITIONS = {
+    "class": {
+        "editor": "dynamic",
+        "params": {"mode": "entry", "state": "readonly"},
+        "help": help_for("class"),
+    },
+    "id": {
+        "editor": "dynamic",
+        "params": {"mode": "namedid"},
+        "help": help_for("id"),
+    },
+    # - #
     "accelerator": {
         "editor": "dynamic",
         "params": {"mode": "entry"},
@@ -756,6 +764,10 @@ TK_WIDGET_OPTIONS = {
         "editor": "dynamic",
         "params": {"mode": "dimensionentry"},
         "help": help_for("minsize"),
+        "tk.Toplevel": {
+            "params": {"mode": "whentry"},
+            "help": help_for("minsize-custom"),
+        },
     },
     # ttk.Treeview.Column
     "minwidth": {
@@ -1253,6 +1265,10 @@ TK_WIDGET_OPTIONS = {
         "editor": "dynamic",
         "params": {"mode": "entry"},
         "help": help_for("title-menu"),
+        "tk.Toplevel": {
+            "params": {"mode": "entry"},
+            "help": help_for("title-custom"),
+        },
     },
     "tristateimage": {
         "editor": "dynamic",
@@ -1463,18 +1479,6 @@ TK_WIDGET_OPTIONS = {
         "params": {"mode": "dimensionentry"},
         "help": help_for("yscrollincrement"),
     },
-}
-
-REQUIRED_OPTIONS = {
-    "class": {
-        "editor": "dynamic",
-        "params": {"mode": "entry", "state": "readonly"},
-        "help": help_for("class"),
-    },
-    "id": {"editor": "namedid", "help": help_for("id")},
-}
-
-CUSTOM_OPTIONS = {
     "geometry": {
         "editor": "dynamic",
         "help": help_for("geometry-custom"),
@@ -1534,11 +1538,10 @@ CUSTOM_OPTIONS = {
         },
         "help": help_for("iconphoto-custom"),
     },
-    "maxsize": {"editor": "whentry", "help": help_for("maxsize-custom")},
-    "minsize": {
+    "maxsize": {
         "editor": "dynamic",
         "params": {"mode": "whentry"},
-        "help": help_for("minsize-custom"),
+        "help": help_for("maxsize-custom"),
     },
     "overrideredirect": {
         "editor": "dynamic",
@@ -1567,20 +1570,6 @@ CUSTOM_OPTIONS = {
         },
         "default": "both",
         "help": help_for("scrolltype-custom"),
-    },
-    "text": {
-        "editor": "dynamic",
-        "params": {
-            "mode": "text",
-        },
-        "help": help_for("text-custom"),
-    },
-    "title": {
-        "editor": "dynamic",
-        "params": {
-            "mode": "entry",
-        },
-        "help": help_for("title-custom"),
     },
     "tree_column": {
         "editor": "dynamic",
@@ -1620,202 +1609,6 @@ CUSTOM_OPTIONS = {
         },
     },
 }
-
-WIDGET_REQUIRED_OPTIONS = ("class", "id")
-WIDGET_STANDARD_OPTIONS = (
-    "activerelief",
-    "activestyle",
-    "activebackground",
-    "activeborderwidth",
-    "activeforeground",
-    "after",
-    "anchor",
-    "background",
-    "bitmap",
-    "borderwidth",
-    "class_",
-    "compound",
-    "cursor",
-    "disabledforeground",
-    "exportselection",
-    "font",
-    "foreground",
-    "jump",
-    "highlightbackground",
-    "highlightcolor",
-    "highlightthickness",
-    "image",
-    "indicatoron",
-    "insertbackground",
-    "insertborderwidth",
-    "insertofftime",
-    "insertontime",
-    "insertwidth",
-    "justify",
-    "orient",
-    "padx",
-    "pady",
-    "relief",
-    "repeatdelay",
-    "repeatinterval",
-    "selectbackground",
-    "selectborderwidth",
-    "selectforeground",
-    "setgrid",
-    "state",
-    "style",
-    "takefocus",
-    "text",
-    "textvariable",
-    "troughcolor",
-    "underline",
-    "width",
-    "wraplength",
-    "xscrollcommand",
-    "yscrollcommand",
-)
-
-WIDGET_SPECIFIC_OPTIONS = (
-    "accelerator",
-    "activestyle",
-    "activerelief",
-    "anchor",
-    "aspect",
-    "autoseparators",
-    "background",
-    "backgroundimage",
-    "bigincrement",
-    "blockcursor",
-    "borderwidth",
-    "buttonbackground",
-    "buttoncursor",
-    "buttondownrelief",
-    "buttonuprelief",
-    "class_",
-    "column_anchor",
-    "columnbreak",
-    "command",
-    "compound",
-    "container",
-    "closeenough",
-    "confine",
-    "default",
-    "digits",
-    "direction",
-    "disabledbackground",
-    "disabledforeground",
-    "elementborderwidth",
-    "endline",
-    "exportselection",
-    "font",
-    "foreground",
-    "format",
-    "from_",
-    "to",
-    "handlepad",
-    "handlesize",
-    "hidemargin",
-    "heading_anchor",
-    "height",
-    "image",
-    "inactiveselectbackground",
-    "increment",
-    "indicatoron",
-    "insertunfocussed",
-    "invalidcommand",
-    "justify",
-    "label",
-    "labelanchor",
-    "listvariable",
-    "length",
-    "maximum",
-    "maxundo",
-    "minsize",
-    "minwidth",
-    "mode",
-    "offrelief",
-    "offvalue",
-    "onvalue",
-    "opaqueresize",
-    "orient",
-    "overrelief",
-    "padding",
-    "padx",
-    "pady",
-    "postcommand",
-    "proxybackground",
-    "proxyborderwidth",
-    "proxyrelief",
-    "readonlybackground",
-    "relief",
-    "resolution",
-    "scrollregion",
-    "sashcursor",
-    "sashpad",
-    "sashrelief",
-    "sashwidth",
-    "selectcolor",
-    "selectimage",
-    "selectmode",
-    "show",
-    "showhandle",
-    "showvalue",
-    "sliderlength",
-    "sliderrelief",
-    "spacing1",
-    "spacing2",
-    "spacing3",
-    "startline",
-    "state",
-    "sticky",
-    "stretch",
-    "tabs",
-    "tabstyle",
-    "text",
-    "textvariable",
-    "tile",
-    "title",
-    "tickinterval",
-    "tristateimage",
-    "tristatevalue",
-    "underline",
-    "validate",
-    "undo",
-    "validatecommand",
-    "value",
-    "values",
-    "variable",
-    "weight",
-    "width",
-    "wrap",
-    "wraplength",
-    "xscrollcommand",
-    "xscrollincrement",
-    "yscrollincrement",
-    "tearoff",
-    "tearoffcommand",
-)
-
-WIDGET_CUSTOM_OPTIONS = [
-    "tree_column",
-    "visible",
-    "scrolltype",
-    "text",
-    "title",
-    "geometry",
-    "overrideredirect",
-    "resizable",
-    "minsize",
-    "maxsize",
-    "usemousewheel",
-    "iconbitmap",
-    "iconphoto",
-    "specialmenu",
-]
-
-WIDGET_PROPERTIES = wp = dict(TK_WIDGET_OPTIONS)
-wp.update(REQUIRED_OPTIONS)
-wp.update(CUSTOM_OPTIONS)
 
 LAYOUT_OPTIONS = {
     # pack/grid/place common properties
@@ -2027,18 +1820,12 @@ TRANSLATABLE_PROPERTIES = (
 
 
 def _register_custom(name, descr):
-    if name in CUSTOM_OPTIONS:
-        CUSTOM_OPTIONS[name].update(descr)
+    if name in PROPERTY_DEFINITIONS:
+        PROPERTY_DEFINITIONS[name].update(descr)
         logger.debug("Updated property: %s", name)
     else:
-        CUSTOM_OPTIONS[name] = descr
-        WIDGET_CUSTOM_OPTIONS.append(name)
-        WIDGET_CUSTOM_OPTIONS.sort()
+        PROPERTY_DEFINITIONS[name] = descr
         logger.debug("Registered property: %s", name)
-    if name in WIDGET_PROPERTIES:
-        WIDGET_PROPERTIES[name].update(descr)
-    else:
-        WIDGET_PROPERTIES[name] = descr
 
 
 def load_custom_properties():
