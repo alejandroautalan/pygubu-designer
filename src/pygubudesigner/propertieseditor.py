@@ -90,30 +90,17 @@ class PropertiesEditor:
     def _on_property_changed(self, name, editor):
         self._current.widget_property(name, editor.value)
 
-    def update_editor(self, label, editor, wdescr, pname, propdescr):
-        pdescr = propdescr.copy()
+    def update_editor(self, label, editor, wdescr, pname):
         classname = wdescr.classname
-
-        # Get editor default mode
-        default_mode = None
-        if "params" in pdescr:
-            default_mode = pdescr["params"].get("mode", None)
-        # Get editor parameters for a specific class
-        if classname in pdescr:
-            pdescr = dict(pdescr, **pdescr[classname])
-
-        params = pdescr.get("params", {})
-        # setup default mode if not specified in parameters for
-        # specific class
-        if default_mode is not None and "mode" not in params:
-            params["mode"] = default_mode
+        pdescr = PropertiesManager.get_definition_for(pname, classname)
 
         # Setup name placeholder
+        params = pdescr["params"]
         if pname == "id" and params["mode"] == "namedid":
             params["placeholder"] = wdescr.start_id
 
         # Configure editor
-        editor.parameters(**params)
+        editor.parameters(**pdescr["params"])
 
         # Setup tooltip
         help = pdescr.get("help", None)
@@ -143,12 +130,9 @@ class PropertiesEditor:
         class_descr = CLASS_MAP[wclass].builder
 
         for name in PropertiesManager.iternames():
-            propdescr = PropertiesManager.get_definition(name)
             label, widget = self._propbag[name]
-            if name in ("class", "id") or name in getattr(
-                class_descr, "properties"
-            ):
-                self.update_editor(label, widget, wdescr, name, propdescr)
+            if name in ("class", "id") or name in class_descr.properties:
+                self.update_editor(label, widget, wdescr, name)
                 label.grid()
                 widget.grid()
             else:

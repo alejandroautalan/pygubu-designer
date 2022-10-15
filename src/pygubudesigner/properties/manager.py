@@ -3,6 +3,7 @@ from .predefined import PROPERTY_DEFINITIONS
 
 class PropertiesManager:
     _required = ("class", "id")
+    _definitions_cache = {}
 
     @classmethod
     def iternames(cls):
@@ -12,6 +13,40 @@ class PropertiesManager:
             if name not in cls._required:
                 yield name
 
-    @staticmethod
-    def get_definition(pname):
+    @classmethod
+    def get_definition_for(cls, pname: str, builder_uid: str):
+        _key = (pname, builder_uid)
+        if _key in cls._definitions_cache:
+            return cls._definitions_cache[_key]
+        # Calculate and cache params
+        definition = cls.get_definition(pname)
+        default_params = (
+            dict(definition["params"]) if "params" in definition else {}
+        )
+        def_cached = {
+            "params": default_params,
+            "help": definition.get("help", None),
+            "default": definition.get("default", None),
+        }
+        specific = {}
+        # Get editor parameters for a specific builder_uid
+        # First, search for exact match
+        for key in definition:
+            if key == builder_uid:
+                specific = definition[key]
+                break
+        if not specific:
+            # Search for partial match
+            for key in definition:
+                if key.endswith(".*"):
+                    needle = key[:-2]
+                    if needle in builder_uid:
+                        specific = definition[key]
+                        break
+        def_cached.update(**specific)
+        cls._definitions_cache[_key] = def_cached
+        return def_cached
+
+    @classmethod
+    def get_definition(cls, pname):
         return PROPERTY_DEFINITIONS[pname]

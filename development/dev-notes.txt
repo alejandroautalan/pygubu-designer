@@ -1,5 +1,16 @@
 TODO
 ====
+- When registering a new custom property, allow to specify a 
+  wildcard or some method to avoid registering the same property
+  for each class that uses that property.
+  Exmple: in plugin customtkitner, property bg_color.
+  Instead of
+      register_custom_property("customtkinter.CTKFrame", "bg_color", "colorentry")
+  Do something like:
+      register_custom_property("customtkinter.*", "bg_color", "colorentry")
+  Then the designer will match? the property for each widget
+  of the plugin that uses that property.
+- How to load designer specific plugins?
 - Tooltips:
   We need to save a "manager" or something similar in the xml
   to later know howto process the property in pygubu.
