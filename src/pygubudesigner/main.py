@@ -72,6 +72,9 @@ def init_pygubu_widgets():
             msg = _(f"Failed to load widget module: '{_module}'")
             messagebox.showerror(_("Error"), msg)
 
+    # Initialize designer plugins
+    PluginManager.load_designer_plugins()
+
     # initialize custom widgets
     for path in map(Path, pref.get_custom_widgets()):
         if not path.match("*.py"):
