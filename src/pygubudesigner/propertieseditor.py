@@ -100,7 +100,7 @@ class PropertiesEditor:
             params["placeholder"] = wdescr.start_id
 
         # Configure editor
-        editor.parameters(**pdescr["params"])
+        editor.parameters(**params)
 
         # Setup tooltip
         help = pdescr.get("help", None)

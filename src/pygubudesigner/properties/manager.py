@@ -23,6 +23,7 @@ class PropertiesManager:
         default_params = (
             dict(definition["params"]) if "params" in definition else {}
         )
+        default_mode = default_params.get("mode", None)
         def_cached = {
             "params": default_params,
             "help": definition.get("help", None),
@@ -44,6 +45,9 @@ class PropertiesManager:
                         specific = definition[key]
                         break
         def_cached.update(**specific)
+        final_params = def_cached["params"]
+        if "mode" not in final_params:
+            final_params["mode"] = default_mode
         cls._definitions_cache[_key] = def_cached
         return def_cached
 

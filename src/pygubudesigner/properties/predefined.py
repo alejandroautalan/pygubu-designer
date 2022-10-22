@@ -595,20 +595,33 @@ PROPERTY_DEFINITIONS = {
         "pygubu.builder.widgets.dialog": {"default": 100},
     },
     "hidemargin": {
-        "editor": "choice",
-        "params": {"values": ("", "false", "true"), "state": "readonly"},
+        "editor": "dynamic",
+        "params": {
+            "mode": "choice",
+            "values": ("", "false", "true"),
+            "state": "readonly",
+        },
         "help": help_for("hidemargin"),
     },
     "highlightbackground": {
-        "editor": "colorentry",
+        "editor": "dynamic",
+        "params": {
+            "mode": "colorentry",
+        },
         "help": help_for("highlightbackground"),
     },
     "highlightcolor": {
-        "editor": "colorentry",
+        "editor": "dynamic",
+        "params": {
+            "mode": "colorentry",
+        },
         "help": help_for("highlightcolor"),
     },
     "highlightthickness": {
-        "editor": "dimensionentry",
+        "editor": "dynamic",
+        "params": {
+            "mode": "dimensionentry",
+        },
         "help": help_for("highlightthickness"),
     },
     # ttk.Label
