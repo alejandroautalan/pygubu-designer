@@ -25,7 +25,7 @@ from pygubu.stockimage import StockImage
 import pygubudesigner.actions as actions
 from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
 
-from .preview import DialogPreview, MenuPreview, Preview, ToplevelPreview
+from .preview import MenuPreview, Preview
 
 logger = logging.getLogger(__name__)
 
@@ -179,10 +179,6 @@ class PreviewHelper:
         preview_class = Preview
         if wclass == "tk.Menu":
             preview_class = MenuPreview
-        elif wclass == "tk.Toplevel":
-            preview_class = ToplevelPreview
-        elif wclass == "pygubu.builder.widgets.dialog":
-            preview_class = DialogPreview
         if identifier not in self.previews:
             x, y = self._get_slot()
             self.previews[identifier] = preview = preview_class(

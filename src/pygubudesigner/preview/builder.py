@@ -14,6 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import pygubu
 from pygubu.utils.widget import crop_widget
+from pygubu.component.plugin_manager import PluginManager
 
 
 class BuilderForPreview(pygubu.Builder):
@@ -25,11 +26,13 @@ class BuilderForPreview(pygubu.Builder):
         "ttk.Notebook",
         "ttk.Panedwindow.Pane",
         "ttk.Notebook.Tab",
-        "pygubudesigner.ToplevelFramePreview",
     ]
 
     def _get_builder_for(self, builder_uid):
-        print("calling _get_builder_for")
+        print("calling _get_builder_for", builder_uid)
+        builder = PluginManager.get_preview_builder_for(builder_uid)
+        if builder is not None:
+            return builder
         return super()._get_builder_for(builder_uid)
 
     def _post_realize(self, bobject):
