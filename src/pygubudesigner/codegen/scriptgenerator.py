@@ -102,7 +102,12 @@ class ScriptGenerator:
             main_widget_is_toplevel = False
             set_main_menu = False
             main_menu_id = None
-            if target_class == "tk.Toplevel":
+            toplevel_uids = (
+                "tk.Toplevel",
+                "customtkinter.CTk",
+                "customtkinter.CTkToplevel",
+            )
+            if target_class in toplevel_uids:
                 main_widget_is_toplevel = True
 
                 # Main menu definition
