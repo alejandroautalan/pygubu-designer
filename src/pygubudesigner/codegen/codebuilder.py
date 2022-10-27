@@ -487,6 +487,7 @@ class UI2Code(Builder):
             line = f'{varname} = {img_class}(file="{filename}")'
             self._add_new_code([line])
             self._tkimages[filename] = varname
+            self._import_tk = True
         return self._tkimages[filename]
 
     def code_create_iconbitmap(self, filename):
