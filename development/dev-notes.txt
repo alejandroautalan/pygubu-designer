@@ -9,8 +9,19 @@ TODO
   Do something like:
       register_custom_property("customtkinter.*", "bg_color", "colorentry")
   Then the designer will match? the property for each widget
-  of the plugin that uses that property.
+  of the plugin that uses that property. DONE
+- In designer interface add:
+  def get_preview_builder(self, builder_uid:str):
+  create_toplevel_preview(self, master, builder_uid, target, ui_definition)
 - How to load designer specific plugins?
+  Add method load_designer_helpers in builderPlugin class to load
+  a module that will register a new plugin class DesginerPlugin?
+- Add tukkan support ?
+- Issue: goto code tab, open ui file, generate code. Open new ui file
+  generate code. Blank code generated. Click designer tab, click code 
+  tab, click generate. Code generates.
+  Maybe after loading new file generate internal event NewfileLoaded and
+  connect tab code to reset status.
 - Tooltips:
   We need to save a "manager" or something similar in the xml
   to later know howto process the property in pygubu.
