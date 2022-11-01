@@ -1,6 +1,11 @@
 History
 =======
 
+Changes for version 0.31.3
+
+ * Fix for issues #154, #155
+ * Update zh_CN translations #158 (larryw3i).
+
 Changes for version 0.31.2
 
  * Hotfix, reset code tab on load file.
