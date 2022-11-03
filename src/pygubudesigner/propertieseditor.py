@@ -69,6 +69,12 @@ class PropertiesEditor:
             row += 1
             self._propbag[name] = (label, widget)
             logger.debug("Created property: %s", name)
+            if name == "id":
+                sep = ttk.Separator(self._frame)
+                sep.grid(
+                    row=row, column=col, sticky=tk.EW, pady=2, columnspan=2
+                )
+                row += 1
 
     def _create_editor(self, master, pname, wdata):
         editor = None
