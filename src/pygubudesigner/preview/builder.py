@@ -29,7 +29,6 @@ class BuilderForPreview(pygubu.Builder):
     ]
 
     def _get_builder_for(self, builder_uid):
-        print("calling _get_builder_for", builder_uid)
         builder = PluginManager.get_preview_builder_for(builder_uid)
         if builder is not None:
             return builder
