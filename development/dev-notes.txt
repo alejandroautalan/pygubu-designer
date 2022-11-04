@@ -1,5 +1,6 @@
 TODO
 ====
+- Add tukkan support ?
 - Tooltips:
   We need to save a "manager" or something similar in the xml
   to later know howto process the property in pygubu.

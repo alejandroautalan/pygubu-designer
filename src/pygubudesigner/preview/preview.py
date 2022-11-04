@@ -22,9 +22,8 @@ import tkinter.ttk as ttk
 import pygubu
 import screeninfo
 
+from pygubu.component.plugin_manager import PluginManager
 from pygubudesigner.widgetdescr import WidgetMeta
-from pygubudesigner.widgets.toplevelframe import ToplevelFramePreview
-
 from .builder import BuilderForPreview
 
 logger = logging.getLogger(__name__)
@@ -180,12 +179,23 @@ class Preview:
 
     def create_toplevel(self, widget_id, uidefinition):
         # Create preview
+        wmeta = uidefinition.get_widget(widget_id)
+        builder_uid = wmeta.classname
+
+        # prepare builder
         builder = pygubu.Builder()
         builder.uidefinition = uidefinition
-        top = tk.Toplevel(self.canvas)
-        top.columnconfigure(0, weight=1)
-        top.rowconfigure(0, weight=1)
-        builder.get_object(widget_id, top)
+
+        # Ask plugins for toplevel preview
+        top = PluginManager.get_toplevel_preview_for(
+            builder_uid, widget_id, builder, self.canvas
+        )
+        if top is None:
+            # Default preview
+            top = tk.Toplevel(self.canvas)
+            top.columnconfigure(0, weight=1)
+            top.rowconfigure(0, weight=1)
+            builder.get_object(widget_id, top)
         return top
 
     def _get_wreqwidth(self):
@@ -449,42 +459,3 @@ class OnCanvasMenuPreview(Preview):
 MenuPreview = DefaultMenuPreview
 if sys.platform == "linux":
     MenuPreview = OnCanvasMenuPreview
-
-
-class ToplevelPreview(Preview):
-    def create_preview_widget(self, parent, widget_id, uidefinition):
-        # Change real Toplevel for a preview replacement:
-        # Add same behavior of Toplevel. Default expand both sides:
-        old = uidefinition.get_widget(widget_id)
-        newroot = WidgetMeta(
-            "pygubudesigner.ToplevelFramePreview", widget_id, "pack"
-        )
-        newroot.copy_properties(old)
-        # FIX: Why is not copying in the above function ???
-        newroot.gridrc_properties = old.gridrc_properties
-        # newroot.widget_property('height', '200')
-        # newroot.widget_property('width', '200')
-        newroot.layout_property("expand", "true")
-        newroot.layout_property("fill", "both")
-
-        uidefinition.replace_widget(widget_id, newroot)
-        # end add behaviour
-
-        self.builder = self._create_builder()
-        self.builder.uidefinition = uidefinition
-        widget = self.builder.get_object(widget_id, parent)
-        return widget
-
-    def create_toplevel(self, widget_id, uidefinition):
-        # Create preview
-        builder = pygubu.Builder()
-        builder.uidefinition = uidefinition
-        top = builder.get_object(widget_id, self.canvas)
-        return top
-
-
-class DialogPreview(ToplevelPreview):
-    def create_toplevel(self, widget_id, uidefinition):
-        top = super().create_toplevel(widget_id, uidefinition)
-        top.run()
-        return top.toplevel
