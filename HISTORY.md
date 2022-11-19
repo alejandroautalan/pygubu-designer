@@ -1,6 +1,11 @@
 History
 =======
 
+Changes for version 0.32
+
+  * Added support for customtkinter and tkintermapview.
+  * Removed property groups in Appearance tab (needed for plugins and future tooltip property).
+
 Changes for version 0.31.3
 
  * Fix for issues #154, #155
