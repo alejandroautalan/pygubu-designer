@@ -1334,6 +1334,7 @@ PROPERTY_DEFINITIONS = {
         "params": {"mode": "entry"},
         "help": help_for("values"),
         "tk.Spinbox": {"help": help_for("values-tk.Spinbox")},
+        "tk.OptionMenu": {"help": help_for("values-tk.OptionMenu")},
     },
     "validate": {
         "editor": "dynamic",
