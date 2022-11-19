@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-04 18:27-0300\n"
+"POT-Creation-Date: 2022-11-19 16:56-0300\n"
 "PO-Revision-Date: 2022-10-03 13:48+0800\n"
 "Last-Translator: larry <larryw3i@163.com>\n"
 "Language-Team: Chinese - China <larryw3i@163.com>\n"
@@ -18,6 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Gtranslator 42.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+
+#: ../pygubu/src/pygubu/plugins/customtkinter/__init__.py:6
+#, fuzzy
+msgid "CustomTkinter"
+msgstr "AwesomeTkinter"
+
+#: ../pygubu/src/pygubu/plugins/customtkinter/ctkbase.py:57
+msgid "Color behind the widget if it has rounded corners."
+msgstr ""
+
+#: ../pygubu/src/pygubu/plugins/customtkinter/ctkbase.py:83
+#, fuzzy
+msgid "Main color of the widget."
+msgstr "底环的颜色"
+
+#: ../pygubu/src/pygubu/plugins/customtkinter/ctkbase.py:134
+msgid "Default color theme."
+msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:55
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:98
@@ -159,75 +177,80 @@ msgstr "AwesomeTkinter"
 msgid "tksheet"
 msgstr "tksheet"
 
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:133
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:163
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:233
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:622
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:136
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:166
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:236
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:625
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:42
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:289
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:303
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:317
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:294
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:308
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:322
 msgid "Containers"
 msgstr "容器"
 
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:200
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:284
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:332
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:391
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:450
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:491
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:589
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:676
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:707
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:752
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:785
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:861
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:903
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1609
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:203
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:287
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:335
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:394
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:453
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:494
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:592
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:683
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:714
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:759
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:792
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:868
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:910
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1647
 #: ../pygubu/src/pygubu/plugins/pygubu/tkinterscrolledtext.py:17
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:67
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:86
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:109
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:133
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:169
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:182
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:193
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:218
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:239
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:260
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:271
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:344
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:450
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:678
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:174
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:187
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:198
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:223
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:244
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:265
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:276
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:353
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:459
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:687
 msgid "Control & Display"
 msgstr "控件和显示"
 
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:675
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:966
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1310
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1323
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1347
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1370
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1388
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1504
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:343
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:682
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1004
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1348
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1361
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1385
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1408
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1426
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1542
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:352
 msgid "Menu"
 msgstr "菜单"
 
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1414
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1459
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1504
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1452
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1497
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1542
 #: ../pygubu/src/pygubu/plugins/pygubu/scrollbarhelper.py:60
 #: ../pygubu/src/pygubu/plugins/pygubu/tkscrollbarhelper.py:76
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:473
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:539
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:641
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:482
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:548
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:650
 msgid "Pygubu Helpers"
 msgstr "Pygubu 助手"
 
-#: ../pygubu/src/pygubu/plugins/tkintertable/__init__.py:6
+#: ../pygubu/src/pygubu/plugins/tkintertable/__init__.py:7
 msgid "tkintertable"
 msgstr "tkinter 表"
+
+#: ../pygubu/src/pygubu/plugins/tkintermapview/__init__.py:7
+#, fuzzy
+msgid "TkinterMapView"
+msgstr "TkinterWeb"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:72
 msgid "intinitially displayed year, default is current year."
@@ -288,6 +311,10 @@ msgstr "tk日历"
 #: ../pygubu/src/pygubu/plugins/pygubu/editabletreeview.py:30
 msgid "Pygubu Widgets"
 msgstr "Pygubu 控件"
+
+#: ../pygubu/src/pygubu/plugins/pygubu/dialog.py:54
+msgid "Determines if dialog is run in normal or modal mode."
+msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/tkinterweb/__init__.py:6
 msgid "TkinterWeb"
