@@ -3,27 +3,28 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # larry <larryw3i@163.com>, 2021-2022.
+# larryw3i <larryw3i@163.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-19 16:56-0300\n"
-"PO-Revision-Date: 2022-07-13 02:15+0800\n"
-"Last-Translator: larry <larryw3i@163.com>\n"
-"Language-Team: Chinese (Simplified) <larryw3i@163.com>\n"
+"PO-Revision-Date: 2022-11-27 11:55+0800\n"
+"Last-Translator: larryw3i <larryw3i@163.com>\n"
+"Language-Team: Chinese - China <larryw3i@163.com>\n"
 "Language: zh_CHS\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 41.0\n"
+"X-Generator: Gtranslator 42.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: src/pygubudesigner/data/ui/container_layout_editor_base.ui:25
 #: src/pygubudesigner/containerlayouteditor.py:42
 #, python-brace-format
 msgid "Options for {0} container"
-msgstr "{0} 控件的选项"
+msgstr "{0} 容器的选项"
 
 #: src/pygubudesigner/data/ui/container_layout_editor_base.ui:87
 msgid "Grid Row / Column options"
@@ -329,7 +330,7 @@ msgstr "增加国际化（多语言）支持"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:982
 msgid "All IDs as class attributes"
-msgstr ""
+msgstr "所有 IDs 转变为类属性"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:1068
 msgid "Generate"
@@ -375,7 +376,6 @@ msgstr "版本： %version%"
 
 #: src/pygubudesigner/data/ui/about_dialog.ui:110
 #: src/pygubudesigner/data/ui/about_dialog.ui:200
-#, fuzzy
 msgid "License:"
 msgstr "授权："
 
@@ -662,9 +662,9 @@ msgid "Not allowed at root level, %s is not a container."
 msgstr "不能成为根级, %s不是一个容器"
 
 #: src/pygubudesigner/main.py:72
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Failed to load widget module: '{_module}'"
-msgstr "加载控件模块失败： '{modulename}'"
+msgstr "加载控件模块失败： '{_module}'"
 
 #: src/pygubudesigner/main.py:92
 #, python-brace-format
@@ -754,7 +754,7 @@ msgstr "发送控件ID"
 
 #: src/pygubudesigner/widgets/namedideditor.py:38
 msgid "Request new ID and set widget as nameless."
-msgstr ""
+msgstr "需要新的 ID 并把控件设为空名。"
 
 #: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:44
 msgid "Type of action."
@@ -1633,12 +1633,16 @@ msgid ""
 "you can pass any iterable. In Designer, a space separated list: value1 "
 "value2 \"long value3\""
 msgstr ""
+"指定下拉列表的列表值，代码引用时你可以传递任何可迭代对象。如果在设计器里赋"
+"值，用空格分开列表值：值1 值2 值3 \"我的 值3\""
 
 #: src/pygubudesigner/properties/propertieshelp.py:387
 msgid ""
 "Specifies the list of values to display in the menu. In code you can pass "
 "any iterable. In Designer, a coma separated list: value1,value2,long value3"
 msgstr ""
+"指定下显示在菜单的列表值，代码引用时你可以传递任何可迭代对象。如果在设计器里"
+"赋值，用英文逗号分开列表值：值1,值2,值3"
 
 #: src/pygubudesigner/properties/propertieshelp.py:390
 msgid ""
