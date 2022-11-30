@@ -1,6 +1,11 @@
 History
 =======
 
+Changes for version 0.32.1
+
+  * Updated Chinese translations. #168 (larryw3i).
+  * Fix for issues: #166
+
 Changes for version 0.32
 
   * Added support for customtkinter and tkintermapview.
