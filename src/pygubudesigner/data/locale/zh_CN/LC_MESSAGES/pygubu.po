@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # larry <larryw3i@163.com>, 2021-2022.
+# larryw3i <larryw3i@163.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-19 16:56-0300\n"
-"PO-Revision-Date: 2022-10-03 13:48+0800\n"
-"Last-Translator: larry <larryw3i@163.com>\n"
+"PO-Revision-Date: 2022-11-27 11:48+0800\n"
+"Last-Translator: larryw3i <larryw3i@163.com>\n"
 "Language-Team: Chinese - China <larryw3i@163.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -20,22 +21,20 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../pygubu/src/pygubu/plugins/customtkinter/__init__.py:6
-#, fuzzy
 msgid "CustomTkinter"
-msgstr "AwesomeTkinter"
+msgstr "自定义 Tkinter"
 
 #: ../pygubu/src/pygubu/plugins/customtkinter/ctkbase.py:57
 msgid "Color behind the widget if it has rounded corners."
-msgstr ""
+msgstr "如果有圆角，颜色会出现在控件后面。"
 
 #: ../pygubu/src/pygubu/plugins/customtkinter/ctkbase.py:83
-#, fuzzy
 msgid "Main color of the widget."
-msgstr "底环的颜色"
+msgstr "控件的主要颜色。"
 
 #: ../pygubu/src/pygubu/plugins/customtkinter/ctkbase.py:134
 msgid "Default color theme."
-msgstr ""
+msgstr "默认的颜色主题。"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/text.py:55
 #: ../pygubu/src/pygubu/plugins/awesometkinter/frame.py:98
@@ -248,9 +247,8 @@ msgid "tkintertable"
 msgstr "tkinter 表"
 
 #: ../pygubu/src/pygubu/plugins/tkintermapview/__init__.py:7
-#, fuzzy
 msgid "TkinterMapView"
-msgstr "TkinterWeb"
+msgstr "Tkinter 映射视图"
 
 #: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:72
 msgid "intinitially displayed year, default is current year."
@@ -314,7 +312,7 @@ msgstr "Pygubu 控件"
 
 #: ../pygubu/src/pygubu/plugins/pygubu/dialog.py:54
 msgid "Determines if dialog is run in normal or modal mode."
-msgstr ""
+msgstr "决定对话框的运行模式：正常或 modal 模式。"
 
 #: ../pygubu/src/pygubu/plugins/tkinterweb/__init__.py:6
 msgid "TkinterWeb"
