@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame2">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">left</property>
+        </layout>
+        <child>
+          <object class="ttk.Entry" id="entry1">
+            <property name="text" translatable="yes">checkbox_on</property>
+            <property name="textvariable">string:myvar_str</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entry2">
+            <property name="text" translatable="yes">800</property>
+            <property name="textvariable">int:myvar_int</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entry3">
+            <property name="text" translatable="yes">1.0</property>
+            <property name="textvariable">double:myvar_double</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entry4">
+            <property name="text" translatable="yes">1</property>
+            <property name="textvariable">boolean:myvar_bool</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entry5">
+            <property name="text" translatable="yes">True</property>
+            <property name="textvariable">boolean:myvar_bool2</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton1">
+            <property name="offvalue">checkbox_off</property>
+            <property name="onvalue">checkbox_on</property>
+            <property name="text" translatable="yes">String variable</property>
+            <property name="variable">string:myvar_str</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton2">
+            <property name="offvalue">0</property>
+            <property name="onvalue">800</property>
+            <property name="text" translatable="yes">Int variable</property>
+            <property name="variable">int:myvar_int</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton3">
+            <property name="offvalue">0.0</property>
+            <property name="onvalue">1.0</property>
+            <property name="text" translatable="yes">Double variable</property>
+            <property name="variable">double:myvar_double</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton4">
+            <property name="text" translatable="yes">Boolean variable</property>
+            <property name="variable">boolean:myvar_bool</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton9">
+            <property name="text" translatable="yes">checkbutton9</property>
+            <property name="variable">string:myvar_bool2</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Toplevel" id="toplevel2">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame3">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton5">
+            <property name="text" translatable="yes">String variable</property>
+            <property name="variable">string:emptyvar_str</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton6">
+            <property name="text" translatable="yes">Int variable</property>
+            <property name="variable">int:emptyvar_int</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton7">
+            <property name="text" translatable="yes">Double variable</property>
+            <property name="variable">double:emptyvar_double</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="checkbutton8">
+            <property name="text" translatable="yes">Boolean variable</property>
+            <property name="variable">boolean:emptyvar_bool</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
