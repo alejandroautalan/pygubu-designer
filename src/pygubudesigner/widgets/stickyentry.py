@@ -28,8 +28,8 @@ class StickyPropertyEditor(PropertyEditor):
 
     def _create_ui(self):
         self._label_var = v = tk.StringVar()
-        self._label = w = ttk.Label(self, textvariable=v, width=4)
-        w.grid(row=0, column=1)
+        self._label = w = ttk.Label(self, textvariable=v, width=5)
+        w.grid(row=0, column=1, padx=4)
 
         self._map = {
             "": [0, 0, 0, 0, 1, 0, 0, 0, 0],
