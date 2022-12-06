@@ -1,0 +1,465 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="tk.Toplevel" id="toplevel2">
+    <property name="geometry">500x580</property>
+    <property name="height">200</property>
+    <property name="padx">5</property>
+    <property name="pady">5</property>
+    <property name="title" translatable="yes">Treeview Column Stretching Demo</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame3">
+        <property name="height">200</property>
+        <property name="padding">0 5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label2">
+            <property name="text" translatable="yes">Treeview with ScrollbarHelper.
+All colums have stretch=True and minwidth=20 and width=200</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper1">
+            <property name="scrolltype">both</property>
+            <property name="usemousewheel">false</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Treeview" id="treeview1">
+                <property name="height">5</property>
+                <property name="selectmode">extended</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Treeview.Column" id="pname" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Planet</property>
+                    <property name="tree_column">true</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="pdiameter" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Diameter</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="protperiod" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Rotation Period</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="prevperiod" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Revolution Period
+(earth days)</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="avgtemp" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Average Temperature</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="surfacecomp" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Surface Composition</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="ringmoons" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Rings &amp; Moons</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="traveltime" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Travel Time from Earth</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame4">
+        <property name="height">200</property>
+        <property name="padding">0 5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label3">
+            <property name="text" translatable="yes">Treeview with Scrollbars connected with code.
+All colums have stretch=True and minwidth=80 and width=200</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame6">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <containerlayout manager="grid">
+              <property type="col" id="0" name="weight">1</property>
+              <property type="row" id="0" name="weight">1</property>
+            </containerlayout>
+            <child>
+              <object class="ttk.Treeview" id="treeview2">
+                <property name="height">5</property>
+                <property name="selectmode">extended</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column10" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">80</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Planet</property>
+                    <property name="tree_column">true</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column11" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">80</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Diameter</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column12" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">80</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Rotation Period</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column13" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">80</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Revolution Period</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column14" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">80</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Average Temperature</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column15" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">80</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Surface Composition</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column16" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">80</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Rings &amp; Moons</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column17" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">80</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Travel Time from Earth</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Scrollbar" id="tv2_hsb" named="True">
+                <property name="orient">horizontal</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Scrollbar" id="tv2_vsb" named="True">
+                <property name="orient">vertical</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">ns</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame5">
+        <property name="height">200</property>
+        <property name="padding">0 5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label4">
+            <property name="text" translatable="yes">Treeview with ScrollbarHelper.
+All colums have stretch=False and minwidth=100 and width=120</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper2">
+            <property name="scrolltype">both</property>
+            <property name="usemousewheel">false</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Treeview" id="treeview3">
+                <property name="height">5</property>
+                <property name="selectmode">extended</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                </layout>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column18" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">100</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes">Planet</property>
+                    <property name="tree_column">true</property>
+                    <property name="visible">true</property>
+                    <property name="width">120</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column19" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">100</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes">Diameter</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">120</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column20" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">100</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes">Rotation Period</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">120</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column21" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">100</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes">Revolution Period</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">120</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column22" named="True">
+                    <property name="column_anchor">e</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">100</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes">Average Temperature</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">120</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column23" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">100</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes">Surface Composition</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">120</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column24" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">100</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes">Rings &amp; Moons</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">120</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column25" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">100</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes">Travel Time from Earth</property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">120</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Treeview.Column" id="trick_column" named="True">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">10</property>
+                    <property name="stretch">false</property>
+                    <property name="text" translatable="yes"> </property>
+                    <property name="tree_column">false</property>
+                    <property name="visible">true</property>
+                    <property name="width">10</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
