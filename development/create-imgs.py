@@ -26,7 +26,7 @@ gtk_imgs = {
         "pygubu.builder.widgets.pathchooserinput",
     ),
     "widget-gtk-frame.png": ("tk.Frame", "ttk.Frame"),
-    "widget-gtk-hscale.png": ("tk.Scale", "ttk.Scale"),
+    "widget-gtk-hscale.png": ("tk.Scale", "ttk.Scale", "ttk.LabeledScale"),
     "widget-gtk-hscrollbar.png": ("tk.Scrollbar", "ttk.Scrollbar"),
     "widget-gtk-image.png": tuple(),
     "widget-gtk-label.png": ("tk.Label", "ttk.Label"),
@@ -41,6 +41,7 @@ gtk_imgs = {
         "tk.OptionMenu",
         "tk.Menubutton",
         "ttk.Menubutton",
+        "ttk.OptionMenu",
     ),
     "widget-gtk-notebook.png": ("ttk.Notebook",),
     "widget-gtk-paned.png": (

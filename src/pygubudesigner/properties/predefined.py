@@ -473,6 +473,12 @@ PROPERTY_DEFINITIONS = {
                 "state": "readonly",
             }
         },
+        "ttk.OptionMenu": {
+            "params": {
+                "values": ("", "above", "below", "flush", tk.LEFT, tk.RIGHT),
+                "state": "readonly",
+            }
+        },
     },
     "disabledbackground": {
         "editor": "dynamic",
