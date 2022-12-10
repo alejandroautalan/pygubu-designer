@@ -417,7 +417,7 @@ tooltip_help = {
         "Specifies an integer value indicating the desired width of the spinbox window, in average-size characters of the widget's font. If the value is less than or equal to zero, the widget picks a size just large enough to hold its current text."
     ),
     "width-tk.Message": _(
-        "Specifies the length of lines in the window. If this option has a value greater than zero then the aspect option is ignored and the width option determines the line length. If this option has a value less than or equal to zero, then the aspect option determines the line length."
+        "Specifies a dimension value (pixels) for the length of lines in the window. If this option has a value greater than zero then the aspect option is ignored and the width option determines the line length. If this option has a value less than or equal to zero, then the aspect option determines the line length."
     ),
     "width-tk.Menubutton": _(
         "Specifies a desired width for the menubutton. If an image or bitmap is being displayed in the menubutton then the value is in screen units; for text it is in characters. If this option is not specified, the menubutton's desired width is computed from the size of the image or bitmap or text being displayed in it."
