@@ -15,7 +15,6 @@
 import keyword
 import logging
 import pathlib
-import re
 from tkinter import filedialog, messagebox
 
 import autopep8
@@ -27,7 +26,6 @@ logger = logging.getLogger(__name__)
 DATA_DIR = pathlib.Path(__file__).parent.parent / "data"
 TEMPLATE_DIR = DATA_DIR / "code_templates"
 makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
-RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
 
 
 class ScriptGenerator:
@@ -139,6 +137,8 @@ class ScriptGenerator:
 
             if template == "application":
                 generator.add_import_line("pathlib")
+                if not main_widget_is_toplevel:
+                    generator.add_import_line("tkinter", "tk", priority=1)
                 if self.use_ttkdefs_file_var.get():
                     generator.add_import_line("tkinter.ttk", "ttk", priority=1)
                 generator.add_import_line("pygubu", priority=10)
@@ -320,7 +320,7 @@ class ScriptGenerator:
                 title=mbtitle, message=_("Enter classname"), parent=parent
             )
         if valid and (
-            keyword.iskeyword(classname) or not RE_IDENTIFIER.match(classname)
+            keyword.iskeyword(classname) or not classname.isidentifier()
         ):
             valid = False
             messagebox.showwarning(
