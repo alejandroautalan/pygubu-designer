@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="geometry">320x240</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">ttk Notebook Example</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Notebook" id="notebook1">
+        <property name="height">200</property>
+        <property name="padding">4</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Notebook.Tab" id="tab1">
+            <property name="text" translatable="yes">First Tab</property>
+            <child>
+              <object class="ttk.Frame" id="frame1">
+                <property name="height">200</property>
+                <property name="padding">10</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Checkbutton" id="cb_enable_tab3" named="True">
+                    <property name="command" type="command" cbtype="with_wid">on_option_changed</property>
+                    <property name="text" translatable="yes">Enable tab 3</property>
+                    <property name="variable">boolean:var_enable_tab3</property>
+                    <layout manager="pack">
+                      <property name="fill">x</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Checkbutton" id="cb_show_hidden_tab" named="True">
+                    <property name="command" type="command" cbtype="with_wid">on_option_changed</property>
+                    <property name="text" translatable="yes">Show hidden tab</property>
+                    <property name="variable">boolean:var_show_hidden_tab</property>
+                    <layout manager="pack">
+                      <property name="fill">x</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="tab2">
+            <property name="text" translatable="yes">Second Tab</property>
+            <child>
+              <object class="ttk.Frame" id="frame2">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="label2">
+                    <property name="text" translatable="yes">Active tab at start.</property>
+                    <layout manager="pack">
+                      <property name="expand">true</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="tab3">
+            <property name="state">disabled</property>
+            <property name="text" translatable="yes">Disabled Tab</property>
+            <child>
+              <object class="ttk.Frame" id="frame3">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="tab4">
+            <property name="state">hidden</property>
+            <property name="text" translatable="yes">Hidden Tab</property>
+            <child>
+              <object class="ttk.Frame" id="frame4">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="label3">
+                    <property name="text" translatable="yes">A Hidden tab</property>
+                    <layout manager="pack">
+                      <property name="expand">true</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
