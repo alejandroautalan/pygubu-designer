@@ -12,9 +12,13 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
+import logging
 import pygubu
 from pygubu.utils.widget import crop_widget
 from pygubu.component.plugin_manager import PluginManager
+
+
+logger = logging.getLogger("pygubu.designer")
 
 
 class BuilderForPreview(pygubu.Builder):
@@ -44,7 +48,7 @@ class BuilderForPreview(pygubu.Builder):
 
     def make_previewonly(self, bobject):
         """Make widget just display with no functionality."""
-        crop_widget(bobject.widget, recursive=True)
+        crop_widget(bobject.widget, recursive=False)
         builder_uid = bobject.wmeta.classname
         PluginManager.configure_for_preview(builder_uid, bobject.widget)
 
@@ -66,27 +70,5 @@ class BuilderForPreview(pygubu.Builder):
                     break
         return wid
 
-    def show_selected(self, select_id):
-        self._show_notebook_tabs(select_id)
-
-    def _show_notebook_tabs(self, select_id):
-        xpath = ".//object[@class='ttk.Notebook.Tab']"
-        xpath = xpath.format(select_id)
-        # find all tabs
-        tabs = self.uidefinition.root.findall(xpath)
-        if tabs is not None:
-            for tab in tabs:
-                # check if selected_id is inside this tab
-                tab_id = tab.get("id")
-                xpath = f".//object[@id='{select_id}']"
-                o = tab.find(xpath)
-                if o is not None:
-                    # selected_id is inside, find the tab child
-                    # and select this tab
-                    xpath = "./child/object[1]"
-                    child = tab.find(xpath)
-                    child_id = child.get("id")
-                    notebook = self.objects[tab_id].widget
-                    current_tab = self.objects[child_id].widget
-                    notebook.select(current_tab)
-                    # print(select_id, ' inside', tab_id, 'child', child_id)
+    def show_selected(self, selected_id):
+        PluginManager.ensure_visibility_in_preview(self, selected_id)
