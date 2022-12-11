@@ -45,6 +45,7 @@ class Preview:
         self.resizer_h = 10
         self.canvas = canvas
         self.shapes = {}
+        self.widget_name = ""
         self._create_shapes()
         # --------
         self.builder = None
@@ -104,6 +105,8 @@ class Preview:
         ty = ry + 6
         c.coords(self.shapes["text"], tx, ty)
         c.coords(self.shapes["window"], x, y)
+        text = f"{self.widget_name} ({self.w}x{self.h})"
+        c.itemconfigure(self.shapes["text"], text=text)
 
     def move_by(self, dx, dy):
         self.x += dx
@@ -142,10 +145,7 @@ class Preview:
 
         # Create preview
         canvas_window = ttk.Frame(self.canvas, style="PreviewFrame.TFrame")
-        # canvas_window.rowconfigure(0, weight=1)
-        # canvas_window.columnconfigure(0, weight=1)
-
-        self.canvas.itemconfigure(self.shapes["text"], text=widget_id)
+        self.widget_name = widget_id
 
         self._preview_widget = self.create_preview_widget(
             canvas_window, widget_id, uidefinition
