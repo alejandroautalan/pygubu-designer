@@ -14,7 +14,6 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import keyword
-import re
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -27,7 +26,15 @@ from pygubudesigner.widgets.propertyeditor import (
 
 
 class TkVarPropertyEditor(PropertyEditor):
-    RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
+    """
+    A tkinter variable entry editor.
+
+    Configuration parameters:
+
+      type_choices: list of types to choose.
+    """
+
+    type_choices = ("string", "int", "double", "boolean")
 
     def _create_ui(self):
         self._entry = w = EntryPropertyEditor(self)
@@ -39,8 +46,9 @@ class TkVarPropertyEditor(PropertyEditor):
 
         self._entry.bind("<<PropertyChanged>>", self._on_variable_changed)
         self._cbox.bind("<<PropertyChanged>>", self._on_variable_changed)
-        cbvalues = ("string", "int", "double", "boolean")
-        self._cbox.parameters(width=8, values=cbvalues, state="readonly")
+        self._cbox.parameters(
+            width=8, values=self.type_choices, state="readonly"
+        )
 
     def _get_value(self):
         value = ""
@@ -59,17 +67,21 @@ class TkVarPropertyEditor(PropertyEditor):
 
     def _validate(self):
         is_valid = True
-        value = self._entry.value
+        value = str(self._entry.value)
         if len(value) != 0:
             if keyword.iskeyword(value):
                 is_valid = False
-            if is_valid and not self.RE_IDENTIFIER.match(value):
+            if is_valid and not value.isidentifier():
                 is_valid = False
             # Check if new name is not already used for other object type.
             if is_valid and value != self._initvalue:
                 is_valid = self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
+
+    def parameters(self, **kw):
+        choices = kw.get("type_choices", self.type_choices)
+        self._cbox.parameters(values=choices)
 
 
 register_editor("tkvarentry", TkVarPropertyEditor)
