@@ -413,6 +413,12 @@ PROPERTY_DEFINITIONS = {
             "tk": help_for("compound-tk"),
             "ttk": help_for("compound-ttk"),
         },
+        "ttk.LabeledScale": {
+            "params": {
+                "values": ("", tk.TOP, tk.BOTTOM),
+                "state": "readonly",
+            }
+        },
     },
     # ttk.Button
     "confine": {
@@ -1341,6 +1347,7 @@ PROPERTY_DEFINITIONS = {
         "help": help_for("values"),
         "tk.Spinbox": {"help": help_for("values-tk.Spinbox")},
         "tk.OptionMenu": {"help": help_for("values-tk.OptionMenu")},
+        "ttk.OptionMenu": {"help": help_for("values-tk.OptionMenu")},
     },
     "validate": {
         "editor": "dynamic",
@@ -1369,6 +1376,7 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "tkvarentry"},
         "help": help_for("variable"),
+        "ttk.LabeledScale": {"params": {"type_choices": ("int", "double")}},
     },
     # ttk.Panedwindow.Pane
     "weight": {
