@@ -1,10 +1,15 @@
 History
 =======
 
-Changes for version 0.32.1
+Changes for version 0.33
 
-  * Updated Chinese translations. #168 (larryw3i).
-  * Fix for issues: #166
+  * Show dimension of preview in pixels.
+  * Fix issue when working with Notebook tabs.
+  * Fix validation of classname. closes #159
+  * Added support for ttk.OptionMenu and ttk.LabeledScale
+  * Update tooltip text. Closes #162
+  * Respect background of current style. closes #166
+  * Update Chinese Translations. PR  #168 larryw3i
 
 Changes for version 0.32
 

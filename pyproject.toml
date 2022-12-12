@@ -32,7 +32,7 @@ dependencies = [
     "Mako >=1.1.4",
     "screeninfo >=0.8",
     "autopep8 >=1.7",
-    "pygubu >=0.27"
+    "pygubu >=0.28"
 ]
 dynamic = ["version"]
 
