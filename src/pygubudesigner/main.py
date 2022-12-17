@@ -49,6 +49,7 @@ from .rfilemanager import RecentFilesManager
 from .uitreeeditor import WidgetsTreeEditor
 from .util import get_ttk_style, menu_iter_children, virtual_event
 from .util.keyboard import Key, key_bind
+from .util.screens import is_visible_in_screens, parse_geometry
 
 # Initialize logger
 logger = logging.getLogger(__name__)
@@ -546,9 +547,27 @@ class PygubuDesigner:
         # Restore windows position and size
         geom = pref.get_window_size()
         self.mainwindow.geometry(geom)
+        self.mainwindow.after_idle(self._check_window_visibility)
+
         # Load preferred ttk theme
         theme = pref.get_option("ttk_theme")
         self._change_ttk_theme(theme)
+
+    def _check_window_visibility(self):
+        geom = pref.get_window_size()
+        window_visible = is_visible_in_screens(geom)
+        logger.debug(_("Checking main window visibility."))
+        if not window_visible:
+            msg = _("Main window is not visible in current monitors.")
+            logger.debug(msg)
+            w, h, uu, uu = parse_geometry(geom)
+            geom = f"{w}x{h}+0+0"
+            msg = _("Main window position fixed.")
+            logger.debug(msg)
+            self.mainwindow.withdraw()
+            self.mainwindow.update()
+            self.mainwindow.geometry(geom)
+            self.mainwindow.deiconify()
 
     def _change_ttk_theme(self, theme):
         s = get_ttk_style()
