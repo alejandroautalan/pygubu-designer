@@ -879,7 +879,7 @@ class PygubuDesigner:
     def setup_logger_handler(self):
         # Status bar
         handler = StatusBarHandler(self)
-        handler.setLevel(logging.INFO)
+        # handler.setLevel(logging.INFO)
         # add handler to the root logger:
         logging.getLogger().addHandler(handler)
 
