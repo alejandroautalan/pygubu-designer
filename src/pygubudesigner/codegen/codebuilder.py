@@ -342,6 +342,7 @@ class UI2Code(Builder):
             line = f"{vname_in_code} = {var_create}"
             self._add_new_code([line])
             self._tkvariables[vname] = vname_in_code
+            self._import_tk = True
         return self._tkvariables[vname]
 
     def _add_new_code(self, newcode: list):
