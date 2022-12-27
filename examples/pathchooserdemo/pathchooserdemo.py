@@ -14,19 +14,42 @@ class MyApp:
         builder.add_from_file(PROJECT_UI)
 
         self.mainwindow = builder.get_object("mainwindow", master)
+
+        self.path_var = None
+        builder.import_variables(self, ["path_var"])
+
         self.filepath = builder.get_object("filepath")
+        self.default_path = pathlib.Path.home() / "default.txt"
+        self.filepath.configure(
+            path=self.default_path,
+            filetypes=[("Python files", ".py"), ("Any", ".*")],
+        )
+
+        self.btn_process = builder.get_object("btn_process")
 
         builder.connect_callbacks(self)
 
     def on_path_changed(self, event=None):
         # Get the path choosed by the user
-        path = self.filepath.cget("path")
-        # show the path
-        messagebox.showinfo("You choosed:", path, parent=self.mainwindow)
+        path = self.path_var.get()
+        # or:
+        # path = self.filepath.cget("path")  # If you are not using specific tk variable.
+
+        btn_state = "normal" if self.default_path != path else "disabled"
+        self.btn_process.configure(state=btn_state)
 
     def on_reset_clicked(self):
-        default = pathlib.Path.home() / "default.txt"
-        self.filepath.configure(path=default)
+        self.filepath.configure(path=self.default_path)
+        self.btn_process.configure(state="disabled")
+
+    def on_process_clicked(self):
+        path = pathlib.Path(self.path_var.get())
+        if path.exists():
+            messagebox.showinfo("You choosed:", path, parent=self.mainwindow)
+        else:
+            messagebox.showerror(
+                "Invalid file path:", path, parent=self.mainwindow
+            )
 
     def run(self):
         self.mainwindow.mainloop()

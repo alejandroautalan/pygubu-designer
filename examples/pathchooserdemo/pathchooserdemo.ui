@@ -19,7 +19,7 @@
         </layout>
         <child>
           <object class="ttk.Label" id="Label_1">
-            <property name="text" translatable="yes">Choose a file:</property>
+            <property name="text" translatable="yes">Target file:</property>
             <layout manager="pack">
               <property name="anchor">w</property>
               <property name="side">top</property>
@@ -57,7 +57,17 @@
             <property name="text" translatable="yes">Reset</property>
             <layout manager="pack">
               <property name="anchor">w</property>
-              <property name="side">top</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="btn_process" named="True">
+            <property name="command" type="command" cbtype="simple">on_process_clicked</property>
+            <property name="state">disabled</property>
+            <property name="text" translatable="yes">Process</property>
+            <layout manager="pack">
+              <property name="side">right</property>
             </layout>
           </object>
         </child>
