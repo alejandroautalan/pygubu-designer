@@ -24,6 +24,7 @@ class MyApp:
             path=self.default_path,
             filetypes=[("Python files", ".py"), ("Any", ".*")],
         )
+        self.last_dir = None
 
         self.btn_process = builder.get_object("btn_process")
 
@@ -46,7 +47,10 @@ class MyApp:
         self.btn_process.configure(state=btn_state)
 
     def on_reset_clicked(self):
-        self.filepath.configure(path=self.default_path)
+        self.last_dir = pathlib.Path(self.path_var.get()).parent
+        self.filepath.configure(
+            path=self.default_path, initialdir=self.last_dir
+        )
         self.btn_process.configure(state="disabled")
 
     def on_process_clicked(self):
