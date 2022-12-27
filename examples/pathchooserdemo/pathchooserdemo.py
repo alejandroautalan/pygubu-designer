@@ -35,7 +35,14 @@ class MyApp:
         # or:
         # path = self.filepath.cget("path")  # If you are not using specific tk variable.
 
-        btn_state = "normal" if self.default_path != path else "disabled"
+        enable_btn = False
+        if (
+            self.default_path != path
+            and pathlib.Path(self.path_var.get()).exists()
+        ):
+            enable_btn = True
+
+        btn_state = "normal" if enable_btn else "disabled"
         self.btn_process.configure(state=btn_state)
 
     def on_reset_clicked(self):
@@ -43,13 +50,8 @@ class MyApp:
         self.btn_process.configure(state="disabled")
 
     def on_process_clicked(self):
-        path = pathlib.Path(self.path_var.get())
-        if path.exists():
-            messagebox.showinfo("You choosed:", path, parent=self.mainwindow)
-        else:
-            messagebox.showerror(
-                "Invalid file path:", path, parent=self.mainwindow
-            )
+        path = self.path_var.get()
+        messagebox.showinfo("You choosed:", path, parent=self.mainwindow)
 
     def run(self):
         self.mainwindow.mainloop()
