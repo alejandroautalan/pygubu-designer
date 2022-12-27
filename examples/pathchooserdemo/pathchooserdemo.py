@@ -24,6 +24,10 @@ class MyApp:
         # show the path
         messagebox.showinfo("You choosed:", path, parent=self.mainwindow)
 
+    def on_reset_clicked(self):
+        default = pathlib.Path.home() / "default.txt"
+        self.filepath.configure(path=default)
+
     def run(self):
         self.mainwindow.mainloop()
 
