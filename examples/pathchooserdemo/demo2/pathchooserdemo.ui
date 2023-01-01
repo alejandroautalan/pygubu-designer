@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="height">200</property>
+    <property name="minsize">350|110</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">Pathchooser demo</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="Frame_1">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="font">TkHeadingFont</property>
+            <property name="text" translatable="yes">Usage examples of PathChooser widget</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="pady">0 10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame1">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="pady">0 5</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="Label_1">
+                <property name="text" translatable="yes">Source file (*):</property>
+                <layout manager="pack">
+                  <property name="anchor">w</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.builder.widgets.pathchooserinput" id="pc_source_file" named="True">
+                <property name="textvariable">string:source_file_var</property>
+                <property name="title" translatable="yes">Choose file</property>
+                <property name="type">file</property>
+                <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_path_changed" add="" />
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame5">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label4">
+                <property name="text" translatable="yes">Source directory (*):</property>
+                <layout manager="pack">
+                  <property name="anchor">w</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.builder.widgets.pathchooserinput" id="pc_source_dir" named="True">
+                <property name="textvariable">string:source_dir_var</property>
+                <property name="title" translatable="yes">Choose directory</property>
+                <property name="type">directory</property>
+                <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_path_changed" add="" />
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="label6">
+                <property name="font">TkSmallCaptionFont</property>
+                <property name="text" translatable="yes">* Using dialog will force the file or directory to exists.
+(mustexists=True)</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Separator" id="separator2">
+            <property name="orient">horizontal</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="pady">15</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame2">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="pady">0 5</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label2">
+                <property name="text" translatable="yes">Output file:</property>
+                <layout manager="pack">
+                  <property name="anchor">w</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.builder.widgets.pathchooserinput" id="pc_output_file" named="True">
+                <property name="mustexist">false</property>
+                <property name="textvariable">string:output_file_var</property>
+                <property name="title" translatable="yes">Choose file</property>
+                <property name="type">file</property>
+                <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_path_changed" add="" />
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame4">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label3">
+                <property name="text" translatable="yes">Output directory:</property>
+                <layout manager="pack">
+                  <property name="anchor">w</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.builder.widgets.pathchooserinput" id="pc_output_dir" named="True">
+                <property name="mustexist">false</property>
+                <property name="textvariable">string:output_dir_var</property>
+                <property name="title" translatable="yes">Choose directory</property>
+                <property name="type">directory</property>
+                <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_path_changed" add="" />
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame3">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Separator" id="separator1">
+                <property name="orient">horizontal</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="pady">10</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button1">
+                <property name="command" type="command" cbtype="simple">on_reset_clicked</property>
+                <property name="text" translatable="yes">Reset</property>
+                <layout manager="pack">
+                  <property name="anchor">w</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_process" named="True">
+                <property name="command" type="command" cbtype="simple">on_process_clicked</property>
+                <property name="state">disabled</property>
+                <property name="text" translatable="yes">Process</property>
+                <layout manager="pack">
+                  <property name="side">right</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
