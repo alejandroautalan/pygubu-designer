@@ -20,8 +20,6 @@ from ..i18n import _
 
 
 class NamedIDPropertyEditor(PropertyEditor):
-    RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$", re.UNICODE)
-
     def _create_ui(self):
         self._placeholder = ""
         self._entry = entry = ttk.Entry(self, textvariable=self._variable)
@@ -53,7 +51,7 @@ class NamedIDPropertyEditor(PropertyEditor):
         if len(value) > 0:
             if keyword.iskeyword(value):
                 is_valid = False
-            if is_valid and not self.RE_IDENTIFIER.match(value):
+            if is_valid and not str(value).isidentifier():
                 is_valid = False
             # Check if new id is unique
             if is_valid and value != self._initvalue:

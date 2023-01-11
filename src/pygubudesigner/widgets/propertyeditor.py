@@ -159,15 +159,13 @@ class AlphanumericEntryPropertyEditor(EntryPropertyEditor):
 
 
 class IdentifierPropertyEditor(EntryPropertyEditor):
-    RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
-
     def _validate(self):
         is_valid = True
         value = self._get_value()
         if len(value) > 0:
             if keyword.iskeyword(value):
                 is_valid = False
-            if is_valid and not self.RE_IDENTIFIER.match(value):
+            if is_valid and not str(value).isidentifier():
                 is_valid = False
             # Check if new id is unique
             if is_valid and value != self._initvalue:

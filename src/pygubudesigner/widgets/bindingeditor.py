@@ -16,13 +16,11 @@ from .propertyeditor import ChoicePropertyEditor, EntryPropertyEditor
 
 
 class EventHandlerEditor(EntryPropertyEditor):
-    RE_IDENTIFIER = re.compile("[_A-Za-z][_a-zA-Z0-9]*$")
-
     def is_safe_identifier(self, value):
         is_valid = True
         if keyword.iskeyword(value):
             is_valid = False
-        if is_valid and not self.RE_IDENTIFIER.match(value):
+        if is_valid and not str(value).isidentifier():
             is_valid = False
         return is_valid
 
