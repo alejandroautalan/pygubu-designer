@@ -36,6 +36,10 @@ class TkVarPropertyEditor(PropertyEditor):
 
     type_choices = ("string", "int", "double", "boolean")
 
+    def __init__(self, master=None, **kw):
+        self.type_default = "string"
+        super().__init__(master, **kw)
+
     def _create_ui(self):
         self._entry = w = EntryPropertyEditor(self)
         w.grid(sticky="we")
@@ -63,7 +67,7 @@ class TkVarPropertyEditor(PropertyEditor):
             self._cbox.edit(type_)
         else:
             self._entry.edit("")
-            self._cbox.edit("string")
+            self._cbox.edit(self.type_default)
 
     def _validate(self):
         is_valid = True
@@ -81,6 +85,7 @@ class TkVarPropertyEditor(PropertyEditor):
 
     def parameters(self, **kw):
         choices = kw.get("type_choices", self.type_choices)
+        self.type_default = kw.get("type_default", "string")
         self._cbox.parameters(values=choices)
 
 
