@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="label.svg"
+   id="svg12"
+   version="1.1"
+   viewBox="0 0 24 24"
+   height="24"
+   width="24"
+   inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/pygubu-icons/label.png"
+   inkscape:export-xdpi="512"
+   inkscape:export-ydpi="512"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="16"
+     inkscape:cx="14.84375"
+     inkscape:cy="10.90625"
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     width="41.04818mm"
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-grids="true"
+     inkscape:lockguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid16092"
+       empspacing="1"
+       dotted="false"
+       snapvisiblegridlinesonly="false"
+       visible="true" />
+    <sodipodi:guide
+       position="11,22"
+       orientation="0,-1"
+       id="guide13450"
+       inkscape:locked="true" />
+    <sodipodi:guide
+       position="2,19"
+       orientation="1,0"
+       id="guide13461"
+       inkscape:locked="true" />
+    <sodipodi:guide
+       position="22,2"
+       orientation="1,0"
+       id="guide1090"
+       inkscape:locked="true" />
+    <sodipodi:guide
+       position="13,2"
+       orientation="0,-1"
+       id="guide1092"
+       inkscape:locked="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs9">
+    <linearGradient
+       id="linearGradient4691"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#666666;stop-opacity:1;"
+         offset="0"
+         id="stop4689" />
+    </linearGradient>
+    <clipPath
+       id="clipPath7883">
+      <path
+         style="opacity:1;fill:#999999;stroke:#000000"
+         d="m 31.477089,12.121195 h 28.423069 v 9.039656 H 31.477089 Z"
+         id="path10765" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-21.028307,-26.186575)">
+    <g
+       aria-label="label"
+       id="text2725"
+       style="font-size:5.19881px;line-height:1.25;font-family:Dogica;-inkscape-font-specification:Dogica;letter-spacing:-0.634134px;word-spacing:0px;stroke-width:0.786698;fill:#1a1a1a"
+       transform="matrix(1,0,0,1.615787,-0.050447,5.4894248)"
+       inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/pygubu-icons/label.png"
+       inkscape:export-xdpi="512"
+       inkscape:export-ydpi="512">
+      <path
+         d="m 23.165019,18.410329 v 3.249257 h 0.649851 v 0.649851 h 1.949554 v -0.649851 h -1.299703 v -3.249257 z"
+         style="font-weight:bold;-inkscape-font-specification:'Dogica Bold';stroke-width:0.786698;fill:#1a1a1a"
+         id="path6999" />
+      <path
+         d="m 27.078753,18.410329 v 0.649851 h 1.949554 v 0.649852 h -1.949554 v 0.649851 h -0.649851 v 1.299703 h 0.649851 v 0.649851 H 30.32801 V 19.06018 h -0.649852 v -0.649851 z m 0.649851,1.949554 h 1.299703 v 1.299703 h -1.299703 z"
+         style="font-weight:bold;-inkscape-font-specification:'Dogica Bold';stroke-width:0.786698;fill:#1a1a1a"
+         id="path7001"
+         sodipodi:nodetypes="cccccccccccccccccccc" />
+      <path
+         d="m 31.214385,17.760478 v 4.548959 h 3.249257 v -0.649851 h 0.649851 V 19.710032 H 34.463642 V 19.06018 h -1.949554 v -1.299702 z m 1.299703,1.949554 h 1.299702 v 1.949554 h -1.299702 z"
+         style="font-weight:bold;-inkscape-font-specification:'Dogica Bold';stroke-width:0.786698;fill:#1a1a1a"
+         id="path7003"
+         sodipodi:nodetypes="cccccccccccccccc" />
+      <path
+         d="m 36.428902,18.410329 v 0.649851 h -0.649851 v 2.599406 h 0.649851 v 0.649851 h 3.249257 v -0.649851 h -2.599405 v -1.299703 h 2.599405 V 19.06018 h -0.649852 v -0.649851 z m 0.649852,0.649851 h 1.299702 v 0.649852 h -1.299702 z"
+         style="font-weight:bold;-inkscape-font-specification:'Dogica Bold';stroke-width:0.786698;fill:#1a1a1a"
+         id="path7005"
+         sodipodi:nodetypes="cccccccccccccccccccc" />
+      <path
+         d="m 40.428902,18.410329 v 3.249257 h 0.649851 v 0.649851 h 1.949554 v -0.649851 h -1.299702 v -3.249257 z"
+         style="font-weight:bold;-inkscape-font-specification:'Dogica Bold';stroke-width:0.786698;fill:#1a1a1a"
+         id="path7007"
+         sodipodi:nodetypes="ccccccccc" />
+    </g>
+  </g>
+</svg>
