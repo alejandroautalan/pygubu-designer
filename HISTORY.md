@@ -1,6 +1,15 @@
 History
 =======
 
+Changes for version 0.34
+
+  * Check main window visibility at start. refs #145
+  * Show log info when using --loglevel debug
+  * Code generator: Import tk when creating variable.
+  * Updated pathchooser demo example.
+  * Use method str.isidentifier() for identifiers.
+  * Internal tkvariable editor: Allow to specify default type of tkvariable.
+
 Changes for version 0.33
 
   * Show dimension of preview in pixels.
