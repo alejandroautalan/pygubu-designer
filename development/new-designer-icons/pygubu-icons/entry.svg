@@ -27,8 +27,8 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="16"
-     inkscape:cx="9.28125"
-     inkscape:cy="7.90625"
+     inkscape:cx="12.15625"
+     inkscape:cy="5.15625"
      inkscape:window-width="1366"
      inkscape:window-height="719"
      inkscape:window-x="0"
@@ -88,21 +88,30 @@
      id="layer1"
      transform="translate(-21.028307,-26.186575)">
     <rect
-       style="fill:#ffffff;fill-opacity:0.998564;stroke:#1a1a1a;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect1169"
-       width="20.000002"
-       height="13"
-       x="23.028307"
-       y="31.186573"
-       inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/entry.png"
+       style="fill:#333333;stroke:none;stroke-width:2;stroke-linejoin:round"
+       id="rect1035"
+       width="24"
+       height="14.999998"
+       x="21.028307"
+       y="30.186575"
+       ry="0.74999988"
+       inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/pygubu-icons/default.png"
        inkscape:export-xdpi="512"
        inkscape:export-ydpi="512" />
     <path
-       style="fill:#1a1a1a;stroke:#333333;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 27.028307,34.186575 v 7"
-       id="path1284"
-       sodipodi:nodetypes="cc"
-       inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/entry.png"
+       id="rect26640"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round"
+       d="m 23.028307,43.186575 h 20 v -11 h -20 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/pygubu-icons/default.png"
+       inkscape:export-xdpi="512"
+       inkscape:export-ydpi="512" />
+    <path
+       id="path1393"
+       style="fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round"
+       d="m 25.028307,41.186575 h 2 v -7 h -2 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/pygubu-icons/default.png"
        inkscape:export-xdpi="512"
        inkscape:export-ydpi="512" />
   </g>
