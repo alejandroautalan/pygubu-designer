@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="notebook.svg"
+   id="svg12"
+   version="1.1"
+   viewBox="0 0 24 24"
+   height="24"
+   width="24"
+   inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/pygubu-icons/notebook.png"
+   inkscape:export-xdpi="512"
+   inkscape:export-ydpi="512"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="22.627417"
+     inkscape:cx="1.9224466"
+     inkscape:cy="10.672893"
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     width="41.04818mm"
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-grids="true"
+     inkscape:lockguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid16092"
+       empspacing="1"
+       dotted="false"
+       snapvisiblegridlinesonly="false"
+       visible="true" />
+    <sodipodi:guide
+       position="11,22"
+       orientation="0,-1"
+       id="guide13450"
+       inkscape:locked="true" />
+    <sodipodi:guide
+       position="2,19"
+       orientation="1,0"
+       id="guide13461"
+       inkscape:locked="true" />
+    <sodipodi:guide
+       position="22,2"
+       orientation="1,0"
+       id="guide1090"
+       inkscape:locked="true" />
+    <sodipodi:guide
+       position="13,2"
+       orientation="0,-1"
+       id="guide1092"
+       inkscape:locked="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs9">
+    <linearGradient
+       id="linearGradient4691"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#666666;stop-opacity:1;"
+         offset="0"
+         id="stop4689" />
+    </linearGradient>
+    <clipPath
+       id="clipPath7883">
+      <path
+         style="opacity:1;fill:#999999;stroke:#000000"
+         d="m 31.477089,12.121195 h 28.423069 v 9.039656 H 31.477089 Z"
+         id="path10765" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-21.028307,-26.186575)">
+    <rect
+       style="fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:2;stroke-linejoin:round"
+       id="rect951"
+       width="6.0000033"
+       height="6.0000019"
+       x="30.028305"
+       y="27.186575"
+       ry="0.68571466" />
+    <path
+       style="fill:#e6e6e6;fill-opacity:1;stroke:#1a1a1a;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 23.028307,48.186575 h 20 v -15 l -14,0 v -5 l -6,0 z"
+       id="path1102"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       id="rect26640"
+       style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999;stroke-linejoin:round"
+       d="m 30.028307,32.186575 h 4 v -3 h -4 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/ministerio/Privado/projects/pygubu-project/issues/new-designer-icons/pygubu-icons/button.png"
+       inkscape:export-xdpi="512"
+       inkscape:export-ydpi="512" />
+  </g>
+</svg>
