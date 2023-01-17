@@ -133,6 +133,7 @@
             </child>
             <child>
               <object class="pygubu.builder.widgets.pathchooserinput" id="pc_output_file" named="True">
+                <property name="defaultextension">.ctx</property>
                 <property name="mustexist">false</property>
                 <property name="textvariable">string:output_file_var</property>
                 <property name="title" translatable="yes">Choose file</property>
