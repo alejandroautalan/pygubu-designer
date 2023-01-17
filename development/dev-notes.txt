@@ -1,5 +1,29 @@
+RELEASE Commands
+================
+
+python3 -m build
+
+twine upload -r test_pygubu dist/*
+pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu[all]==0.23.1
+
+twine upload -r test_pygubu_designer dist/*
+pip install --no-cache-dir -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu-designer[all]
+pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu-designer
+
+alejandroautalan/pygubu
+alejandroautalan/pygubu-designer#99
+
+pip install git+https://github.com/alejandroautalan/pygubu git+https://github.com/alejandroautalan/pygubu-designer
+
+
 TODO
 ====
+- Customtkinter 5 Issues on designer:
+  Can't select SegmentedButton in Preview (can't click it)
+  Click on tabview tab does not select tab in treeview.
+  F5 preview of CTk does not show images and shows warning when the
+  preview closes. This is because Ctk is another tk instance running on
+  another thread.
 - Add tukkan support ?
 - Tooltips:
   We need to save a "manager" or something similar in the xml
@@ -41,23 +65,6 @@ TODO
 - Do not rebuild entire preview for simple property changes
 - On code generation, allow to select which tk_variables import in the class.
   See example in userinputapp.py.
-
-Commands
-========
-
-python3 -m build
-
-twine upload -r test_pygubu dist/*
-pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu[all]==0.23.1
-
-twine upload -r test_pygubu_designer dist/*
-pip install --no-cache-dir -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu-designer[all]
-pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu-designer
-
-alejandroautalan/pygubu
-alejandroautalan/pygubu-designer#99
-
-pip install git+https://github.com/alejandroautalan/pygubu git+https://github.com/alejandroautalan/pygubu-designer
 
 
 Button Bar
