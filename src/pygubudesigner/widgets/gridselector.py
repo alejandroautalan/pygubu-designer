@@ -29,6 +29,8 @@ class GridRCselectorWidget(ttk.Frame):
         <<Gridselector:CellSelected>>: generated on mouse click.
     """
 
+    BUTTON1 = 0x0100
+
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
         self.canvas = tk.Canvas(self)
@@ -39,6 +41,7 @@ class GridRCselectorWidget(ttk.Frame):
             highlightthickness="0",
             width=150,
             height=150,
+            takefocus=True,
         )
         self.canvas.pack(expand="true", fill="both", side="top")
         self.configure(height="200", padding="5", width="200")
@@ -123,9 +126,9 @@ class GridRCselectorWidget(ttk.Frame):
         cell = self.grid.xy2rowcol(event.x, event.y)
         self.select_cell(*cell)
 
-    def _leave_handler(self, event):
+    def _leave_handler(self, event: tk.Event):
         # Remove row/col hover on wiget leave.
-        if event.state != 0:
+        if event.state & self.BUTTON1:
             # Mouse click, or other thing - do nothing
             return
         if self._sel_hover is not None:
@@ -261,7 +264,9 @@ class GridRCselectorWidget(ttk.Frame):
 if __name__ == "__main__":
     root = tk.Tk()
     widget = GridRCselectorWidget(root)
-    widget.pack(expand=True, fill="both")
+    widget.pack(expand=True, fill="both", padx=10, pady=10)
+    entry = ttk.Entry(root)
+    entry.pack()
 
     def on_start():
         widget.set_dim(3, 3)
