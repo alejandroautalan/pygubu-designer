@@ -23,14 +23,11 @@ import pygubu
 import screeninfo
 
 from pygubu.component.plugin_manager import PluginManager
+from pygubu.utils.font import tkfontstr_to_dict
 from pygubudesigner.widgetdescr import WidgetMeta
 from .builder import BuilderForPreview
 
 logger = logging.getLogger(__name__)
-
-RE_FONT = re.compile(
-    "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?"
-)
 
 
 class Preview:
@@ -365,12 +362,19 @@ class OnCanvasMenuPreview(Preview):
             fontname = str(font[4])
             tclobject = True
         if tclobject:
-            s = RE_FONT.search(fontname)
-            if s:
-                g = s.groupdict()
-                family = g["family"].replace("{", "").replace("}", "")
-                size = g["size"]
-                modifiers = g["modifiers"] if g["modifiers"] else ""
+            fd = tkfontstr_to_dict(fontname)
+            family = fd["family"]
+            size_ = fd["size"]
+            if size_:
+                try:
+                    size = int(size_)
+                    # limit font size to 128 for invalid entries in the
+                    # option database values
+                    if size > 128:
+                        size = 12
+                except TypeError:
+                    pass
+            modifiers = fd["modifiers"] if fd["modifiers"] else ""
         if fontname not in OnCanvasMenuPreview.fonts:
             weight = "bold" if "bold" in modifiers else "normal"
             slant = "italic" if "italic" in modifiers else "roman"
