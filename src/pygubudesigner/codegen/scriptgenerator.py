@@ -271,13 +271,14 @@ class ScriptGenerator:
 
     def _configure_menulist(self, event=None):
         tree_item = self.widgetlist_keyvar.get()
-        target_class = self.tree.get_widget_class(tree_item)
-        newstate = "normal" if target_class == "tk.Toplevel" else "disabled"
-        self.menulist.configure(state=newstate)
+        if tree_item is not None:
+            target_class = self.tree.get_widget_class(tree_item)
+            newstate = "normal" if target_class == "tk.Toplevel" else "disabled"
+            self.menulist.configure(state=newstate)
 
-        value = self.code_options.get("main_menu_id", "")
-        key = self.tree.get_tree_topitem_byid(value)
-        self.menulist_keyvar.set(key)
+            value = self.code_options.get("main_menu_id", "")
+            key = self.tree.get_tree_topitem_byid(value)
+            self.menulist_keyvar.set(key)
 
     def configure(self, options_bag=None):
         if options_bag is None:
