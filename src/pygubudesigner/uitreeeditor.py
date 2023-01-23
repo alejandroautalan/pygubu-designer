@@ -554,8 +554,7 @@ class WidgetsTreeEditor:
 
     def new_uidefinition(self):
         author = f"PygubuDesigner {pygubudesigner.__version__}"
-        uidef = UIDefinition(wmetaclass=WidgetMeta)
-        uidef.author = author
+        uidef = UIDefinition(wmetaclass=WidgetMeta, author=author)
         return uidef
 
     def tree_to_uidef(self, treeitem=None):
@@ -959,6 +958,7 @@ class WidgetsTreeEditor:
         for child in children:
             self.draw_widget(child)
         self.previewer.show_selected(None, None)
+        return uidef
 
     def populate_tree(
         self,
@@ -1361,6 +1361,12 @@ class WidgetsTreeEditor:
         for item in children:
             data = self.treedata[item]
             yield (item, data)
+
+    def get_tree_topitem_byid(self, wid):
+        for item, data in self._top_widget_iterator():
+            if data.identifier == wid:
+                return item
+        return None
 
     def get_top_widget_list(self):
         wlist = []

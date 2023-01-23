@@ -25,6 +25,7 @@ import platform
 import sys
 import tkinter as tk
 import webbrowser
+import traceback
 from pathlib import Path
 from tkinter import filedialog, messagebox
 
@@ -71,7 +72,8 @@ def init_pygubu_widgets():
         except (ModuleNotFoundError, ImportError) as e:
             logger.exception(e)
             msg = _(f"Failed to load widget module: '{_module}'")
-            messagebox.showerror(_("Error"), msg)
+            det = traceback.format_exc()
+            messagebox.showerror(_("Error"), msg, detail=det)
 
     # Initialize designer plugins
     PluginManager.load_designer_plugins()
@@ -91,7 +93,8 @@ def init_pygubu_widgets():
         except Exception as e:
             logger.exception(e)
             msg = _(f"Failed to load custom widget module: '{path}'")
-            messagebox.showerror(_("Error"), msg)
+            det = traceback.format_exc()
+            messagebox.showerror(_("Error"), msg, detail=det)
 
     # Register custom properties
     load_custom_properties()
@@ -628,7 +631,11 @@ class PygubuDesigner:
             logger.info(_("Project saved to %s"), fname)
             saved = True
         except Exception as e:
-            messagebox.showerror(_("Error"), str(e), parent=self.mainwindow)
+            msg = str(e)
+            det = traceback.format_exc()
+            messagebox.showerror(
+                _("Error"), msg, detail=det, parent=self.mainwindow
+            )
         return saved
 
     def do_save_as(self):
@@ -644,6 +651,7 @@ class PygubuDesigner:
 
     def save_file(self, filename):
         uidefinition = self.tree_editor.tree_to_uidef()
+        uidefinition.code_options = self.script_generator.get_code_options()
         uidefinition.save(filename)
         self.currentfile = filename
         title = self.project_name()
@@ -659,15 +667,19 @@ class PygubuDesigner:
         """Load xml into treeview"""
 
         try:
-            self.tree_editor.load_file(filename)
+            uidef = self.tree_editor.load_file(filename)
             self.currentfile = filename
             title = self.project_name()
             self.set_title(title)
             self.set_changed(False)
             self.rfiles_manager.addfile(filename)
-            self.script_generator.reset()
+            self.script_generator.configure(uidef.code_options)
         except Exception as e:
-            messagebox.showerror(_("Error"), str(e), parent=self.mainwindow)
+            msg = str(e)
+            det = traceback.format_exc()
+            messagebox.showerror(
+                _("Error"), msg, detail=det, parent=self.mainwindow
+            )
 
     def do_file_open(self, filename=None):
         openfile = True
@@ -873,7 +885,7 @@ class PygubuDesigner:
 
     def nbmain_tab_changed(self, event):
         if event.widget.index("current") == 1:  # Index 1 is the code-tab
-            self.script_generator.configure()
+            self.script_generator.update_view()
 
     # Tab code management
     def on_code_generate_clicked(self):
@@ -882,8 +894,8 @@ class PygubuDesigner:
     def on_code_copy_clicked(self):
         self.script_generator.on_code_copy_clicked()
 
-    def on_code_template_changed(self):
-        self.script_generator.on_code_template_changed()
+    def on_code_template_changed(self, event):
+        self.script_generator.on_code_template_changed(event)
 
     def on_code_save_clicked(self):
         self.script_generator.on_code_save_clicked()

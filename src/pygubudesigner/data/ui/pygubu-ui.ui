@@ -267,7 +267,7 @@
     </child>
   </object>
   <object class="tk.Toplevel" id="mainwindow">
-    <property name="geometry">640x480</property>
+    <property name="geometry">854x480</property>
     <property name="height">200</property>
     <property name="resizable">both</property>
     <property name="title" translatable="yes">Pygubu Designer</property>
@@ -721,94 +721,6 @@
                                   <property name="side">top</property>
                                 </layout>
                                 <child>
-                                  <object class="ttk.Frame" id="templatechoices">
-                                    <property name="height">200</property>
-                                    <property name="width">200</property>
-                                    <layout manager="pack">
-                                      <property name="fill">x</property>
-                                      <property name="side">top</property>
-                                    </layout>
-                                    <child>
-                                      <object class="ttk.Label" id="lbl_tpldesc">
-                                        <property name="font">{Default} 10 {bold}</property>
-                                        <property name="text" translatable="yes">Template description here.</property>
-                                        <property name="textvariable">string:template_desc_var</property>
-                                        <property name="wraplength">500</property>
-                                        <layout manager="pack">
-                                          <property name="fill">x</property>
-                                          <property name="pady">5 10</property>
-                                          <property name="side">bottom</property>
-                                        </layout>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="ttk.Label" id="lbl_template">
-                                        <property name="text" translatable="yes">Template:</property>
-                                        <layout manager="pack">
-                                          <property name="padx">0 5</property>
-                                          <property name="side">left</property>
-                                        </layout>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="ttk.Radiobutton" id="Radiobutton_1">
-                                        <property name="command" type="command" cbtype="simple" args="">on_code_template_changed</property>
-                                        <property name="style">Template.Toolbutton</property>
-                                        <property name="text" translatable="yes">Application</property>
-                                        <property name="value">application</property>
-                                        <property name="variable">string:template_var</property>
-                                        <layout manager="pack">
-                                          <property name="side">left</property>
-                                        </layout>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="ttk.Separator" id="Separator_1">
-                                        <property name="orient">vertical</property>
-                                        <layout manager="pack">
-                                          <property name="fill">y</property>
-                                          <property name="padx">5</property>
-                                          <property name="side">left</property>
-                                        </layout>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="ttk.Radiobutton" id="Radiobutton_2">
-                                        <property name="command" type="command" cbtype="simple" args="">on_code_template_changed</property>
-                                        <property name="style">Template.Toolbutton</property>
-                                        <property name="text" translatable="yes">Code Script</property>
-                                        <property name="value">codescript</property>
-                                        <property name="variable">string:template_var</property>
-                                        <layout manager="pack">
-                                          <property name="side">left</property>
-                                        </layout>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="ttk.Separator" id="Separator_2">
-                                        <property name="orient">vertical</property>
-                                        <layout manager="pack">
-                                          <property name="fill">y</property>
-                                          <property name="padx">5</property>
-                                          <property name="side">left</property>
-                                        </layout>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="ttk.Radiobutton" id="Radiobutton_3">
-                                        <property name="command" type="command" cbtype="simple" args="">on_code_template_changed</property>
-                                        <property name="style">Template.Toolbutton</property>
-                                        <property name="text" translatable="yes">Custom Widget</property>
-                                        <property name="value">widget</property>
-                                        <property name="variable">string:template_var</property>
-                                        <layout manager="pack">
-                                          <property name="side">left</property>
-                                        </layout>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
                                   <object class="ttk.Panedwindow" id="panedwindow1">
                                     <property name="height">200</property>
                                     <property name="orient">horizontal</property>
@@ -824,11 +736,63 @@
                                         <child>
                                           <object class="ttk.Frame" id="newtop">
                                             <property name="height">200</property>
+                                            <property name="padding">5</property>
                                             <property name="width">200</property>
                                             <layout manager="pack">
                                               <property name="fill">x</property>
                                               <property name="side">top</property>
                                             </layout>
+                                            <child>
+                                              <object class="ttk.Frame" id="frame3">
+                                                <property name="height">200</property>
+                                                <property name="width">200</property>
+                                                <layout manager="pack">
+                                                  <property name="fill">x</property>
+                                                  <property name="pady">0 10</property>
+                                                  <property name="side">top</property>
+                                                </layout>
+                                                <containerlayout manager="grid">
+                                                  <property type="col" id="1" name="weight">1</property>
+                                                  <property type="col" id="all" name="pad">5</property>
+                                                  <property type="row" id="all" name="pad">5</property>
+                                                </containerlayout>
+                                                <child>
+                                                  <object class="ttk.Label" id="lbl_template">
+                                                    <property name="text" translatable="yes">Template:</property>
+                                                    <layout manager="grid">
+                                                      <property name="column">0</property>
+                                                      <property name="row">0</property>
+                                                      <property name="sticky">w</property>
+                                                    </layout>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="pygubu.builder.widgets.combobox" id="cbox_template" named="True">
+                                                    <property name="textvariable">string:template_var</property>
+                                                    <bind sequence="&lt;&lt;ComboboxSelected&gt;&gt;" handler="on_code_template_changed" add="" />
+                                                    <layout manager="grid">
+                                                      <property name="column">1</property>
+                                                      <property name="row">0</property>
+                                                      <property name="sticky">w</property>
+                                                    </layout>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="ttk.Label" id="lbl_tpldesc">
+                                                    <property name="font">TkSmallCaptionFont</property>
+                                                    <property name="text" translatable="yes">Template description here.Template description here.</property>
+                                                    <property name="textvariable">string:template_desc_var</property>
+                                                    <property name="wraplength">500</property>
+                                                    <layout manager="grid">
+                                                      <property name="column">0</property>
+                                                      <property name="columnspan">2</property>
+                                                      <property name="row">1</property>
+                                                      <property name="sticky">ew</property>
+                                                    </layout>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                            </child>
                                             <child>
                                               <object class="ttk.Labelframe" id="codeoptions">
                                                 <property name="height">130</property>
@@ -861,9 +825,9 @@
                                                           <property name="side">top</property>
                                                         </layout>
                                                         <containerlayout manager="grid">
-                                                          <property type="col" id="0" name="pad">5</property>
-                                                          <property type="row" id="0" name="pad">5</property>
-                                                          <property type="row" id="1" name="pad">5</property>
+                                                          <property type="col" id="2" name="weight">1</property>
+                                                          <property type="col" id="all" name="pad">8</property>
+                                                          <property type="row" id="all" name="pad">8</property>
                                                         </containerlayout>
                                                         <child>
                                                           <object class="ttk.Label" id="lbl_wlist">
@@ -882,7 +846,7 @@
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">0</property>
-                                                              <property name="sticky">ew</property>
+                                                              <property name="sticky">w</property>
                                                             </layout>
                                                           </object>
                                                         </child>
@@ -901,17 +865,7 @@
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">1</property>
-                                                              <property name="sticky">ew</property>
-                                                            </layout>
-                                                          </object>
-                                                        </child>
-                                                        <child>
-                                                          <object class="ttk.Frame" id="spacerframe1">
-                                                            <property name="height">10</property>
-                                                            <property name="width">10</property>
-                                                            <layout manager="grid">
-                                                              <property name="column">2</property>
-                                                              <property name="row">1</property>
+                                                              <property name="sticky">w</property>
                                                             </layout>
                                                           </object>
                                                         </child>
@@ -932,7 +886,19 @@
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">2</property>
-                                                              <property name="sticky">ew</property>
+                                                              <property name="sticky">w</property>
+                                                            </layout>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="ttk.Frame" id="spacerframe1">
+                                                            <property name="height">10</property>
+                                                            <property name="width">10</property>
+                                                            <layout manager="grid">
+                                                              <property name="column">2</property>
+                                                              <property name="row">0</property>
+                                                              <property name="rowspan">3</property>
+                                                              <property name="sticky">nsew</property>
                                                             </layout>
                                                           </object>
                                                         </child>

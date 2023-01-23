@@ -15,6 +15,7 @@
 import keyword
 import logging
 import pathlib
+import tkinter as tk
 from tkinter import filedialog, messagebox
 
 import autopep8
@@ -34,6 +35,7 @@ class ScriptGenerator:
         self.builder = builder = app.builder
         self.tree = app.tree_editor
         self.projectname = ""
+        self.code_options = {}
 
         self.widgetlist = w = builder.get_object("widgetlist")
         w.bind("<<ComboboxSelected>>", self._configure_menulist)
@@ -62,6 +64,7 @@ class ScriptGenerator:
         ]
         builder.import_variables(self, myvars)
 
+        self.cbox_template = builder.get_object("cbox_template")
         self.txt_code = builder.get_object("txt_code")
         self.cb_import_tkvars = builder.get_object("cb_import_tkvars")
         self.cb_add_i18n = builder.get_object("cb_add_i18n")
@@ -77,7 +80,13 @@ class ScriptGenerator:
             "codescript": _("Create a coded version of the UI definition."),
             "widget": _("Create a base class for your custom widget."),
         }
-        self.template_var.set("application")
+        self.template_keys = {
+            "application": _("Application"),
+            "codescript": _("Code Script"),
+            "widget": _("Custom Widget"),
+        }
+        self.cbox_template.configure(values=self.template_keys.items())
+        self.cbox_template.set("application")
         self.import_tkvars_var.set(True)
         self.use_ttkdefs_file_var.set(False)
 
@@ -88,7 +97,7 @@ class ScriptGenerator:
     def on_code_generate_clicked(self):
         if self.form_valid():
             tree_item = self.widgetlist_keyvar.get()
-            template = self.template_var.get()
+            template = self.cbox_template.get()
             generator = UI2Code()
             uidef = self.tree.tree_to_uidef()
             target = self.tree.get_widget_id(tree_item)
@@ -226,24 +235,18 @@ class ScriptGenerator:
             parent=self.widgetlist.winfo_toplevel(),
         )
 
-    def on_code_template_changed(self, clear_code=True):
-        template = self.template_var.get()
-        classname = self.get_classname()
+    def on_code_template_changed(self, event=None):
+        template = self.cbox_template.get()
         import_tkvars_state = "disabled"
         add_i18n_state = "normal"
         menulist_state = "normal"
         all_ids_state = "normal"
         if template == "application":
-            name = f"{classname}App"
-            self.classnamevar.set(name)
             import_tkvars_state = "normal"
             all_ids_state = "disabled"
         elif template == "codescript":
-            name = f"{classname}App"
-            self.classnamevar.set(name)
+            pass
         elif template == "widget":
-            name = f"{classname}Widget"
-            self.classnamevar.set(name)
             add_i18n_state = "disabled"
             menulist_state = "disabled"
         self.cb_import_tkvars.configure(state=import_tkvars_state)
@@ -252,8 +255,6 @@ class ScriptGenerator:
         self.menulist.configure(state=menulist_state)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
-        if clear_code:
-            self.set_code("")
 
     def on_code_save_clicked(self):
         _ = self.app.translator
@@ -274,22 +275,79 @@ class ScriptGenerator:
         newstate = "normal" if target_class == "tk.Toplevel" else "disabled"
         self.menulist.configure(state=newstate)
 
-    def configure(self):
+        value = self.code_options.get("main_menu_id", "")
+        key = self.tree.get_tree_topitem_byid(value)
+        self.menulist_keyvar.set(key)
+
+    def configure(self, options_bag=None):
+        if options_bag is None:
+            options_bag = {}
+        self.code_options = options_bag
         self.projectname = self.app.project_name()
+        self.update_view()
+        self._setup_options(options_bag)
+        self.on_code_template_changed()
+        self.set_code("")
+
+    def _setup_options(self, bag: dict):
+        template = bag.get("template", "application")
+        self.cbox_template.set(template)
+        self.template_desc_var.set(self.template_desc[template])
+
+        classname = self.get_classname()
+        if template == "application":
+            name = f"{classname}App"
+        elif template == "codescript":
+            name = f"{classname}App"
+            self.classnamevar.set(name)
+        else:
+            name = f"{classname}Widget"
+
+        value = bag.get("main_classname", classname)
+        self.classnamevar.set(value)
+
+        value = tk.getboolean(bag.get("import_tkvariables", False))
+        self.import_tkvars_var.set(value)
+
+        value = tk.getboolean(bag.get("use_i18n", False))
+        self.add_i18n_var.set(value)
+
+        value = tk.getboolean(bag.get("use_ttk_styledefinition_file", False))
+        self.use_ttkdefs_file_var.set(value)
+
+    def get_code_options(self) -> dict:
+        widget_id = self.tree.get_widget_id(self.widgetlist_keyvar.get())
+        menu_id = self.tree.get_widget_id(self.menulist_keyvar.get())
+        options = {
+            "template": self.cbox_template.get(),
+            "main_widget_id": widget_id,
+            "main_menu_id": menu_id,
+            "main_classname": self.classnamevar.get(),
+            "import_tkvariables": self.import_tkvars_var.get(),
+            "use_ttk_styledefinition_file": self.use_ttkdefs_file_var.get(),
+            "use_i18n": self.add_i18n_var.get(),
+            "relative_path": "true",
+            "output_path": "",
+        }
+        return options
+
+    def update_view(self):
         # Top level widgets
         wlist = self.tree.get_top_widget_list()
         self.widgetlist.configure(values=wlist)
-        self.classnamevar.set(self.get_classname())
         # Top level menues
         mlist = self.tree.get_top_menu_list()
         mlist.insert(0, ("empty", ""))
         self.menulist.configure(values=mlist)
         # self.menulist_keyvar.set('None')
 
+        value = self.code_options.get("main_widget_id", "")
+        key = self.tree.get_tree_topitem_byid(value)
         if len(wlist) > 0:
-            key = wlist[0][0]
+            if key is None:
+                key = wlist[0][0]
             self.widgetlist_keyvar.set(key)
-        self.on_code_template_changed(False)
+        self._configure_menulist()
 
     def get_classname(self):
         name = pathlib.Path(self.projectname).stem
@@ -338,6 +396,7 @@ class ScriptGenerator:
 
     def reset(self):
         self.set_code("")
+        self.code_options = {}
         self.configure()
 
     def _format_code(self, code):
