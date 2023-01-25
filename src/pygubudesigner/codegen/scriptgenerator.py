@@ -271,7 +271,7 @@ class ScriptGenerator:
 
     def _configure_menulist(self, event=None):
         tree_item = self.widgetlist_keyvar.get()
-        if tree_item is not None:
+        if tree_item not in (None, "None", ""):
             target_class = self.tree.get_widget_class(tree_item)
             newstate = "normal" if target_class == "tk.Toplevel" else "disabled"
             self.menulist.configure(state=newstate)
@@ -317,8 +317,14 @@ class ScriptGenerator:
         self.use_ttkdefs_file_var.set(value)
 
     def get_code_options(self) -> dict:
-        widget_id = self.tree.get_widget_id(self.widgetlist_keyvar.get())
-        menu_id = self.tree.get_widget_id(self.menulist_keyvar.get())
+        widget_key = self.widgetlist_keyvar.get()
+        menu_key = self.menulist_keyvar.get()
+        widget_id = ""
+        menu_id = ""
+        if widget_key not in ("None", ""):
+            widget_id = self.tree.get_widget_id(widget_key)
+        if menu_key not in ("None", "", "empty"):
+            menu_id = self.tree.get_widget_id(menu_key)
         options = {
             "template": self.cbox_template.get(),
             "main_widget_id": widget_id,
