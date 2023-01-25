@@ -846,7 +846,7 @@
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">0</property>
-                                                              <property name="sticky">w</property>
+                                                              <property name="sticky">ew</property>
                                                             </layout>
                                                           </object>
                                                         </child>
@@ -865,7 +865,7 @@
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">1</property>
-                                                              <property name="sticky">w</property>
+                                                              <property name="sticky">ew</property>
                                                             </layout>
                                                           </object>
                                                         </child>
@@ -886,7 +886,7 @@
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">2</property>
-                                                              <property name="sticky">w</property>
+                                                              <property name="sticky">ew</property>
                                                             </layout>
                                                           </object>
                                                         </child>
