@@ -103,6 +103,9 @@ class EditableTreeviewDemoApp:
         data = self.etv.item(item, "values")
         print("New values:", data)
 
+        # Test get_value method
+        print(f"Column '{col}' value: ", self.etv.get_value(col, item))
+
     def on_inplace_edit(self, event=None):
         # This method is connected with the <<TreeviewInplaceEdit>>
         # virtual event of the Editabletreeview
@@ -143,6 +146,11 @@ class EditableTreeviewDemoApp:
         if sel:
             item = sel[0]
             print(f"Row item {item} was selected.")
+
+    def on_editors_unfocused(self, event=None):
+        # user clicked in treeview area with no rows
+        # the editors where hidden.
+        print("Editors hidden")
 
 
 if __name__ == "__main__":

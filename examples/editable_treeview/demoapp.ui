@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.2">
+<interface version="1.3">
   <object class="tk.Toplevel" id="toplevel1">
     <property name="geometry">840x280</property>
     <property name="height">200</property>
@@ -48,6 +48,7 @@
               <object class="pygubu.builder.widgets.editabletreeview" id="etv">
                 <property name="selectmode">extended</property>
                 <bind sequence="&lt;&lt;TreeviewCellEdited&gt;&gt;" handler="on_cell_edited" add="" />
+                <bind sequence="&lt;&lt;TreeviewEditorsUnfocused&gt;&gt;" handler="on_editors_unfocused" add="" />
                 <bind sequence="&lt;&lt;TreeviewInplaceEdit&gt;&gt;" handler="on_inplace_edit" add="" />
                 <bind sequence="&lt;&lt;TreeviewSelect&gt;&gt;" handler="on_row_selected" add="True" />
                 <layout manager="pack">
@@ -125,6 +126,34 @@
                     <property name="width">140</property>
                   </object>
                 </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame3">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="pady">5 0</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label1">
+                <property name="text" translatable="yes">Extra:</property>
+                <layout manager="pack">
+                  <property name="padx">0 5</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="entry1">
+                <property name="text" translatable="yes">Entry to test focus.</property>
+                <layout manager="pack">
+                  <property name="side">left</property>
+                </layout>
               </object>
             </child>
           </object>
