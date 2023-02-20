@@ -590,6 +590,11 @@ class WidgetsTreeEditor:
             uidef.add_xmlchild(node, child_node)
         return node
 
+    def _treeitem_label(self, data):
+        identifier = f"{data.identifier}: " if data.is_named else " "
+        treelabel = f"{identifier}{data.classname.split('.')[-1]}"
+        return treelabel
+
     def _insert_item(
         self, root, data, from_file=False, is_first_widget_pasted=False
     ):
@@ -612,8 +617,7 @@ class WidgetsTreeEditor:
 
         data.setup_defaults()  # load default settings for properties and layout
         tree = self.treeview
-        identifier = f"{data.identifier}: " if data.is_named else " "
-        treelabel = f"{identifier}{data.classname}"
+        treelabel = self._treeitem_label(data)
         row = col = ""
         if root != "" and data.has_layout_defined():
             if data.manager == "grid" and data.layout_required:
@@ -1102,8 +1106,7 @@ class WidgetsTreeEditor:
         tree = self.treeview
         data = obj
         item = self.get_item_by_data(obj)
-        identifier = f"{data.identifier}: " if data.is_named else " "
-        item_text = f"{identifier}{data.classname}"
+        item_text = self._treeitem_label(data)
         if item:
             if item_text != tree.item(item, "text"):
                 tree.item(item, text=item_text)
