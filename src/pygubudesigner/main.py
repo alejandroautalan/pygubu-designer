@@ -447,16 +447,18 @@ class PygubuDesigner:
         theme = pref.get_option("ttk_theme")
         var.set(theme)
 
-        for name in styles:
+        for idx, name in enumerate(styles):
 
             def handler(theme=name):
                 self._change_ttk_theme(theme)
 
+            col_break = idx % 20 == 0
             menu.add_radiobutton(
                 label=name,
                 value=name,
                 variable=self.__theme_var,
                 command=handler,
+                columnbreak=col_break,
             )
 
     def _should_center_preview_window(self) -> bool:

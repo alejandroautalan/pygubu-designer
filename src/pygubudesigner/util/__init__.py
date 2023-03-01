@@ -106,13 +106,13 @@ class ThemeModule:
 
 
 class SunValeyThemes(ThemeModule):
-    sv_themes = {"sv_dark": "dark", "sv_light": "light"}
+    sv_themes = {"sun-valley-dark": "dark", "sun-valley-light": "light"}
 
     def __init__(self):
         sv_ttk.get_theme()
 
     def theme_names(self) -> list:
-        return list(self.sv_themes.keys())
+        return []
 
     def theme_use(self, name):
         sv_ttk.set_theme(self.sv_themes[name])
