@@ -1,0 +1,490 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="customtkinter.CTk" id="ctk1">
+    <property name="geometry">1100x580</property>
+    <property name="title" translatable="yes">CustomTkinter complex_example.py</property>
+    <containerlayout manager="grid">
+      <property type="col" id="1" name="weight">1</property>
+      <property type="row" id="0" name="weight">1</property>
+      <property type="row" id="1" name="weight">1</property>
+      <property type="row" id="2" name="weight">1</property>
+    </containerlayout>
+    <child>
+      <object class="customtkinter.CTkFrame" id="sidebar_frame" named="True">
+        <property name="corner_radius">0</property>
+        <property name="width">140</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">0</property>
+          <property name="rowspan">4</property>
+          <property name="sticky">nsew</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="row" id="4" name="weight">1</property>
+        </containerlayout>
+        <child>
+          <object class="customtkinter.CTkLabel" id="logo_label" named="True">
+            <property name="text" translatable="yes">CustomTkinter</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkButton" id="sidebar_button_1" named="True">
+            <property name="command" type="command" cbtype="simple">sidebar_button_event</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkButton" id="sidebar_button_2" named="True">
+            <property name="command" type="command" cbtype="simple">sidebar_button_event</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkButton" id="sidebar_button_3" named="True">
+            <property name="command" type="command" cbtype="simple">sidebar_button_event</property>
+            <property name="state">disabled</property>
+            <property name="text" translatable="yes">Disabled CTkButton</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkLabel" id="appearance_mode_label" named="True">
+            <property name="anchor">w</property>
+            <property name="text" translatable="yes">Appearance Mode:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10 0</property>
+              <property name="row">5</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkOptionMenu" id="appearance_mode_optionemenu" named="True">
+            <property name="command" type="command" cbtype="simple">change_appearance_mode_event</property>
+            <property name="values">["Light", "Dark", "System"]</property>
+            <property name="variable">string:appearance_var</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10 10</property>
+              <property name="row">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkLabel" id="scaling_label" named="True">
+            <property name="anchor">w</property>
+            <property name="text" translatable="yes">UI Scaling:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10 0</property>
+              <property name="row">7</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkOptionMenu" id="scaling_optionemenu" named="True">
+            <property name="command" type="command" cbtype="simple">change_scaling_event</property>
+            <property name="values">["80%", "90%", "100%", "110%", "120%"]</property>
+            <property name="variable">string:scaling_var</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10 20</property>
+              <property name="row">8</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="customtkinter.CTkEntry" id="entry" named="True">
+        <property name="placeholder_text">CTkEntry</property>
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="columnspan">2</property>
+          <property name="padx">20 0</property>
+          <property name="pady">20 20</property>
+          <property name="row">3</property>
+          <property name="sticky">nsew</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="customtkinter.CTkButton" id="main_button_1" named="True">
+        <layout manager="grid">
+          <property name="column">3</property>
+          <property name="padx">20 20</property>
+          <property name="pady">20 20</property>
+          <property name="row">3</property>
+          <property name="sticky">nsew</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="customtkinter.CTkTextbox" id="textbox" named="True">
+        <property name="text" translatable="yes">CTkTextbox
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+</property>
+        <property name="width">250</property>
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="padx">20 0</property>
+          <property name="pady">20 0</property>
+          <property name="row">0</property>
+          <property name="sticky">nsew</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="customtkinter.CTkTabview" id="ctktabview1">
+        <layout manager="grid">
+          <property name="column">2</property>
+          <property name="padx">20 0</property>
+          <property name="pady">20 0</property>
+          <property name="row">0</property>
+          <property name="sticky">nsew</property>
+        </layout>
+        <child>
+          <object class="customtkinter.CTkTabview.Tab" id="tab1">
+            <property name="label" translatable="yes">CTkTabview</property>
+            <containerlayout manager="grid">
+              <property type="col" id="0" name="weight">1</property>
+            </containerlayout>
+            <child>
+              <object class="customtkinter.CTkOptionMenu" id="optionmenu_1" named="True">
+                <property name="values">["Value 1", "Value 2", "Value Long Long Long"]</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">20</property>
+                  <property name="pady">20 10</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="customtkinter.CTkComboBox" id="ctkcombobox1">
+                <property name="values">["Value 1", "Value 2", "Value Long....."]</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">20</property>
+                  <property name="pady">10 10</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="customtkinter.CTkButton" id="string_input_button" named="True">
+                <property name="command" type="command" cbtype="simple">open_input_dialog_event</property>
+                <property name="text" translatable="yes">Open CTkInputDialog</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">20</property>
+                  <property name="pady">10 10</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkTabview.Tab" id="tab2">
+            <property name="label" translatable="yes">Tab 2</property>
+            <containerlayout manager="grid">
+              <property type="col" id="0" name="weight">1</property>
+            </containerlayout>
+            <child>
+              <object class="customtkinter.CTkLabel" id="ctklabel2">
+                <property name="text" translatable="yes">CTkLabel on Tab 2</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">20</property>
+                  <property name="pady">20</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkTabview.Tab" id="tab3">
+            <property name="label" translatable="yes">Tab 3</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="customtkinter.CTkFrame" id="radiobutton_frame" named="True">
+        <layout manager="grid">
+          <property name="column">3</property>
+          <property name="padx">20 20</property>
+          <property name="pady">20 0</property>
+          <property name="row">0</property>
+          <property name="sticky">nsew</property>
+        </layout>
+        <child>
+          <object class="customtkinter.CTkLabel" id="label_radio_group" named="True">
+            <property name="text" translatable="yes">CTkRadioButton Group:</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="padx">10</property>
+              <property name="pady">10</property>
+              <property name="row">0</property>
+              <property name="rowspan">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkRadioButton" id="ctkradiobutton1">
+            <property name="value">0</property>
+            <property name="variable">string:radio_var</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="padx">10</property>
+              <property name="pady">10</property>
+              <property name="row">1</property>
+              <property name="sticky">n</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkRadioButton" id="ctkradiobutton2">
+            <property name="value">1</property>
+            <property name="variable">string:radio_var</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="padx">20</property>
+              <property name="pady">10</property>
+              <property name="row">2</property>
+              <property name="sticky">n</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkRadioButton" id="ctkradiobutton3">
+            <property name="value">2</property>
+            <property name="variable">string:radio_var</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="padx">20</property>
+              <property name="pady">10</property>
+              <property name="row">3</property>
+              <property name="sticky">n</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="customtkinter.CTkFrame" id="checkbox_slider_frame" named="True">
+        <layout manager="grid">
+          <property name="column">3</property>
+          <property name="padx">20 20</property>
+          <property name="pady">20 0</property>
+          <property name="row">1</property>
+          <property name="sticky">nsew</property>
+        </layout>
+        <child>
+          <object class="customtkinter.CTkCheckBox" id="checkbox_1" named="True">
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">20 10</property>
+              <property name="row">0</property>
+              <property name="sticky">n</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkCheckBox" id="checkbox_2" named="True">
+            <property name="state">disabled</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10</property>
+              <property name="row">1</property>
+              <property name="sticky">n</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkSwitch" id="switch_1" named="True">
+            <property name="command" type="command" cbtype="simple">on_switch_toggle</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10</property>
+              <property name="row">2</property>
+              <property name="sticky">n</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkSwitch" id="switch_2" named="True">
+            <property name="state">disabled</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20</property>
+              <property name="pady">10 20</property>
+              <property name="row">3</property>
+              <property name="sticky">n</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="customtkinter.CTkFrame" id="slider_progressbar_frame" named="True">
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="columnspan">2</property>
+          <property name="padx">20 0</property>
+          <property name="pady">20 0</property>
+          <property name="row">1</property>
+          <property name="sticky">nsew</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="col" id="0" name="weight">1</property>
+        </containerlayout>
+        <child>
+          <object class="customtkinter.CTkSegmentedButton" id="seg_button_1" named="True">
+            <property name="command" type="command" cbtype="simple">on_segbtn_clicked</property>
+            <property name="corner_radius">0</property>
+            <property name="dynamic_resizing">True</property>
+            <property name="values">["CTkSegmentedButton", "Value 2", "Value 3"]</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20 10</property>
+              <property name="pady">10 10</property>
+              <property name="row">0</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkProgressBar" id="progressbar_1" named="True">
+            <property name="mode">indeterminate</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20 10</property>
+              <property name="pady">10 10</property>
+              <property name="row">1</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkProgressBar" id="progressbar_2" named="True">
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20 10</property>
+              <property name="pady">10 10</property>
+              <property name="row">2</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkSlider" id="slider_1" named="True">
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">20 10</property>
+              <property name="pady">10 10</property>
+              <property name="row">3</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkSlider" id="slider_2" named="True">
+            <property name="orientation">vertical</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="padx">20 10</property>
+              <property name="pady">10 10</property>
+              <property name="row">0</property>
+              <property name="rowspan">5</property>
+              <property name="sticky">ns</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkProgressBar" id="progressbar_3" named="True">
+            <property name="orientation">vertical</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="padx">10 20</property>
+              <property name="pady">10 10</property>
+              <property name="row">0</property>
+              <property name="rowspan">5</property>
+              <property name="sticky">ns</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

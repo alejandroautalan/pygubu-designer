@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="customtkinter.CTk" id="ctk1">
+    <property name="title" translatable="yes">CustomTkinter simple_example.py</property>
+    <child>
+      <object class="customtkinter.CTkFrame" id="frame_1" named="True">
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="padx">60</property>
+          <property name="pady">20</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="customtkinter.CTkLabel" id="label_1" named="True">
+            <property name="justify">left</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkProgressBar" id="progressbar_1" named="True">
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkButton" id="button_1" named="True">
+            <property name="command" type="command" cbtype="simple">button_callback</property>
+            <property name="state">disabled</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkButton" id="button_2" named="True">
+            <property name="command" type="command" cbtype="simple">button_callback</property>
+            <property name="hover">False</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkButton" id="button_3" named="True">
+            <property name="command" type="command" cbtype="simple">button_callback</property>
+            <property name="hover">True</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkSlider" id="slider_1" named="True">
+            <property name="command" type="command" cbtype="simple">slider_callback</property>
+            <property name="from_">0</property>
+            <property name="to">1</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkEntry" id="entry_1" named="True">
+            <property name="placeholder_text">CTkEntry</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkOptionMenu" id="optionmenu_1" named="True">
+            <property name="values">["Option 1", "Option 2", "Option 42 long long long..."]</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkComboBox" id="combobox_1" named="True">
+            <property name="values">["Option 1", "Option 2", "Option 42 long long long..."]</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkCheckBox" id="checkbox_1" named="True">
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkRadioButton" id="radiobutton_1" named="True">
+            <property name="value">1</property>
+            <property name="variable">string:radiobutton_var</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkRadioButton" id="radiobutton_2" named="True">
+            <property name="value">2</property>
+            <property name="variable">string:radiobutton_var</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="customtkinter.CTkSwitch" id="switch_1" named="True">
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="pady">12</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
