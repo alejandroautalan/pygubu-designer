@@ -1,6 +1,12 @@
 History
 =======
 
+Changes for version 0.35
+
+  * Quick fix to allow tkinter dark themes on designer. refs #195
+  * Fix error when font is not correctly defined in option database (by the user).
+  * Container Layout Fix remove hover on widget leave.
+
 Changes for version 0.34
 
   * Check main window visibility at start. refs #145
