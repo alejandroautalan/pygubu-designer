@@ -105,7 +105,7 @@ class ThemeModule:
         return False
 
 
-class SunValeyThemes(ThemeModule):
+class SunValleyModule(ThemeModule):
     sv_themes = {"sun-valley-dark": "dark", "sun-valley-light": "light"}
 
     def __init__(self):
@@ -205,7 +205,7 @@ def get_ttk_style():
         if has_ttkthemes:
             manager.modules.append(ttkthemesModule())
         if has_sv_ttk:
-            manager.modules.append(SunValeyThemes())
+            manager.modules.append(SunValleyModule())
         if has_ttkbootsrap:
             manager.modules.append(ttkbModule())
 
