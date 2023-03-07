@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project version="1.4" author="PygubuDesigner 0.34">
+<project version="1.4" author="PygubuDesigner 0.35">
   <interfaces>
     <object class="tk.Toplevel" id="toplevel1">
       <property name="height">200</property>
@@ -156,6 +156,49 @@
                     <property name="column">1</property>
                     <property name="row">7</property>
                     <property name="sticky">ew</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="ttk.Frame" id="frame2">
+                  <property name="height">200</property>
+                  <property name="width">200</property>
+                  <layout manager="grid">
+                    <property name="column">0</property>
+                    <property name="columnspan">2</property>
+                    <property name="pady">10</property>
+                    <property name="row">9</property>
+                    <property name="sticky">ew</property>
+                  </layout>
+                  <child>
+                    <object class="pygubu.forms.ttk.BooleanCheckboxField" id="booleancheckboxfield1">
+                      <property name="text" translatable="yes">Checkbox field</property>
+                      <layout manager="pack">
+                        <property name="anchor">w</property>
+                      </layout>
+                    </object>
+                  </child>
+                </object>
+              </child>
+              <child>
+                <object class="ttk.Label" id="label6">
+                  <property name="text" translatable="yes">Short bio:</property>
+                  <layout manager="grid">
+                    <property name="column">0</property>
+                    <property name="row">10</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="pygubu.forms.ttk.TextFieldBO" id="textfieldbo1">
+                  <property name="fname">bio</property>
+                  <property name="height">10</property>
+                  <property name="initial">Some initial Text</property>
+                  <property name="text" translatable="yes">textfieldbo1</property>
+                  <property name="width">50</property>
+                  <layout manager="grid">
+                    <property name="column">1</property>
+                    <property name="row">10</property>
                   </layout>
                 </object>
               </child>
