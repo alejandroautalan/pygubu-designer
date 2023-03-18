@@ -33,7 +33,7 @@
                 </object>
               </child>
               <child>
-                <object class="pygubu.forms.ttk.LabelField" id="person_id" named="True">
+                <object class="pygubu.forms.ttk.LabelDisplayField" id="person_id" named="True">
                   <property name="fname">id</property>
                   <property name="text" translatable="yes">labelfield1</property>
                   <layout manager="grid">
@@ -68,9 +68,69 @@
               <child>
                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo1">
                   <property name="fname">name</property>
+                  <property name="text" translatable="yes">nameinfo</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">2</property>
+                    <property name="sticky">ew</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="ttk.Label" id="label7">
+                  <property name="text" translatable="yes">Lastname:</property>
+                  <layout manager="grid">
+                    <property name="column">0</property>
+                    <property name="row">3</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="pygubu.forms.ttk.CharField" id="charfield2">
+                  <property name="fname">lastname</property>
+                  <layout manager="grid">
+                    <property name="column">1</property>
+                    <property name="row">3</property>
+                    <property name="sticky">ew</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo4">
+                  <property name="text" translatable="yes">lastnameinfo</property>
+                  <layout manager="grid">
+                    <property name="column">1</property>
+                    <property name="row">4</property>
+                    <property name="sticky">ew</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="ttk.Label" id="label5">
+                  <property name="text" translatable="yes">ID type:</property>
+                  <layout manager="grid">
+                    <property name="column">0</property>
+                    <property name="row">5</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="pygubu.forms.pgwf.ChoiceKeyField" id="choicekeyfield1">
+                  <property name="fname">idtype</property>
+                  <property name="values">[["key1","value1"],["key2", "value2"]]</property>
+                  <layout manager="grid">
+                    <property name="column">1</property>
+                    <property name="row">5</property>
+                    <property name="sticky">ew</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo5">
+                  <property name="text" translatable="yes">labelfieldinfo5</property>
+                  <layout manager="grid">
+                    <property name="column">1</property>
+                    <property name="row">6</property>
                     <property name="sticky">ew</property>
                   </layout>
                 </object>
@@ -80,7 +140,7 @@
                   <property name="text" translatable="yes">Gender:</property>
                   <layout manager="grid">
                     <property name="column">0</property>
-                    <property name="row">3</property>
+                    <property name="row">9</property>
                     <property name="sticky">w</property>
                   </layout>
                 </object>
@@ -93,7 +153,7 @@
                   <property name="min_length">4</property>
                   <layout manager="grid">
                     <property name="column">1</property>
-                    <property name="row">3</property>
+                    <property name="row">9</property>
                     <property name="sticky">ew</property>
                   </layout>
                 </object>
@@ -103,7 +163,7 @@
                   <property name="fname">gender</property>
                   <layout manager="grid">
                     <property name="column">1</property>
-                    <property name="row">4</property>
+                    <property name="row">10</property>
                     <property name="sticky">ew</property>
                   </layout>
                 </object>
@@ -113,7 +173,7 @@
                   <property name="text" translatable="yes">Country:</property>
                   <layout manager="grid">
                     <property name="column">0</property>
-                    <property name="row">5</property>
+                    <property name="row">11</property>
                     <property name="sticky">w</property>
                   </layout>
                 </object>
@@ -124,7 +184,7 @@
                   <property name="fname">country</property>
                   <layout manager="grid">
                     <property name="column">1</property>
-                    <property name="row">5</property>
+                    <property name="row">11</property>
                     <property name="sticky">ew</property>
                   </layout>
                 </object>
@@ -134,27 +194,7 @@
                   <property name="fname">country</property>
                   <layout manager="grid">
                     <property name="column">1</property>
-                    <property name="row">6</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="ttk.Label" id="label5">
-                  <property name="text" translatable="yes">ID type:</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="row">7</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.pgwf.ChoiceKeyField" id="choicekeyfield1">
-                  <property name="fname">idtype</property>
-                  <property name="values">[["key1","value1"],["key2", "value2"]]</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">7</property>
+                    <property name="row">12</property>
                     <property name="sticky">ew</property>
                   </layout>
                 </object>
@@ -167,7 +207,7 @@
                     <property name="column">0</property>
                     <property name="columnspan">2</property>
                     <property name="pady">10</property>
-                    <property name="row">9</property>
+                    <property name="row">13</property>
                     <property name="sticky">ew</property>
                   </layout>
                   <child>
@@ -182,10 +222,11 @@
               </child>
               <child>
                 <object class="ttk.Label" id="label6">
-                  <property name="text" translatable="yes">Short bio:</property>
+                  <property name="text" translatable="yes">About you:</property>
                   <layout manager="grid">
                     <property name="column">0</property>
-                    <property name="row">10</property>
+                    <property name="row">14</property>
+                    <property name="sticky">nw</property>
                   </layout>
                 </object>
               </child>
@@ -198,7 +239,7 @@
                   <property name="width">50</property>
                   <layout manager="grid">
                     <property name="column">1</property>
-                    <property name="row">10</property>
+                    <property name="row">14</property>
                   </layout>
                 </object>
               </child>

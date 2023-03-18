@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 import pathlib
 import pygubu
-import ttkbootstrap
+
+try:
+    import ttkbootstrap
+except ImportError:
+    pass
+
 from formsdemo1base import FormsDemo1Base
 
 
@@ -10,7 +15,11 @@ class FormsDemo1App(FormsDemo1Base):
         super().__init__(master)
 
         self.form = self.builder.get_object("form1")
-        data = {"id": 4567, "name": "Alex r"}
+        data = {
+            "id": 36912,
+            "name": "Alex",
+            "lastname": "Doe",
+        }
         self.form.edit(data, data)
 
     def run(self):
