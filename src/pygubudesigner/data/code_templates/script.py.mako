@@ -19,16 +19,12 @@ ${widget_code}
         _main_menu = self.create_${main_menu_id}(self.mainwindow)
         self.mainwindow.configure(menu=_main_menu)
 %endif
-        %if has_ttk_styles:
-
-        self.setup_ttk_styles()
-        %endif
 
     def run(self):
         self.mainwindow.mainloop()
     %if has_ttk_styles:
 
-    def setup_ttk_styles(self):
+    def setup_ttk_styles(self, widget=None):
         # ttk styles configuration
         self.style = style = ttk.Style()
         optiondb = style.master
