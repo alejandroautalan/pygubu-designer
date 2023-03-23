@@ -197,12 +197,19 @@ class ScriptGenerator:
                 if self.use_ttkdefs_file_var.get():
                     generator.add_import_line("tkinter.ttk", "ttk", priority=1)
 
+                first_object_callback = None
+                if self.use_ttkdefs_file_var.get():
+                    first_object_callback = "self.setup_ttk_styles"
+
                 methods = []
                 if set_main_menu:
                     methods.append(main_menu_id)
                 # Generate code
                 code = generator.generate_app_code(
-                    uidef, target, methods_for=methods
+                    uidef,
+                    target,
+                    methods_for=methods,
+                    on_first_object_cb=first_object_callback,
                 )
 
                 # Prepare template context

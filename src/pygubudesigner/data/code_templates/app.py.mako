@@ -6,9 +6,18 @@ PROJECT_UI = PROJECT_PATH / "${project_name}"
 
 <%block name="class_definition" filter="trim">
 class ${class_name}:
-%if with_i18n_support:
+%if with_i18n_support and has_ttk_styles:
+    def __init__(self, master=None, translator=None):
+        self.builder = builder = pygubu.Builder(
+            translator=translator,
+            on_first_object=self.setup_ttk_styles)
+%elif with_i18n_support:
     def __init__(self, master=None, translator=None):
         self.builder = builder = pygubu.Builder(translator)
+%elif has_ttk_styles:
+    def __init__(self, master=None):
+        self.builder = builder = pygubu.Builder(
+            on_first_object=self.setup_ttk_styles)
 %else:
     def __init__(self, master=None):
         self.builder = builder = pygubu.Builder()
@@ -30,18 +39,13 @@ class ${class_name}:
         builder.import_variables(self, ${tkvariables})
 
         %endif
-        %if has_ttk_styles:
-
-        self.setup_ttk_styles()
-
-        %endif
         builder.connect_callbacks(self)
 
     def run(self):
         self.mainwindow.mainloop()
     %if has_ttk_styles:
 
-    def setup_ttk_styles(self):
+    def setup_ttk_styles(self, widget=None):
         # ttk styles configuration
         self.style = style = ttk.Style()
         optiondb = style.master

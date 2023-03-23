@@ -98,6 +98,7 @@ class UI2Code(Builder):
         self._current_target = None
         self._generated_target_id = None
         self.all_ids_as_attributes = False
+        self._first_object_created = False
 
     def add_import_line(self, module_name, as_name=None, priority=0):
         if module_name not in self._extra_imports:
@@ -108,12 +109,14 @@ class UI2Code(Builder):
             "as_class": True,
             "tabspaces": 8,
             "script_type": ScriptType.APP_WITH_UI,
+            "on_first_object_cb": None,
         }
         kwdef.update(kw)
         self._options = kwdef
         self.as_class = self._options["as_class"]
         self.tabspaces = self._options["tabspaces"]
         self._script_type = self._options["script_type"]
+        self._on_first_object_cb = self._options["on_first_object_cb"]
 
     def _process_results(self, target):
         code = []
@@ -171,13 +174,20 @@ class UI2Code(Builder):
         )
         return self._process_results(target)
 
-    def generate_app_code(self, uidef, target, methods_for: list = None):
+    def generate_app_code(
+        self,
+        uidef,
+        target,
+        methods_for: list = None,
+        on_first_object_cb: str = None,
+    ):
         self.generate(
             uidef,
             target,
             as_class=True,
             tabspaces=8,
             script_type=ScriptType.APP_CODE,
+            on_first_object_cb=on_first_object_cb,
         )
         if methods_for is not None:
             self._realize_mode = RealizeMode.METHOD
@@ -390,6 +400,19 @@ class UI2Code(Builder):
             # configuration
             configure = builder.code_configure()
             self._add_new_code(configure)
+
+            # <<
+            if (
+                self._first_object_created is False
+                and self._on_first_object_cb is not None
+            ):
+                lines = [
+                    "# First object created",
+                    f"{self._on_first_object_cb}({uniqueid})",
+                    "",
+                ]
+                self._add_new_code(lines)
+                self._first_object_created = True
 
             # Children
             for childmeta in self.uidefinition.widget_children(originalid):
