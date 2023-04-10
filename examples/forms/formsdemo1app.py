@@ -7,7 +7,11 @@ try:
 except ImportError:
     pass
 
+import pygubu.forms.config as formconfig
 from formsdemo1base import FormsDemo1Base
+
+
+formconfig.ENTRY_MARK_INVALID_USING_VALIDATE = True
 
 
 class FormsDemo1App(FormsDemo1Base):
