@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import pprint as pp
 import pathlib
 import pygubu
 
@@ -33,16 +34,17 @@ class FormsDemo1App(FormsDemo1Base):
         self.form.submit()
         if self.form.is_valid():
             print("valid!")
-            print("form data:", self.form.cleaned_data)
+            print("form data:")
+            pp.pprint(self.form.cleaned_data)
         else:
             print("invalid!")
-            print(self.form.errors)
+            pp.pprint(self.form.errors)
 
     def on_check_changed(self):
         if self.form.has_changed():
             print("form has changed data.")
             print("Changed data:")
-            print(self.form.changed_data)
+            pp.pprint(self.form.changed_data)
         else:
             print("form is not changed.")
 

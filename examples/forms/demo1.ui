@@ -34,9 +34,8 @@
                 </object>
               </child>
               <child>
-                <object class="pygubu.forms.ttk.LabelDisplayField" id="labeldisplayfield1">
-                  <property name="fname">id</property>
-                  <property name="text" translatable="yes">labeldisplayfield1</property>
+                <object class="pygubu.forms.ttk.LabelField" id="labeldisplayfield1">
+                  <property name="field_name">id</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">0</property>
@@ -55,9 +54,9 @@
                 </object>
               </child>
               <child>
-                <object class="pygubu.forms.ttk.EntryCharField" id="entrycharfield1">
-                  <property name="fname">name</property>
-                  <property name="help_text">Your first name</property>
+                <object class="pygubu.forms.ttk.EntryField" id="entrycharfield1">
+                  <property name="field_help">Your first name</property>
+                  <property name="field_name">name</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">1</property>
@@ -67,7 +66,7 @@
               </child>
               <child>
                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo1">
-                  <property name="fname">name</property>
+                  <property name="field_name">name</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">2</property>
@@ -86,9 +85,9 @@
                 </object>
               </child>
               <child>
-                <object class="pygubu.forms.ttk.EntryCharField" id="entrycharfield2">
-                  <property name="fname">lastname</property>
-                  <property name="help_text">Your last name</property>
+                <object class="pygubu.forms.ttk.EntryField" id="entrycharfield2">
+                  <property name="field_help">Your last name</property>
+                  <property name="field_name">lastname</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">3</property>
@@ -98,7 +97,7 @@
               </child>
               <child>
                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo2">
-                  <property name="fname">lastname</property>
+                  <property name="field_name">lastname</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">4</property>
@@ -117,9 +116,10 @@
                 </object>
               </child>
               <child>
-                <object class="pygubu.forms.ttk.EntryIntegerField" id="entryintegerfield1">
-                  <property name="fname">age</property>
-                  <property name="help_text">How old are you?</property>
+                <object class="pygubu.forms.ttk.EntryField" id="entryintegerfield1">
+                  <property name="field_help">How old are you?</property>
+                  <property name="field_name">age</property>
+                  <property name="textvariable">int:age_var</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">5</property>
@@ -129,7 +129,7 @@
               </child>
               <child>
                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo3">
-                  <property name="fname">age</property>
+                  <property name="field_name">age</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">6</property>
@@ -148,9 +148,10 @@
                 </object>
               </child>
               <child>
-                <object class="pygubu.forms.ttk.EntryFloatField" id="entryfloatfield1">
-                  <property name="fname">height</property>
-                  <property name="help_text">How tall are you?</property>
+                <object class="pygubu.forms.ttk.EntryField" id="entryfloatfield1">
+                  <property name="field_help">How tall are you?</property>
+                  <property name="field_name">height</property>
+                  <property name="textvariable">double:height_var</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">7</property>
@@ -160,7 +161,7 @@
               </child>
               <child>
                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo4">
-                  <property name="fname">height</property>
+                  <property name="field_name">height</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">9</property>
@@ -179,10 +180,10 @@
                 </object>
               </child>
               <child>
-                <object class="pygubu.forms.ttk.TextCharField" id="textcharfield1">
-                  <property name="fname">bio</property>
+                <object class="pygubu.forms.tk.TextField" id="textcharfield1">
+                  <property name="field_help">Your short bio here</property>
+                  <property name="field_name">bio</property>
                   <property name="height">5</property>
-                  <property name="help_text">Your short bio here</property>
                   <property name="width">28</property>
                   <layout manager="grid">
                     <property name="column">1</property>
@@ -193,7 +194,7 @@
               </child>
               <child>
                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo5">
-                  <property name="fname">bio</property>
+                  <property name="field_name">bio</property>
                   <layout manager="grid">
                     <property name="column">1</property>
                     <property name="row">12</property>
@@ -202,11 +203,22 @@
                 </object>
               </child>
               <child>
-                <object class="pygubu.forms.ttk.CheckbuttonBoolField" id="checkbuttonboolfield1">
+                <object class="pygubu.forms.ttk.CheckbuttonField" id="checkbuttonboolfield1">
+                  <property name="field_name">terms_accept</property>
                   <property name="text" translatable="yes">I accept terms of use.</property>
                   <layout manager="grid">
                     <property name="column">0</property>
                     <property name="row">13</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo6">
+                  <property name="field_name">terms_accept</property>
+                  <layout manager="grid">
+                    <property name="column">1</property>
+                    <property name="row">13</property>
+                    <property name="sticky">ew</property>
                   </layout>
                 </object>
               </child>
