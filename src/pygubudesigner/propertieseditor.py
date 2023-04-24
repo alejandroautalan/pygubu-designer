@@ -106,6 +106,7 @@ class PropertiesEditor:
             params["placeholder"] = wdescr.start_id
 
         # Configure editor
+        logger.debug("Setting editor mode for %s", pname)
         editor.parameters(**params)
 
         # Setup tooltip

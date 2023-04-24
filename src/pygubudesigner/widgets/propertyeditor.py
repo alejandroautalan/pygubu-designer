@@ -42,6 +42,9 @@ def register_editor(name, class_):
 
 
 def create_editor(name, *args, **kw):
+    if name not in EDITORS:
+        msg = f"Trying to use an unregister editor named: {name}"
+        raise Exception(msg)
     editor = EDITORS[name](*args, **kw)
     return editor
 
