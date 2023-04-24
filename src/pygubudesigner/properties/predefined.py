@@ -1214,6 +1214,7 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "ttkstylechoice"},
         "ttk.Button": {"params": {"values": ("", "Toolbutton")}},
+        "ttk.Checkbutton": {"params": {"values": ("", "Toolbutton")}},
         "help": help_for("style"),
     },
     "tabs": {  # FIXME see tk.Text tab property
