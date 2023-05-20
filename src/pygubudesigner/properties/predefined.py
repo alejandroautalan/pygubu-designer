@@ -1583,7 +1583,7 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {
             "mode": "choice",
-            "values": ("", "True", "False"),
+            "values": ("", "true", "false"),
             "state": "readonly",
         },
         "help": help_for("overrideredirect-custom"),
@@ -1654,8 +1654,8 @@ LAYOUT_OPTIONS = {
     "ipady": {"editor": "dimensionentry", "help": help_for("ipady-layout")},
     "propagate": {
         "editor": "choice",
-        "params": {"values": ("True", "False"), "state": "readonly"},
-        "default": "True",
+        "params": {"values": ("true", "false"), "state": "readonly"},
+        "default": "true",
         "help": help_for("propagate-layout"),
     },
     "anchor": {
