@@ -216,6 +216,22 @@ class PygubuDesigner:
         #
         self._setup_styles()
 
+        # Customize OpenFiledialog window
+        if sys.platform == "linux":
+            file_dialog_hack = """
+# Show button and hide hidden files
+catch {tk_getOpenFile -badoption}
+set ::tk::dialog::file::showHiddenBtn 1
+set ::tk::dialog::file::showHiddenVar 0
+
+# Make dialog window bigger
+rename ::tk::dialog::file::Create ::tk::dialog::file::_CreateOriginal
+proc ::tk::dialog::file::Create {type args} {
+    eval ::tk::dialog::file::_CreateOriginal $type $args
+    wm geometry .__tk_filedialog 680x350
+}"""
+            self.mainwindow.tk.eval(file_dialog_hack)
+
         #
         # Setup dynamic theme submenu
         #
