@@ -150,6 +150,9 @@ class ToolbarFrame(ttk.Frame):
         if newstart <= 0:
             self.fcstart = newstart
             self.fcontent.place(x=self.fcstart)
+        elif self.fcstart < 0:
+            self.fcstart = 0
+            self.fcontent.place(x=self.fcstart)
 
 
 if __name__ == "__main__":
