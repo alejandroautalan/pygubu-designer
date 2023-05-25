@@ -903,7 +903,9 @@ proc ::tk::dialog::file::Create {type args} {
 
     def nbmain_tab_changed(self, event):
         if event.widget.index("current") == 1:  # Index 1 is the code-tab
-            self.script_generator.update_view()
+            # TODO: fix this later.
+            # self.script_generator.update_view()
+            pass
 
     # Tab code management
     def on_code_generate_clicked(self):

@@ -263,6 +263,9 @@ class ScriptGenerator:
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
 
+        # FIXME: add this temporarly
+        self.update_view()
+
     def on_code_save_clicked(self):
         _ = self.app.translator
         filename = (self.classnamevar.get()).lower()
