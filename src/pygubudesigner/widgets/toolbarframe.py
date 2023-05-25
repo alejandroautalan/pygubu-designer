@@ -140,9 +140,13 @@ class ToolbarFrame(ttk.Frame):
     def scroll_right(self):
         newstart = self.fcstart - self.SCROLL_INCREMENT
         cw = self.fcontent.winfo_reqwidth()
-        limit = cw - self.SCROLL_INCREMENT
+        f_width = self.fvport.winfo_width()
+        limit = cw - f_width
         if newstart > -(limit):
             self.fcstart = newstart
+            self.fcontent.place(x=self.fcstart)
+        elif self.fcstart != -limit:
+            self.fcstart = -limit
             self.fcontent.place(x=self.fcstart)
 
     def scroll_left(self):
