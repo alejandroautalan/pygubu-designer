@@ -22,7 +22,7 @@ from .toolbarframe import ToolbarFrame
 
 
 class ComponentPalette(ttk.Frame):
-    def __init__(self, master=None, **kw):
+    def __init__(self, master=None, notebook=True, **kw):
         ttk.Frame.__init__(self, master, **kw)
         component_pallete = ttk.Frame(master)
         fbuttons = ttk.Frame(component_pallete)
@@ -48,14 +48,19 @@ class ComponentPalette(ttk.Frame):
         rb_ttk.pack(expand="true", fill="both", side="top")
         fbuttons.pack(fill="y", side="left")
         fbntab = ttk.Frame(component_pallete)
-        self.notebook = notebook = ttk.Notebook(fbntab)
-        notebook.config(
-            height="50",
-            width="300",
-            style="ComponentPalette.TNotebook",
-            takefocus=True,
-        )
-        notebook.pack(side="top", expand=True, fill="x")
+        if notebook:
+            self.notebook = ttk.Notebook(fbntab)
+            self.notebook.config(
+                height="50",
+                width="300",
+                style="ComponentPalette.TNotebook",
+                takefocus=True,
+            )
+            self.notebook.pack(side="top", expand=True, fill="x")
+        else:
+            self.notebook = None
+            self.frame = ToolbarFrame(fbntab)
+            self.frame.pack(side="top", expand=True, fill="both")
         fbntab.config(height="200", width="200")
         fbntab.pack(side="left", expand=True, fill="x")
         component_pallete.config(height="200", padding="2", width="200")
@@ -72,6 +77,8 @@ class ComponentPalette(ttk.Frame):
 
     def add_tab(self, tabid, label):
         # frame_1 = ttk.Frame(self.notebook)
+        if not self.notebook:
+            return
         frame_1 = ToolbarFrame(self.notebook)
         frame_1.configure(padding=2)
         frame_1.pack(expand="true", fill="both", side="top")
@@ -79,7 +86,7 @@ class ComponentPalette(ttk.Frame):
         self._tabs[tabid] = frame_1
 
     def add_button(self, tabid, group, label, ttiplabel, image, callback):
-        master = self._tabs[tabid].child_master()
+        master = self._tabs[tabid].child_master() if self.notebook else self.frame.child_master()
         # master = self._tabs[tabid]
         b = ttk.Button(
             master,

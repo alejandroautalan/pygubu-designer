@@ -507,7 +507,8 @@ class PygubuDesigner:
             pass
 
         treelist = self.create_treelist()
-        self._pallete = ComponentPalette(fpalette)
+        self._pallete = ComponentPalette(fpalette, notebook=(
+            pref.get_option("single_section") == "no"))
 
         # Start building widget tree selector
         roots = {}
