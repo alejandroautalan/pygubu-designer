@@ -137,8 +137,8 @@ class ScriptGenerator:
 
             if template == "application":
                 generator.add_import_line("pathlib")
-                if not main_widget_is_toplevel:
-                    generator.add_import_line("tkinter", "tk", priority=1)
+                # if not main_widget_is_toplevel:
+                generator.add_import_line("tkinter", "tk", priority=1)
                 if self.use_ttkdefs_file_var.get():
                     generator.add_import_line("tkinter.ttk", "ttk", priority=1)
                 generator.add_import_line("pygubu", priority=10)
