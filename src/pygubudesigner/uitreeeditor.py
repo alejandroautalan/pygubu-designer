@@ -42,6 +42,11 @@ from .layouteditor import LayoutEditor
 from .propertieseditor import PropertiesEditor
 from .util import trlog
 from .widgetdescr import WidgetMeta
+from pygubu.forms.fields import FieldBase
+from pygubudesigner.properties.editors.forms import (
+    FormFieldNameEntry,
+    FormFieldNameSelector,
+)
 
 logger = logging.getLogger("pygubu.designer")
 
@@ -100,6 +105,8 @@ class WidgetsTreeEditor:
         CommandPropertyBase.global_validator = self.is_command_valid
         # set global validator for bindings commands
         EventHandlerEditor.global_validator = self.is_binding_valid
+        # set global validator for form field name entry
+        FormFieldNameEntry.global_validator = self.is_form_fieldname_valid
 
         # Widget Editor
         pframe = app.builder.get_object("propertiesframe")
@@ -396,9 +403,13 @@ class WidgetsTreeEditor:
             # Update widged description
             wdescr.container_manager = cmanager
 
+        # Prepare field name values
+        FormFieldNameSelector.FIELD_NAMES = self.get_form_fieldname_list()
+
         self.properties_editor.edit(wdescr)
         self.layout_editor.edit(wdescr, manager_options, cinfo)
         self.bindings_editor.edit(wdescr)
+        self.get_form_fieldname_list()
 
     def editor_hide_all(self):
         self.properties_editor.hide_all()
@@ -1365,6 +1376,15 @@ class WidgetsTreeEditor:
             data = self.treedata[item]
             yield (item, data)
 
+    def _data_iterator(self, root=None):
+        start = "" if root is None else root
+        children = self.treeview.get_children(start)
+        for item in children:
+            data = self.treedata[item]
+            yield (item, data)
+        for item in children:
+            yield from self._data_iterator(item)
+
     def get_tree_topitem_byid(self, wid):
         for item, data in self._top_widget_iterator():
             if data.identifier == wid:
@@ -1529,3 +1549,32 @@ class WidgetsTreeEditor:
         self.editor_edit(item, wmeta)
         self.draw_widget(item)
         self.app.set_changed()
+
+    def _is_form_field_class(self, classname: str):
+        builder = CLASS_MAP[classname].builder
+        return issubclass(builder.class_, FieldBase)
+
+    def _is_form_filedname_defined(self, fieldname: str):
+        is_defined = False
+        for item, data in self._data_iterator():
+            if self._is_form_field_class(data.classname):
+                fname = data.widget_property("field_name")
+                if not fname:
+                    fname = data.identifier
+                if fname == fieldname:
+                    is_defined = True
+                    break
+        return is_defined
+
+    def get_form_fieldname_list(self):
+        flist = []
+        for item, data in self._data_iterator():
+            if self._is_form_field_class(data.classname):
+                fname = data.widget_property("field_name")
+                if not fname:
+                    fname = data.identifier
+                flist.append(fname)
+        return flist
+
+    def is_form_fieldname_valid(self, fieldname: str):
+        return not self._is_form_filedname_defined(fieldname)
