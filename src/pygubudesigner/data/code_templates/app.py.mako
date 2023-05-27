@@ -25,7 +25,7 @@ class ${class_name}:
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
         # Main widget
-        self.mainwindow = builder.get_object("${main_widget}", master)
+        self.mainwindow: tk.Toplevel = builder.get_object("${main_widget}", master)
 %if set_main_menu:
         # Main menu
         _main_menu = builder.get_object("${main_menu_id}", self.mainwindow)
