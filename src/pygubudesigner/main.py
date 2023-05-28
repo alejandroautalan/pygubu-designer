@@ -223,9 +223,9 @@ set ::tk::dialog::file::showHiddenVar 0
 
 # Make dialog window bigger
 rename ::tk::dialog::file::Create ::tk::dialog::file::_CreateOriginal
-proc ::tk::dialog::file::Create {type args} {
-    eval ::tk::dialog::file::_CreateOriginal $type $args
-    wm geometry .__tk_filedialog 680x350
+proc ::tk::dialog::file::Create {w class} {
+    eval ::tk::dialog::file::_CreateOriginal $w $class
+    wm geometry $w 680x350
 }"""
             self.mainwindow.tk.eval(file_dialog_hack)
 
