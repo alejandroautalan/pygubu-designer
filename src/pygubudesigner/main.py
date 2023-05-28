@@ -876,6 +876,8 @@ class PygubuDesigner:
     def nbmain_tab_changed(self, event):
         if event.widget.index("current") == 1:  # Index 1 is the code-tab
             self.script_generator.configure()
+            if pref.get_option("auto_generate") == "yes":
+                self.on_code_generate_clicked()
 
     # Tab code management
     def on_code_generate_clicked(self):
@@ -886,6 +888,8 @@ class PygubuDesigner:
 
     def on_code_template_changed(self):
         self.script_generator.on_code_template_changed()
+        if pref.get_option("auto_generate") == "yes":
+            self.on_code_generate_clicked()
 
     def on_code_save_clicked(self):
         self.script_generator.on_code_save_clicked()
