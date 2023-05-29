@@ -34,6 +34,10 @@ options = {
         "values": '["yes", "no"]',
         "default": "no",
     },
+    "auto_generate_code_on_prop_change": {
+        "values": '["yes", "no"]',
+        "default": "no",
+    },
     "geometry": {
         "default": "640x480",
     },
