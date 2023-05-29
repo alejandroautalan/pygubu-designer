@@ -905,6 +905,8 @@ proc ::tk::dialog::file::Create {w class} {
         if event.widget.index("current") == 1:  # Index 1 is the code-tab
             # TODO: fix this later.
             # self.script_generator.update_view()
+            # if pref.get_option("auto_generate_code") == "yes":
+            #     self.on_code_generate_clicked()
             pass
 
     # Tab code management
@@ -916,6 +918,8 @@ proc ::tk::dialog::file::Create {w class} {
 
     def on_code_template_changed(self, event):
         self.script_generator.on_code_template_changed(event)
+        if pref.get_option("auto_generate_code") == "yes":
+            self.on_code_generate_clicked()
 
     def on_code_save_clicked(self):
         self.script_generator.on_code_save_clicked()
