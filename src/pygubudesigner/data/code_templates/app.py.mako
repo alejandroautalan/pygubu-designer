@@ -31,14 +31,14 @@ class ${class_name}:
         _main_menu = builder.get_object("${main_menu_id}", self.mainwindow)
         self.mainwindow.configure(menu=_main_menu)
 %endif
-        %if tkvariables:
+    %if tkvariables:
 
-          %for var in tkvariables:
-        self.${var} = None
-          %endfor
-        builder.import_variables(self, ${tkvariables})
+        %for var in tkvariables:
+        self.${var}:${tkvariablehints[var]} = None
+        %endfor
+        builder.import_variables(self)
 
-        %endif
+    %endif
         builder.connect_callbacks(self)
 
     def run(self, center=False):

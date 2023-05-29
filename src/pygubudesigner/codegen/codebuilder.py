@@ -79,6 +79,7 @@ class UI2Code(Builder):
         self._extra_imports = {}
         self._code_imports = OrderedDict()
         self._tkvariables = {}
+        self._tkvariablehints = {}
         self._tkimages = {}
         self._callbacks = {}
         self._import_tk = False
@@ -139,6 +140,7 @@ class UI2Code(Builder):
             "ttkstyles": code_ttk_styles,
             "callbacks": code_callbacks,
             "tkvariables": list(self._tkvariables.keys()),
+            "tkvariablehints": self._tkvariablehints,
             "methods": code_methods,
         }
         return cc
@@ -352,6 +354,7 @@ class UI2Code(Builder):
             line = f"{vname_in_code} = {var_create}"
             self._add_new_code([line])
             self._tkvariables[vname] = vname_in_code
+            self._tkvariablehints[vname] = var_create.split("(")[0]
             self._import_tk = True
         return self._tkvariables[vname]
 

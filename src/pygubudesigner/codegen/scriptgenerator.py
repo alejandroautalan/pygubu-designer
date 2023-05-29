@@ -157,6 +157,7 @@ class ScriptGenerator:
                 # Tk Variables
                 if self.import_tkvars_var.get():
                     context["tkvariables"] = code["tkvariables"]
+                    context["tkvariablehints"] = code["tkvariablehints"]
                 tpl = makolookup.get_template("app.py.mako")
                 final_code = tpl.render(**context)
                 final_code = self._format_code(final_code)
