@@ -704,14 +704,16 @@ class WidgetsTreeEditor:
             root_classname = self.treedata[root].classname
             root_boclass = CLASS_MAP[root_classname].builder
             allowed_children = root_boclass.allowed_children
-            if allowed_children:
-                if classname not in allowed_children:
-                    if show_warnings:
-                        str_children = ", ".join(allowed_children)
-                        msg = _("Allowed children: %s.")
-                        logger.warning(msg, str_children)
-                    is_valid = False
-                    return is_valid
+            # if allowed_children:
+            #    if classname not in allowed_children:
+            canbe_parent = root_boclass.canbe_parent_of(new_boclass, classname)
+            if not canbe_parent:
+                if show_warnings:
+                    str_children = ", ".join(allowed_children)
+                    msg = _("Allowed children: %s.")
+                    logger.warning(msg, str_children)
+                is_valid = False
+                return is_valid
 
             children_count = len(self.treeview.get_children(root))
             maxchildren = root_boclass.maxchildren
@@ -726,11 +728,12 @@ class WidgetsTreeEditor:
                 is_valid = False
                 return is_valid
 
-            allowed_parents = new_boclass.allowed_parents
-            if (
-                allowed_parents is not None
-                and root_classname not in allowed_parents
-            ):
+            # allowed_parents = new_boclass.allowed_parents
+            # if (
+            #    allowed_parents is not None
+            #    and root_classname not in allowed_parents
+            # ):
+            if not new_boclass.canbe_child_of(root_boclass, root_classname):
                 if show_warnings:
                     msg = trlog(
                         _("{0} not allowed as parent of {1}"),
@@ -741,7 +744,7 @@ class WidgetsTreeEditor:
                 is_valid = False
                 return is_valid
 
-            if allowed_children is None and root_boclass.container is False:
+            if not canbe_parent and root_boclass.container is False:
                 if show_warnings:
                     msg = _("Not allowed, %s is not a container.")
                     logger.warning(msg, root_classname)
