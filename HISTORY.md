@@ -1,6 +1,12 @@
 History
 =======
 
+Changes for version 0.36
+
+  * Add option to auto generate code when code template is changed. refs #208
+  * Fix event names, refs #197
+  * Changed template code to call ttk styles on first object created. refs alejandroautalan/pygubu#282
+
 Changes for version 0.35
 
   * Quick fix to allow tkinter dark themes on designer. refs #195
