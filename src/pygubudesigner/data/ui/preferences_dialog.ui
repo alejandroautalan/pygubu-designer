@@ -137,11 +137,11 @@
                           </object>
                         </child>
                         <child>
-                          <object class="ttk.Checkbutton" id="chk_auto_generate">
+                          <object class="ttk.Checkbutton" id="chk_auto_generate_code">
                             <property name="offvalue">no</property>
                             <property name="onvalue">yes</property>
                             <property name="text" translatable="yes">Automatically generate code</property>
-                            <property name="variable">string:auto_generate</property>
+                            <property name="variable">string:auto_generate_code</property>
                             <layout manager="grid">
                               <property name="column">0</property>
                               <property name="pady">4</property>

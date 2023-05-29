@@ -30,7 +30,7 @@ options = {
         "values": '["yes", "no"]',
         "default": "no",
     },
-    "auto_generate": {
+    "auto_generate_code": {
         "values": '["yes", "no"]',
         "default": "no",
     },
