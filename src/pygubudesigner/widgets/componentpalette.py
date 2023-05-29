@@ -24,8 +24,8 @@ from .toolbarframe import ToolbarFrame
 class ComponentPalette(ttk.Frame):
     def __init__(self, master=None, notebook=True, **kw):
         ttk.Frame.__init__(self, master, **kw)
-        component_pallete = ttk.Frame(master)
-        fbuttons = ttk.Frame(component_pallete)
+        component_palette = ttk.Frame(master)
+        fbuttons = ttk.Frame(component_palette)
         fbuttons.configure(padding=1)
         rb_tk = ttk.Radiobutton(fbuttons)
         self.gvalue = gvalue = tk.StringVar(value="")
@@ -47,7 +47,7 @@ class ComponentPalette(ttk.Frame):
         )
         rb_ttk.pack(expand="true", fill="both", side="top")
         fbuttons.pack(fill="y", side="left")
-        fbntab = ttk.Frame(component_pallete)
+        fbntab = ttk.Frame(component_palette)
         if notebook:
             self.notebook = ttk.Notebook(fbntab)
             self.notebook.config(
@@ -63,9 +63,8 @@ class ComponentPalette(ttk.Frame):
             self.frame.pack(side="top", expand=True, fill="both")
         fbntab.config(height="200", width="200")
         fbntab.pack(side="left", expand=True, fill="x")
-        component_pallete.config(height="200", padding="2", width="200")
-        component_pallete.pack(side="top", expand=True, fill="x")
-
+        component_palette.config(height="200", padding="2", width="200")
+        component_palette.pack(side="top", expand=True, fill="x")
         self._tabs = {}
         self._buttons = []
 
