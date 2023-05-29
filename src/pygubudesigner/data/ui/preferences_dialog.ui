@@ -136,6 +136,20 @@
                             </layout>
                           </object>
                         </child>
+                        <child>
+                          <object class="ttk.Checkbutton" id="chk_auto_generate">
+                            <property name="offvalue">no</property>
+                            <property name="onvalue">yes</property>
+                            <property name="text" translatable="yes">Automatically generate code</property>
+                            <property name="variable">string:auto_generate</property>
+                            <layout manager="grid">
+                              <property name="column">0</property>
+                              <property name="pady">4</property>
+                              <property name="row">4</property>
+                              <property name="sticky">w</property>
+                            </layout>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
