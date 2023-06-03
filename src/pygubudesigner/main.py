@@ -507,7 +507,8 @@ class PygubuDesigner:
             pass
 
         treelist = self.create_treelist()
-        self._pallete = ComponentPalette(fpalette)
+        self._palette = ComponentPalette(fpalette, notebook=(
+            pref.get_option("single_section") == "no"))
 
         # Start building widget tree selector
         roots = {}
@@ -515,7 +516,7 @@ class PygubuDesigner:
         for key, wc in treelist:
             root, section = key.split(">")
             if section not in sections:
-                roots[root] = self._pallete.add_tab(section, section)
+                roots[root] = self._palette.add_tab(section, section)
                 sections[section] = 1
 
             # insert widget
@@ -533,11 +534,11 @@ class PygubuDesigner:
             if wlabel.startswith("Menuitem."):
                 wlabel = wlabel.replace("Menuitem.", "")
             callback = create_cb(wc.classname)
-            self._pallete.add_button(
+            self._palette.add_button(
                 section, root, wlabel, wc.classname, w_image, callback
             )
         default_group = pref.get_option("widget_set")
-        self._pallete.show_group(default_group)
+        self._palette.show_group(default_group)
 
     def on_add_widget_event(self, classname):
         """Adds a widget to the widget tree."""
