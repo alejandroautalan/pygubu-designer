@@ -22,14 +22,6 @@ ${widget_code}
 
     def run(self):
         self.mainwindow.mainloop()
-    %if has_ttk_styles:
-
-    def setup_ttk_styles(self, widget=None):
-        # ttk styles configuration
-        self.style = style = ttk.Style()
-        optiondb = style.master
-${ttk_styles}
-    %endif
 
 ${methods}\
 
