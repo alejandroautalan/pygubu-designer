@@ -17,8 +17,12 @@ def parse_geometry(geom: str):
         w = int(match.group("width"))
         h = int(match.group("heigth"))
         if len(groups) > 1:
-            xpos = int(match.group("xpos"))
-            ypos = int(match.group("ypos"))
+            try:
+                xpos = int(match.group("xpos"))
+                ypos = int(match.group("ypos"))
+            except TypeError:
+                # No xpos or ypos data, use default.
+                pass
     return (w, h, xpos, ypos)
 
 
