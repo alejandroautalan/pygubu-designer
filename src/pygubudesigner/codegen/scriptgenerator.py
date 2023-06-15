@@ -21,6 +21,7 @@ import autopep8
 from mako.lookup import TemplateLookup
 
 from .codebuilder import UI2Code
+from pygubudesigner.stylehandler import StyleHandler
 
 logger = logging.getLogger(__name__)
 DATA_DIR = pathlib.Path(__file__).parent.parent / "data"
@@ -105,6 +106,7 @@ class ScriptGenerator:
                 "customtkinter.CTk",
                 "customtkinter.CTkToplevel",
             )
+
             if target_class in toplevel_uids:
                 main_widget_is_toplevel = True
 
@@ -114,6 +116,12 @@ class ScriptGenerator:
                     main_menu_id = self.tree.get_widget_id(menu_item)
                     set_main_menu = True
 
+            # Style definitions
+            ttk_styles_module = StyleHandler.get_ttk_styles_module()
+            has_ttk_styles = False
+            if self.use_ttkdefs_file_var.get() and ttk_styles_module:
+                has_ttk_styles = True
+
             context = {
                 "project_name": self.projectname,
                 "class_name": class_name,
@@ -122,10 +130,10 @@ class ScriptGenerator:
                 "widget_base_class": target_class,
                 "widget_code": None,
                 "import_lines": None,
-                "ttk_styles": None,
                 "callbacks": "",
                 "tkvariables": [],
-                "has_ttk_styles": False,
+                "has_ttk_styles": has_ttk_styles,
+                "ttk_styles_module": ttk_styles_module,
                 "set_project_path": False,
                 "with_i18n_support": with_i18n_support,
                 "set_main_menu": set_main_menu,
@@ -139,19 +147,13 @@ class ScriptGenerator:
                 generator.add_import_line("pathlib")
                 # if not main_widget_is_toplevel:
                 generator.add_import_line("tkinter", "tk", priority=1)
-                if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line("tkinter.ttk", "ttk", priority=1)
                 generator.add_import_line("pygubu", priority=10)
                 code = generator.generate_app_with_ui(uidef, target)
 
                 context["import_lines"] = code["imports"]
                 # Set project paths
                 context["set_project_path"] = True
-                # Style definitions
-                ttk_styles_code = code["ttkstyles"]
-                if self.use_ttkdefs_file_var.get() and ttk_styles_code:
-                    context["has_ttk_styles"] = True
-                context["ttk_styles"] = ttk_styles_code
+
                 # Callbacks
                 context["callbacks"] = code["callbacks"]
                 # Tk Variables
@@ -165,19 +167,12 @@ class ScriptGenerator:
             elif template == "widget":
                 generator.with_i18n_support = False
                 generator.add_import_line("tkinter", "tk")
-                if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line("tkinter.ttk", "ttk", priority=1)
                 # Generate code
                 code = generator.generate_app_widget(uidef, target)
                 # Prepare template context
                 context["widget_code"] = code[target]
                 context["import_lines"] = code["imports"]
                 context["callbacks"] = code["callbacks"]
-                # Style definitions
-                ttk_styles_code = code["ttkstyles"]
-                if self.use_ttkdefs_file_var.get() and ttk_styles_code:
-                    context["has_ttk_styles"] = True
-                context["ttk_styles"] = ttk_styles_code
 
                 tpl = makolookup.get_template("widget.py.mako")
                 final_code = tpl.render(**context)
@@ -186,12 +181,12 @@ class ScriptGenerator:
             elif template == "codescript":
                 if not main_widget_is_toplevel:
                     generator.add_import_line("tkinter", "tk")
-                if self.use_ttkdefs_file_var.get():
-                    generator.add_import_line("tkinter.ttk", "ttk", priority=1)
 
                 first_object_callback = None
-                if self.use_ttkdefs_file_var.get():
-                    first_object_callback = "self.setup_ttk_styles"
+                if has_ttk_styles:
+                    first_object_callback = (
+                        f"{ttk_styles_module}.setup_ttk_styles"
+                    )
 
                 methods = []
                 if set_main_menu:
@@ -210,11 +205,6 @@ class ScriptGenerator:
                 context["callbacks"] = code["callbacks"]
                 context["methods"] = code["methods"]
                 context["target_code_id"] = code["target_code_id"]
-                # Style definitions
-                ttk_styles_code = code["ttkstyles"]
-                if self.use_ttkdefs_file_var.get() and ttk_styles_code:
-                    context["has_ttk_styles"] = True
-                context["ttk_styles"] = ttk_styles_code
 
                 tpl = makolookup.get_template("script.py.mako")
                 final_code = tpl.render(**context)

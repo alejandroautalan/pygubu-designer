@@ -128,7 +128,6 @@ class UI2Code(Builder):
 
         code_imports = self._process_imports()
         code_imports = "\n".join(code_imports)
-        code_ttk_styles = self._process_ttk_styles()
         code_callbacks = self._process_callbacks()
         code_callbacks = "\n".join(code_callbacks)
         code_methods = "\n".join(self._process_methods())
@@ -137,7 +136,7 @@ class UI2Code(Builder):
             "imports": code_imports,
             target: code,
             "target_code_id": self._generated_target_id,
-            "ttkstyles": code_ttk_styles,
+            "ttk_styles_module": StyleHandler.get_ttk_styles_module(),
             "callbacks": code_callbacks,
             "tkvariables": list(self._tkvariables.keys()),
             "tkvariablehints": self._tkvariablehints,
@@ -275,30 +274,6 @@ class UI2Code(Builder):
                         else:
                             self._code_imports[module].add(obj)
         return cname
-
-    def _process_ttk_styles(self):
-        """
-        Generate the ttk style code.
-        """
-        style_definition = StyleHandler.get_ttk_style_definitions()
-
-        if not style_definition:
-            return ""
-
-        new_lines = []
-
-        # Make sure the ttk style code starts with 8 spaces for proper indentication
-        # with the generated class.
-        code_lines = style_definition.split("\n")
-        for line in code_lines:
-            if not line.startswith(" " * self.tabspaces):
-                line = " " * self.tabspaces + line
-
-            new_lines.append(line)
-
-        new_code = "\n".join(new_lines)
-
-        return new_code
 
     def _process_imports(self):
         lines = []

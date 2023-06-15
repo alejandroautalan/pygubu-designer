@@ -12,6 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
+import sys
+import importlib
 import logging
 from pathlib import Path
 from tkinter import ttk
@@ -50,6 +52,7 @@ class StyleRegister(ttk.Style):
 class StyleHandler:
     last_definition_file = None
     last_modified_time = None
+    required_function_name = "setup_ttk_styles"
 
     def __init__(self, mframe, reselect_item_func):
         self.mframe = mframe
@@ -72,15 +75,26 @@ class StyleHandler:
         logger.debug("Theme changed. Force reload of style definitions.")
         self.check_definition_file(force_reload=True)
 
-    def _apply_ttk_styles(self, style_code):
+    def _run_styles_module(self, module_path):
         logger.debug(_("Applying ttk style definitions"))
         try:
-            if style_code:
-                available_vars = {
-                    "style": self.style,
-                    "optiondb": self.style.master,
-                }
-                exec(style_code, available_vars)
+            if module_path.match("*.py"):
+                module_name = module_path.name[:-3]
+
+                spec = importlib.util.spec_from_file_location(
+                    module_name, module_path
+                )
+                module = importlib.util.module_from_spec(spec)
+
+                sys.modules[module_name] = module
+                spec.loader.exec_module(module)
+
+                if hasattr(module, self.required_function_name):
+                    module.setup_ttk_styles()
+                else:
+                    msg = "Styles definition file does not have the required function: %s"
+                    logger.info(msg, self.required_function_name)
+
                 new_styles = self.style.registered_styles()
                 TtkStylePropertyEditor.set_global_style_list(new_styles)
         except Exception as e:
@@ -88,14 +102,13 @@ class StyleHandler:
             logger.error(msg, e)
 
     @classmethod
-    def get_ttk_style_definitions(cls):
-        contents = None
+    def get_ttk_styles_module(cls):
+        module = None
         style_definition_path = Path(pref.get_option("v_style_definition_file"))
 
         if style_definition_path.is_file():
-            with style_definition_path.open() as f:
-                contents = f.read()
-        return contents
+            module = style_definition_path.stem
+        return module
 
     def check_definition_file(self, force_reload=False):
         # print('checking definitions')
@@ -118,17 +131,13 @@ class StyleHandler:
                     do_reload = True
                     StyleHandler.last_modified_time = file_mtime
         if do_reload or (has_definition_file and force_reload):
-            contents = None
-            with style_definition_path.open() as f:
-                contents = f.read()
-
             # Clear and reload all the definitions.
 
             # Reason: so that definitions that are no longer in the definition file
             # will no longer populate in the style combobox.
             StyleRegister.STYLE_DEFINITIONS.clear()
 
-            self._apply_ttk_styles(contents)
+            self._run_styles_module(style_definition_path)
 
             # Re-select the selected item so the style combobox
             # will show the latest styles from the definition file.
@@ -137,3 +146,9 @@ class StyleHandler:
 
         # schedule new check
         self.after_token = self.mframe.after(1000, self.check_definition_file)
+
+
+# Patch ttk module, so designer can "see" style changes.
+if not hasattr(ttk, "_style_original"):
+    ttk._style_original = ttk.Style
+    ttk.Style = StyleRegister

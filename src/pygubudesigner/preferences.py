@@ -34,6 +34,10 @@ options = {
         "values": '["yes", "no"]',
         "default": "no",
     },
+    "single_section": {
+        "values": '["yes", "no"]',
+        "default": "no",
+    },
     "geometry": {
         "default": "640x480",
     },

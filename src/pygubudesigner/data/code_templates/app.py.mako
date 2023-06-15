@@ -10,14 +10,14 @@ class ${class_name}:
     def __init__(self, master=None, translator=None):
         self.builder = builder = pygubu.Builder(
             translator=translator,
-            on_first_object=self.setup_ttk_styles)
+            on_first_object=${ttk_styles_module}.setup_ttk_styles)
 %elif with_i18n_support:
     def __init__(self, master=None, translator=None):
         self.builder = builder = pygubu.Builder(translator)
 %elif has_ttk_styles:
     def __init__(self, master=None):
         self.builder = builder = pygubu.Builder(
-            on_first_object=self.setup_ttk_styles)
+            on_first_object=${ttk_styles_module}.setup_ttk_styles)
 %else:
     def __init__(self, master=None):
         self.builder = builder = pygubu.Builder()
@@ -47,14 +47,6 @@ class ${class_name}:
             y = self.mainwindow.winfo_screenheight() - self.mainwindow.wm_minsize()[1]
             self.mainwindow.geometry(f"+{x // 2}+{y // 2}")
         self.mainwindow.mainloop()
-    %if has_ttk_styles:
-
-    def setup_ttk_styles(self, widget=None):
-        # ttk styles configuration
-        self.style = style = ttk.Style()
-        optiondb = style.master
-${ttk_styles}
-    %endif
 
 ${callbacks}\
 </%block>
