@@ -25,7 +25,10 @@ ${widget_code}
             x_min = self.mainwindow.wm_minsize()[0]
             y_min = self.mainwindow.wm_minsize()[1]
             geom = self.builder.objects[list(self.builder.objects)[0]]
-            geom = geom.wmeta.properties["geometry"].split("x")
+            if "geometry" in geom.wmeta.properties:
+                geom = geom.wmeta.properties["geometry"].split("x")
+            else:
+                geom = (0,0)
             x_min = max(x_min, int(geom[0]), self.mainwindow.winfo_reqwidth())
             y_min = max(y_min, int(geom[1]), self.mainwindow.winfo_reqheight())
             x = self.mainwindow.winfo_screenwidth() - x_min
