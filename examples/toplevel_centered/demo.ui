@@ -16,7 +16,7 @@
         <child>
           <object class="ttk.Label" id="label1">
             <property name="font">{Helvetica} 24 {}</property>
-            <property name="text" translatable="yes">I'm on Center</property>
+            <property name="text" translatable="yes">I'm in the Center</property>
             <layout manager="pack">
               <property name="side">top</property>
             </layout>

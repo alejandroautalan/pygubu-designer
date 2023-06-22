@@ -151,6 +151,20 @@
                           </object>
                         </child>
                         <child>
+                          <object class="ttk.Checkbutton" id="chk_auto_generate_code_on_prop_change">
+                            <property name="offvalue">no</property>
+                            <property name="onvalue">yes</property>
+                            <property name="text" translatable="yes">on property change</property>
+                            <property name="variable">string:auto_generate_code_on_prop_change</property>
+                            <layout manager="grid">
+                              <property name="column">1</property>
+                              <property name="pady">4</property>
+                              <property name="row">4</property>
+                              <property name="sticky">w</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
                           <object class="ttk.Checkbutton" id="chk_single_section">
                             <property name="offvalue">no</property>
                             <property name="onvalue">yes</property>

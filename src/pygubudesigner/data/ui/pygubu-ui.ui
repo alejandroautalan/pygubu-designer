@@ -878,6 +878,8 @@
                                                           <object class="pygubu.builder.widgets.combobox" id="widgetlist">
                                                             <property name="keyvariable">string:widgetlist_keyvar</property>
                                                             <property name="textvariable">string:widgetlistvar</property>
+                                                            <property name="validate">focusin</property>
+                                                            <property name="validatecommand" type="command" cbtype="entry_validate" args="">on_code_template_property_changed</property>
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">0</property>
@@ -897,6 +899,8 @@
                                                         <child>
                                                           <object class="ttk.Entry" id="classname">
                                                             <property name="textvariable">string:classnamevar</property>
+                                                            <property name="validate">focusout</property>
+                                                            <property name="validatecommand" type="command" cbtype="entry_validate" args="">on_code_template_property_changed</property>
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">1</property>
@@ -928,6 +932,8 @@
                                                           <object class="pygubu.builder.widgets.combobox" id="menulist">
                                                             <property name="keyvariable">string:menulist_keyvar</property>
                                                             <property name="textvariable">string:menulist_var</property>
+                                                            <property name="validate">focusin</property>
+                                                            <property name="validatecommand" type="command" cbtype="entry_validate" args="">on_code_template_property_changed</property>
                                                             <layout manager="grid">
                                                               <property name="column">1</property>
                                                               <property name="row">2</property>
@@ -948,6 +954,7 @@
                                                         </layout>
                                                         <child>
                                                           <object class="ttk.Checkbutton" id="cb_import_tkvars">
+                                                            <property name="command" type="command" cbtype="simple">on_code_template_property_changed</property>
                                                             <property name="text" translatable="yes">Import Tk Variables</property>
                                                             <property name="variable">boolean:import_tkvars_var</property>
                                                             <layout manager="pack">
@@ -958,6 +965,7 @@
                                                         </child>
                                                         <child>
                                                           <object class="ttk.Checkbutton" id="cb_use_ttk_definitions">
+                                                            <property name="command" type="command" cbtype="simple">on_code_template_property_changed</property>
                                                             <property name="text" translatable="yes">Use ttk style definitions file</property>
                                                             <property name="variable">boolean:use_ttkdefs_file_var</property>
                                                             <layout manager="pack">
@@ -968,6 +976,7 @@
                                                         </child>
                                                         <child>
                                                           <object class="ttk.Checkbutton" id="cb_add_i18n">
+                                                            <property name="command" type="command" cbtype="simple">on_code_template_property_changed</property>
                                                             <property name="text" translatable="yes">Add i18n support</property>
                                                             <property name="variable">boolean:add_i18n_var</property>
                                                             <layout manager="pack">
@@ -978,6 +987,7 @@
                                                         </child>
                                                         <child>
                                                           <object class="ttk.Checkbutton" id="cb_all_ids_attributes" named="True">
+                                                            <property name="command" type="command" cbtype="simple">on_code_template_property_changed</property>
                                                             <property name="text" translatable="yes">All IDs as class attributes</property>
                                                             <property name="variable">boolean:all_ids_attributes_var</property>
                                                             <layout manager="pack">
