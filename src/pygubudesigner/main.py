@@ -922,6 +922,12 @@ proc ::tk::dialog::file::Create {w class} {
         if pref.get_option("auto_generate_code") == "yes":
             self.on_code_generate_clicked()
 
+    def on_code_template_property_changed(self):
+        if pref.get_option("auto_generate_code") == "yes" \
+        and pref.get_option("auto_generate_code_on_prop_change") == "yes":
+            self.on_code_generate_clicked()
+        return True
+
     def on_code_save_clicked(self):
         self.script_generator.on_code_save_clicked()
 

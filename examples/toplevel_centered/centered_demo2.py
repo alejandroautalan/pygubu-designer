@@ -14,26 +14,27 @@ class CenteredDemoApp:
         self.mainwindow = builder.get_object("topmain", master)
         builder.connect_callbacks(self)
 
-        # center window on screen after creation
-        self._first_init = True
-        self.mainwindow.bind("<Map>", self.center_window)
+        # Store function id for later unmapping
+        self._center_fid = None
 
     def center_window(self, event):
-        if self._first_init:
-            print("centering window...")
-            toplevel = self.mainwindow
-            height = toplevel.winfo_height()
-            width = toplevel.winfo_width()
-            x_coord = int(toplevel.winfo_screenwidth() / 2 - width / 2)
-            y_coord = int(toplevel.winfo_screenheight() / 2 - height / 2)
-            geom = f"{width}x{height}+{x_coord}+{y_coord}"
-            toplevel.geometry(geom)
-            self._first_init = False
+        print("centering window...")
+        height = self.mainwindow.winfo_height()
+        width = self.mainwindow.winfo_width()
+        x_coord = int(self.mainwindow.winfo_screenwidth() / 2 - width / 2)
+        y_coord = int(self.mainwindow.winfo_screenheight() / 2 - height / 2)
+        geom = f"{width}x{height}+{x_coord}+{y_coord}"
+        self.mainwindow.geometry(geom)
+        # Remove callback
+        self.mainwindow.unbind(self._center_fid)
+        print("Done centering.")
 
-    def run(self):
+    def run(self, *, centered=False):
+        if centered is True:
+            self._center_fid = self.mainwindow.bind('<Map>', self.center_window)        
         self.mainwindow.mainloop()
 
 
 if __name__ == "__main__":
     app = CenteredDemoApp()
-    app.run()
+    app.run(centered=True)
