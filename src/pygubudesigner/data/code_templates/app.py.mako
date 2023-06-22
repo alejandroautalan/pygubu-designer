@@ -25,20 +25,20 @@ class ${class_name}:
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
         # Main widget
-        self.mainwindow = builder.get_object("${main_widget}", master)
+        self.mainwindow:${widget_base_class} = builder.get_object("${main_widget}", master)
 %if set_main_menu:
         # Main menu
         _main_menu = builder.get_object("${main_menu_id}", self.mainwindow)
         self.mainwindow.configure(menu=_main_menu)
 %endif
-        %if tkvariables:
+    %if tkvariables:
 
-          %for var in tkvariables:
-        self.${var} = None
-          %endfor
-        builder.import_variables(self, ${tkvariables})
+        %for var in tkvariables:
+        self.${var}:${tkvariablehints[var]} = None
+        %endfor
+        builder.import_variables(self)
 
-        %endif
+    %endif
         builder.connect_callbacks(self)
 
     def run(self):
