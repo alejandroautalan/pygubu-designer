@@ -1,6 +1,18 @@
 History
 =======
 
+Changes for version 0.37 (next)
+
+  * Customize open file dialog on Gnu/Linux.
+  * New format for ttk style definition file. #204, #211
+  * New settings to auto generate code in Code Tab. (BloodyRain2k)
+  * Fix scrolling in toolbar frame (BloodyRain2k)
+  * New option to render widget palette as a single section widget toolbar.
+    Changes the widget toolbar to contain all chosen widgets instead of grouping them with tabs.
+    Useful for wide monitors. (BloodyRain2k)
+  * Type hints for tk variables in code generation. (BloodyRain2k)
+  * Add template code to center window at start. (BloodyRain2k)
+
 Changes for version 0.36
 
   * Add option to auto generate code when code template is changed. refs #208

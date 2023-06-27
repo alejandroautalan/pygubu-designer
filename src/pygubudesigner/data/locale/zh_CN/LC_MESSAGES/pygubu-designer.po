@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-19 16:56-0300\n"
+"POT-Creation-Date: 2023-06-26 23:52-0300\n"
 "PO-Revision-Date: 2022-11-27 11:55+0800\n"
 "Last-Translator: larryw3i <larryw3i@163.com>\n"
 "Language-Team: Chinese - China <larryw3i@163.com>\n"
@@ -19,6 +19,101 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Gtranslator 42.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:8
+msgid "About"
+msgstr "关于"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:33
+#: src/pygubudesigner/data/ui/about_dialog.ui:161
+msgid "pygubu"
+msgstr "pygubu"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:58
+msgid "This program:"
+msgstr "此程序："
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:68
+msgid "pygubu-designer"
+msgstr "pygubu 设计器"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:82
+msgid ""
+"A visual design tool for tkinter that generates Python code for the user "
+"interface portion of your desktop application."
+msgstr ""
+"tkinter 的可视化设计工具，它可以为桌面应用程序的部分用户界面生成 Python 代"
+"码。"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:94
+#: src/pygubudesigner/data/ui/about_dialog.ui:186
+msgid "Version: %version%"
+msgstr "版本： %version%"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:110
+#: src/pygubudesigner/data/ui/about_dialog.ui:200
+msgid "License:"
+msgstr "授权："
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:122
+msgid "GPL3"
+msgstr "GNU 通用公共许可证 第3版"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:152
+msgid "Associated program:"
+msgstr "相关程序："
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:174
+msgid ""
+"A run-time library that the designer requires. It is optional for your "
+"application."
+msgstr ""
+"设计器需要的运行时库。（如果你使用 pygubu-designer 生成纯 Python 代码则你的程"
+"序不需要它）"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:212
+msgid "MIT"
+msgstr "MIT 许可证"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:238
+msgid "More info."
+msgstr "了解更多。"
+
+#: src/pygubudesigner/data/ui/about_dialog.ui:261
+msgid "Close"
+msgstr "关闭"
+
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:7
+#: src/pygubudesigner/main.py:614
+msgid "Save Changes"
+msgstr "保存变化"
+
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:36
+msgid "SaveIcon"
+msgstr "保存图标"
+
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:59
+msgid "Message"
+msgstr "信息"
+
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:70
+msgid "Detail"
+msgstr "详细"
+
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:98
+msgid "Don't Save"
+msgstr "不保存"
+
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:114
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:558
+msgid "Cancel"
+msgstr "取消"
+
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:129
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:46
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1096
+msgid "Save"
+msgstr "保存"
 
 #: src/pygubudesigner/data/ui/container_layout_editor_base.ui:25
 #: src/pygubudesigner/containerlayouteditor.py:42
@@ -46,37 +141,122 @@ msgstr "第'{0}'行的选项"
 msgid "Column {0} options"
 msgstr "第'{0}'列的选项"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:7
-#: src/pygubudesigner/main.py:576
-msgid "Save Changes"
-msgstr "保存变化"
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:9
+msgid "Pygubu Preferences"
+msgstr "首选项"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:36
-msgid "SaveIcon"
-msgstr "保存图标"
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:34
+msgid "General"
+msgstr "常用"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:59
-msgid "Message"
-msgstr "信息"
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:50
+msgid "General preferences"
+msgstr "首选项"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:70
-msgid "Detail"
-msgstr "详细"
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:66
+msgid "Preferred widget set:"
+msgstr "常用控件集:"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:98
-msgid "Don't Save"
-msgstr "不保存"
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:85
+msgid "Preferred ttk theme:"
+msgstr "常用ttk主题:"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:114
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:515
-msgid "Cancel"
-msgstr "取消"
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:106
+msgid "Preferred layout manager:"
+msgstr "首选布局管理器:"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:129
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:46
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1088
-msgid "Save"
-msgstr "保存"
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:129
+msgid "Center toplevel preview window"
+msgstr "将预览窗口居中"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:143
+msgid "Automatically generate code"
+msgstr ""
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:157
+msgid "on property change"
+msgstr ""
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:171
+msgid "Single section widgets toolbar (requires restart)"
+msgstr ""
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:187
+msgid "Widget naming"
+msgstr "控件命名"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:200
+msgid "No separator (e.g. button1)"
+msgstr "不分割(像这样: button1)"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:212
+msgid "Use \"_\" as separator (e.g. button_1)"
+msgstr "用 \"_\" 来分割(像这样:button_1)"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:226
+msgid "Uppercase first letter (e.g. Button…)"
+msgstr "首字母大写(像这样: Button1)"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:238
+msgid "This does not affect previously generated names."
+msgstr "这些新操作不会对以前生成的控件名生效。"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:253
+msgid "Hidden options"
+msgstr "被隐藏选项"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:265
+msgid "Window geometry:"
+msgstr "窗口大小："
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:291
+msgid "Custom Widgets"
+msgstr "自定义控件"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:319
+msgid "Custom Widgets Builders"
+msgstr "自定义控件Builders"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:351
+msgid "modules"
+msgstr "模块"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:380
+msgid "Requires restart."
+msgstr "需要重启应用。"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:392
+msgid "-"
+msgstr "-"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:405
+msgid "+"
+msgstr "+"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:426
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:453
+msgid "Ttk Styles"
+msgstr "Ttk 样式"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:478
+msgid "Style Definition File:"
+msgstr "样式定义文件："
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:511
+msgid "Browse …"
+msgstr "浏览 ..."
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:521
+msgid "Remove"
+msgstr "移除"
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:531
+msgid "Create New …"
+msgstr "新建 ..."
+
+#: src/pygubudesigner/data/ui/preferences_dialog.ui:570
+msgid "Ok"
+msgstr "好"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:7
 msgid "File"
@@ -102,7 +282,7 @@ msgstr "清除列表"
 msgid "Save as …"
 msgstr "另存为 …"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:62 src/pygubudesigner/main.py:177
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:62 src/pygubudesigner/main.py:178
 msgid "Quit …"
 msgstr "退出 …"
 
@@ -172,7 +352,7 @@ msgstr "首选项"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:179
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:506
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1023
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1032
 msgid "Preview"
 msgstr "预览"
 
@@ -248,269 +428,148 @@ msgstr "C"
 msgid " "
 msgstr " "
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:557
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:556
 msgid "Properties"
 msgstr "属性"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:579
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:578
 msgid "Appearance"
 msgstr "外观"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:598
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:597
 msgid "Layout"
 msgstr "布局"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:616
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:615
 msgid "Bindings"
 msgstr "绑定"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:650
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:649
 msgid "Sequence descriptor"
 msgstr "序列描述"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:662
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:661
 msgid "Event Handler"
 msgstr "事件处理"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:674
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:673
 msgid "Add"
 msgstr "添加"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:714
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:713
 msgid "Code"
 msgstr "代码"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:734
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:733
 msgid "Template description here."
 msgstr "模板描述."
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:746
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:745
 msgid "Template:"
 msgstr "模板:"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:757
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:756
 msgid "Application"
 msgstr "应用程序"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:779
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:778
 msgid "Code Script"
 msgstr "代码脚本"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:801
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:800
 msgid "Custom Widget"
 msgstr "自定义控件"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:836
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:835
 msgid "Options:"
 msgstr "可选项:"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:870
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:869
 msgid "Main widget:"
 msgstr "主控件: "
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:891
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:892
 msgid "Class Name:"
 msgstr "类名:"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:920
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:923
 msgid "Main menu:"
 msgstr "主菜单："
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:952
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:958
 msgid "Import Tk Variables"
 msgstr "导入 Tk 变量"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:962
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:969
 msgid "Use ttk style definitions file"
 msgstr "使用 ttk 样式的定义文件"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:972
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:980
 msgid "Add i18n support"
 msgstr "增加国际化（多语言）支持"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:982
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:991
 msgid "All IDs as class attributes"
 msgstr "所有 IDs 转变为类属性"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1068
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1076
 msgid "Generate"
 msgstr "生成"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1078
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1086
 msgid "Copy to Clipboard"
 msgstr "复制到剪切板"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1171
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:1178
 msgid "Messages"
 msgstr "信息"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:8
-msgid "About"
-msgstr "关于"
+#: src/pygubudesigner/codegen/scriptgenerator.py:72
+msgid "Script Generator"
+msgstr "脚本生成"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:33
-#: src/pygubudesigner/data/ui/about_dialog.ui:161
-msgid "pygubu"
-msgstr "pygubu"
+#: src/pygubudesigner/codegen/scriptgenerator.py:76
+msgid "Create a pygubu application script using the UI definition."
+msgstr "使用用户界面定义创建一个pygubu应用脚本。"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:58
-msgid "This program:"
-msgstr "此程序："
+#: src/pygubudesigner/codegen/scriptgenerator.py:78
+msgid "Create a coded version of the UI definition."
+msgstr "创建一个用户界面定义的代码版本。"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:68
-msgid "pygubu-designer"
-msgstr "pygubu 设计器"
+#: src/pygubudesigner/codegen/scriptgenerator.py:79
+msgid "Create a base class for your custom widget."
+msgstr "给你的自定义控件创建一个base类"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:82
-msgid ""
-"A visual design tool for tkinter that generates Python code for the user "
-"interface portion of your desktop application."
-msgstr ""
-"tkinter 的可视化设计工具，它可以为桌面应用程序的部分用户界面生成 Python 代"
-"码。"
+#: src/pygubudesigner/codegen/scriptgenerator.py:220
+msgid "Code copied"
+msgstr "代码被复制"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:94
-#: src/pygubudesigner/data/ui/about_dialog.ui:186
-msgid "Version: %version%"
-msgstr "版本： %version%"
+#: src/pygubudesigner/codegen/scriptgenerator.py:261
+msgid "Python Script"
+msgstr "Python脚本"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:110
-#: src/pygubudesigner/data/ui/about_dialog.ui:200
-msgid "License:"
-msgstr "授权："
+#: src/pygubudesigner/codegen/scriptgenerator.py:261
+#: src/pygubudesigner/main.py:657 src/pygubudesigner/main.py:702
+#: src/pygubudesigner/preferences.py:308 src/pygubudesigner/preferences.py:341
+#: src/pygubudesigner/preferences.py:391
+msgid "All"
+msgstr "全部"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:122
-msgid "GPL3"
-msgstr "GNU 通用公共许可证 第3版"
+#: src/pygubudesigner/codegen/scriptgenerator.py:306
+msgid "Select widget"
+msgstr "选择控件"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:152
-msgid "Associated program:"
-msgstr "相关程序："
+#: src/pygubudesigner/codegen/scriptgenerator.py:312
+msgid "Select template"
+msgstr "选择模板"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:174
-msgid ""
-"A run-time library that the designer requires. It is optional for your "
-"application."
-msgstr ""
-"设计器需要的运行时库。（如果你使用 pygubu-designer 生成纯 Python 代码则你的程"
-"序不需要它）"
+#: src/pygubudesigner/codegen/scriptgenerator.py:318
+msgid "Enter classname"
+msgstr "输入类名"
 
-#: src/pygubudesigner/data/ui/about_dialog.ui:212
-msgid "MIT"
-msgstr "MIT 许可证"
-
-#: src/pygubudesigner/data/ui/about_dialog.ui:238
-msgid "More info."
-msgstr "了解更多。"
-
-#: src/pygubudesigner/data/ui/about_dialog.ui:261
-msgid "Close"
-msgstr "关闭"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:8
-msgid "Pygubu Preferences"
-msgstr "首选项"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:33
-msgid "General"
-msgstr "常用"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:49
-msgid "General preferences"
-msgstr "首选项"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:65
-msgid "Preferred widget set:"
-msgstr "常用控件集:"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:84
-msgid "Preferred ttk theme:"
-msgstr "常用ttk主题:"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:105
-msgid "Preferred layout manager:"
-msgstr "首选布局管理器:"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:128
-msgid "Center toplevel preview window"
-msgstr "将预览窗口居中"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:144
-msgid "Widget naming"
-msgstr "控件命名"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:157
-msgid "No separator (e.g. button1)"
-msgstr "不分割(像这样: button1)"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:169
-msgid "Use \"_\" as separator (e.g. button_1)"
-msgstr "用 \"_\" 来分割(像这样:button_1)"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:183
-msgid "Uppercase first letter (e.g. Button…)"
-msgstr "首字母大写(像这样: Button1)"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:195
-msgid "This does not affect previously generated names."
-msgstr "这些新操作不会对以前生成的控件名生效。"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:210
-msgid "Hidden options"
-msgstr "被隐藏选项"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:222
-msgid "Window geometry:"
-msgstr "窗口大小："
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:248
-msgid "Custom Widgets"
-msgstr "自定义控件"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:276
-msgid "Custom Widgets Builders"
-msgstr "自定义控件Builders"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:308
-msgid "modules"
-msgstr "模块"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:337
-msgid "Requires restart."
-msgstr "需要重启应用。"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:349
-msgid "-"
-msgstr "-"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:362
-msgid "+"
-msgstr "+"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:383
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:410
-msgid "Ttk Styles"
-msgstr "Ttk 样式"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:435
-msgid "Style Definition File:"
-msgstr "样式定义文件："
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:468
-msgid "Browse …"
-msgstr "浏览 ..."
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:478
-msgid "Remove"
-msgstr "移除"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:488
-msgid "Create New …"
-msgstr "新建 ..."
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:527
-msgid "Ok"
-msgstr "好"
+#: src/pygubudesigner/codegen/scriptgenerator.py:325
+msgid "Invalid classname"
+msgstr "无效类名"
 
 #: src/pygubudesigner/containerlayouteditor.py:43
 #, python-brace-format
@@ -521,65 +580,6 @@ msgstr "行索引： {0}"
 #, python-brace-format
 msgid "Column index: {0}"
 msgstr "列索引： {0}"
-
-#: src/pygubudesigner/preferences.py:87
-msgid ""
-"Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as "
-"expected.If you delete this file, configuration will be set to default"
-msgstr ""
-"\"{CONFIG_FILE!s}\"的配置文件已损坏，程序可能无法按预期工作。如果删除此文件，"
-"配置将设置为默认配置"
-
-#: src/pygubudesigner/preferences.py:90 src/pygubudesigner/preferences.py:96
-#: src/pygubudesigner/main.py:73 src/pygubudesigner/main.py:93
-#: src/pygubudesigner/main.py:612 src/pygubudesigner/main.py:651
-msgid "Error"
-msgstr "出错"
-
-#: src/pygubudesigner/preferences.py:94
-msgid ""
-"Faild to parse config file at {CONFIG_FILE!s}, program may not work as "
-"expected."
-msgstr "未能解析\"{CONFIG_FILE!s}\"的配置文件，程序可能无法按预期工作。"
-
-#: src/pygubudesigner/preferences.py:296 src/pygubudesigner/preferences.py:329
-#: src/pygubudesigner/preferences.py:379
-msgid "Python module"
-msgstr "Python 模块"
-
-#: src/pygubudesigner/preferences.py:296 src/pygubudesigner/preferences.py:329
-#: src/pygubudesigner/preferences.py:379 src/pygubudesigner/main.py:619
-#: src/pygubudesigner/main.py:664
-#: src/pygubudesigner/codegen/scriptgenerator.py:263
-msgid "All"
-msgstr "全部"
-
-#: src/pygubudesigner/preferences.py:311
-msgid ""
-"File saved.\n"
-"\n"
-"Please edit the style definition file."
-msgstr ""
-"文件已保存。\n"
-"\n"
-"请编辑样式定义文件。"
-
-#: src/pygubudesigner/preferences.py:312 src/pygubudesigner/preferences.py:319
-#: src/pygubudesigner/preferences.py:350
-msgid "Styles"
-msgstr "样式"
-
-#: src/pygubudesigner/preferences.py:318
-msgid "Error saving template file."
-msgstr "保存模板文件时出错。"
-
-#: src/pygubudesigner/preferences.py:349
-msgid ""
-"Restart Pygubu Designer for\n"
-"changes to take effect."
-msgstr ""
-"重新启动 pygubu-designer\n"
-"更改将生效。"
 
 #: src/pygubudesigner/layouteditor.py:36
 msgid "Grid"
@@ -610,199 +610,108 @@ msgstr "转换{0}布局管理器为{1}布局管理器?"
 msgid "All container widgets will be updated."
 msgstr "所有容器控件会被更新。"
 
-#: src/pygubudesigner/stylehandler.py:76
-msgid "Applying ttk style definitions"
-msgstr "正在运用 ttk 样式定义"
-
-#: src/pygubudesigner/stylehandler.py:87
-#, python-format
-msgid "ttk style definition error: %s"
-msgstr "ttk 样式定义错误： %s"
-
-#: src/pygubudesigner/uitreeeditor.py:173
-msgid "Delete items"
-msgstr "删除项"
-
-#: src/pygubudesigner/uitreeeditor.py:174
-msgid "Delete selected items?"
-msgstr "删除被选项？"
-
-#: src/pygubudesigner/uitreeeditor.py:463
-msgid "No item selected."
-msgstr "无被选项。"
-
-#: src/pygubudesigner/uitreeeditor.py:697
-#, python-format
-msgid "Allowed children: %s."
-msgstr "被允许的子项: %s."
-
-#: src/pygubudesigner/uitreeeditor.py:707
-#, python-brace-format
-msgid "Only {0} children allowed for {1}"
-msgstr "仅{0}被允许成为{1}的子项"
-
-#: src/pygubudesigner/uitreeeditor.py:722
-#, python-brace-format
-msgid "{0} not allowed as parent of {1}"
-msgstr "{0}不允许作为{1}的父项"
-
-#: src/pygubudesigner/uitreeeditor.py:732
-#, python-format
-msgid "Not allowed, %s is not a container."
-msgstr "不被允许, %s不是一个容器。"
-
-#: src/pygubudesigner/uitreeeditor.py:744
-#, python-format
-msgid "%s not allowed at root level"
-msgstr "%s不能成为根级"
-
-#: src/pygubudesigner/uitreeeditor.py:754
-#, python-format
-msgid "Not allowed at root level, %s is not a container."
-msgstr "不能成为根级, %s不是一个容器"
-
-#: src/pygubudesigner/main.py:72
+#: src/pygubudesigner/main.py:73
 #, python-brace-format
 msgid "Failed to load widget module: '{_module}'"
 msgstr "加载控件模块失败： '{_module}'"
 
-#: src/pygubudesigner/main.py:92
+#: src/pygubudesigner/main.py:74 src/pygubudesigner/main.py:94
+#: src/pygubudesigner/main.py:650 src/pygubudesigner/main.py:689
+#: src/pygubudesigner/preferences.py:102 src/pygubudesigner/preferences.py:108
+msgid "Error"
+msgstr "出错"
+
+#: src/pygubudesigner/main.py:93
 #, python-brace-format
 msgid "Failed to load custom widget module: '{path}'"
 msgstr "加载自定义控件模块失败： '{path}'"
 
-#: src/pygubudesigner/main.py:579
+#: src/pygubudesigner/main.py:578
+msgid "Checking main window visibility."
+msgstr ""
+
+#: src/pygubudesigner/main.py:580
+msgid "Main window is not visible in current monitors."
+msgstr ""
+
+#: src/pygubudesigner/main.py:584
+msgid "Main window position fixed."
+msgstr ""
+
+#: src/pygubudesigner/main.py:617
 msgid "If you don't save the document, all the changes will be lost."
 msgstr "如果你不保存文档，所有更改会丢失。"
 
-#: src/pygubudesigner/main.py:593
+#: src/pygubudesigner/main.py:631
 msgid "Do you want to save the changes before closing?"
 msgstr "关闭之前要保存文档吗？"
 
-#: src/pygubudesigner/main.py:609
+#: src/pygubudesigner/main.py:647
 #, python-format
 msgid "Project saved to %s"
 msgstr "项目保存到：%s"
 
-#: src/pygubudesigner/main.py:619 src/pygubudesigner/main.py:663
+#: src/pygubudesigner/main.py:657 src/pygubudesigner/main.py:701
 msgid "pygubu ui"
 msgstr "pygubu用户界面"
 
-#: src/pygubudesigner/main.py:656
+#: src/pygubudesigner/main.py:694
 msgid "Do you want to save the changes before opening?"
 msgstr "打开之前您要保存所做的更改吗？"
 
-#: src/pygubudesigner/main.py:674
+#: src/pygubudesigner/main.py:712
 msgid "Do you want to save the changes before creating?"
 msgstr "新建前您要保存所做的更改吗？"
 
-#: src/pygubudesigner/main.py:850
+#: src/pygubudesigner/main.py:888
 msgid "newproject"
 msgstr "新项目"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:73
-msgid "Script Generator"
-msgstr "脚本生成"
+#: src/pygubudesigner/preferences.py:99
+msgid ""
+"Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as "
+"expected.If you delete this file, configuration will be set to default"
+msgstr ""
+"\"{CONFIG_FILE!s}\"的配置文件已损坏，程序可能无法按预期工作。如果删除此文件，"
+"配置将设置为默认配置"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:77
-msgid "Create a pygubu application script using the UI definition."
-msgstr "使用用户界面定义创建一个pygubu应用脚本。"
+#: src/pygubudesigner/preferences.py:106
+msgid ""
+"Faild to parse config file at {CONFIG_FILE!s}, program may not work as "
+"expected."
+msgstr "未能解析\"{CONFIG_FILE!s}\"的配置文件，程序可能无法按预期工作。"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:79
-msgid "Create a coded version of the UI definition."
-msgstr "创建一个用户界面定义的代码版本。"
+#: src/pygubudesigner/preferences.py:308 src/pygubudesigner/preferences.py:341
+#: src/pygubudesigner/preferences.py:391
+msgid "Python module"
+msgstr "Python 模块"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:80
-msgid "Create a base class for your custom widget."
-msgstr "给你的自定义控件创建一个base类"
+#: src/pygubudesigner/preferences.py:323
+msgid ""
+"File saved.\n"
+"\n"
+"Please edit the style definition file."
+msgstr ""
+"文件已保存。\n"
+"\n"
+"请编辑样式定义文件。"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:222
-msgid "Code copied"
-msgstr "代码被复制"
+#: src/pygubudesigner/preferences.py:324 src/pygubudesigner/preferences.py:331
+#: src/pygubudesigner/preferences.py:362
+msgid "Styles"
+msgstr "样式"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:263
-msgid "Python Script"
-msgstr "Python脚本"
+#: src/pygubudesigner/preferences.py:330
+msgid "Error saving template file."
+msgstr "保存模板文件时出错。"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:308
-msgid "Select widget"
-msgstr "选择控件"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:314
-msgid "Select template"
-msgstr "选择模板"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:320
-msgid "Enter classname"
-msgstr "输入类名"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:327
-msgid "Invalid classname"
-msgstr "无效类名"
-
-#: src/pygubudesigner/widgets/commandentry.py:105
-msgid "Callback:"
-msgstr "回调:"
-
-#: src/pygubudesigner/widgets/commandentry.py:119
-msgid "Simple"
-msgstr "简易"
-
-#: src/pygubudesigner/widgets/commandentry.py:120
-msgid "Send widget ID"
-msgstr "发送控件ID"
-
-#: src/pygubudesigner/widgets/namedideditor.py:38
-msgid "Request new ID and set widget as nameless."
-msgstr "需要新的 ID 并把控件设为空名。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:44
-msgid "Type of action."
-msgstr "Action类型"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:45
-msgid "Index of character string to be inserted/deleted."
-msgstr "欲取代或删除的字符（串）索引。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:46
-msgid "The new/current value of the entry."
-msgstr "Entry的当前值。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:47
-msgid "The current value of entry prior to editing."
-msgstr "Entry当前编辑的值。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:48
-msgid "The text string being inserted/deleted."
-msgstr "文本已被取代/删除"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:49
-msgid "The current value of the -validate option."
-msgstr "-validate选项的当前值"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:52
-msgid "The validation condition that triggered the callback."
-msgstr "触发回调的验证条件。"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:54
-msgid "The name of the entry widget."
-msgstr "Entry控件名："
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:60
-msgid "Select all"
-msgstr "全选"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:61
-msgid "Clear"
-msgstr "清除"
-
-#: src/pygubudesigner/widgets/imageentry.py:51
-msgid "Tk image formats"
-msgstr "Tk图片格式"
-
-#: src/pygubudesigner/widgets/imageentry.py:52
-msgid "All Files"
-msgstr "全部文件"
+#: src/pygubudesigner/preferences.py:361
+msgid ""
+"Restart Pygubu Designer for\n"
+"changes to take effect."
+msgstr ""
+"重新启动 pygubu-designer\n"
+"更改将生效。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:5
 msgid "Object class name."
@@ -1720,11 +1629,13 @@ msgstr ""
 "或等于零，控件选择的大小仅足以容纳其当前文本。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:420
+#, fuzzy
 msgid ""
-"Specifies the length of lines in the window. If this option has a value "
-"greater than zero then the aspect option is ignored and the width option "
-"determines the line length. If this option has a value less than or equal to "
-"zero, then the aspect option determines the line length."
+"Specifies a dimension value (pixels) for the length of lines in the window. "
+"If this option has a value greater than zero then the aspect option is "
+"ignored and the width option determines the line length. If this option has "
+"a value less than or equal to zero, then the aspect option determines the "
+"line length."
 msgstr ""
 "指定窗口中的线条长度。如果此选项的值大于零，则会忽略侧面选项，宽度选项将确定"
 "线长度。如果此选项的值小于或等于零，则方面选项将确定行长度。"
@@ -2021,6 +1932,121 @@ msgid ""
 "When a non-empty value is supplied, places the row in a uniform group with "
 "other rows that have the same value for uniform."
 msgstr "当提供非空值时，将行与其他具有相同统一值的行放在一个统一组中。"
+
+#: src/pygubudesigner/stylehandler.py:79
+msgid "Applying ttk style definitions"
+msgstr "正在运用 ttk 样式定义"
+
+#: src/pygubudesigner/stylehandler.py:101
+#, python-format
+msgid "ttk style definition error: %s"
+msgstr "ttk 样式定义错误： %s"
+
+#: src/pygubudesigner/uitreeeditor.py:173
+msgid "Delete items"
+msgstr "删除项"
+
+#: src/pygubudesigner/uitreeeditor.py:174
+msgid "Delete selected items?"
+msgstr "删除被选项？"
+
+#: src/pygubudesigner/uitreeeditor.py:463
+msgid "No item selected."
+msgstr "无被选项。"
+
+#: src/pygubudesigner/uitreeeditor.py:701
+#, python-format
+msgid "Allowed children: %s."
+msgstr "被允许的子项: %s."
+
+#: src/pygubudesigner/uitreeeditor.py:711
+#, python-brace-format
+msgid "Only {0} children allowed for {1}"
+msgstr "仅{0}被允许成为{1}的子项"
+
+#: src/pygubudesigner/uitreeeditor.py:726
+#, python-brace-format
+msgid "{0} not allowed as parent of {1}"
+msgstr "{0}不允许作为{1}的父项"
+
+#: src/pygubudesigner/uitreeeditor.py:736
+#, python-format
+msgid "Not allowed, %s is not a container."
+msgstr "不被允许, %s不是一个容器。"
+
+#: src/pygubudesigner/uitreeeditor.py:748
+#, python-format
+msgid "%s not allowed at root level"
+msgstr "%s不能成为根级"
+
+#: src/pygubudesigner/uitreeeditor.py:758
+#, python-format
+msgid "Not allowed at root level, %s is not a container."
+msgstr "不能成为根级, %s不是一个容器"
+
+#: src/pygubudesigner/widgets/commandentry.py:103
+msgid "Callback:"
+msgstr "回调:"
+
+#: src/pygubudesigner/widgets/commandentry.py:117
+msgid "Simple"
+msgstr "简易"
+
+#: src/pygubudesigner/widgets/commandentry.py:118
+msgid "Send widget ID"
+msgstr "发送控件ID"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:44
+msgid "Type of action."
+msgstr "Action类型"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:45
+msgid "Index of character string to be inserted/deleted."
+msgstr "欲取代或删除的字符（串）索引。"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:46
+msgid "The new/current value of the entry."
+msgstr "Entry的当前值。"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:47
+msgid "The current value of entry prior to editing."
+msgstr "Entry当前编辑的值。"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:48
+msgid "The text string being inserted/deleted."
+msgstr "文本已被取代/删除"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:49
+msgid "The current value of the -validate option."
+msgstr "-validate选项的当前值"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:52
+msgid "The validation condition that triggered the callback."
+msgstr "触发回调的验证条件。"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:54
+msgid "The name of the entry widget."
+msgstr "Entry控件名："
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:60
+msgid "Select all"
+msgstr "全选"
+
+#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:61
+msgid "Clear"
+msgstr "清除"
+
+#: src/pygubudesigner/widgets/imageentry.py:51
+msgid "Tk image formats"
+msgstr "Tk图片格式"
+
+#: src/pygubudesigner/widgets/imageentry.py:52
+msgid "All Files"
+msgstr "全部文件"
+
+#: src/pygubudesigner/widgets/namedideditor.py:36
+msgid "Request new ID and set widget as nameless."
+msgstr "需要新的 ID 并把控件设为空名。"
 
 #~ msgid "Required"
 #~ msgstr "必要属性"

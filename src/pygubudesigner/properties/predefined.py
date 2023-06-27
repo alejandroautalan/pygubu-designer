@@ -292,6 +292,10 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "imageentry"},
     },
+    "baseName": {
+        "editor": "dynamic",
+        "params": {"mode": "alphanumentry"},
+    },
     # ttk.Frame, ttk.Label
     "borderwidth": {
         "editor": "dynamic",
@@ -358,6 +362,10 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "alphanumentry"},
         "help": help_for("class_"),
+    },
+    "className": {
+        "editor": "dynamic",
+        "params": {"mode": "alphanumentry"},
     },
     "closeenough": {
         "editor": "dynamic",
@@ -789,6 +797,10 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "dimensionentry"},
         "help": help_for("minsize"),
+        "tk.Tk": {
+            "params": {"mode": "whentry"},
+            "help": help_for("minsize-toplevel"),
+        },
         "tk.Toplevel": {
             "params": {"mode": "whentry"},
             "help": help_for("minsize-toplevel"),

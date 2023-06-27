@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import logging
+import tkinter as tk
 import pygubu
 from pygubu.utils.widget import crop_widget
 from pygubu.component.plugin_manager import PluginManager
@@ -48,7 +49,8 @@ class BuilderForPreview(pygubu.Builder):
 
     def make_previewonly(self, bobject):
         """Make widget just display with no functionality."""
-        crop_widget(bobject.widget, recursive=False)
+        if isinstance(bobject.widget, tk.Widget):
+            crop_widget(bobject.widget, recursive=False)
         builder_uid = bobject.wmeta.classname
         PluginManager.configure_for_preview(builder_uid, bobject.widget)
 
