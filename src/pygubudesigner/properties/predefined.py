@@ -581,6 +581,7 @@ PROPERTY_DEFINITIONS = {
             "params": {"mode": "naturalnumber"},
             "help": help_for("height-ttk.Combobox"),
         },
+        "tk.Tk": {"default": 200},
         "tk.Toplevel": {"default": 200},
         "tk.Frame": {"default": 200},
         "ttk.Frame": {"default": 200},
@@ -1467,6 +1468,7 @@ PROPERTY_DEFINITIONS = {
             "default": 50,
             "help": help_for("width-tk.Text"),
         },
+        "tk.Tk": {"default": 200},
         "tk.Toplevel": {"default": 200},
         "ttk.Treeview.Column": {
             "params": {"mode": "naturalnumber"},
