@@ -3,7 +3,7 @@
   <object class="pygubu.builder.widgets.dialog" id="ask_save_changes_dialog">
     <property name="height">100</property>
     <property name="modal">true</property>
-    <property name="resizable">none</property>
+    <property name="resizable">both</property>
     <property name="title" translatable="yes">Save Changes</property>
     <property name="width">200</property>
     <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog_close" add="" />

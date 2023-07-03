@@ -4,7 +4,7 @@
     <property name="geometry">420x550</property>
     <property name="height">100</property>
     <property name="modal">False</property>
-    <property name="resizable">none</property>
+    <property name="resizable">both</property>
     <property name="title" translatable="yes">About</property>
     <property name="width">200</property>
     <child>
