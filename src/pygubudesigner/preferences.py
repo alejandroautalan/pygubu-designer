@@ -321,14 +321,14 @@ class PreferencesUI:
 
             if os.path.isfile(fname):
                 msg = _("File saved.\n\nPlease edit the style definition file.")
-                messagebox.showinfo(_("Styles"), msg)
+                messagebox.showinfo(_("Styles"), msg, parent=self.dialog_toplevel)
 
                 # Auto setup this new file definition:
                 self.v_style_definition_file.set(fname)
 
         except OSError:
             msg = _("Error saving template file.")
-            messagebox.showerror(_("Styles"), msg)
+            messagebox.showerror(_("Styles"), msg, parent=self.dialog_toplevel)
 
     def on_clicked_select_style_file(self):
         """
@@ -359,7 +359,7 @@ class PreferencesUI:
 
         if suggest_restart:
             msg = _("Restart Pygubu Designer for\nchanges to take effect.")
-            messagebox.showinfo(_("Styles"), msg)
+            messagebox.showinfo(_("Styles"), msg, parent=self.dialog_toplevel)
 
     def on_dialog_close(self, event=None):
         # If the user closed this window from the window manager (ie: 'X' button),

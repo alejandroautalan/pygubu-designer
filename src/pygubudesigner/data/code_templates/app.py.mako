@@ -42,17 +42,21 @@ class ${class_name}:
         builder.connect_callbacks(self)
 
     def center(self, event):
-        """ `winfo_width` / `winfo_height` at this point return set `geometry` size. """
-        x_min = max(self.main_w,
-            self.mainwindow.wm_minsize()[0],
-            self.mainwindow.winfo_width(),
-            self.mainwindow.winfo_reqwidth())
-        y_min = max(self.main_h,
-            self.mainwindow.wm_minsize()[1],
-            self.mainwindow.winfo_height(),
-            self.mainwindow.winfo_reqheight())
-        x = self.mainwindow.winfo_screenwidth() - x_min
-        y = self.mainwindow.winfo_screenheight() - y_min
+        wm_min = self.mainwindow.wm_minsize()
+        wm_max = self.mainwindow.wm_maxsize()
+        screen_w = self.mainwindow.winfo_screenwidth()
+        screen_h = self.mainwindow.winfo_screenheight()
+        """ `winfo_width` / `winfo_height` at this point return `geometry` size if set. """
+        x_min = min(screen_w, wm_max[0],
+                    max(self.main_w, wm_min[0],
+                        self.mainwindow.winfo_width(),
+                        self.mainwindow.winfo_reqwidth()))
+        y_min = min(screen_h, wm_max[1],
+                    max(self.main_h, wm_min[1],
+                        self.mainwindow.winfo_height(),
+                        self.mainwindow.winfo_reqheight()))
+        x = screen_w - x_min
+        y = screen_h - y_min
         self.mainwindow.geometry(f"{x_min}x{y_min}+{x // 2}+{y // 2}")
         self.mainwindow.unbind("<Map>", self.center_map)
 

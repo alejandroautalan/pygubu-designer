@@ -111,6 +111,7 @@ class ScriptGenerator:
             set_main_menu = False
             main_menu_id = None
             toplevel_uids = (
+                "tk.Tk",
                 "tk.Toplevel",
                 "customtkinter.CTk",
                 "customtkinter.CTkToplevel",

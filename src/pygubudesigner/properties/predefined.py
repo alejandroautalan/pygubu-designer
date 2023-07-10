@@ -292,6 +292,10 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "imageentry"},
     },
+    "baseName": {
+        "editor": "dynamic",
+        "params": {"mode": "alphanumentry"},
+    },
     # ttk.Frame, ttk.Label
     "borderwidth": {
         "editor": "dynamic",
@@ -358,6 +362,10 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "alphanumentry"},
         "help": help_for("class_"),
+    },
+    "className": {
+        "editor": "dynamic",
+        "params": {"mode": "alphanumentry"},
     },
     "closeenough": {
         "editor": "dynamic",
@@ -573,6 +581,7 @@ PROPERTY_DEFINITIONS = {
             "params": {"mode": "naturalnumber"},
             "help": help_for("height-ttk.Combobox"),
         },
+        "tk.Tk": {"default": 200},
         "tk.Toplevel": {"default": 200},
         "tk.Frame": {"default": 200},
         "ttk.Frame": {"default": 200},
@@ -789,6 +798,10 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "dimensionentry"},
         "help": help_for("minsize"),
+        "tk.Tk": {
+            "params": {"mode": "whentry"},
+            "help": help_for("minsize-toplevel"),
+        },
         "tk.Toplevel": {
             "params": {"mode": "whentry"},
             "help": help_for("minsize-toplevel"),
@@ -1456,6 +1469,7 @@ PROPERTY_DEFINITIONS = {
             "default": 50,
             "help": help_for("width-tk.Text"),
         },
+        "tk.Tk": {"default": 200},
         "tk.Toplevel": {"default": 200},
         "ttk.Treeview.Column": {
             "params": {"mode": "naturalnumber"},

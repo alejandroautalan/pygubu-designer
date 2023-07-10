@@ -16,12 +16,14 @@ def create_pot():
     pot_path = locale_dir / "pygubu-designer.pot"
     ui_dir = DATA_DIR / "ui"
     uifiles = [f.relative_to(PROJECT_DIR) for f in ui_dir.glob("**/*.ui")]
+    uifiles.sort()
     uifiles = " ".join([str(f) for f in uifiles])
     options = "--package-name pygubudesigner -L glade"
     cmd = f"""xgettext {options} --output={pot_path} {uifiles}"""
     sp.run(shlex.split(cmd))
 
     pyfiles = [f.relative_to(PROJECT_DIR) for f in SRC_DIR.glob("**/*.py")]
+    pyfiles.sort()
     pyfiles = " ".join([str(f) for f in pyfiles])
     options = (
         "--package-name pygubudesigner --join-existing -L Python --keyword=_ "
