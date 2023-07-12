@@ -1555,7 +1555,9 @@ class WidgetsTreeEditor:
 
     def _is_form_field_class(self, classname: str):
         builder = CLASS_MAP[classname].builder
-        return issubclass(builder.class_, FieldBase)
+        if builder.class_ is not None:
+            return issubclass(builder.class_, FieldBase)
+        return False
 
     def _is_form_filedname_defined(self, fieldname: str):
         is_defined = False
