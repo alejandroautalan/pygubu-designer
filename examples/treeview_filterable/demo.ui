@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="tk.Tk" id="tk1">
+    <property name="geometry">384x288</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Filterable Treeview</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="frame2">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Entry" id="entry1">
+                <property name="textvariable">string:filter_var</property>
+                <bind sequence="&lt;KeyPress-KP_Enter&gt;" handler="on_do_filter" add="" />
+                <bind sequence="&lt;KeyPress-Return&gt;" handler="on_do_filter" add="" />
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">x</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button1">
+                <property name="command" type="command" cbtype="simple">on_filter_remove</property>
+                <property name="style">Toolbutton</property>
+                <property name="text" translatable="yes">×</property>
+                <layout manager="pack">
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame3">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="pady">5</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper1">
+                <property name="scrolltype">both</property>
+                <property name="usemousewheel">false</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="pygubu.widgets.FilterableTreeview" id="treeview" named="True">
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="ttk.Treeview.Column" id="column1">
+                        <property name="column_anchor">w</property>
+                        <property name="heading_anchor">w</property>
+                        <property name="minwidth">20</property>
+                        <property name="stretch">true</property>
+                        <property name="text" translatable="yes">Tree</property>
+                        <property name="tree_column">true</property>
+                        <property name="visible">true</property>
+                        <property name="width">200</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame4">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="button2">
+                <property name="command" type="command" cbtype="simple">on_print_all</property>
+                <property name="text" translatable="yes">Print All</property>
+                <layout manager="pack">
+                  <property name="padx">10</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button3">
+                <property name="command" type="command" cbtype="simple">on_print_results</property>
+                <property name="text" translatable="yes">Print Filter Results</property>
+                <layout manager="pack">
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
