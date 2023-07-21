@@ -191,7 +191,7 @@ class PygubuDesigner:
         self.mainwindow.after_idle(self.rfiles_manager.load)
 
         # widget tree
-        self.treeview = self.builder.get_object("treeview1")
+        self.treeview = self.builder.get_object("project_tree")
         self.bindings_frame = self.builder.get_object("bindingsframe")
         self.bindings_tree = self.builder.get_object("bindingstree")
 
@@ -526,8 +526,9 @@ proc ::tk::dialog::file::Create {w class} {
             pass
 
         treelist = self.create_treelist()
-        self._palette = ComponentPalette(fpalette, notebook=(
-            pref.get_option("single_section") == "no"))
+        self._palette = ComponentPalette(
+            fpalette, notebook=(pref.get_option("single_section") == "no")
+        )
 
         # Start building widget tree selector
         roots = {}
@@ -923,8 +924,10 @@ proc ::tk::dialog::file::Create {w class} {
             self.on_code_generate_clicked()
 
     def on_code_template_property_changed(self):
-        if pref.get_option("auto_generate_code") == "yes" \
-        and pref.get_option("auto_generate_code_on_prop_change") == "yes":
+        if (
+            pref.get_option("auto_generate_code") == "yes"
+            and pref.get_option("auto_generate_code_on_prop_change") == "yes"
+        ):
             self.on_code_generate_clicked()
         return True
 

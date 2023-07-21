@@ -67,6 +67,8 @@ class WidgetsTreeEditor:
         self.duplicating = False
         self.duplicate_parent_iid = None
 
+        self.treeview.filter_func = self.filter_match
+
         # Get the default layout manager based on the user's configuration.
         self.__preferred_layout_manager_var = tk.StringVar()
         current_default_layout = pref.get_option("default_layout_manager")
@@ -172,6 +174,14 @@ class WidgetsTreeEditor:
         tree.bind_all(
             action.TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel
         )
+
+    def filter_match(self, tree, itemid, filter_value):
+        txt = tree.item(itemid, "text").lower()
+        match_found = filter_value in txt
+        if not match_found:
+            class_txt = self.treedata[itemid].classname.lower()
+            match_found = filter_value in class_txt
+        return match_found
 
     def on_tree_item_delete(self, event):
         selection = self.treeview.selection()
@@ -418,7 +428,7 @@ class WidgetsTreeEditor:
 
     def config_filter(self):
         def on_filtervar_changed(varname, element, mode):
-            self.filter_by(self.filtervar.get())
+            self.treeview.filter_by(self.filtervar.get())
 
         self.filtervar.trace("w", on_filtervar_changed)
 
@@ -448,7 +458,7 @@ class WidgetsTreeEditor:
         """Create a preview of the selected treeview item"""
 
         if item:
-            self.filter_remove(remember=True)
+            self.treeview.filter_remove(remember=True)
 
             selected_id = self.treedata[item].identifier
             item = self.get_toplevel_parent(item)
@@ -457,19 +467,19 @@ class WidgetsTreeEditor:
             uidef = self.tree_to_uidef(item)
             self.previewer.draw(item, widget_id, uidef, wclass)
             self.previewer.show_selected(item, selected_id)
-            self.filter_restore()
+            self.treeview.filter_restore()
 
     def on_preview_in_toplevel(self, event=None):
         tv = self.treeview
         sel = tv.selection()
         if sel:
-            self.filter_remove(remember=True)
+            self.treeview.filter_remove(remember=True)
             item = sel[0]
             item = self.get_toplevel_parent(item)
             widget_id = self.treedata[item].identifier
             uidef = self.tree_to_uidef(item)
             self.previewer.preview_in_toplevel(item, widget_id, uidef)
-            self.filter_restore()
+            self.treeview.filter_restore()
         else:
             logger.warning(_("No item selected."))
 
@@ -490,7 +500,7 @@ class WidgetsTreeEditor:
         selection = tv.selection()
 
         # Need to remove filter
-        self.filter_remove(remember=True)
+        self.treeview.filter_remove(remember=True)
 
         toplevel_items = tv.get_children()
         parents_to_redraw = set()
@@ -544,7 +554,7 @@ class WidgetsTreeEditor:
         self.current_edit = None
 
         # restore filter
-        self.filter_restore()
+        self.treeview.filter_restore()
 
     def delete_item_data(self, item):
         """
@@ -572,7 +582,7 @@ class WidgetsTreeEditor:
         """Traverses treeview and generates a ElementTree object"""
 
         # Need to remove filter or hidden items will not be saved.
-        self.filter_remove(remember=True)
+        self.treeview.filter_remove(remember=True)
 
         uidef = self.new_uidefinition()
         if treeitem is None:
@@ -585,7 +595,7 @@ class WidgetsTreeEditor:
             uidef.add_xmlnode(node)
 
         # restore filter
-        self.filter_restore()
+        self.treeview.filter_restore()
 
         return uidef
 
@@ -675,7 +685,7 @@ class WidgetsTreeEditor:
         selection = tree.selection()
         logger.debug("Selection %s", selection)
         if selection:
-            self.filter_remove(remember=True)
+            self.treeview.filter_remove(remember=True)
 
             uidef = self.new_uidefinition()
             for item in selection:
@@ -689,7 +699,7 @@ class WidgetsTreeEditor:
                 tree.clipboard_clear()
                 tree.clipboard_append(text)
 
-            self.filter_restore()
+            self.treeview.filter_restore()
 
     def cut_to_clipboard(self):
         self.copy_to_clipboard()
@@ -802,7 +812,7 @@ class WidgetsTreeEditor:
         return start_id
 
     def paste_from_clipboard(self):
-        self.filter_remove(remember=True)
+        self.treeview.filter_remove(remember=True)
 
         tree = self.treeview
         selected_item = ""
@@ -852,7 +862,7 @@ class WidgetsTreeEditor:
         else:
             self.draw_widget(selected_item)
 
-        self.filter_restore()
+        self.treeview.filter_restore()
 
         # Get all the children widgets of the parent that we pasted into.
         children_of_parent = self.treeview.get_children(selected_item)
@@ -891,7 +901,7 @@ class WidgetsTreeEditor:
             selected_item = tsel[0]
 
         #  Need to remove filter if set
-        self.filter_remove()
+        self.treeview.filter_remove()
 
         root = selected_item
         #  check if the widget can be added at selected point
@@ -946,7 +956,7 @@ class WidgetsTreeEditor:
 
     def remove_all(self):
         self.treedata = {}
-        self.filter_remove()
+        self.treeview.filter_remove()
         children = self.treeview.get_children()
         if children:
             self.treeview.delete(*children)
@@ -1186,7 +1196,7 @@ class WidgetsTreeEditor:
         tree = self.treeview
         sel = tree.selection()
         if sel:
-            self.filter_remove(remember=True)
+            self.treeview.filter_remove(remember=True)
             item = sel[0]
             parent = tree.parent(item)
             prev = tree.prev(item)
@@ -1202,13 +1212,13 @@ class WidgetsTreeEditor:
                 # require a layout, such as menus and notebook tabs.
                 if manager in ("pack", "place") or not layout_required:
                     self.draw_widget(item)
-            self.filter_restore()
+            self.treeview.filter_restore()
 
     def on_item_move_down(self, event):
         tree = self.treeview
         sel = tree.selection()
         if sel:
-            self.filter_remove(remember=True)
+            self.treeview.filter_remove(remember=True)
             item = sel[0]
             parent = tree.parent(item)
             next = tree.next(item)
@@ -1224,7 +1234,7 @@ class WidgetsTreeEditor:
                 # require a layout, such as menus and notebook tabs.
                 if manager in ("pack", "place") or not layout_required:
                     self.draw_widget(item)
-            self.filter_restore()
+            self.treeview.filter_restore()
 
     #
     # Item grid move functions
@@ -1233,7 +1243,7 @@ class WidgetsTreeEditor:
         tree = self.treeview
         selection = tree.selection()
         if selection:
-            self.filter_remove(remember=True)
+            self.treeview.filter_remove(remember=True)
             for item in selection:
                 data = self.treedata[item]
 
@@ -1259,120 +1269,8 @@ class WidgetsTreeEditor:
                 if current_col != new_col:
                     data.layout_property("column", str(new_col))
                     data.notify()
-            self.filter_restore()
+            self.treeview.filter_restore()
 
-    #
-    # Filter functions
-    #
-    def filter_by(self, string):
-        """Filters treeview"""
-
-        self._reatach()
-        if string == "":
-            self.filter_remove()
-            return
-
-        self._expand_all()
-        self.treeview.selection_set("")
-
-        children = self.treeview.get_children("")
-        for item in children:
-            _, detached = self._detach(item)
-            if detached:
-                self._detached.extend(detached)
-        for i, p, idx in self._detached:
-            # txt = self.treeview.item(i, 'text')
-            self.treeview.detach(i)
-        self.filter_on = True
-
-    def filter_remove(self, remember=False):
-        if self.filter_on:
-            sitem = None
-            selection = self.treeview.selection()
-            if selection:
-                sitem = selection[0]
-                self.treeview.after_idle(lambda: self._see(sitem))
-            if remember:
-                self.filter_prev_value = self.filtervar.get()
-                self.filter_prev_sitem = sitem
-            self._reatach()
-            self.filtervar.set("")
-        self.filter_on = False
-
-    def filter_restore(self):
-        if self.filter_prev_value:
-            self.filtervar.set(self.filter_prev_value)
-            item = self.filter_prev_sitem
-            if item and self.treeview.exists(item):
-                self.treeview.selection_set(item)
-                self.treeview.after_idle(lambda: self._see(item))
-            # clear
-            self.filter_prev_value = ""
-            self.filter_prev_sitem = None
-
-    def _see(self, item):
-        # The item may have been deleted.
-        try:
-            self.treeview.see(item)
-        except tk.TclError:
-            pass
-
-    def _expand_all(self, rootitem=""):
-        children = self.treeview.get_children(rootitem)
-        for item in children:
-            self._expand_all(item)
-        if rootitem != "" and children:
-            self.treeview.item(rootitem, open=True)
-
-    def _reatach(self):
-        """Reinsert the hidden items."""
-        for item, p, idx in self._detached:
-            # The item may have been deleted.
-            if self.treeview.exists(item) and self.treeview.exists(p):
-                self.treeview.move(item, p, idx)
-        self._detached = []
-
-    def _detach(self, item):
-        """Hide items from treeview that do not match the search string."""
-        to_detach = []
-        children_det = []
-        children_match = False
-        match_found = False
-
-        value = self.filtervar.get()
-        txt = self.treeview.item(item, "text").lower()
-        if value in txt:
-            match_found = True
-        else:
-            class_txt = self.treedata[item].classname.lower()
-            if value in class_txt:
-                match_found = True
-
-        parent = self.treeview.parent(item)
-        idx = self.treeview.index(item)
-        children = self.treeview.get_children(item)
-        if children:
-            for child in children:
-                match, detach = self._detach(child)
-                children_match = children_match | match
-                if detach:
-                    children_det.extend(detach)
-
-        if match_found:
-            if children_det:
-                to_detach.extend(children_det)
-        else:
-            if children_match:
-                if children_det:
-                    to_detach.extend(children_det)
-            else:
-                to_detach.append((item, parent, idx))
-        match_found = match_found | children_match
-        return match_found, to_detach
-
-    #
-    # End Filter functions
-    #
     def _top_widget_iterator(self):
         children = self.treeview.get_children("")
         for item in children:
@@ -1426,8 +1324,8 @@ class WidgetsTreeEditor:
                 break
         if found:
             tree = self.treeview
-            self.filter_remove()
-            self._expand_all()
+            self.treeview.filter_remove()
+            self.treeview.expand_to(found)
             tree.after_idle(lambda: tree.selection_set(found))
             tree.after_idle(lambda: tree.focus(found))
             tree.after_idle(lambda: tree.see(found))
