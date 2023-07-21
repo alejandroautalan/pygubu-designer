@@ -412,10 +412,8 @@
                                                   <property name="side">top</property>
                                                 </layout>
                                                 <child>
-                                                  <object class="ttk.Treeview" id="treeview1">
+                                                  <object class="pygubu.widgets.FilterableTreeview" id="project_tree" named="True">
                                                     <layout manager="pack">
-                                                      <property name="expand">true</property>
-                                                      <property name="fill">both</property>
                                                       <property name="side">top</property>
                                                     </layout>
                                                     <child>
