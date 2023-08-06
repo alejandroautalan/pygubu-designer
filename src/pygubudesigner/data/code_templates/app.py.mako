@@ -41,6 +41,7 @@ class ${class_name}:
     %endif
         builder.connect_callbacks(self)
 
+%if add_window_centering_code:
     def center(self, event):
         wm_min = self.mainwindow.wm_minsize()
         wm_max = self.mainwindow.wm_maxsize()
@@ -68,6 +69,10 @@ class ${class_name}:
             self.main_h = self.mainwindow.winfo_reqheight()
             self.center_map = self.mainwindow.bind("<Map>", self.center)
         self.mainwindow.mainloop()
+%else:
+    def run(self):
+        self.mainwindow.mainloop()
+%endif
 
 ${callbacks}\
 </%block>
