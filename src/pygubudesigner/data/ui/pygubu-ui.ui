@@ -994,6 +994,17 @@
                                                             </layout>
                                                           </object>
                                                         </child>
+                                                        <child>
+                                                          <object class="ttk.Checkbutton" id="cb_window_centering_code" named="True">
+                                                            <property name="command" type="command" cbtype="simple">on_code_template_property_changed</property>
+                                                            <property name="text" translatable="yes">Add window centering code</property>
+                                                            <property name="variable">boolean:add_window_centering_code_var</property>
+                                                            <layout manager="pack">
+                                                              <property name="anchor">w</property>
+                                                              <property name="side">top</property>
+                                                            </layout>
+                                                          </object>
+                                                        </child>
                                                       </object>
                                                     </child>
                                                   </object>
