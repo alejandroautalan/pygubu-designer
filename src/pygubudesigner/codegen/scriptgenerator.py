@@ -60,6 +60,7 @@ class ScriptGenerator:
             "add_i18n_var",
             "menulist_keyvar",
             "all_ids_attributes_var",
+            "add_window_centering_code_var",
         ]
         builder.import_variables(self, myvars)
 
@@ -97,6 +98,7 @@ class ScriptGenerator:
             class_name = self.classnamevar.get()
             with_i18n_support = self.add_i18n_var.get()
             all_ids_attributes = self.all_ids_attributes_var.get()
+            add_window_centering_code = self.add_window_centering_code_var.get()
 
             main_widget_is_toplevel = False
             set_main_menu = False
@@ -139,6 +141,7 @@ class ScriptGenerator:
                 "with_i18n_support": with_i18n_support,
                 "set_main_menu": set_main_menu,
                 "main_menu_id": main_menu_id,
+                "add_window_centering_code": add_window_centering_code,
             }
 
             generator.with_i18n_support = with_i18n_support
