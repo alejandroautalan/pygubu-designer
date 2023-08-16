@@ -4,15 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # larry <larryw3i@163.com>, 2021-2022.
 # larryw3i <larryw3i@163.com>, 2022.
+# littlewhitecloud <q1141926647@163.com>, 2023
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-26 23:52-0300\n"
-"PO-Revision-Date: 2022-11-27 11:55+0800\n"
-"Last-Translator: larryw3i <larryw3i@163.com>\n"
-"Language-Team: Chinese - China <larryw3i@163.com>\n"
+"PO-Revision-Date: 2023-08-16 19:01+0800\n"
+"Last-Translator: littlewhitecloud <q1141926647@163.com>\n"
+"Language-Team: Chinese - China <q1141926647@163.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -800,7 +801,7 @@ msgstr ""
 
 #: src/pygubudesigner/properties/propertieshelp.py:47
 msgid "Specifies a bitmap to display in the widget."
-msgstr "指定显示在控件上的bitmap图片。"
+msgstr "指定显示在控件上的位图图片。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:49
 msgid ""
@@ -810,19 +811,19 @@ msgstr "指定一个布尔值表示文本编辑的指针为方块。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:55
 msgid "The background color to be used for the spin buttons."
-msgstr "spin按钮的背景颜色。"
+msgstr "数值调节按钮(spinbox)的背景颜色。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:57
 msgid "The cursor to be used when over the spin buttons."
-msgstr "鼠标悬浮于spin按钮上时的指针。"
+msgstr "鼠标悬浮于数值调节按钮(spinbox)上时的光标。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:58
 msgid "The relief to be used for the upper spin button."
-msgstr "鼠标悬浮于spin按钮时的相关特效。"
+msgstr "鼠标悬浮于数值调节按钮(spinbox)时的相关浮雕效果。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:59
 msgid "The relief to be used for the lower spin button."
-msgstr "按下spin按钮时的相关特效。"
+msgstr "按下数值调节按钮(spinbox)时的相关浮雕效果。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:61
 msgid ""
@@ -830,7 +831,7 @@ msgid ""
 "database for the window's other options, to determine the default bindtags "
 "for the window, and to select the widget's default layout and style."
 msgstr ""
-"指定窗体类，这个类用于查询窗体的其它属性，决定窗体的默认绑定，以及选择窗体的"
+"指定窗体类，这个类用于查询窗体的其它属性，以此来决定窗体的默认绑定以及选择窗体的"
 "默认布局和样式。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:64
@@ -839,7 +840,7 @@ msgid ""
 "be to an item before it is considered to be “inside” the item. Defaults to "
 "1.0."
 msgstr ""
-"指定一个浮点值，指示鼠标光标在被视为项的内部之前必须离项有多近。默认为1.0。"
+"指定一个浮点值, 指示鼠标光标在被视为项的内部之前必须有多近。默认为1.0。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:67
 msgid ""
@@ -855,13 +856,13 @@ msgid ""
 "column."
 msgstr ""
 "当此选项为False时，输入框会显示在原先的输入框下部。当此选项为True时，输入框将"
-"显示在菜单中新列的顶部。此选项在Apple/macOS上被忽略，其中菜单始终是单列。"
+"显示在菜单中新列的顶部。此选项在 Aqua/macOS上被忽略，其中菜单始终是单列。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:74
 msgid ""
 "In pygubu-designer, a python function name used as the callback for the "
 "widget command property."
-msgstr "在pygubu-designer, 一个Python被用作控件命令属性的回调。"
+msgstr "在 pygubu-designer, 一个Python被用作控件命令属性的回调。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:77
 msgid ""
@@ -895,7 +896,7 @@ msgstr ""
 
 #: src/pygubudesigner/properties/propertieshelp.py:88
 msgid "Specifies the mouse cursor to be used for the widget."
-msgstr "指定鼠标悬浮于控件时的指针样式。"
+msgstr "指定鼠标悬浮于控件时的光标样式。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:90
 msgid ""
@@ -928,7 +929,7 @@ msgstr "指定控件不可用时的前景颜色。"
 msgid ""
 "Specifies the width of borders drawn around the internal elements of the "
 "scrollbar (the two arrows and the slider)."
-msgstr "指定围绕滚动栏内部元素（两个箭头和滑块）绘制的边框宽度。"
+msgstr "指定围绕滚动栏内部元素(两个箭头和滑块)绘制的边框宽度。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:108
 msgid ""
@@ -958,7 +959,7 @@ msgstr "指定正常的控件前景颜色。"
 #: src/pygubudesigner/properties/propertieshelp.py:118
 msgid ""
 "The widget's foreground color. If unspecified, the theme default is used."
-msgstr "控件前景颜色，如不指定将使用默认。"
+msgstr "控件前景颜色, 如不指定将使用默认。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:121
 msgid ""
@@ -966,7 +967,7 @@ msgid ""
 "using the from and to range. This must be a format specifier of the form "
 "%<pad>.<pad>f, as it will format a floating-point number."
 msgstr ""
-"指定在设置字符串值时使用的格式，用于指定范围。必须像这样的格式：%<pad>."
+"指定在设置字符串值时使用的格式, 用于指定范围。必须像这样的格式：%<pad>."
 "<pad>f， 因为它将格式化一个浮点数。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:124
@@ -978,7 +979,7 @@ msgid ""
 "When sash handles are drawn, specifies the distance from the top or left end "
 "of the sash (depending on the orientation of the widget) at which to draw "
 "the handle."
-msgstr "绘制窗体手柄时，指定从窗体顶部或左端绘制的距离（取决于控件的方向）。"
+msgstr "绘制窗体时，指定从窗体顶部或左端绘制的距离(取决于控件的方向)。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:130
 msgid ""
@@ -1014,7 +1015,7 @@ msgid ""
 "being displayed in the menubutton then the value is in screen units; for "
 "text it is in lines of text."
 msgstr ""
-"指定menubutton的高度，如果显示图片，则单位为屏幕像素，如果显示文字，则单位为"
+"指定菜单按钮(menubutton)的高度，如果显示图片，则单位为屏幕像素，如果显示文字，则单位为"
 "行数。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:144
@@ -1029,7 +1030,7 @@ msgstr "指定下拉列表的行数。"
 msgid ""
 "Specifies whether the standard margins should be drawn for this menu entry. "
 "This is useful when creating palette with images in them."
-msgstr "指定绘制menu entry时是否使用标准外边距，比如给图片添加颜料板。"
+msgstr "指定绘制菜单(menu)和输入框(entry)时是否使用标准外边距，比如给图片添加颜料板。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:153
 msgid ""
@@ -1106,11 +1107,11 @@ msgstr "指定非负数表示鼠标指针闪烁出现的周期（毫秒）。"
 msgid ""
 "Specifies how to display the insertion cursor when the widget does not have "
 "the focus."
-msgstr "指定当控件失去焦点时鼠标指针如何显示。"
+msgstr "指定当控件失去焦点时鼠标光标如何显示。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:189
 msgid "Specifies a value indicating the total width of the insertion cursor."
-msgstr "指定一个值表示鼠标指针的宽度。"
+msgstr "指定一个值表示鼠标光标的宽度。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:193
 msgid ""
@@ -1137,12 +1138,12 @@ msgstr "指定文本如何与控件对齐。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:201
 msgid "A string to display as a label for the scale."
-msgstr "标签Label的字符串"
+msgstr "标签文本框(Label)的字符串"
 
 #: src/pygubudesigner/properties/propertieshelp.py:203
 msgid ""
 "Specifies where to place the label. The default value is theme-dependent."
-msgstr "指定Label的放置位置，默认为theme-dependent"
+msgstr "指定文本框(Label)的放置位置，默认为theme-dependent"
 
 #: src/pygubudesigner/properties/propertieshelp.py:206
 msgid "Specifies the desired long dimension of the scale in screen units."
@@ -1150,7 +1151,7 @@ msgstr "指定屏幕单元尺寸的长度。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:209
 msgid "A variable name to be used as source of items for the Listbox"
-msgstr "用作Listbox子项资源的变量名。"
+msgstr "用作列表(Listbox)子项资源的变量名。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:212
 msgid "A floating point number specifying the maximum value. Defaults to 100."
@@ -1174,14 +1175,14 @@ msgid ""
 "the column any smaller than minwidth when the widget is resized or the user "
 "drags a column separator."
 msgstr ""
-"列的最小宽（单位为：像素），当控件被改变尺寸或列被分离时treeview依然使每列大"
+"列的最小宽（单位为：像素），当控件被改变尺寸或列被分离时树状图(treeview)依然使每列大"
 "于或等于列的最小宽"
 
 #: src/pygubudesigner/properties/propertieshelp.py:225
 msgid ""
 "Specifies the relief for the checkbutton when the indicator is not drawn and "
 "the checkbutton is off. The default value is “raised”."
-msgstr "指定checkbutton的相关特效，当checkbutton未被绘制或被关闭时值为raised"
+msgstr "指定检查按钮(checkbutton)的相关浮雕样式，当检查按钮(checkbutton)未被绘制或被关闭时值为raised"
 
 #: src/pygubudesigner/properties/propertieshelp.py:228
 msgid ""
@@ -1253,7 +1254,7 @@ msgstr "绘制代理时要使用的背景颜色。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:255
 msgid "Specifies the borderwidth of the proxy."
-msgstr "指定代理的边界宽。"
+msgstr "指定代理的边框宽。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:257
 msgid ""
@@ -1298,7 +1299,7 @@ msgstr "指定绘制滑块时要使用的相关特征。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:274
 msgid "Mouse cursor to use when over a sash."
-msgstr "控件的鼠标指针。"
+msgstr "控件的鼠标光标。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:276
 msgid "Specifies the amount of padding to leave of each side of a sash."
@@ -1463,12 +1464,12 @@ msgstr ""
 msgid ""
 "Specifies how to interpret the relationship between tab stops on a line and "
 "tabs in the text of that line."
-msgstr "具体说明如何解释该行上的制表符和文本中tabs之间的关系。"
+msgstr "具体说明如何解释该行上的制表符和文本中制表符(Tabs)之间的关系。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:348
 msgid ""
 "Determines whether the window accepts the focus during keyboard traversal."
-msgstr "决定窗口是否在键盘traversal过程中接受焦点。"
+msgstr "决定窗口是否在键盘遍历过程中接受焦点。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:351
 msgid ""
@@ -1560,7 +1561,7 @@ msgid ""
 "as to control its contents, starting with the first value. This option has "
 "precedence over the from and to range."
 msgstr ""
-"必须是适当的列表值。如果指定，spinbox将从第一个值开始使用这些值来控制其内容。"
+"必须是适当的列表值。如果指定，数值调节按钮(spinbox)将从第一个值开始使用这些值来控制其内容。"
 "此选项优先于范围。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:392
