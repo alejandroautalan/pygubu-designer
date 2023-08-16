@@ -632,11 +632,11 @@ msgstr "检查主窗口的可见性"
 
 #: src/pygubudesigner/main.py:580
 msgid "Main window is not visible in current monitors."
-msgstr ""
+msgstr "主窗口在当前显示器中不可视"
 
 #: src/pygubudesigner/main.py:584
 msgid "Main window position fixed."
-msgstr ""
+msgstr "主窗口位置修复了"
 
 #: src/pygubudesigner/main.py:617
 msgid "If you don't save the document, all the changes will be lost."
@@ -649,19 +649,19 @@ msgstr "关闭之前要保存文档吗？"
 #: src/pygubudesigner/main.py:647
 #, python-format
 msgid "Project saved to %s"
-msgstr "项目保存到：%s"
+msgstr "将项目保存到：%s"
 
 #: src/pygubudesigner/main.py:657 src/pygubudesigner/main.py:701
 msgid "pygubu ui"
-msgstr "pygubu用户界面"
+msgstr "pygubu 用户界面"
 
 #: src/pygubudesigner/main.py:694
 msgid "Do you want to save the changes before opening?"
-msgstr "打开之前您要保存所做的更改吗？"
+msgstr "在打开之前您要保存所做的更改吗？"
 
 #: src/pygubudesigner/main.py:712
 msgid "Do you want to save the changes before creating?"
-msgstr "新建前您要保存所做的更改吗？"
+msgstr "在新建前您要保存所做的更改吗？"
 
 #: src/pygubudesigner/main.py:888
 msgid "newproject"
@@ -711,7 +711,7 @@ msgid ""
 "changes to take effect."
 msgstr ""
 "重新启动 pygubu-designer\n"
-"更改将生效。"
+"改动将生效。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:5
 msgid "Object class name."
@@ -729,7 +729,8 @@ msgstr "指定显示在菜单输入框右边的文字。"
 msgid ""
 "Specifies the relief to use when displaying the element that is active, if "
 "any."
-msgstr "指定当窗口活动时的相关特效(如果存在)。"
+msgstr "指定当窗口活动时的相关浮雕效果将显示，如果"
+"有。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:14
 msgid "Specifies the style in which to draw the active element."
@@ -743,7 +744,7 @@ msgstr "指定绘制活动元素的背景颜色。"
 msgid ""
 "Specifies a non-negative value indicating the width of the 3-D border drawn "
 "around active elements."
-msgstr "指定绘制活动元素的3D周围宽度（非负值）"
+msgstr "指定绘制活动元素的3D周围宽度(非负值)"
 
 #: src/pygubudesigner/properties/propertieshelp.py:23
 msgid "Specifies foreground color to use when drawing active elements."
@@ -764,14 +765,14 @@ msgid ""
 "and so on."
 msgstr ""
 "指定表示文本的纵横比非负整数值。纵横比指定为 100*宽/高。100 表示文本宽和高相"
-"等，200 表示文本宽是高的两倍，50 表示文本宽是高的一半，以此类推. . ."
+"等, 200 表示文本宽是高的两倍, 50 表示文本宽是高的一半, 以此类推 …"
 
 #: src/pygubudesigner/properties/propertieshelp.py:33
 msgid ""
 "Specifies a boolean that says whether separators are automatically inserted "
 "in the undo stack. Only meaningful when the undo option is true."
 msgstr ""
-"指定一个布尔值表示是否自动将更改放到改变记录的堆栈中,只有撤销可用时才有效。"
+"指定一个布尔值表示是否自动将更改放到改变记录的堆栈中, 只有撤销可用时才有效。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:36
 msgid ""
@@ -795,7 +796,7 @@ msgid ""
 "Some interactions with the scale cause its value to change by \"large\" "
 "increments; this option specifies the size of the large increments."
 msgstr ""
-"与缩放的一些交互作用导致其值以“large”增量变化；此选项指定大增量的大小。"
+"与缩放的一些交互作用导致其值以"large"增量变化; 此选项指定大增量的大小。"
 
 #: src/pygubudesigner/properties/propertieshelp.py:47
 msgid "Specifies a bitmap to display in the widget."
