@@ -86,7 +86,7 @@ msgstr "关闭"
 #: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:7
 #: src/pygubudesigner/main.py:614
 msgid "Save Changes"
-msgstr "保存变化"
+msgstr "保存更改"
 
 #: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:36
 msgid "SaveIcon"
@@ -171,15 +171,15 @@ msgstr "将预览窗口居中"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:143
 msgid "Automatically generate code"
-msgstr ""
+msgstr "自动生成代码"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:157
 msgid "on property change"
-msgstr ""
+msgstr "关属性更改"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:171
 msgid "Single section widgets toolbar (requires restart)"
-msgstr ""
+msgstr "独立小部件工具栏(需要重新启动)"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:187
 msgid "Widget naming"
@@ -203,7 +203,7 @@ msgstr "这些新操作不会对以前生成的控件名生效。"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:253
 msgid "Hidden options"
-msgstr "被隐藏选项"
+msgstr "隐藏选项"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:265
 msgid "Window geometry:"
@@ -215,7 +215,7 @@ msgstr "自定义控件"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:319
 msgid "Custom Widgets Builders"
-msgstr "自定义控件Builders"
+msgstr "自定义建设者控件"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:351
 msgid "modules"
@@ -244,7 +244,7 @@ msgstr "样式定义文件："
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:511
 msgid "Browse …"
-msgstr "浏览 ..."
+msgstr "浏览 …"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:521
 msgid "Remove"
@@ -252,7 +252,7 @@ msgstr "移除"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:531
 msgid "Create New …"
-msgstr "新建 ..."
+msgstr "新建 …"
 
 #: src/pygubudesigner/data/ui/preferences_dialog.ui:570
 msgid "Ok"
@@ -312,15 +312,15 @@ msgstr "重复"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:105
 msgid "Widget tree"
-msgstr "控件树"
+msgstr "控件树状图"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:111
 msgid "Item up"
-msgstr "项上移"
+msgstr "上移项"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:118
 msgid "Item down"
-msgstr "项下移"
+msgstr "下移项"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:127
 msgid "Item delete"
@@ -390,7 +390,7 @@ msgstr "删除"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:273
 msgid "Pygubu Designer"
-msgstr "Pygubu设计器"
+msgstr "Pygubu 设计器"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:314
 msgid "Design"
@@ -398,7 +398,7 @@ msgstr "设计"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:356
 msgid "Tree"
-msgstr "树"
+msgstr "树状图"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:376
 msgid "Filter:"
@@ -506,11 +506,11 @@ msgstr "使用 ttk 样式的定义文件"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:980
 msgid "Add i18n support"
-msgstr "增加国际化（多语言）支持"
+msgstr "增加国际化(多语言)支持"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:991
 msgid "All IDs as class attributes"
-msgstr "所有 IDs 转变为类属性"
+msgstr "所有 ID 转变为类属性"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:1076
 msgid "Generate"
@@ -526,7 +526,7 @@ msgstr "信息"
 
 #: src/pygubudesigner/codegen/scriptgenerator.py:72
 msgid "Script Generator"
-msgstr "脚本生成"
+msgstr "生成脚本"
 
 #: src/pygubudesigner/codegen/scriptgenerator.py:76
 msgid "Create a pygubu application script using the UI definition."
@@ -538,7 +538,7 @@ msgstr "创建一个用户界面定义的代码版本。"
 
 #: src/pygubudesigner/codegen/scriptgenerator.py:79
 msgid "Create a base class for your custom widget."
-msgstr "给你的自定义控件创建一个base类"
+msgstr "给你的自定义控件创建一个基类"
 
 #: src/pygubudesigner/codegen/scriptgenerator.py:220
 msgid "Code copied"
@@ -546,7 +546,7 @@ msgstr "代码被复制"
 
 #: src/pygubudesigner/codegen/scriptgenerator.py:261
 msgid "Python Script"
-msgstr "Python脚本"
+msgstr "Python 脚本"
 
 #: src/pygubudesigner/codegen/scriptgenerator.py:261
 #: src/pygubudesigner/main.py:657 src/pygubudesigner/main.py:702
@@ -619,7 +619,7 @@ msgstr "加载控件模块失败： '{_module}'"
 #: src/pygubudesigner/main.py:650 src/pygubudesigner/main.py:689
 #: src/pygubudesigner/preferences.py:102 src/pygubudesigner/preferences.py:108
 msgid "Error"
-msgstr "出错"
+msgstr "错误"
 
 #: src/pygubudesigner/main.py:93
 #, python-brace-format
@@ -628,7 +628,7 @@ msgstr "加载自定义控件模块失败： '{path}'"
 
 #: src/pygubudesigner/main.py:578
 msgid "Checking main window visibility."
-msgstr ""
+msgstr "检查主窗口的可见性"
 
 #: src/pygubudesigner/main.py:580
 msgid "Main window is not visible in current monitors."
