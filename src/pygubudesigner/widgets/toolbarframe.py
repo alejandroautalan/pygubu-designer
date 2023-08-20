@@ -71,14 +71,7 @@ class ToolbarFrame(ttk.Frame):
 
     def _configure_mousewheel(self):
         BindManager.init_mousewheel_binding(self)
-        self.bind(
-            "<Enter>",
-            lambda event: BindManager.mousewheel_bind(self),
-            add="+",
-        )
-        self.bind(
-            "<Leave>", lambda event: BindManager.mousewheel_unbind(), add="+"
-        )
+        BindManager.mousewheel_bind(self)
         self.on_mousewheel = BindManager.make_onmousewheel_cb(self, "x", 2)
 
     def xview(self, mode=None, value=None, units=None):
