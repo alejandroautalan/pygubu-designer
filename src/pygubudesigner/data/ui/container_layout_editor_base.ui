@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.2">
+<interface version="1.3">
   <object class="ttk.Frame" id="containereditor_widget">
     <property name="height">200</property>
     <property name="width">200</property>
