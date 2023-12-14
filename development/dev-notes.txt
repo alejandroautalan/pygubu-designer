@@ -18,10 +18,9 @@ pip install git+https://github.com/alejandroautalan/pygubu git+https://github.co
 
 TODO
 ====
+- Integrate experiment-component palette
+- Remove code tab and make this options project options. Remove code view, only generate files.
 - Issue: redraw previews on theme change.
-- ttkstyles branch: add optiondb_initializer=None to builder and codebuilder.
-  or name it on_first_widget_cb. Function that will execute only once after
-  the first widget is created, generally the root widget.
 - Customtkinter 5 Issues on designer:
   Can't select SegmentedButton in Preview (can't click it)
   Click on tabview tab does not select tab in treeview.
@@ -83,11 +82,9 @@ New Project, Open Project, Save, UndoButtons, Cut, copy, paste, delete,
 Generate code (generate files in disk, with configured names),
 Buttons for Actions on current layout Manager:
   Align left, center, Align right, Expand.
-  
+
 Example: Click Expand
   Manager Place: set expand=True, fill=both
-
-
 
 
 Project Notes:
