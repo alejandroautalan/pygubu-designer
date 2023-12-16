@@ -671,7 +671,9 @@ proc ::tk::dialog::file::Create {w class} {
 
     def save_file(self, filename):
         uidefinition = self.tree_editor.tree_to_uidef()
-        uidefinition.code_options = self.script_generator.get_code_options()
+        uidefinition.project_options = (
+            self.script_generator.get_project_options()
+        )
         uidefinition.save(filename)
         self.currentfile = filename
         title = self.project_name()
@@ -693,7 +695,7 @@ proc ::tk::dialog::file::Create {w class} {
             self.set_title(title)
             self.set_changed(False)
             self.rfiles_manager.addfile(filename)
-            self.script_generator.configure(uidef.code_options)
+            self.script_generator.configure(uidef.project_options)
         except Exception as e:
             msg = str(e)
             det = traceback.format_exc()

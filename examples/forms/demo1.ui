@@ -257,5 +257,5 @@
       </child>
     </object>
   </interfaces>
-  <code_options template="application" main_widget_id="toplevel1" main_menu_id="" main_classname="FormsDemo1App" import_tkvariables="True" use_ttk_styledefinition_file="False" use_i18n="False" relative_path="true" output_path="" />
+  <project_options template="application" main_widget_id="toplevel1" main_menu_id="" main_classname="FormsDemo1App" import_tkvariables="True" use_ttk_styledefinition_file="False" use_i18n="False" relative_path="true" output_path="" />
 </project>

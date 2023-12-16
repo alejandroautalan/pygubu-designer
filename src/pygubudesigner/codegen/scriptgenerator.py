@@ -36,7 +36,7 @@ class ScriptGenerator:
         self.builder = builder = app.builder
         self.tree = app.tree_editor
         self.projectname = ""
-        self.code_options = {}
+        self.project_options = {}
 
         self.widgetlist = w = builder.get_object("widgetlist")
         w.bind("<<ComboboxSelected>>", self._configure_menulist)
@@ -281,14 +281,14 @@ class ScriptGenerator:
             newstate = "normal" if target_class == "tk.Toplevel" else "disabled"
             self.menulist.configure(state=newstate)
 
-            value = self.code_options.get("main_menu_id", "")
+            value = self.project_options.get("main_menu_id", "")
             key = self.tree.get_tree_topitem_byid(value)
             self.menulist_keyvar.set(key)
 
     def configure(self, options_bag=None):
         if options_bag is None:
             options_bag = {}
-        self.code_options = options_bag
+        self.project_options = options_bag
         self.projectname = self.app.project_name()
         self.update_view()
         self._setup_options(options_bag)
@@ -321,7 +321,7 @@ class ScriptGenerator:
         value = tk.getboolean(bag.get("use_ttk_styledefinition_file", False))
         self.use_ttkdefs_file_var.set(value)
 
-    def get_code_options(self) -> dict:
+    def get_project_options(self) -> dict:
         widget_key = self.widgetlist_keyvar.get()
         menu_key = self.menulist_keyvar.get()
         widget_id = ""
@@ -353,7 +353,7 @@ class ScriptGenerator:
         self.menulist.configure(values=mlist)
         # self.menulist_keyvar.set('None')
 
-        value = self.code_options.get("main_widget_id", "")
+        value = self.project_options.get("main_widget_id", "")
         key = self.tree.get_tree_topitem_byid(value)
         if len(wlist) > 0:
             if key is None:
@@ -408,7 +408,7 @@ class ScriptGenerator:
 
     def reset(self):
         self.set_code("")
-        self.code_options = {}
+        self.project_options = {}
         self.configure()
 
     def _format_code(self, code):
