@@ -444,7 +444,7 @@ proc ::tk::dialog::file::Create {w class} {
             ToolbarFrame.BTN_RIGHT_STYLE, image=StockImage.get("arrow-right2")
         )
         # Preview panel, Selection indicator color
-        s.configure("PreviewIndicator.TFrame", background="#FF5C35")
+        s.configure("PreviewIndicator.TFrame", background="red")
 
         if sys.platform == "linux":
             # change background of comboboxes
