@@ -12,6 +12,8 @@ Changes for version 0.37 (next)
     Useful for wide monitors. (BloodyRain2k)
   * Type hints for tk variables in code generation. (BloodyRain2k)
   * Add template code to center window at start. (BloodyRain2k)
+  * New Vietnamese translation for README.md (lebao3105)
+  * Update Chinese Translation (littlewhitecloud)
 
 Changes for version 0.36
 
