@@ -22,16 +22,12 @@ class TreeComponentPaletteBase(ttk.Frame):
         entry2.configure(textvariable=self.filter_text_var, width=10)
         entry2.pack(expand=True, fill="x", padx="5 5", side="left")
         entry2.bind("<KeyPress>", self.on_filter_keypress, add="")
-        button3 = ttk.Button(frame1)
-        self.img_cancelcircle16 = tk.PhotoImage(file="cancel-circle-16.png")
-        button3.configure(
-            image=self.img_cancelcircle16,
-            style="Toolbutton",
-            takefocus=True,
-            width=-2,
+        self.btn_filter_cancel = ttk.Button(frame1, name="btn_filter_cancel")
+        self.btn_filter_cancel.configure(
+            style="Toolbutton", takefocus=True, width=-2
         )
-        button3.pack(side="left")
-        button3.configure(command=self.on_filter_clear)
+        self.btn_filter_cancel.pack(side="left")
+        self.btn_filter_cancel.configure(command=self.on_filter_clear)
         separator1 = ttk.Separator(frame1)
         separator1.configure(orient="vertical")
         separator1.pack(fill="y", padx=2, side="left")
@@ -47,7 +43,7 @@ class TreeComponentPaletteBase(ttk.Frame):
         )
         self.fb_show_alltk.pack(fill="both", side="left")
         self.fb_show_alltk.configure(command=self.on_show_alltk)
-        frame1.grid(column=0, row=0, sticky="ew")
+        frame1.grid(column=0, pady="0 1", row=0, sticky="ew")
         frame3 = ttk.Frame(self)
         frame3.configure(height=200, width=200)
         scrollbarhelper3 = ScrollbarHelper(frame3, scrolltype="both")

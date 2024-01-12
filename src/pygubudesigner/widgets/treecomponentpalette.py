@@ -38,6 +38,9 @@ class TreeComponentPalette(TreeComponentPaletteBase):
         tooltip.create(self.fb_show_alltk, "Show all Tk widgets")
         self.setup_styles()
         self.visual_state = TreeVisualState(self.cptree)
+        btn_image = StockImage.get("cancel-circle-16")
+        self.btn_filter_cancel.configure(image=btn_image)
+        self.project_custom_widget_prefixes = []
 
     def setup_styles(self):
         s = ttk.Style(self)
@@ -97,8 +100,16 @@ class TreeComponentPalette(TreeComponentPaletteBase):
 
             is_tk_only = "tk" in wc.tags and "ttk" not in wc.tags
             if is_tk_only and not self.var_show_alltk.get():
-                # print(f"{wc.classname} is tk only")
                 continue
+
+            if wc.public is False:
+                show_widget = False
+                for prefix in self.project_custom_widget_prefixes:
+                    if c.startswith(prefix):
+                        show_widget = True
+                        break
+                if show_widget is False:
+                    continue
             ctags = set((str(tag) for tag in wc.tags)) - omit_tagset
             sections = tagset & ctags
             for s in sections:
