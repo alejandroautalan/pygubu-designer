@@ -966,13 +966,10 @@ class WidgetsTreeEditor:
             None  # We no longer have a selected item in the treeview
         )
 
-    def load_file(self, filename):
+    def load_file(self, filename, uidef: UIDefinition):
         """Load file into treeview"""
 
         self.counter.clear()
-        uidef = UIDefinition(wmetaclass=WidgetMeta)
-        uidef.load_file(filename)
-
         self.remove_all()
         self.previewer.remove_all()
         self.editor_hide_all()

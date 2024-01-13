@@ -36,6 +36,7 @@ from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
 import pygubudesigner.actions as actions
+import pygubudesigner.services.fileop as fileop
 from pygubudesigner import preferences as pref
 from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
@@ -77,24 +78,6 @@ def init_pygubu_widgets():
 
     # Initialize designer plugins
     PluginManager.load_designer_plugins()
-
-    # initialize custom widgets
-    for path in map(Path, pref.get_custom_widgets()):
-        if not path.match("*.py"):
-            continue
-
-        dirname = str(path.parent)
-        modulename = path.name[:-3]
-        if dirname not in sys.path:
-            sys.path.append(dirname)
-
-        try:
-            importlib.import_module(modulename)
-        except Exception as e:
-            logger.exception(e)
-            msg = _(f"Failed to load custom widget module: '{path}'")
-            det = traceback.format_exc()
-            messagebox.showerror(_("Error"), msg, detail=det)
 
     # Register custom properties
     load_custom_properties()
@@ -251,6 +234,10 @@ proc ::tk::dialog::file::Create {w class} {
         # _pallete
         self.fpalette = self.builder.get_object("fpalette")
         self.create_component_palette(self.fpalette)
+
+        # Tree palette
+        self.tree_palette = self.builder.get_object("tree_palette")
+        self.tree_palette.build_tree()
 
         # tree editor
         self.tree_editor = WidgetsTreeEditor(self)
@@ -689,13 +676,18 @@ proc ::tk::dialog::file::Create {w class} {
         """Load xml into treeview"""
 
         try:
-            uidef = self.tree_editor.load_file(filename)
+            fpath = Path(filename).resolve()
+            uidef = fileop.load_definition(fpath)
+            self.tree_editor.load_file(filename, uidef)
             self.currentfile = filename
             title = self.project_name()
             self.set_title(title)
             self.set_changed(False)
-            self.rfiles_manager.addfile(filename)
+            self.rfiles_manager.addfile(str(fpath))
             self.script_generator.configure(uidef.project_options)
+            prefixes = [Path(cw).stem for cw in uidef.custom_widgets]
+            self.tree_palette.project_custom_widget_prefixes = prefixes
+            self.tree_palette.build_tree()
         except Exception as e:
             msg = str(e)
             det = traceback.format_exc()
