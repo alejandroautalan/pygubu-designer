@@ -321,135 +321,17 @@
                             <object class="pygubu.widgets.dockpane" id="dockpane1">
                               <property name="orient">horizontal</property>
                               <child>
-                                <object class="pygubu.widgets.dockwidget" id="dockwidget1">
-                                  <property name="title" translatable="yes">Project Tree</property>
+                                <object class="pygubu.widgets.dockwidget" id="dockwidget5">
+                                  <property name="title" translatable="yes">Components Palette</property>
                                   <child>
-                                    <object class="ttk.Frame" id="addwframe1">
-                                      <property name="padding">0 0 0 2</property>
+                                    <object class="treecomponentpalettebo.TreeComponentPalette" id="tree_palette" named="True">
                                       <layout manager="pack">
                                         <property name="expand">true</property>
                                         <property name="fill">both</property>
+                                        <property name="padx">2</property>
+                                        <property name="pady">2</property>
                                         <property name="side">top</property>
                                       </layout>
-                                      <child>
-                                        <object class="ttk.Frame" id="filter_frame">
-                                          <property name="height">200</property>
-                                          <property name="padding">0 0 0 6</property>
-                                          <property name="width">200</property>
-                                          <layout manager="pack">
-                                            <property name="fill">x</property>
-                                            <property name="side">top</property>
-                                          </layout>
-                                          <child>
-                                            <object class="ttk.Label" id="lblfilter">
-                                              <property name="font">TkSmallCaptionFont</property>
-                                              <property name="text" translatable="yes">Filter:</property>
-                                              <layout manager="pack">
-                                                <property name="side">left</property>
-                                              </layout>
-                                            </object>
-                                          </child>
-                                          <child>
-                                            <object class="ttk.Entry" id="filter_entry">
-                                              <property name="textvariable">filtervar</property>
-                                              <property name="validate">none</property>
-                                              <layout manager="pack">
-                                                <property name="expand">true</property>
-                                                <property name="fill">x</property>
-                                                <property name="side">left</property>
-                                              </layout>
-                                            </object>
-                                          </child>
-                                          <child>
-                                            <object class="ttk.Button" id="filterclear_btn">
-                                              <property name="image">close.gif</property>
-                                              <property name="style">FilterClearButton.Toolbutton</property>
-                                              <property name="text" translatable="yes">✖</property>
-                                              <layout manager="pack">
-                                                <property name="side">right</property>
-                                              </layout>
-                                            </object>
-                                          </child>
-                                        </object>
-                                      </child>
-                                      <child>
-                                        <object class="pygubu.builder.widgets.scrollbarhelper" id="sbh1">
-                                          <property name="scrolltype">both</property>
-                                          <property name="usemousewheel">true</property>
-                                          <layout manager="pack">
-                                            <property name="expand">true</property>
-                                            <property name="fill">both</property>
-                                            <property name="side">top</property>
-                                          </layout>
-                                          <child>
-                                            <object class="pygubu.widgets.FilterableTreeview" id="project_tree" named="True">
-                                              <layout manager="pack">
-                                                <property name="side">top</property>
-                                              </layout>
-                                              <child>
-                                                <object class="ttk.Treeview.Column" id="treecolumn">
-                                                  <property name="column_anchor">w</property>
-                                                  <property name="heading_anchor">w</property>
-                                                  <property name="minwidth">200</property>
-                                                  <property name="stretch">true</property>
-                                                  <property name="text" translatable="yes">ID</property>
-                                                  <property name="tree_column">True</property>
-                                                  <property name="visible">True</property>
-                                                  <property name="width">200</property>
-                                                </object>
-                                              </child>
-                                              <child>
-                                                <object class="ttk.Treeview.Column" id="class">
-                                                  <property name="column_anchor">w</property>
-                                                  <property name="heading_anchor">w</property>
-                                                  <property name="minwidth">100</property>
-                                                  <property name="stretch">false</property>
-                                                  <property name="text" translatable="yes">Class</property>
-                                                  <property name="tree_column">False</property>
-                                                  <property name="visible">false</property>
-                                                  <property name="width">120</property>
-                                                </object>
-                                              </child>
-                                              <child>
-                                                <object class="ttk.Treeview.Column" id="row">
-                                                  <property name="column_anchor">w</property>
-                                                  <property name="heading_anchor">w</property>
-                                                  <property name="minwidth">20</property>
-                                                  <property name="stretch">false</property>
-                                                  <property name="text" translatable="yes">R</property>
-                                                  <property name="tree_column">False</property>
-                                                  <property name="visible">True</property>
-                                                  <property name="width">20</property>
-                                                </object>
-                                              </child>
-                                              <child>
-                                                <object class="ttk.Treeview.Column" id="col">
-                                                  <property name="column_anchor">w</property>
-                                                  <property name="heading_anchor">w</property>
-                                                  <property name="minwidth">20</property>
-                                                  <property name="stretch">false</property>
-                                                  <property name="text" translatable="yes">C</property>
-                                                  <property name="tree_column">False</property>
-                                                  <property name="visible">True</property>
-                                                  <property name="width">20</property>
-                                                </object>
-                                              </child>
-                                              <child>
-                                                <object class="ttk.Treeview.Column" id="space_trick">
-                                                  <property name="column_anchor">w</property>
-                                                  <property name="heading_anchor">w</property>
-                                                  <property name="minwidth">20</property>
-                                                  <property name="stretch">False</property>
-                                                  <property name="text" translatable="yes"> </property>
-                                                  <property name="tree_column">False</property>
-                                                  <property name="visible">True</property>
-                                                  <property name="width">20</property>
-                                                </object>
-                                              </child>
-                                            </object>
-                                          </child>
-                                        </object>
-                                      </child>
                                     </object>
                                   </child>
                                 </object>
@@ -838,81 +720,172 @@
                                 </object>
                               </child>
                               <child>
-                                <object class="pygubu.widgets.dockwidget" id="dockwidget3">
-                                  <property name="title" translatable="yes">Properties</property>
+                                <object class="pygubu.widgets.dockpane" id="dockpane2">
+                                  <property name="orient">vertical</property>
                                   <child>
-                                    <object class="ttk.Frame" id="frame_1">
-                                      <property name="height">200</property>
-                                      <property name="width">200</property>
-                                      <layout manager="pack">
-                                        <property name="expand">true</property>
-                                        <property name="fill">both</property>
-                                        <property name="side">top</property>
-                                      </layout>
+                                    <object class="pygubu.widgets.dockwidget" id="dockwidget1">
+                                      <property name="title" translatable="yes">Project Tree</property>
                                       <child>
-                                        <object class="ttk.Notebook" id="notebook1">
-                                          <property name="height">200</property>
-                                          <property name="padding">0 2 0 0</property>
-                                          <property name="width">375</property>
+                                        <object class="ttk.Frame" id="addwframe1">
+                                          <property name="padding">0 0 0 2</property>
                                           <layout manager="pack">
                                             <property name="expand">true</property>
                                             <property name="fill">both</property>
                                             <property name="side">top</property>
                                           </layout>
                                           <child>
-                                            <object class="ttk.Notebook.Tab" id="generaltab">
-                                              <property name="padding">2 6 2 6</property>
-                                              <property name="sticky">nsew</property>
-                                              <property name="text" translatable="yes">Appearance</property>
+                                            <object class="ttk.Frame" id="filter_frame">
+                                              <property name="height">200</property>
+                                              <property name="padding">0 0 0 6</property>
+                                              <property name="width">200</property>
+                                              <layout manager="pack">
+                                                <property name="fill">x</property>
+                                                <property name="side">top</property>
+                                              </layout>
                                               <child>
-                                                <object class="pygubu.builder.widgets.scrolledframe" id="propertiesframe">
-                                                  <property name="padding">5</property>
-                                                  <property name="scrolltype">both</property>
-                                                  <property name="usemousewheel">true</property>
+                                                <object class="ttk.Label" id="lblfilter">
+                                                  <property name="font">TkSmallCaptionFont</property>
+                                                  <property name="text" translatable="yes">Filter:</property>
+                                                  <layout manager="pack">
+                                                    <property name="side">left</property>
+                                                  </layout>
+                                                </object>
+                                              </child>
+                                              <child>
+                                                <object class="ttk.Entry" id="filter_entry">
+                                                  <property name="textvariable">filtervar</property>
+                                                  <property name="validate">none</property>
                                                   <layout manager="pack">
                                                     <property name="expand">true</property>
-                                                    <property name="fill">both</property>
-                                                    <property name="side">top</property>
+                                                    <property name="fill">x</property>
+                                                    <property name="side">left</property>
+                                                  </layout>
+                                                </object>
+                                              </child>
+                                              <child>
+                                                <object class="ttk.Button" id="filterclear_btn">
+                                                  <property name="image">close.gif</property>
+                                                  <property name="style">FilterClearButton.Toolbutton</property>
+                                                  <property name="text" translatable="yes">✖</property>
+                                                  <layout manager="pack">
+                                                    <property name="side">right</property>
                                                   </layout>
                                                 </object>
                                               </child>
                                             </object>
                                           </child>
                                           <child>
-                                            <object class="ttk.Notebook.Tab" id="layouttab">
-                                              <property name="padding">2 6 2 6</property>
-                                              <property name="sticky">nsew</property>
-                                              <property name="text" translatable="yes">Layout</property>
+                                            <object class="pygubu.builder.widgets.scrollbarhelper" id="sbh1">
+                                              <property name="scrolltype">both</property>
+                                              <property name="usemousewheel">true</property>
+                                              <layout manager="pack">
+                                                <property name="expand">true</property>
+                                                <property name="fill">both</property>
+                                                <property name="side">top</property>
+                                              </layout>
                                               <child>
-                                                <object class="pygubu.builder.widgets.scrolledframe" id="layoutframe">
-                                                  <property name="padding">5</property>
-                                                  <property name="scrolltype">both</property>
-                                                  <property name="usemousewheel">true</property>
+                                                <object class="pygubu.widgets.FilterableTreeview" id="project_tree" named="True">
                                                   <layout manager="pack">
-                                                    <property name="expand">true</property>
-                                                    <property name="fill">both</property>
-                                                    <property name="side">top</property>
-                                                  </layout>
-                                                </object>
-                                              </child>
-                                            </object>
-                                          </child>
-                                          <child>
-                                            <object class="ttk.Notebook.Tab" id="bindingtab">
-                                              <property name="padding">2 6 2 6</property>
-                                              <property name="text" translatable="yes">Bindings</property>
-                                              <child>
-                                                <object class="ttk.Frame" id="bindingscontainer">
-                                                  <property name="height">200</property>
-                                                  <property name="padding">2</property>
-                                                  <property name="width">200</property>
-                                                  <layout manager="pack">
-                                                    <property name="expand">true</property>
-                                                    <property name="fill">both</property>
                                                     <property name="side">top</property>
                                                   </layout>
                                                   <child>
-                                                    <object class="pygubu.builder.widgets.scrollbarhelper" id="bindingsframe">
+                                                    <object class="ttk.Treeview.Column" id="treecolumn">
+                                                      <property name="column_anchor">w</property>
+                                                      <property name="heading_anchor">w</property>
+                                                      <property name="minwidth">200</property>
+                                                      <property name="stretch">true</property>
+                                                      <property name="text" translatable="yes">ID</property>
+                                                      <property name="tree_column">True</property>
+                                                      <property name="visible">True</property>
+                                                      <property name="width">200</property>
+                                                    </object>
+                                                  </child>
+                                                  <child>
+                                                    <object class="ttk.Treeview.Column" id="class">
+                                                      <property name="column_anchor">w</property>
+                                                      <property name="heading_anchor">w</property>
+                                                      <property name="minwidth">100</property>
+                                                      <property name="stretch">false</property>
+                                                      <property name="text" translatable="yes">Class</property>
+                                                      <property name="tree_column">False</property>
+                                                      <property name="visible">false</property>
+                                                      <property name="width">120</property>
+                                                    </object>
+                                                  </child>
+                                                  <child>
+                                                    <object class="ttk.Treeview.Column" id="row">
+                                                      <property name="column_anchor">w</property>
+                                                      <property name="heading_anchor">w</property>
+                                                      <property name="minwidth">20</property>
+                                                      <property name="stretch">false</property>
+                                                      <property name="text" translatable="yes">R</property>
+                                                      <property name="tree_column">False</property>
+                                                      <property name="visible">True</property>
+                                                      <property name="width">20</property>
+                                                    </object>
+                                                  </child>
+                                                  <child>
+                                                    <object class="ttk.Treeview.Column" id="col">
+                                                      <property name="column_anchor">w</property>
+                                                      <property name="heading_anchor">w</property>
+                                                      <property name="minwidth">20</property>
+                                                      <property name="stretch">false</property>
+                                                      <property name="text" translatable="yes">C</property>
+                                                      <property name="tree_column">False</property>
+                                                      <property name="visible">True</property>
+                                                      <property name="width">20</property>
+                                                    </object>
+                                                  </child>
+                                                  <child>
+                                                    <object class="ttk.Treeview.Column" id="space_trick">
+                                                      <property name="column_anchor">w</property>
+                                                      <property name="heading_anchor">w</property>
+                                                      <property name="minwidth">20</property>
+                                                      <property name="stretch">False</property>
+                                                      <property name="text" translatable="yes"> </property>
+                                                      <property name="tree_column">False</property>
+                                                      <property name="visible">True</property>
+                                                      <property name="width">20</property>
+                                                    </object>
+                                                  </child>
+                                                </object>
+                                              </child>
+                                            </object>
+                                          </child>
+                                        </object>
+                                      </child>
+                                    </object>
+                                  </child>
+                                  <child>
+                                    <object class="pygubu.widgets.dockwidget" id="dockwidget3">
+                                      <property name="title" translatable="yes">Properties</property>
+                                      <child>
+                                        <object class="ttk.Frame" id="frame_1">
+                                          <property name="height">200</property>
+                                          <property name="width">200</property>
+                                          <layout manager="pack">
+                                            <property name="expand">true</property>
+                                            <property name="fill">both</property>
+                                            <property name="side">top</property>
+                                          </layout>
+                                          <child>
+                                            <object class="ttk.Notebook" id="notebook1">
+                                              <property name="height">200</property>
+                                              <property name="padding">0 2 0 0</property>
+                                              <property name="width">375</property>
+                                              <layout manager="pack">
+                                                <property name="expand">true</property>
+                                                <property name="fill">both</property>
+                                                <property name="side">top</property>
+                                              </layout>
+                                              <child>
+                                                <object class="ttk.Notebook.Tab" id="generaltab">
+                                                  <property name="padding">2 6 2 6</property>
+                                                  <property name="sticky">nsew</property>
+                                                  <property name="text" translatable="yes">Appearance</property>
+                                                  <child>
+                                                    <object class="pygubu.builder.widgets.scrolledframe" id="propertiesframe">
+                                                      <property name="padding">5</property>
                                                       <property name="scrolltype">both</property>
                                                       <property name="usemousewheel">true</property>
                                                       <layout manager="pack">
@@ -920,59 +893,107 @@
                                                         <property name="fill">both</property>
                                                         <property name="side">top</property>
                                                       </layout>
+                                                    </object>
+                                                  </child>
+                                                </object>
+                                              </child>
+                                              <child>
+                                                <object class="ttk.Notebook.Tab" id="layouttab">
+                                                  <property name="padding">2 6 2 6</property>
+                                                  <property name="sticky">nsew</property>
+                                                  <property name="text" translatable="yes">Layout</property>
+                                                  <child>
+                                                    <object class="pygubu.builder.widgets.scrolledframe" id="layoutframe">
+                                                      <property name="padding">5</property>
+                                                      <property name="scrolltype">both</property>
+                                                      <property name="usemousewheel">true</property>
+                                                      <layout manager="pack">
+                                                        <property name="expand">true</property>
+                                                        <property name="fill">both</property>
+                                                        <property name="side">top</property>
+                                                      </layout>
+                                                    </object>
+                                                  </child>
+                                                </object>
+                                              </child>
+                                              <child>
+                                                <object class="ttk.Notebook.Tab" id="bindingtab">
+                                                  <property name="padding">2 6 2 6</property>
+                                                  <property name="text" translatable="yes">Bindings</property>
+                                                  <child>
+                                                    <object class="ttk.Frame" id="bindingscontainer">
+                                                      <property name="height">200</property>
+                                                      <property name="padding">2</property>
+                                                      <property name="width">200</property>
+                                                      <layout manager="pack">
+                                                        <property name="expand">true</property>
+                                                        <property name="fill">both</property>
+                                                        <property name="side">top</property>
+                                                      </layout>
                                                       <child>
-                                                        <object class="pygubu.builder.widgets.editabletreeview" id="bindingstree">
-                                                          <property name="show">headings</property>
+                                                        <object class="pygubu.builder.widgets.scrollbarhelper" id="bindingsframe">
+                                                          <property name="scrolltype">both</property>
+                                                          <property name="usemousewheel">true</property>
                                                           <layout manager="pack">
                                                             <property name="expand">true</property>
                                                             <property name="fill">both</property>
                                                             <property name="side">top</property>
                                                           </layout>
                                                           <child>
-                                                            <object class="ttk.Treeview.Column" id="sequence">
-                                                              <property name="column_anchor">w</property>
-                                                              <property name="heading_anchor">w</property>
-                                                              <property name="minwidth">20</property>
-                                                              <property name="stretch">True</property>
-                                                              <property name="text" translatable="yes">Sequence descriptor</property>
-                                                              <property name="tree_column">False</property>
-                                                              <property name="visible">True</property>
-                                                              <property name="width">200</property>
-                                                            </object>
-                                                          </child>
-                                                          <child>
-                                                            <object class="ttk.Treeview.Column" id="handler">
-                                                              <property name="column_anchor">w</property>
-                                                              <property name="heading_anchor">w</property>
-                                                              <property name="minwidth">20</property>
-                                                              <property name="stretch">True</property>
-                                                              <property name="text" translatable="yes">Event Handler</property>
-                                                              <property name="tree_column">False</property>
-                                                              <property name="visible">True</property>
-                                                              <property name="width">200</property>
-                                                            </object>
-                                                          </child>
-                                                          <child>
-                                                            <object class="ttk.Treeview.Column" id="add">
-                                                              <property name="column_anchor">w</property>
-                                                              <property name="heading_anchor">w</property>
-                                                              <property name="minwidth">50</property>
-                                                              <property name="stretch">True</property>
-                                                              <property name="text" translatable="yes">Add</property>
-                                                              <property name="tree_column">False</property>
-                                                              <property name="visible">True</property>
-                                                              <property name="width">50</property>
-                                                            </object>
-                                                          </child>
-                                                          <child>
-                                                            <object class="ttk.Treeview.Column" id="actions">
-                                                              <property name="column_anchor">w</property>
-                                                              <property name="heading_anchor">w</property>
-                                                              <property name="minwidth">50</property>
-                                                              <property name="stretch">True</property>
-                                                              <property name="tree_column">False</property>
-                                                              <property name="visible">True</property>
-                                                              <property name="width">50</property>
+                                                            <object class="pygubu.builder.widgets.editabletreeview" id="bindingstree">
+                                                              <property name="show">headings</property>
+                                                              <layout manager="pack">
+                                                                <property name="expand">true</property>
+                                                                <property name="fill">both</property>
+                                                                <property name="side">top</property>
+                                                              </layout>
+                                                              <child>
+                                                                <object class="ttk.Treeview.Column" id="sequence">
+                                                                  <property name="column_anchor">w</property>
+                                                                  <property name="heading_anchor">w</property>
+                                                                  <property name="minwidth">20</property>
+                                                                  <property name="stretch">True</property>
+                                                                  <property name="text" translatable="yes">Sequence descriptor</property>
+                                                                  <property name="tree_column">False</property>
+                                                                  <property name="visible">True</property>
+                                                                  <property name="width">200</property>
+                                                                </object>
+                                                              </child>
+                                                              <child>
+                                                                <object class="ttk.Treeview.Column" id="handler">
+                                                                  <property name="column_anchor">w</property>
+                                                                  <property name="heading_anchor">w</property>
+                                                                  <property name="minwidth">20</property>
+                                                                  <property name="stretch">True</property>
+                                                                  <property name="text" translatable="yes">Event Handler</property>
+                                                                  <property name="tree_column">False</property>
+                                                                  <property name="visible">True</property>
+                                                                  <property name="width">200</property>
+                                                                </object>
+                                                              </child>
+                                                              <child>
+                                                                <object class="ttk.Treeview.Column" id="add">
+                                                                  <property name="column_anchor">w</property>
+                                                                  <property name="heading_anchor">w</property>
+                                                                  <property name="minwidth">50</property>
+                                                                  <property name="stretch">True</property>
+                                                                  <property name="text" translatable="yes">Add</property>
+                                                                  <property name="tree_column">False</property>
+                                                                  <property name="visible">True</property>
+                                                                  <property name="width">50</property>
+                                                                </object>
+                                                              </child>
+                                                              <child>
+                                                                <object class="ttk.Treeview.Column" id="actions">
+                                                                  <property name="column_anchor">w</property>
+                                                                  <property name="heading_anchor">w</property>
+                                                                  <property name="minwidth">50</property>
+                                                                  <property name="stretch">True</property>
+                                                                  <property name="tree_column">False</property>
+                                                                  <property name="visible">True</property>
+                                                                  <property name="width">50</property>
+                                                                </object>
+                                                              </child>
                                                             </object>
                                                           </child>
                                                         </object>
@@ -985,23 +1006,6 @@
                                           </child>
                                         </object>
                                       </child>
-                                    </object>
-                                  </child>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="pygubu.widgets.dockwidget" id="dockwidget5">
-                                  <property name="grouped">true</property>
-                                  <property name="title" translatable="yes">Components Palette</property>
-                                  <child>
-                                    <object class="treecomponentpalettebo.TreeComponentPalette" id="tree_palette" named="True">
-                                      <layout manager="pack">
-                                        <property name="expand">true</property>
-                                        <property name="fill">both</property>
-                                        <property name="padx">2</property>
-                                        <property name="pady">2</property>
-                                        <property name="side">top</property>
-                                      </layout>
                                     </object>
                                   </child>
                                 </object>
