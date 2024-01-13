@@ -990,6 +990,23 @@
                                 </object>
                               </child>
                               <child>
+                                <object class="pygubu.widgets.dockwidget" id="dockwidget5">
+                                  <property name="grouped">true</property>
+                                  <property name="title" translatable="yes">Components Palette</property>
+                                  <child>
+                                    <object class="treecomponentpalettebo.TreeComponentPalette" id="tree_palette" named="True">
+                                      <layout manager="pack">
+                                        <property name="expand">true</property>
+                                        <property name="fill">both</property>
+                                        <property name="padx">2</property>
+                                        <property name="pady">2</property>
+                                        <property name="side">top</property>
+                                      </layout>
+                                    </object>
+                                  </child>
+                                </object>
+                              </child>
+                              <child>
                                 <object class="pygubu.widgets.dockwidget" id="dockwidget2">
                                   <property name="title" translatable="yes">Preview</property>
                                   <child>
@@ -1114,5 +1131,7 @@
     </object>
   </interfaces>
   <project_options template="application" main_widget_id="" main_menu_id="" main_classname="PygubuUi" import_tkvariables="False" use_ttk_styledefinition_file="False" use_i18n="False" relative_path="true" output_path="" />
-  <customwidgets />
+  <customwidgets>
+    <customwidget path="../../services/builders/treecomponentpalettebo.py"/>
+  </customwidgets>
 </project>
