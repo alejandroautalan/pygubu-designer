@@ -314,6 +314,7 @@
                               <child>
                                 <object class="pygubu.widgets.dockwidget" id="dockwidget5">
                                   <property name="title" translatable="yes">Components Palette</property>
+                                  <property name="weight">0</property>
                                   <child>
                                     <object class="treecomponentpalettebo.TreeComponentPalette" id="tree_palette" named="True">
                                       <layout manager="pack">
@@ -713,12 +714,13 @@
                               <child>
                                 <object class="pygubu.widgets.dockpane" id="dockpane2">
                                   <property name="orient">vertical</property>
+                                  <property name="weight">0</property>
                                   <child>
                                     <object class="pygubu.widgets.dockwidget" id="dockwidget1">
                                       <property name="title" translatable="yes">Project Tree</property>
                                       <child>
                                         <object class="ttk.Frame" id="addwframe1">
-                                          <property name="padding">0 0 0 2</property>
+                                          <property name="padding">2</property>
                                           <layout manager="pack">
                                             <property name="expand">true</property>
                                             <property name="fill">both</property>
@@ -850,6 +852,7 @@
                                   <child>
                                     <object class="pygubu.widgets.dockwidget" id="dockwidget3">
                                       <property name="title" translatable="yes">Properties</property>
+                                      <property name="weight">2</property>
                                       <child>
                                         <object class="ttk.Frame" id="frame_1">
                                           <property name="height">200</property>
@@ -1004,6 +1007,7 @@
                               <child>
                                 <object class="pygubu.widgets.dockwidget" id="dockwidget2">
                                   <property name="title" translatable="yes">Preview</property>
+                                  <property name="weight">2</property>
                                   <child>
                                     <object class="ttk.Frame" id="Frame_1">
                                       <property name="height">250</property>
