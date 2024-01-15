@@ -232,8 +232,8 @@ proc ::tk::dialog::file::Create {w class} {
         init_pygubu_widgets()
 
         # _pallete
-        self.fpalette = self.builder.get_object("fpalette")
-        self.create_component_palette(self.fpalette)
+        # self.fpalette = self.builder.get_object("fpalette")
+        # self.create_component_palette(self.fpalette)
 
         # Tree palette
         self.tree_palette = self.builder.get_object("tree_palette")

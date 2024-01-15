@@ -302,15 +302,6 @@
                         <property name="side">top</property>
                       </layout>
                       <child>
-                        <object class="ttk.Frame" id="fpalette">
-                          <property name="height">50</property>
-                          <layout manager="pack">
-                            <property name="fill">x</property>
-                            <property name="side">top</property>
-                          </layout>
-                        </object>
-                      </child>
-                      <child>
                         <object class="pygubu.widgets.dockframe" id="dockframe1">
                           <layout manager="pack">
                             <property name="expand">true</property>
