@@ -237,6 +237,7 @@ proc ::tk::dialog::file::Create {w class} {
 
         # Tree palette
         self.tree_palette = self.builder.get_object("tree_palette")
+        self.tree_palette.on_add_widget = self.on_add_widget_event
         self.tree_palette.build_tree()
 
         # tree editor

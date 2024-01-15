@@ -28,11 +28,12 @@ class TreeVisualState:
 
 
 class TreeComponentPalette(TreeComponentPaletteBase):
-    KEY_PRESS_CB_MILISECONDS = 500
+    KEY_PRESS_CB_MILISECONDS = 800
 
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
 
+        self.on_add_widget = None  # callback to call on double click.
         self._keypress_cbid = None
         self.cptree.filter_func = self.custom_filter
         tooltip.create(self.fb_show_alltk, "Show all Tk widgets")
@@ -169,4 +170,5 @@ class TreeComponentPalette(TreeComponentPaletteBase):
             self.on_add_widget_event(classname)
 
     def on_add_widget_event(self, cname):
-        print("on_addd_widget", cname)
+        if self.on_add_widget:
+            self.on_add_widget(cname)
