@@ -2,7 +2,9 @@ from pygubu.api.v1 import (
     BuilderObject,
     register_widget,
 )
-from pygubudesigner.widgets.treecomponentpalette import TreeComponentPalette
+from pygubudesigner.services.widgets.treecomponentpalette import (
+    TreeComponentPalette,
+)
 
 
 class TreeComponentPaletteBO(BuilderObject):
