@@ -808,7 +808,7 @@
                                                   <child>
                                                     <object class="ttk.Treeview.Column" id="row">
                                                       <property name="column_anchor">w</property>
-                                                      <property name="heading_anchor">w</property>
+                                                      <property name="heading_anchor">center</property>
                                                       <property name="minwidth">20</property>
                                                       <property name="stretch">false</property>
                                                       <property name="text" translatable="yes">R</property>
@@ -820,7 +820,7 @@
                                                   <child>
                                                     <object class="ttk.Treeview.Column" id="col">
                                                       <property name="column_anchor">w</property>
-                                                      <property name="heading_anchor">w</property>
+                                                      <property name="heading_anchor">center</property>
                                                       <property name="minwidth">20</property>
                                                       <property name="stretch">false</property>
                                                       <property name="text" translatable="yes">C</property>
@@ -1131,6 +1131,6 @@
   </interfaces>
   <project_options template="application" main_widget_id="" main_menu_id="" main_classname="PygubuUi" import_tkvariables="False" use_ttk_styledefinition_file="False" use_i18n="False" relative_path="true" output_path="" />
   <customwidgets>
-    <customwidget path="../../services/builders/treecomponentpalettebo.py"/>
+    <customwidget path="../../services/builders/treecomponentpalettebo.py" />
   </customwidgets>
 </project>
