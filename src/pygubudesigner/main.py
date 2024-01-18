@@ -36,7 +36,7 @@ from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
 import pygubudesigner.actions as actions
-import pygubudesigner.services.fileop as fileop
+import pygubudesigner.services.project as project
 from pygubudesigner import preferences as pref
 from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
@@ -678,7 +678,7 @@ proc ::tk::dialog::file::Create {w class} {
 
         try:
             fpath = Path(filename).resolve()
-            uidef = fileop.load_definition(fpath)
+            uidef = project.load_definition(fpath)
             self.tree_editor.load_file(filename, uidef)
             self.currentfile = filename
             title = self.project_name()
