@@ -667,7 +667,7 @@ proc ::tk::dialog::file::Create {w class} {
         self.current_project = project
         title = self.project_name()
         self.set_title(title)
-        self.rfiles_manager.addfile(filename)
+        self.rfiles_manager.addfile(str(filename))
 
     def set_changed(self, newvalue=True):
         if newvalue and not self.is_changed:
@@ -733,7 +733,7 @@ proc ::tk::dialog::file::Create {w class} {
         file_saved = False
         if self.current_project:
             if self.is_changed:
-                file_saved = self.do_save(self.current_project)
+                file_saved = self.do_save(self.current_project.fpath)
         else:
             file_saved = self.do_save_as()
         return file_saved

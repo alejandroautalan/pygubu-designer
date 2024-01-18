@@ -32,8 +32,8 @@ class Project:
     def __init__(self):
         self.fpath = None
         self.uidefinition: UIDefinition = None
-        self.custom_widgets: list = None
-        self.settings: dict = None
+        self.custom_widgets: list = []
+        self.settings: dict = {}
 
     def save(self, filename):
         self.fpath = pathlib.Path(filename)
