@@ -47,6 +47,8 @@ from pygubudesigner.properties.editors.forms import (
     FormFieldNameEntry,
     FormFieldNameSelector,
 )
+from pygubudesigner.services.project import Project
+
 
 logger = logging.getLogger("pygubu.designer")
 
@@ -966,7 +968,7 @@ class WidgetsTreeEditor:
             None  # We no longer have a selected item in the treeview
         )
 
-    def load_file(self, filename, uidef: UIDefinition):
+    def load_file(self, project: Project):
         """Load file into treeview"""
 
         self.counter.clear()
@@ -974,8 +976,9 @@ class WidgetsTreeEditor:
         self.previewer.remove_all()
         self.editor_hide_all()
 
-        dirname = os.path.dirname(os.path.abspath(filename))
+        dirname = project.fpath.parent
         self.previewer.resource_paths.append(dirname)
+        uidef = project.uidefinition
         for widget in uidef.widgets():
             self.populate_tree("", uidef, widget, from_file=True)
 
@@ -983,7 +986,6 @@ class WidgetsTreeEditor:
         for child in children:
             self.draw_widget(child)
         self.previewer.show_selected(None, None)
-        return uidef
 
     def populate_tree(
         self,

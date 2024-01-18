@@ -36,7 +36,7 @@ from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
 import pygubudesigner.actions as actions
-import pygubudesigner.services.project as project
+from pygubudesigner.services.project import Project
 from pygubudesigner import preferences as pref
 from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
@@ -133,7 +133,7 @@ class PygubuDesigner:
         self.preferences = None
         self.script_generator = None
         self.builder = pygubu.Builder(translator)
-        self.currentfile = None
+        self.current_project = None
         self.is_changed = False
         self.current_title = "new"
 
@@ -658,12 +658,13 @@ proc ::tk::dialog::file::Create {w class} {
         return saved
 
     def save_file(self, filename):
-        uidefinition = self.tree_editor.tree_to_uidef()
-        uidefinition.project_options = (
-            self.script_generator.get_project_options()
-        )
-        uidefinition.save(filename)
-        self.currentfile = filename
+        project = self.current_project
+        if project is None:
+            project = Project()
+        project.uidefinition = self.tree_editor.tree_to_uidef()
+        project.settings = self.script_generator.get_project_options()
+        project.save(filename)
+        self.current_project = project
         title = self.project_name()
         self.set_title(title)
         self.rfiles_manager.addfile(filename)
@@ -678,15 +679,16 @@ proc ::tk::dialog::file::Create {w class} {
 
         try:
             fpath = Path(filename).resolve()
-            uidef = project.load_definition(fpath)
-            self.tree_editor.load_file(filename, uidef)
-            self.currentfile = filename
+            project = Project.load(fpath)
+            self.tree_editor.load_file(project)
+            self.current_project = project
             title = self.project_name()
             self.set_title(title)
             self.set_changed(False)
             self.rfiles_manager.addfile(str(fpath))
-            self.script_generator.configure(uidef.project_options)
-            prefixes = [Path(cw).stem for cw in uidef.custom_widgets]
+            self.script_generator.configure(project.settings)
+            # Reload palette with project custom widgets
+            prefixes = [Path(cw).stem for cw in project.custom_widgets]
             self.tree_palette.project_custom_widget_prefixes = prefixes
             self.tree_palette.build_tree()
         except Exception as e:
@@ -722,16 +724,16 @@ proc ::tk::dialog::file::Create {w class} {
         if new:
             self.previewer.remove_all()
             self.tree_editor.remove_all()
-            self.currentfile = None
+            self.current_project = None
             self.set_changed(False)
             self.set_title(self.project_name())
             self.script_generator.reset()
 
     def on_file_save(self, event=None):
         file_saved = False
-        if self.currentfile:
+        if self.current_project:
             if self.is_changed:
-                file_saved = self.do_save(self.currentfile)
+                file_saved = self.do_save(self.current_project)
         else:
             file_saved = self.do_save_as()
         return file_saved
@@ -892,10 +894,10 @@ proc ::tk::dialog::file::Create {w class} {
 
     def project_name(self):
         name = None
-        if self.currentfile is None:
+        if self.current_project is None:
             name = _("newproject")
         else:
-            name = Path(self.currentfile).name
+            name = self.current_project.fpath.name
         return name
 
     def nbmain_tab_changed(self, event):
