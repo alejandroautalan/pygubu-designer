@@ -36,22 +36,22 @@ import tkinter.ttk as ttk
 
 def setup_ttk_styles(master=None):
     my_font = ("helvetica", 12, "bold")
-    
+
     style = ttk.Style(master)
-    
+
     style.configure("primary.TButton",
                     font=my_font,
                     background="#4582EC",
                     foreground="white")
     style.configure("secondary.TButton",
                     font=my_font,
-                    background="#ADB5BD", 
+                    background="#ADB5BD",
                     foreground="white")
     style.configure("warning.TButton",
                     font=my_font,
-                    background="#F0AD4E", 
-                    foreground="white")    
+                    background="#F0AD4E",
+                    foreground="white")
     style.configure("danger.TButton",
                     font=my_font,
-                    background="#D9534F", 
+                    background="#D9534F",
                     foreground="white")
