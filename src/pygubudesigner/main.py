@@ -36,8 +36,10 @@ from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
 import pygubudesigner.actions as actions
-from pygubudesigner.services.project import Project
+
 from pygubudesigner import preferences as pref
+from pygubudesigner.services.project import Project
+from pygubudesigner.services.designersettings import DesignerSettings
 from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
 from pygubudesigner.widgets.componentpalette import ComponentPalette
@@ -889,8 +891,9 @@ proc ::tk::dialog::file::Create {w class} {
 
     def _edit_preferences(self):
         if self.preferences is None:
-            self.preferences = pref.PreferencesUI(self.mainwindow, translator)
-        self.preferences.dialog.run()
+            # self.preferences = pref.PreferencesUI(self.mainwindow, translator)
+            self.preferences = DesignerSettings(self.mainwindow, translator)
+        self.preferences.run()
 
     def project_name(self):
         name = None
