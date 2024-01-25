@@ -40,6 +40,7 @@ import pygubudesigner.actions as actions
 from pygubudesigner import preferences as pref
 from pygubudesigner.services.project import Project
 from pygubudesigner.services.designersettings import DesignerSettings
+from pygubudesigner.services.projectsettings import ProjectSettings
 from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
 from pygubudesigner.widgets.componentpalette import ComponentPalette
@@ -133,6 +134,7 @@ class PygubuDesigner:
         self.preview = None
         self.about_dialog = None
         self.preferences = None
+        self.project_settings = None
         self.script_generator = None
         self.builder = pygubu.Builder(translator)
         self.current_project = None
@@ -664,7 +666,7 @@ proc ::tk::dialog::file::Create {w class} {
         if project is None:
             project = Project()
         project.uidefinition = self.tree_editor.tree_to_uidef()
-        project.settings = self.script_generator.get_project_options()
+        # project.settings = self.script_generator.get_project_options()
         project.save(filename)
         self.current_project = project
         title = self.project_name()
@@ -752,6 +754,11 @@ proc ::tk::dialog::file::Create {w class} {
         else:
             action = f"<<ACTION_{itemid}>>"
             self.mainwindow.event_generate(action)
+
+    # Project menu
+    def on_project_menuitem_clicked(self, itemid):
+        if itemid == "project_settings":
+            self._edit_project_settings()
 
     # preview menu
     def on_previewmenu_action(self, itemid):
@@ -894,6 +901,27 @@ proc ::tk::dialog::file::Create {w class} {
             # self.preferences = pref.PreferencesUI(self.mainwindow, translator)
             self.preferences = DesignerSettings(self.mainwindow, translator)
         self.preferences.run()
+
+    def _edit_project_settings(self):
+        if self.project_settings is None:
+            self.project_settings = ProjectSettings(self.mainwindow, translator)
+            self.project_settings.on_settings_changed = (
+                self._on_project_settings_changed
+            )
+        if self.current_project is None:
+            return
+
+        settings = self.current_project.get_full_settings()
+        options = self.tree_editor.get_options_for_project_settings()
+        self.project_settings.setup(options)
+        self.project_settings.edit(settings)
+        self.project_settings.run()
+
+    def _on_project_settings_changed(self, new_settings: dict):
+        print("New full settings")
+        print(new_settings)
+        self.current_project.set_full_settings(new_settings)
+        self.set_changed()
 
     def project_name(self):
         name = None

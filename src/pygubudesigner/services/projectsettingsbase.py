@@ -8,8 +8,8 @@ PROJECT_UI = PROJECT_PATH / "project_settings.ui"
 
 
 class ProjectSettingsBase:
-    def __init__(self, master=None):
-        self.builder = builder = pygubu.Builder()
+    def __init__(self, master=None, translator=None):
+        self.builder = builder = pygubu.Builder(translator)
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
         # Main widget

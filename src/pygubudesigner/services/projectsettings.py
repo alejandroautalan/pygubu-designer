@@ -5,25 +5,25 @@ import tkinter.ttk as ttk
 import pprint as pp
 import pygubu
 
+import pygubudesigner.services.projectsettingsbase as psbase
 from tkinter import filedialog, messagebox
 from pygubu.forms.transformer import DataTransformer
 from pygubu.forms.exceptions import ValidationError
 from pygubu.forms.forms import FormWidget
-from projectsettingsbase import ProjectSettingsBase
-from pygubudesigner.preferences import NEW_STYLE_FILE_TEMPLATE
-
-
-def _(value):
-    return value
+from pygubudesigner.preferences import DATA_DIR, NEW_STYLE_FILE_TEMPLATE
+from pygubudesigner.i18n import translator as _
+from .project import Project
 
 
 class BoolTransformer(DataTransformer):
     def transform(self, value):
         tval = False
         try:
-            tval = bool(value)
+            tval = tk.getboolean(value)
         except ValueError:
             pass
+        print(f"transform:\n\tfrom {value} type:", type(value))
+        print(f"\tto {tval} type:", type(tval))
         return tval
 
     def reversetransform(self, value):
@@ -32,13 +32,20 @@ class BoolTransformer(DataTransformer):
             tval = tk.getboolean(value)
         except tk.TclError:
             pass
-        print(f"reversetransform: {tval}", type(tval))
+        print(
+            f"reversetransform: from {value} to {tval} final type:", type(tval)
+        )
         return tval
 
 
-class ProjectSettings(ProjectSettingsBase):
-    def __init__(self, master=None):
-        super().__init__(master)
+psbase.PROJECT_PATH = DATA_DIR / "ui"
+psbase.PROJECT_UI = psbase.PROJECT_PATH / "project_settings.ui"
+
+
+class ProjectSettings(psbase.ProjectSettingsBase):
+    def __init__(self, master=None, translator=None):
+        super().__init__(master, translator)
+        self.on_settings_changed = None
         self.dialog_toplevel = self.mainwindow.toplevel
         self.frm_general: FormWidget = self.builder.get_object("frm_general")
         self.frm_code: FormWidget = self.builder.get_object("frm_code")
@@ -81,17 +88,6 @@ class ProjectSettings(ProjectSettingsBase):
         self.mainwindow.run()
 
     def on_dialog_close(self, event=None):
-        # If the user closed this window from the window manager (ie: 'X' button),
-        # event will have a value, which means the user doesn't want to save changes.
-        if event:
-            # The user closed the window from the window manager.
-            # Reverse any preference changes made.
-            # self._cancel_changes()
-            pass
-        else:
-            # The user clicked the OK button, so save the changes.
-            # self._save_options()
-            pass
         self.mainwindow.close()
 
     def setup(self, options: dict):
@@ -101,31 +97,56 @@ class ProjectSettings(ProjectSettingsBase):
                 field = self.builder.get_object(key)
                 field.configure(values=options[key])
 
-    def edit_settings(self, settings, default):
-        self.frm_general.edit(settings, default)
-        self.frm_code.edit(settings, default)
-        self.frm_style.edit(settings, default)
+    def edit(self, settings):
+        default_settings = {
+            "name": "Project Name",
+            "description": "Project Long Description",
+            "module_name": "yourmodulename",
+            "main_classname": "YourClassName",
+            "template": "application",
+            "import_tkvariables": False,
+            "use_ttk_styledefinition_file": False,
+            "use_i18n": False,
+            "all_ids_attributes": False,
+            "ttk_style_definition_file": "",
+        }
+        self.frm_general.edit(settings, default_settings)
+        self.frm_code.edit(settings, default_settings)
+        self.frm_style.edit(settings, default_settings)
 
         template = self.frm_code.fields["template"].data
         self.template_desc_var.set(self.template_desc[template])
+
+        children = self.cwtree.get_children()
+        self.cwtree.delete(*children)
+        cwlist = settings.get("custom_widgets", [])
+        for path in cwlist:
+            self.cwtree.insert("", tk.END, text=path)
 
         self._configure_path_remove()
 
     def btn_apply_clicked(self):
         forms = (self.frm_general, self.frm_code, self.frm_style)
+        new_settings = {}
+        # Process forms
         all_valid = True
         for form in forms:
             form.submit()
             valid = form.is_valid()
             all_valid = all_valid and valid
             if valid:
-                print("valid!")
-                print("form data:")
-                pp.pprint(form.cleaned_data)
+                new_settings.update(form.cleaned_data)
             else:
                 print("invalid!")
                 pp.pprint(form.errors)
+
+        # Process custom widgets section
+        # FIXME: improve this
+        new_settings["custom_widgets"] = self._get_custom_widget_list()
+
         if all_valid:
+            if self.on_settings_changed is not None:
+                self.on_settings_changed(new_settings)
             self.mainwindow.close()
 
     def btn_cancel_clicked(self):
@@ -229,6 +250,13 @@ class ProjectSettings(ProjectSettingsBase):
         newstate = "normal" if has_children else "disabled"
         self.btn_cwremove.configure(state=newstate)
 
+    def _get_custom_widget_list(self) -> list:
+        cwlist = []
+        for item in self.cwtree.get_children():
+            value = self.cwtree.item(item, "text")
+            cwlist.append(value)
+        return cwlist
+
     def btn_cwadd_clicked(self):
         options = {
             "defaultextension": ".py",
@@ -249,5 +277,5 @@ class ProjectSettings(ProjectSettingsBase):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = ProjectSettingsBase(root)
+    app = ProjectSettings(root)
     app.run()

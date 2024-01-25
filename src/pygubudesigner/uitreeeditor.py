@@ -17,7 +17,7 @@ import logging
 import os
 import tkinter as tk
 import xml.etree.ElementTree as ET
-from collections import Counter
+from collections import Counter, OrderedDict
 from functools import partial
 from tkinter import messagebox
 
@@ -1308,6 +1308,17 @@ class WidgetsTreeEditor:
                 element = (item, label)
                 wlist.append(element)
         return wlist
+
+    def get_options_for_project_settings(self):
+        main_widget = OrderedDict()
+        main_menu = OrderedDict()
+        for item, data in self._top_widget_iterator():
+            label = f"{data.identifier} ({data.classname})"
+            if data.classname == "tk.Menu":
+                main_menu[data.identifier] = label
+            else:
+                main_widget[data.identifier] = label
+        return dict(main_widget=main_widget, main_menu=main_menu)
 
     def get_widget_class(self, item):
         return self.treedata[item].classname

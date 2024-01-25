@@ -41,6 +41,18 @@ class Project:
         self.uidefinition.project_options = self.settings
         self.uidefinition.save(filename)
 
+    def get_full_settings(self) -> dict:
+        settings = self.settings.copy()
+        cwlist = []
+        for path in self.custom_widgets:
+            cwlist.append(path)
+        settings["custom_widgets"] = cwlist
+        return settings
+
+    def set_full_settings(self, new_settings: dict):
+        self.custom_widgets = new_settings.pop("custom_widgets", [])
+        self.settings = new_settings
+
     @staticmethod
     def load(filename) -> "Project":
         uidef = UIDefinition(wmetaclass=WidgetMeta)
