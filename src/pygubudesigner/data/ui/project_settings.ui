@@ -244,7 +244,7 @@
                                 </object>
                               </child>
                               <child>
-                                <object class="pygubu.forms.ttk.ComboboxField" id="main_widget" named="True">
+                                <object class="pygubu.forms.pwforms.ComboboxField" id="main_widget" named="True">
                                   <property name="field_required">true</property>
                                   <property name="state">readonly</property>
                                   <layout manager="grid">
@@ -306,7 +306,7 @@
                                 </object>
                               </child>
                               <child>
-                                <object class="pygubu.forms.ttk.ComboboxField" id="main_menu" named="True">
+                                <object class="pygubu.forms.pwforms.ComboboxField" id="main_menu" named="True">
                                   <property name="field_required">false</property>
                                   <property name="state">readonly</property>
                                   <layout manager="grid">
