@@ -752,6 +752,8 @@ proc ::tk::dialog::file::Create {w class} {
     def on_project_menuitem_clicked(self, itemid):
         if itemid == "project_settings":
             self._edit_project_settings()
+        if itemid == "project_codegen":
+            self._project_code_generate()
 
     # preview menu
     def on_previewmenu_action(self, itemid):
@@ -913,6 +915,9 @@ proc ::tk::dialog::file::Create {w class} {
     def _on_project_settings_changed(self, new_settings: dict):
         self.current_project.set_full_settings(new_settings)
         self.set_changed()
+
+    def _project_code_generate(self):
+        print("Generate code")
 
     def project_name(self):
         name = None

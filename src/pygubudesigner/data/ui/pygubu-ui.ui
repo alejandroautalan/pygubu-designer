@@ -186,6 +186,15 @@
               <property name="label" translatable="yes">Settings</property>
             </object>
           </child>
+          <child>
+            <object class="tk.Menuitem.Separator" id="separator1" />
+          </child>
+          <child>
+            <object class="tk.Menuitem.Command" id="project_codegen" named="True">
+              <property name="command" type="command" cbtype="with_wid">on_project_menuitem_clicked</property>
+              <property name="label" translatable="yes">Generate code</property>
+            </object>
+          </child>
         </object>
       </child>
       <child>
