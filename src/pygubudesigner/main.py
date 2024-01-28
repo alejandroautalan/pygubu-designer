@@ -135,7 +135,6 @@ class PygubuDesigner:
         self.about_dialog = None
         self.preferences = None
         self.project_settings = None
-        self.script_generator = None
         self.builder = pygubu.Builder(translator)
         self.current_project = None
         self.is_changed = False
@@ -246,9 +245,6 @@ proc ::tk::dialog::file::Create {w class} {
 
         # tree editor
         self.tree_editor = WidgetsTreeEditor(self)
-
-        # Tab Code
-        self.script_generator = ScriptGenerator(self)
 
         # App bindings
         self._setup_app_bindings()
@@ -666,7 +662,6 @@ proc ::tk::dialog::file::Create {w class} {
         if project is None:
             project = Project()
         project.uidefinition = self.tree_editor.tree_to_uidef()
-        # project.settings = self.script_generator.get_project_options()
         project.save(filename)
         self.current_project = project
         title = self.project_name()
@@ -690,7 +685,6 @@ proc ::tk::dialog::file::Create {w class} {
             self.set_title(title)
             self.set_changed(False)
             self.rfiles_manager.addfile(str(fpath))
-            self.script_generator.configure(project.settings)
             # Reload palette with project custom widgets
             prefixes = [Path(cw).stem for cw in project.custom_widgets]
             self.tree_palette.project_custom_widget_prefixes = prefixes
@@ -731,7 +725,6 @@ proc ::tk::dialog::file::Create {w class} {
             self.current_project = None
             self.set_changed(False)
             self.set_title(self.project_name())
-            self.script_generator.reset()
 
     def on_file_save(self, event=None):
         file_saved = False
@@ -918,8 +911,6 @@ proc ::tk::dialog::file::Create {w class} {
         self.project_settings.run()
 
     def _on_project_settings_changed(self, new_settings: dict):
-        print("New full settings")
-        print(new_settings)
         self.current_project.set_full_settings(new_settings)
         self.set_changed()
 
@@ -930,37 +921,6 @@ proc ::tk::dialog::file::Create {w class} {
         else:
             name = self.current_project.fpath.name
         return name
-
-    def nbmain_tab_changed(self, event):
-        if event.widget.index("current") == 1:  # Index 1 is the code-tab
-            # TODO: fix this later.
-            # self.script_generator.update_view()
-            # if pref.get_option("auto_generate_code") == "yes":
-            #     self.on_code_generate_clicked()
-            pass
-
-    # Tab code management
-    def on_code_generate_clicked(self):
-        self.script_generator.on_code_generate_clicked()
-
-    def on_code_copy_clicked(self):
-        self.script_generator.on_code_copy_clicked()
-
-    def on_code_template_changed(self, event):
-        self.script_generator.on_code_template_changed(event)
-        if pref.get_option("auto_generate_code") == "yes":
-            self.on_code_generate_clicked()
-
-    def on_code_template_property_changed(self):
-        if (
-            pref.get_option("auto_generate_code") == "yes"
-            and pref.get_option("auto_generate_code_on_prop_change") == "yes"
-        ):
-            self.on_code_generate_clicked()
-        return True
-
-    def on_code_save_clicked(self):
-        self.script_generator.on_code_save_clicked()
 
     def setup_bottom_panel(self):
         self.log_panel = LogPanelManager(self)
