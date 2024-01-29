@@ -4,9 +4,9 @@
 class ${class_name}:
 %if with_i18n_support:
     def __init__(self, master=None, translator=None):
-        _ = translator
+        self._trans = translator
         if translator is None:
-            _ = lambda x: x
+            self._trans = lambda x: x
 %else:
     def __init__(self, master=None):
 %endif

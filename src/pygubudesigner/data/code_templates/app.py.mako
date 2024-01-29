@@ -8,27 +8,27 @@ PROJECT_UI = PROJECT_PATH / "${project_name}"
 class ${class_name}:
 %if with_i18n_support and has_ttk_styles:
     def __init__(self, master=None, translator=None, on_fist_object_cb=None):
-        self.builder = builder = pygubu.Builder(
+        self.builder = pygubu.Builder(
             translator=translator,
             on_first_object=on_fist_object_cb)
 %elif with_i18n_support:
     def __init__(self, master=None, translator=None):
-        self.builder = builder = pygubu.Builder(translator)
+        self.builder = pygubu.Builder(translator)
 %elif has_ttk_styles:
     def __init__(self, master=None, on_fist_object_cb=None):
-        self.builder = builder = pygubu.Builder(
+        self.builder = pygubu.Builder(
             on_first_object=on_fist_object_cb)
 %else:
     def __init__(self, master=None):
         self.builder = builder = pygubu.Builder()
 %endif
-        builder.add_resource_path(PROJECT_PATH)
-        builder.add_from_file(PROJECT_UI)
+        self.builder.add_resource_path(PROJECT_PATH)
+        self.builder.add_from_file(PROJECT_UI)
         # Main widget
-        self.mainwindow:${widget_base_class} = builder.get_object("${main_widget}", master)
+        self.mainwindow:${widget_base_class} = self.builder.get_object("${main_widget}", master)
 %if set_main_menu:
         # Main menu
-        _main_menu = builder.get_object("${main_menu_id}", self.mainwindow)
+        _main_menu = self.builder.get_object("${main_menu_id}", self.mainwindow)
         self.mainwindow.configure(menu=_main_menu)
 %endif
     %if tkvariables:
@@ -36,10 +36,10 @@ class ${class_name}:
         %for var in tkvariables:
         self.${var}:${tkvariablehints[var]} = None
         %endfor
-        builder.import_variables(self)
+        self.builder.import_variables(self)
 
     %endif
-        builder.connect_callbacks(self)
+        self.builder.connect_callbacks(self)
 
 %if add_window_centering_code:
     def center(self, event):
