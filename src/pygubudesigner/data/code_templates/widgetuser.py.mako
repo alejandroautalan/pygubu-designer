@@ -3,18 +3,17 @@
 <%block name="imports" filter="trim">
 # Note: Template in development.
 ${parent.imports()}
+from ${module_name}ui import ${class_name}UI
 </%block>
 
 <%block name="class_definition" filter="trim">
 #
-# Base class definition
+# Manual user code
 #
-class ${class_name}(${widget_base_class}):
+
+class ${class_name}(${class_name}UI):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
-${widget_code}
-
-${callbacks}\
 </%block>
 
 <%block name="main">

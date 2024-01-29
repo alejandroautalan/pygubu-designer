@@ -151,11 +151,52 @@ class ScriptGenerator:
             with open(outfn, "wt") as outfile:
                 outfile.write(final_code)
 
+    def _widget_code(self, generator, context):
+        uidef = self.tree.tree_to_uidef()
+        target = context["target"]
+
+        generator.with_i18n_support = False
+        generator.add_import_line("tkinter", "tk")
+        # Generate code
+        code = generator.generate_app_widget(uidef, target)
+        # Prepare template context
+        context["widget_code"] = code[target]
+        context["import_lines"] = code["imports"]
+        context["callbacks"] = code["callbacks"]
+
+        bcontext = context.copy()
+        bcontext["class_name"] = context["class_name"] + "UI"
+        tpl = makolookup.get_template("widget.py.mako")
+        final_code = tpl.render(**bcontext)
+        final_code = self._format_code(final_code)
+
+        uipath = self.app.current_project.fpath.parent
+        outfn = uipath / (context["module_name"] + "ui.py")
+        with open(outfn, "wt") as outfile:
+            outfile.write(final_code)
+
+        tpl = makolookup.get_template("widgetbo.py.mako")
+        final_code = tpl.render(**context)
+        final_code = self._format_code(final_code)
+        outfn: pathlib.Path = uipath / (context["module_name"] + "bo.py")
+        # DO NOT overwrite user module.
+        if not outfn.exists():
+            with open(outfn, "wt") as outfile:
+                outfile.write(final_code)
+
+        tpl = makolookup.get_template("widgetuser.py.mako")
+        final_code = tpl.render(**context)
+        final_code = self._format_code(final_code)
+        outfn: pathlib.Path = uipath / (context["module_name"] + ".py")
+        # DO NOT overwrite user module.
+        if not outfn.exists():
+            with open(outfn, "wt") as outfile:
+                outfile.write(final_code)
+
     def generate_code(self):
         project = self.app.current_project
         config = project.get_full_settings()
         generator = UI2Code()
-        uidef = self.tree.tree_to_uidef()
         template = config["template"]
         target = config["main_widget"]
         itemid = self.tree.get_tree_topitem_byid(target)
@@ -221,19 +262,7 @@ class ScriptGenerator:
         if template == "application":
             self._appui_code(generator, context)
         elif template == "widget":
-            generator.with_i18n_support = False
-            generator.add_import_line("tkinter", "tk")
-            # Generate code
-            code = generator.generate_app_widget(uidef, target)
-            # Prepare template context
-            context["widget_code"] = code[target]
-            context["import_lines"] = code["imports"]
-            context["callbacks"] = code["callbacks"]
-
-            tpl = makolookup.get_template("widget.py.mako")
-            final_code = tpl.render(**context)
-            final_code = self._format_code(final_code)
-            self.set_code(final_code)
+            self._widget_code(generator, context)
         elif template == "codescript":
             self._script_code(generator, context)
 
