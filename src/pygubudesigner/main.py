@@ -920,8 +920,6 @@ proc ::tk::dialog::file::Create {w class} {
     def _project_code_generate(self):
         if self.current_project is None:
             return
-        print(self.current_project.fpath)
-        print(self.current_project.get_full_settings())
         self.script_generator.generate_code()
 
     def project_name(self):
