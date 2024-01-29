@@ -245,7 +245,8 @@ proc ::tk::dialog::file::Create {w class} {
 
         # tree editor
         self.tree_editor = WidgetsTreeEditor(self)
-
+        # code generator
+        self.script_generator: ScriptGenerator = ScriptGenerator(self)
         # App bindings
         self._setup_app_bindings()
 
@@ -917,7 +918,11 @@ proc ::tk::dialog::file::Create {w class} {
         self.set_changed()
 
     def _project_code_generate(self):
-        print("Generate code")
+        if self.current_project is None:
+            return
+        print(self.current_project.fpath)
+        print(self.current_project.get_full_settings())
+        self.script_generator.generate_code()
 
     def project_name(self):
         name = None
