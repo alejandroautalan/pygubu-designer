@@ -68,6 +68,7 @@ class ScriptType(Enum):
 class RealizeMode(Enum):
     APP = 1
     METHOD = 2
+    MAIN_MENU = 3
 
 
 class UI2Code(Builder):
@@ -111,6 +112,7 @@ class UI2Code(Builder):
             "tabspaces": 8,
             "script_type": ScriptType.APP_WITH_UI,
             "on_first_object_cb": None,
+            "main_menu": None,
         }
         kwdef.update(kw)
         self._options = kwdef
@@ -165,13 +167,23 @@ class UI2Code(Builder):
         if wmeta is not None:
             self._code_realize(builder, wmeta)
 
-    def generate_app_with_ui(self, uidef, target):
+        #
+        # Generate method callback definitions for associated main menu.
+        #
+        main_menu = self._options["main_menu"]
+        if main_menu is not None:
+            wmeta = self.uidefinition.get_widget(main_menu)
+            self._realize_mode = RealizeMode.MAIN_MENU
+            self._code_realize(builder, wmeta)
+
+    def generate_app_with_ui(self, uidef, target, main_menu=None):
         self.generate(
             uidef,
             target,
             as_class=False,
             tabspaces=8,
             script_type=ScriptType.APP_WITH_UI,
+            main_menu=main_menu,
         )
         return self._process_results(target)
 
@@ -336,8 +348,11 @@ class UI2Code(Builder):
     def _add_new_code(self, newcode: list):
         if self._realize_mode == RealizeMode.APP:
             self._code.extend(newcode)
-        else:
+        elif self._realize_mode == RealizeMode.METHOD:
             self._methods[self._current_method].extend(newcode)
+        else:
+            # RealizeMode.MAIN_MENU
+            pass
 
     def _get_unique_id(self, wmeta, uniqueid, masterid):
         if self.as_class:
@@ -506,7 +521,7 @@ class UI2Code(Builder):
     def code_translate_str(self, value: str) -> str:
         escaped = BuilderObject.code_escape_str(value)
         if self.with_i18n_support:
-            trval = f"_({escaped})"
+            trval = f"self._trans({escaped})"
             return trval
         else:
             return escaped

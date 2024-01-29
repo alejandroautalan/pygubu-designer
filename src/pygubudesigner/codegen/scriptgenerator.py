@@ -43,7 +43,7 @@ class ScriptGenerator:
         _ = self.app.translator
         self.msgtitle = _("Script Generator")
 
-    def _gen_appcode(self, generator, context):
+    def _appui_code(self, generator, context):
         uidef = self.tree.tree_to_uidef()
 
         generator.add_import_line("pathlib")
@@ -51,7 +51,12 @@ class ScriptGenerator:
         generator.add_import_line("tkinter", "tk", priority=1)
         generator.add_import_line("pygubu", priority=10)
         target = context["target"]
-        code = generator.generate_app_with_ui(uidef, target)
+        main_menu_id = None
+        if context["set_main_menu"]:
+            main_menu_id = context["main_menu_id"]
+        code = generator.generate_app_with_ui(
+            uidef, target, main_menu=main_menu_id
+        )
 
         context["import_lines"] = code["imports"]
         # Set project paths
@@ -84,9 +89,67 @@ class ScriptGenerator:
         tpl = makolookup.get_template("appuser.py.mako")
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
-        outfn = uipath / (context["module_name"] + ".py")
+        outfn: pathlib.Path = uipath / (context["module_name"] + ".py")
+        # DO NOT overwrite user module.
+        if not outfn.exists():
+            with open(outfn, "wt") as outfile:
+                outfile.write(final_code)
+
+    def _script_code(self, generator, context):
+        uidef = self.tree.tree_to_uidef()
+        target = context["target"]
+
+        if not context["main_widget_is_toplevel"]:
+            generator.add_import_line("tkinter", "tk")
+
+        first_object_callback = None
+        if context["has_ttk_styles"]:
+            ttk_styles_module = context["ttk_styles_module"]
+            first_object_callback = f"{ttk_styles_module}.setup_ttk_styles"
+
+        methods = []
+        if context["set_main_menu"]:
+            methods.append(context["main_menu_id"])
+        # Generate code
+        code = generator.generate_app_code(
+            uidef,
+            target,
+            methods_for=methods,
+            on_first_object_cb=first_object_callback,
+        )
+
+        # Prepare template context
+        context["widget_code"] = code[target]
+        context["import_lines"] = code["imports"]
+        context["callbacks"] = code["callbacks"]
+        context["methods"] = code["methods"]
+        context["target_code_id"] = code["target_code_id"]
+
+        bcontext = context.copy()
+        bcontext["class_name"] = context["class_name"] + "UI"
+        tpl = makolookup.get_template("script.py.mako")
+        final_code = tpl.render(**bcontext)
+        final_code = self._format_code(final_code)
+
+        uipath = self.app.current_project.fpath.parent
+        outfn = uipath / (context["module_name"] + "ui.py")
         with open(outfn, "wt") as outfile:
             outfile.write(final_code)
+
+        context["import_lines"] += (
+            "\nfrom "
+            + context["module_name"]
+            + "ui import "
+            + bcontext["class_name"]
+        )
+        tpl = makolookup.get_template("scriptuser.py.mako")
+        final_code = tpl.render(**context)
+        final_code = self._format_code(final_code)
+        outfn: pathlib.Path = uipath / (context["module_name"] + ".py")
+        # DO NOT overwrite user module.
+        if not outfn.exists():
+            with open(outfn, "wt") as outfile:
+                outfile.write(final_code)
 
     def generate_code(self):
         project = self.app.current_project
@@ -156,7 +219,7 @@ class ScriptGenerator:
         generator.all_ids_as_attributes = bool(config["all_ids_attributes"])
 
         if template == "application":
-            self._gen_appcode(generator, context)
+            self._appui_code(generator, context)
         elif template == "widget":
             generator.with_i18n_support = False
             generator.add_import_line("tkinter", "tk")
@@ -172,35 +235,7 @@ class ScriptGenerator:
             final_code = self._format_code(final_code)
             self.set_code(final_code)
         elif template == "codescript":
-            if not main_widget_is_toplevel:
-                generator.add_import_line("tkinter", "tk")
-
-            first_object_callback = None
-            if has_ttk_styles:
-                first_object_callback = f"{ttk_styles_module}.setup_ttk_styles"
-
-            methods = []
-            if set_main_menu:
-                methods.append(main_menu_id)
-            # Generate code
-            code = generator.generate_app_code(
-                uidef,
-                target,
-                methods_for=methods,
-                on_first_object_cb=first_object_callback,
-            )
-
-            # Prepare template context
-            context["widget_code"] = code[target]
-            context["import_lines"] = code["imports"]
-            context["callbacks"] = code["callbacks"]
-            context["methods"] = code["methods"]
-            context["target_code_id"] = code["target_code_id"]
-
-            tpl = makolookup.get_template("script.py.mako")
-            final_code = tpl.render(**context)
-            final_code = self._format_code(final_code)
-            self.set_code(final_code)
+            self._script_code(generator, context)
 
     def camel_case(self, st):
         output = "".join(x for x in st.title() if x.isalnum())
