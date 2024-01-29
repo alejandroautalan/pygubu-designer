@@ -124,6 +124,7 @@ class ProjectSettings(psbase.ProjectSettingsBase):
             self.cwtree.insert("", tk.END, text=path)
 
         self._configure_path_remove()
+        self.on_template_change()
 
     def btn_apply_clicked(self):
         forms = (self.frm_general, self.frm_code, self.frm_style)
