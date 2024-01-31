@@ -38,7 +38,7 @@ class Project:
     def save(self, filename):
         self.fpath = pathlib.Path(filename)
         self.uidefinition.custom_widgets = self.custom_widgets
-        self.uidefinition.project_options = self.settings
+        self.uidefinition.project_settings = self.settings
         self.uidefinition.save(filename)
 
     def get_full_settings(self) -> dict:
@@ -84,5 +84,5 @@ class Project:
         project.fpath = filename
         project.uidefinition = uidef
         project.custom_widgets = uidef.custom_widgets
-        project.settings = uidef.project_options
+        project.settings = uidef.project_settings
         return project
