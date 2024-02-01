@@ -5,7 +5,7 @@ import tkinter.ttk as ttk
 import pprint as pp
 import pygubu
 
-import pygubudesigner.services.projectsettingsbase as psbase
+import pygubudesigner.services.projectsettingsui as psbase
 from tkinter import filedialog, messagebox
 from pygubu.forms.transformer import DataTransformer
 from pygubu.forms.exceptions import ValidationError
@@ -42,7 +42,7 @@ psbase.PROJECT_PATH = DATA_DIR / "ui"
 psbase.PROJECT_UI = psbase.PROJECT_PATH / "project_settings.ui"
 
 
-class ProjectSettings(psbase.ProjectSettingsBase):
+class ProjectSettings(psbase.ProjectSettingsUI):
     def __init__(self, master=None, translator=None):
         super().__init__(master, translator)
         self.on_settings_changed = None
