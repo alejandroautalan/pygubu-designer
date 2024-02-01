@@ -2,7 +2,7 @@
 import pathlib
 import tkinter as tk
 import tkinter.ttk as ttk
-import pprint as pp
+import logging
 import pygubu
 
 import pygubudesigner.services.projectsettingsui as psbase
@@ -15,6 +15,9 @@ from pygubudesigner.i18n import translator as _
 from .project import Project
 
 
+logger = logging.getLogger(__name__)
+
+
 class BoolTransformer(DataTransformer):
     def transform(self, value):
         tval = False
@@ -22,8 +25,13 @@ class BoolTransformer(DataTransformer):
             tval = tk.getboolean(value)
         except ValueError:
             pass
-        print(f"transform:\n\tfrom {value} type:", type(value))
-        print(f"\tto {tval} type:", type(tval))
+        logger.debug(
+            "transform: from {%s} type: {%s} to {%s} type: {%s}",
+            value,
+            type(value),
+            tval,
+            type(tval),
+        )
         return tval
 
     def reversetransform(self, value):
@@ -32,8 +40,11 @@ class BoolTransformer(DataTransformer):
             tval = tk.getboolean(value)
         except tk.TclError:
             pass
-        print(
-            f"reversetransform: from {value} to {tval} final type:", type(tval)
+        logger.debug(
+            "reversetransform: from {%s} to {%s} final type: %s",
+            value,
+            tval,
+            type(tval),
         )
         return tval
 
@@ -78,6 +89,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             "use_i18n",
             "all_ids_attributes",
             "generate_code_onsave",
+            "use_window_centering_code",
         )
         bool_transformer = BoolTransformer()
         for key in bool_options:
@@ -139,7 +151,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
                 new_settings.update(form.cleaned_data)
             else:
                 print("invalid!")
-                pp.pprint(form.errors)
+                print(form.errors)
 
         # Process custom widgets section
         # FIXME: improve this

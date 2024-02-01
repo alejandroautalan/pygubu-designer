@@ -392,6 +392,16 @@
                                   </layout>
                                 </object>
                               </child>
+                              <child>
+                                <object class="pygubu.forms.ttk.CheckbuttonField" id="use_window_centering_code" named="True">
+                                  <property name="text" translatable="yes">Add window centering code</property>
+                                  <property name="variable">boolean:use_windowcenter_code_var</property>
+                                  <layout manager="pack">
+                                    <property name="anchor">w</property>
+                                    <property name="side">top</property>
+                                  </layout>
+                                </object>
+                              </child>
                             </object>
                           </child>
                         </object>
@@ -611,14 +621,15 @@
     <setting id="module_name">projectsettings</setting>
     <setting id="output_dir">../../services</setting>
     <setting id="template">application</setting>
-    <setting id="main_widget">toplevel1</setting>
+    <setting id="main_widget">settingsdialog</setting>
     <setting id="main_classname">ProjectSettings</setting>
-    <setting id="main_menu"/>
+    <setting id="main_menu" />
     <setting id="import_tkvariables">False</setting>
     <setting id="use_ttk_styledefinition_file">False</setting>
     <setting id="use_i18n">False</setting>
     <setting id="all_ids_attributes">False</setting>
     <setting id="generate_code_onsave">True</setting>
+    <setting id="use_window_centering_code">False</setting>
     <setting id="ttk_style_definition_file" />
   </settings>
   <customwidgets />
