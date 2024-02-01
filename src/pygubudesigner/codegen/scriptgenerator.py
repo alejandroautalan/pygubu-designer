@@ -38,7 +38,6 @@ class ScriptGenerator:
         self.builder = app.builder
         self.tree = app.tree_editor
         self.projectname = ""
-        self.project_options = {}
 
         _ = self.app.translator
         self.msgtitle = _("Script Generator")
@@ -75,10 +74,11 @@ class ScriptGenerator:
         final_code = tpl.render(**bcontext)
         final_code = self._format_code(final_code)
 
-        uipath = self.app.current_project.fpath.parent
-        outfn = uipath / (context["module_name"] + "ui.py")
+        output_dir = context["output_dir"]
+        outfn = output_dir / (context["module_name"] + "ui.py")
         with open(outfn, "wt") as outfile:
             outfile.write(final_code)
+            logger.info("Generated code file: %s", outfn)
 
         context["import_lines"] += (
             "\nfrom "
@@ -89,11 +89,12 @@ class ScriptGenerator:
         tpl = makolookup.get_template("appuser.py.mako")
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
-        outfn: pathlib.Path = uipath / (context["module_name"] + ".py")
+        outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
             with open(outfn, "wt") as outfile:
                 outfile.write(final_code)
+                logger.info("Generated code file: %s", outfn)
 
     def _script_code(self, generator, context):
         uidef = self.tree.tree_to_uidef()
@@ -131,8 +132,8 @@ class ScriptGenerator:
         final_code = tpl.render(**bcontext)
         final_code = self._format_code(final_code)
 
-        uipath = self.app.current_project.fpath.parent
-        outfn = uipath / (context["module_name"] + "ui.py")
+        output_dir = context["output_dir"]
+        outfn = output_dir / (context["module_name"] + "ui.py")
         with open(outfn, "wt") as outfile:
             outfile.write(final_code)
 
@@ -145,11 +146,12 @@ class ScriptGenerator:
         tpl = makolookup.get_template("scriptuser.py.mako")
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
-        outfn: pathlib.Path = uipath / (context["module_name"] + ".py")
+        outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
             with open(outfn, "wt") as outfile:
                 outfile.write(final_code)
+                logger.info("Generated code file: %s", outfn)
 
     def _widget_code(self, generator, context):
         uidef = self.tree.tree_to_uidef()
@@ -170,28 +172,31 @@ class ScriptGenerator:
         final_code = tpl.render(**bcontext)
         final_code = self._format_code(final_code)
 
-        uipath = self.app.current_project.fpath.parent
-        outfn = uipath / (context["module_name"] + "ui.py")
+        output_dir = context["output_dir"]
+        outfn = output_dir / (context["module_name"] + "ui.py")
         with open(outfn, "wt") as outfile:
             outfile.write(final_code)
+            logger.info("Generated code file: %s", outfn)
 
         tpl = makolookup.get_template("widgetbo.py.mako")
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
-        outfn: pathlib.Path = uipath / (context["module_name"] + "bo.py")
+        outfn: pathlib.Path = output_dir / (context["module_name"] + "bo.py")
         # DO NOT overwrite user module.
         if not outfn.exists():
             with open(outfn, "wt") as outfile:
                 outfile.write(final_code)
+                logger.info("Generated code file: %s", outfn)
 
         tpl = makolookup.get_template("widgetuser.py.mako")
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
-        outfn: pathlib.Path = uipath / (context["module_name"] + ".py")
+        outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
             with open(outfn, "wt") as outfile:
                 outfile.write(final_code)
+                logger.info("Generated code file: %s", outfn)
 
     def generate_code(self):
         project = self.app.current_project
@@ -231,10 +236,19 @@ class ScriptGenerator:
         with_i18n_support = bool(config["use_i18n"])
         import_tk_vars = bool(config["import_tkvariables"])
         add_window_centering_code = bool(
-            config.get("add_window_centering_code", False)
+            config.get("use_window_centering_code", False)
         )
 
+        # calculate output dir
+        uipath = self.app.current_project.fpath.parent
+        output_dir: pathlib.Path = config["output_dir"]
+        if output_dir:
+            output_dir = uipath / output_dir
+        else:
+            output_dir = uipath
+
         context = {
+            "output_dir": output_dir,
             "target": target,
             "module_name": config["module_name"],
             "project_name": self.app.project_name(),
