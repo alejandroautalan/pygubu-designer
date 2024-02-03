@@ -6,6 +6,7 @@ import importlib
 from pygubu.component.uidefinition import UIDefinition
 from ..widgetdescr import WidgetMeta
 from ..i18n import translator
+from ..stylehandler import StyleHandler
 
 
 logger = logging.getLogger(__name__)
@@ -59,6 +60,8 @@ class Project:
         uidef.load_file(filename)
 
         uidir = pathlib.Path(filename).parent.resolve()
+
+        # Load custom widgets
         path_list = []
         notfound_list = []
         # Xml will have relative paths to UI file directory
@@ -79,6 +82,15 @@ class Project:
             # Load builders
             for path in path_list:
                 load_custom_widget(path)
+
+        # Load theme file
+        theme_file = uidef.project_settings.get("ttk_style_definition_file", "")
+        StyleHandler.clear_definition_file()
+        if theme_file:
+            theme_path: pathlib.Path = uidir / theme_file
+            if theme_path.exists() and theme_path.is_file():
+                # Load definitions file.
+                StyleHandler.set_definition_file(theme_path)
 
         project = Project()
         project.fpath = filename

@@ -55,6 +55,8 @@ from .uitreeeditor import WidgetsTreeEditor
 from .util import get_ttk_style, menu_iter_children, virtual_event
 from .util.keyboard import Key, key_bind
 from .util.screens import is_visible_in_screens, parse_geometry
+from .stylehandler import StyleHandler
+
 
 # Initialize logger
 logger = logging.getLogger(__name__)
@@ -726,6 +728,7 @@ proc ::tk::dialog::file::Create {w class} {
             self.current_project = None
             self.set_changed(False)
             self.set_title(self.project_name())
+            StyleHandler.clear_definition_file()
 
     def on_file_save(self, event=None):
         file_saved = False

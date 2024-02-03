@@ -18,9 +18,7 @@ import logging
 from pathlib import Path
 from tkinter import ttk
 
-from pygubudesigner import preferences as pref
 from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
-
 from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
@@ -50,6 +48,7 @@ class StyleRegister(ttk.Style):
 
 
 class StyleHandler:
+    current_definition_file = None
     last_definition_file = None
     last_modified_time = None
     required_function_name = "setup_ttk_styles"
@@ -104,45 +103,56 @@ class StyleHandler:
     @classmethod
     def get_ttk_styles_module(cls):
         module = None
-        style_definition_path = Path(pref.get_option("v_style_definition_file"))
-
-        if style_definition_path.is_file():
-            module = style_definition_path.stem
+        if cls.current_definition_file is not None:
+            if cls.current_definition_file.is_file():
+                module = cls.current_definition_file.stem
         return module
 
+    @classmethod
+    def set_definition_file(cls, filepath):
+        if not isinstance(filepath, Path):
+            raise ValueError()
+        cls.current_definition_file = filepath
+        logger.debug("New definitions file %s", str(filepath))
+
+    @classmethod
+    def clear_definition_file(cls):
+        StyleRegister.STYLE_DEFINITIONS.clear()
+        TtkStylePropertyEditor.set_global_style_list([])
+        cls.current_definition_file = None
+
     def check_definition_file(self, force_reload=False):
-        # print('checking definitions')
         # Get the path to the style definition file.
-        style_definition_path = Path(pref.get_option("v_style_definition_file"))
-
-        do_reload = False
-        has_definition_file = False
-        is_new_file = False
-        if style_definition_path.is_file():
-            has_definition_file = True
-            file_mtime = style_definition_path.stat().st_mtime
-            if StyleHandler.last_definition_file != style_definition_path:
-                do_reload = True
-                is_new_file = True
-                StyleHandler.last_definition_file = style_definition_path
-                StyleHandler.last_modified_time = file_mtime
-            if not is_new_file:
-                if file_mtime > StyleHandler.last_modified_time:
+        style_definition_path = self.current_definition_file
+        if style_definition_path is not None:
+            do_reload = False
+            has_definition_file = False
+            is_new_file = False
+            if style_definition_path.is_file():
+                has_definition_file = True
+                file_mtime = style_definition_path.stat().st_mtime
+                if StyleHandler.last_definition_file != style_definition_path:
                     do_reload = True
+                    is_new_file = True
+                    StyleHandler.last_definition_file = style_definition_path
                     StyleHandler.last_modified_time = file_mtime
-        if do_reload or (has_definition_file and force_reload):
-            # Clear and reload all the definitions.
+                if not is_new_file:
+                    if file_mtime > StyleHandler.last_modified_time:
+                        do_reload = True
+                        StyleHandler.last_modified_time = file_mtime
+            if do_reload or (has_definition_file and force_reload):
+                # Clear and reload all the definitions.
 
-            # Reason: so that definitions that are no longer in the definition file
-            # will no longer populate in the style combobox.
-            StyleRegister.STYLE_DEFINITIONS.clear()
+                # Reason: so that definitions that are no longer in the definition file
+                # will no longer populate in the style combobox.
+                StyleRegister.STYLE_DEFINITIONS.clear()
 
-            self._run_styles_module(style_definition_path)
+                self._run_styles_module(style_definition_path)
 
-            # Re-select the selected item so the style combobox
-            # will show the latest styles from the definition file.
-            if self.reselect_item_func is not None:
-                self.reselect_item_func()
+                # Re-select the selected item so the style combobox
+                # will show the latest styles from the definition file.
+                if self.reselect_item_func is not None:
+                    self.reselect_item_func()
 
         # schedule new check
         self.after_token = self.mframe.after(1000, self.check_definition_file)
