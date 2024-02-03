@@ -411,6 +411,7 @@ proc ::tk::dialog::file::Create {w class} {
         w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)
 
     def _setup_styles(self):
+        logger.debug("Applying designer styles.")
         self.mainwindow.option_add("*Dialog.msg.width", 34)
         self.mainwindow.option_add("*Dialog.msg.wrapLength", "6i")
 
@@ -439,6 +440,9 @@ proc ::tk::dialog::file::Create {w class} {
         )
         # Preview panel, Selection indicator color
         s.configure("PreviewIndicator.TFrame", background="red")
+
+        # TreeComponentPalette styles
+        s.configure("TreeComponentPalette.Treeview", rowheight=30)
 
         if sys.platform == "linux":
             # change background of comboboxes
@@ -590,6 +594,7 @@ proc ::tk::dialog::file::Create {w class} {
             self._setup_styles()
             event_name = "<<PygubuDesignerTtkThemeChanged>>"
             self.mainwindow.event_generate(event_name)
+            logger.debug("ttk theme changed to: %s", theme)
         except tk.TclError:
             logger.exception("Invalid ttk theme.")
 
