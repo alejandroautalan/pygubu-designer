@@ -133,7 +133,7 @@
     </object>
   </interfaces>
   <settings>
-    <setting id="name">Tree component palett</setting>
+    <setting id="name">Tree component palette</setting>
     <setting id="description">A tree component palette for pygubu-designer.</setting>
     <setting id="module_name">treecomponentpalette</setting>
     <setting id="output_dir">../../services/widgets</setting>
