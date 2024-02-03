@@ -1,7 +1,6 @@
 <%inherit file="base.py.mako"/>
 
 <%block name="imports" filter="trim">
-# Note: Template in development.
 ${parent.imports()}
 </%block>
 
