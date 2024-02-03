@@ -196,9 +196,6 @@ class PygubuDesigner:
 
         self.builder.connect_callbacks(self)
 
-        # setup app preferences
-        self.setup_app_preferences()
-
         #
         # Setup tkk styles
         #
@@ -251,6 +248,9 @@ proc ::tk::dialog::file::Create {w class} {
         self.script_generator: ScriptGenerator = ScriptGenerator(self)
         # App bindings
         self._setup_app_bindings()
+
+        # setup app preferences
+        self.setup_app_preferences()
 
     def run(self):
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
@@ -591,10 +591,10 @@ proc ::tk::dialog::file::Create {w class} {
         s = get_ttk_style()
         try:
             s.theme_use(theme)
+            logger.debug("ttk theme changed to: %s", theme)
             self._setup_styles()
             event_name = "<<PygubuDesignerTtkThemeChanged>>"
             self.mainwindow.event_generate(event_name)
-            logger.debug("ttk theme changed to: %s", theme)
         except tk.TclError:
             logger.exception("Invalid ttk theme.")
 
