@@ -2,6 +2,7 @@
 <%block name="project_paths" filter="trim">
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "${project_name}"
+RESOURCE_PATHS = [PROJECT_PATH]
 </%block>
 
 <%block name="class_definition" filter="trim">
@@ -22,7 +23,7 @@ class ${class_name}:
     def __init__(self, master=None):
         self.builder = builder = pygubu.Builder()
 %endif
-        self.builder.add_resource_path(PROJECT_PATH)
+        self.builder.add_resource_paths(RESOURCE_PATHS)
         self.builder.add_from_file(PROJECT_UI)
         # Main widget
         self.mainwindow:${widget_base_class} = self.builder.get_object("${main_widget}", master)
