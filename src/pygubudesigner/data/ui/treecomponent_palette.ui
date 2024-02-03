@@ -132,6 +132,22 @@
       </child>
     </object>
   </interfaces>
-  <project_options template="widget" main_widget_id="" main_menu_id="" main_classname="TreeComponentPalette" import_tkvariables="True" use_ttk_styledefinition_file="False" use_i18n="False" relative_path="true" output_path="" />
+  <settings>
+    <setting id="name">Tree component palett</setting>
+    <setting id="description">A tree component palette for pygubu-designer.</setting>
+    <setting id="module_name">treecomponentpalette</setting>
+    <setting id="output_dir">../../services/widgets</setting>
+    <setting id="template">widget</setting>
+    <setting id="main_widget">fmain</setting>
+    <setting id="main_classname">TreeComponentPalette</setting>
+    <setting id="main_menu" />
+    <setting id="import_tkvariables">False</setting>
+    <setting id="use_ttk_styledefinition_file">False</setting>
+    <setting id="use_i18n">False</setting>
+    <setting id="all_ids_attributes">False</setting>
+    <setting id="generate_code_onsave">False</setting>
+    <setting id="use_window_centering_code">False</setting>
+    <setting id="ttk_style_definition_file" />
+  </settings>
   <customwidgets />
 </project>
