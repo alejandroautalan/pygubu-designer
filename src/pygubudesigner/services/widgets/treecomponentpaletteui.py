@@ -7,7 +7,7 @@ from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 #
 # Base class definition
 #
-class TreeComponentPaletteBase(ttk.Frame):
+class TreeComponentPaletteUI(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
         frame1 = ttk.Frame(self)

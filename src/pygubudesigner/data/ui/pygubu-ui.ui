@@ -786,6 +786,6 @@
     <setting id="ttk_style_definition_file" />
   </settings>
   <customwidgets>
-    <customwidget path="../../services/builders/treecomponentpalettebo.py" />
+    <customwidget path="../../services/widgets/treecomponentpalettebo.py" />
   </customwidgets>
 </project>
