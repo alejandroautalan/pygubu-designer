@@ -41,6 +41,7 @@ from pygubudesigner import preferences as pref
 from pygubudesigner.services.project import Project
 from pygubudesigner.services.designersettings import DesignerSettings
 from pygubudesigner.services.projectsettings import ProjectSettings
+from pygubudesigner.services.aboutdialog import AboutDialog
 from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
 from pygubudesigner.widgets.componentpalette import ComponentPalette
@@ -853,49 +854,9 @@ proc ::tk::dialog::file::Create {w class} {
         """
         self.mainwindow.event_generate(actions.TREE_ITEM_DUPLICATE)
 
-    def _create_about_dialog(self):
-        builder = pygubu.Builder(translator)
-        builder.add_from_file(str(DATA_DIR / "ui" / "about_dialog.ui"))
-        builder.add_resource_path(str(DATA_DIR / "images"))
-
-        dialog = builder.get_object("aboutdialog", self.mainwindow)
-        entry = builder.get_object("version")
-        txt = entry.cget("text")
-        txt = txt.replace("%version%", str(pygubu.__version__))
-        entry.configure(text=txt)
-        entry = builder.get_object("designer_version")
-        txt = entry.cget("text")
-        txt = txt.replace("%version%", str(pygubudesigner.__version__))
-        entry.configure(text=txt)
-
-        def on_ok_execute():
-            dialog.close()
-
-        def on_gpl3_clicked(e):
-            url = "https://www.gnu.org/licenses/gpl-3.0.html"
-            webbrowser.open_new_tab(url)
-
-        def on_mit_clicked(e):
-            url = "https://opensource.org/licenses/MIT"
-            webbrowser.open_new_tab(url)
-
-        def on_moreinfo_clicked(e):
-            url = "https://github.com/alejandroautalan/pygubu-designer"
-            webbrowser.open_new_tab(url)
-
-        dialog_callbacks = {
-            "on_ok_execute": on_ok_execute,
-            "on_gpl3_clicked": on_gpl3_clicked,
-            "on_mit_clicked": on_mit_clicked,
-            "on_moreinfo_clicked": on_moreinfo_clicked,
-        }
-        builder.connect_callbacks(dialog_callbacks)
-
-        return dialog
-
     def show_about_dialog(self):
         if self.about_dialog is None:
-            self.about_dialog = self._create_about_dialog()
+            self.about_dialog = AboutDialog(self.mainwindow, translator)
             self.about_dialog.run()
         else:
             self.about_dialog.show()

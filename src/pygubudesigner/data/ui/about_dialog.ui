@@ -1,272 +1,292 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.3">
-  <object class="pygubu.builder.widgets.dialog" id="aboutdialog">
-    <property name="geometry">420x550</property>
-    <property name="height">100</property>
-    <property name="modal">False</property>
-    <property name="resizable">both</property>
-    <property name="title" translatable="yes">About</property>
-    <property name="width">200</property>
-    <child>
-      <object class="ttk.Frame" id="frame1">
-        <property name="height">250</property>
-        <property name="padding">5</property>
-        <property name="width">400</property>
-        <layout manager="pack">
-          <property name="expand">true</property>
-          <property name="fill">both</property>
-        </layout>
-        <child>
-          <object class="ttk.Frame" id="Frame_1">
-            <property name="height">200</property>
-            <property name="width">200</property>
-            <layout manager="pack">
-              <property name="expand">true</property>
-              <property name="fill">both</property>
-              <property name="side">top</property>
-            </layout>
-            <child>
-              <object class="ttk.Label" id="logo">
-                <property name="anchor">e</property>
-                <property name="font">Sans 18 bold</property>
-                <property name="image">pygubu200</property>
-                <property name="text" translatable="yes">pygubu</property>
-                <layout manager="pack">
-                  <property name="pady">0 20</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="ttk.Frame" id="frame2">
-                <property name="height">200</property>
-                <property name="width">200</property>
-                <layout manager="pack">
-                  <property name="fill">both</property>
-                  <property name="pady">0 10</property>
-                  <property name="side">top</property>
-                </layout>
-                <child>
-                  <object class="ttk.Frame" id="frame4">
-                    <property name="height">200</property>
-                    <property name="width">200</property>
-                    <layout manager="pack">
-                      <property name="side">top</property>
-                    </layout>
-                    <child>
-                      <object class="ttk.Label" id="label1">
-                        <property name="font">{sans} 12 {bold}</property>
-                        <property name="text" translatable="yes">This program:</property>
-                        <layout manager="pack">
+<project version="1.4" author="PygubuDesigner 0.37">
+  <interfaces>
+    <object class="pygubu.builder.widgets.dialog" id="aboutdialog">
+      <property name="geometry">420x550</property>
+      <property name="height">100</property>
+      <property name="modal">False</property>
+      <property name="resizable">both</property>
+      <property name="title" translatable="yes">About</property>
+      <property name="width">200</property>
+      <child>
+        <object class="ttk.Frame" id="frame1">
+          <property name="height">250</property>
+          <property name="padding">5</property>
+          <property name="width">400</property>
+          <layout manager="pack">
+            <property name="expand">true</property>
+            <property name="fill">both</property>
+          </layout>
+          <child>
+            <object class="ttk.Frame" id="Frame_1">
+              <property name="height">200</property>
+              <property name="width">200</property>
+              <layout manager="pack">
+                <property name="expand">true</property>
+                <property name="fill">both</property>
+                <property name="side">top</property>
+              </layout>
+              <child>
+                <object class="ttk.Label" id="logo">
+                  <property name="anchor">e</property>
+                  <property name="font">Sans 18 bold</property>
+                  <property name="image">pygubu200</property>
+                  <property name="text" translatable="yes">pygubu</property>
+                  <layout manager="pack">
+                    <property name="pady">0 20</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="ttk.Frame" id="frame2">
+                  <property name="height">200</property>
+                  <property name="width">200</property>
+                  <layout manager="pack">
+                    <property name="fill">both</property>
+                    <property name="pady">0 10</property>
+                    <property name="side">top</property>
+                  </layout>
+                  <child>
+                    <object class="ttk.Frame" id="frame4">
+                      <property name="height">200</property>
+                      <property name="width">200</property>
+                      <layout manager="pack">
+                        <property name="side">top</property>
+                      </layout>
+                      <child>
+                        <object class="ttk.Label" id="label1">
+                          <property name="font">{sans} 12 {bold}</property>
+                          <property name="text" translatable="yes">This program:</property>
+                          <layout manager="pack">
+                            <property name="anchor">center</property>
+                            <property name="side">left</property>
+                          </layout>
+                        </object>
+                      </child>
+                      <child>
+                        <object class="ttk.Label" id="label2">
+                          <property name="font">{sans} 12 {bold}</property>
+                          <property name="text" translatable="yes">pygubu-designer</property>
+                          <layout manager="pack">
+                            <property name="anchor">center</property>
+                            <property name="padx">5 0</property>
+                            <property name="side">left</property>
+                          </layout>
+                        </object>
+                      </child>
+                    </object>
+                  </child>
+                  <child>
+                    <object class="ttk.Label" id="label3">
+                      <property name="font">{Sans} 10 {}</property>
+                      <property name="justify">center</property>
+                      <property name="text" translatable="yes">A visual design tool for tkinter that generates Python code for the user interface portion of your desktop application.</property>
+                      <property name="wraplength">420</property>
+                      <layout manager="pack">
+                        <property name="fill">both</property>
+                        <property name="pady">2</property>
+                        <property name="side">top</property>
+                      </layout>
+                    </object>
+                  </child>
+                  <child>
+                    <object class="ttk.Label" id="designer_version">
+                      <property name="font">{sans} 10 {}</property>
+                      <property name="text" translatable="yes">Version: %version%</property>
+                      <layout manager="pack">
+                        <property name="side">top</property>
+                      </layout>
+                    </object>
+                  </child>
+                  <child>
+                    <object class="ttk.Frame" id="frame7">
+                      <property name="height">200</property>
+                      <property name="width">200</property>
+                      <layout manager="pack">
+                        <property name="side">top</property>
+                      </layout>
+                      <child>
+                        <object class="ttk.Label" id="label7">
+                          <property name="font">{sans} 10 {}</property>
+                          <property name="text" translatable="yes">License:</property>
+                          <layout manager="pack">
+                            <property name="side">left</property>
+                          </layout>
+                        </object>
+                      </child>
+                      <child>
+                        <object class="ttk.Label" id="licence_link">
                           <property name="anchor">center</property>
-                          <property name="side">left</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ttk.Label" id="label2">
-                        <property name="font">{sans} 12 {bold}</property>
-                        <property name="text" translatable="yes">pygubu-designer</property>
-                        <layout manager="pack">
+                          <property name="cursor">hand2</property>
+                          <property name="font">{Sans} 10 {}</property>
+                          <property name="foreground">#143ee3</property>
+                          <property name="text" translatable="yes">GPL3</property>
+                          <bind sequence="&lt;Button-1&gt;" handler="on_gpl3_clicked" add="" />
+                          <layout manager="pack">
+                            <property name="padx">5 0</property>
+                            <property name="side">left</property>
+                          </layout>
+                        </object>
+                      </child>
+                    </object>
+                  </child>
+                </object>
+              </child>
+              <child>
+                <object class="ttk.Frame" id="frame3">
+                  <property name="height">200</property>
+                  <property name="width">200</property>
+                  <layout manager="pack">
+                    <property name="fill">both</property>
+                    <property name="side">top</property>
+                  </layout>
+                  <child>
+                    <object class="ttk.Frame" id="frame5">
+                      <property name="height">200</property>
+                      <property name="width">200</property>
+                      <layout manager="pack">
+                        <property name="side">top</property>
+                      </layout>
+                      <child>
+                        <object class="ttk.Label" id="label4">
+                          <property name="font">{sans} 11 {bold}</property>
+                          <property name="text" translatable="yes">Associated program:</property>
+                          <layout manager="pack">
+                            <property name="side">left</property>
+                          </layout>
+                        </object>
+                      </child>
+                      <child>
+                        <object class="ttk.Label" id="label5">
+                          <property name="font">{sans} 11 {bold}</property>
+                          <property name="text" translatable="yes">pygubu</property>
+                          <layout manager="pack">
+                            <property name="padx">5 0</property>
+                            <property name="side">left</property>
+                          </layout>
+                        </object>
+                      </child>
+                    </object>
+                  </child>
+                  <child>
+                    <object class="ttk.Label" id="label6">
+                      <property name="font">{sans} 10 {}</property>
+                      <property name="justify">center</property>
+                      <property name="text" translatable="yes">A run-time library that the designer requires. It is optional for your application.</property>
+                      <property name="wraplength">420</property>
+                      <layout manager="pack">
+                        <property name="fill">both</property>
+                        <property name="pady">2</property>
+                        <property name="side">top</property>
+                      </layout>
+                    </object>
+                  </child>
+                  <child>
+                    <object class="ttk.Label" id="version">
+                      <property name="font">{Sans} 10 {}</property>
+                      <property name="text" translatable="yes">Version: %version%</property>
+                      <layout manager="pack" />
+                    </object>
+                  </child>
+                  <child>
+                    <object class="ttk.Frame" id="frame8">
+                      <property name="height">200</property>
+                      <property name="width">200</property>
+                      <layout manager="pack">
+                        <property name="side">top</property>
+                      </layout>
+                      <child>
+                        <object class="ttk.Label" id="label10">
+                          <property name="font">{sans} 10 {}</property>
+                          <property name="text" translatable="yes">License:</property>
+                          <layout manager="pack">
+                            <property name="side">left</property>
+                          </layout>
+                        </object>
+                      </child>
+                      <child>
+                        <object class="ttk.Label" id="label11">
                           <property name="anchor">center</property>
-                          <property name="padx">5 0</property>
-                          <property name="side">left</property>
-                        </layout>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="ttk.Label" id="label3">
-                    <property name="font">{Sans} 10 {}</property>
-                    <property name="justify">center</property>
-                    <property name="text" translatable="yes">A visual design tool for tkinter that generates Python code for the user interface portion of your desktop application.</property>
-                    <property name="wraplength">420</property>
-                    <layout manager="pack">
-                      <property name="fill">both</property>
-                      <property name="pady">2</property>
-                      <property name="side">top</property>
-                    </layout>
-                  </object>
-                </child>
-                <child>
-                  <object class="ttk.Label" id="designer_version">
-                    <property name="font">{sans} 10 {}</property>
-                    <property name="text" translatable="yes">Version: %version%</property>
-                    <layout manager="pack">
-                      <property name="side">top</property>
-                    </layout>
-                  </object>
-                </child>
-                <child>
-                  <object class="ttk.Frame" id="frame7">
-                    <property name="height">200</property>
-                    <property name="width">200</property>
-                    <layout manager="pack">
-                      <property name="side">top</property>
-                    </layout>
-                    <child>
-                      <object class="ttk.Label" id="label7">
-                        <property name="font">{sans} 10 {}</property>
-                        <property name="text" translatable="yes">License:</property>
-                        <layout manager="pack">
-                          <property name="side">left</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ttk.Label" id="licence_link">
-                        <property name="anchor">center</property>
-                        <property name="cursor">hand2</property>
-                        <property name="font">{Sans} 10 {}</property>
-                        <property name="foreground">#143ee3</property>
-                        <property name="text" translatable="yes">GPL3</property>
-                        <bind sequence="&lt;Button-1&gt;" handler="on_gpl3_clicked" add="" />
-                        <layout manager="pack">
-                          <property name="padx">5 0</property>
-                          <property name="side">left</property>
-                        </layout>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="ttk.Frame" id="frame3">
-                <property name="height">200</property>
-                <property name="width">200</property>
-                <layout manager="pack">
-                  <property name="fill">both</property>
-                  <property name="side">top</property>
-                </layout>
-                <child>
-                  <object class="ttk.Frame" id="frame5">
-                    <property name="height">200</property>
-                    <property name="width">200</property>
-                    <layout manager="pack">
-                      <property name="side">top</property>
-                    </layout>
-                    <child>
-                      <object class="ttk.Label" id="label4">
-                        <property name="font">{sans} 11 {bold}</property>
-                        <property name="text" translatable="yes">Associated program:</property>
-                        <layout manager="pack">
-                          <property name="side">left</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ttk.Label" id="label5">
-                        <property name="font">{sans} 11 {bold}</property>
-                        <property name="text" translatable="yes">pygubu</property>
-                        <layout manager="pack">
-                          <property name="padx">5 0</property>
-                          <property name="side">left</property>
-                        </layout>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="ttk.Label" id="label6">
-                    <property name="font">{sans} 10 {}</property>
-                    <property name="justify">center</property>
-                    <property name="text" translatable="yes">A run-time library that the designer requires. It is optional for your application.</property>
-                    <property name="wraplength">420</property>
-                    <layout manager="pack">
-                      <property name="fill">both</property>
-                      <property name="pady">2</property>
-                      <property name="side">top</property>
-                    </layout>
-                  </object>
-                </child>
-                <child>
-                  <object class="ttk.Label" id="version">
-                    <property name="font">{Sans} 10 {}</property>
-                    <property name="text" translatable="yes">Version: %version%</property>
-                    <layout manager="pack" />
-                  </object>
-                </child>
-                <child>
-                  <object class="ttk.Frame" id="frame8">
-                    <property name="height">200</property>
-                    <property name="width">200</property>
-                    <layout manager="pack">
-                      <property name="side">top</property>
-                    </layout>
-                    <child>
-                      <object class="ttk.Label" id="label10">
-                        <property name="font">{sans} 10 {}</property>
-                        <property name="text" translatable="yes">License:</property>
-                        <layout manager="pack">
-                          <property name="side">left</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ttk.Label" id="label11">
-                        <property name="anchor">center</property>
-                        <property name="cursor">hand2</property>
-                        <property name="font">{Sans} 10 {}</property>
-                        <property name="foreground">#143ee3</property>
-                        <property name="text" translatable="yes">MIT</property>
-                        <bind sequence="&lt;Button-1&gt;" handler="on_mit_clicked" add="" />
-                        <layout manager="pack">
-                          <property name="padx">5 0</property>
-                          <property name="side">left</property>
-                        </layout>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="ttk.Frame" id="frame6">
-                <property name="height">200</property>
-                <property name="width">200</property>
-                <layout manager="pack">
-                  <property name="pady">10 0</property>
-                  <property name="side">top</property>
-                </layout>
-                <child>
-                  <object class="ttk.Label" id="label9">
-                    <property name="anchor">center</property>
-                    <property name="cursor">hand2</property>
-                    <property name="font">{Sans} 10 {}</property>
-                    <property name="foreground">#143ee3</property>
-                    <property name="text" translatable="yes">More info.</property>
-                    <bind sequence="&lt;Button-1&gt;" handler="on_moreinfo_clicked" add="" />
-                    <layout manager="pack">
-                      <property name="pady">10 0</property>
-                      <property name="side">top</property>
-                    </layout>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Frame" id="bottom">
-            <property name="height" />
-            <property name="padding">0 10 0 0</property>
-            <property name="width" />
-            <layout manager="pack">
-              <property name="fill">x</property>
-            </layout>
-            <child>
-              <object class="ttk.Button" id="close_btn">
-                <property name="command" type="command" cbtype="simple" args="">on_ok_execute</property>
-                <property name="text" translatable="yes">Close</property>
-                <layout manager="pack">
-                  <property name="side">right</property>
-                </layout>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
-</interface>
+                          <property name="cursor">hand2</property>
+                          <property name="font">{Sans} 10 {}</property>
+                          <property name="foreground">#143ee3</property>
+                          <property name="text" translatable="yes">MIT</property>
+                          <bind sequence="&lt;Button-1&gt;" handler="on_mit_clicked" add="" />
+                          <layout manager="pack">
+                            <property name="padx">5 0</property>
+                            <property name="side">left</property>
+                          </layout>
+                        </object>
+                      </child>
+                    </object>
+                  </child>
+                </object>
+              </child>
+              <child>
+                <object class="ttk.Frame" id="frame6">
+                  <property name="height">200</property>
+                  <property name="width">200</property>
+                  <layout manager="pack">
+                    <property name="pady">10 0</property>
+                    <property name="side">top</property>
+                  </layout>
+                  <child>
+                    <object class="ttk.Label" id="label9">
+                      <property name="anchor">center</property>
+                      <property name="cursor">hand2</property>
+                      <property name="font">{Sans} 10 {}</property>
+                      <property name="foreground">#143ee3</property>
+                      <property name="text" translatable="yes">More info.</property>
+                      <bind sequence="&lt;Button-1&gt;" handler="on_moreinfo_clicked" add="" />
+                      <layout manager="pack">
+                        <property name="pady">10 0</property>
+                        <property name="side">top</property>
+                      </layout>
+                    </object>
+                  </child>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="ttk.Frame" id="bottom">
+              <property name="height" />
+              <property name="padding">0 10 0 0</property>
+              <property name="width" />
+              <layout manager="pack">
+                <property name="fill">x</property>
+              </layout>
+              <child>
+                <object class="ttk.Button" id="close_btn">
+                  <property name="command" type="command" cbtype="simple" args="">on_ok_execute</property>
+                  <property name="text" translatable="yes">Close</property>
+                  <layout manager="pack">
+                    <property name="side">right</property>
+                  </layout>
+                </object>
+              </child>
+            </object>
+          </child>
+        </object>
+      </child>
+    </object>
+  </interfaces>
+  <settings>
+    <setting id="name">About Dialog</setting>
+    <setting id="description">About dialog for pygubu designer.</setting>
+    <setting id="module_name">aboutdialog</setting>
+    <setting id="output_dir">../../services</setting>
+    <setting id="template">application</setting>
+    <setting id="main_widget">aboutdialog</setting>
+    <setting id="main_classname">AboutDialog</setting>
+    <setting id="main_menu" />
+    <setting id="import_tkvariables">True</setting>
+    <setting id="use_ttk_styledefinition_file">False</setting>
+    <setting id="use_i18n">True</setting>
+    <setting id="all_ids_attributes">False</setting>
+    <setting id="generate_code_onsave">False</setting>
+    <setting id="use_window_centering_code">False</setting>
+    <setting id="ttk_style_definition_file" />
+  </settings>
+  <customwidgets />
+</project>
