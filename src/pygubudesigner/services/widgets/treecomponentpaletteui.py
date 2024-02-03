@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.widgets.filterabletreeview import FilterableTreeview
@@ -10,28 +11,30 @@ from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 class TreeComponentPaletteUI(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
-        frame1 = ttk.Frame(self)
-        frame1.configure(height=200, width=200)
-        label3 = ttk.Label(frame1)
-        label3.configure(
+        self.frame1 = ttk.Frame(self)
+        self.frame1.configure(height=200, width=200)
+        self.label3 = ttk.Label(self.frame1)
+        self.label3.configure(
             compound="left", font="TkSmallCaptionFont", text="Filter:"
         )
-        label3.pack(fill="both", side="left")
-        entry2 = ttk.Entry(frame1)
+        self.label3.pack(fill="both", side="left")
+        self.entry2 = ttk.Entry(self.frame1)
         self.filter_text_var = tk.StringVar()
-        entry2.configure(textvariable=self.filter_text_var, width=10)
-        entry2.pack(expand=True, fill="x", padx="5 5", side="left")
-        entry2.bind("<KeyPress>", self.on_filter_keypress, add="")
-        self.btn_filter_cancel = ttk.Button(frame1, name="btn_filter_cancel")
+        self.entry2.configure(textvariable=self.filter_text_var, width=10)
+        self.entry2.pack(expand=True, fill="x", padx="5 5", side="left")
+        self.entry2.bind("<KeyPress>", self.on_filter_keypress, add="")
+        self.btn_filter_cancel = ttk.Button(
+            self.frame1, name="btn_filter_cancel"
+        )
         self.btn_filter_cancel.configure(
             style="Toolbutton", takefocus=True, width=-2
         )
         self.btn_filter_cancel.pack(side="left")
         self.btn_filter_cancel.configure(command=self.on_filter_clear)
-        separator1 = ttk.Separator(frame1)
-        separator1.configure(orient="vertical")
-        separator1.pack(fill="y", padx=2, side="left")
-        self.fb_show_alltk = ttk.Checkbutton(frame1, name="fb_show_alltk")
+        self.separator1 = ttk.Separator(self.frame1)
+        self.separator1.configure(orient="vertical")
+        self.separator1.pack(fill="y", padx=2, side="left")
+        self.fb_show_alltk = ttk.Checkbutton(self.frame1, name="fb_show_alltk")
         self.var_show_alltk = tk.BooleanVar()
         self.fb_show_alltk.configure(
             offvalue=False,
@@ -43,13 +46,13 @@ class TreeComponentPaletteUI(ttk.Frame):
         )
         self.fb_show_alltk.pack(fill="both", side="left")
         self.fb_show_alltk.configure(command=self.on_show_alltk)
-        frame1.grid(column=0, pady="0 1", row=0, sticky="ew")
-        frame3 = ttk.Frame(self)
-        frame3.configure(height=200, width=200)
-        scrollbarhelper3 = ScrollbarHelper(frame3, scrolltype="both")
-        scrollbarhelper3.configure(usemousewheel=False)
+        self.frame1.grid(column=0, pady="0 1", row=0, sticky="ew")
+        self.frame3 = ttk.Frame(self)
+        self.frame3.configure(height=200, width=200)
+        self.scrollbarhelper3 = ScrollbarHelper(self.frame3, scrolltype="both")
+        self.scrollbarhelper3.configure(usemousewheel=False)
         self.cptree = FilterableTreeview(
-            scrollbarhelper3.container, name="cptree"
+            self.scrollbarhelper3.container, name="cptree"
         )
         self.cptree.configure(style="TreeComponentPalette.Treeview")
         self.cptree_cols = []
@@ -62,9 +65,9 @@ class TreeComponentPaletteUI(ttk.Frame):
         )
         self.cptree.heading("#0", anchor="w", text="Components")
         self.cptree.pack(expand=True, fill="both", side="top")
-        scrollbarhelper3.add_child(self.cptree)
-        scrollbarhelper3.pack(expand=True, fill="both", side="top")
-        frame3.grid(column=0, row=2, sticky="nsew")
+        self.scrollbarhelper3.add_child(self.cptree)
+        self.scrollbarhelper3.pack(expand=True, fill="both", side="top")
+        self.frame3.grid(column=0, row=2, sticky="nsew")
         self.configure(height=200, padding=2, width=200)
         self.pack(expand=True, fill="both", side="top")
         self.rowconfigure(2, weight=1)
@@ -78,3 +81,10 @@ class TreeComponentPaletteUI(ttk.Frame):
 
     def on_show_alltk(self):
         pass
+
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    widget = TreeComponentPaletteUI(root)
+    widget.pack(expand=True, fill="both")
+    root.mainloop()
