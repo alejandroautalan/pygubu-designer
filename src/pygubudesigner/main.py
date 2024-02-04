@@ -445,6 +445,16 @@ proc ::tk::dialog::file::Create {w class} {
         # TreeComponentPalette styles
         s.configure("TreeComponentPalette.Treeview", rowheight=30)
 
+        # Forms ??
+        s.configure("LabelFieldInfo.TLabel")
+        s.configure("Error.LabelFieldInfo.TLabel", foreground="red")
+        s.configure("Error.EntryField.TEntry", fieldbackground="yellow")
+        s.configure("Error.ComboboxField.TCombobox", fieldbackground="yellow")
+        s.map(
+            "Error.ComboboxField.TCombobox",
+            fieldbackground=[("readonly", "yellow")],
+        )
+
         if sys.platform == "linux":
             # change background of comboboxes
             color = s.lookup("TEntry", "fieldbackground")

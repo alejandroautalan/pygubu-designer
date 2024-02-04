@@ -150,8 +150,10 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             if valid:
                 new_settings.update(form.cleaned_data)
             else:
-                print("invalid!")
-                print(form.errors)
+                notebook: ttk.Notebook = form.nametowidget(form.winfo_parent())
+                index = notebook.index(form)
+                notebook.select(index)
+                # print(form.errors)
 
         # Process custom widgets section
         # FIXME: improve this

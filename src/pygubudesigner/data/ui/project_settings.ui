@@ -139,6 +139,7 @@
                               <child>
                                 <object class="pygubu.forms.ttk.EntryField" id="module_name" named="True">
                                   <property name="field_required">true</property>
+                                  <property name="style">EntryField.TEntry</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="ipady">3</property>
@@ -150,6 +151,7 @@
                               <child>
                                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo4">
                                   <property name="field_name">module_name</property>
+                                  <property name="style">LabelFieldInfo.TLabel</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="row">1</property>
@@ -178,6 +180,7 @@
                                   <child>
                                     <object class="pygubu.forms.ttk.EntryField" id="output_dir" named="True">
                                       <property name="field_required">false</property>
+                                      <property name="style">EntryField.TEntry</property>
                                       <layout manager="pack">
                                         <property name="expand">true</property>
                                         <property name="fill">x</property>
@@ -191,6 +194,7 @@
                               <child>
                                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo5">
                                   <property name="field_name">output_dir</property>
+                                  <property name="style">LabelFieldInfo.TLabel</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="row">3</property>
@@ -211,6 +215,7 @@
                               <child>
                                 <object class="pygubu.forms.pwforms.ComboboxField" id="template" named="True">
                                   <property name="field_required">true</property>
+                                  <property name="style">ComboboxField.TCombobox</property>
                                   <bind sequence="&lt;&lt;ComboboxSelected&gt;&gt;" handler="on_template_change" add="" />
                                   <layout manager="grid">
                                     <property name="column">1</property>
@@ -247,6 +252,7 @@
                                 <object class="pygubu.forms.pwforms.ComboboxField" id="main_widget" named="True">
                                   <property name="field_required">true</property>
                                   <property name="state">readonly</property>
+                                  <property name="style">ComboboxField.TCombobox</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="ipady">3</property>
@@ -258,6 +264,7 @@
                               <child>
                                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo1">
                                   <property name="field_name">main_widget</property>
+                                  <property name="style">LabelFieldInfo.TLabel</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="row">8</property>
@@ -277,6 +284,7 @@
                               <child>
                                 <object class="pygubu.forms.ttk.EntryField" id="main_classname" named="True">
                                   <property name="field_required">true</property>
+                                  <property name="style">EntryField.TEntry</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="ipady">3</property>
@@ -288,6 +296,7 @@
                               <child>
                                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo2">
                                   <property name="field_name">main_classname</property>
+                                  <property name="style">LabelFieldInfo.TLabel</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="row">10</property>
@@ -309,6 +318,7 @@
                                 <object class="pygubu.forms.pwforms.ComboboxField" id="main_menu" named="True">
                                   <property name="field_required">false</property>
                                   <property name="state">readonly</property>
+                                  <property name="style">ComboboxField.TCombobox</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="ipady">3</property>
@@ -320,6 +330,7 @@
                               <child>
                                 <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo3">
                                   <property name="field_name">main_menu</property>
+                                  <property name="style">LabelFieldInfo.TLabel</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
                                     <property name="row">12</property>
@@ -603,7 +614,7 @@
               <child>
                 <object class="ttk.Button" id="button6">
                   <property name="command" type="command" cbtype="simple">btn_apply_clicked</property>
-                  <property name="text" translatable="yes">Apply</property>
+                  <property name="text" translatable="yes">Ok</property>
                   <layout manager="pack">
                     <property name="side">left</property>
                   </layout>
@@ -624,9 +635,9 @@
     <setting id="main_widget">settingsdialog</setting>
     <setting id="main_classname">ProjectSettings</setting>
     <setting id="main_menu" />
-    <setting id="import_tkvariables">False</setting>
+    <setting id="import_tkvariables">True</setting>
     <setting id="use_ttk_styledefinition_file">False</setting>
-    <setting id="use_i18n">False</setting>
+    <setting id="use_i18n">True</setting>
     <setting id="all_ids_attributes">False</setting>
     <setting id="generate_code_onsave">True</setting>
     <setting id="use_window_centering_code">False</setting>

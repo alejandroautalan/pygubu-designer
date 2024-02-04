@@ -5,12 +5,13 @@ import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "project_settings.ui"
+RESOURCE_PATHS = [PROJECT_PATH]
 
 
 class ProjectSettingsUI:
     def __init__(self, master=None, translator=None):
         self.builder = pygubu.Builder(translator)
-        self.builder.add_resource_path(PROJECT_PATH)
+        self.builder.add_resource_paths(RESOURCE_PATHS)
         self.builder.add_from_file(PROJECT_UI)
         # Main widget
         self.mainwindow: pygubu.builder.widgets.dialog = (
@@ -23,6 +24,7 @@ class ProjectSettingsUI:
         self.use_i18n_var: tk.BooleanVar = None
         self.all_ids_attr_var: tk.BooleanVar = None
         self.generate_code_onsave_var: tk.BooleanVar = None
+        self.use_windowcenter_code_var: tk.BooleanVar = None
         self.builder.import_variables(self)
 
         self.builder.connect_callbacks(self)
