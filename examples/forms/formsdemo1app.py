@@ -1,23 +1,31 @@
 #!/usr/bin/python3
+import os
 import pprint as pp
 import pathlib
-import pygubu
+
+
+os.environ["PYGUBU_ENABLE_FORMS"] = "Y"
+
+
+import pygubu  # noqa=E402
 
 try:
-    import ttkbootstrap
+    import ttkbootstrap  # noqa=E402
 except ImportError:
     pass
 
-import pygubu.forms.config as formconfig
-from formsdemo1base import FormsDemo1Base
-
+import pygubu.forms.config as formconfig  # noqa=E402
+import project_styles  # # noqa=E402 Styles definition module
+from formsdemo1appui import FormsDemo1AppUI  # noqa=E402
 
 formconfig.ENTRY_MARK_INVALID_USING_VALIDATE = True
 
 
-class FormsDemo1App(FormsDemo1Base):
+class FormsDemo1App(FormsDemo1AppUI):
     def __init__(self, master=None):
-        super().__init__(master)
+        super().__init__(
+            master, on_fist_object_cb=project_styles.setup_ttk_styles
+        )
 
         self.form = self.builder.get_object("form1")
         data = {
