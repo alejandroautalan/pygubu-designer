@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+import os
 import pathlib
 import tkinter as tk
-import pprint as pp
+
+# os.environ["PYGUBU_ENABLE_FORMS"] = "Y"  # uncoment this line for testing this file only
 import pygubu
 
-import pygubudesigner.services.designersettingsbase as dsbase
+import pygubudesigner.services.designersettingsui as base
 from pygubudesigner.preferences import (
     options,
     DATA_DIR,
@@ -15,11 +17,11 @@ from pygubudesigner.util import get_ttk_style
 from pygubudesigner.i18n import translator as _
 
 
-dsbase.PROJECT_PATH = DATA_DIR / "ui"
-dsbase.PROJECT_UI = dsbase.PROJECT_PATH / "designer_settings.ui"
+base.PROJECT_PATH = DATA_DIR / "ui"
+base.PROJECT_UI = base.PROJECT_PATH / "designer_settings.ui"
 
 
-class DesignerSettings(dsbase.DesignerSettingsBase):
+class DesignerSettings(base.DesignerSettingsUI):
     def __init__(self, master=None, translator=None):
         super().__init__(master, translator)
         self.app_master = master
@@ -82,7 +84,7 @@ class DesignerSettings(dsbase.DesignerSettingsBase):
             self.on_dialog_close()
         else:
             # FIXME
-            pp.pprint(form.errors)
+            print(form.errors)
 
     def _deselect_combobox_text(self):
         """
@@ -98,5 +100,11 @@ class DesignerSettings(dsbase.DesignerSettingsBase):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = DesignerSettings(root)
-    app.run()
+    app = None
+
+    def create_dialog():
+        app = DesignerSettings(root)
+        app.run()
+
+    root.after(1000, create_dialog)
+    root.mainloop()

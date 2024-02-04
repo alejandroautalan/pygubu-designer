@@ -5,16 +5,19 @@ import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "designer_settings.ui"
+RESOURCE_PATHS = [PROJECT_PATH]
 
 
-class DesignerSettingsBase:
+class DesignerSettingsUI:
     def __init__(self, master=None, translator=None):
-        self.builder = builder = pygubu.Builder(translator)
-        builder.add_resource_path(PROJECT_PATH)
-        builder.add_from_file(PROJECT_UI)
+        self.builder = pygubu.Builder(translator)
+        self.builder.add_resource_paths(RESOURCE_PATHS)
+        self.builder.add_from_file(PROJECT_UI)
         # Main widget
-        self.mainwindow = builder.get_object("preferences", master)
-        builder.connect_callbacks(self)
+        self.mainwindow: pygubu.builder.widgets.dialog = (
+            self.builder.get_object("preferences", master)
+        )
+        self.builder.connect_callbacks(self)
 
     def run(self):
         self.mainwindow.mainloop()
@@ -31,5 +34,5 @@ class DesignerSettingsBase:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = DesignerSettingsBase(root)
+    app = DesignerSettingsUI(root)
     app.run()
