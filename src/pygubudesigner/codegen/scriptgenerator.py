@@ -229,14 +229,14 @@ class ScriptGenerator:
         # Style definitions
         ttk_styles_module = config["ttk_style_definition_file"]
         has_ttk_styles = False
-        use_ttk_styles = bool(config["use_ttk_styledefinition_file"])
+        use_ttk_styles = tk.getboolean(config["use_ttk_styledefinition_file"])
         if use_ttk_styles and ttk_styles_module:
             has_ttk_styles = True
 
-        with_i18n_support = bool(config["use_i18n"])
-        import_tk_vars = bool(config["import_tkvariables"])
-        add_window_centering_code = bool(
-            config.get("use_window_centering_code", False)
+        with_i18n_support = tk.getboolean(config["use_i18n"])
+        import_tk_vars = tk.getboolean(config["import_tkvariables"])
+        add_window_centering_code = tk.getboolean(
+            config["use_window_centering_code"]
         )
 
         # calculate output dir
@@ -271,7 +271,9 @@ class ScriptGenerator:
         }
 
         generator.with_i18n_support = with_i18n_support
-        generator.all_ids_as_attributes = bool(config["all_ids_attributes"])
+        generator.all_ids_as_attributes = tk.getboolean(
+            config["all_ids_attributes"]
+        )
 
         if template == "application":
             self._appui_code(generator, context)
