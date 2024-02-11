@@ -12,8 +12,7 @@ class ${class_name}(${class_name}UI):
         super().__init__(master, translator)
 %elif has_ttk_styles:
     def __init__(self, master=None, on_fist_object_cb=None):
-        self.builder = builder = pygubu.Builder(
-            on_first_object=${ttk_styles_module}.setup_ttk_styles)
+        super().__init__(master, on_fist_object_cb=${ttk_styles_module}.setup_ttk_styles)
 %else:
     def __init__(self, master=None):
         super().__init__(master)
