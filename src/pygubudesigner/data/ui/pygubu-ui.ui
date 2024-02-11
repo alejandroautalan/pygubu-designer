@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project version="1.4" author="PygubuDesigner 0.37">
+<project version="1.4" author="PygubuDesigner 0.38">
   <interfaces>
     <object class="tk.Menu" id="mainmenu">
       <property name="tearoff">0</property>
@@ -289,7 +289,7 @@
         </object>
       </child>
     </object>
-    <object class="tk.Toplevel" id="mainwindow">
+    <object class="tk.Tk" id="mainwindow" named="True">
       <property name="geometry">854x480</property>
       <property name="height">200</property>
       <property name="resizable">both</property>
