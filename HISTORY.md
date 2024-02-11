@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.38
+
+  * Update to support customtkinter 5.2.2
+
 Changes for version 0.37
 
   * Customize open file dialog on Gnu/Linux.
@@ -75,7 +79,7 @@ Changes for version 0.30
 Changes for version 0.29.1
 
   * Hotfix:  Fix template path in preferences window alejandroautalan/pygubu-designer#147 (jrezai)
-  
+
 Changes for version 0.29
 
   * Changed project structure to use src folder.
