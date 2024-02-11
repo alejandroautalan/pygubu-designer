@@ -19,7 +19,7 @@ from pathlib import Path
 from tkinter import ttk
 
 from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
-from .i18n import translator as _
+from ..i18n import translator as _
 
 logger = logging.getLogger(__name__)
 
@@ -89,7 +89,8 @@ class StyleHandler:
                 spec.loader.exec_module(module)
 
                 if hasattr(module, self.required_function_name):
-                    module.setup_ttk_styles()
+                    master = self.mframe.winfo_toplevel()
+                    module.setup_ttk_styles(master)
                 else:
                     msg = "Styles definition file does not have the required function: %s"
                     logger.info(msg, self.required_function_name)

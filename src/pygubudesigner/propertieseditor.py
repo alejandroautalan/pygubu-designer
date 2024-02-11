@@ -23,7 +23,7 @@ from pygubu.widgets.simpletooltip import create as create_tooltip
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.widgets.propertyeditor import create_editor
 from .widgets import NamedIDPropertyEditor
-from .stylehandler import StyleHandler
+from .services.stylehandler import StyleHandler
 from pygubudesigner.properties.manager import PropertiesManager
 
 logger = logging.getLogger(__name__)

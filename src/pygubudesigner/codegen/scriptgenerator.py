@@ -22,7 +22,7 @@ import autopep8
 from mako.lookup import TemplateLookup
 
 from .codebuilder import UI2Code
-from pygubudesigner.stylehandler import StyleHandler
+from pygubudesigner.services.stylehandler import StyleHandler
 from pygubudesigner.services.project import Project
 
 

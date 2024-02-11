@@ -6,7 +6,7 @@ import importlib
 from pygubu.component.uidefinition import UIDefinition
 from ..widgetdescr import WidgetMeta
 from ..i18n import translator
-from ..stylehandler import StyleHandler
+from .stylehandler import StyleHandler
 
 
 logger = logging.getLogger(__name__)

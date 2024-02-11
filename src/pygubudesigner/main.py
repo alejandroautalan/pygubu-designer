@@ -56,7 +56,7 @@ from .uitreeeditor import WidgetsTreeEditor
 from .util import get_ttk_style, menu_iter_children, virtual_event
 from .util.keyboard import Key, key_bind
 from .util.screens import is_visible_in_screens, parse_geometry
-from .stylehandler import StyleHandler
+from .services.stylehandler import StyleHandler
 
 
 # Initialize logger
