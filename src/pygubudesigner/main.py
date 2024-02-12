@@ -36,6 +36,7 @@ from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
 import pygubudesigner.actions as actions
+import pygubudesigner.designerstyles as designerstyles
 
 from pygubudesigner import preferences as pref
 from pygubudesigner.services.project import Project
@@ -138,7 +139,9 @@ class PygubuDesigner:
         self.about_dialog = None
         self.preferences = None
         self.project_settings = None
-        self.builder = pygubu.Builder(translator)
+        self.builder = pygubu.Builder(
+            translator, on_first_object=designerstyles.setup_ttk_styles
+        )
         self.current_project = None
         self.is_changed = False
         self.current_title = "new"
@@ -196,11 +199,6 @@ class PygubuDesigner:
         self.setup_bottom_panel()
 
         self.builder.connect_callbacks(self)
-
-        #
-        # Setup tkk styles
-        #
-        self._setup_styles()
 
         # Customize OpenFiledialog window
         if sys.platform == "linux":
@@ -411,56 +409,6 @@ proc ::tk::dialog::file::Create {w class} {
         # On preferences save binding
         w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)
 
-    def _setup_styles(self):
-        logger.debug("Applying designer styles.")
-        self.mainwindow.option_add("*Dialog.msg.width", 34)
-        self.mainwindow.option_add("*Dialog.msg.wrapLength", "6i")
-
-        s = get_ttk_style()
-        s.configure(
-            "ColorSelectorButton.Toolbutton", image=StockImage.get("mglass")
-        )
-        s.configure(
-            "ImageSelectorButton.Toolbutton", image=StockImage.get("mglass")
-        )
-        s.configure("ComponentPalette.Toolbutton", font="TkSmallCaptionFont")
-        s.configure("ComponentPalette.TNotebook.Tab", font="TkSmallCaptionFont")
-        s.configure(
-            "PanelTitle.TLabel",
-            background="#808080",
-            foreground="white",
-            font="TkSmallCaptionFont",
-        )
-        s.configure("Template.Toolbutton", padding=5)
-        # ToolbarFrame scroll buttons
-        s.configure(
-            ToolbarFrame.BTN_LEFT_STYLE, image=StockImage.get("arrow-left2")
-        )
-        s.configure(
-            ToolbarFrame.BTN_RIGHT_STYLE, image=StockImage.get("arrow-right2")
-        )
-        # Preview panel, Selection indicator color
-        s.configure("PreviewIndicator.TFrame", background="red")
-
-        # TreeComponentPalette styles
-        s.configure("TreeComponentPalette.Treeview", rowheight=30)
-
-        # Forms ??
-        s.configure("LabelFieldInfo.TLabel")
-        s.configure("Error.LabelFieldInfo.TLabel", foreground="red")
-        s.configure("Error.EntryField.TEntry", fieldbackground="yellow")
-        s.configure("Error.ComboboxField.TCombobox", fieldbackground="yellow")
-        s.map(
-            "Error.ComboboxField.TCombobox",
-            fieldbackground=[("readonly", "yellow")],
-        )
-
-        if sys.platform == "linux":
-            # change background of comboboxes
-            color = s.lookup("TEntry", "fieldbackground")
-            s.map("TCombobox", fieldbackground=[("readonly", color)])
-            s.map("TSpinbox", fieldbackground=[("readonly", color)])
-
     def _setup_theme_menu(self):
         menu = self.builder.get_object("preview_themes_submenu")
         s = get_ttk_style()
@@ -578,10 +526,6 @@ proc ::tk::dialog::file::Create {w class} {
         self.mainwindow.geometry(geom)
         self.mainwindow.after_idle(self._check_window_visibility)
 
-        # Load preferred ttk theme
-        theme = pref.get_option("ttk_theme")
-        self._change_ttk_theme(theme)
-
     def _check_window_visibility(self):
         geom = pref.get_window_size()
         window_visible = is_visible_in_screens(geom)
@@ -603,7 +547,7 @@ proc ::tk::dialog::file::Create {w class} {
         try:
             s.theme_use(theme)
             logger.debug("ttk theme changed to: %s", theme)
-            self._setup_styles()
+            designerstyles.setup_ttk_styles(self.mainwindow, theme)
             event_name = "<<PygubuDesignerTtkThemeChanged>>"
             self.mainwindow.event_generate(event_name)
         except tk.TclError:
