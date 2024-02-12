@@ -204,9 +204,9 @@ class PreviewHelper:
         anchors = {"top": tk.SW, "bottom": tk.NW, "left": tk.NE, "right": tk.NW}
         self.indicators = {}
         for tag in anchors:
-            frame = ttk.Frame(
+            frame = tk.Frame(
                 self.canvas,
-                style="PreviewIndicator.TFrame",
+                class_="PreviewIndicatorFrame",
                 width=1,
                 height=1,
                 borderwidth=0,
