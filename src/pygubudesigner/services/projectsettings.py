@@ -56,8 +56,10 @@ psbase.PROJECT_UI = psbase.PROJECT_PATH / "project_settings.ui"
 class ProjectSettings(psbase.ProjectSettingsUI):
     def __init__(self, master=None, translator=None):
         super().__init__(master, translator)
+        self._current_project: Project = None
         self.on_settings_changed = None
         self.dialog_toplevel = self.mainwindow.toplevel
+
         self.frm_general: FormWidget = self.builder.get_object("frm_general")
         self.frm_code: FormWidget = self.builder.get_object("frm_code")
         self.frm_style: FormWidget = self.builder.get_object("frm_style")
@@ -109,7 +111,9 @@ class ProjectSettings(psbase.ProjectSettingsUI):
                 field = self.builder.get_object(key)
                 field.configure(values=options[key])
 
-    def edit(self, settings):
+    def edit(self, project: Project):
+        self._current_project = project
+        settings = project.get_full_settings()
         default_settings = {
             "name": "Project Name",
             "description": "Project Long Description",
@@ -205,6 +209,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         )
         if fname:
             fieldname = "ttk_style_definition_file"
+            fname = self._current_project.get_relative_path(fname)
             self.frm_style.fields[fieldname].data = fname
 
     def on_style_remove(self):
@@ -254,6 +259,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
 
                 # Auto setup this new file definition:
                 fieldname = "ttk_style_definition_file"
+                fname = self._current_project.get_relative_path(fname)
                 self.frm_style.fields[fieldname].data = fname
 
         except OSError:
@@ -281,6 +287,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             parent=self.dialog_toplevel, **options
         )
         if fname:
+            fname = self._current_project.get_relative_path(fname)
             self.cwtree.insert("", tk.END, text=fname)
             self._configure_path_remove()
 

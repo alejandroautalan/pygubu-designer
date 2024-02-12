@@ -1,4 +1,5 @@
 import sys
+import os
 import pathlib
 import logging
 import importlib
@@ -35,6 +36,9 @@ class Project:
         self.uidefinition: UIDefinition = None
         self.custom_widgets: list = []
         self.settings: dict = {}
+
+    def get_relative_path(self, path):
+        return os.path.relpath(path, start=self.fpath.parent)
 
     def save(self, filename):
         self.fpath = pathlib.Path(filename)

@@ -830,10 +830,9 @@ proc ::tk::dialog::file::Create {w class} {
         if self.current_project is None:
             return
 
-        settings = self.current_project.get_full_settings()
         options = self.tree_editor.get_options_for_project_settings()
         self.project_settings.setup(options)
-        self.project_settings.edit(settings)
+        self.project_settings.edit(self.current_project)
         self.project_settings.run()
 
     def _on_project_settings_changed(self, new_settings: dict):
