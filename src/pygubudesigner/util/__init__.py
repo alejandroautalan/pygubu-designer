@@ -165,7 +165,10 @@ class MultipleThemeModuleManager(ttk.Style):
                         self.theme_list.append(t)
         return self.theme_list
 
-    def theme_use(self, name):
+    def theme_use(self, name=None):
+        if name is None:
+            return super().theme_use()
+
         theme_set = False
         for m in self.modules:
             if m.can_handle(name):
