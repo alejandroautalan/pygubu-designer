@@ -1,0 +1,90 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the demoapp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: demoapp\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-13 01:32-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: demo-i18n.ui:27 demo-i18n.ui:98
+msgid "Login"
+msgstr ""
+
+#: demo-i18n.ui:41
+msgid "Member Login"
+msgstr ""
+
+#: demo-i18n.ui:58
+msgid "username"
+msgstr ""
+
+#: demo-i18n.ui:76
+msgid "password"
+msgstr ""
+
+#: demo-i18n.ui:111 demo-i18n.ui:221
+msgid "Register"
+msgstr ""
+
+#: demo-i18n.ui:125
+msgid "Create Account"
+msgstr ""
+
+#: demo-i18n.ui:142
+msgid "Email"
+msgstr ""
+
+#: demo-i18n.ui:160
+msgid "Firstname"
+msgstr ""
+
+#: demo-i18n.ui:180
+msgid "Lastname"
+msgstr ""
+
+#: demo-i18n.ui:200
+msgid "Country"
+msgstr ""
+
+#: demoapp.py:25
+msgid "Argentina"
+msgstr ""
+
+#: demoapp.py:26
+msgid "Brazil"
+msgstr ""
+
+#: demoapp.py:27
+msgid "Peru"
+msgstr ""
+
+#: demoapp.py:28
+msgid "Spain"
+msgstr ""
+
+#: demoapp.py:29
+msgid "Germany"
+msgstr ""
+
+#: demoapp.py:30
+msgid "Belgium"
+msgstr ""
+
+#: demoapp.py:31
+msgid "Finland"
+msgstr ""
+
+#: demoapp.py:32
+msgid "Other"
+msgstr ""
