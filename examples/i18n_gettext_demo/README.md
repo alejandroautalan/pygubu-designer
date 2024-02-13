@@ -10,7 +10,7 @@ Add strings from source file
 
     xgettext --package-name demoapp --join-existing -L Python --keyword=_  --output=./locale/demoapp.pot --from-code=UTF-8 ./demoapp.py
 
-## Translating to a specific language
+## Translate to a specific language
 
 Prepare a translation for spanish language
 
@@ -18,8 +18,11 @@ Prepare a translation for spanish language
 
     cp ./locale/demoapp.pot  ./locale/es/LC_MESSAGES/demoapp.po
 
-Translate the ./locale/es/LC_MESSAGES/demoapp.pot using a text editor or
-install poedit application to make the process easier.
+Translate the file:
+
+    ./locale/es/LC_MESSAGES/demoapp.pot
+
+using a text editor or install [poedit](https://poedit.net/) application to make the process easier.
 
 Once the translation is finished it is necessary to compile the file to a format required by gettext.
 
