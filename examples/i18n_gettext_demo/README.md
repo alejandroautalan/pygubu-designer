@@ -70,7 +70,7 @@ Prepare a translation for spanish language
 
 Translate the file:
 
-    ./locale/es/LC_MESSAGES/demoapp.pot
+    ./locale/es/LC_MESSAGES/demoapp.po
 
 using a text editor or install [poedit](https://poedit.net/) application to make the process easier.
 
