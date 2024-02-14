@@ -811,9 +811,7 @@ proc ::tk::dialog::file::Create {w class} {
     def show_about_dialog(self):
         if self.about_dialog is None:
             self.about_dialog = AboutDialog(self.mainwindow, translator)
-            self.about_dialog.run()
-        else:
-            self.about_dialog.show()
+        self.about_dialog.run()
 
     def _edit_preferences(self):
         if self.preferences is None:
