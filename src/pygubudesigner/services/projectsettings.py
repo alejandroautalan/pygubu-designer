@@ -6,6 +6,7 @@ import logging
 import pygubu
 
 import pygubudesigner.services.projectsettingsui as psbase
+from collections.abc import Iterable
 from tkinter import filedialog, messagebox
 from pygubu.forms.transformer import DataTransformer
 from pygubu.forms.exceptions import ValidationError
@@ -13,6 +14,7 @@ from pygubu.forms.forms import FormWidget
 from pygubudesigner.preferences import DATA_DIR, NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
 from .project import Project
+from .fieldvalidator import IdentifierValidator
 
 
 logger = logging.getLogger(__name__)
@@ -97,6 +99,18 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         for key in bool_options:
             field = self.builder.get_object(key)
             field.model_transformer = bool_transformer
+
+        identifier_validator = IdentifierValidator()
+        validation = {
+            "module_name": identifier_validator,
+            "main_classname": identifier_validator,
+        }
+        for fieldname, validators in validation.items():
+            field = self.builder.get_object(fieldname)
+            if isinstance(validators, Iterable):
+                field.validators.extend(validators)
+            else:
+                field.validators.append(validators)
 
     def run(self):
         self.mainwindow.run()
