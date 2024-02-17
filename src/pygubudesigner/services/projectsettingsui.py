@@ -32,6 +32,9 @@ class ProjectSettingsUI:
     def run(self):
         self.mainwindow.mainloop()
 
+    def output_dir_changed(self, event=None):
+        pass
+
     def on_template_change(self, event=None):
         pass
 

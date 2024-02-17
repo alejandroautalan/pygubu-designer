@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project version="1.4" author="PygubuDesigner 0.37">
+<project version="1.4" author="PygubuDesigner 0.38">
   <interfaces>
     <object class="pygubu.builder.widgets.dialog" id="settingsdialog" named="True">
       <property name="geometry">680x540</property>
@@ -66,6 +66,7 @@
                           <child>
                             <object class="pygubu.forms.ttk.EntryField" id="entryfield4">
                               <property name="field_name">name</property>
+                              <property name="style">EntryField.TEntry</property>
                               <layout manager="grid">
                                 <property name="column">1</property>
                                 <property name="ipady">3</property>
@@ -75,24 +76,55 @@
                             </object>
                           </child>
                           <child>
-                            <object class="ttk.Label" id="label7">
-                              <property name="text" translatable="yes">Description:</property>
+                            <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo6">
+                              <property name="field_name">name</property>
+                              <property name="style">LabelFieldInfo.TLabel</property>
                               <layout manager="grid">
-                                <property name="column">0</property>
+                                <property name="column">1</property>
                                 <property name="row">1</property>
                                 <property name="sticky">ew</property>
                               </layout>
                             </object>
                           </child>
                           <child>
-                            <object class="pygubu.forms.tk.TextField" id="textfield1">
-                              <property name="field_name">description</property>
-                              <property name="height">8</property>
-                              <property name="width">32</property>
+                            <object class="ttk.Label" id="label7">
+                              <property name="text" translatable="yes">Description:</property>
+                              <layout manager="grid">
+                                <property name="column">0</property>
+                                <property name="row">2</property>
+                                <property name="sticky">ew</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper2">
+                              <property name="scrolltype">both</property>
+                              <property name="usemousewheel">false</property>
                               <layout manager="grid">
                                 <property name="column">0</property>
                                 <property name="columnspan">2</property>
-                                <property name="row">2</property>
+                                <property name="row">3</property>
+                                <property name="sticky">ew</property>
+                              </layout>
+                              <child>
+                                <object class="pygubu.forms.tk.TextField" id="textfield1">
+                                  <property name="field_name">description</property>
+                                  <property name="field_required">false</property>
+                                  <property name="height">8</property>
+                                  <property name="width">32</property>
+                                  <layout manager="pack" />
+                                </object>
+                              </child>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo7">
+                              <property name="field_name">description</property>
+                              <property name="style">LabelFieldInfo.TLabel</property>
+                              <layout manager="grid">
+                                <property name="column">0</property>
+                                <property name="columnspan">2</property>
+                                <property name="row">4</property>
                                 <property name="sticky">ew</property>
                               </layout>
                             </object>
@@ -185,7 +217,21 @@
                                         <property name="expand">true</property>
                                         <property name="fill">x</property>
                                         <property name="ipady">3</property>
-                                        <property name="side">top</property>
+                                        <property name="side">left</property>
+                                      </layout>
+                                    </object>
+                                  </child>
+                                  <child>
+                                    <object class="pygubu.widgets.PathChooserButton" id="btn_path_chooser" named="True">
+                                      <property name="image">mglass.png</property>
+                                      <property name="text" translatable="yes">…</property>
+                                      <property name="title" translatable="yes">Select output directory</property>
+                                      <property name="type">directory</property>
+                                      <property name="width">4</property>
+                                      <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="output_dir_changed" add="" />
+                                      <layout manager="pack">
+                                        <property name="padx">10 0</property>
+                                        <property name="side">left</property>
                                       </layout>
                                     </object>
                                   </child>
@@ -442,6 +488,7 @@
                             <object class="pygubu.forms.ttk.EntryField" id="entryfield1">
                               <property name="field_name">ttk_style_definition_file</property>
                               <property name="field_required">false</property>
+                              <property name="style">EntryField.TEntry</property>
                               <layout manager="pack">
                                 <property name="anchor">w</property>
                                 <property name="fill">both</property>

@@ -185,6 +185,13 @@ class ProjectSettings(psbase.ProjectSettingsUI):
     def btn_cancel_clicked(self):
         self.mainwindow.close()
 
+    def output_dir_changed(self, event=None):
+        btn = event.widget
+        output_field = self.frm_code.fields["output_dir"]
+        new_value = btn.cget("path")
+        new_value = self._current_project.get_relative_path(new_value)
+        output_field.data = new_value
+
     def on_template_change(self, event=None):
         template_field = self.frm_code.fields["template"]
         template = template_field.data
