@@ -179,7 +179,7 @@
         <object class="tk.Menuitem.Submenu" id="projectmenu" named="True">
           <property name="label" translatable="yes">Project</property>
           <property name="tearoff">false</property>
-          <property name="underline">3</property>
+          <property name="underline">6</property>
           <child>
             <object class="tk.Menuitem.Command" id="project_settings" named="True">
               <property name="command" type="command" cbtype="with_wid">on_project_menuitem_clicked</property>
