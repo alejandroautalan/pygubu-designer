@@ -485,14 +485,24 @@
                             </object>
                           </child>
                           <child>
-                            <object class="pygubu.forms.ttk.EntryField" id="entryfield1">
-                              <property name="field_name">ttk_style_definition_file</property>
+                            <object class="pygubu.forms.ttk.EntryField" id="ttk_style_definition_file" named="True">
                               <property name="field_required">false</property>
                               <property name="style">EntryField.TEntry</property>
                               <layout manager="pack">
                                 <property name="anchor">w</property>
                                 <property name="fill">both</property>
                                 <property name="ipady">3</property>
+                                <property name="side">top</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="pygubu.forms.ttk.LabelFieldInfo" id="labelfieldinfo8">
+                              <property name="field_name">ttk_style_definition_file</property>
+                              <property name="style">LabelFieldInfo.TLabel</property>
+                              <layout manager="pack">
+                                <property name="fill">x</property>
+                                <property name="pady">0 5</property>
                                 <property name="side">top</property>
                               </layout>
                             </object>

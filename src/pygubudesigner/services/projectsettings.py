@@ -14,7 +14,7 @@ from pygubu.forms.forms import FormWidget
 from pygubudesigner.preferences import DATA_DIR, NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
 from .project import Project
-from .fieldvalidator import IdentifierValidator
+from .fieldvalidator import IdentifierValidator, PathExistsValidator
 
 
 logger = logging.getLogger(__name__)
@@ -101,9 +101,12 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             field.model_transformer = bool_transformer
 
         identifier_validator = IdentifierValidator()
+        self.path_exists_validator = PathExistsValidator()
         validation = {
             "module_name": identifier_validator,
             "main_classname": identifier_validator,
+            "output_dir": self.path_exists_validator,
+            "ttk_style_definition_file": self.path_exists_validator,
         }
         for fieldname, validators in validation.items():
             field = self.builder.get_object(fieldname)
@@ -153,12 +156,13 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         for path in cwlist:
             self.cwtree.insert("", tk.END, text=path)
 
+        self.path_exists_validator.uipath = project.fpath.parent
         self._configure_path_remove()
         self.on_template_change()
 
-    def btn_apply_clicked(self):
-        forms = (self.frm_general, self.frm_code, self.frm_style)
+    def process_forms(self):
         new_settings = {}
+        forms = (self.frm_general, self.frm_code, self.frm_style)
         # Process forms
         all_valid = True
         for form in forms:
@@ -176,7 +180,14 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         # Process custom widgets section
         # FIXME: improve this
         new_settings["custom_widgets"] = self._get_custom_widget_list()
+        return all_valid, new_settings
 
+    def validate_for_codegen(self):
+        all_valid, new_settings = self.process_forms()
+        return all_valid
+
+    def btn_apply_clicked(self):
+        all_valid, new_settings = self.process_forms()
         if all_valid:
             if self.on_settings_changed is not None:
                 self.on_settings_changed(new_settings)

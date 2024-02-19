@@ -1,4 +1,5 @@
 import keyword
+import pathlib
 
 from pygubu.forms.exceptions import ValidationError
 
@@ -19,3 +20,21 @@ class IdentifierValidator:
             is_valid = False
         if not is_valid:
             raise ValidationError(self.message, code=self.code)
+
+
+class PathExistsValidator:
+    message = "The path must exist"
+    code = "path_exists"
+
+    def __init__(self):
+        self.uipath = None
+
+    def __call__(self, value):
+        path: pathlib.Path = self.uipath / value
+        if not path.exists():
+            raise ValidationError(self.message, code=self.code)
+
+
+class ModulesPathValidator(PathExistsValidator):
+    def __call__(self, value):
+        super().__call__(value)

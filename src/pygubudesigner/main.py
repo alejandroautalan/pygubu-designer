@@ -251,6 +251,12 @@ proc ::tk::dialog::file::Create {w class} {
         # setup app preferences
         self.setup_app_preferences()
 
+        # project settings
+        self.project_settings = ProjectSettings(self.mainwindow, translator)
+        self.project_settings.on_settings_changed = (
+            self._on_project_settings_changed
+        )
+
     def run(self):
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
         self.mainwindow.mainloop()
@@ -820,14 +826,8 @@ proc ::tk::dialog::file::Create {w class} {
         self.preferences.run()
 
     def _edit_project_settings(self):
-        if self.project_settings is None:
-            self.project_settings = ProjectSettings(self.mainwindow, translator)
-            self.project_settings.on_settings_changed = (
-                self._on_project_settings_changed
-            )
         if self.current_project is None:
             return
-
         options = self.tree_editor.get_options_for_project_settings()
         self.project_settings.setup(options)
         self.project_settings.edit(self.current_project)
@@ -840,7 +840,14 @@ proc ::tk::dialog::file::Create {w class} {
     def _project_code_generate(self):
         if self.current_project is None:
             return
-        self.script_generator.generate_code()
+        options = self.tree_editor.get_options_for_project_settings()
+        self.project_settings.setup(options)
+        self.project_settings.edit(self.current_project)
+        valid = self.project_settings.validate_for_codegen()
+        if valid:
+            self.script_generator.generate_code()
+        else:
+            self.project_settings.run()
 
     def project_name(self):
         name = None
