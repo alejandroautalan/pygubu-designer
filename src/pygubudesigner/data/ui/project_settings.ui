@@ -109,7 +109,6 @@
                               <child>
                                 <object class="pygubu.forms.tkwidget.Text" id="textfield1">
                                   <property name="field_name">description</property>
-                                  <property name="field_required">false</property>
                                   <property name="height">8</property>
                                   <property name="width">32</property>
                                   <layout manager="pack" />
@@ -170,7 +169,6 @@
                               </child>
                               <child>
                                 <object class="pygubu.forms.ttkwidget.Entry" id="module_name" named="True">
-                                  <property name="field_required">true</property>
                                   <property name="style">EntryField.TEntry</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
@@ -211,7 +209,6 @@
                                   </layout>
                                   <child>
                                     <object class="pygubu.forms.ttkwidget.Entry" id="output_dir" named="True">
-                                      <property name="field_required">false</property>
                                       <property name="style">EntryField.TEntry</property>
                                       <layout manager="pack">
                                         <property name="expand">true</property>
@@ -260,7 +257,6 @@
                               </child>
                               <child>
                                 <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="template" named="True">
-                                  <property name="field_required">true</property>
                                   <property name="style">ComboboxField.TCombobox</property>
                                   <bind sequence="&lt;&lt;ComboboxSelected&gt;&gt;" handler="on_template_change" add="" />
                                   <layout manager="grid">
@@ -296,7 +292,6 @@
                               </child>
                               <child>
                                 <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="main_widget" named="True">
-                                  <property name="field_required">true</property>
                                   <property name="state">readonly</property>
                                   <property name="style">ComboboxField.TCombobox</property>
                                   <layout manager="grid">
@@ -329,7 +324,6 @@
                               </child>
                               <child>
                                 <object class="pygubu.forms.ttkwidget.Entry" id="main_classname" named="True">
-                                  <property name="field_required">true</property>
                                   <property name="style">EntryField.TEntry</property>
                                   <layout manager="grid">
                                     <property name="column">1</property>
@@ -362,7 +356,6 @@
                               </child>
                               <child>
                                 <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="main_menu" named="True">
-                                  <property name="field_required">false</property>
                                   <property name="state">readonly</property>
                                   <property name="style">ComboboxField.TCombobox</property>
                                   <layout manager="grid">
@@ -397,7 +390,6 @@
                               </layout>
                               <child>
                                 <object class="pygubu.forms.ttkwidget.Checkbutton" id="import_tkvariables" named="True">
-                                  <property name="field_required">false</property>
                                   <property name="text" translatable="yes">Import Tk Variables</property>
                                   <property name="variable">boolean:import_tkvariables_var</property>
                                   <layout manager="pack">
@@ -408,7 +400,6 @@
                               </child>
                               <child>
                                 <object class="pygubu.forms.ttkwidget.Checkbutton" id="use_ttk_styledefinition_file" named="True">
-                                  <property name="field_required">false</property>
                                   <property name="text" translatable="yes">Use ttk style definitions file</property>
                                   <property name="variable">boolean:use_ttk_style_var</property>
                                   <layout manager="pack">
@@ -419,7 +410,6 @@
                               </child>
                               <child>
                                 <object class="pygubu.forms.ttkwidget.Checkbutton" id="use_i18n" named="True">
-                                  <property name="field_required">false</property>
                                   <property name="text" translatable="yes">Add i18n support</property>
                                   <property name="variable">boolean:use_i18n_var</property>
                                   <layout manager="pack">
@@ -430,7 +420,6 @@
                               </child>
                               <child>
                                 <object class="pygubu.forms.ttkwidget.Checkbutton" id="all_ids_attributes" named="True">
-                                  <property name="field_required">false</property>
                                   <property name="text" translatable="yes">All IDs as class attributes</property>
                                   <property name="variable">boolean:all_ids_attr_var</property>
                                   <layout manager="pack">
@@ -486,7 +475,6 @@
                           </child>
                           <child>
                             <object class="pygubu.forms.ttkwidget.Entry" id="ttk_style_definition_file" named="True">
-                              <property name="field_required">false</property>
                               <property name="style">EntryField.TEntry</property>
                               <layout manager="pack">
                                 <property name="anchor">w</property>
