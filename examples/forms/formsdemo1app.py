@@ -1,52 +1,64 @@
 #!/usr/bin/python3
+import pathlib
 import os
 import pprint as pp
-import pathlib
+import tkinter as tk
+import pygubu
+from formsdemo1appui import FormsDemo1AppUI
+from pygubu.forms.validation.constraint.notblank import NotBlank
+from pygubu.forms.validation.constraint.istrue import IsTrue
+from pygubu.forms.transformer.tkboolean import BoolTransformer
 
 
 os.environ["PYGUBU_ENABLE_FORMS"] = "Y"
 
+bool_transformer = BoolTransformer()
 
-import pygubu  # noqa=E402
-
-try:
-    import ttkbootstrap  # noqa=E402
-except ImportError:
-    pass
-
-import pygubu.forms.config as formconfig  # noqa=E402
-import project_styles  # # noqa=E402 Styles definition module
-from formsdemo1appui import FormsDemo1AppUI  # noqa=E402
-
-formconfig.ENTRY_MARK_INVALID_USING_VALIDATE = True
+form_config = {
+    "id": {"required": False, "initial": "ID-999999"},
+    "first_name": {
+        "constraints": [NotBlank()],
+        "help": "Your first name",
+    },
+    "last_name": {
+        "help": "Your last name",
+    },
+    "age": {
+        "help": "How old are you?",
+    },
+    "height": {
+        "help": "How tall are you?",
+    },
+    "bio": {
+        "initial": "Hello, I like to ...",
+        "help": "Your short bio here",
+        "required": False,
+    },
+    "terms": {
+        "constraints": [IsTrue(message="You must accept terms of use!")],
+        "model_transformer": bool_transformer,
+    },
+}
 
 
 class FormsDemo1App(FormsDemo1AppUI):
     def __init__(self, master=None):
-        super().__init__(
-            master, on_fist_object_cb=project_styles.setup_ttk_styles
-        )
-
-        self.form = self.builder.get_object("form1")
+        super().__init__(master)
+        self.form_builder = self.builder.get_object("form_builder")
+        self.form = self.form_builder.get_form(form_config)
         data = {
-            "id": 36912,
-            "name": "Alex",
-            "lastname": "Doe",
+            "first_name": "Alex",
+            "last_name": "Bot",
         }
-        self.form.edit(data, data)
-
-    def run(self):
-        self.mainwindow.mainloop()
+        self.form.edit(data)
 
     def on_submit_clicked(self):
         self.form.submit()
         if self.form.is_valid():
-            print("valid!")
-            print("form data:")
-            pp.pprint(self.form.cleaned_data)
+            data = self.form.get_data()
+            print(data)
         else:
-            print("invalid!")
-            pp.pprint(self.form.errors)
+            print("The form has errors!")
 
     def on_check_changed(self):
         if self.form.has_changed():
