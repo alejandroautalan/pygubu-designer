@@ -38,16 +38,16 @@ class ProjectSettingsUI:
     def on_template_change(self, event=None):
         pass
 
-    def on_style_browse(self):
+    def on_style_new_selected(self, event=None):
+        pass
+
+    def on_style_new_create(self, event=None):
         pass
 
     def on_style_remove(self):
         pass
 
-    def on_style_new(self):
-        pass
-
-    def btn_cwadd_clicked(self):
+    def btn_cwadd_clicked(self, event=None):
         pass
 
     def btn_cwremove_clicked(self):

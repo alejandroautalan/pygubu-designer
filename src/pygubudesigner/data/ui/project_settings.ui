@@ -474,14 +474,74 @@
                             </object>
                           </child>
                           <child>
-                            <object class="pygubu.forms.ttkwidget.Entry" id="ttk_style_definition_file" named="True">
-                              <property name="style">EntryField.TEntry</property>
+                            <object class="ttk.Frame" id="frame4">
+                              <property name="height">200</property>
+                              <property name="width">200</property>
                               <layout manager="pack">
-                                <property name="anchor">w</property>
-                                <property name="fill">both</property>
-                                <property name="ipady">3</property>
+                                <property name="fill">x</property>
                                 <property name="side">top</property>
                               </layout>
+                              <child>
+                                <object class="pygubu.forms.ttkwidget.Entry" id="ttk_style_definition_file" named="True">
+                                  <property name="style">EntryField.TEntry</property>
+                                  <layout manager="pack">
+                                    <property name="expand">true</property>
+                                    <property name="fill">x</property>
+                                    <property name="ipady">3</property>
+                                    <property name="side">left</property>
+                                  </layout>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="pygubu.widgets.PathChooserButton" id="btn_stylepath_find" named="True">
+                                  <property name="defaultextension">.py</property>
+                                  <property name="image">mglass.png</property>
+                                  <property name="text" translatable="yes">…</property>
+                                  <property name="title" translatable="yes">Select style definitions file</property>
+                                  <property name="type">file</property>
+                                  <property name="width">4</property>
+                                  <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_style_new_selected" add="" />
+                                  <layout manager="pack">
+                                    <property name="padx">10 0</property>
+                                    <property name="side">left</property>
+                                  </layout>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="pygubu.widgets.PathChooserButton" id="btn_stylepath_new" named="True">
+                                  <property name="defaultextension">.py</property>
+                                  <property name="mustexist">false</property>
+                                  <property name="text" translatable="yes">+</property>
+                                  <property name="title" translatable="yes">Select style definitions file</property>
+                                  <property name="type">file</property>
+                                  <property name="width">3</property>
+                                  <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_style_new_create" add="" />
+                                  <layout manager="pack">
+                                    <property name="padx">5 0</property>
+                                    <property name="side">left</property>
+                                  </layout>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="ttk.Separator" id="separator1">
+                                  <property name="orient">vertical</property>
+                                  <layout manager="pack">
+                                    <property name="fill">y</property>
+                                    <property name="padx">5</property>
+                                    <property name="side">left</property>
+                                  </layout>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="ttk.Button" id="button2">
+                                  <property name="command" type="command" cbtype="simple">on_style_remove</property>
+                                  <property name="image">bin-16.png</property>
+                                  <property name="text" translatable="yes">Remove</property>
+                                  <layout manager="pack">
+                                    <property name="side">left</property>
+                                  </layout>
+                                </object>
+                              </child>
                             </object>
                           </child>
                           <child>
@@ -493,51 +553,6 @@
                                 <property name="pady">0 5</property>
                                 <property name="side">top</property>
                               </layout>
-                            </object>
-                          </child>
-                          <child>
-                            <object class="ttk.Frame" id="frame6">
-                              <property name="height">200</property>
-                              <property name="width">200</property>
-                              <layout manager="pack">
-                                <property name="anchor">w</property>
-                                <property name="fill">x</property>
-                                <property name="pady">4 0</property>
-                                <property name="side">top</property>
-                              </layout>
-                              <containerlayout manager="grid">
-                                <property type="col" id="all" name="pad">5</property>
-                              </containerlayout>
-                              <child>
-                                <object class="ttk.Button" id="button1">
-                                  <property name="command" type="command" cbtype="simple">on_style_browse</property>
-                                  <property name="text" translatable="yes">Browse</property>
-                                  <layout manager="grid">
-                                    <property name="column">0</property>
-                                    <property name="row">0</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="ttk.Button" id="button2">
-                                  <property name="command" type="command" cbtype="simple">on_style_remove</property>
-                                  <property name="text" translatable="yes">Remove</property>
-                                  <layout manager="grid">
-                                    <property name="column">1</property>
-                                    <property name="row">0</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="ttk.Button" id="button3">
-                                  <property name="command" type="command" cbtype="simple">on_style_new</property>
-                                  <property name="text" translatable="yes">New</property>
-                                  <layout manager="grid">
-                                    <property name="column">3</property>
-                                    <property name="row">0</property>
-                                  </layout>
-                                </object>
-                              </child>
                             </object>
                           </child>
                         </object>
@@ -607,10 +622,13 @@
                                 <property name="side">left</property>
                               </layout>
                               <child>
-                                <object class="ttk.Button" id="btn_cwadd" named="True">
-                                  <property name="command" type="command" cbtype="simple">btn_cwadd_clicked</property>
+                                <object class="pygubu.widgets.PathChooserButton" id="btn_cwadd_module" named="True">
+                                  <property name="defaultextension">.py</property>
                                   <property name="text" translatable="yes">+</property>
+                                  <property name="title" translatable="yes">Select style definitions file</property>
+                                  <property name="type">file</property>
                                   <property name="width">-3</property>
+                                  <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="btn_cwadd_clicked" add="" />
                                   <layout manager="pack">
                                     <property name="pady">0 8</property>
                                     <property name="side">top</property>

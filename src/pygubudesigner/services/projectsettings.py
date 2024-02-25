@@ -7,7 +7,7 @@ import pygubu
 
 import pygubudesigner.services.projectsettingsui as psbase
 from collections.abc import Iterable
-from tkinter import filedialog, messagebox
+from tkinter import messagebox
 from pygubu.forms.transformer.tkboolean import BoolTransformer
 from pygubudesigner.preferences import DATA_DIR, NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
@@ -28,6 +28,18 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         self._current_project: Project = None
         self.on_settings_changed = None
         self.dialog_toplevel = self.mainwindow.toplevel
+
+        options = {
+            "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
+        }
+        buttons = (
+            "btn_stylepath_find",
+            "btn_stylepath_new",
+            "btn_cwadd_module",
+        )
+        for name in buttons:
+            btn = self.builder.get_object(name)
+            btn.configure(**options)
 
         self.fb_general = self.builder.get_object("frm_general")
         self.fb_code = self.builder.get_object("frm_code")
@@ -217,23 +229,17 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
 
-    def on_style_browse(self):
+    def on_style_new_selected(self, event=None):
         """
         A 'Browse...' button was clicked on to select a
         Ttk style definition file.
         """
 
-        options = {
-            "defaultextension": ".py",
-            "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
-        }
-        fname = filedialog.askopenfilename(
-            parent=self.dialog_toplevel, **options
-        )
-        if fname:
-            fieldname = "ttk_style_definition_file"
-            fname = self._current_project.get_relative_path(fname)
-            self.frm_style.fields[fieldname].data = fname
+        btn = event.widget
+        form_field = self.frm_style.fields["ttk_style_definition_file"]
+        new_value = btn.cget("path")
+        new_value = self._current_project.get_relative_path(new_value)
+        form_field.data = new_value
 
     def on_style_remove(self):
         """
@@ -252,21 +258,14 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             msg = _("Restart Pygubu Designer for\nchanges to take effect.")
             messagebox.showinfo(_("Styles"), msg, parent=self.dialog_toplevel)
 
-    def on_style_new(self):
+    def on_style_new_create(self, event=None):
         """
         Prompt the user to save a new Python file which will contain
         some sample code so the user will have an idea on how to change styles.
         """
 
-        options = {
-            "defaultextension": ".py",
-            "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
-        }
-        fname = filedialog.asksaveasfilename(
-            parent=self.dialog_toplevel, **options
-        )
-        if not fname:
-            return
+        btn = event.widget
+        fname = btn.cget("path")
 
         try:
             with open(fname, "w") as f:
@@ -301,14 +300,9 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             cwlist.append(value)
         return cwlist
 
-    def btn_cwadd_clicked(self):
-        options = {
-            "defaultextension": ".py",
-            "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
-        }
-        fname = filedialog.askopenfilename(
-            parent=self.dialog_toplevel, **options
-        )
+    def btn_cwadd_clicked(self, event=None):
+        btn = event.widget
+        fname = btn.cget("path")
         if fname:
             fname = self._current_project.get_relative_path(fname)
             self.cwtree.insert("", tk.END, text=fname)
