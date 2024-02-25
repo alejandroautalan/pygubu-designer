@@ -1,6 +1,12 @@
 History
 =======
 
+Changes in project options branch (future next version)
+
+  * New UI Layout. Removed code generation Tab.
+  * New project settings dialog.
+  * Cleaned designer settings dialog.
+
 Changes for version 0.38
 
   * Update to support customtkinter 5.2.2
