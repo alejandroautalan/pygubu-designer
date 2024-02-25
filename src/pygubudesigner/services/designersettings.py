@@ -26,7 +26,7 @@ class DesignerSettings(base.DesignerSettingsUI):
         super().__init__(master, translator)
         self.app_master = master
         self.dialog_toplevel = self.mainwindow.toplevel
-        self.frm_settings = self.builder.get_object("frm_settings")
+        self.frmb_settings = self.builder.get_object("frm_settings")
 
         self.separator_keys = {
             "NONE": _("No separator (e.g. button1)"),
@@ -49,6 +49,9 @@ class DesignerSettings(base.DesignerSettingsUI):
         themelist.sort()
         field = self.builder.get_object("ttk_theme")
         field.configure(values=themelist)
+
+        config = {}
+        self.frm_settings = self.frmb_settings.get_form(config)
 
     def run(self):
         self.edit_settings()
@@ -94,8 +97,9 @@ class DesignerSettings(base.DesignerSettingsUI):
         One of the combo boxes may have all its text selected.
         """
         for field in self.frm_settings.fields.values():
-            if field.winfo_class() == "TCombobox":
-                field.select_clear()
+            widget = field.widget
+            if widget.winfo_class() == "TCombobox":
+                widget.select_clear()
 
 
 if __name__ == "__main__":

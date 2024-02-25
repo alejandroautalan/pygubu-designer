@@ -1,40 +1,70 @@
 import keyword
 import pathlib
 
-from pygubu.forms.exceptions import ValidationError
+from pygubu.forms.validation.base import Constraint, ConstraintValidator
 
 
-class IdentifierValidator:
-    message = "The value is not a valid python identifier."
-    code = "identifier"
+class IsIdentifier(Constraint):
+    code = "not_identifier_error"
+    message = "This value should be a valid python identifier."
 
-    def __call__(self, value):
-        is_valid = True
-        if len(value) > 0:
-            if keyword.iskeyword(value):
-                is_valid = False
-            if is_valid and not str(value).isidentifier():
-                is_valid = False
-        else:
-            # ID must have at least one character
-            is_valid = False
-        if not is_valid:
-            raise ValidationError(self.message, code=self.code)
+    def __init__(self, *args, message=None, **kw):
+        super().__init__(*args, **kw)
+        if message is not None:
+            self.message = message
+
+    def validated_by(self):
+        return IsIdentifierValidator
 
 
-class PathExistsValidator:
-    message = "The path must exist"
-    code = "path_exists"
+class IsIdentifierValidator(ConstraintValidator):
+    def validate(self, value, constraint):
+        if str(value).isidentifier() and not keyword.iskeyword(value):
+            return
+        self.context.add_violation(
+            message=constraint.message,
+            constraint=constraint,
+            code=constraint.code,
+            params=None,
+        )
 
-    def __init__(self):
-        self.uipath = None
 
-    def __call__(self, value):
-        path: pathlib.Path = self.uipath / value
-        if not path.exists():
-            raise ValidationError(self.message, code=self.code)
+class PathExist(Constraint):
+    code = "path_not_exits_error"
+    message = "The path must exist."
+
+    def __init__(self, *args, message=None, **kw):
+        super().__init__(*args, **kw)
+        if message is not None:
+            self.message = message
+
+    def validated_by(self):
+        return PathExistsValidator
 
 
-class ModulesPathValidator(PathExistsValidator):
-    def __call__(self, value):
-        super().__call__(value)
+class PathExistsValidator(ConstraintValidator):
+    def validate(self, value, constraint):
+        path = pathlib.Path(value)
+        if path.exists():
+            return
+        self.context.add_violation(
+            message=constraint.message,
+            constraint=constraint,
+            code=constraint.code,
+            params=None,
+        )
+
+
+class RelativePathExists(PathExist):
+    def __init__(self, *args, start_path=".", **kw):
+        super().__init__(*args, **kw)
+        self.start_path = start_path
+
+    def validated_by(self):
+        return RelativePathExistsValidator
+
+
+class RelativePathExistsValidator(PathExistsValidator):
+    def validate(self, value, constraint):
+        path = pathlib.Path(constraint.start_path) / value
+        super().validate(path, constraint)

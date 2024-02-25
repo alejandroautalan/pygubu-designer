@@ -42,7 +42,7 @@ from .layouteditor import LayoutEditor
 from .propertieseditor import PropertiesEditor
 from .util import trlog
 from .widgetdescr import WidgetMeta
-from pygubu.forms.fields import FieldBase
+from pygubu.forms.widget import FieldWidget
 from pygubudesigner.properties.editors.forms import (
     FormFieldNameEntry,
     FormFieldNameSelector,
@@ -1464,7 +1464,7 @@ class WidgetsTreeEditor:
     def _is_form_field_class(self, classname: str):
         builder = CLASS_MAP[classname].builder
         if builder.class_ is not None:
-            return issubclass(builder.class_, FieldBase)
+            return issubclass(builder.class_, FieldWidget)
         return False
 
     def _is_form_filedname_defined(self, fieldname: str):

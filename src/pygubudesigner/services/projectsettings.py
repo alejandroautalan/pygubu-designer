@@ -8,47 +8,14 @@ import pygubu
 import pygubudesigner.services.projectsettingsui as psbase
 from collections.abc import Iterable
 from tkinter import filedialog, messagebox
-from pygubu.forms.transformer import DataTransformer
-from pygubu.forms.exceptions import ValidationError
-from pygubu.forms.forms import FormWidget
+from pygubu.forms.transformer.tkboolean import BoolTransformer
 from pygubudesigner.preferences import DATA_DIR, NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
 from .project import Project
-from .fieldvalidator import IdentifierValidator, PathExistsValidator
+from .fieldvalidator import IsIdentifier, RelativePathExists
 
 
 logger = logging.getLogger(__name__)
-
-
-class BoolTransformer(DataTransformer):
-    def transform(self, value):
-        tval = False
-        try:
-            tval = tk.getboolean(value)
-        except ValueError:
-            pass
-        logger.debug(
-            "transform: from {%s} type: {%s} to {%s} type: {%s}",
-            value,
-            type(value),
-            tval,
-            type(tval),
-        )
-        return tval
-
-    def reversetransform(self, value):
-        tval = False
-        try:
-            tval = tk.getboolean(value)
-        except tk.TclError:
-            pass
-        logger.debug(
-            "reversetransform: from {%s} to {%s} final type: %s",
-            value,
-            tval,
-            type(tval),
-        )
-        return tval
 
 
 psbase.PROJECT_PATH = DATA_DIR / "ui"
@@ -62,10 +29,9 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         self.on_settings_changed = None
         self.dialog_toplevel = self.mainwindow.toplevel
 
-        self.frm_general: FormWidget = self.builder.get_object("frm_general")
-        self.frm_code: FormWidget = self.builder.get_object("frm_code")
-        self.frm_style: FormWidget = self.builder.get_object("frm_style")
-        # self.frm_general = self.builder.get_object("frm_custom_widgets")
+        self.fb_general = self.builder.get_object("frm_general")
+        self.fb_code = self.builder.get_object("frm_code")
+        self.fb_style = self.builder.get_object("frm_style")
         self.cwtree: ttk.Treeview = self.builder.get_object("cwtree")
         self.btn_cwremove = self.builder.get_object("btn_cwremove")
 
@@ -87,33 +53,55 @@ class ProjectSettings(psbase.ProjectSettingsUI):
 
         field = self.builder.get_object("template")
         field.configure(values=self.template_keys.items())
-        bool_options = (
-            "import_tkvariables",
-            "use_ttk_styledefinition_file",
-            "use_i18n",
-            "all_ids_attributes",
-            "generate_code_onsave",
-            "use_window_centering_code",
-        )
-        bool_transformer = BoolTransformer()
-        for key in bool_options:
-            field = self.builder.get_object(key)
-            field.model_transformer = bool_transformer
 
-        identifier_validator = IdentifierValidator()
-        self.path_exists_validator = PathExistsValidator()
-        validation = {
-            "module_name": identifier_validator,
-            "main_classname": identifier_validator,
-            "output_dir": self.path_exists_validator,
-            "ttk_style_definition_file": self.path_exists_validator,
+        bool_transformer = BoolTransformer()
+        identifier_constraint = IsIdentifier()
+        path_exists_constraint = RelativePathExists()
+        self.path_exists_constraint = path_exists_constraint
+        frm_general_config = {"name": {}, "description": {}}
+        frm_code_config = {
+            "module_name": {
+                "constraints": [identifier_constraint],
+            },
+            "main_classname": {
+                "constraints": [identifier_constraint],
+            },
+            "main_menu": {
+                "required": False,
+            },
+            "output_dir": {
+                "required": False,
+                "constraints": [path_exists_constraint],
+            },
+            "import_tkvariables": {
+                "model_transformer": bool_transformer,
+            },
+            "use_ttk_styledefinition_file": {
+                "model_transformer": bool_transformer,
+            },
+            "use_i18n": {
+                "model_transformer": bool_transformer,
+            },
+            "all_ids_attributes": {
+                "model_transformer": bool_transformer,
+            },
+            "generate_code_onsave": {
+                "model_transformer": bool_transformer,
+            },
+            "use_window_centering_code": {
+                "model_transformer": bool_transformer,
+            },
         }
-        for fieldname, validators in validation.items():
-            field = self.builder.get_object(fieldname)
-            if isinstance(validators, Iterable):
-                field.validators.extend(validators)
-            else:
-                field.validators.append(validators)
+
+        frm_style_config = {
+            "ttk_style_definition_file": {
+                "required": False,
+                "constraints": [path_exists_constraint],
+            },
+        }
+        self.frm_general = self.fb_general.get_form(frm_general_config)
+        self.frm_code = self.fb_code.get_form(frm_code_config)
+        self.frm_style = self.fb_style.get_form(frm_style_config)
 
     def run(self):
         self.mainwindow.run()
@@ -132,10 +120,6 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         self._current_project = project
         settings = project.get_full_settings()
         default_settings = {
-            "name": "Project Name",
-            "description": "Project Long Description",
-            "module_name": "yourmodulename",
-            "main_classname": "YourClassName",
             "template": "application",
             "import_tkvariables": False,
             "use_ttk_styledefinition_file": False,
@@ -156,26 +140,33 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         for path in cwlist:
             self.cwtree.insert("", tk.END, text=path)
 
-        self.path_exists_validator.uipath = project.fpath.parent
+        self.path_exists_constraint.start_path = project.fpath.parent
         self._configure_path_remove()
         self.on_template_change()
 
     def process_forms(self):
         new_settings = {}
-        forms = (self.frm_general, self.frm_code, self.frm_style)
+        forms = (
+            (self.fb_general, self.frm_general),
+            (self.fb_code, self.frm_code),
+            (self.fb_style, self.frm_style),
+        )
         # Process forms
         all_valid = True
-        for form in forms:
+        for builder, form in forms:
             form.submit()
             valid = form.is_valid()
             all_valid = all_valid and valid
             if valid:
                 new_settings.update(form.cleaned_data)
             else:
-                notebook: ttk.Notebook = form.nametowidget(form.winfo_parent())
-                index = notebook.index(form)
+                notebook: ttk.Notebook = builder.nametowidget(
+                    builder.winfo_parent()
+                )
+                index = notebook.index(builder)
                 notebook.select(index)
-                # print(form.errors)
+                # Stop validation here
+                break
 
         # Process custom widgets section
         # FIXME: improve this
@@ -222,7 +213,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             state["main_menu"] = "disabled"
         for fname, newstate in state.items():
             if fname in self.frm_code.fields:
-                self.frm_code.fields[fname].configure(state=newstate)
+                self.frm_code.fields[fname].widget.configure(state=newstate)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
 
