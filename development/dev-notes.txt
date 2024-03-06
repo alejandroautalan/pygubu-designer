@@ -21,15 +21,10 @@ TODO
 - BUG: create a pygubu dialog and generate code. Incorrect class hint generated
   self.mainwindow: pygubu.builder.widgets.dialog = builder.get_object(
             "settingsdialog", master)
-- Integrate experiment-component palette
-- Remove code tab and make this options project options. Remove code view, only generate files.
 - Issue: redraw previews on theme change.
 - Customtkinter 5 Issues on designer:
   Can't select SegmentedButton in Preview (can't click it)
   Click on tabview tab does not select tab in treeview.
-  F5 preview of CTk does not show images and shows warning when the
-  preview closes. This is because Ctk is another tk instance running on
-  another thread.
 - Add a mechanism to test code generation.
 - Treeview with scrollHelper. Srollbars are not shown depending on the
   treeview configuration or if columns are set stretch=true
@@ -88,18 +83,6 @@ Buttons for Actions on current layout Manager:
 
 Example: Click Expand
   Manager Place: set expand=True, fill=both
-
-
-Project Notes:
-=============
-
-Posible project properties:
-
-name: Project Name
-path: Path to save generated files? Defaults to . (dot), same path as project.
-relative_path: use relative path for external files (eg image files)
-
-
 
 
 Theming notes:
