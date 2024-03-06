@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project version="1.4" author="PygubuDesigner 0.38">
+  <interfaces>
+    <object class="pygubu.builder.widgets.dialog" id="dialog1">
+      <property name="geometry">480x320</property>
+      <property name="height">100</property>
+      <property name="modal">true</property>
+      <property name="resizable">both</property>
+      <property name="title" translatable="yes">Dialog</property>
+      <property name="width">200</property>
+      <child>
+        <object class="ttk.Frame" id="frame1">
+          <property name="height">200</property>
+          <property name="padding">4</property>
+          <property name="width">200</property>
+          <layout manager="pack">
+            <property name="expand">true</property>
+            <property name="fill">both</property>
+            <property name="side">top</property>
+          </layout>
+          <child>
+            <object class="ttk.Label" id="label1">
+              <property name="font">TkHeadingFont</property>
+              <property name="text" translatable="yes">Title</property>
+              <layout manager="pack">
+                <property name="fill">x</property>
+                <property name="side">top</property>
+              </layout>
+            </object>
+          </child>
+          <child>
+            <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper1">
+              <property name="scrolltype">both</property>
+              <property name="usemousewheel">false</property>
+              <layout manager="pack">
+                <property name="expand">true</property>
+                <property name="fill">both</property>
+                <property name="side">top</property>
+              </layout>
+              <child>
+                <object class="tk.Text" id="text1">
+                  <property name="background">#d9d9d9</property>
+                  <property name="borderwidth">0</property>
+                  <property name="height">10</property>
+                  <property name="text" translatable="yes">Some text here</property>
+                  <property name="width">50</property>
+                  <layout manager="pack">
+                    <property name="side">top</property>
+                  </layout>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="ttk.Frame" id="frame2">
+              <property name="height">200</property>
+              <property name="width">200</property>
+              <layout manager="pack">
+                <property name="fill">x</property>
+                <property name="side">top</property>
+              </layout>
+              <child>
+                <object class="ttk.Button" id="button1">
+                  <property name="text" translatable="yes">Ok</property>
+                  <layout manager="pack">
+                    <property name="side">right</property>
+                  </layout>
+                </object>
+              </child>
+            </object>
+          </child>
+        </object>
+      </child>
+    </object>
+  </interfaces>
+  <settings>
+    <setting id="name">Custom message box</setting>
+    <setting id="description">A messagebox used to show long Exception messages.</setting>
+    <setting id="module_name">messagebox</setting>
+    <setting id="template">application</setting>
+    <setting id="main_widget">dialog1</setting>
+    <setting id="main_classname">CustomMessageBox</setting>
+    <setting id="main_menu" />
+    <setting id="output_dir">../../services</setting>
+    <setting id="output_dir2" />
+    <setting id="import_tkvariables">False</setting>
+    <setting id="use_ttk_styledefinition_file">False</setting>
+    <setting id="use_i18n">False</setting>
+    <setting id="all_ids_attributes">False</setting>
+    <setting id="generate_code_onsave">False</setting>
+    <setting id="use_window_centering_code">False</setting>
+    <setting id="ttk_style_definition_file" />
+  </settings>
+  <customwidgets />
+</project>
