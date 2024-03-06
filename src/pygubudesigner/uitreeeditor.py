@@ -716,8 +716,9 @@ class WidgetsTreeEditor:
             root_classname = self.treedata[root].classname
             root_boclass = CLASS_MAP[root_classname].builder
             allowed_children = root_boclass.allowed_children
-            # if allowed_children:
-            #    if classname not in allowed_children:
+            allowed_children = (
+                [] if allowed_children is None else allowed_children
+            )
             canbe_parent = root_boclass.canbe_parent_of(new_boclass, classname)
             if not canbe_parent:
                 if show_warnings:
