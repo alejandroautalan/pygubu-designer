@@ -31,6 +31,24 @@ def load_custom_widget(path: pathlib.Path):
 class Project:
     """Store project data for designer."""
 
+    settings_default = {
+        "name": "",
+        "description": "",
+        "module_name": "",
+        "template": "application",
+        "main_widget": "",
+        "main_classname": "",
+        "main_menu": "",
+        "output_dir": "",
+        "output_dir2": "",
+        "import_tkvariables": False,
+        "use_ttk_styledefinition_file": False,
+        "use_i18n": False,
+        "all_ids_attributes": False,
+        "ttk_style_definition_file": "",
+        "generate_code_onsave": False,
+    }
+
     def __init__(self):
         self.fpath = None
         self.uidefinition: UIDefinition = None
@@ -47,7 +65,8 @@ class Project:
         self.uidefinition.save(filename)
 
     def get_full_settings(self) -> dict:
-        settings = self.settings.copy()
+        settings = self.settings_default.copy()
+        settings.update(self.settings)
         cwlist = []
         for path in self.custom_widgets:
             cwlist.append(path)

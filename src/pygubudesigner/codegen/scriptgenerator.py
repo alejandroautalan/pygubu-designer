@@ -181,7 +181,8 @@ class ScriptGenerator:
         tpl = makolookup.get_template("widgetbo.py.mako")
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
-        outfn: pathlib.Path = output_dir / (context["module_name"] + "bo.py")
+        output_dir2 = context["output_dir2"]
+        outfn: pathlib.Path = output_dir2 / (context["module_name"] + "bo.py")
         # DO NOT overwrite user module.
         if not outfn.exists():
             with open(outfn, "wt") as outfile:
@@ -246,9 +247,15 @@ class ScriptGenerator:
             output_dir = uipath / output_dir
         else:
             output_dir = uipath
+        output_dir2: pathlib.Path = config["output_dir2"]
+        if output_dir2:
+            output_dir2 = uipath / output_dir2
+        else:
+            output_dir2 = uipath
 
         context = {
             "output_dir": output_dir,
+            "output_dir2": output_dir2,
             "target": target,
             "module_name": config["module_name"],
             "project_name": self.app.project_name(),

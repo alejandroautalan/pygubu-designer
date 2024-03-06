@@ -85,6 +85,10 @@ class ProjectSettings(psbase.ProjectSettingsUI):
                 "required": False,
                 "constraints": [path_exists_constraint],
             },
+            "output_dir2": {
+                "required": False,
+                "constraints": [path_exists_constraint],
+            },
             "import_tkvariables": {
                 "model_transformer": bool_transformer,
             },
@@ -131,17 +135,9 @@ class ProjectSettings(psbase.ProjectSettingsUI):
     def edit(self, project: Project):
         self._current_project = project
         settings = project.get_full_settings()
-        default_settings = {
-            "template": "application",
-            "import_tkvariables": False,
-            "use_ttk_styledefinition_file": False,
-            "use_i18n": False,
-            "all_ids_attributes": False,
-            "ttk_style_definition_file": "",
-        }
-        self.frm_general.edit(settings, default_settings)
-        self.frm_code.edit(settings, default_settings)
-        self.frm_style.edit(settings, default_settings)
+        self.frm_general.edit(settings, project.settings_default)
+        self.frm_code.edit(settings, project.settings_default)
+        self.frm_style.edit(settings, project.settings_default)
 
         template = self.frm_code.fields["template"].data
         self.template_desc_var.set(self.template_desc[template])
@@ -206,6 +202,13 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         new_value = self._current_project.get_relative_path(new_value)
         output_field.data = new_value
 
+    def output_dir2_changed(self, event=None):
+        btn = event.widget
+        output_field = self.frm_code.fields["output_dir2"]
+        new_value = btn.cget("path")
+        new_value = self._current_project.get_relative_path(new_value)
+        output_field.data = new_value
+
     def on_template_change(self, event=None):
         template_field = self.frm_code.fields["template"]
         template = template_field.data
@@ -214,6 +217,8 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             "use_i18n": "normal",
             "all_ids_attributes": "normal",
             "main_menu": "normal",
+            "output_dir2": "disabled",
+            "btn_path2_chooser": "disabled",
         }
         if template == "application":
             state["import_tkvariables"] = "normal"
@@ -223,9 +228,13 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         elif template == "widget":
             state["use_i18n"] = "disabled"
             state["main_menu"] = "disabled"
+            state["output_dir2"] = "normal"
+            state["btn_path2_chooser"] = "normal"
         for fname, newstate in state.items():
             if fname in self.frm_code.fields:
                 self.frm_code.fields[fname].widget.configure(state=newstate)
+            else:
+                self.builder.get_object(fname).configure(state=newstate)
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
 
