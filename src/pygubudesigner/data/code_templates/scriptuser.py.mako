@@ -7,6 +7,7 @@ class ${class_name}(${class_name}UI):
         super().__init__(master, translator)
 %else:
     def __init__(self, master=None):
+        super().__init__(master)
 %endif
 
 ${methods}\
