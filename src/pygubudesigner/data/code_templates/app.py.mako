@@ -21,7 +21,7 @@ class ${class_name}:
             on_first_object=on_fist_object_cb)
 %else:
     def __init__(self, master=None):
-        self.builder = builder = pygubu.Builder()
+        self.builder = pygubu.Builder()
 %endif
         self.builder.add_resource_paths(RESOURCE_PATHS)
         self.builder.add_from_file(PROJECT_UI)
