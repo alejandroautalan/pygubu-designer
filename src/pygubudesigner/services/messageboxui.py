@@ -22,6 +22,12 @@ class CustomMessageBoxUI:
     def run(self):
         self.mainwindow.mainloop()
 
+    def btn_ok_clicked(self):
+        pass
+
+    def on_dialog_close(self, event=None):
+        pass
+
 
 if __name__ == "__main__":
     root = tk.Tk()

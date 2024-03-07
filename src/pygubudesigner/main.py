@@ -58,6 +58,7 @@ from .util import get_ttk_style, menu_iter_children, virtual_event
 from .util.keyboard import Key, key_bind
 from .util.screens import is_visible_in_screens, parse_geometry
 from .services.stylehandler import StyleHandler
+from .services.messagebox import show_error
 
 
 # Initialize logger
@@ -81,7 +82,7 @@ def init_pygubu_widgets():
             logger.exception(e)
             msg = _(f"Failed to load widget module: '{_module}'")
             det = traceback.format_exc()
-            messagebox.showerror(_("Error"), msg, detail=det)
+            show_error(None, _("Error"), msg, det)
 
     # Initialize designer plugins
     PluginManager.load_designer_plugins()
@@ -610,8 +611,11 @@ proc ::tk::dialog::file::Create {w class} {
         except Exception as e:
             msg = str(e)
             det = traceback.format_exc()
-            messagebox.showerror(
-                _("Error"), msg, detail=det, parent=self.mainwindow
+            show_error(
+                self.mainwindow,
+                _("Error"),
+                msg,
+                det,
             )
         return saved
 
@@ -661,9 +665,7 @@ proc ::tk::dialog::file::Create {w class} {
         except Exception as e:
             msg = str(e)
             det = traceback.format_exc()
-            messagebox.showerror(
-                _("Error"), msg, detail=det, parent=self.mainwindow
-            )
+            show_error(self.mainwindow, _("Error"), msg, det)
 
     def do_file_open(self, filename=None):
         openfile = True

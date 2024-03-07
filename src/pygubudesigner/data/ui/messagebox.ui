@@ -8,6 +8,7 @@
       <property name="resizable">both</property>
       <property name="title" translatable="yes">Dialog</property>
       <property name="width">200</property>
+      <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog_close" add="" />
       <child>
         <object class="ttk.Frame" id="frame1">
           <property name="height">200</property>
@@ -19,11 +20,11 @@
             <property name="side">top</property>
           </layout>
           <child>
-            <object class="ttk.Label" id="label1">
+            <object class="ttk.Label" id="lbl_message" named="True">
               <property name="font">TkHeadingFont</property>
-              <property name="text" translatable="yes">Title</property>
               <layout manager="pack">
                 <property name="fill">x</property>
+                <property name="pady">5</property>
                 <property name="side">top</property>
               </layout>
             </object>
@@ -38,11 +39,10 @@
                 <property name="side">top</property>
               </layout>
               <child>
-                <object class="tk.Text" id="text1">
+                <object class="tk.Text" id="txt_detail" named="True">
                   <property name="background">#d9d9d9</property>
                   <property name="borderwidth">0</property>
                   <property name="height">10</property>
-                  <property name="text" translatable="yes">Some text here</property>
                   <property name="width">50</property>
                   <layout manager="pack">
                     <property name="side">top</property>
@@ -57,10 +57,12 @@
               <property name="width">200</property>
               <layout manager="pack">
                 <property name="fill">x</property>
+                <property name="pady">5 0</property>
                 <property name="side">top</property>
               </layout>
               <child>
-                <object class="ttk.Button" id="button1">
+                <object class="ttk.Button" id="btn_ok" named="True">
+                  <property name="command" type="command" cbtype="simple">btn_ok_clicked</property>
                   <property name="text" translatable="yes">Ok</property>
                   <layout manager="pack">
                     <property name="side">right</property>
