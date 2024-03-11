@@ -282,6 +282,13 @@ class PreviewHelper:
         self._sel_id = identifier
         self._sel_widget = selected_id
 
+    def preview_for_widget(self, preview_id, widget_id):
+        if preview_id in self.previews:
+            preview = self.previews[preview_id]
+            widget = preview.get_widget_by_id(widget_id)
+            return widget
+        return None
+
     def delete(self, identifier):
         if identifier in self.previews:
             preview = self.previews[identifier]
