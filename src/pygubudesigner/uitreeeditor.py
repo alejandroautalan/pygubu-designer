@@ -68,6 +68,7 @@ class WidgetsTreeEditor:
         self.virtual_clipboard_for_duplicate = None
         self.duplicating = False
         self.duplicate_parent_iid = None
+        self.update_builders = {}
 
         self.treeview.filter_func = self.filter_match
 
@@ -1138,31 +1139,38 @@ class WidgetsTreeEditor:
                 tree.item(item, values=values)
 
     def preview_widget_update(self, item, hint, data):
-        hint_strings = {
-            WidgetMeta.LAYOUT_MANAGER_CHANGED: "LAYOUT_MANAGER_CHANGED",
-            WidgetMeta.LAYOUT_PROPERTY_CHANGED: "LAYOUT_PROPERTY_CHANGED",
-            WidgetMeta.PROPERTY_CHANGED: "PROPERTY_CHANGED",
-            WidgetMeta.PROPERTY_RO_CHANGED: "PROPERTY_RO_CHANGED",
-        }
-        hint_str = hint_strings.get(hint, hint)
-        print(hint_str)
+        # hint_strings = {
+        #     WidgetMeta.LAYOUT_MANAGER_CHANGED: "LAYOUT_MANAGER_CHANGED",
+        #     WidgetMeta.LAYOUT_PROPERTY_CHANGED: "LAYOUT_PROPERTY_CHANGED",
+        #     WidgetMeta.PROPERTY_CHANGED: "PROPERTY_CHANGED",
+        #     WidgetMeta.PROPERTY_RO_CHANGED: "PROPERTY_RO_CHANGED",
+        # }
+        # hint_str = hint_strings.get(hint, hint)
 
         full_redraw = (hint & WidgetMeta.PROPERTY_RO_CHANGED) | (
             hint & WidgetMeta.LAYOUT_MANAGER_CHANGED
         )
         if full_redraw:
-            print("Needs full redraw")
+            # Needs full redraw.
+            self.draw_widget(item)
         else:
-            print("Maybe just needs update.")
-            self.treeview.filter_remove(remember=True)
+            # Maybe just needs update.
             preview_id = self.get_toplevel_parent(item)
-            self.treeview.filter_restore()
 
             widget_id = data.identifier
+            bclass = data.classname
             widget = self.previewer.preview_for_widget(preview_id, widget_id)
-            print(widget)
+            if bclass not in self.update_builders:
+                builder = CLASS_MAP[bclass].builder
+                self.update_builders[bclass] = builder(None, data)
+            builder = self.update_builders[bclass]
+            builder.widget = widget
 
-        self.draw_widget(item)
+            if hint & WidgetMeta.PROPERTY_CHANGED:
+                builder.configure()
+            if hint & WidgetMeta.LAYOUT_PROPERTY_CHANGED:
+                builder.layout()
+            self.previewer.show_selected(preview_id, widget_id)
 
     def update_event(self, hint, data):
         """Manages notify event when data is changed."""
