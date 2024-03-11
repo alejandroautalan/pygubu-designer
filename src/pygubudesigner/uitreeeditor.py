@@ -1170,6 +1170,9 @@ class WidgetsTreeEditor:
                 builder.configure()
             if hint & WidgetMeta.LAYOUT_PROPERTY_CHANGED:
                 builder.layout()
+            if hint & WidgetMeta.BINDING_CHANGED:
+                # Do nothing now
+                pass
             self.previewer.show_selected(preview_id, widget_id)
 
     def update_event(self, hint, data):
@@ -1303,10 +1306,10 @@ class WidgetsTreeEditor:
 
                 if current_row != new_row:
                     data.layout_property("row", str(new_row))
-                    data.notify()
+                    data.notify(WidgetMeta.LAYOUT_PROPERTY_CHANGED)
                 if current_col != new_col:
                     data.layout_property("column", str(new_col))
-                    data.notify()
+                    data.notify(WidgetMeta.LAYOUT_PROPERTY_CHANGED)
             self.treeview.filter_restore()
 
     def _top_widget_iterator(self):

@@ -36,6 +36,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
     LAYOUT_PROPERTY_CHANGED = 2
     PROPERTY_CHANGED = 4
     PROPERTY_RO_CHANGED = 8
+    BINDING_CHANGED = 16
 
     def __init__(
         self,

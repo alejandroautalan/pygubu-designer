@@ -203,7 +203,7 @@ class ContainerLayoutEditor(ContainerLayoutEditorBase):
                     self.gridselector.mark_column(int(col))
 
             # Update the preview now, after the grid rc changes have been made.
-            target.notify("LAYOUT_GRIDRC_CHANGED", target)
+            target.notify(WidgetMeta.LAYOUT_PROPERTY_CHANGED, target)
 
     def _on_gridcell_clicked(self, event=None):
         self._edit_grid_cell(*self.gridselector.selection)

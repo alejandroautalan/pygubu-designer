@@ -17,6 +17,8 @@ from pygubu import builder
 from pygubu.widgets.editabletreeview import InplaceEditor
 
 from .widgets.bindingeditor import EventHandlerEditor, SequenceEditor
+from .widgetdescr import WidgetMeta
+
 
 CLASS_MAP = builder.CLASS_MAP
 
@@ -136,7 +138,7 @@ class BindingsEditor:
 
             # Notify the editor that a change has occurred and the project needs saving.
             # Changed: August 17, 2021
-            self._curr_data.notify(self)
+            self._curr_data.notify(WidgetMeta.BINDING_CHANGED)
 
     def _add_binding(self, bind):
         idx = self.tv.index(self._adder)
