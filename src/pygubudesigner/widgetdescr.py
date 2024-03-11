@@ -32,6 +32,11 @@ logger = logging.getLogger(__name__)
 
 
 class WidgetMeta(WidgetMetaBase, Observable):
+    LAYOUT_MANAGER_CHANGED = 1
+    LAYOUT_PROPERTY_CHANGED = 2
+    PROPERTY_CHANGED = 4
+    PROPERTY_RO_CHANGED = 8
+
     def __init__(
         self,
         cname,
@@ -63,7 +68,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
 
     def apply_layout_defaults(self):
         super().apply_layout_defaults()
-        self.notify("LAYOUT_CHANGED", self)
+        self.notify(self.LAYOUT_PROPERTY_CHANGED, self)
 
     def widget_property(self, name, value=None):
         if value is None:
@@ -74,18 +79,24 @@ class WidgetMeta(WidgetMetaBase, Observable):
             else:
                 return self.properties.get(name, "")
         else:
+            event_type = self.PROPERTY_CHANGED
             # Setter
             if name == "id":
                 self.identifier = value
+                event_type = event_type | self.PROPERTY_RO_CHANGED
             elif name == "class":
                 self.classname = value
+                event_type = event_type | self.PROPERTY_RO_CHANGED
             else:
                 if value:
                     self.properties[name] = value
                 else:
                     # remove if no value set
                     self.properties.pop(name, None)
-            self.notify("PROPERTY_CHANGED", self)
+                builder = CLASS_MAP[self.classname].builder
+                if name in builder.ro_properties:
+                    event_type = event_type | self.PROPERTY_RO_CHANGED
+            self.notify(event_type, self)
 
     def layout_property(self, name, value=None):
         if value is None:
@@ -101,7 +112,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
             else:
                 # remove if no value set
                 self.layout_properties.pop(name, None)
-            self.notify("LAYOUT_CHANGED", self)
+            self.notify(self.LAYOUT_PROPERTY_CHANGED, self)
 
     def container_property(self, name, value=None):
         if value is None:
@@ -117,7 +128,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
             else:
                 # remove if no value set
                 self.container_properties.pop(name, None)
-            self.notify("LAYOUT_CHANGED", self)
+            self.notify(self.LAYOUT_PROPERTY_CHANGED, self)
 
     def gridrc_property(self, type_, num, pname, value=None):
         if value is None:
@@ -135,7 +146,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
     def gridrc_clear(self, notify_change=True):
         self.gridrc_properties = []
         if notify_change:
-            self.notify("LAYOUT_CHANGED")
+            self.notify(self.LAYOUT_PROPERTY_CHANGED)
 
     def gridrc_row_indexes(self):
         rows = set()
@@ -160,7 +171,8 @@ class WidgetMeta(WidgetMetaBase, Observable):
         if self._manager != value:
             self._manager = value
             self.clear_layout()
-        self.notify("LAYOUT_CHANGED", self)
+            self.notify(self.LAYOUT_MANAGER_CHANGED, self)
+        # self.notify("LAYOUT_CHANGED", self)
 
     def get_bindings(self):
         blist = []

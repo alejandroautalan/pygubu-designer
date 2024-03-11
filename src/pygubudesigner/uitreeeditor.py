@@ -1121,29 +1121,59 @@ class WidgetsTreeEditor:
         # whether it makes sense to have some menus enabled or not.
         self.app.evaluate_menu_states()
 
-    def update_event(self, hint, obj):
+    def update_tree_data_display(self, item, data):
         """Updates tree colums when itemdata is changed."""
+        tree = self.treeview
+        item_text = self._treeitem_label(data)
+        if item_text != tree.item(item, "text"):
+            tree.item(item, text=item_text)
+        # if tree.parent(item) != '' and 'layout' in data:
+        if tree.parent(item) != "" and data.layout_required:
+            if data.manager == "grid":
+                row = data.layout_property("row")
+                col = data.layout_property("column")
+                values = tree.item(item, "values")
+                if row != values[1] or col != values[2]:
+                    values = (data.classname, row, col)
+                tree.item(item, values=values)
+
+    def preview_widget_update(self, item, hint, data):
+        hint_strings = {
+            WidgetMeta.LAYOUT_MANAGER_CHANGED: "LAYOUT_MANAGER_CHANGED",
+            WidgetMeta.LAYOUT_PROPERTY_CHANGED: "LAYOUT_PROPERTY_CHANGED",
+            WidgetMeta.PROPERTY_CHANGED: "PROPERTY_CHANGED",
+            WidgetMeta.PROPERTY_RO_CHANGED: "PROPERTY_RO_CHANGED",
+        }
+        hint_str = hint_strings.get(hint, hint)
+        print(hint_str)
+
+        full_redraw = (hint & WidgetMeta.PROPERTY_RO_CHANGED) | (
+            hint & WidgetMeta.LAYOUT_MANAGER_CHANGED
+        )
+        if full_redraw:
+            print("Needs full redraw")
+        else:
+            print("Maybe just needs update.")
+            self.treeview.filter_remove(remember=True)
+            preview_id = self.get_toplevel_parent(item)
+            self.treeview.filter_restore()
+
+            widget_id = data.identifier
+            widget = self.previewer.preview_for_widget(preview_id, widget_id)
+            print(widget)
+
+        self.draw_widget(item)
+
+    def update_event(self, hint, data):
+        """Manages notify event when data is changed."""
 
         if not self._listen_object_updates:
             return
 
-        tree = self.treeview
-        data = obj
-        item = self.get_item_by_data(obj)
-        item_text = self._treeitem_label(data)
+        item = self.get_item_by_data(data)
         if item:
-            if item_text != tree.item(item, "text"):
-                tree.item(item, text=item_text)
-            # if tree.parent(item) != '' and 'layout' in data:
-            if tree.parent(item) != "" and data.layout_required:
-                if data.manager == "grid":
-                    row = data.layout_property("row")
-                    col = data.layout_property("column")
-                    values = tree.item(item, "values")
-                    if row != values[1] or col != values[2]:
-                        values = (data.classname, row, col)
-                    tree.item(item, values=values)
-            self.draw_widget(item)
+            self.update_tree_data_display(item, data)
+            self.preview_widget_update(item, hint, data)
             self.app.set_changed()
 
     def get_item_by_data(self, data):
