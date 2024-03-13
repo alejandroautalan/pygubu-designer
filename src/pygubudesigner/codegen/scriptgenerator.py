@@ -228,11 +228,16 @@ class ScriptGenerator:
                 set_main_menu = True
 
         # Style definitions
-        ttk_styles_module = config["ttk_style_definition_file"]
-        has_ttk_styles = False
         use_ttk_styles = tk.getboolean(config["use_ttk_styledefinition_file"])
+        ttk_styles_module = config["ttk_style_definition_file"]
+
+        use_first_object_cb = use_ttk_styles
+        first_object_func = "None"
+
+        has_ttk_styles = False
         if use_ttk_styles and ttk_styles_module:
             has_ttk_styles = True
+            first_object_func = f"{ttk_styles_module}.setup_ttk_styles"
 
         with_i18n_support = tk.getboolean(config["use_i18n"])
         import_tk_vars = tk.getboolean(config["import_tkvariables"])
@@ -267,6 +272,8 @@ class ScriptGenerator:
             "import_lines": None,
             "callbacks": "",
             "tkvariables": [],
+            "use_first_object_cb": use_first_object_cb,
+            "first_object_func": first_object_func,
             "has_ttk_styles": has_ttk_styles,
             "ttk_styles_module": ttk_styles_module,
             "set_project_path": False,

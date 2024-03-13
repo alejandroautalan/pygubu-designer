@@ -7,18 +7,18 @@ RESOURCE_PATHS = [PROJECT_PATH]
 
 <%block name="class_definition" filter="trim">
 class ${class_name}:
-%if with_i18n_support and has_ttk_styles:
-    def __init__(self, master=None, translator=None, on_fist_object_cb=None):
+%if with_i18n_support and use_first_object_cb:
+    def __init__(self, master=None, translator=None, on_first_object_cb=None):
         self.builder = pygubu.Builder(
             translator=translator,
-            on_first_object=on_fist_object_cb)
+            on_first_object=on_first_object_cb)
 %elif with_i18n_support:
     def __init__(self, master=None, translator=None):
         self.builder = pygubu.Builder(translator)
-%elif has_ttk_styles:
-    def __init__(self, master=None, on_fist_object_cb=None):
+%elif use_first_object_cb:
+    def __init__(self, master=None, on_first_object_cb=None):
         self.builder = pygubu.Builder(
-            on_first_object=on_fist_object_cb)
+            on_first_object=on_first_object_cb)
 %else:
     def __init__(self, master=None):
         self.builder = pygubu.Builder()
