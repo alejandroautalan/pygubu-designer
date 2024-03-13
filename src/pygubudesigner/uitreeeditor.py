@@ -1164,6 +1164,7 @@ class WidgetsTreeEditor:
                 builder = CLASS_MAP[bclass].builder
                 self.update_builders[bclass] = builder(None, data)
             builder = self.update_builders[bclass]
+            builder.wmeta = data
             builder.widget = widget
 
             if hint & WidgetMeta.PROPERTY_CHANGED:
