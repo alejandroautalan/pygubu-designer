@@ -70,6 +70,8 @@ class WidgetsTreeEditor:
         self.duplicating = False
         self.duplicate_parent_iid = None
         self.update_builders = {}
+        self.preview_update_cbid = None
+        self.scheduled_widget_updates = []
 
         self.treeview.filter_func = self.filter_match
 
@@ -1192,6 +1194,24 @@ class WidgetsTreeEditor:
             self.preview_widget_update(item, hint, data)
             self.app.set_changed()
 
+    def schedule_preview_update(self, item):
+        """Schedule a preview update.
+        Helps to reduce full redraw when moving widget in treeview with keyboard.
+        """
+        if item not in self.scheduled_widget_updates:
+            self.scheduled_widget_updates.append(item)
+        if self.preview_update_cbid is not None:
+            self.treeview.after_cancel(self.preview_update_cbid)
+        self.preview_update_cbid = self.treeview.after(
+            950, self.schedule_preview_update_execute
+        )
+
+    def schedule_preview_update_execute(self):
+        for item in self.scheduled_widget_updates:
+            self.draw_widget(item)
+        self.scheduled_widget_updates.clear()
+        self.preview_update_cbid = None
+
     def get_item_by_data(self, data):
         skey = None
         for key, value in self.treedata.items():
@@ -1257,7 +1277,8 @@ class WidgetsTreeEditor:
                 # Always refresh preview for objects that don't
                 # require a layout, such as menus and notebook tabs.
                 if manager in ("pack", "place") or not layout_required:
-                    self.draw_widget(item)
+                    # self.draw_widget(item)
+                    self.schedule_preview_update(item)
             self.treeview.filter_restore()
 
     def on_item_move_down(self, event):
@@ -1279,7 +1300,8 @@ class WidgetsTreeEditor:
                 # Always refresh preview for objects that don't
                 # require a layout, such as menus and notebook tabs.
                 if manager in ("pack", "place") or not layout_required:
-                    self.draw_widget(item)
+                    # self.draw_widget(item)
+                    self.schedule_preview_update(item)
             self.treeview.filter_restore()
 
     #
