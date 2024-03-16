@@ -48,6 +48,7 @@ from pygubudesigner.properties.editors.forms import (
     FormFieldNameSelector,
 )
 from pygubudesigner.services.project import Project
+from pygubu.component.plugin_manager import PluginManager
 
 
 logger = logging.getLogger("pygubu.designer")
@@ -1139,13 +1140,10 @@ class WidgetsTreeEditor:
                 tree.item(item, values=values)
 
     def preview_widget_update(self, item, hint, data):
-        # hint_strings = {
-        #     WidgetMeta.LAYOUT_MANAGER_CHANGED: "LAYOUT_MANAGER_CHANGED",
-        #     WidgetMeta.LAYOUT_PROPERTY_CHANGED: "LAYOUT_PROPERTY_CHANGED",
-        #     WidgetMeta.PROPERTY_CHANGED: "PROPERTY_CHANGED",
-        #     WidgetMeta.PROPERTY_RO_CHANGED: "PROPERTY_RO_CHANGED",
-        # }
-        # hint_str = hint_strings.get(hint, hint)
+        """Update widget preview.
+        If posible, it will update widget properties live.
+        Otherwise, a full widget redraw is done.
+        """
 
         full_redraw = (hint & WidgetMeta.PROPERTY_RO_CHANGED) | (
             hint & WidgetMeta.LAYOUT_MANAGER_CHANGED
@@ -1161,10 +1159,16 @@ class WidgetsTreeEditor:
             bclass = data.classname
             widget = self.previewer.preview_for_widget(preview_id, widget_id)
             if bclass not in self.update_builders:
-                builder = CLASS_MAP[bclass].builder
+                builder = PluginManager.get_preview_builder_for(bclass)
+                builder = (
+                    CLASS_MAP[bclass].builder if builder is None else builder
+                )
                 self.update_builders[bclass] = builder(None, data)
             builder = self.update_builders[bclass]
-            builder.wmeta = data
+            # Use copy here because preview builders can change data for preview
+            meta_copy = WidgetMeta(bclass, widget_id)
+            meta_copy.copy_properties(data)
+            builder.wmeta = meta_copy
             builder.widget = widget
 
             if hint & WidgetMeta.PROPERTY_CHANGED:
