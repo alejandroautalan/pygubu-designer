@@ -71,15 +71,21 @@ My wish list?
   a group of properties. Example button "Expand": for pack manager will set
   expand=True, fill=both.
 
+- Add notebook, add tab,  add label to tab.
+  Should be displayed on center, y no tab sticky option is set.
+  Problem seems to be, the labels is ejecuting his layout configuration. Should not.
+  Solution 1: add manager type "none" or "parent". If manager of widget is none, the
+    parent widget is in charge of layout configuration.
 
 
 Button Bar
 ==========
 
-New Project, Open Project, Save, UndoButtons, Cut, copy, paste, delete,
-Generate code (generate files in disk, with configured names),
-Buttons for Actions on current layout Manager:
-  Align left, center, Align right, Expand.
+Section: New, Open, Save, Save As
+Section: Cut, copy, paste, delete, UndoButtons?
+Section: Align left, center, Align right, Expand # Buttons for Actions on current layout Manager
+Section: Preview refresh
+Section: Project Properties, Generate code
 
 Example: Click Expand
   Manager Place: set expand=True, fill=both
