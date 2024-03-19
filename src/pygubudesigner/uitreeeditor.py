@@ -415,7 +415,10 @@ class WidgetsTreeEditor:
         # Prepare container layout options
         cinfo = self.get_container_info(item)
         cmanager = cinfo["manager"]
-        if cmanager is not None and cmanager != wdescr.container_manager:
+        if cmanager is None:
+            # Allow simple propagate option.
+            wdescr.container_manager = "pack"
+        elif cmanager != wdescr.container_manager:
             # Update widged description
             wdescr.container_manager = cmanager
 
