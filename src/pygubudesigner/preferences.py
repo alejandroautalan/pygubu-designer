@@ -143,6 +143,10 @@ def get_window_size():
     return get_option("geometry")
 
 
+def get_preview_indicator_color():
+    return "red"
+
+
 def save_from_dict(new_values: dict):
     # General
     for key, value in new_values.items():
