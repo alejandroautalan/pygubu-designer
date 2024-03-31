@@ -13,7 +13,7 @@ from pygubudesigner.preferences import (
     get_option,
     save_from_dict,
 )
-from pygubudesigner.util import get_ttk_style
+from pygubudesigner.services.theming import get_ttk_style
 from pygubudesigner.i18n import translator as _
 
 

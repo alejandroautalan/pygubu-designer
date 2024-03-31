@@ -5,7 +5,7 @@ import logging
 from dataclasses import dataclass
 from pygubu.stockimage import StockImage, StockImageException
 from pygubudesigner import preferences as pref
-from pygubudesigner.util import get_ttk_style
+from pygubudesigner.services.theming import get_ttk_style
 
 
 logger = logging.getLogger(__name__)
@@ -108,7 +108,7 @@ def setup_ttk_styles(master: tk.Widget = None, changed_to=None):
         for pattern in designer_dboptions:
             for option, value in designer_dboptions[pattern].items():
                 fpattern = f"{pattern}{option}"
-                master.option_add(fpattern, value, 50)
+                master.option_add(fpattern, value)
 
         # Load preferred ttk theme
         user_theme = pref.get_option("ttk_theme")

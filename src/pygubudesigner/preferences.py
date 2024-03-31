@@ -8,7 +8,7 @@ from tkinter import filedialog, messagebox
 import pygubu
 from appdirs import AppDirs
 
-from pygubudesigner.util import get_ttk_style
+from pygubudesigner.services.theming import get_ttk_style
 
 from .i18n import translator as _
 

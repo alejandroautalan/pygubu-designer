@@ -54,11 +54,12 @@ from .preview import PreviewHelper
 from .properties import load_custom_properties
 from .rfilemanager import RecentFilesManager
 from .uitreeeditor import WidgetsTreeEditor
-from .util import get_ttk_style, menu_iter_children, virtual_event
+from .util import menu_iter_children, virtual_event
 from .util.keyboard import Key, key_bind
 from .util.screens import is_visible_in_screens, parse_geometry
 from .services.stylehandler import StyleHandler
 from .services.messagebox import show_error
+from .services.theming import get_ttk_style
 
 
 # Initialize logger
