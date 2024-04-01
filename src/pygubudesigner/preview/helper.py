@@ -293,11 +293,18 @@ class PreviewHelper:
         self._sel_widget = selected_id
 
     def preview_for_widget(self, preview_id, widget_id):
+        """Returns the live widget preview of widget_id."""
         if preview_id in self.previews:
             preview = self.previews[preview_id]
             widget = preview.get_widget_by_id(widget_id)
             return widget
         return None
+
+    def update_preview_bbox(self, preview_id):
+        """Updates the preview to the requested size of
+        the widget inside."""
+        if preview_id in self.previews:
+            self.previews[preview_id].update_window_bbox()
 
     def delete(self, identifier):
         if identifier in self.previews:

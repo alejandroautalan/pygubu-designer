@@ -1183,6 +1183,7 @@ class WidgetsTreeEditor:
             if hint & WidgetMeta.BINDING_CHANGED:
                 # Do nothing now
                 pass
+            self.previewer.update_preview_bbox(preview_id)
             self.previewer.show_selected(preview_id, widget_id)
 
     def update_event(self, hint, data):

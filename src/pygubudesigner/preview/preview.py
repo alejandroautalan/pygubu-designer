@@ -131,6 +131,19 @@ class Preview:
         if self.canvas_window:
             self.canvas_window.configure(width=self.w, height=self.h)
 
+    def update_window_bbox(self):
+        """Update the canvas window to the requested
+        size of the widget."""
+        if self.canvas_window:
+            # do one update before recalculation
+            self.canvas.update_idletasks()
+            self.min_w = self._get_wreqwidth()
+            self.min_h = self._get_wreqheight()
+            self.w = self.min_w * 2
+            self.h = self.min_h * 2
+            # print("request new size to", self.min_w, self.min_h)
+            self.resize_to(self.min_w, self.min_h)
+
     def update(self, widget_id, uidefinition):
         # delete current preview
         # FIXME maybe do something to update preview without re-creating all ?
