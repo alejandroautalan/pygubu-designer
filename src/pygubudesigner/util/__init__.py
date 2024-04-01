@@ -14,6 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
+import platform
 import tkinter as tk
 
 
@@ -84,3 +85,15 @@ def menu_iter_children(menu):
             yield (menu, itemtype, i)
         for m in cascades:
             yield from menu_iter_children(m)
+
+
+def enable_dpi():
+    """Enable DPI Awareness."""
+
+    if platform.system() == "Windows":
+        import ctypes
+
+        if platform.release() == "7":
+            ctypes.windll.user32.SetProcessDPIAware()
+        else:
+            ctypes.windll.shcore.SetProcessDpiAwareness(1)

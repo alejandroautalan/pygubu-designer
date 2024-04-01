@@ -54,7 +54,7 @@ from .preview import PreviewHelper
 from .properties import load_custom_properties
 from .rfilemanager import RecentFilesManager
 from .uitreeeditor import WidgetsTreeEditor
-from .util import menu_iter_children, virtual_event
+from .util import menu_iter_children, virtual_event, enable_dpi
 from .util.keyboard import Key, key_bind
 from .util.screens import is_visible_in_screens, parse_geometry
 from .services.stylehandler import StyleHandler
@@ -152,6 +152,10 @@ class PygubuDesigner:
         self.builder.add_resource_path(str(DATA_DIR / "images"))
 
         in_macos = sys.platform == "darwin"
+
+        # Enable DPI aware
+        enable_dpi()
+
         # build main ui
         self.mainwindow = self.builder.get_object("mainwindow")
         self.main_menu = self.builder.get_object("mainmenu", self.mainwindow)
