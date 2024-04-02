@@ -270,6 +270,7 @@ proc ::tk::dialog::file::Create {w class} {
     def __on_window_close(self):
         """Manage WM_DELETE_WINDOW protocol."""
         if self.on_close_execute():
+            self.previewer.close_toplevel_previews()
             self.mainwindow.withdraw()
             self.mainwindow.destroy()
 

@@ -335,7 +335,11 @@ class PreviewHelper:
 
     def close_toplevel_previews(self):
         for top in self.toplevel_previews:
-            top.destroy()
+            try:
+                top.destroy()
+            except tk.TclError:
+                # the user closed the window.
+                pass
         self.toplevel_previews = []
 
     def preview_click_handler(self, preview_id, event=None):
