@@ -16,6 +16,7 @@
 import re
 import tkinter as tk
 import tkinter.ttk as ttk
+from pygubu.theming.bootstrap.style import Style as BootstrapStyle
 
 from pygubudesigner.widgets.propertyeditor import (
     ChoicePropertyEditor,
@@ -50,15 +51,17 @@ class TtkStylePropertyEditor(ChoicePropertyEditor):
     @classmethod
     def set_global_style_list(cls, style_list):
         cls.STYLES = style_list
+        cls.STYLES.extend(BootstrapStyle.get_generated_styles())
 
     def _create_style_options(self, styles):
-        new_list = [] if styles is None else list(styles)
+        new_list: list = [] if styles is None else list(styles)
         if self.STYLES_FILTER_HINTS:
             for s in self.STYLES:
                 for hint in self.STYLES_FILTER_HINTS:
                     if s.endswith(hint):
                         new_list.append(s)
                         break
+        new_list.sort()
         return new_list
 
 
