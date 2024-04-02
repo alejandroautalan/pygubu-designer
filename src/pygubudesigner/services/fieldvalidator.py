@@ -29,6 +29,31 @@ class IsIdentifierValidator(ConstraintValidator):
         )
 
 
+class Choice(Constraint):
+    code = "invalid_choice"
+    message = "Select a valid choice."
+
+    def __init__(self, *args, choices=None, message=None, **kw):
+        super().__init__(*args, **kw)
+        if message is not None:
+            self.message = message
+        self.valid_choices = choices if choices is not None else []
+
+    def validated_by(self):
+        return ChoiceValidator
+
+
+class ChoiceValidator(ConstraintValidator):
+    def validate(self, value, constraint):
+        if value not in constraint.valid_choices:
+            self.context.add_violation(
+                message=constraint.message,
+                constraint=constraint,
+                code=constraint.code,
+                params=None,
+            )
+
+
 class PathExist(Constraint):
     code = "path_not_exits_error"
     message = "The path must exist."

@@ -12,7 +12,7 @@ from pygubu.forms.transformer.tkboolean import BoolTransformer
 from pygubudesigner.preferences import DATA_DIR, NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
 from .project import Project
-from .fieldvalidator import IsIdentifier, RelativePathExists
+from .fieldvalidator import IsIdentifier, RelativePathExists, Choice
 
 
 logger = logging.getLogger(__name__)
@@ -69,6 +69,8 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         bool_transformer = BoolTransformer()
         identifier_constraint = IsIdentifier()
         path_exists_constraint = RelativePathExists()
+        self.main_widget_constraint = Choice()
+        self.main_menu_constraint = Choice()
         self.path_exists_constraint = path_exists_constraint
         frm_general_config = {"name": {}, "description": {}}
         frm_code_config = {
@@ -78,8 +80,12 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             "main_classname": {
                 "constraints": [identifier_constraint],
             },
+            "main_widget": {
+                "constraints": [self.main_widget_constraint],
+            },
             "main_menu": {
                 "required": False,
+                "constraints": [self.main_menu_constraint],
             },
             "output_dir": {
                 "required": False,
@@ -131,6 +137,12 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             if key in options:
                 field = self.builder.get_object(key)
                 field.configure(values=options[key])
+                # setup valid values for constraints
+                constraint = getattr(self, f"{key}_constraint")
+                choices = list(options[key])
+                if key == "main_menu":
+                    choices.append("")
+                constraint.valid_choices = choices
 
     def edit(self, project: Project):
         self._current_project = project
