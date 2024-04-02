@@ -448,24 +448,24 @@
                                                     <object class="ttk.Treeview.Column" id="row">
                                                       <property name="column_anchor">w</property>
                                                       <property name="heading_anchor">center</property>
-                                                      <property name="minwidth">20</property>
+                                                      <property name="minwidth">25</property>
                                                       <property name="stretch">false</property>
                                                       <property name="text" translatable="yes">R</property>
                                                       <property name="tree_column">False</property>
                                                       <property name="visible">True</property>
-                                                      <property name="width">20</property>
+                                                      <property name="width">25</property>
                                                     </object>
                                                   </child>
                                                   <child>
                                                     <object class="ttk.Treeview.Column" id="col">
                                                       <property name="column_anchor">w</property>
                                                       <property name="heading_anchor">center</property>
-                                                      <property name="minwidth">20</property>
+                                                      <property name="minwidth">25</property>
                                                       <property name="stretch">false</property>
                                                       <property name="text" translatable="yes">C</property>
                                                       <property name="tree_column">False</property>
                                                       <property name="visible">True</property>
-                                                      <property name="width">20</property>
+                                                      <property name="width">25</property>
                                                     </object>
                                                   </child>
                                                   <child>
