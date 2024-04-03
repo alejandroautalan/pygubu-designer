@@ -12,7 +12,7 @@
       <child>
         <object class="ttk.Frame" id="frame1">
           <property name="height">200</property>
-          <property name="padding">4</property>
+          <property name="padding">5</property>
           <property name="width">200</property>
           <layout manager="pack">
             <property name="expand">true</property>
@@ -40,7 +40,6 @@
               </layout>
               <child>
                 <object class="tk.Text" id="txt_detail" named="True">
-                  <property name="background">#d9d9d9</property>
                   <property name="borderwidth">0</property>
                   <property name="height">10</property>
                   <property name="width">50</property>
@@ -64,6 +63,7 @@
                 <object class="ttk.Button" id="btn_ok" named="True">
                   <property name="command" type="command" cbtype="simple">btn_ok_clicked</property>
                   <property name="text" translatable="yes">Ok</property>
+                  <property name="width">-8</property>
                   <layout manager="pack">
                     <property name="side">right</property>
                   </layout>
