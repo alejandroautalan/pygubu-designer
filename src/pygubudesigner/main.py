@@ -262,6 +262,8 @@ proc ::tk::dialog::file::Create {w class} {
         self.project_settings.on_settings_changed = (
             self._on_project_settings_changed
         )
+        # load maindock state
+        self.load_dockframe_layout()
 
     def run(self):
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
@@ -881,6 +883,19 @@ proc ::tk::dialog::file::Create {w class} {
 
     def log_message(self, msg, level):
         self.log_panel.log_message(msg, level)
+
+    def on_dockframe_changed(self, event=None):
+        dock = self.builder.get_object("maindock")
+        dock_layout = dock.save_layout()
+        pref.save_maindock_layout(dock_layout)
+
+    def load_dockframe_layout(self):
+        layout = pref.get_maindock_layout()
+        try:
+            dock = self.builder.get_object("maindock")
+            dock.load_layout(layout)
+        except Exception:
+            logger.debug("Error loading maindock layout")
 
 
 def start_pygubu():

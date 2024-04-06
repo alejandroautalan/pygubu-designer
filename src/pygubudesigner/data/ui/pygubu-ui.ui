@@ -324,7 +324,8 @@
                         <property name="side">top</property>
                       </layout>
                       <child>
-                        <object class="pygubu.widgets.dockframe" id="dockframe1">
+                        <object class="pygubu.widgets.dockframe" id="maindock" named="True">
+                          <bind sequence="&lt;&lt;DocFrame::LayoutChanged&gt;&gt;" handler="on_dockframe_changed" add="" />
                           <layout manager="pack">
                             <property name="expand">true</property>
                             <property name="fill">both</property>
@@ -334,7 +335,7 @@
                             <object class="pygubu.widgets.dockpane" id="dockpane1">
                               <property name="orient">horizontal</property>
                               <child>
-                                <object class="pygubu.widgets.dockwidget" id="dockwidget5">
+                                <object class="pygubu.widgets.dockwidget" id="dw_cpalette" named="True">
                                   <property name="title" translatable="yes">Components Palette</property>
                                   <property name="weight">0</property>
                                   <child>
@@ -355,7 +356,7 @@
                                   <property name="orient">vertical</property>
                                   <property name="weight">0</property>
                                   <child>
-                                    <object class="pygubu.widgets.dockwidget" id="dockwidget1">
+                                    <object class="pygubu.widgets.dockwidget" id="dw_ptree" named="True">
                                       <property name="title" translatable="yes">Project Tree</property>
                                       <child>
                                         <object class="ttk.Frame" id="addwframe1">
@@ -390,6 +391,7 @@
                                                   <layout manager="pack">
                                                     <property name="expand">true</property>
                                                     <property name="fill">x</property>
+                                                    <property name="padx">4</property>
                                                     <property name="side">left</property>
                                                   </layout>
                                                 </object>
@@ -400,6 +402,7 @@
                                                   <property name="style">FilterClearButton.Toolbutton</property>
                                                   <property name="text" translatable="yes">✖</property>
                                                   <layout manager="pack">
+                                                    <property name="fill">both</property>
                                                     <property name="side">right</property>
                                                   </layout>
                                                 </object>
@@ -425,7 +428,7 @@
                                                       <property name="column_anchor">w</property>
                                                       <property name="heading_anchor">w</property>
                                                       <property name="minwidth">200</property>
-                                                      <property name="stretch">true</property>
+                                                      <property name="stretch">false</property>
                                                       <property name="text" translatable="yes">ID</property>
                                                       <property name="tree_column">True</property>
                                                       <property name="visible">True</property>
@@ -489,7 +492,7 @@
                                     </object>
                                   </child>
                                   <child>
-                                    <object class="pygubu.widgets.dockwidget" id="dockwidget3">
+                                    <object class="pygubu.widgets.dockwidget" id="dw_props" named="True">
                                       <property name="title" translatable="yes">Properties</property>
                                       <property name="weight">2</property>
                                       <child>
@@ -644,7 +647,7 @@
                                 </object>
                               </child>
                               <child>
-                                <object class="pygubu.widgets.dockwidget" id="dockwidget2">
+                                <object class="pygubu.widgets.dockwidget" id="dw_preview" named="True">
                                   <property name="title" translatable="yes">Preview</property>
                                   <property name="weight">2</property>
                                   <child>

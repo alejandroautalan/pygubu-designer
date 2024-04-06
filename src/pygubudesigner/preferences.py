@@ -1,6 +1,7 @@
 import configparser
 import logging
 import os
+import json
 import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox
@@ -54,6 +55,9 @@ options = {
         "default": "no",
     },
     "v_style_definition_file": {
+        "default": "",
+    },
+    "maindock_layout": {
         "default": "",
     },
 }
@@ -154,6 +158,21 @@ def save_from_dict(new_values: dict):
     # Custom Widgets
     config.remove_section(SEC_CUSTOM_WIDGETS)
     save_configfile()
+
+
+def save_maindock_layout(layout: dict):
+    value = json.dumps(layout)
+    set_option("maindock_layout", value, True)
+
+
+def get_maindock_layout():
+    layout = {}
+    try:
+        jvalue = get_option("maindock_layout")
+        layout = json.loads(jvalue)
+    except json.JSONDecodeError:
+        pass
+    return layout
 
 
 # Get user configuration
