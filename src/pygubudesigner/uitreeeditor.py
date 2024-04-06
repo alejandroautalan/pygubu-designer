@@ -72,6 +72,8 @@ class WidgetsTreeEditor:
         self.update_builders = {}
         self.preview_update_cbid = None
         self.scheduled_widget_updates = []
+        self._stretch_cb = None
+        self.treeview.bind("<Configure>", self._on_tree_configure)
 
         self.treeview.filter_func = self.filter_match
 
@@ -180,6 +182,29 @@ class WidgetsTreeEditor:
         tree.bind_all(
             action.TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel
         )
+
+    def _on_tree_configure(self, event):
+        if self._stretch_cb is not None:
+            self.treeview.after_cancel(self._stretch_cb)
+        self._stretch_cb = self.treeview.after(350, self._stretch_main_column)
+
+    def _stretch_main_column(self):
+        w = self.treeview.winfo_width()
+        stretch_col = "#0"
+        stretch_col_cwidth = 0
+        cols = [stretch_col]
+        cols.extend(self.treeview.cget("displaycolumns"))
+        csum = 0
+        for col in cols:
+            cwidth = self.treeview.column(col, "width")
+            if col == stretch_col:
+                stretch_col_cwidth = cwidth
+            csum += cwidth
+        space_left = w - csum - 4
+        if space_left > 0:
+            stretch_col_cwidth += space_left
+            self.treeview.column(stretch_col, width=stretch_col_cwidth)
+        self._stretch_cb = None
 
     def filter_match(self, tree, itemid, filter_value):
         txt = tree.item(itemid, "text").lower()
