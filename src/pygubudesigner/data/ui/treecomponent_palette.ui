@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project version="1.4" author="PygubuDesigner 0.37">
+<project version="1.4" author="PygubuDesigner 0.38">
   <interfaces>
     <object class="ttk.Frame" id="fmain" named="True">
       <property name="height">200</property>
@@ -10,19 +10,14 @@
         <property name="fill">both</property>
         <property name="side">top</property>
       </layout>
-      <containerlayout manager="grid">
-        <property type="col" id="0" name="weight">1</property>
-        <property type="row" id="2" name="weight">1</property>
-      </containerlayout>
       <child>
         <object class="ttk.Frame" id="frame1">
           <property name="height">200</property>
+          <property name="padding">0 2 2 4</property>
           <property name="width">200</property>
-          <layout manager="grid">
-            <property name="column">0</property>
-            <property name="pady">0 1</property>
-            <property name="row">0</property>
-            <property name="sticky">ew</property>
+          <layout manager="pack">
+            <property name="fill">x</property>
+            <property name="side">top</property>
           </layout>
           <child>
             <object class="ttk.Label" id="label3">
@@ -42,7 +37,7 @@
               <bind sequence="&lt;KeyPress&gt;" handler="on_filter_keypress" add="" />
               <layout manager="pack">
                 <property name="expand">true</property>
-                <property name="fill">x</property>
+                <property name="fill">both</property>
                 <property name="padx">5 5</property>
                 <property name="side">left</property>
               </layout>
@@ -55,6 +50,7 @@
               <property name="takefocus">true</property>
               <property name="width">-2</property>
               <layout manager="pack">
+                <property name="fill">both</property>
                 <property name="side">left</property>
               </layout>
             </object>
@@ -64,7 +60,7 @@
               <property name="orient">vertical</property>
               <layout manager="pack">
                 <property name="fill">y</property>
-                <property name="padx">2</property>
+                <property name="padx">4</property>
                 <property name="side">left</property>
               </layout>
             </object>
@@ -90,10 +86,10 @@
         <object class="ttk.Frame" id="frame3">
           <property name="height">200</property>
           <property name="width">200</property>
-          <layout manager="grid">
-            <property name="column">0</property>
-            <property name="row">2</property>
-            <property name="sticky">nsew</property>
+          <layout manager="pack">
+            <property name="expand">true</property>
+            <property name="fill">both</property>
+            <property name="side">top</property>
           </layout>
           <child>
             <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper3">
@@ -136,11 +132,12 @@
     <setting id="name">Tree component palette</setting>
     <setting id="description">A tree component palette for pygubu-designer.</setting>
     <setting id="module_name">treecomponentpalette</setting>
-    <setting id="output_dir">../../services/widgets</setting>
     <setting id="template">widget</setting>
     <setting id="main_widget">fmain</setting>
     <setting id="main_classname">TreeComponentPalette</setting>
     <setting id="main_menu" />
+    <setting id="output_dir">../../services/widgets</setting>
+    <setting id="output_dir2">../../services/widgets</setting>
     <setting id="import_tkvariables">False</setting>
     <setting id="use_ttk_styledefinition_file">False</setting>
     <setting id="use_i18n">False</setting>

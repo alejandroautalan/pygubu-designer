@@ -11,30 +11,28 @@ from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 class TreeComponentPaletteUI(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
-        self.frame1 = ttk.Frame(self)
-        self.frame1.configure(height=200, width=200)
-        self.label3 = ttk.Label(self.frame1)
-        self.label3.configure(
+        frame1 = ttk.Frame(self)
+        frame1.configure(height=200, padding="0 2 2 4", width=200)
+        label3 = ttk.Label(frame1)
+        label3.configure(
             compound="left", font="TkSmallCaptionFont", text="Filter:"
         )
-        self.label3.pack(fill="both", side="left")
-        self.entry2 = ttk.Entry(self.frame1)
+        label3.pack(fill="both", side="left")
+        entry2 = ttk.Entry(frame1)
         self.filter_text_var = tk.StringVar()
-        self.entry2.configure(textvariable=self.filter_text_var, width=10)
-        self.entry2.pack(expand=True, fill="x", padx="5 5", side="left")
-        self.entry2.bind("<KeyPress>", self.on_filter_keypress, add="")
-        self.btn_filter_cancel = ttk.Button(
-            self.frame1, name="btn_filter_cancel"
-        )
+        entry2.configure(textvariable=self.filter_text_var, width=10)
+        entry2.pack(expand=True, fill="both", padx="5 5", side="left")
+        entry2.bind("<KeyPress>", self.on_filter_keypress, add="")
+        self.btn_filter_cancel = ttk.Button(frame1, name="btn_filter_cancel")
         self.btn_filter_cancel.configure(
             style="Toolbutton", takefocus=True, width=-2
         )
-        self.btn_filter_cancel.pack(side="left")
+        self.btn_filter_cancel.pack(fill="both", side="left")
         self.btn_filter_cancel.configure(command=self.on_filter_clear)
-        self.separator1 = ttk.Separator(self.frame1)
-        self.separator1.configure(orient="vertical")
-        self.separator1.pack(fill="y", padx=2, side="left")
-        self.fb_show_alltk = ttk.Checkbutton(self.frame1, name="fb_show_alltk")
+        separator1 = ttk.Separator(frame1)
+        separator1.configure(orient="vertical")
+        separator1.pack(fill="y", padx=4, side="left")
+        self.fb_show_alltk = ttk.Checkbutton(frame1, name="fb_show_alltk")
         self.var_show_alltk = tk.BooleanVar()
         self.fb_show_alltk.configure(
             offvalue=False,
@@ -46,13 +44,13 @@ class TreeComponentPaletteUI(ttk.Frame):
         )
         self.fb_show_alltk.pack(fill="both", side="left")
         self.fb_show_alltk.configure(command=self.on_show_alltk)
-        self.frame1.grid(column=0, pady="0 1", row=0, sticky="ew")
-        self.frame3 = ttk.Frame(self)
-        self.frame3.configure(height=200, width=200)
-        self.scrollbarhelper3 = ScrollbarHelper(self.frame3, scrolltype="both")
-        self.scrollbarhelper3.configure(usemousewheel=False)
+        frame1.pack(fill="x", side="top")
+        frame3 = ttk.Frame(self)
+        frame3.configure(height=200, width=200)
+        scrollbarhelper3 = ScrollbarHelper(frame3, scrolltype="both")
+        scrollbarhelper3.configure(usemousewheel=False)
         self.cptree = FilterableTreeview(
-            self.scrollbarhelper3.container, name="cptree"
+            scrollbarhelper3.container, name="cptree"
         )
         self.cptree.configure(style="TreeComponentPalette.Treeview")
         self.cptree_cols = []
@@ -65,13 +63,11 @@ class TreeComponentPaletteUI(ttk.Frame):
         )
         self.cptree.heading("#0", anchor="w", text="Components")
         self.cptree.pack(expand=True, fill="both", side="top")
-        self.scrollbarhelper3.add_child(self.cptree)
-        self.scrollbarhelper3.pack(expand=True, fill="both", side="top")
-        self.frame3.grid(column=0, row=2, sticky="nsew")
+        scrollbarhelper3.add_child(self.cptree)
+        scrollbarhelper3.pack(expand=True, fill="both", side="top")
+        frame3.pack(expand=True, fill="both", side="top")
         self.configure(height=200, padding=2, width=200)
         self.pack(expand=True, fill="both", side="top")
-        self.rowconfigure(2, weight=1)
-        self.columnconfigure(0, weight=1)
 
     def on_filter_keypress(self, event=None):
         pass
