@@ -147,6 +147,7 @@ class PygubuDesigner:
         self.current_project = None
         self.is_changed = False
         self.current_title = "new"
+        self.mbox_title = _("Pygubu Designer")
 
         self.builder.add_from_file(str(DATA_DIR / "ui" / "pygubu-ui.ui"))
         self.builder.add_resource_path(str(DATA_DIR / "images"))
@@ -616,6 +617,8 @@ proc ::tk::dialog::file::Create {w class} {
             self.set_changed(False)
             logger.info(_("Project saved to %s"), fname)
             saved = True
+            if self.generate_code_on_save():
+                self._project_code_generate()
         except Exception as e:
             msg = str(e)
             det = traceback.format_exc()
@@ -835,8 +838,14 @@ proc ::tk::dialog::file::Create {w class} {
             self.preferences = DesignerSettings(self.mainwindow, translator)
         self.preferences.run()
 
-    def _edit_project_settings(self):
+    def _require_project_open(self):
         if self.current_project is None:
+            msg = _("Open a project first.")
+            messagebox.showinfo(self.mbox_title, msg, parent=self.mainwindow)
+        return self.current_project is not None
+
+    def _edit_project_settings(self):
+        if not self._require_project_open():
             return
         options = self.tree_editor.get_options_for_project_settings()
         self.project_settings.setup(options)
@@ -848,7 +857,7 @@ proc ::tk::dialog::file::Create {w class} {
         self.set_changed()
 
     def _project_code_generate(self):
-        if self.current_project is None:
+        if not self._require_project_open():
             return
         options = self.tree_editor.get_options_for_project_settings()
         self.project_settings.setup(options)
@@ -858,6 +867,13 @@ proc ::tk::dialog::file::Create {w class} {
             self.script_generator.generate_code()
         else:
             self.project_settings.run()
+
+    def generate_code_on_save(self):
+        generate = False
+        if self.current_project is not None:
+            key = "generate_code_onsave"
+            generate = self.current_project.settings.get(key, False)
+        return generate
 
     def project_name(self):
         name = None
