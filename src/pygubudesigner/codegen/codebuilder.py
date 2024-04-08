@@ -521,8 +521,7 @@ class UI2Code(Builder):
     def code_translate_str(self, value: str) -> str:
         escaped = BuilderObject.code_escape_str(value)
         if self.with_i18n_support:
-            trval = f"self._trans({escaped})"
-            return trval
+            return f"_({escaped})"
         else:
             return escaped
 

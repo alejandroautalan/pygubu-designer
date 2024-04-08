@@ -238,7 +238,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         elif template == "codescript":
             pass
         elif template == "widget":
-            state["use_i18n"] = "disabled"
+            # state["use_i18n"] = "disabled"
             state["main_menu"] = "disabled"
             state["output_dir2"] = "normal"
             state["btn_path2_chooser"] = "normal"

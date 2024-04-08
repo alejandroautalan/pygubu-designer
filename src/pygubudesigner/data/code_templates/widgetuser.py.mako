@@ -2,15 +2,20 @@
 
 <%block name="imports" filter="trim">
 ${parent.imports()}
-from ${module_name}ui import ${class_name}UI
+import ${module_name}ui as baseui
 </%block>
 
 <%block name="class_definition" filter="trim">
+%if with_i18n_support:
+# i18n - Setup yout translator function
+# baseui.i18n_translator = mytranslator
+
+%endif
 #
 # Manual user code
 #
 
-class ${class_name}(${class_name}UI):
+class ${class_name}(baseui.${class_name}UI):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
 </%block>

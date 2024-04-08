@@ -137,12 +137,6 @@ class ScriptGenerator:
         with open(outfn, "wt") as outfile:
             outfile.write(final_code)
 
-        context["import_lines"] += (
-            "\nfrom "
-            + context["module_name"]
-            + "ui import "
-            + bcontext["class_name"]
-        )
         tpl = makolookup.get_template("scriptuser.py.mako")
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
@@ -157,7 +151,7 @@ class ScriptGenerator:
         uidef = self.tree.tree_to_uidef()
         target = context["target"]
 
-        generator.with_i18n_support = False
+        # generator.with_i18n_support = False
         generator.add_import_line("tkinter", "tk")
         # Generate code
         code = generator.generate_app_widget(uidef, target)

@@ -1,15 +1,18 @@
 <%inherit file="base.py.mako"/>
 
 <%block name="class_definition" filter="trim">
-class ${class_name}:
 %if with_i18n_support:
-    def __init__(self, master=None, translator=None):
-        self._trans = translator
-        if translator is None:
-            self._trans = lambda x: x
-%else:
-    def __init__(self, master=None):
+# Begin i18n - Setup translator in derived class file
+def i18n_noop(value): return value
+i18n_translator = i18n_noop
+# End i18n
 %endif
+
+class ${class_name}:
+    def __init__(self, master=None):
+        %if with_i18n_support:
+        _ = i18n_translator  # i18n string marker.
+        %endif
         # build ui
 ${widget_code}
         # Main widget

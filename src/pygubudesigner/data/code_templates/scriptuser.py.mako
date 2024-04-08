@@ -1,14 +1,19 @@
 <%inherit file="base.py.mako"/>
 
+<%block name="imports" filter="trim">
+${parent.imports()}
+import ${module_name}ui as baseui
+</%block>
+
 <%block name="class_definition" filter="trim">
-class ${class_name}(${class_name}UI):
 %if with_i18n_support:
-    def __init__(self, master=None, translator=None):
-        super().__init__(master, translator)
-%else:
+# i18n - Setup yout translator function
+# baseui.i18n_translator = mytranslator
+
+%endif
+class ${class_name}(baseui.${class_name}UI):
     def __init__(self, master=None):
         super().__init__(master)
-%endif
 
 ${methods}\
 
