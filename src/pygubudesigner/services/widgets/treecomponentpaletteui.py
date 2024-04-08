@@ -5,17 +5,28 @@ from pygubu.widgets.filterabletreeview import FilterableTreeview
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 
 
+# Begin i18n - Setup translator in derived class file
+def i18n_noop(value):
+    return value
+
+
+i18n_translator = i18n_noop
+# End i18n
+
 #
 # Base class definition
 #
+
+
 class TreeComponentPaletteUI(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
+        _ = i18n_translator  # i18n string marker.
         frame1 = ttk.Frame(self)
         frame1.configure(height=200, padding="0 2 2 4", width=200)
         label3 = ttk.Label(frame1)
         label3.configure(
-            compound="left", font="TkSmallCaptionFont", text="Filter:"
+            compound="left", font="TkSmallCaptionFont", text=_("Filter:")
         )
         label3.pack(fill="both", side="left")
         entry2 = ttk.Entry(frame1)
@@ -38,7 +49,7 @@ class TreeComponentPaletteUI(ttk.Frame):
             offvalue=False,
             onvalue=True,
             style="Toolbutton",
-            text="tk",
+            text=_("tk"),
             variable=self.var_show_alltk,
             width=-2,
         )
@@ -61,7 +72,7 @@ class TreeComponentPaletteUI(ttk.Frame):
         self.cptree.column(
             "#0", anchor="w", stretch=True, width=200, minwidth=20
         )
-        self.cptree.heading("#0", anchor="w", text="Components")
+        self.cptree.heading("#0", anchor="w", text=_("Components"))
         self.cptree.pack(expand=True, fill="both", side="top")
         scrollbarhelper3.add_child(self.cptree)
         scrollbarhelper3.pack(expand=True, fill="both", side="top")

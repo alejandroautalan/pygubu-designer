@@ -2,8 +2,12 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import pygubu
 import pygubu.widgets.simpletooltip as tooltip
+import pygubudesigner.services.widgets.treecomponentpaletteui as baseui
+from pygubudesigner.i18n import translator
 from pygubu.stockimage import StockImage, StockImageException
-from .treecomponentpaletteui import TreeComponentPaletteUI
+
+
+baseui.i18n_translator = translator
 
 
 class TreeVisualState:
@@ -27,7 +31,7 @@ class TreeVisualState:
             self.tree.see(self.focus)
 
 
-class TreeComponentPalette(TreeComponentPaletteUI):
+class TreeComponentPalette(baseui.TreeComponentPaletteUI):
     KEY_PRESS_CB_MILISECONDS = 800
 
     def __init__(self, master=None, **kw):

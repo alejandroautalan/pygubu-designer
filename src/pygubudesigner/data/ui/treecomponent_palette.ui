@@ -140,7 +140,7 @@
     <setting id="output_dir2">../../services/widgets</setting>
     <setting id="import_tkvariables">False</setting>
     <setting id="use_ttk_styledefinition_file">False</setting>
-    <setting id="use_i18n">False</setting>
+    <setting id="use_i18n">True</setting>
     <setting id="all_ids_attributes">False</setting>
     <setting id="generate_code_onsave">False</setting>
     <setting id="use_window_centering_code">False</setting>
