@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<locatingRules>
+  <locatingRule name="Pygubu" pattern="*.ui">
+    <documentRule localName="project" target="pygubu.its"/>
+  </locatingRule>
+</locatingRules>
