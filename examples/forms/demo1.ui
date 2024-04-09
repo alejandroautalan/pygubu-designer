@@ -1,288 +1,288 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project version="1.4" author="PygubuDesigner 0.38">
-  <interfaces>
-    <object class="tk.Toplevel" id="toplevel1">
-      <property name="geometry">420x480</property>
-      <property name="height">200</property>
-      <property name="width">200</property>
-      <child>
-        <object class="ttk.Frame" id="frame3">
-          <property name="height">200</property>
-          <property name="padding">4</property>
-          <property name="width">200</property>
-          <layout manager="pack">
-            <property name="expand">true</property>
-            <property name="fill">both</property>
-            <property name="side">top</property>
-          </layout>
-          <child>
-            <object class="pygubu.forms.ttkwidget.FrameFormBuilder" id="form_builder" named="True">
-              <property name="height">100</property>
-              <property name="width">200</property>
-              <layout manager="pack">
-                <property name="expand">true</property>
-                <property name="fill">x</property>
-                <property name="side">top</property>
-              </layout>
-              <containerlayout manager="grid">
-                <property type="col" id="1" name="weight">1</property>
-                <property type="col" id="all" name="pad">5</property>
-                <property type="row" id="all" name="pad">5</property>
-              </containerlayout>
-              <child>
-                <object class="ttk.Label" id="label5">
-                  <property name="text" translatable="yes">ID</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="row">0</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.Label" id="labeldisplay1">
-                  <property name="field_name">id</property>
-                  <property name="text" translatable="yes">labeldisplay1</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">0</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="ttk.Label" id="label3">
-                  <property name="text" translatable="yes">First name:</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="row">1</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.Entry" id="entry1">
-                  <property name="field_name">first_name</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">1</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelfieldinfo7">
-                  <property name="field_name">first_name</property>
-                  <property name="style">LabelFieldInfo.TLabel</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">2</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="ttk.Label" id="label4">
-                  <property name="text" translatable="yes">Last name:</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="row">3</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.Entry" id="entry2">
-                  <property name="field_name">last_name</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">3</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelfieldinfo8">
-                  <property name="field_name">last_name</property>
-                  <property name="style">LabelFieldInfo.TLabel</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">4</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="ttk.Label" id="label6">
-                  <property name="text" translatable="yes">Age</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="row">5</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.Entry" id="entry3">
-                  <property name="field_name">age</property>
-                  <property name="textvariable">int:age_var</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">5</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelwidgetinfo1">
-                  <property name="field_name">age</property>
-                  <property name="style">LabelFieldInfo.TLabel</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">6</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="ttk.Label" id="label7">
-                  <property name="text" translatable="yes">Height</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="row">7</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.Entry" id="entry4">
-                  <property name="field_name">height</property>
-                  <property name="textvariable">double:height_var</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">7</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelwidgetinfo2">
-                  <property name="field_name">height</property>
-                  <property name="style">LabelFieldInfo.TLabel</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">8</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="ttk.Label" id="label8">
-                  <property name="text" translatable="yes">Bio</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="row">9</property>
-                    <property name="sticky">new</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.tkwidget.Text" id="text1">
-                  <property name="field_name">bio</property>
-                  <property name="height">5</property>
-                  <property name="width">40</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">9</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelwidgetinfo3">
-                  <property name="field_name">bio</property>
-                  <property name="style">LabelFieldInfo.TLabel</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="row">10</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.Checkbutton" id="checkbutton1">
-                  <property name="field_name">terms</property>
-                  <property name="text" translatable="yes">I accept terms of use.</property>
-                  <property name="textvariable">boolean:terms_var</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="columnspan">2</property>
-                    <property name="row">11</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelwidgetinfo4">
-                  <property name="field_name">terms</property>
-                  <property name="style">LabelFieldInfo.TLabel</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="columnspan">2</property>
-                    <property name="row">12</property>
-                    <property name="sticky">ew</property>
-                  </layout>
-                </object>
-              </child>
-            </object>
-          </child>
-          <child>
-            <object class="ttk.Frame" id="frame4">
-              <property name="height">200</property>
-              <property name="padding">0 5 0 0</property>
-              <property name="width">200</property>
-              <layout manager="pack">
-                <property name="side">right</property>
-              </layout>
-              <child>
-                <object class="ttk.Button" id="button3">
-                  <property name="command" type="command" cbtype="simple">on_check_changed</property>
-                  <property name="text" translatable="yes">Check changed</property>
-                  <layout manager="pack">
-                    <property name="padx">0 10</property>
-                    <property name="side">left</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="ttk.Button" id="button4">
-                  <property name="command" type="command" cbtype="simple">on_submit_clicked</property>
-                  <property name="text" translatable="yes">Submit</property>
-                  <layout manager="pack">
-                    <property name="side">left</property>
-                  </layout>
-                </object>
-              </child>
-            </object>
-          </child>
-        </object>
-      </child>
-    </object>
-  </interfaces>
-  <settings>
-    <setting id="name">Forms demo</setting>
-    <setting id="description">A demo for pygubu forms.</setting>
-    <setting id="module_name">formsdemo1app</setting>
-    <setting id="output_dir" />
-    <setting id="template">application</setting>
-    <setting id="main_widget">toplevel1</setting>
-    <setting id="main_classname">FormsDemo1App</setting>
-    <setting id="main_menu" />
-    <setting id="import_tkvariables">False</setting>
-    <setting id="use_ttk_styledefinition_file">True</setting>
-    <setting id="use_i18n">False</setting>
-    <setting id="all_ids_attributes">False</setting>
-    <setting id="generate_code_onsave">False</setting>
-    <setting id="use_window_centering_code">False</setting>
-    <setting id="ttk_style_definition_file" />
-  </settings>
-  <customwidgets />
-</project>
+<interface version="1.4" author="PygubuDesigner 0.38">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="geometry">420x480</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame3">
+        <property name="height">200</property>
+        <property name="padding">4</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="pygubu.forms.ttkwidget.FrameFormBuilder" id="form_builder" named="True">
+            <property name="height">100</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <containerlayout manager="grid">
+              <property type="col" id="1" name="weight">1</property>
+              <property type="col" id="all" name="pad">5</property>
+              <property type="row" id="all" name="pad">5</property>
+            </containerlayout>
+            <child>
+              <object class="ttk.Label" id="label5">
+                <property name="text" translatable="yes">ID</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.Label" id="labeldisplay1">
+                <property name="field_name">id</property>
+                <property name="text" translatable="yes">labeldisplay1</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="label3">
+                <property name="text" translatable="yes">First name:</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.Entry" id="entry1">
+                <property name="field_name">first_name</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelfieldinfo7">
+                <property name="field_name">first_name</property>
+                <property name="style">LabelFieldInfo.TLabel</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="label4">
+                <property name="text" translatable="yes">Last name:</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.Entry" id="entry2">
+                <property name="field_name">last_name</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">3</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelfieldinfo8">
+                <property name="field_name">last_name</property>
+                <property name="style">LabelFieldInfo.TLabel</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">4</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="label6">
+                <property name="text" translatable="yes">Age</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">5</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.Entry" id="entry3">
+                <property name="field_name">age</property>
+                <property name="textvariable">int:age_var</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">5</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelwidgetinfo1">
+                <property name="field_name">age</property>
+                <property name="style">LabelFieldInfo.TLabel</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">6</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="label7">
+                <property name="text" translatable="yes">Height</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">7</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.Entry" id="entry4">
+                <property name="field_name">height</property>
+                <property name="textvariable">double:height_var</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">7</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelwidgetinfo2">
+                <property name="field_name">height</property>
+                <property name="style">LabelFieldInfo.TLabel</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">8</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Label" id="label8">
+                <property name="text" translatable="yes">Bio</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">9</property>
+                  <property name="sticky">new</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.tkwidget.Text" id="text1">
+                <property name="field_name">bio</property>
+                <property name="height">5</property>
+                <property name="width">40</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">9</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelwidgetinfo3">
+                <property name="field_name">bio</property>
+                <property name="style">LabelFieldInfo.TLabel</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">10</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.Checkbutton" id="checkbutton1">
+                <property name="field_name">terms</property>
+                <property name="text" translatable="yes">I accept terms of use.</property>
+                <property name="textvariable">boolean:terms_var</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="columnspan">2</property>
+                  <property name="row">11</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelwidgetinfo4">
+                <property name="field_name">terms</property>
+                <property name="style">LabelFieldInfo.TLabel</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="columnspan">2</property>
+                  <property name="row">12</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame4">
+            <property name="height">200</property>
+            <property name="padding">0 5 0 0</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="side">right</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="button3">
+                <property name="command" type="command" cbtype="simple">on_check_changed</property>
+                <property name="text" translatable="yes">Check changed</property>
+                <layout manager="pack">
+                  <property name="padx">0 10</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button4">
+                <property name="command" type="command" cbtype="simple">on_submit_clicked</property>
+                <property name="text" translatable="yes">Submit</property>
+                <layout manager="pack">
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <project>
+    <settings>
+      <setting id="name">Forms demo</setting>
+      <setting id="description">A demo for pygubu forms.</setting>
+      <setting id="module_name">formsdemo1app</setting>
+      <setting id="output_dir" />
+      <setting id="template">application</setting>
+      <setting id="main_widget">toplevel1</setting>
+      <setting id="main_classname">FormsDemo1App</setting>
+      <setting id="main_menu" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">True</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+</interface>

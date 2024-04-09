@@ -1,150 +1,150 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project version="1.4" author="PygubuDesigner 0.38">
-  <interfaces>
-    <object class="ttk.Frame" id="fmain" named="True">
-      <property name="height">200</property>
-      <property name="padding">2</property>
-      <property name="width">200</property>
-      <layout manager="pack">
-        <property name="expand">true</property>
-        <property name="fill">both</property>
-        <property name="side">top</property>
-      </layout>
-      <child>
-        <object class="ttk.Frame" id="frame1">
-          <property name="height">200</property>
-          <property name="padding">0 2 2 4</property>
-          <property name="width">200</property>
-          <layout manager="pack">
-            <property name="fill">x</property>
-            <property name="side">top</property>
-          </layout>
-          <child>
-            <object class="ttk.Label" id="label3">
-              <property name="compound">left</property>
-              <property name="font">TkSmallCaptionFont</property>
-              <property name="text" translatable="yes">Filter:</property>
-              <layout manager="pack">
-                <property name="fill">both</property>
-                <property name="side">left</property>
-              </layout>
-            </object>
-          </child>
-          <child>
-            <object class="ttk.Entry" id="entry2">
-              <property name="textvariable">string:filter_text_var</property>
-              <property name="width">10</property>
-              <bind sequence="&lt;KeyPress&gt;" handler="on_filter_keypress" add="" />
-              <layout manager="pack">
-                <property name="expand">true</property>
-                <property name="fill">both</property>
-                <property name="padx">5 5</property>
-                <property name="side">left</property>
-              </layout>
-            </object>
-          </child>
-          <child>
-            <object class="ttk.Button" id="btn_filter_cancel" named="True">
-              <property name="command" type="command" cbtype="simple">on_filter_clear</property>
-              <property name="style">Toolbutton</property>
-              <property name="takefocus">true</property>
-              <property name="width">-2</property>
-              <layout manager="pack">
-                <property name="fill">both</property>
-                <property name="side">left</property>
-              </layout>
-            </object>
-          </child>
-          <child>
-            <object class="ttk.Separator" id="separator1">
-              <property name="orient">vertical</property>
-              <layout manager="pack">
-                <property name="fill">y</property>
-                <property name="padx">4</property>
-                <property name="side">left</property>
-              </layout>
-            </object>
-          </child>
-          <child>
-            <object class="ttk.Checkbutton" id="fb_show_alltk" named="True">
-              <property name="command" type="command" cbtype="simple">on_show_alltk</property>
-              <property name="offvalue">False</property>
-              <property name="onvalue">True</property>
-              <property name="style">Toolbutton</property>
-              <property name="text" translatable="yes">tk</property>
-              <property name="variable">boolean:var_show_alltk</property>
-              <property name="width">-2</property>
-              <layout manager="pack">
-                <property name="fill">both</property>
-                <property name="side">left</property>
-              </layout>
-            </object>
-          </child>
-        </object>
-      </child>
-      <child>
-        <object class="ttk.Frame" id="frame3">
-          <property name="height">200</property>
-          <property name="width">200</property>
-          <layout manager="pack">
-            <property name="expand">true</property>
-            <property name="fill">both</property>
-            <property name="side">top</property>
-          </layout>
-          <child>
-            <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper3">
-              <property name="scrolltype">both</property>
-              <property name="usemousewheel">false</property>
-              <layout manager="pack">
-                <property name="expand">true</property>
-                <property name="fill">both</property>
-                <property name="side">top</property>
-              </layout>
-              <child>
-                <object class="pygubu.widgets.FilterableTreeview" id="cptree" named="True">
-                  <property name="style">TreeComponentPalette.Treeview</property>
-                  <layout manager="pack">
-                    <property name="expand">true</property>
-                    <property name="fill">both</property>
-                    <property name="side">top</property>
-                  </layout>
-                  <child>
-                    <object class="ttk.Treeview.Column" id="column1">
-                      <property name="column_anchor">w</property>
-                      <property name="heading_anchor">w</property>
-                      <property name="minwidth">20</property>
-                      <property name="stretch">true</property>
-                      <property name="text" translatable="yes">Components</property>
-                      <property name="tree_column">true</property>
-                      <property name="visible">true</property>
-                      <property name="width">200</property>
-                    </object>
-                  </child>
-                </object>
-              </child>
-            </object>
-          </child>
-        </object>
-      </child>
-    </object>
-  </interfaces>
-  <settings>
-    <setting id="name">Tree component palette</setting>
-    <setting id="description">A tree component palette for pygubu-designer.</setting>
-    <setting id="module_name">treecomponentpalette</setting>
-    <setting id="template">widget</setting>
-    <setting id="main_widget">fmain</setting>
-    <setting id="main_classname">TreeComponentPalette</setting>
-    <setting id="main_menu" />
-    <setting id="output_dir">../../services/widgets</setting>
-    <setting id="output_dir2">../../services/widgets</setting>
-    <setting id="import_tkvariables">False</setting>
-    <setting id="use_ttk_styledefinition_file">False</setting>
-    <setting id="use_i18n">True</setting>
-    <setting id="all_ids_attributes">False</setting>
-    <setting id="generate_code_onsave">False</setting>
-    <setting id="use_window_centering_code">False</setting>
-    <setting id="ttk_style_definition_file" />
-  </settings>
-  <customwidgets />
-</project>
+<interface version="1.4" author="PygubuDesigner 0.38">
+  <object class="ttk.Frame" id="fmain" named="True">
+    <property name="height">200</property>
+    <property name="padding">2</property>
+    <property name="width">200</property>
+    <layout manager="pack">
+      <property name="expand">true</property>
+      <property name="fill">both</property>
+      <property name="side">top</property>
+    </layout>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">0 2 2 4</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="fill">x</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label3">
+            <property name="compound">left</property>
+            <property name="font">TkSmallCaptionFont</property>
+            <property name="text" translatable="yes">Filter:</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entry2">
+            <property name="textvariable">string:filter_text_var</property>
+            <property name="width">10</property>
+            <bind sequence="&lt;KeyPress&gt;" handler="on_filter_keypress" add="" />
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="padx">5 5</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="btn_filter_cancel" named="True">
+            <property name="command" type="command" cbtype="simple">on_filter_clear</property>
+            <property name="style">Toolbutton</property>
+            <property name="takefocus">true</property>
+            <property name="width">-2</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Separator" id="separator1">
+            <property name="orient">vertical</property>
+            <layout manager="pack">
+              <property name="fill">y</property>
+              <property name="padx">4</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Checkbutton" id="fb_show_alltk" named="True">
+            <property name="command" type="command" cbtype="simple">on_show_alltk</property>
+            <property name="offvalue">False</property>
+            <property name="onvalue">True</property>
+            <property name="style">Toolbutton</property>
+            <property name="text" translatable="yes">tk</property>
+            <property name="variable">boolean:var_show_alltk</property>
+            <property name="width">-2</property>
+            <layout manager="pack">
+              <property name="fill">both</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame3">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper3">
+            <property name="scrolltype">both</property>
+            <property name="usemousewheel">false</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="pygubu.widgets.FilterableTreeview" id="cptree" named="True">
+                <property name="style">TreeComponentPalette.Treeview</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Treeview.Column" id="column1">
+                    <property name="column_anchor">w</property>
+                    <property name="heading_anchor">w</property>
+                    <property name="minwidth">20</property>
+                    <property name="stretch">true</property>
+                    <property name="text" translatable="yes">Components</property>
+                    <property name="tree_column">true</property>
+                    <property name="visible">true</property>
+                    <property name="width">200</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <project>
+    <settings>
+      <setting id="name">Tree component palette</setting>
+      <setting id="description">A tree component palette for pygubu-designer.</setting>
+      <setting id="module_name">treecomponentpalette</setting>
+      <setting id="template">widget</setting>
+      <setting id="main_widget">fmain</setting>
+      <setting id="main_classname">TreeComponentPalette</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">../../services/widgets</setting>
+      <setting id="output_dir2">../../services/widgets</setting>
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">True</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+</interface>

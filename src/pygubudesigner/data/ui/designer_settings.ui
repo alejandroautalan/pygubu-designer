@@ -1,293 +1,293 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project version="1.4" author="PygubuDesigner 0.37">
-  <interfaces>
-    <object class="pygubu.builder.widgets.dialog" id="preferences">
-      <property name="geometry">580x410</property>
-      <property name="height">200</property>
-      <property name="minsize">480|360</property>
-      <property name="modal">true</property>
-      <property name="resizable">both</property>
-      <property name="title" translatable="yes">Pygubu Preferences</property>
-      <property name="width">200</property>
-      <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog_close" add="" />
-      <child>
-        <object class="ttk.Frame" id="frame3">
-          <property name="height">200</property>
-          <property name="padding">5</property>
-          <property name="width">200</property>
-          <layout manager="pack">
-            <property name="expand">true</property>
-            <property name="fill">both</property>
-            <property name="side">top</property>
-          </layout>
-          <child>
-            <object class="pygubu.forms.ttkwidget.FrameFormBuilder" id="frm_settings" named="True">
-              <layout manager="pack">
-                <property name="expand">true</property>
-                <property name="fill">both</property>
-                <property name="side">top</property>
-              </layout>
-              <child>
-                <object class="ttk.Notebook" id="Notebook_1">
-                  <property name="height">200</property>
-                  <property name="style">ProjectSettings.TNotebook</property>
-                  <property name="width">200</property>
-                  <layout manager="pack">
-                    <property name="expand">true</property>
-                    <property name="fill">both</property>
-                    <property name="side">top</property>
-                  </layout>
-                  <child>
-                    <object class="ttk.Notebook.Tab" id="Tab_general">
-                      <property name="sticky">nsew</property>
-                      <property name="text" translatable="yes">General</property>
-                      <child>
-                        <object class="ttk.Frame" id="frame4">
-                          <property name="height">200</property>
-                          <property name="width">200</property>
-                          <layout manager="pack">
-                            <property name="expand">true</property>
-                            <property name="fill">both</property>
-                            <property name="side">top</property>
-                          </layout>
-                          <child>
-                            <object class="ttk.Frame" id="fgeneral">
-                              <property name="height">200</property>
-                              <property name="padding">5</property>
-                              <property name="width">200</property>
-                              <layout manager="pack">
-                                <property name="fill">x</property>
-                                <property name="side">top</property>
-                              </layout>
-                              <containerlayout manager="grid">
-                                <property type="col" id="1" name="weight">1</property>
-                                <property type="col" id="all" name="pad">10</property>
-                                <property type="row" id="all" name="pad">8</property>
-                              </containerlayout>
-                              <child>
-                                <object class="ttk.Label" id="lblpt">
-                                  <property name="text" translatable="yes">Preferred widget set:</property>
-                                  <layout manager="grid">
-                                    <property name="column">0</property>
-                                    <property name="row">0</property>
-                                    <property name="sticky">ew</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="widget_set" named="True">
-                                  <layout manager="grid">
-                                    <property name="column">1</property>
-                                    <property name="ipady">3</property>
-                                    <property name="row">0</property>
-                                    <property name="sticky">ew</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="ttk.Label" id="label1">
-                                  <property name="text" translatable="yes">Preferred ttk theme:</property>
-                                  <layout manager="grid">
-                                    <property name="column">0</property>
-                                    <property name="row">1</property>
-                                    <property name="sticky">ew</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="ttk_theme" named="True">
-                                  <layout manager="grid">
-                                    <property name="column">1</property>
-                                    <property name="ipady">3</property>
-                                    <property name="row">1</property>
-                                    <property name="sticky">ew</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="ttk.Label" id="lbl_preferred_layout_manager">
-                                  <property name="text" translatable="yes">Preferred layout manager:</property>
-                                  <layout manager="grid">
-                                    <property name="column">0</property>
-                                    <property name="row">2</property>
-                                    <property name="sticky">ew</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="default_layout_manager" named="True">
-                                  <layout manager="grid">
-                                    <property name="column">1</property>
-                                    <property name="ipady">3</property>
-                                    <property name="row">2</property>
-                                    <property name="sticky">ew</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="pygubu.forms.ttkwidget.Checkbutton" id="center_preview" named="True">
-                                  <property name="offvalue">no</property>
-                                  <property name="onvalue">yes</property>
-                                  <property name="text" translatable="yes">Center toplevel preview window</property>
-                                  <layout manager="grid">
-                                    <property name="column">0</property>
-                                    <property name="columnspan">2</property>
-                                    <property name="ipady">3</property>
-                                    <property name="row">3</property>
-                                    <property name="sticky">w</property>
-                                  </layout>
-                                </object>
-                              </child>
-                            </object>
-                          </child>
-                          <child>
-                            <object class="ttk.Frame" id="frame1">
-                              <property name="height">200</property>
-                              <property name="padding">5</property>
-                              <property name="width">200</property>
-                              <layout manager="pack">
-                                <property name="fill">x</property>
-                              </layout>
-                              <child>
-                                <object class="ttk.Label" id="label2">
-                                  <property name="text" translatable="yes">Widget naming</property>
-                                  <layout manager="pack">
-                                    <property name="anchor">w</property>
-                                    <property name="pady">5</property>
-                                    <property name="side">top</property>
-                                  </layout>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="ttk.Frame" id="frame2">
-                                  <property name="height">200</property>
-                                  <property name="padding">10 0 10 0</property>
-                                  <property name="width">200</property>
-                                  <layout manager="pack">
-                                    <property name="fill">x</property>
-                                    <property name="side">top</property>
-                                  </layout>
-                                  <containerlayout manager="grid">
-                                    <property type="col" id="1" name="weight">1</property>
-                                    <property type="col" id="all" name="pad">5</property>
-                                    <property type="row" id="all" name="pad">5</property>
-                                  </containerlayout>
-                                  <child>
-                                    <object class="ttk.Label" id="label3">
-                                      <property name="text" translatable="yes">Separator:</property>
-                                      <layout manager="grid">
-                                        <property name="column">0</property>
-                                        <property name="row">0</property>
-                                        <property name="sticky">ew</property>
-                                      </layout>
-                                    </object>
-                                  </child>
-                                  <child>
-                                    <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="widget_naming_separator" named="True">
-                                      <layout manager="grid">
-                                        <property name="column">1</property>
-                                        <property name="ipady">3</property>
-                                        <property name="row">0</property>
-                                        <property name="sticky">ew</property>
-                                      </layout>
-                                    </object>
-                                  </child>
-                                  <child>
-                                    <object class="pygubu.forms.ttkwidget.Checkbutton" id="widget_naming_ufletter" named="True">
-                                      <property name="offvalue">no</property>
-                                      <property name="onvalue">yes</property>
-                                      <property name="text" translatable="yes">Uppercase first letter (e.g. Button…)</property>
-                                      <layout manager="grid">
-                                        <property name="column">0</property>
-                                        <property name="columnspan">2</property>
-                                        <property name="ipady">3</property>
-                                        <property name="row">1</property>
-                                        <property name="sticky">ew</property>
-                                      </layout>
-                                    </object>
-                                  </child>
-                                </object>
-                              </child>
-                              <child>
-                                <object class="ttk.Label" id="label_1">
-                                  <property name="text" translatable="yes">This does not affect previously generated names.</property>
-                                  <layout manager="pack">
-                                    <property name="anchor">w</property>
-                                    <property name="fill">x</property>
-                                    <property name="padx">10 5</property>
-                                    <property name="pady">5 0</property>
-                                  </layout>
-                                </object>
-                              </child>
-                            </object>
-                          </child>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="ttk.Notebook.Tab" id="tab1">
-                      <property name="sticky">nsew</property>
-                      <property name="text" translatable="yes">Widget</property>
-                    </object>
-                  </child>
-                </object>
-              </child>
-            </object>
-          </child>
-          <child>
-            <object class="ttk.Frame" id="Frame_4">
-              <property name="height">200</property>
-              <property name="padding">0 5 0 0</property>
-              <property name="width">200</property>
-              <layout manager="pack">
-                <property name="side">right</property>
-              </layout>
-              <child>
-                <object class="ttk.Button" id="cancel">
-                  <property name="command" type="command" cbtype="simple">btn_cancel_cliced</property>
-                  <property name="text" translatable="yes">Cancel</property>
-                  <layout manager="grid">
-                    <property name="column">0</property>
-                    <property name="padx">0 5</property>
-                    <property name="row">0</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="ttk.Button" id="dialog_close">
-                  <property name="command" type="command" cbtype="simple">btn_apply_clicked</property>
-                  <property name="default">active</property>
-                  <property name="text" translatable="yes">Ok</property>
-                  <layout manager="grid">
-                    <property name="column">1</property>
-                    <property name="padx">5 0</property>
-                    <property name="row">0</property>
-                  </layout>
-                </object>
-              </child>
-            </object>
-          </child>
-        </object>
-      </child>
-    </object>
-  </interfaces>
-  <settings>
-    <setting id="name">Designer settings dialog</setting>
-    <setting id="description">Designer Settings dialog.</setting>
-    <setting id="module_name">designersettings</setting>
-    <setting id="output_dir">../../services</setting>
-    <setting id="template">application</setting>
-    <setting id="main_widget">preferences</setting>
-    <setting id="main_classname">DesignerSettings</setting>
-    <setting id="main_menu" />
-    <setting id="import_tkvariables">False</setting>
-    <setting id="use_ttk_styledefinition_file">False</setting>
-    <setting id="use_i18n">True</setting>
-    <setting id="all_ids_attributes">False</setting>
-    <setting id="generate_code_onsave">False</setting>
-    <setting id="use_window_centering_code">False</setting>
-    <setting id="ttk_style_definition_file" />
-  </settings>
-  <customwidgets />
-</project>
+<interface version="1.4" author="PygubuDesigner 0.37">
+  <object class="pygubu.builder.widgets.dialog" id="preferences">
+    <property name="geometry">580x410</property>
+    <property name="height">200</property>
+    <property name="minsize">480|360</property>
+    <property name="modal">true</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">Pygubu Preferences</property>
+    <property name="width">200</property>
+    <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog_close" add="" />
+    <child>
+      <object class="ttk.Frame" id="frame3">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="pygubu.forms.ttkwidget.FrameFormBuilder" id="frm_settings" named="True">
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Notebook" id="Notebook_1">
+                <property name="height">200</property>
+                <property name="style">ProjectSettings.TNotebook</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Notebook.Tab" id="Tab_general">
+                    <property name="sticky">nsew</property>
+                    <property name="text" translatable="yes">General</property>
+                    <child>
+                      <object class="ttk.Frame" id="frame4">
+                        <property name="height">200</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="expand">true</property>
+                          <property name="fill">both</property>
+                          <property name="side">top</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Frame" id="fgeneral">
+                            <property name="height">200</property>
+                            <property name="padding">5</property>
+                            <property name="width">200</property>
+                            <layout manager="pack">
+                              <property name="fill">x</property>
+                              <property name="side">top</property>
+                            </layout>
+                            <containerlayout manager="grid">
+                              <property type="col" id="1" name="weight">1</property>
+                              <property type="col" id="all" name="pad">10</property>
+                              <property type="row" id="all" name="pad">8</property>
+                            </containerlayout>
+                            <child>
+                              <object class="ttk.Label" id="lblpt">
+                                <property name="text" translatable="yes">Preferred widget set:</property>
+                                <layout manager="grid">
+                                  <property name="column">0</property>
+                                  <property name="row">0</property>
+                                  <property name="sticky">ew</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="widget_set" named="True">
+                                <layout manager="grid">
+                                  <property name="column">1</property>
+                                  <property name="ipady">3</property>
+                                  <property name="row">0</property>
+                                  <property name="sticky">ew</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Label" id="label1">
+                                <property name="text" translatable="yes">Preferred ttk theme:</property>
+                                <layout manager="grid">
+                                  <property name="column">0</property>
+                                  <property name="row">1</property>
+                                  <property name="sticky">ew</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="ttk_theme" named="True">
+                                <layout manager="grid">
+                                  <property name="column">1</property>
+                                  <property name="ipady">3</property>
+                                  <property name="row">1</property>
+                                  <property name="sticky">ew</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Label" id="lbl_preferred_layout_manager">
+                                <property name="text" translatable="yes">Preferred layout manager:</property>
+                                <layout manager="grid">
+                                  <property name="column">0</property>
+                                  <property name="row">2</property>
+                                  <property name="sticky">ew</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="default_layout_manager" named="True">
+                                <layout manager="grid">
+                                  <property name="column">1</property>
+                                  <property name="ipady">3</property>
+                                  <property name="row">2</property>
+                                  <property name="sticky">ew</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="pygubu.forms.ttkwidget.Checkbutton" id="center_preview" named="True">
+                                <property name="offvalue">no</property>
+                                <property name="onvalue">yes</property>
+                                <property name="text" translatable="yes">Center toplevel preview window</property>
+                                <layout manager="grid">
+                                  <property name="column">0</property>
+                                  <property name="columnspan">2</property>
+                                  <property name="ipady">3</property>
+                                  <property name="row">3</property>
+                                  <property name="sticky">w</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Frame" id="frame1">
+                            <property name="height">200</property>
+                            <property name="padding">5</property>
+                            <property name="width">200</property>
+                            <layout manager="pack">
+                              <property name="fill">x</property>
+                            </layout>
+                            <child>
+                              <object class="ttk.Label" id="label2">
+                                <property name="text" translatable="yes">Widget naming</property>
+                                <layout manager="pack">
+                                  <property name="anchor">w</property>
+                                  <property name="pady">5</property>
+                                  <property name="side">top</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Frame" id="frame2">
+                                <property name="height">200</property>
+                                <property name="padding">10 0 10 0</property>
+                                <property name="width">200</property>
+                                <layout manager="pack">
+                                  <property name="fill">x</property>
+                                  <property name="side">top</property>
+                                </layout>
+                                <containerlayout manager="grid">
+                                  <property type="col" id="1" name="weight">1</property>
+                                  <property type="col" id="all" name="pad">5</property>
+                                  <property type="row" id="all" name="pad">5</property>
+                                </containerlayout>
+                                <child>
+                                  <object class="ttk.Label" id="label3">
+                                    <property name="text" translatable="yes">Separator:</property>
+                                    <layout manager="grid">
+                                      <property name="column">0</property>
+                                      <property name="row">0</property>
+                                      <property name="sticky">ew</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="widget_naming_separator" named="True">
+                                    <layout manager="grid">
+                                      <property name="column">1</property>
+                                      <property name="ipady">3</property>
+                                      <property name="row">0</property>
+                                      <property name="sticky">ew</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="pygubu.forms.ttkwidget.Checkbutton" id="widget_naming_ufletter" named="True">
+                                    <property name="offvalue">no</property>
+                                    <property name="onvalue">yes</property>
+                                    <property name="text" translatable="yes">Uppercase first letter (e.g. Button…)</property>
+                                    <layout manager="grid">
+                                      <property name="column">0</property>
+                                      <property name="columnspan">2</property>
+                                      <property name="ipady">3</property>
+                                      <property name="row">1</property>
+                                      <property name="sticky">ew</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Label" id="label_1">
+                                <property name="text" translatable="yes">This does not affect previously generated names.</property>
+                                <layout manager="pack">
+                                  <property name="anchor">w</property>
+                                  <property name="fill">x</property>
+                                  <property name="padx">10 5</property>
+                                  <property name="pady">5 0</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Notebook.Tab" id="tab1">
+                    <property name="sticky">nsew</property>
+                    <property name="text" translatable="yes">Widget</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="Frame_4">
+            <property name="height">200</property>
+            <property name="padding">0 5 0 0</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="side">right</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="cancel">
+                <property name="command" type="command" cbtype="simple">btn_cancel_cliced</property>
+                <property name="text" translatable="yes">Cancel</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">0 5</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="dialog_close">
+                <property name="command" type="command" cbtype="simple">btn_apply_clicked</property>
+                <property name="default">active</property>
+                <property name="text" translatable="yes">Ok</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="padx">5 0</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <project>
+    <settings>
+      <setting id="name">Designer settings dialog</setting>
+      <setting id="description">Designer Settings dialog.</setting>
+      <setting id="module_name">designersettings</setting>
+      <setting id="output_dir">../../services</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">preferences</setting>
+      <setting id="main_classname">DesignerSettings</setting>
+      <setting id="main_menu" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">True</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+</interface>
