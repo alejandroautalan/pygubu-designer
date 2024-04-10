@@ -34,6 +34,8 @@ readonly SCRIPT="$PROJECT_ROOT/$( basename "$0" )"
 # apt install python3-build twine
 #
 
+DESIGNER_MODULE_ROOT_DIR="./src/pygubudesigner"
+
 python3bin=$(which python3)
 
 function tests {
@@ -52,6 +54,64 @@ function upload_testpypi {
 function upload_pypi {
     build
     twine upload --skip-existing -r pygubu_designer_project dist/*
+}
+
+function create_pot {
+    # Pygubu designer
+    pkg_name="pygubudesigner"
+    pot_path="$DESIGNER_MODULE_ROOT_DIR/data/locale/pygubu-designer.pot"
+    ui_files=$(find ${DESIGNER_MODULE_ROOT_DIR}/data/ui -name "*.ui" | sort | paste -d " ")
+    # echo $ui_files
+    xgettext \
+        --package-name $pkg_name \
+        --language=Glade \
+        --verbose \
+        --output=${pot_path} \
+        $ui_files
+    py_files=$(find ${DESIGNER_MODULE_ROOT_DIR} -name "*.py" | sort | paste -d " ")
+    # echo $py_files
+    xgettext \
+        --package-name $pkg_name \
+        --join-existing \
+        --language=Python \
+        --keyword=_ \
+        --verbose \
+        --output=${pot_path} \
+        --from-code=UTF-8 \
+        $py_files
+
+    #
+    # Pygubu
+    pkg_name="pygubu"
+    pot_path="$DESIGNER_MODULE_ROOT_DIR/data/locale/pygubu.pot"
+    PYGUBU_SRC_DIR="../pygubu/src/pygubu"
+    py_files=$(find ${PYGUBU_SRC_DIR} -name "*.py" | sort | paste -d " ")
+    # echo $py_files
+    xgettext \
+        --package-name $pkg_name \
+        --language=Python \
+        --keyword=_ \
+        --verbose \
+        --output=${pot_path} \
+        --from-code=UTF-8 \
+        $py_files
+}
+
+function update_po {
+    pot_designer="$DESIGNER_MODULE_ROOT_DIR/data/locale/pygubu-designer.pot"
+    pot_pygubu="$DESIGNER_MODULE_ROOT_DIR/data/locale/pygubu.pot"
+
+    po_files=$(find $DESIGNER_MODULE_ROOT_DIR/data/locale -name "pygubu-designer.po")
+    for _po in $po_files
+    do
+        msgmerge --verbose $_po ${pot_designer} -U
+    done
+
+    po_files=$(find $DESIGNER_MODULE_ROOT_DIR/data/locale -name "pygubu.po")
+    for _po in $po_files
+    do
+        msgmerge --verbose $_po ${pot_pygubu} -U
+    done
 }
 
 function compile_po {
