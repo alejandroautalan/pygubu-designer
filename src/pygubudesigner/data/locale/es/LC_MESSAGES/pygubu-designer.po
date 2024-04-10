@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 23:52-0300\n"
-"PO-Revision-Date: 2023-06-27 00:02-0300\n"
+"POT-Creation-Date: 2024-04-09 21:11-0300\n"
+"PO-Revision-Date: 2024-04-09 21:44-0300\n"
 "Last-Translator: Alejandro Autalán <alejandroautalan@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -80,19 +80,19 @@ msgid "Close"
 msgstr "Cerrar"
 
 #: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:7
-#: src/pygubudesigner/main.py:614
+#: src/pygubudesigner/main.py:585
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:36
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:37
 msgid "SaveIcon"
 msgstr "IconoGuardar"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:59
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:58
 msgid "Message"
 msgstr "Mensaje"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:70
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:68
 msgid "Detail"
 msgstr "Detalle"
 
@@ -100,14 +100,14 @@ msgstr "Detalle"
 msgid "Don't Save"
 msgstr "No guardar"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:114
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:558
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:112
+#: src/pygubudesigner/data/ui/designer_settings.ui:248
+#: src/pygubudesigner/data/ui/project_settings.ui:727
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:129
+#: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:125
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:46
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1096
 msgid "Save"
 msgstr "Guardar"
 
@@ -137,122 +137,182 @@ msgstr "Opciones para fila '{0}'"
 msgid "Column {0} options"
 msgstr "Opciones para columna '{0}'"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:9
+#: src/pygubudesigner/data/ui/designer_settings.ui:9
 msgid "Pygubu Preferences"
 msgstr "Preferencias"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:34
+#: src/pygubudesigner/data/ui/designer_settings.ui:42
+#: src/pygubudesigner/data/ui/project_settings.ui:43
 msgid "General"
 msgstr "General"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:50
-msgid "General preferences"
-msgstr "Preferencias Generales"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:66
+#: src/pygubudesigner/data/ui/designer_settings.ui:68
 msgid "Preferred widget set:"
 msgstr "Conjunto de widgets preferido:"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:85
+#: src/pygubudesigner/data/ui/designer_settings.ui:88
 msgid "Preferred ttk theme:"
 msgstr "Tema ttk preferido:"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:106
+#: src/pygubudesigner/data/ui/designer_settings.ui:108
 msgid "Preferred layout manager:"
 msgstr "Layout manager preferido:"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:129
+#: src/pygubudesigner/data/ui/designer_settings.ui:130
 msgid "Center toplevel preview window"
 msgstr "Centrar ventana de previsualización toplevel"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:143
-msgid "Automatically generate code"
-msgstr "Generar código automáticamente"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:157
-msgid "on property change"
-msgstr "al cambiar una propiedad"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:171
-msgid "Single section widgets toolbar (requires restart)"
-msgstr "Paleta de widgets de selección única (requiere reiniciar)"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:187
+#: src/pygubudesigner/data/ui/designer_settings.ui:152
 msgid "Widget naming"
 msgstr "Nombre de widgets"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:200
-msgid "No separator (e.g. button1)"
-msgstr "Sin separador (ej. button1)"
+#: src/pygubudesigner/data/ui/designer_settings.ui:176
+msgid "Separator:"
+msgstr ""
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:212
-msgid "Use \"_\" as separator (e.g. button_1)"
-msgstr "Usar \"_\" como separador (ej. button_1)"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:226
+#: src/pygubudesigner/data/ui/designer_settings.ui:198
 msgid "Uppercase first letter (e.g. Button…)"
 msgstr "Primera letra en mayúscula (ej. Button1)"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:238
+#: src/pygubudesigner/data/ui/designer_settings.ui:212
 msgid "This does not affect previously generated names."
 msgstr "Esto no afecta los nombres generados previamente."
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:253
-msgid "Hidden options"
-msgstr "Opciones ocultas"
+#: src/pygubudesigner/data/ui/designer_settings.ui:230
+#, fuzzy
+msgid "Widget"
+msgstr "ID de widget"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:265
-msgid "Window geometry:"
-msgstr "Geometría de la ventana:"
+#: src/pygubudesigner/data/ui/designer_settings.ui:260
+#: src/pygubudesigner/data/ui/messagebox.ui:64
+#: src/pygubudesigner/data/ui/project_settings.ui:737
+msgid "Ok"
+msgstr "Aceptar"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:291
-msgid "Custom Widgets"
-msgstr "Widgets Personalizados"
+#: src/pygubudesigner/data/ui/messagebox.ui:8
+msgid "Dialog"
+msgstr ""
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:319
-msgid "Custom Widgets Builders"
-msgstr "Constructores Personalizados"
+#: src/pygubudesigner/data/ui/project_settings.ui:57
+msgid "Name:"
+msgstr "Nombre:"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:351
-msgid "modules"
-msgstr "módulos"
+#: src/pygubudesigner/data/ui/project_settings.ui:90
+msgid "Description:"
+msgstr "Descripción:"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:380
-msgid "Requires restart."
-msgstr "Es necesario reiniciar el programa."
+#: src/pygubudesigner/data/ui/project_settings.ui:137
+msgid "Code"
+msgstr "Código"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:392
-msgid "-"
-msgstr "-"
+#: src/pygubudesigner/data/ui/project_settings.ui:161
+msgid "Module name:"
+msgstr "Nombre del módulo:"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:405
+#: src/pygubudesigner/data/ui/project_settings.ui:193
+msgid "Template:"
+msgstr "Plantilla:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:216
+msgid "Template description here."
+msgstr "Descripción de la plantilla AQUI."
+
+#: src/pygubudesigner/data/ui/project_settings.ui:228
+msgid "Main widget:"
+msgstr "Widget principal:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:261
+msgid "Class name:"
+msgstr "Nombre de la clase:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:292
+msgid "Main menu:"
+msgstr "Menú principal:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:325
+msgid "Module output:"
+msgstr "Directorio del módulo:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:356
+#: src/pygubudesigner/data/ui/project_settings.ui:413
+#: src/pygubudesigner/data/ui/project_settings.ui:556
+msgid "…"
+msgstr ""
+
+#: src/pygubudesigner/data/ui/project_settings.ui:357
+#: src/pygubudesigner/data/ui/project_settings.ui:414
+msgid "Select output directory"
+msgstr "Seleccione directorio de salida"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:382
+msgid "Builder output:"
+msgstr "Directorio del módulo constructor:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:450
+msgid "Import Tk Variables"
+msgstr "Importar variables Tk"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:460
+msgid "Use ttk style definitions file"
+msgstr "Usar archivo de definición de estilos ttk"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:470
+msgid "Add i18n support"
+msgstr "Agregar soporte i18n"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:480
+msgid "All IDs as class attributes"
+msgstr "Todos los IDs como atributos de clase"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:490
+msgid "Regenerate code when saving the project"
+msgstr "Regenerar el código al guardar el proyecto."
+
+#: src/pygubudesigner/data/ui/project_settings.ui:500
+msgid "Add window centering code"
+msgstr "Agregar código de centrado de ventana."
+
+#: src/pygubudesigner/data/ui/project_settings.ui:517
+#: src/pygubudesigner/services/projectsettings.py:280
+#: src/pygubudesigner/services/projectsettings.py:300
+#: src/pygubudesigner/services/projectsettings.py:310
+msgid "Styles"
+msgstr "Estilos"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:526
+msgid "Style definition file:"
+msgstr "Archivo de definición de estilos:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:557
+#: src/pygubudesigner/data/ui/project_settings.ui:572
+#: src/pygubudesigner/data/ui/project_settings.ui:685
+msgid "Select style definitions file"
+msgstr "Seleccione archivo de definición de estilos:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:571
+#: src/pygubudesigner/data/ui/project_settings.ui:684
 msgid "+"
 msgstr "+"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:426
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:453
-msgid "Ttk Styles"
-msgstr "Estilos ttk"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:478
-msgid "Style Definition File:"
-msgstr "Archivo de definición de estilos:"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:511
-msgid "Browse …"
-msgstr "Buscar …"
-
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:521
+#: src/pygubudesigner/data/ui/project_settings.ui:596
 msgid "Remove"
 msgstr "Remover"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:531
-msgid "Create New …"
-msgstr "Crear Nuevo …"
+#: src/pygubudesigner/data/ui/project_settings.ui:622
+msgid "Custom Widgets"
+msgstr "Widgets Personalizados"
 
-#: src/pygubudesigner/data/ui/preferences_dialog.ui:570
-msgid "Ok"
-msgstr "Aceptar"
+#: src/pygubudesigner/data/ui/project_settings.ui:633
+msgid "Project widget builders:"
+msgstr "Constructores personalizados:"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:662
+msgid "Modules"
+msgstr "Módulos"
+
+#: src/pygubudesigner/data/ui/project_settings.ui:698
+msgid "-"
+msgstr "-"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:7
 msgid "File"
@@ -278,7 +338,7 @@ msgstr "Limpiar lista"
 msgid "Save as …"
 msgstr "Guardar como …"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:62 src/pygubudesigner/main.py:178
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:62 src/pygubudesigner/main.py:180
 msgid "Quit …"
 msgstr "Salir …"
 
@@ -287,22 +347,22 @@ msgid "Edit"
 msgstr "Editar"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:76
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:238
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:260
 msgid "Copy"
 msgstr "Copiar"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:83
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:244
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:266
 msgid "Paste"
 msgstr "Pegar"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:90
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:250
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:272
 msgid "Cut"
 msgstr "Cortar"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:97
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:265
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:287
 msgid "Duplicate"
 msgstr "Duplicar"
 
@@ -347,223 +407,155 @@ msgid "Preferences"
 msgstr "Preferencias"
 
 #: src/pygubudesigner/data/ui/pygubu-ui.ui:179
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:506
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1032
+msgid "Project"
+msgstr "Proyecto"
+
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:185
+msgid "Settings"
+msgstr "Ajustes"
+
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:194
+msgid "Generate code"
+msgstr "Generar código"
+
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:201
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:650
 msgid "Preview"
 msgstr "Previsualización"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:186
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:208
 msgid "Preview in Toplevel"
 msgstr "Previsualizar en ventana"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:193
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:215
 msgid "Close Toplevel previews"
 msgstr "Cerrar previsualizaciones"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:198
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:220
 msgid "ttk theme"
 msgstr "tema ttk"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:206
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:228
 msgid "Help"
 msgstr "Ayuda"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:212
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:234
 msgid "Pygubu wiki"
 msgstr "Wiki de pygubu"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:218
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:240
 msgid "About Pygubu"
 msgstr "Acerca de Pygubu"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:229
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:251
 msgid "Go to parent"
 msgstr "Ir al padre"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:256
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:278
 msgid "Delete"
 msgstr "Eliminar"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:273
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:295 src/pygubudesigner/main.py:150
 msgid "Pygubu Designer"
 msgstr "Pygubu Designer"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:314
-msgid "Design"
-msgstr "Diseño"
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:338
+msgid "Components Palette"
+msgstr "Paleta de componentes"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:356
-msgid "Tree"
-msgstr "Arbol"
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:359
+msgid "Project Tree"
+msgstr "Árbol del proyecto"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:376
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:380
+#: src/pygubudesigner/data/ui/treecomponent_palette.ui:25
+#: src/pygubudesigner/services/widgets/treecomponentpaletteui.py:29
 msgid "Filter:"
 msgstr "Filtrar:"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:397
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:402
 msgid "✖"
 msgstr "✖"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:427
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:431
 msgid "ID"
 msgstr "ID"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:439
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:443
 msgid "Class"
 msgstr "Clase"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:451
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:455
 msgid "R"
 msgstr "F"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:463
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:467
 msgid "C"
 msgstr "C"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:475
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:479
 msgid " "
 msgstr " "
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:556
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:495
 msgid "Properties"
 msgstr "Propiedades"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:578
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:520
 msgid "Appearance"
 msgstr "Apariencia"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:597
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:539
 msgid "Layout"
 msgstr "Disposición"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:615
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:557
 msgid "Bindings"
 msgstr "Bindings"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:649
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:591
 msgid "Sequence descriptor"
 msgstr "Descriptor de secuencia"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:661
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:603
 msgid "Event Handler"
 msgstr "Controlador de evento"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:673
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:615
 msgid "Add"
 msgstr "Agregar"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:713
-msgid "Code"
-msgstr "Código"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:733
-msgid "Template description here."
-msgstr "Descripción de la plantilla AQUI."
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:745
-msgid "Template:"
-msgstr "Plantilla:"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:756
-msgid "Application"
-msgstr "Aplicación"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:778
-msgid "Code Script"
-msgstr "Script de codigo"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:800
-msgid "Custom Widget"
-msgstr "Widget Personalizado"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:835
-msgid "Options:"
-msgstr "Opciones:"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:869
-msgid "Main widget:"
-msgstr "Widget principal:"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:892
-msgid "Class Name:"
-msgstr "Nombre de la clase:"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:923
-msgid "Main menu:"
-msgstr "Menú principal:"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:958
-msgid "Import Tk Variables"
-msgstr "Importar variables Tk"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:969
-msgid "Use ttk style definitions file"
-msgstr "Usar archivo de definición de estilos ttk"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:980
-msgid "Add i18n support"
-msgstr "Agregar soporte i18n"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:991
-msgid "All IDs as class attributes"
-msgstr "Todos los IDs como atributos de clase"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1076
-msgid "Generate"
-msgstr "Generar"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1086
-msgid "Copy to Clipboard"
-msgstr "Copiar al portapapeles"
-
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:1178
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:754
 msgid "Messages"
 msgstr "Mensajes"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:72
+#: src/pygubudesigner/data/ui/treecomponent_palette.ui:73
+#: src/pygubudesigner/services/widgets/treecomponentpaletteui.py:52
+msgid "tk"
+msgstr ""
+
+#: src/pygubudesigner/data/ui/treecomponent_palette.ui:116
+#: src/pygubudesigner/services/widgets/treecomponentpaletteui.py:75
+msgid "Components"
+msgstr "Componentes"
+
+#: src/pygubudesigner/codegen/scriptgenerator.py:43
 msgid "Script Generator"
 msgstr "Generador de Script"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:76
-msgid "Create a pygubu application script using the UI definition."
-msgstr "Crear una aplicación pygubu usando el archivo UI actual."
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:78
-msgid "Create a coded version of the UI definition."
-msgstr "Crear un versión en codigo del archivo UI actual."
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:79
-msgid "Create a base class for your custom widget."
-msgstr "Crear un clase base para su widget personalizado."
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:220
-msgid "Code copied"
-msgstr "Se copió al portapapeles"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:261
-msgid "Python Script"
-msgstr "Python Script"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:261
-#: src/pygubudesigner/main.py:657 src/pygubudesigner/main.py:702
-#: src/pygubudesigner/preferences.py:308 src/pygubudesigner/preferences.py:341
-#: src/pygubudesigner/preferences.py:391
-msgid "All"
-msgstr "Todos"
-
-#: src/pygubudesigner/codegen/scriptgenerator.py:306
+#: src/pygubudesigner/codegen/scriptgenerator.py:311
 msgid "Select widget"
 msgstr "Seleccione widget"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:312
+#: src/pygubudesigner/codegen/scriptgenerator.py:317
 msgid "Select template"
 msgstr "Seleccione plantilla"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:318
+#: src/pygubudesigner/codegen/scriptgenerator.py:323
 msgid "Enter classname"
 msgstr "Ingrese nombre de la clase"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:325
+#: src/pygubudesigner/codegen/scriptgenerator.py:330
 msgid "Invalid classname"
 msgstr "Nombre de clase inválido"
 
@@ -606,64 +598,68 @@ msgstr "¿Cambiar manager de {0} a {1}?"
 msgid "All container widgets will be updated."
 msgstr "Todos los widgets del contenedor serán actualizados."
 
-#: src/pygubudesigner/main.py:73
+#: src/pygubudesigner/main.py:84
 #, python-brace-format
 msgid "Failed to load widget module: '{_module}'"
 msgstr "Error al cargar modulo de widget: '{_module}'"
 
-#: src/pygubudesigner/main.py:74 src/pygubudesigner/main.py:94
-#: src/pygubudesigner/main.py:650 src/pygubudesigner/main.py:689
-#: src/pygubudesigner/preferences.py:102 src/pygubudesigner/preferences.py:108
+#: src/pygubudesigner/main.py:86 src/pygubudesigner/main.py:627
+#: src/pygubudesigner/main.py:679 src/pygubudesigner/preferences.py:106
+#: src/pygubudesigner/preferences.py:112
 msgid "Error"
 msgstr "Error"
 
-#: src/pygubudesigner/main.py:93
-#, python-brace-format
-msgid "Failed to load custom widget module: '{path}'"
-msgstr "Error al cargar modulo de widget personalizado: '{path}'"
-
-#: src/pygubudesigner/main.py:578
+#: src/pygubudesigner/main.py:548
 msgid "Checking main window visibility."
 msgstr "Verificando visibilidad de la ventana principal."
 
-#: src/pygubudesigner/main.py:580
+#: src/pygubudesigner/main.py:550
 msgid "Main window is not visible in current monitors."
 msgstr "La ventana principal no es visible en los monitores activos."
 
-#: src/pygubudesigner/main.py:584
+#: src/pygubudesigner/main.py:554
 msgid "Main window position fixed."
 msgstr "Posición de la ventana principal corregida."
 
-#: src/pygubudesigner/main.py:617
+#: src/pygubudesigner/main.py:588
 msgid "If you don't save the document, all the changes will be lost."
 msgstr "Si no guarda el documento, todos los cambios se perderán."
 
-#: src/pygubudesigner/main.py:631
+#: src/pygubudesigner/main.py:602
 msgid "Do you want to save the changes before closing?"
 msgstr "¿Quieres guardar los cambios antes de cerrar?"
 
-#: src/pygubudesigner/main.py:647
+#: src/pygubudesigner/main.py:618
 #, python-format
 msgid "Project saved to %s"
 msgstr "Proyecto guardado a %s"
 
-#: src/pygubudesigner/main.py:657 src/pygubudesigner/main.py:701
+#: src/pygubudesigner/main.py:637 src/pygubudesigner/main.py:691
 msgid "pygubu ui"
 msgstr "archivos de pygubu"
 
-#: src/pygubudesigner/main.py:694
+#: src/pygubudesigner/main.py:637 src/pygubudesigner/main.py:692
+#: src/pygubudesigner/services/projectsettings.py:33
+msgid "All"
+msgstr "Todos"
+
+#: src/pygubudesigner/main.py:684
 msgid "Do you want to save the changes before opening?"
 msgstr "¿Quieres guardar los cambios antes de abrir?"
 
-#: src/pygubudesigner/main.py:712
+#: src/pygubudesigner/main.py:702
 msgid "Do you want to save the changes before creating?"
 msgstr "¿Quieres guardar los cambios antes de crear?"
 
-#: src/pygubudesigner/main.py:888
+#: src/pygubudesigner/main.py:843
+msgid "Open a project first."
+msgstr "Abre un proyecto primero."
+
+#: src/pygubudesigner/main.py:881
 msgid "newproject"
 msgstr "nuevo_proyecto"
 
-#: src/pygubudesigner/preferences.py:99
+#: src/pygubudesigner/preferences.py:103
 msgid ""
 "Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as "
 "expected.If you delete this file, configuration will be set to default"
@@ -672,43 +668,13 @@ msgstr ""
 "no funcionar como se esperaba.\n"
 "Si elimina este archivo, se iniciará con los ajustes predeterminados"
 
-#: src/pygubudesigner/preferences.py:106
+#: src/pygubudesigner/preferences.py:110
 msgid ""
 "Faild to parse config file at {CONFIG_FILE!s}, program may not work as "
 "expected."
 msgstr ""
 "Fallo al leer el archivo de configuración '{CONFIG_FILE!s}', el programa "
 "puede no funcionar como se espera."
-
-#: src/pygubudesigner/preferences.py:308 src/pygubudesigner/preferences.py:341
-#: src/pygubudesigner/preferences.py:391
-msgid "Python module"
-msgstr "Módulo python"
-
-#: src/pygubudesigner/preferences.py:323
-msgid ""
-"File saved.\n"
-"\n"
-"Please edit the style definition file."
-msgstr ""
-"Archivo guardado.\n"
-"\n"
-"Ahora edita el archivo de definición de estilos."
-
-#: src/pygubudesigner/preferences.py:324 src/pygubudesigner/preferences.py:331
-#: src/pygubudesigner/preferences.py:362
-msgid "Styles"
-msgstr "Estilos"
-
-#: src/pygubudesigner/preferences.py:330
-msgid "Error saving template file."
-msgstr "Error al grabar el archivo de plantilla."
-
-#: src/pygubudesigner/preferences.py:361
-msgid ""
-"Restart Pygubu Designer for\n"
-"changes to take effect."
-msgstr "Reinicia Pygubu Designer para que los cambios tengan efecto."
 
 #: src/pygubudesigner/properties/propertieshelp.py:5
 msgid "Object class name."
@@ -1841,53 +1807,109 @@ msgid ""
 "other rows that have the same value for uniform."
 msgstr ""
 
-#: src/pygubudesigner/stylehandler.py:79
+#: src/pygubudesigner/services/designersettings.py:32
+msgid "No separator (e.g. button1)"
+msgstr "Sin separador (ej. button1)"
+
+#: src/pygubudesigner/services/designersettings.py:33
+msgid "Use \"_\" as separator (e.g. button_1)"
+msgstr "Usar \"_\" como separador (ej. button_1)"
+
+#: src/pygubudesigner/services/projectsettings.py:33
+msgid "Python module"
+msgstr "Módulo python"
+
+#: src/pygubudesigner/services/projectsettings.py:55
+msgid "Create a pygubu application script using the UI definition."
+msgstr "Crear una aplicación pygubu usando el archivo UI actual."
+
+#: src/pygubudesigner/services/projectsettings.py:57
+msgid "Create a coded version of the UI definition."
+msgstr "Crear un versión en codigo del archivo UI actual."
+
+#: src/pygubudesigner/services/projectsettings.py:58
+msgid "Create a base class for your custom widget."
+msgstr "Crear un clase base para su widget personalizado."
+
+#: src/pygubudesigner/services/projectsettings.py:61
+msgid "Application"
+msgstr "Aplicación"
+
+#: src/pygubudesigner/services/projectsettings.py:62
+msgid "Code Script"
+msgstr "Script de codigo"
+
+#: src/pygubudesigner/services/projectsettings.py:63
+msgid "Custom Widget"
+msgstr "Widget Personalizado"
+
+#: src/pygubudesigner/services/projectsettings.py:279
+msgid ""
+"Restart Pygubu Designer for\n"
+"changes to take effect."
+msgstr "Reinicia Pygubu Designer para que los cambios tengan efecto."
+
+#: src/pygubudesigner/services/projectsettings.py:298
+msgid ""
+"File saved.\n"
+"\n"
+"Please edit the style definition file."
+msgstr ""
+"Archivo guardado.\n"
+"\n"
+"Ahora edita el archivo de definición de estilos."
+
+#: src/pygubudesigner/services/projectsettings.py:309
+msgid "Error saving template file."
+msgstr "Error al grabar el archivo de plantilla."
+
+#: src/pygubudesigner/services/stylehandler.py:78
 msgid "Applying ttk style definitions"
 msgstr "Aplicando definiciones de estilos ttk"
 
-#: src/pygubudesigner/stylehandler.py:101
+#: src/pygubudesigner/services/stylehandler.py:101
 #, python-format
 msgid "ttk style definition error: %s"
 msgstr "error de definición de estilo ttk: %s"
 
-#: src/pygubudesigner/uitreeeditor.py:173
+#: src/pygubudesigner/uitreeeditor.py:221
 msgid "Delete items"
 msgstr "Borrar items"
 
-#: src/pygubudesigner/uitreeeditor.py:174
+#: src/pygubudesigner/uitreeeditor.py:222
 msgid "Delete selected items?"
 msgstr "¿ Borrar items seleccionados ?"
 
-#: src/pygubudesigner/uitreeeditor.py:463
+#: src/pygubudesigner/uitreeeditor.py:518
 msgid "No item selected."
 msgstr "No selecciono item."
 
-#: src/pygubudesigner/uitreeeditor.py:701
+#: src/pygubudesigner/uitreeeditor.py:758
 #, python-format
 msgid "Allowed children: %s."
 msgstr "Hijos permitidos: %s."
 
-#: src/pygubudesigner/uitreeeditor.py:711
+#: src/pygubudesigner/uitreeeditor.py:768
 #, python-brace-format
 msgid "Only {0} children allowed for {1}"
 msgstr "Solo se permiten {0} hijos para {1}"
 
-#: src/pygubudesigner/uitreeeditor.py:726
+#: src/pygubudesigner/uitreeeditor.py:784
 #, python-brace-format
 msgid "{0} not allowed as parent of {1}"
 msgstr "{0} no es permitido como padre de {1}"
 
-#: src/pygubudesigner/uitreeeditor.py:736
+#: src/pygubudesigner/uitreeeditor.py:794
 #, python-format
 msgid "Not allowed, %s is not a container."
 msgstr "No permitido, %s no es un contenedor."
 
-#: src/pygubudesigner/uitreeeditor.py:748
+#: src/pygubudesigner/uitreeeditor.py:806
 #, python-format
 msgid "%s not allowed at root level"
 msgstr "%s no esta permitido a nivel raiz"
 
-#: src/pygubudesigner/uitreeeditor.py:758
+#: src/pygubudesigner/uitreeeditor.py:816
 #, python-format
 msgid "Not allowed at root level, %s is not a container."
 msgstr "No permitido a nivel raiz, %s no es un contenedor."
@@ -1956,6 +1978,55 @@ msgstr "Todos los archivos"
 msgid "Request new ID and set widget as nameless."
 msgstr "Solicitar nuevo ID y establecer el widget como \"sin  nombre\"."
 
+#~ msgid "General preferences"
+#~ msgstr "Preferencias Generales"
+
+#~ msgid "Automatically generate code"
+#~ msgstr "Generar código automáticamente"
+
+#~ msgid "on property change"
+#~ msgstr "al cambiar una propiedad"
+
+#~ msgid "Single section widgets toolbar (requires restart)"
+#~ msgstr "Paleta de widgets de selección única (requiere reiniciar)"
+
+#~ msgid "Hidden options"
+#~ msgstr "Opciones ocultas"
+
+#~ msgid "Window geometry:"
+#~ msgstr "Geometría de la ventana:"
+
+#~ msgid "Requires restart."
+#~ msgstr "Es necesario reiniciar el programa."
+
+#~ msgid "Ttk Styles"
+#~ msgstr "Estilos ttk"
+
+#~ msgid "Browse …"
+#~ msgstr "Buscar …"
+
+#~ msgid "Create New …"
+#~ msgstr "Crear Nuevo …"
+
+#~ msgid "Design"
+#~ msgstr "Diseño"
+
+#~ msgid "Tree"
+#~ msgstr "Arbol"
+
+#~ msgid "Copy to Clipboard"
+#~ msgstr "Copiar al portapapeles"
+
+#~ msgid "Code copied"
+#~ msgstr "Se copió al portapapeles"
+
+#~ msgid "Python Script"
+#~ msgstr "Python Script"
+
+#, python-brace-format
+#~ msgid "Failed to load custom widget module: '{path}'"
+#~ msgstr "Error al cargar modulo de widget personalizado: '{path}'"
+
 #~ msgid "Required"
 #~ msgstr "Requerida"
 
@@ -1985,12 +2056,6 @@ msgstr "Solicitar nuevo ID y establecer el widget como \"sin  nombre\"."
 #~ msgstr ""
 #~ "Este programa se distribuye SIN NINGUNA GARANTÍA;\n"
 #~ "para más detalles visite http://www.gnu.org/licenses/gpl-3.0.html"
-
-#~ msgid "Object Tree"
-#~ msgstr "Árbol de objetos"
-
-#~ msgid "Widget Id"
-#~ msgstr "ID de widget"
 
 #~ msgid "Options"
 #~ msgstr "Opciones"
