@@ -1,7 +1,7 @@
 History
 =======
 
-Changes in project options branch (future next version)
+Changes for version 0.39
 
   * New UI Layout. Removed code generation Tab.
   * New project settings dialog.
