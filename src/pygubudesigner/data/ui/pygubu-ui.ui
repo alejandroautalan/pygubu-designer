@@ -289,6 +289,7 @@
     </child>
   </object>
   <object class="tk.Tk" id="mainwindow" named="True">
+    <property name="className">PygubuDesigner</property>
     <property name="geometry">854x480</property>
     <property name="height">200</property>
     <property name="resizable">both</property>
