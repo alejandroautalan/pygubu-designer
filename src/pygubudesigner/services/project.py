@@ -3,6 +3,7 @@ import os
 import pathlib
 import logging
 import importlib
+import tkinter as tk
 
 from pygubu.component.uidefinition import UIDefinition
 from ..widgetdescr import WidgetMeta
@@ -54,6 +55,11 @@ class Project:
         self.uidefinition: UIDefinition = None
         self.custom_widgets: list = []
         self.settings: dict = {}
+
+    @property
+    def generate_code_onsave(self):
+        key = "generate_code_onsave"
+        return tk.getboolean(self.settings.get(key, False))
 
     def get_relative_path(self, path):
         return os.path.relpath(path, start=self.fpath.parent)

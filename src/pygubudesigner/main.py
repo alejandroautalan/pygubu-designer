@@ -865,15 +865,17 @@ proc ::tk::dialog::file::Create {w class} {
         valid = self.project_settings.validate_for_codegen()
         if valid:
             self.script_generator.generate_code()
+            msg = _("Project code generated.")
+            logger.info(msg)
         else:
             self.project_settings.run()
 
     def generate_code_on_save(self):
-        generate = False
-        if self.current_project is not None:
-            key = "generate_code_onsave"
-            generate = self.current_project.settings.get(key, False)
-        return generate
+        return (
+            False
+            if self.current_project is None
+            else self.current_project.generate_code_onsave
+        )
 
     def project_name(self):
         name = None
