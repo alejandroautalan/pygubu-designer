@@ -1,5 +1,26 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.38">
+<interface version="1.4" author="PygubuDesigner 0.39">
+  <project>
+    <settings>
+      <setting id="name">Project settings dialog</setting>
+      <setting id="description">Designer Project Settings dialog.</setting>
+      <setting id="module_name">projectsettings</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">settingsdialog</setting>
+      <setting id="main_classname">ProjectSettings</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">../../services</setting>
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">True</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
   <object class="pygubu.builder.widgets.dialog" id="settingsdialog" named="True">
     <property name="geometry">680x580</property>
     <property name="height">100</property>
@@ -682,7 +703,7 @@
                               <object class="pygubu.widgets.PathChooserButton" id="btn_cwadd_module" named="True">
                                 <property name="defaultextension">.py</property>
                                 <property name="text" translatable="yes">+</property>
-                                <property name="title" translatable="yes">Select style definitions file</property>
+                                <property name="title" translatable="yes">Select a widget builder file</property>
                                 <property name="type">file</property>
                                 <property name="width">-3</property>
                                 <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="btn_cwadd_clicked" add="" />
@@ -745,24 +766,4 @@
       </object>
     </child>
   </object>
-  <project>
-    <settings>
-      <setting id="name">Project settings dialog</setting>
-      <setting id="description">Designer Project Settings dialog.</setting>
-      <setting id="module_name">projectsettings</setting>
-      <setting id="output_dir">../../services</setting>
-      <setting id="template">application</setting>
-      <setting id="main_widget">settingsdialog</setting>
-      <setting id="main_classname">ProjectSettings</setting>
-      <setting id="main_menu" />
-      <setting id="import_tkvariables">True</setting>
-      <setting id="use_ttk_styledefinition_file">False</setting>
-      <setting id="use_i18n">True</setting>
-      <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">True</setting>
-      <setting id="use_window_centering_code">False</setting>
-      <setting id="ttk_style_definition_file" />
-    </settings>
-    <customwidgets />
-  </project>
 </interface>
