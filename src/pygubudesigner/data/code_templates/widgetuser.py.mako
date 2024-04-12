@@ -1,7 +1,8 @@
 <%inherit file="base.py.mako"/>
 
 <%block name="imports" filter="trim">
-${parent.imports()}
+import tkinter as tk
+import tkinter.ttk as ttk
 import ${module_name}ui as baseui
 </%block>
 
