@@ -669,10 +669,7 @@ proc ::tk::dialog::file::Create {w class} {
             self.set_title(title)
             self.set_changed(False)
             self.rfiles_manager.addfile(str(fpath))
-            # Reload palette with project custom widgets
-            prefixes = [Path(cw).stem for cw in project.custom_widgets]
-            self.tree_palette.project_custom_widget_prefixes = prefixes
-            self.tree_palette.build_tree()
+            self.reload_component_palette()
         except Exception as e:
             msg = str(e)
             det = traceback.format_exc()
@@ -855,6 +852,7 @@ proc ::tk::dialog::file::Create {w class} {
     def _on_project_settings_changed(self, new_settings: dict):
         self.current_project.set_full_settings(new_settings)
         self.set_changed()
+        self.reload_component_palette()
 
     def _project_code_generate(self):
         if not self._require_project_open():
@@ -902,12 +900,37 @@ proc ::tk::dialog::file::Create {w class} {
     def log_message(self, msg, level):
         self.log_panel.log_message(msg, level)
 
+    def reload_component_palette(self):
+        """Reload palette with project custom widgets."""
+        project = self.current_project
+        prefixes = [Path(cw).stem for cw in project.custom_widgets]
+        current_prefixes = self.tree_palette.project_custom_widget_prefixes
+
+        prefixes.sort()
+        current_prefixes.sort()
+        if prefixes != current_prefixes:
+            try:
+                project.load_custom_widgets()
+                self.tree_palette.project_custom_widget_prefixes = prefixes
+                self.tree_palette.build_tree()
+            except Exception as e:
+                msg = str(e)
+                det = traceback.format_exc()
+                show_error(
+                    self.mainwindow,
+                    _("Error"),
+                    msg,
+                    det,
+                )
+
     def on_dockframe_changed(self, event=None):
+        """Save current layout of maindock widget."""
         dock = self.builder.get_object("maindock")
         dock_layout = dock.save_layout()
         pref.save_maindock_layout(dock_layout)
 
     def load_dockframe_layout(self):
+        """Load layout for maindock widget."""
         layout = pref.get_maindock_layout()
         try:
             dock = self.builder.get_object("maindock")

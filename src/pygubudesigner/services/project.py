@@ -83,18 +83,16 @@ class Project:
         self.custom_widgets = new_settings.pop("custom_widgets", [])
         self.settings = new_settings
 
+    def load_custom_widgets(self):
+        uidir = pathlib.Path(self.fpath).parent.resolve()
+        Project.load_widget_builders(uidir, self.custom_widgets)
+
     @staticmethod
-    def load(filename) -> "Project":
-        uidef = UIDefinition(wmetaclass=WidgetMeta)
-        uidef.load_file(filename)
-
-        uidir = pathlib.Path(filename).parent.resolve()
-
-        # Load custom widgets
+    def load_widget_builders(uidir: pathlib.Path, custom_widgets: list):
         path_list = []
         notfound_list = []
         # Xml will have relative paths to UI file directory
-        for cw in uidef.custom_widgets:
+        for cw in custom_widgets:
             cw_path: pathlib.Path = pathlib.Path(uidir, cw).resolve()
             if cw_path.exists():
                 path_list.append(cw_path)
@@ -111,6 +109,15 @@ class Project:
             # Load builders
             for path in path_list:
                 load_custom_widget(path)
+
+    @staticmethod
+    def load(filename) -> "Project":
+        uidef = UIDefinition(wmetaclass=WidgetMeta)
+        uidef.load_file(filename)
+        uidir = pathlib.Path(filename).parent.resolve()
+
+        # Load custom widgets
+        Project.load_widget_builders(uidir, uidef.custom_widgets)
 
         # Load theme file
         theme_file = uidef.project_settings.get("ttk_style_definition_file", "")
