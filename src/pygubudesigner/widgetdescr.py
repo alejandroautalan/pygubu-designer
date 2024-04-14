@@ -37,6 +37,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
     PROPERTY_CHANGED = 4
     PROPERTY_RO_CHANGED = 8
     BINDING_CHANGED = 16
+    PROPERTY_BLANKED = 32  # Will use this when a property is unset.
 
     def __init__(
         self,
@@ -93,6 +94,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
                     self.properties[name] = value
                 else:
                     # remove if no value set
+                    event_type = event_type | self.PROPERTY_BLANKED
                     self.properties.pop(name, None)
                 builder = CLASS_MAP[self.classname].builder
                 if name in builder.ro_properties:
@@ -107,19 +109,22 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 default = "0"
             return self.layout_properties.get(name, default)
         else:
+            event_type = self.LAYOUT_PROPERTY_CHANGED
             # Setter
             if value:
                 self.layout_properties[name] = value
             else:
                 # remove if no value set
+                event_type = event_type | self.PROPERTY_BLANKED
                 self.layout_properties.pop(name, None)
-            self.notify(self.LAYOUT_PROPERTY_CHANGED, self)
+            self.notify(event_type, self)
 
     def container_property(self, name, value=None):
         if value is None:
             # Getter
             return self.container_properties.get(name, "")
         else:
+            event_type = self.LAYOUT_PROPERTY_CHANGED
             # do not save propagate if value is True
             if name == "propagate" and value.lower() == "true":
                 value = None
@@ -128,8 +133,9 @@ class WidgetMeta(WidgetMetaBase, Observable):
                 self.container_properties[name] = value
             else:
                 # remove if no value set
+                event_type = event_type | self.PROPERTY_BLANKED
                 self.container_properties.pop(name, None)
-            self.notify(self.LAYOUT_PROPERTY_CHANGED, self)
+            self.notify(event_type, self)
 
     def gridrc_property(self, type_, num, pname, value=None):
         if value is None:
