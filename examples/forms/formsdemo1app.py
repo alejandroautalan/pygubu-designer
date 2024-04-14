@@ -10,8 +10,6 @@ from pygubu.forms.validation.constraint.istrue import IsTrue
 from pygubu.forms.transformer.tkboolean import BoolTransformer
 
 
-os.environ["PYGUBU_ENABLE_FORMS"] = "Y"
-
 bool_transformer = BoolTransformer()
 
 form_config = {
@@ -59,14 +57,6 @@ class FormsDemo1App(FormsDemo1AppUI):
             print(data)
         else:
             print("The form has errors!")
-
-    def on_check_changed(self):
-        if self.form.has_changed():
-            print("form has changed data.")
-            print("Changed data:")
-            pp.pprint(self.form.changed_data)
-        else:
-            print("form is not changed.")
 
 
 if __name__ == "__main__":

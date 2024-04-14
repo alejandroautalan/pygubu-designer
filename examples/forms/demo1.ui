@@ -1,7 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.38">
+<interface version="1.4" author="PygubuDesigner 0.39">
+  <project>
+    <settings>
+      <setting id="name">Forms demo</setting>
+      <setting id="description">A demo for pygubu forms.</setting>
+      <setting id="module_name">formsdemo1app</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">toplevel1</setting>
+      <setting id="main_classname">FormsDemo1App</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">True</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
   <object class="tk.Toplevel" id="toplevel1">
-    <property name="geometry">420x480</property>
+    <property name="geometry">420x520</property>
     <property name="height">200</property>
     <property name="width">200</property>
     <child>
@@ -210,7 +231,7 @@
               <object class="pygubu.forms.ttkwidget.Checkbutton" id="checkbutton1">
                 <property name="field_name">terms</property>
                 <property name="text" translatable="yes">I accept terms of use.</property>
-                <property name="textvariable">boolean:terms_var</property>
+                <property name="variable">boolean:terms_var</property>
                 <layout manager="grid">
                   <property name="column">0</property>
                   <property name="columnspan">2</property>
@@ -242,16 +263,6 @@
               <property name="side">right</property>
             </layout>
             <child>
-              <object class="ttk.Button" id="button3">
-                <property name="command" type="command" cbtype="simple">on_check_changed</property>
-                <property name="text" translatable="yes">Check changed</property>
-                <layout manager="pack">
-                  <property name="padx">0 10</property>
-                  <property name="side">left</property>
-                </layout>
-              </object>
-            </child>
-            <child>
               <object class="ttk.Button" id="button4">
                 <property name="command" type="command" cbtype="simple">on_submit_clicked</property>
                 <property name="text" translatable="yes">Submit</property>
@@ -265,24 +276,4 @@
       </object>
     </child>
   </object>
-  <project>
-    <settings>
-      <setting id="name">Forms demo</setting>
-      <setting id="description">A demo for pygubu forms.</setting>
-      <setting id="module_name">formsdemo1app</setting>
-      <setting id="output_dir" />
-      <setting id="template">application</setting>
-      <setting id="main_widget">toplevel1</setting>
-      <setting id="main_classname">FormsDemo1App</setting>
-      <setting id="main_menu" />
-      <setting id="import_tkvariables">False</setting>
-      <setting id="use_ttk_styledefinition_file">True</setting>
-      <setting id="use_i18n">False</setting>
-      <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">False</setting>
-      <setting id="use_window_centering_code">False</setting>
-      <setting id="ttk_style_definition_file" />
-    </settings>
-    <customwidgets />
-  </project>
 </interface>
