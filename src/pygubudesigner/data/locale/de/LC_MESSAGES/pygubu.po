@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-09 21:11-0300\n"
+"POT-Creation-Date: 2024-04-14 19:58-0300\n"
 "PO-Revision-Date: 2020-05-25 22:24-0300\n"
 "Last-Translator: Benjamin Weis <benjamin.weis@gmx.com>\n"
 "Language-Team: \n"
@@ -19,6 +19,10 @@ msgstr ""
 "X-Language: de_DE\n"
 "X-Source-Language: C\n"
 "X-Generator: Poedit 2.3\n"
+
+#: ../pygubu/src/pygubu/forms/validation/constraint/form.py:8
+msgid "This value is required."
+msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/button.py:22
 msgid "button color"
