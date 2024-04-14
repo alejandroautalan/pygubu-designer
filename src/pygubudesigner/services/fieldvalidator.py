@@ -2,11 +2,12 @@ import keyword
 import pathlib
 
 from pygubu.forms.validation.base import Constraint, ConstraintValidator
+from pygubu.i18n import noop_translator as _
 
 
 class IsIdentifier(Constraint):
     code = "not_identifier_error"
-    message = "This value should be a valid python identifier."
+    message = _("This value should be a valid python identifier.")
 
     def __init__(self, *args, message=None, **kw):
         super().__init__(*args, **kw)
@@ -31,7 +32,7 @@ class IsIdentifierValidator(ConstraintValidator):
 
 class Choice(Constraint):
     code = "invalid_choice"
-    message = "Select a valid choice."
+    message = _("Select a valid choice.")
 
     def __init__(self, *args, choices=None, message=None, **kw):
         super().__init__(*args, **kw)
@@ -56,7 +57,7 @@ class ChoiceValidator(ConstraintValidator):
 
 class PathExist(Constraint):
     code = "path_not_exits_error"
-    message = "The path must exist."
+    message = _("The path must exist.")
 
     def __init__(self, *args, message=None, **kw):
         super().__init__(*args, **kw)

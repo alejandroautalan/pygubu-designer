@@ -72,8 +72,9 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         self.main_widget_constraint = Choice()
         self.main_menu_constraint = Choice()
         self.path_exists_constraint = path_exists_constraint
-        frm_general_config = {"name": {}, "description": {}}
+        frm_general_config = {"name": {}, "description": {}, "translator": _}
         frm_code_config = {
+            "translator": _,
             "module_name": {
                 "constraints": [identifier_constraint],
             },
@@ -116,6 +117,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         }
 
         frm_style_config = {
+            "translator": _,
             "ttk_style_definition_file": {
                 "required": False,
                 "constraints": [path_exists_constraint],
