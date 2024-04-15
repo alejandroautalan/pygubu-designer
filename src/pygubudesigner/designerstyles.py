@@ -117,10 +117,29 @@ def setup_ttk_styles(master: tk.Widget = None, changed_to=None):
         except tk.TclError:
             pass
 
-    current_theme = s.theme_use()
+    current_theme: str = s.theme_use()
+
+    form_error_fg = "red"
+    form_error_bg = "yellow"
 
     if current_theme not in updated_themes:
-        s.theme_settings(current_theme, designer_settings)
+        settings = designer_settings.copy()
+
+        if current_theme.startswith("pbs_"):
+            entry_conf = s.configure("danger.TEntry")
+            label_conf = s.configure("danger.TLabel")
+            combo_conf = s.configure("danger.TCombobox")
+            combo_map = s.map("danger.TCombobox")
+
+            settings["Error.LabelFieldInfo.TLabel"]["configure"] = label_conf
+            settings["Error.EntryField.TEntry"]["configure"] = entry_conf
+            settings["Error.ComboboxField.TCombobox"]["configure"] = combo_conf
+            settings["Error.ComboboxField.TCombobox"]["map"] = combo_map
+
+            form_error_fg = entry_conf.get("bordercolor", form_error_fg)
+            form_error_bg = entry_conf.get("fieldbackground", form_error_bg)
+
+        s.theme_settings(current_theme, settings)
         updated_themes.append(current_theme)
 
         if sys.platform == "linux" and current_theme in (
@@ -133,3 +152,6 @@ def setup_ttk_styles(master: tk.Widget = None, changed_to=None):
             color = s.lookup("TEntry", "fieldbackground")
             s.map("TCombobox", fieldbackground=[("readonly", color)])
             s.map("TSpinbox", fieldbackground=[("readonly", color)])
+
+    master.option_add("*form_error_fg", form_error_fg)
+    master.option_add("*form_error_bg", form_error_bg)
