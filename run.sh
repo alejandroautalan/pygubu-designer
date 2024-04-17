@@ -121,6 +121,20 @@ function compile_po {
     done
 }
 
+function install_from_testpypi {
+    VENV_DIR=$PROJECT_ROOT"/../venv_testpypi";
+    if [ -d "$VENV_DIR" ]; then
+        rm -rf $VENV_DIR;
+    fi
+    echo "Creating venv."
+    python3 -m venv $VENV_DIR
+    source $VENV_DIR/bin/activate
+    pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu
+    pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pygubu-designer
+    pygubu-designer
+    deactivate
+}
+
 # Commands end. Dispatch to command.
 
 "$@"
