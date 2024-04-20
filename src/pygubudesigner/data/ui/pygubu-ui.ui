@@ -1,5 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.38">
+<interface version="1.4" author="PygubuDesigner 0.39">
+  <project>
+    <settings>
+      <setting id="name">pygubu-designer window</setting>
+      <setting id="description">This is the main pygubu-designer ui file.</setting>
+      <setting id="module_name">projectsettings</setting>
+      <setting id="output_dir">../../</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">mainwindow</setting>
+      <setting id="main_classname">PygubuDesigner</setting>
+      <setting id="main_menu" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets>
+      <customwidget path="../../services/widgets/treecomponentpalettebo.py" />
+    </customwidgets>
+  </project>
   <object class="tk.Menu" id="mainmenu">
     <property name="tearoff">0</property>
     <child>
@@ -165,6 +187,15 @@
         </child>
         <child>
           <object class="tk.Menuitem.Separator" id="edit_Separator2" />
+        </child>
+        <child>
+          <object class="tk.Menuitem.Command" id="reset_layout" named="True">
+            <property name="command" type="command" cbtype="with_wid">on_edit_menuitem_clicked</property>
+            <property name="label" translatable="yes">Reset layout</property>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Separator" id="separator2" />
         </child>
         <child>
           <object class="tk.Menuitem.Command" id="edit_preferences">
@@ -770,26 +801,4 @@
       </object>
     </child>
   </object>
-  <project>
-    <settings>
-      <setting id="name">pygubu-designer window</setting>
-      <setting id="description">This is the main pygubu-designer ui file.</setting>
-      <setting id="module_name">projectsettings</setting>
-      <setting id="output_dir">../../</setting>
-      <setting id="template">application</setting>
-      <setting id="main_widget">mainwindow</setting>
-      <setting id="main_classname">PygubuDesigner</setting>
-      <setting id="main_menu" />
-      <setting id="import_tkvariables">False</setting>
-      <setting id="use_ttk_styledefinition_file">False</setting>
-      <setting id="use_i18n">False</setting>
-      <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">False</setting>
-      <setting id="use_window_centering_code">False</setting>
-      <setting id="ttk_style_definition_file" />
-    </settings>
-    <customwidgets>
-      <customwidget path="../../services/widgets/treecomponentpalettebo.py" />
-    </customwidgets>
-  </project>
 </interface>

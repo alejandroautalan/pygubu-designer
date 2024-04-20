@@ -724,10 +724,14 @@ proc ::tk::dialog::file::Create {w class} {
     def on_edit_menuitem_clicked(self, itemid):
         if itemid == "edit_preferences":
             self._edit_preferences()
+            
+        elif itemid == "reset_layout":
+            self._reset_layout()            
+            
         else:
             action = f"<<ACTION_{itemid}>>"
             self.mainwindow.event_generate(action)
-
+            
     # Project menu
     def on_project_menuitem_clicked(self, itemid):
         if itemid == "project_settings":
@@ -834,6 +838,14 @@ proc ::tk::dialog::file::Create {w class} {
             # self.preferences = pref.PreferencesUI(self.mainwindow, translator)
             self.preferences = DesignerSettings(self.mainwindow, translator)
         self.preferences.run()
+        
+    def _reset_layout(self):
+        """
+        Reset the docked frames back to their default positions.
+        """
+        self.on_dockframe_changed(reset_layout=True)
+        msg = _("Restart Pygubu Designer\nfor changes to take effect.")
+        messagebox.showinfo(self.mbox_title, msg, parent=self.mainwindow)         
 
     def _require_project_open(self):
         if self.current_project is None:
@@ -923,10 +935,25 @@ proc ::tk::dialog::file::Create {w class} {
                     det,
                 )
 
-    def on_dockframe_changed(self, event=None):
-        """Save current layout of maindock widget."""
-        dock = self.builder.get_object("maindock")
-        dock_layout = dock.save_layout()
+    def on_dockframe_changed(self, event=None, reset_layout=False):
+        """
+        Save current layout of maindock widget.
+        
+        Arguments:
+        
+        - event
+        
+        - reset_layout: used for resetting the docked frames
+        back to their default locations/positions.
+        """
+        
+        # Should we reset the layout back to the defaults?
+        if reset_layout:
+            dock_layout = None
+        else:
+            dock = self.builder.get_object("maindock")
+            dock_layout = dock.save_layout()
+            
         pref.save_maindock_layout(dock_layout)
 
     def load_dockframe_layout(self):
