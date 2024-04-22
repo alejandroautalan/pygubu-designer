@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu Designer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-14 19:58-0300\n"
+"POT-Creation-Date: 2024-04-21 21:44-0300\n"
 "PO-Revision-Date: 2021-01-24 12:27-0300\n"
 "Last-Translator: \n"
 "Language-Team: Onur Oduncu\n"
@@ -273,9 +273,9 @@ msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/pygubu/scrollbarhelper.py:60
 #: ../pygubu/src/pygubu/plugins/pygubu/tkscrollbarhelper.py:76
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1439
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1484
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1529
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1441
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1486
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1531
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:501
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:567
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:669
@@ -289,14 +289,14 @@ msgstr ""
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:380
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:439
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:480
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:578
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:669
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:700
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:745
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:778
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:854
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:896
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1544
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:580
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:671
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:702
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:747
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:780
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:856
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:898
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1546
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:69
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:89
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:112
@@ -386,7 +386,7 @@ msgstr ""
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:120
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:150
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:220
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:611
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:613
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:43
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:307
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:324
@@ -394,14 +394,14 @@ msgstr ""
 msgid "Containers"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:668
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:990
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1335
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1348
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1372
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1395
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1413
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1529
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:670
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:992
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1337
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1350
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1374
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1397
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1415
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1531
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:368
 msgid "Menu"
 msgstr ""

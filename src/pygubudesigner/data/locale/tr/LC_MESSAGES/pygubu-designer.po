@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu Designer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-14 19:58-0300\n"
+"POT-Creation-Date: 2024-04-21 21:44-0300\n"
 "PO-Revision-Date: 2021-01-24 12:27-0300\n"
 "Last-Translator: \n"
 "Language-Team: Onur Oduncu\n"
@@ -111,7 +111,7 @@ msgid "Cancel"
 msgstr ""
 
 #: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:125
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:46
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:68
 msgid "Save"
 msgstr "Kaydet"
 
@@ -290,9 +290,9 @@ msgid "Add window centering code"
 msgstr ""
 
 #: src/pygubudesigner/data/ui/project_settings.ui:538
-#: src/pygubudesigner/services/projectsettings.py:286
-#: src/pygubudesigner/services/projectsettings.py:306
-#: src/pygubudesigner/services/projectsettings.py:316
+#: src/pygubudesigner/services/projectsettings.py:282
+#: src/pygubudesigner/services/projectsettings.py:302
+#: src/pygubudesigner/services/projectsettings.py:312
 msgid "Styles"
 msgstr ""
 
@@ -337,226 +337,230 @@ msgstr "Özel Araç Oluşturucuları"
 msgid "-"
 msgstr "-"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:7
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:29
 msgid "File"
 msgstr "Dosya"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:14
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:36
 msgid "New"
 msgstr "Yeni"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:21
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:43
 msgid "Open …"
 msgstr "Aç …"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:26
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:48
 msgid "Open recent …"
 msgstr "Son dosyayı aç …"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:34
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:56
 msgid "Clear list"
 msgstr "Listeyi temizle"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:52
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:74
 msgid "Save as …"
 msgstr "Farklı kaydet …"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:62 src/pygubudesigner/main.py:180
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:84 src/pygubudesigner/main.py:180
 msgid "Quit …"
 msgstr "Çık …"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:69
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:91
 msgid "Edit"
 msgstr "Düzenle"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:76
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:260
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:98
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:291
 msgid "Copy"
 msgstr "Kopyala"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:83
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:266
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:105
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:297
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:90
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:272
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:112
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:303
 msgid "Cut"
 msgstr "Kes"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:97
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:287
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:119
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:318
 #, fuzzy
 msgid "Duplicate"
 msgstr "Uygulama"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:105
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:127
 msgid "Widget tree"
 msgstr "Araç ağacı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:111
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:133
 msgid "Item up"
 msgstr "Öğeyi yukarı taşı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:118
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:140
 msgid "Item down"
 msgstr "Öğeyi aşağı taşı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:127
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:149
 msgid "Item delete"
 msgstr "Öğeyi sil"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:134
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:156
 msgid "Widget grid"
 msgstr "Araç ızgarası"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:140
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:162
 msgid "Move up"
 msgstr "Yukarı taşı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:147
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:169
 msgid "Move down"
 msgstr "Aşağı taşı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:154
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:176
 msgid "Move left"
 msgstr "Sola taşı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:161
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:183
 msgid "Move right"
 msgstr "Sağa taşı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:172
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:194
+msgid "Reset layout"
+msgstr ""
+
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:203
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:179
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:210
 #, fuzzy
 msgid "Project"
 msgstr "yeniproje"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:185
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:216
 msgid "Settings"
 msgstr ""
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:194
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:225
 #, fuzzy
 msgid "Generate code"
 msgstr "Oluştur"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:201
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:651
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:232
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:682
 msgid "Preview"
 msgstr "Ön İzleme"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:208
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:239
 msgid "Preview in Toplevel"
 msgstr "Toplevel'de Ön İzleme"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:215
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:246
 msgid "Close Toplevel previews"
 msgstr "Toplevel Ön İzlemelerini kapat"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:220
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:251
 msgid "ttk theme"
 msgstr "ttk teması"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:228
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:259
 msgid "Help"
 msgstr "Yardım"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:234
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:265
 #, fuzzy
 msgid "Pygubu wiki"
 msgstr "pygubu arayüzü"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:240
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:271
 msgid "About Pygubu"
 msgstr ""
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:251
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:282
 msgid "Go to parent"
 msgstr ""
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:278
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:309
 #, fuzzy
 msgid "Delete"
 msgstr "Öğeleri sil"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:296 src/pygubudesigner/main.py:150
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:327 src/pygubudesigner/main.py:150
 msgid "Pygubu Designer"
 msgstr "Pygubu Designer"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:339
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:370
 msgid "Components Palette"
 msgstr ""
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:360
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:391
 #, fuzzy
 msgid "Project Tree"
 msgstr "Nesne Ağacı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:381
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:412
 #: src/pygubudesigner/data/ui/treecomponent_palette.ui:25
 #: src/pygubudesigner/services/widgets/treecomponentpaletteui.py:29
 msgid "Filter:"
 msgstr "Filtre:"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:403
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:434
 msgid "✖"
 msgstr "✖"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:432
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:463
 msgid "ID"
 msgstr ""
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:444
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:475
 msgid "Class"
 msgstr "Class"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:456
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:487
 msgid "R"
 msgstr "Str"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:468
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:499
 msgid "C"
 msgstr "Stn"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:480
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:511
 msgid " "
 msgstr ""
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:496
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:527
 #, fuzzy
 msgid "Properties"
 msgstr "Nesne Özellikleri"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:521
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:552
 msgid "Appearance"
 msgstr ""
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:540
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:571
 msgid "Layout"
 msgstr "Yerleşim"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:558
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:589
 msgid "Bindings"
 msgstr "Bağlayıcılar (Binding)"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:592
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:623
 #, fuzzy
 msgid "Sequence descriptor"
 msgstr "Sıra tanımlayıcı"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:604
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:635
 msgid "Event Handler"
 msgstr "Olay İşleyici (Event Handler)"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:616
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:647
 msgid "Add"
 msgstr "Ekle"
 
-#: src/pygubudesigner/data/ui/pygubu-ui.ui:755
+#: src/pygubudesigner/data/ui/pygubu-ui.ui:786
 msgid "Messages"
 msgstr "Mesajlar"
 
@@ -637,7 +641,7 @@ msgid "Failed to load widget module: '{_module}'"
 msgstr "Araç modülü '%s' yüklenirken hata oluştu."
 
 #: src/pygubudesigner/main.py:86 src/pygubudesigner/main.py:627
-#: src/pygubudesigner/main.py:676 src/pygubudesigner/main.py:921
+#: src/pygubudesigner/main.py:676 src/pygubudesigner/main.py:933
 #: src/pygubudesigner/preferences.py:106 src/pygubudesigner/preferences.py:112
 msgid "Error"
 msgstr "Hata"
@@ -684,15 +688,21 @@ msgstr ""
 msgid "Do you want to save the changes before creating?"
 msgstr ""
 
-#: src/pygubudesigner/main.py:840
+#: src/pygubudesigner/main.py:847
+msgid ""
+"Restart Pygubu Designer\n"
+"for changes to take effect."
+msgstr ""
+
+#: src/pygubudesigner/main.py:852
 msgid "Open a project first."
 msgstr ""
 
-#: src/pygubudesigner/main.py:866
+#: src/pygubudesigner/main.py:878
 msgid "Project code generated."
 msgstr ""
 
-#: src/pygubudesigner/main.py:881
+#: src/pygubudesigner/main.py:893
 msgid "newproject"
 msgstr "yeniproje"
 
@@ -1888,20 +1898,20 @@ msgstr "Kod metni"
 msgid "Custom Widget"
 msgstr "Özel Araç"
 
-#: src/pygubudesigner/services/projectsettings.py:285
+#: src/pygubudesigner/services/projectsettings.py:281
 msgid ""
 "Restart Pygubu Designer for\n"
 "changes to take effect."
 msgstr ""
 
-#: src/pygubudesigner/services/projectsettings.py:304
+#: src/pygubudesigner/services/projectsettings.py:300
 msgid ""
 "File saved.\n"
 "\n"
 "Please edit the style definition file."
 msgstr ""
 
-#: src/pygubudesigner/services/projectsettings.py:315
+#: src/pygubudesigner/services/projectsettings.py:311
 msgid "Error saving template file."
 msgstr ""
 
