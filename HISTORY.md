@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.39.1
+
+  * Add option to reset window layout. (#244 @jrezai)
+
 Changes for version 0.39
 
   * New UI Layout. Removed code generation Tab.
