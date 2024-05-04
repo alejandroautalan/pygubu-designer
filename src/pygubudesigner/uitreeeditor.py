@@ -21,7 +21,7 @@ from collections import Counter, OrderedDict
 from functools import partial
 from tkinter import messagebox
 
-from pygubu.builder import CLASS_MAP
+from pygubu.builder import CLASS_MAP, Builder
 from pygubu.component.uidefinition import UIDefinition
 from pygubu.stockimage import StockImage, StockImageException
 
@@ -69,7 +69,8 @@ class WidgetsTreeEditor:
         self.virtual_clipboard_for_duplicate = None
         self.duplicating = False
         self.duplicate_parent_iid = None
-        self.update_builders = {}
+        self.update_builder = None
+        self.update_bo = {}
         self.preview_update_cbid = None
         self.scheduled_widget_updates = []
         self._stretch_cb = None
@@ -1188,33 +1189,35 @@ class WidgetsTreeEditor:
             # Needs full redraw.
             self.draw_widget(item)
         else:
+            if self.update_builder is None:
+                self.update_builder = Builder()
             # Maybe just needs update.
             preview_id = self.get_toplevel_parent(item)
 
             widget_id = data.identifier
             bclass = data.classname
             widget = self.previewer.preview_for_widget(preview_id, widget_id)
-            if bclass not in self.update_builders:
-                builder = PluginManager.get_preview_builder_for(bclass)
-                builder = (
-                    CLASS_MAP[bclass].builder if builder is None else builder
+            if bclass not in self.update_bo:
+                bo_class = PluginManager.get_preview_builder_for(bclass)
+                bo_class = (
+                    CLASS_MAP[bclass].builder if bo_class is None else bo_class
                 )
-                self.update_builders[bclass] = builder(None, data)
-            builder = self.update_builders[bclass]
+                self.update_bo[bclass] = bo_class(self.update_builder, data)
+            wbuilder = self.update_bo[bclass]
             # Use copy here because preview builders can change data for preview
             meta_copy = WidgetMeta(bclass, widget_id)
             meta_copy.copy_properties(data)
-            builder.wmeta = meta_copy
-            builder.widget = widget
+            wbuilder.wmeta = meta_copy
+            wbuilder.widget = widget
 
             if hint & WidgetMeta.PROPERTY_CHANGED:
-                builder.configure()
+                wbuilder.configure()
             if hint & WidgetMeta.LAYOUT_PROPERTY_CHANGED:
-                builder.layout()
+                wbuilder.layout()
                 # FIXME: When propagate property is changed
                 # calculations are not correct unless a property
                 # is reconfigured ?
-                builder.configure()
+                wbuilder.configure()
             if hint & WidgetMeta.BINDING_CHANGED:
                 # Do nothing now
                 pass
