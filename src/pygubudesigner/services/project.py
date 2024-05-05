@@ -62,6 +62,7 @@ class Project:
         return tk.getboolean(self.settings.get(key, False))
 
     def get_relative_path(self, path):
+        path = pathlib.Path(path).resolve()  # fix windows junction
         return os.path.relpath(path, start=self.fpath.parent)
 
     def save(self, filename):
