@@ -224,6 +224,9 @@ class ScriptGenerator:
         # Style definitions
         use_ttk_styles = tk.getboolean(config["use_ttk_styledefinition_file"])
         ttk_styles_module = config["ttk_style_definition_file"]
+        if ttk_styles_module:
+            mpath = pathlib.Path(ttk_styles_module)
+            ttk_styles_module = mpath.stem
 
         use_first_object_cb = use_ttk_styles
         first_object_func = "None"

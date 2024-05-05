@@ -1,4 +1,12 @@
 <%inherit file="base.py.mako"/>
+
+<%block name="imports" filter="trim">
+${parent.imports()}
+%if has_ttk_styles:
+import ${ttk_styles_module} # Styles definition module
+%endif
+</%block>
+
 <%block name="project_paths" filter="trim">
 </%block>
 

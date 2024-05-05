@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 <%block name="imports" filter="trim">
 ${import_lines}
-%if has_ttk_styles:
-import ${ttk_styles_module} # Styles definition module
-%endif
 </%block>
 
 <%block name="project_paths"/>
