@@ -18,6 +18,8 @@ pip install git+https://github.com/alejandroautalan/pygubu git+https://github.co
 
 TODO
 ====
+- BUG: create a Toplevel, set a large geometry, greater than the preview canvas.
+  The preview vertical scrollbar is shown but not the horizontal. Investigate.
 - BUG: create a pygubu dialog and generate code. Incorrect class hint generated
   self.mainwindow: pygubu.builder.widgets.dialog = builder.get_object(
             "settingsdialog", master)
