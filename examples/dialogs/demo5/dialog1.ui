@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.2">
+  <project>
+    <settings>
+      <setting id="name">Dialog Window</setting>
+      <setting id="description">A simple dialog window using pygubu Dialog class.</setting>
+      <setting id="module_name">dialog1</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">dialog1</setting>
+      <setting id="main_classname">SimpleDialog1</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="pygubu.builder.widgets.dialog" id="dialog1">
+    <property name="geometry">320x200</property>
+    <property name="height">100</property>
+    <property name="modal">true</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">Simple modal dialog</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame2">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="text" translatable="yes">Simple Dialog 1</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame1">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label2">
+                <property name="text" translatable="yes">A simple dialog content.</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame3">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="anchor">e</property>
+              <property name="side">bottom</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="button1">
+                <property name="command" type="command" cbtype="simple">on_dialog_close</property>
+                <property name="default">active</property>
+                <property name="text" translatable="yes">Close Dialog</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

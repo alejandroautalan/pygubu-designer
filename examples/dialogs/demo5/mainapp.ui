@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.2">
+  <project>
+    <settings>
+      <setting id="name">A dialog example application</setting>
+      <setting id="description">A main window with option to make fullscreen.</setting>
+      <setting id="module_name">mainapp</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">tk1</setting>
+      <setting id="main_classname">MyDemoApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="tk1">
+    <property name="geometry">480x320</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Main Window</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame2">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="text" translatable="yes">Main Window</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame1">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Checkbutton" id="checkbutton1">
+                <property name="command" type="command" cbtype="simple">on_fullscreen_clicked</property>
+                <property name="text" translatable="yes">Main window fullscreen</property>
+                <property name="variable">boolean:fullscreen_var</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="pady">10</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Checkbutton" id="checkbutton2">
+                <property name="command" type="command" cbtype="simple">on_fullscreen_clicked</property>
+                <property name="text" translatable="yes">Dialog Fullscreen</property>
+                <property name="variable">boolean:dialog_fullscreen_var</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="pady">10</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button1">
+                <property name="command" type="command" cbtype="simple">on_showmodal_clicked</property>
+                <property name="text" translatable="yes">Show modal</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="pady">10</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
