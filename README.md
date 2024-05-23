@@ -13,7 +13,7 @@ Pygubu is inspired by [Glade](https://gitlab.gnome.org/GNOME/glade).
 Installation
 ============
 
-The latest version of pygubu requires Python >= 3.6
+The latest version of pygubu requires Python >= 3.8
 
 You can install pygubu-designer using:
 
@@ -55,10 +55,10 @@ Where `C:\Python3` is the path to **your** Python installation directory.
 Now, you can start creating your tkinter application using the widgets that you
 find in the top panel called `Widget Palette`.
 
-After you finished creating your _UI definition_, save it to a `.ui` file by 
+After you finished creating your _UI definition_, save it to a `.ui` file by
 going to the top menu `File > Save`.
 
-The following is a UI definition example called 
+The following is a UI definition example called
 [helloworld.ui](examples/helloworld/helloworld.ui) created using pygubu:
 
 
@@ -96,7 +96,7 @@ The following is a UI definition example called
 </interface>
 ```
 
-Then, you should create your _application script_ as shown below 
+Then, you should create your _application script_ as shown below
 ([helloworld.py](examples/helloworld/helloworld.py)):
 
 ```python
@@ -150,19 +150,19 @@ Note also that instead of `'mainwindow'` in the following line:
 self.mainwindow = builder.get_object('mainwindow', master)
 ```
 
-You should have the name of your _main widget_ (the parent of all widgets), 
+You should have the name of your _main widget_ (the parent of all widgets),
 otherwise you will get an error similar to the following:
 
     Exception: Widget not defined.
 
-See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for 
+See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for
 more information.
 
 
 Documentation
 =============
 
-Visit the [wiki](https://github.com/alejandroautalan/pygubu-designer/wiki) for 
+Visit the [wiki](https://github.com/alejandroautalan/pygubu-designer/wiki) for
 more documentation.
 
 

@@ -11,7 +11,7 @@ Pygubu esta inspirado por [Glade](https://es.wikipedia.org/wiki/Glade) (el dise�
 Instalación
 ============
 
-La última versión de pygubu requiere Python >= 3.6
+La última versión de pygubu requiere Python >= 3.8
 
 Puedes instalar pygubu-designer usando:
 
@@ -30,7 +30,7 @@ Captura de pantalla
 Modo de uso
 ===========
 
-Ejecuta el diseñador ejecutando en una consola los siguientes comandos, 
+Ejecuta el diseñador ejecutando en una consola los siguientes comandos,
 dependiendo del sistema operativo que uses.
 
 ### Sistemas tipo Unix:
@@ -90,7 +90,7 @@ El siguiente es un ejemplo de interfaz de usuario denominado
 </interface>
 ```
 
-Luego, crea tu _aplicación_ como se muestra a continuación 
+Luego, crea tu _aplicación_ como se muestra a continuación
 ([holamundo.py](examples/helloworld/holamundo.py)):
 
 ```python
@@ -142,12 +142,12 @@ Ten en cuenta además que en lugar de `'mainwindow'` en la línea:
 self.mainwindow = builder.get_object('mainwindow')
 ```
 
-Debes tener el nombre del _widget principal_ (el padre de todos los widgets), 
+Debes tener el nombre del _widget principal_ (el padre de todos los widgets),
 en caso contrario obtendras un error similar al siguiente::
 
     Exception: Widget not defined.
 
-Mira [este](https://github.com/alejandroautalan/pygubu/issues/40) issue 
+Mira [este](https://github.com/alejandroautalan/pygubu/issues/40) issue
 para mayor información.
 
 
@@ -165,7 +165,7 @@ Los siguientes links son buenas referencias (en inglés) de tkinter (y tk):
 - [An Introduction to Tkinter](http://effbot.org/tkinterbook) [(archive)](http://web.archive.org/web/20200504141939/http://www.effbot.org/tkinterbook)
 - [Tcl/Tk 8.5 Manual](http://www.tcl.tk/man/tcl8.5/)
 
-Tambien puedes buscar en el directorio de [ejemplos](examples) o mirar este 
+Tambien puedes buscar en el directorio de [ejemplos](examples) o mirar este
 ejemplo de 'Hola mundo' en
 [vídeo](http://youtu.be/wuzV9P8geDg)
 

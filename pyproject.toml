@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pygubu-designer"
 description = "A simple GUI designer for the python tkinter module"
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.8"
 license = { text = "GPL-3" }
 keywords = ["gui", "tkinter", "designer"]
 authors = [
@@ -15,13 +15,13 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.6",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
@@ -76,7 +76,7 @@ where = ["src"]
 
 [tool.black]
 line-length = 80
-target-version = ["py36", "py37", "py38", "py39", "py310"]
+target-version = ["py38", "py39", "py310"]
 include = '\\.pyi?$'
 exclude = '''
 /(
