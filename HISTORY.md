@@ -1,6 +1,11 @@
 History
 =======
 
+Changes for version 0.39.3
+
+  * Fix for issues #251 and #253
+  * Drop support for python 3.6 and 3.7 (was already not working)
+
 Changes for version 0.39.2
 
   * Fix issue with project path with windows junction link. refs #249
