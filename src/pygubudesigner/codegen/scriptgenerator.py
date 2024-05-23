@@ -15,6 +15,7 @@
 import keyword
 import logging
 import pathlib
+import codecs
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
@@ -76,7 +77,7 @@ class ScriptGenerator:
 
         output_dir = context["output_dir"]
         outfn = output_dir / (context["module_name"] + "ui.py")
-        with open(outfn, "wt") as outfile:
+        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
             outfile.write(final_code)
             logger.info("Generated code file: %s", outfn)
 
@@ -92,7 +93,7 @@ class ScriptGenerator:
         outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
-            with open(outfn, "wt") as outfile:
+            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
@@ -134,7 +135,7 @@ class ScriptGenerator:
 
         output_dir = context["output_dir"]
         outfn = output_dir / (context["module_name"] + "ui.py")
-        with open(outfn, "wt") as outfile:
+        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
             outfile.write(final_code)
 
         tpl = makolookup.get_template("scriptuser.py.mako")
@@ -143,7 +144,7 @@ class ScriptGenerator:
         outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
-            with open(outfn, "wt") as outfile:
+            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
@@ -168,7 +169,7 @@ class ScriptGenerator:
 
         output_dir = context["output_dir"]
         outfn = output_dir / (context["module_name"] + "ui.py")
-        with open(outfn, "wt") as outfile:
+        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
             outfile.write(final_code)
             logger.info("Generated code file: %s", outfn)
 
@@ -179,7 +180,7 @@ class ScriptGenerator:
         outfn: pathlib.Path = output_dir2 / (context["module_name"] + "bo.py")
         # DO NOT overwrite user module.
         if not outfn.exists():
-            with open(outfn, "wt") as outfile:
+            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
@@ -189,7 +190,7 @@ class ScriptGenerator:
         outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
-            with open(outfn, "wt") as outfile:
+            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
