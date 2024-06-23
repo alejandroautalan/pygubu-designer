@@ -21,7 +21,7 @@ from collections import OrderedDict
 from pygubu.component.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
-from pygubudesigner.widgets.commandentry import CommandPropertyBase
+from .commandentry import CommandPropertyBase
 
 from .propertyeditor import EntryPropertyEditor, register_editor
 

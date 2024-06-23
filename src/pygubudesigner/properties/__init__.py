@@ -13,4 +13,5 @@ from .predefined import (
 )
 
 from .predefined import load_custom_properties
-from .editors import forms
+
+# from .editors import forms

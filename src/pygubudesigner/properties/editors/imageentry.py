@@ -21,7 +21,7 @@ import tkinter.ttk as ttk
 from pygubu.stockimage import StockImage, TK_IMAGE_FORMATS
 
 from pygubudesigner.i18n import translator
-from pygubudesigner.widgets.propertyeditor import (
+from .propertyeditor import (
     PropertyEditor,
     register_editor,
 )

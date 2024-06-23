@@ -17,7 +17,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from pygubudesigner.util.selecttool import SelectTool
-from pygubudesigner.widgets.propertyeditor import (
+from .propertyeditor import (
     PropertyEditor,
     register_editor,
 )

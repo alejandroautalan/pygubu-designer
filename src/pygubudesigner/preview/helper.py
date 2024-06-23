@@ -23,7 +23,7 @@ from functools import partial
 from pygubu.stockimage import StockImage
 
 import pygubudesigner.actions as actions
-from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
+from pygubudesigner.properties.editors import TtkStylePropertyEditor
 from pygubudesigner.services.theming import ThemeChangedMonitor
 from ..preferences import get_preview_indicator_color
 from .preview import MenuPreview, Preview

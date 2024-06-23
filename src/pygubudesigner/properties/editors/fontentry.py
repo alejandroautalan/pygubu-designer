@@ -21,7 +21,7 @@ import tkinter.ttk as ttk
 
 from pygubu.stockimage import StockImage, StockImageException
 
-from pygubudesigner.widgets.propertyeditor import (
+from .propertyeditor import (
     CheckbuttonPropertyEditor,
     ChoicePropertyEditor,
     PropertyEditor,

@@ -25,7 +25,7 @@ from pygubudesigner import properties
 from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.propertieseditor import PropertiesEditor
-from pygubudesigner.widgets.propertyeditor import LayoutManagerPropertyEditor
+from pygubudesigner.properties.editors import LayoutManagerPropertyEditor
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP

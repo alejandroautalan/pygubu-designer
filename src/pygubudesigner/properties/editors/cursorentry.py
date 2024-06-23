@@ -14,39 +14,26 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
 
-from pygubudesigner.widgets.propertyeditor import (
-    PropertyEditor,
+from .propertyeditor import (
+    ChoicePropertyEditor,
     register_editor,
 )
+from ..predefined import TK_CURSORS
 
 
-class PixelCoordinatePropertyEditor(PropertyEditor):
-    def _create_ui(self):
-        self.entry = entry = ttk.Entry(self, textvariable=self._variable)
-        self.entry.pack(side="top", expand=True, fill="both")
+class CursorPropertyEditor(ChoicePropertyEditor):
+    CURSORS = TK_CURSORS
 
-        entry.bind("<FocusOut>", self._on_variable_changed)
-        entry.bind("<KeyPress>", self._on_keypress)
-
-    def _validate(self):
-        is_valid = False
-        value = self._get_value()
-        vlen = len(value)
-        if vlen == 0:
-            is_valid = True  # Allow empty
-        else:
-            try:
-                int(value)
-                is_valid = True
-            except ValueError:
-                pass
-        self.show_invalid(not is_valid)
-        return is_valid
+    def parameters(self, **kw):
+        if "values" not in kw:
+            kw["values"] = ("",) + self.CURSORS
+        if "state" not in kw:
+            kw["state"] = "readonly"
+        self._combobox.configure(**kw)
 
 
-register_editor("pixelcoordinateentry", PixelCoordinatePropertyEditor)
+register_editor("cursorentry", CursorPropertyEditor)
 
 
 if __name__ == "__main__":
@@ -56,14 +43,14 @@ if __name__ == "__main__":
 
     def make_on_change_cb(editor):
         def on_change_cb(event=None):
-            print("Property changed: ")
             print(editor.value)
             print(repr(editor.value))
 
         return on_change_cb
 
-    editor = PixelCoordinatePropertyEditor(root)
+    editor = CursorPropertyEditor(root)
     editor.pack(expand=True, fill="x")
-    editor.edit("-10")
+    editor.edit("bogosity")
     editor.bind("<<PropertyChanged>>", make_on_change_cb(editor))
+
     root.mainloop()

@@ -18,7 +18,7 @@ import logging
 from pathlib import Path
 from tkinter import ttk
 
-from pygubudesigner.widgets.ttkstyleentry import TtkStylePropertyEditor
+from pygubudesigner.properties.editors import TtkStylePropertyEditor
 from ..i18n import translator as _
 
 logger = logging.getLogger(__name__)

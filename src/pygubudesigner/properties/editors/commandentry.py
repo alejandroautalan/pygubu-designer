@@ -22,7 +22,7 @@ import tkinter.ttk as ttk
 from pygubu.component.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
-from pygubudesigner.widgets.propertyeditor import (
+from .propertyeditor import (
     ChoiceByKeyPropertyEditor,
     EntryPropertyEditor,
     PropertyEditor,

@@ -24,7 +24,7 @@ from pygubudesigner.widgets.containerlayouteditorbase import (
     ContainerLayoutEditorBase,
 )
 from pygubudesigner.widgets.gridselector import GridRCselectorWidget
-from pygubudesigner.widgets.propertyeditor import create_editor
+from pygubudesigner.properties.editors import create_editor
 from pygubudesigner.i18n import _
 
 

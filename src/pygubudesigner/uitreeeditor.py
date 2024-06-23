@@ -27,9 +27,9 @@ from pygubu.stockimage import StockImage, StockImageException
 
 import pygubudesigner
 from pygubudesigner import preferences as pref
-from pygubudesigner.widgets import (
+from pygubudesigner.widgets import EventHandlerEditor
+from pygubudesigner.properties.editors import (
     CommandPropertyBase,
-    EventHandlerEditor,
     IdentifierPropertyEditor,
     TkVarPropertyEditor,
     NamedIDPropertyEditor,

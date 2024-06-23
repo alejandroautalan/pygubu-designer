@@ -1,5 +1,5 @@
 import keyword
-from pygubudesigner.widgets.propertyeditor import (
+from .propertyeditor import (
     EntryPropertyEditor,
     ChoicePropertyEditor,
     register_editor,

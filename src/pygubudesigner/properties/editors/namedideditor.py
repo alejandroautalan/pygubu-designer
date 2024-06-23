@@ -16,7 +16,7 @@ import tkinter.ttk as ttk
 from pygubu.stockimage import StockImage
 import pygubu.widgets.simpletooltip as tooltip
 from .propertyeditor import PropertyEditor, register_editor
-from ..i18n import _
+from pygubudesigner.i18n import _
 
 
 class NamedIDPropertyEditor(PropertyEditor):

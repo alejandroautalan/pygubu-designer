@@ -12,7 +12,10 @@
 import keyword
 import re
 
-from .propertyeditor import ChoicePropertyEditor, EntryPropertyEditor
+from pygubudesigner.properties.editors import (
+    ChoicePropertyEditor,
+    EntryPropertyEditor,
+)
 
 
 class EventHandlerEditor(EntryPropertyEditor):

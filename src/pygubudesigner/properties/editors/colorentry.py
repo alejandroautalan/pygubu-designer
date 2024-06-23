@@ -17,7 +17,7 @@ import tkinter as tk
 import tkinter.colorchooser
 import tkinter.ttk as ttk
 
-from pygubudesigner.widgets.propertyeditor import (
+from .propertyeditor import (
     PropertyEditor,
     register_editor,
 )

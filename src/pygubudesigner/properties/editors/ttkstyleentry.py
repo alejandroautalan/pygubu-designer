@@ -18,7 +18,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.theming.bootstrap.style import Style as BootstrapStyle
 
-from pygubudesigner.widgets.propertyeditor import (
+from .propertyeditor import (
     ChoicePropertyEditor,
     register_editor,
 )

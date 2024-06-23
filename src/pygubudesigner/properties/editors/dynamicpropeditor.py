@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pygubudesigner.widgets.propertyeditor import (
+from .propertyeditor import (
     PropertyEditor,
     create_editor,
     register_editor,
