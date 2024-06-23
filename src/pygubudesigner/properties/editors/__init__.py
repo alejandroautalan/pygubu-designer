@@ -24,3 +24,4 @@ from .ttkstyleentry import TtkStylePropertyEditor
 from .whentry import WHPropertyEditor
 from .cursorentry import CursorPropertyEditor
 from .namedideditor import NamedIDPropertyEditor
+from .jsonentry import JsonEntry
