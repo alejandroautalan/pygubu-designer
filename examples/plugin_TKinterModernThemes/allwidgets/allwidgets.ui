@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">All widgets example</setting>
+      <setting id="description">Recreation of allwidgets.py example.</setting>
+      <setting id="module_name">allwidgets</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">themedtkinterframe1</setting>
+      <setting id="main_classname">App</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tkmt.ThemedTKinterFrame" id="themedtkinterframe1">
+    <property name="mode">dark</property>
+    <property name="theme">park</property>
+    <property name="title" translatable="yes">TKinter Custom Themes Demo</property>
+    <child>
+      <object class="tkmt.LabelFrame" id="labelframe1">
+        <property name="text" translatable="yes">CheckButtons</property>
+        <child>
+          <object class="tkmt.Checkbutton" id="checkbutton1">
+            <property name="text" translatable="yes">Unchecked</property>
+            <property name="variable">boolean:var_checkbox1</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Checkbutton" id="checkbutton2">
+            <property name="text" translatable="yes">Unchecked</property>
+            <property name="variable">boolean:var_checkbox2</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Checkbutton" id="checkbutton3">
+            <property name="text" translatable="yes">Disabled Unchecked</property>
+            <property name="variable">boolean:var_checkbox1</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Checkbutton" id="checkbutton4">
+            <property name="text" translatable="yes">Disabled Checked</property>
+            <property name="variable">double:var_checkbox2</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.SlideSwitch" id="slideswitch1">
+            <property name="text" translatable="yes">Slide Switch</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tkmt.Separator" id="separator1" />
+    </child>
+    <child>
+      <object class="tkmt.LabelFrame" id="labelframe2">
+        <property name="text" translatable="yes">RadioButtons</property>
+        <child>
+          <object class="tkmt.Radiobutton" id="radiobutton1">
+            <property name="text" translatable="yes">Unselected</property>
+            <property name="value">button1</property>
+            <property name="variable">string:var_radios</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Radiobutton" id="radiobutton2">
+            <property name="text" translatable="yes">Selected</property>
+            <property name="value">button2</property>
+            <property name="variable">string:var_radios</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Radiobutton" id="radiobutton3">
+            <property name="text" translatable="yes">Disabled</property>
+            <property name="value">button3</property>
+            <property name="variable">string:var_radios</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tkmt.FrameNextCol" id="framenextcol1" />
+    </child>
+    <child>
+      <object class="tkmt.LabelFrame" id="button_frame" named="True">
+        <property name="text" translatable="yes">Buttons</property>
+        <child>
+          <object class="tkmt.Button" id="button1">
+            <property name="text" translatable="yes">Button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.AccentButton" id="accentbutton1">
+            <property name="text" translatable="yes">Accent Button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.ToggleButton" id="togglebutton1">
+            <property name="text" translatable="yes">Toggle Button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.MenuButton" id="menubutton1">
+            <property name="defaulttext">Pick an option</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tkmt.LabelFrame" id="labelframe4">
+        <property name="rowspan">2</property>
+        <property name="text" translatable="yes">InputMethods</property>
+        <child>
+          <object class="tkmt.Entry" id="entry1" />
+        </child>
+        <child>
+          <object class="tkmt.NumericalSpinbox" id="numericalspinbox1">
+            <property name="increment">5</property>
+            <property name="lower">0</property>
+            <property name="upper">100</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.NonnumericalSpinbox" id="nonnumericalspinbox1">
+            <property name="values">["red", "green", "blue"]</property>
+            <property name="variable">string:var_spinboxcolor</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tkmt.FrameNextCol" id="framenextcol2" />
+    </child>
+    <child>
+      <object class="tkmt.PanedWindow" id="panedwindow1">
+        <property name="rowspan">3</property>
+        <child>
+          <object class="tkmt.PanedWindowPane" id="pane1" named="True">
+            <property name="weight">1</property>
+            <child>
+              <object class="tkmt.Treeview" id="treeview1">
+                <property name="columnnames">["Files", "Purpose"]</property>
+                <property name="columnwidths">[120,120]</property>
+                <property name="data">res://treeview_json_data</property>
+                <property name="datacolumnnames">["name", "purpose"]</property>
+                <property name="height">10</property>
+                <property name="openkey">open</property>
+                <property name="subentryname">subfiles</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.PanedWindowPane" id="pane2" named="True">
+            <property name="weight">1</property>
+            <child>
+              <object class="tkmt.Notebook" id="notebook1">
+                <child>
+                  <object class="tkmt.NotebookTab" id="notebooktab1">
+                    <property name="text" translatable="yes">Tab 1</property>
+                    <child>
+                      <object class="tkmt.Scale" id="scale1">
+                        <property name="lower">100</property>
+                        <property name="upper">0</property>
+                        <property name="variable">int:var_slider</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tkmt.Progressbar" id="progressbar1">
+                        <property name="variable">int:var_slider</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tkmt.NotebookTab" id="notebooktab2">
+                    <property name="text" translatable="yes">Tab 2</property>
+                    <child>
+                      <object class="tkmt.Label" id="label1">
+                        <property name="text" translatable="yes">Label text here.</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tkmt.NotebookTab" id="notebooktab3">
+                    <property name="text" translatable="yes">Tab 3</property>
+                    <child>
+                      <object class="tkmt.Text" id="text1">
+                        <property name="text" translatable="yes">Normal text here.</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.PanedWindowPane" id="pane3" named="True">
+            <property name="weight">1</property>
+            <child>
+              <object class="tkmt.Label" id="label2">
+                <property name="text" translatable="yes">{themename} theme: {model}</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

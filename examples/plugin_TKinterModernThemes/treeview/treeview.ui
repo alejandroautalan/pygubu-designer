@@ -30,6 +30,7 @@
         <property name="text" translatable="yes">Treeview Frame</property>
         <child>
           <object class="tkmt.Treeview" id="treeview1">
+            <property name="anchor">center</property>
             <property name="columnnames">["Fruit"]</property>
             <property name="columnwidths">[120]</property>
             <property name="data">res://tree_data</property>
@@ -54,6 +55,7 @@
             <property name="columnwidths">[120, 120]</property>
             <property name="data">res://tree_data2</property>
             <property name="datacolumnnames">["fruit", "color"]</property>
+            <property name="openkey">open</property>
             <property name="subentryname">subdata</property>
           </object>
         </child>

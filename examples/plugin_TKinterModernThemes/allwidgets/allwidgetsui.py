@@ -4,7 +4,7 @@ import tkinter as tk
 import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "treeview.ui"
+PROJECT_UI = PROJECT_PATH / "allwidgets.ui"
 RESOURCE_PATHS = [PROJECT_PATH]
 
 
@@ -15,13 +15,18 @@ class AppUI:
         self.builder.add_from_file(PROJECT_UI)
         # Main widget
         self.mainwindow = self.builder.get_object("themedtkinterframe1", master)
+
+        self.var_checkbox1: tk.BooleanVar = None
+        self.var_checkbox2: tk.BooleanVar = None
+        self.var_radios: tk.StringVar = None
+        self.var_spinboxcolor: tk.StringVar = None
+        self.var_slider: tk.IntVar = None
+        self.builder.import_variables(self)
+
         self.builder.connect_callbacks(self)
 
     def run(self):
         self.mainwindow.mainloop()
-
-    def print_selected_cmd(self):
-        pass
 
 
 if __name__ == "__main__":
