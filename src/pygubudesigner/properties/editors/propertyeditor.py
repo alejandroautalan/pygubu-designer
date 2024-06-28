@@ -266,7 +266,27 @@ class CheckbuttonPropertyEditor(PropertyEditor):
         self._checkb.configure(**kw)
 
 
-class NaturalNumberEditor(EntryPropertyEditor):
+class _NumberEditor(EntryPropertyEditor):
+    def __init__(self, master=None, **kw):
+        super().__init__(master, **kw)
+        self.min = None
+        self.max = None
+
+    def validate_minmax(self, value):
+        valid = True
+        if self.min and value < self.min:
+            valid = False
+        if self.max and value > self.max:
+            valid = False
+        return valid
+
+    def parameters(self, **kw):
+        self.min = kw.pop("min_value", None)
+        self.max = kw.pop("max_value", None)
+        super().parameters(**kw)
+
+
+class NaturalNumberEditor(_NumberEditor):
     def _validate(self):
         valid = True
         value = self._get_value()
@@ -278,36 +298,42 @@ class NaturalNumberEditor(EntryPropertyEditor):
                     valid = True
             except BaseException:
                 pass
+            if valid:
+                valid = self.validate_minmax(number)
         self.show_invalid(not valid)
         return valid
 
 
-class IntegerNumberEditor(EntryPropertyEditor):
+class IntegerNumberEditor(_NumberEditor):
     def _validate(self):
         valid = True
         value = self._get_value()
         if len(value) != 0:
             valid = False
             try:
-                int(value)
+                number = int(value)
                 valid = True
             except BaseException:
                 pass
+            if valid:
+                valid = self.validate_minmax(number)
         self.show_invalid(not valid)
         return valid
 
 
-class RealNumberEditor(EntryPropertyEditor):
+class RealNumberEditor(_NumberEditor):
     def _validate(self):
         valid = True
         value = self._get_value()
         if len(value) != 0:
             valid = False
             try:
-                float(value)
+                number = float(value)
                 valid = True
             except BaseException:
                 pass
+            if valid:
+                valid = self.validate_minmax(number)
         self.show_invalid(not valid)
         return valid
 
