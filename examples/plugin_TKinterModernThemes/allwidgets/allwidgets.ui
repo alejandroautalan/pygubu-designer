@@ -15,7 +15,7 @@
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">False</setting>
       <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">False</setting>
+      <setting id="generate_code_onsave">True</setting>
       <setting id="use_window_centering_code">False</setting>
       <setting id="ttk_style_definition_file" />
     </settings>
@@ -30,24 +30,30 @@
         <property name="text" translatable="yes">CheckButtons</property>
         <child>
           <object class="tkmt.Checkbutton" id="checkbutton1">
+            <property name="args">[1]</property>
+            <property name="command" type="command" cbtype="simple">printcheckboxvars</property>
             <property name="text" translatable="yes">Unchecked</property>
             <property name="variable">boolean:var_checkbox1</property>
           </object>
         </child>
         <child>
           <object class="tkmt.Checkbutton" id="checkbutton2">
+            <property name="args">[1]</property>
+            <property name="command" type="command" cbtype="simple">printcheckboxvars</property>
             <property name="text" translatable="yes">Unchecked</property>
             <property name="variable">boolean:var_checkbox2</property>
           </object>
         </child>
         <child>
           <object class="tkmt.Checkbutton" id="checkbutton3">
+            <property name="disabled">True</property>
             <property name="text" translatable="yes">Disabled Unchecked</property>
             <property name="variable">boolean:var_checkbox1</property>
           </object>
         </child>
         <child>
           <object class="tkmt.Checkbutton" id="checkbutton4">
+            <property name="disabled">True</property>
             <property name="text" translatable="yes">Disabled Checked</property>
             <property name="variable">double:var_checkbox2</property>
           </object>
@@ -121,19 +127,35 @@
         <property name="rowspan">2</property>
         <property name="text" translatable="yes">InputMethods</property>
         <child>
-          <object class="tkmt.Entry" id="entry1" />
+          <object class="tkmt.Entry" id="entry1">
+            <property name="textvariable">string:var_textinput</property>
+          </object>
         </child>
         <child>
           <object class="tkmt.NumericalSpinbox" id="numericalspinbox1">
             <property name="increment">5</property>
             <property name="lower">0</property>
             <property name="upper">100</property>
+            <property name="variable">string:var_spinboxcolor</property>
           </object>
         </child>
         <child>
           <object class="tkmt.NonnumericalSpinbox" id="nonnumericalspinbox1">
             <property name="values">["red", "green", "blue"]</property>
             <property name="variable">string:var_spinboxcolor</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Combobox" id="combobox1">
+            <property name="values">["You", "can", "edit", "these", "options."]</property>
+            <property name="variable">string:var_combobox</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.OptionMenu" id="optionmenu1">
+            <property name="command" type="command" cbtype="simple">optionmenu_clicked</property>
+            <property name="values">["a", "b", "c", "d"]</property>
+            <property name="variable">string:var_optionmenu</property>
           </object>
         </child>
       </object>

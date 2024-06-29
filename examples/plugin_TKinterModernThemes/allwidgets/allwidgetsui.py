@@ -9,8 +9,18 @@ RESOURCE_PATHS = [PROJECT_PATH]
 
 
 class AppUI:
-    def __init__(self, master=None, data_pool=None):
-        self.builder = pygubu.Builder(data_pool=data_pool)
+    def __init__(
+        self,
+        master=None,
+        translator=None,
+        on_first_object_cb=None,
+        data_pool=None,
+    ):
+        self.builder = pygubu.Builder(
+            translator=translator,
+            on_first_object=on_first_object_cb,
+            data_pool=data_pool,
+        )
         self.builder.add_resource_paths(RESOURCE_PATHS)
         self.builder.add_from_file(PROJECT_UI)
         # Main widget
@@ -19,7 +29,10 @@ class AppUI:
         self.var_checkbox1: tk.BooleanVar = None
         self.var_checkbox2: tk.BooleanVar = None
         self.var_radios: tk.StringVar = None
+        self.var_textinput: tk.StringVar = None
         self.var_spinboxcolor: tk.StringVar = None
+        self.var_combobox: tk.StringVar = None
+        self.var_optionmenu: tk.StringVar = None
         self.var_slider: tk.IntVar = None
         self.builder.import_variables(self)
 
@@ -27,6 +40,12 @@ class AppUI:
 
     def run(self):
         self.mainwindow.mainloop()
+
+    def printcheckboxvars(self):
+        pass
+
+    def optionmenu_clicked(self, value):
+        pass
 
 
 if __name__ == "__main__":
