@@ -7,22 +7,18 @@ RESOURCE_PATHS = [PROJECT_PATH]
 
 <%block name="class_definition" filter="trim">
 class ${class_name}:
-%if with_i18n_support and use_first_object_cb:
-    def __init__(self, master=None, translator=None, on_first_object_cb=None):
+    def __init__(
+        self,
+        master=None,
+        translator=None,
+        on_first_object_cb=None,
+        data_pool=None
+        ):
         self.builder = pygubu.Builder(
             translator=translator,
-            on_first_object=on_first_object_cb)
-%elif with_i18n_support:
-    def __init__(self, master=None, translator=None):
-        self.builder = pygubu.Builder(translator)
-%elif use_first_object_cb:
-    def __init__(self, master=None, on_first_object_cb=None):
-        self.builder = pygubu.Builder(
-            on_first_object=on_first_object_cb)
-%else:
-    def __init__(self, master=None):
-        self.builder = pygubu.Builder()
-%endif
+            on_first_object=on_first_object_cb,
+            data_pool=data_pool
+        )
         self.builder.add_resource_paths(RESOURCE_PATHS)
         self.builder.add_from_file(PROJECT_UI)
         # Main widget
