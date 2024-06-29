@@ -32,7 +32,7 @@ class JsonEntry(TextPropertyEditor):
             if (
                 is_valid
                 and self.json_item_type is not None
-                and Iterable(json_value)
+                and isinstance(json_value, Iterable)
             ):
                 for item in json_value:
                     if not isinstance(item, self.json_item_type):
