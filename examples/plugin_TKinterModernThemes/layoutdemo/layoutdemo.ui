@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">layout demo</setting>
+      <setting id="description">TKMT layout demo.</setting>
+      <setting id="module_name">layoutdemo</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">themedtkinterframe1</setting>
+      <setting id="main_classname">App</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tkmt.ThemedTKinterFrame" id="themedtkinterframe1">
+    <property name="mode">dark</property>
+    <property name="theme">park</property>
+    <property name="title" translatable="yes">Layout Demo</property>
+    <child>
+      <object class="tkmt.LabelFrame" id="labelframe1">
+        <property name="text" translatable="yes">Left frame</property>
+        <child>
+          <object class="tkmt.Button" id="button1">
+            <property name="text" translatable="yes">TL Corner</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button2">
+            <property name="rowspan">2</property>
+            <property name="text" translatable="yes">Tall Button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button3">
+            <property name="colspan">2</property>
+            <property name="text" translatable="yes">Wide Button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button4">
+            <property name="col">1</property>
+            <property name="colspan">5</property>
+            <property name="text" translatable="yes">Very wide button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button5">
+            <property name="col">1</property>
+            <property name="text" translatable="yes">Another placeholder button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button6">
+            <property name="col">1</property>
+            <property name="text" translatable="yes">Another placeholder button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button7">
+            <property name="col">1</property>
+            <property name="text" translatable="yes">Another placeholder button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button9">
+            <property name="col">2</property>
+            <property name="text" translatable="yes">Col 2 button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button10">
+            <property name="col">3</property>
+            <property name="text" translatable="yes">Col 3 button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button11">
+            <property name="col">2</property>
+            <property name="text" translatable="yes">You can't see this button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button12">
+            <property name="col">2</property>
+            <property name="row">2</property>
+            <property name="text" translatable="yes">Because this button overlaps!</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button13">
+            <property name="col">2</property>
+            <property name="rowspan">3</property>
+            <property name="text" translatable="yes">Very tall button</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button14">
+            <property name="col">3</property>
+            <property name="colspan">2</property>
+            <property name="row">2</property>
+            <property name="rowspan">2</property>
+            <property name="text" translatable="yes">Half hidden button.</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button15">
+            <property name="col">4</property>
+            <property name="row">3</property>
+            <property name="text" translatable="yes">Manually placed button.</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tkmt.LabelFrame" id="labelframe2">
+        <property name="col">1</property>
+        <property name="text" translatable="yes">Right Frame</property>
+        <child>
+          <object class="tkmt.Button" id="button16">
+            <property name="col">1</property>
+            <property name="text" translatable="yes">A</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button17">
+            <property name="colspan">2</property>
+            <property name="text" translatable="yes">B</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button18">
+            <property name="text" translatable="yes">C</property>
+          </object>
+        </child>
+        <child>
+          <object class="tkmt.Button" id="button19">
+            <property name="col">1</property>
+            <property name="text" translatable="yes">D</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

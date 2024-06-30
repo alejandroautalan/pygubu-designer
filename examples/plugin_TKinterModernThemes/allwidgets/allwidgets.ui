@@ -75,21 +75,22 @@
           <object class="tkmt.Radiobutton" id="radiobutton1">
             <property name="text" translatable="yes">Unselected</property>
             <property name="value">button1</property>
-            <property name="variable">string:var_radios</property>
+            <property name="variable">string:var_radiobutton</property>
           </object>
         </child>
         <child>
           <object class="tkmt.Radiobutton" id="radiobutton2">
             <property name="text" translatable="yes">Selected</property>
             <property name="value">button2</property>
-            <property name="variable">string:var_radios</property>
+            <property name="variable">string:var_radiobutton</property>
           </object>
         </child>
         <child>
           <object class="tkmt.Radiobutton" id="radiobutton3">
+            <property name="disabled">True</property>
             <property name="text" translatable="yes">Disabled</property>
             <property name="value">button3</property>
-            <property name="variable">string:var_radios</property>
+            <property name="variable">string:var_radiobutton</property>
           </object>
         </child>
       </object>
@@ -102,17 +103,20 @@
         <property name="text" translatable="yes">Buttons</property>
         <child>
           <object class="tkmt.Button" id="button1">
+            <property name="command" type="command" cbtype="simple">handleButtonClick</property>
             <property name="text" translatable="yes">Button</property>
           </object>
         </child>
         <child>
           <object class="tkmt.AccentButton" id="accentbutton1">
+            <property name="command" type="command" cbtype="simple">handleButtonClick</property>
             <property name="text" translatable="yes">Accent Button</property>
           </object>
         </child>
         <child>
           <object class="tkmt.ToggleButton" id="togglebutton1">
             <property name="text" translatable="yes">Toggle Button</property>
+            <property name="variable">boolean:var_togglebutton</property>
           </object>
         </child>
         <child>
@@ -129,6 +133,8 @@
         <child>
           <object class="tkmt.Entry" id="entry1">
             <property name="textvariable">string:var_textinput</property>
+            <property name="validatecommand" type="command" cbtype="simple">validateText</property>
+            <property name="validatecommandargs">[369]</property>
           </object>
         </child>
         <child>
@@ -136,7 +142,7 @@
             <property name="increment">5</property>
             <property name="lower">0</property>
             <property name="upper">100</property>
-            <property name="variable">string:var_spinboxcolor</property>
+            <property name="variable">int:var_spinboxnum</property>
           </object>
         </child>
         <child>
@@ -189,6 +195,7 @@
               <object class="tkmt.Notebook" id="notebook1">
                 <child>
                   <object class="tkmt.NotebookTab" id="notebooktab1">
+                    <property name="makeResizable">recursive</property>
                     <property name="text" translatable="yes">Tab 1</property>
                     <child>
                       <object class="tkmt.Scale" id="scale1">
