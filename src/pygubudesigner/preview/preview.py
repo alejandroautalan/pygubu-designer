@@ -232,6 +232,9 @@ class Preview:
         False : if for some reason the mouse pointer wasn't found on any of the monitors (shouldn't happen).
         """
 
+        if not isinstance(window, (tk.Tk, tk.Toplevel)):
+            return
+
         # We need to call the update_idletasks() method before we try and get the window's size,
         # because if the window hasn't been drawn on the screen yet, we won't get the proper dimensions
         # when we try and use winfo_width() and winfo_height().
