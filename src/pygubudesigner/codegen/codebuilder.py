@@ -525,6 +525,11 @@ class UI2Code(Builder):
         else:
             return escaped
 
+    def code_get_resource(self, uri: str):
+        line = f"""_data = data_pool.get_resource("{uri}")"""
+        self._add_new_code([line])
+        return "_data"
+
     @property
     def with_i18n_support(self) -> bool:
         return self._with_i18n_support

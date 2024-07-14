@@ -9,7 +9,7 @@ i18n_translator = i18n_noop
 %endif
 
 class ${class_name}:
-    def __init__(self, master=None):
+    def __init__(self, master=None, data_pool=None):
         %if with_i18n_support:
         _ = i18n_translator  # i18n string marker.
         %endif
