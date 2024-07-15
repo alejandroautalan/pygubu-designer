@@ -208,6 +208,7 @@ class ScriptGenerator:
             "tk.Toplevel",
             "customtkinter.CTk",
             "customtkinter.CTkToplevel",
+            "tkmt.ThemedTKinterFrame",
         )
 
         main_widget_is_toplevel = False
