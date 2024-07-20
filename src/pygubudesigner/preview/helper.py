@@ -271,7 +271,10 @@ class PreviewHelper:
 
     def _update_style_editor(self, widget):
         """Setup TtkStylePropertyEditor with the real winfo_class and class name."""
-        hints = (widget.winfo_class(), widget.__class__.__name__)
+        widget_ttk_class = widget.winfo_class()
+        hints = (widget_ttk_class, widget.__class__.__name__)
+        if widget_ttk_class in ("TButton", "TRadiobutton", "TCheckbutton"):
+            hints = hints + ("Toolbutton",)
         TtkStylePropertyEditor.set_filter_hints(hints)
 
     def show_selected(self, identifier, selected_id=None):
