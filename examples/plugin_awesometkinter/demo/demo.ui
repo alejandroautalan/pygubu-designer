@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">awesometkinter demo</setting>
+      <setting id="description">Same as demo.py from awesometkinter examples.</setting>
+      <setting id="module_name">demoapp</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">tk1</setting>
+      <setting id="main_classname">DemoApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="tk1">
+    <property name="background">#333</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="awesometkinter.Frame3d" id="frame3d1">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="padx">3</property>
+          <property name="pady">3</property>
+          <property name="side">left</property>
+        </layout>
+        <child>
+          <object class="awesometkinter.RadialProgressbar3d" id="radialprogressbar3d1">
+            <layout manager="pack">
+              <property name="padx">20</property>
+              <property name="pady">20</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="awesometkinter.Button3d" id="button3d1">
+            <property name="text" translatable="yes">3D Button</property>
+            <layout manager="pack">
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="awesometkinter.Frame3d" id="frame3d2">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="padx">3</property>
+          <property name="pady">3</property>
+          <property name="side">left</property>
+        </layout>
+        <child>
+          <object class="awesometkinter.RadialProgressbar" id="radialprogressbar1">
+            <layout manager="pack">
+              <property name="padx">30</property>
+              <property name="pady">30</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="awesometkinter.Button3d" id="button3d2">
+            <property name="text" translatable="yes">Pressed Button</property>
+            <layout manager="pack">
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="awesometkinter.Frame3d" id="frame3d3">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="padx">3</property>
+          <property name="pady">3</property>
+          <property name="side">left</property>
+        </layout>
+        <child>
+          <object class="awesometkinter.Radiobutton" id="radiobutton1">
+            <property name="text" translatable="yes">Radiobutton 1</property>
+            <layout manager="pack">
+              <property name="padx">20</property>
+              <property name="pady">20 5</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="awesometkinter.Radiobutton" id="radiobutton2">
+            <property name="ind_bg">yellow</property>
+            <property name="ind_mark_color">red</property>
+            <property name="ind_outline_color">white</property>
+            <property name="text" translatable="yes">Radiobutton 2</property>
+            <layout manager="pack">
+              <property name="padx">20</property>
+              <property name="pady">20 5</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="awesometkinter.Checkbutton" id="checkbutton1">
+            <property name="check_mark_color">red</property>
+            <property name="text" translatable="yes">Checkbutton 1</property>
+            <layout manager="pack">
+              <property name="padx">20</property>
+              <property name="pady">20 5</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="awesometkinter.Checkbutton" id="checkbutton2">
+            <property name="text" translatable="yes">Checkbutton 1</property>
+            <layout manager="pack">
+              <property name="padx">20</property>
+              <property name="pady">20 5</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

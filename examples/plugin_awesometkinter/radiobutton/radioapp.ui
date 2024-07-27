@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">Radiobutton Example</setting>
+      <setting id="description">Awesome tkinter radiobutton example.</setting>
+      <setting id="module_name">radiobutton</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">tk1</setting>
+      <setting id="main_classname">RadiobuttonApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="tk1">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="tk.Frame" id="frame1">
+        <property name="background">#ffffff</property>
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="awesometkinter.Radiobutton" id="radiobutton1">
+            <property name="text" translatable="yes">AwesomeTkinter Radiobutton</property>
+            <property name="variable">string:rbutton_var</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="padx">17</property>
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="awesometkinter.Radiobutton" id="radiobutton2">
+            <property name="text" translatable="yes">AwesomeTkinter Radiobutton, selected</property>
+            <property name="value">test</property>
+            <property name="variable">string:rbutton_var</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="padx">17</property>
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Separator" id="separator1">
+            <property name="orient">horizontal</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Radiobutton" id="radiobutton3">
+            <property name="anchor">w</property>
+            <property name="background">#ffffff</property>
+            <property name="foreground">#000000</property>
+            <property name="text" translatable="yes">standard tk Radiobutton</property>
+            <property name="value">standard tk Radiobutton</property>
+            <property name="variable">string:rbutton_var</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="padx">10</property>
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Radiobutton" id="radiobutton4">
+            <property name="background">#ffffff</property>
+            <property name="foreground">#000000</property>
+            <property name="text" translatable="yes">standard tk Radiobutton, selected</property>
+            <property name="value">test</property>
+            <property name="variable">string:rbutton_var</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="padx">10</property>
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Separator" id="separator2">
+            <property name="orient">horizontal</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="radiobutton5">
+            <property name="text" translatable="yes">standard ttk Radiobutton</property>
+            <property name="variable">string:rbutton_var</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="padx">15</property>
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="radiobutton6">
+            <property name="text" translatable="yes">standard ttk Radiobutton, selected</property>
+            <property name="value">test</property>
+            <property name="variable">string:rbutton_var</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="padx">15</property>
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Separator" id="separator3">
+            <property name="orient">horizontal</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="awesometkinter.Radiobutton" id="radiobutton7">
+            <property name="ind_bg">yellow</property>
+            <property name="ind_mark_color">blue</property>
+            <property name="ind_outline_color">red</property>
+            <property name="text" translatable="yes">AwesomeTkinter Radiobutton, with custom colors</property>
+            <property name="value">test</property>
+            <property name="variable">string:rbutton_var</property>
+            <layout manager="pack">
+              <property name="anchor">w</property>
+              <property name="padx">17</property>
+              <property name="pady">10</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
