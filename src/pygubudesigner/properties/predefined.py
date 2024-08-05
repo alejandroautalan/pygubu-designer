@@ -1261,6 +1261,7 @@ PROPERTY_DEFINITIONS = {
             "values": ("", "false", "true"),
             "state": "readonly",
         },
+        "default": "false",
         "help": help_for("tearoff"),
     },
     "tearoffcommand": {
