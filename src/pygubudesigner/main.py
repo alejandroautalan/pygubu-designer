@@ -392,6 +392,10 @@ proc ::tk::dialog::file::Create {w class} {
             widget.bind(
                 "<KeyPress-Delete>", virtual_event(actions.TREE_ITEM_DELETE)
             )
+            widget.bind(
+                "<KeyPress-BackSpace>", virtual_event(actions.TREE_ITEM_DELETE)
+            )
+
 
             # grid move bindings
             widget.bind(
