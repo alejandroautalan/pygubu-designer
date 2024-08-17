@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-21 21:44-0300\n"
+"POT-Creation-Date: 2024-08-17 23:31+0800\n"
 "PO-Revision-Date: 2024-04-21 22:05-0300\n"
 "Last-Translator: Alejandro Autalán <alejandroautalan@gmail.com>\n"
 "Language-Team: \n"
@@ -80,7 +80,7 @@ msgid "Close"
 msgstr "Cerrar"
 
 #: src/pygubudesigner/data/ui/ask_save_changes_dialog.ui:7
-#: src/pygubudesigner/main.py:585
+#: src/pygubudesigner/main.py:589
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
@@ -546,23 +546,23 @@ msgstr ""
 msgid "Components"
 msgstr "Componentes"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:43
+#: src/pygubudesigner/codegen/scriptgenerator.py:44
 msgid "Script Generator"
 msgstr "Generador de Script"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:311
+#: src/pygubudesigner/codegen/scriptgenerator.py:316
 msgid "Select widget"
 msgstr "Seleccione widget"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:317
+#: src/pygubudesigner/codegen/scriptgenerator.py:322
 msgid "Select template"
 msgstr "Seleccione plantilla"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:323
+#: src/pygubudesigner/codegen/scriptgenerator.py:328
 msgid "Enter classname"
 msgstr "Ingrese nombre de la clase"
 
-#: src/pygubudesigner/codegen/scriptgenerator.py:330
+#: src/pygubudesigner/codegen/scriptgenerator.py:335
 msgid "Invalid classname"
 msgstr "Nombre de clase inválido"
 
@@ -610,55 +610,55 @@ msgstr "Todos los widgets del contenedor serán actualizados."
 msgid "Failed to load widget module: '{_module}'"
 msgstr "Error al cargar modulo de widget: '{_module}'"
 
-#: src/pygubudesigner/main.py:86 src/pygubudesigner/main.py:627
-#: src/pygubudesigner/main.py:676 src/pygubudesigner/main.py:933
+#: src/pygubudesigner/main.py:86 src/pygubudesigner/main.py:631
+#: src/pygubudesigner/main.py:680 src/pygubudesigner/main.py:937
 #: src/pygubudesigner/preferences.py:106 src/pygubudesigner/preferences.py:112
 msgid "Error"
 msgstr "Error"
 
-#: src/pygubudesigner/main.py:548
+#: src/pygubudesigner/main.py:552
 msgid "Checking main window visibility."
 msgstr "Verificando visibilidad de la ventana principal."
 
-#: src/pygubudesigner/main.py:550
+#: src/pygubudesigner/main.py:554
 msgid "Main window is not visible in current monitors."
 msgstr "La ventana principal no es visible en los monitores activos."
 
-#: src/pygubudesigner/main.py:554
+#: src/pygubudesigner/main.py:558
 msgid "Main window position fixed."
 msgstr "Posición de la ventana principal corregida."
 
-#: src/pygubudesigner/main.py:588
+#: src/pygubudesigner/main.py:592
 msgid "If you don't save the document, all the changes will be lost."
 msgstr "Si no guarda el documento, todos los cambios se perderán."
 
-#: src/pygubudesigner/main.py:602
+#: src/pygubudesigner/main.py:606
 msgid "Do you want to save the changes before closing?"
 msgstr "¿Quieres guardar los cambios antes de cerrar?"
 
-#: src/pygubudesigner/main.py:618
+#: src/pygubudesigner/main.py:622
 #, python-format
 msgid "Project saved to %s"
 msgstr "Proyecto guardado a %s"
 
-#: src/pygubudesigner/main.py:637 src/pygubudesigner/main.py:688
+#: src/pygubudesigner/main.py:641 src/pygubudesigner/main.py:692
 msgid "pygubu ui"
 msgstr "archivos de pygubu"
 
-#: src/pygubudesigner/main.py:637 src/pygubudesigner/main.py:689
+#: src/pygubudesigner/main.py:641 src/pygubudesigner/main.py:693
 #: src/pygubudesigner/services/projectsettings.py:33
 msgid "All"
 msgstr "Todos"
 
-#: src/pygubudesigner/main.py:681
+#: src/pygubudesigner/main.py:685
 msgid "Do you want to save the changes before opening?"
 msgstr "¿Quieres guardar los cambios antes de abrir?"
 
-#: src/pygubudesigner/main.py:699
+#: src/pygubudesigner/main.py:703
 msgid "Do you want to save the changes before creating?"
 msgstr "¿Quieres guardar los cambios antes de crear?"
 
-#: src/pygubudesigner/main.py:847
+#: src/pygubudesigner/main.py:851
 msgid ""
 "Restart Pygubu Designer\n"
 "for changes to take effect."
@@ -666,15 +666,15 @@ msgstr ""
 "Reinicia Pygubu Designer\n"
 "para que los cambios tengan efecto."
 
-#: src/pygubudesigner/main.py:852
+#: src/pygubudesigner/main.py:856
 msgid "Open a project first."
 msgstr "Abre un proyecto primero."
 
-#: src/pygubudesigner/main.py:878
+#: src/pygubudesigner/main.py:882
 msgid "Project code generated."
 msgstr "Código del proyecto generado."
 
-#: src/pygubudesigner/main.py:893
+#: src/pygubudesigner/main.py:897
 msgid "newproject"
 msgstr "nuevo_proyecto"
 
@@ -694,6 +694,70 @@ msgid ""
 msgstr ""
 "Fallo al leer el archivo de configuración '{CONFIG_FILE!s}', el programa "
 "puede no funcionar como se espera."
+
+#: src/pygubudesigner/properties/editors/commandentry.py:103
+msgid "Callback:"
+msgstr "Callback:"
+
+#: src/pygubudesigner/properties/editors/commandentry.py:117
+msgid "Simple"
+msgstr "Simple"
+
+#: src/pygubudesigner/properties/editors/commandentry.py:118
+msgid "Send widget ID"
+msgstr "Enviar widget ID"
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:44
+msgid "Type of action."
+msgstr "Tipo de acción."
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:45
+msgid "Index of character string to be inserted/deleted."
+msgstr "Índice de la cadena de caracteres que se insertará/eliminará."
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:46
+msgid "The new/current value of the entry."
+msgstr "El valor nuevo/actual del entry."
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:47
+msgid "The current value of entry prior to editing."
+msgstr "El valor actual del entry antes de la edición."
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:48
+msgid "The text string being inserted/deleted."
+msgstr "La cadena de texto que se inserta/elimina."
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:49
+msgid "The current value of the -validate option."
+msgstr "El valor actual de la opción \"-validate\"."
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:52
+msgid "The validation condition that triggered the callback."
+msgstr "La condición de validación que originó la llamada."
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:54
+msgid "The name of the entry widget."
+msgstr "El nombre del widget entry."
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:60
+msgid "Select all"
+msgstr "Seleccionar todo"
+
+#: src/pygubudesigner/properties/editors/entryvalidatecommandeditor.py:61
+msgid "Clear"
+msgstr "Limpiar lista"
+
+#: src/pygubudesigner/properties/editors/imageentry.py:51
+msgid "Tk image formats"
+msgstr "Formatos de imagen Tk"
+
+#: src/pygubudesigner/properties/editors/imageentry.py:52
+msgid "All Files"
+msgstr "Todos los archivos"
+
+#: src/pygubudesigner/properties/editors/namedideditor.py:36
+msgid "Request new ID and set widget as nameless."
+msgstr "Solicitar nuevo ID y establecer el widget como \"sin  nombre\"."
 
 #: src/pygubudesigner/properties/propertieshelp.py:5
 msgid "Object class name."
@@ -1903,111 +1967,47 @@ msgstr "Aplicando definiciones de estilos ttk"
 msgid "ttk style definition error: %s"
 msgstr "error de definición de estilo ttk: %s"
 
-#: src/pygubudesigner/uitreeeditor.py:221
+#: src/pygubudesigner/uitreeeditor.py:222
 msgid "Delete items"
 msgstr "Borrar items"
 
-#: src/pygubudesigner/uitreeeditor.py:222
+#: src/pygubudesigner/uitreeeditor.py:223
 msgid "Delete selected items?"
 msgstr "¿ Borrar items seleccionados ?"
 
-#: src/pygubudesigner/uitreeeditor.py:518
+#: src/pygubudesigner/uitreeeditor.py:519
 msgid "No item selected."
 msgstr "No selecciono item."
 
-#: src/pygubudesigner/uitreeeditor.py:758
+#: src/pygubudesigner/uitreeeditor.py:759
 #, python-format
 msgid "Allowed children: %s."
 msgstr "Hijos permitidos: %s."
 
-#: src/pygubudesigner/uitreeeditor.py:768
+#: src/pygubudesigner/uitreeeditor.py:769
 #, python-brace-format
 msgid "Only {0} children allowed for {1}"
 msgstr "Solo se permiten {0} hijos para {1}"
 
-#: src/pygubudesigner/uitreeeditor.py:784
+#: src/pygubudesigner/uitreeeditor.py:785
 #, python-brace-format
 msgid "{0} not allowed as parent of {1}"
 msgstr "{0} no es permitido como padre de {1}"
 
-#: src/pygubudesigner/uitreeeditor.py:794
+#: src/pygubudesigner/uitreeeditor.py:795
 #, python-format
 msgid "Not allowed, %s is not a container."
 msgstr "No permitido, %s no es un contenedor."
 
-#: src/pygubudesigner/uitreeeditor.py:806
+#: src/pygubudesigner/uitreeeditor.py:807
 #, python-format
 msgid "%s not allowed at root level"
 msgstr "%s no esta permitido a nivel raiz"
 
-#: src/pygubudesigner/uitreeeditor.py:816
+#: src/pygubudesigner/uitreeeditor.py:817
 #, python-format
 msgid "Not allowed at root level, %s is not a container."
 msgstr "No permitido a nivel raiz, %s no es un contenedor."
-
-#: src/pygubudesigner/widgets/commandentry.py:103
-msgid "Callback:"
-msgstr "Callback:"
-
-#: src/pygubudesigner/widgets/commandentry.py:117
-msgid "Simple"
-msgstr "Simple"
-
-#: src/pygubudesigner/widgets/commandentry.py:118
-msgid "Send widget ID"
-msgstr "Enviar widget ID"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:44
-msgid "Type of action."
-msgstr "Tipo de acción."
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:45
-msgid "Index of character string to be inserted/deleted."
-msgstr "Índice de la cadena de caracteres que se insertará/eliminará."
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:46
-msgid "The new/current value of the entry."
-msgstr "El valor nuevo/actual del entry."
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:47
-msgid "The current value of entry prior to editing."
-msgstr "El valor actual del entry antes de la edición."
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:48
-msgid "The text string being inserted/deleted."
-msgstr "La cadena de texto que se inserta/elimina."
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:49
-msgid "The current value of the -validate option."
-msgstr "El valor actual de la opción \"-validate\"."
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:52
-msgid "The validation condition that triggered the callback."
-msgstr "La condición de validación que originó la llamada."
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:54
-msgid "The name of the entry widget."
-msgstr "El nombre del widget entry."
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:60
-msgid "Select all"
-msgstr "Seleccionar todo"
-
-#: src/pygubudesigner/widgets/entryvalidatecommandeditor.py:61
-msgid "Clear"
-msgstr "Limpiar lista"
-
-#: src/pygubudesigner/widgets/imageentry.py:51
-msgid "Tk image formats"
-msgstr "Formatos de imagen Tk"
-
-#: src/pygubudesigner/widgets/imageentry.py:52
-msgid "All Files"
-msgstr "Todos los archivos"
-
-#: src/pygubudesigner/widgets/namedideditor.py:36
-msgid "Request new ID and set widget as nameless."
-msgstr "Solicitar nuevo ID y establecer el widget como \"sin  nombre\"."
 
 #~ msgid "General preferences"
 #~ msgstr "Preferencias Generales"
