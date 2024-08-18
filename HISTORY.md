@@ -1,6 +1,15 @@
 History
 =======
 
+Changes for next version
+
+  * Add backspace key to trigger delete action. (#269 @Tweety24655)
+  * Set menu tearoff to false by default.
+  * In style property editor: show Toolbutton ttk class for Button, Checkbutton and Radiobutton widgets.
+  * Add builder data_pool parameter in templates.
+  * Add min and max options to number editors.
+  * New json_entry property editor.
+
 Changes for version 0.39.3
 
   * Fix for issues #251 and #253
