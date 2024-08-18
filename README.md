@@ -1,5 +1,5 @@
 
-[Leer en Español](LEEME.md)
+[Leer en Español](Documentation/README/es.md). More translations [here](Documentation/README)
 
 Welcome to Pygubu!
 ============================================
