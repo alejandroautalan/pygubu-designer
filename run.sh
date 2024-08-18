@@ -85,16 +85,18 @@ function create_pot {
     pkg_name="pygubu"
     pot_path="$DESIGNER_MODULE_ROOT_DIR/data/locale/pygubu.pot"
     PYGUBU_SRC_DIR="../pygubu/src/pygubu"
-    py_files=$(find ${PYGUBU_SRC_DIR} -name "*.py" | sort | paste -d " ")
-    # echo $py_files
-    xgettext \
-        --package-name $pkg_name \
-        --language=Python \
-        --keyword=_ \
-        --verbose \
-        --output=${pot_path} \
-        --from-code=UTF-8 \
-        $py_files
+    if [[ -d ${PYGUBU_SRC_DIR} ]];then
+        py_files=$(find ${PYGUBU_SRC_DIR} -name "*.py" | sort | paste -d " ")
+        # echo $py_files
+        xgettext \
+            --package-name $pkg_name \
+            --language=Python \
+            --keyword=_ \
+            --verbose \
+            --output=${pot_path} \
+            --from-code=UTF-8 \
+            $py_files
+    fi
 }
 
 function update_po {
@@ -104,12 +106,14 @@ function update_po {
     po_files=$(find $DESIGNER_MODULE_ROOT_DIR/data/locale -name "pygubu-designer.po")
     for _po in $po_files
     do
+        echo "Merging ${pot_designer} to ${_po}"
         msgmerge --verbose $_po ${pot_designer} -U
     done
 
     po_files=$(find $DESIGNER_MODULE_ROOT_DIR/data/locale -name "pygubu.po")
     for _po in $po_files
     do
+        echo "Merging ${pot_pygubu} to ${_po}"
         msgmerge --verbose $_po ${pot_pygubu} -U
     done
 }
