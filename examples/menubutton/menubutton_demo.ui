@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">Menubutton demo</setting>
+      <setting id="description">Create a menubutton with options.</setting>
+      <setting id="module_name">menubutton_demo</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">tk1</setting>
+      <setting id="main_classname">MenubuttonDemo</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="tk1">
+    <property name="geometry">320x200</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainwindow">
+        <layout manager="pack" />
+        <containerlayout manager="grid">
+          <property type="col" id="all" name="pad">5</property>
+          <property type="row" id="all" name="pad">10</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="text" translatable="yes">Menubutton with menu defined in designer:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Menubutton" id="option_menu1" named="True">
+            <property name="text" translatable="yes">Option Menu 1</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">1</property>
+            </layout>
+            <child>
+              <object class="tk.Menu" id="menu1">
+                <property name="tearoff">false</property>
+                <child>
+                  <object class="tk.Menuitem.Command" id="command1">
+                    <property name="label" translatable="yes">Option X</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Menuitem.Command" id="command3">
+                    <property name="label" translatable="yes">Option Y</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Menuitem.Command" id="command7">
+                    <property name="label" translatable="yes">Option Z</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Menuitem.Submenu" id="submenu1">
+                    <property name="background">#e2bee5</property>
+                    <property name="label" translatable="yes">Submenu …</property>
+                    <property name="tearoff">0</property>
+                    <child>
+                      <object class="tk.Menuitem.Command" id="command2">
+                        <property name="label" translatable="yes">Option H</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="label2">
+            <property name="padding">0 10 0 0</property>
+            <property name="text" translatable="yes">Menubutton with menu defined in code:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Menubutton" id="option_menu2" named="True">
+            <property name="text" translatable="yes">Option Menu 2</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Menu" id="menu_extra" named="True">
+    <property name="tearoff">false</property>
+    <child>
+      <object class="tk.Menuitem.Command" id="command4">
+        <property name="label" translatable="yes">Option A</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="command5">
+        <property name="label" translatable="yes">Option B</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="command6">
+        <property name="label" translatable="yes">Option C</property>
+      </object>
+    </child>
+  </object>
+</interface>
