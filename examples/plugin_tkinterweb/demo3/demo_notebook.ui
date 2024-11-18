@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">Tkinterweb Notebook demo</setting>
+      <setting id="description">A simple demo for Notebook widget.</setting>
+      <setting id="module_name">demo</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">tk1</setting>
+      <setting id="main_classname">DemoApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="tk1">
+    <property name="geometry">680x320</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Tkinterweb Notebook demo</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="tkinterweb.Notebook" id="notebook1">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="tkinterweb.Notebook.Page" id="page1">
+                <property name="text" translatable="yes">Help Topic 1</property>
+                <child>
+                  <object class="tkinterweb.HtmlFrame" id="webview1" named="True">
+                    <property name="messages_enabled">false</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="tkinterweb.Notebook.Page" id="page2">
+                <property name="text" translatable="yes">Help Topic 2</property>
+                <child>
+                  <object class="tkinterweb.HtmlFrame" id="webview2" named="True">
+                    <property name="messages_enabled">false</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

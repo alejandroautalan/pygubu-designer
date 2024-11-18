@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">Tkinterweb HtmlFrame demo</setting>
+      <setting id="description">A simple demo for HtmlFrame widget.</setting>
+      <setting id="module_name">demo</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">tk1</setting>
+      <setting id="main_classname">DemoApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="tk1">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">HtmlFrame Demo</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">5</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="frame2">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label1">
+                <property name="text" translatable="yes">URL:</property>
+                <layout manager="pack">
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Entry" id="entry1">
+                <property name="textvariable">string:url_var</property>
+                <bind sequence="&lt;Key-Return&gt;" handler="on_user_enters_url" add="" />
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="padx">5 0</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button1">
+                <property name="command" type="command" cbtype="simple">on_btn_load_clicked</property>
+                <property name="text" translatable="yes">▶️</property>
+                <property name="width">-2</property>
+                <layout manager="pack">
+                  <property name="padx">2 15</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="pygubu.widgets.PathChooserButton" id="file_chooser" named="True">
+                <property name="defaultextension">html</property>
+                <property name="text" translatable="yes">📂</property>
+                <property name="title" translatable="yes">Load HTML file</property>
+                <property name="width">-2</property>
+                <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_file_choosed" add="" />
+                <layout manager="pack">
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="tkinterweb.HtmlFrame" id="web_frame" named="True">
+            <property name="horizontal_scrollbar">auto</property>
+            <property name="padding">0 10 0 0</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
