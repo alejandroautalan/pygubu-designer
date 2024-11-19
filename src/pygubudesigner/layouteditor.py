@@ -87,7 +87,13 @@ class LayoutEditor(PropertiesEditor):
         self._cleditor = ContainerLayoutEditor(self._sframe.innerframe)
         self._cleditor.grid(row=1, sticky="nswe", pady="5 0")
 
-    def edit(self, wdescr, manager_options, container_options=None):
+    def edit(
+        self,
+        wdescr,
+        manager_options,
+        container_options=None,
+        parent_classname=None,
+    ):
         self._current = wdescr
 
         # need to save the container info when updating the view.
@@ -95,6 +101,10 @@ class LayoutEditor(PropertiesEditor):
         if container_options is not None:
             self._container_options = container_options
 
+        parent_cancels_children_layout = False
+        if parent_classname is not None:
+            parent_bo = CLASS_MAP[parent_classname].builder
+            parent_cancels_children_layout = parent_bo.children_layout_override
         wclass = wdescr.classname
         # class_descr = CLASS_MAP[wclass].builder
         max_children = CLASS_MAP[wclass].builder.maxchildren
@@ -102,7 +112,7 @@ class LayoutEditor(PropertiesEditor):
         is_container = CLASS_MAP[wclass].builder.container
         layout_required = CLASS_MAP[wclass].builder.layout_required
         allow_container_layout = CLASS_MAP[wclass].builder.container_layout
-        show_layout = layout_required
+        show_layout = layout_required and not parent_cancels_children_layout
 
         # manager selector
         manager = wdescr.manager

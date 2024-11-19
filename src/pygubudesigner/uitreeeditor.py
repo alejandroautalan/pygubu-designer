@@ -427,6 +427,7 @@ class WidgetsTreeEditor:
     def editor_edit(self, item, wdescr):
         self.current_edit = item
         manager_options = ["grid", "pack", "place"]
+        parent_classname = None
 
         # Determine allowed manager options
         parent = self.treeview.parent(item)
@@ -436,6 +437,7 @@ class WidgetsTreeEditor:
                 manager_options.remove("pack")
             if "pack" == cm:
                 manager_options.remove("grid")
+            parent_classname = self.get_widget_class(parent)
         logger.debug(manager_options)
 
         # Prepare container layout options
@@ -452,7 +454,9 @@ class WidgetsTreeEditor:
         FormFieldNameSelector.FIELD_NAMES = self.get_form_fieldname_list()
 
         self.properties_editor.edit(wdescr)
-        self.layout_editor.edit(wdescr, manager_options, cinfo)
+        self.layout_editor.edit(
+            wdescr, manager_options, cinfo, parent_classname
+        )
         self.bindings_editor.edit(wdescr)
         self.get_form_fieldname_list()
 
