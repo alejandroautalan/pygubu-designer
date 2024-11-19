@@ -1,7 +1,7 @@
 History
 =======
 
-Changes for next version
+Changes for version 0.40
 
   * Add backspace key to trigger delete action. (#269 @Tweety24655)
   * Set menu tearoff to false by default.
