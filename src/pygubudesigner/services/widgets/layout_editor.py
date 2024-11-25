@@ -114,6 +114,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
             manager_prop = properties.PLACE_PROPERTIES
 
         if show_layout:
+            self.ftoolbar.grid()
             self.fprop.grid()
             self._allowed_managers = manager_options
             self.layout_selector.edit(manager)
@@ -215,7 +216,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
 
     def hide_all(self):
         super().hide_all()
-        self.ftoobar.grid_remove()
+        self.ftoolbar.grid_remove()
         self.fprop.grid_remove()
         self.cleditor.grid_remove()
 
