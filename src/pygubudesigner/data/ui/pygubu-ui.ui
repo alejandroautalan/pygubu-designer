@@ -1,15 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.39">
+<interface version="1.4" author="PygubuDesigner 0.40">
   <project>
     <settings>
       <setting id="name">pygubu-designer window</setting>
       <setting id="description">This is the main pygubu-designer ui file.</setting>
       <setting id="module_name">projectsettings</setting>
-      <setting id="output_dir">../../</setting>
       <setting id="template">application</setting>
       <setting id="main_widget">mainwindow</setting>
       <setting id="main_classname">PygubuDesigner</setting>
       <setting id="main_menu" />
+      <setting id="output_dir">../../</setting>
+      <setting id="output_dir2" />
       <setting id="import_tkvariables">False</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">False</setting>
@@ -20,6 +21,7 @@
     </settings>
     <customwidgets>
       <customwidget path="../../services/widgets/treecomponentpalettebo.py" />
+      <customwidget path="../../services/builders/layout_editorbo.py" />
     </customwidgets>
   </project>
   <object class="tk.Menu" id="mainmenu">
@@ -565,18 +567,13 @@
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="ttk.Notebook.Tab" id="layouttab">
+                                              <object class="ttk.Notebook.Tab" id="layouttab" named="True">
                                                 <property name="padding">2 6 2 6</property>
                                                 <property name="sticky">nsew</property>
                                                 <property name="text" translatable="yes">Layout</property>
                                                 <child>
-                                                  <object class="pygubu.builder.widgets.scrolledframe" id="layoutframe">
-                                                    <property name="padding">5</property>
-                                                    <property name="scrolltype">both</property>
-                                                    <property name="usemousewheel">true</property>
+                                                  <object class="projectcustom.LayoutEditor" id="layouteditor1">
                                                     <layout manager="pack">
-                                                      <property name="expand">true</property>
-                                                      <property name="fill">both</property>
                                                       <property name="side">top</property>
                                                     </layout>
                                                   </object>

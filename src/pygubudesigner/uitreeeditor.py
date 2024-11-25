@@ -38,7 +38,6 @@ from pygubudesigner.properties.editors import (
 import pygubudesigner.actions as action
 from .bindingseditor import BindingsEditor
 from .i18n import translator as _
-from .layouteditor import LayoutEditor
 from .propertieseditor import PropertiesEditor
 from .util import trlog
 from .widgetdescr import WidgetMeta
@@ -121,14 +120,16 @@ class WidgetsTreeEditor:
 
         # Widget Editor
         pframe = app.builder.get_object("propertiesframe")
-        lframe = app.builder.get_object("layoutframe")
+        # lframe = app.builder.get_object("layoutframe")
+        lframe = app.builder.get_object("layouteditor1")
         bframe = app.builder.get_object("bindingsframe")
         bindingstree = app.builder.get_object("bindingstree")
         self.properties_editor = PropertiesEditor(
             pframe,
             reselect_item_func=partial(self.on_treeview_select, None),
         )
-        self.layout_editor = LayoutEditor(lframe)
+        # self.layout_editor = LayoutEditor(lframe)
+        self.layout_editor = lframe
         self.bindings_editor = BindingsEditor(bindingstree, bframe)
         self.treeview.bind_all(
             "<<PreviewItemSelected>>", self._on_preview_item_clicked
