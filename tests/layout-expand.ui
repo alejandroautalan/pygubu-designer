@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.40">
+  <project>
+    <settings>
+      <setting id="name">Layout Toolbar Test</setting>
+      <setting id="description">Test layout mini toolbar functionality.</setting>
+      <setting id="module_name">layout_toolbar_test</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">toplevel1</setting>
+      <setting id="main_classname">LayoutToolbarTest</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="geometry">320x200</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="tk.Canvas" id="canvas1">
+        <property name="background">#22be22</property>
+        <property name="height">50</property>
+        <property name="width">50</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Toplevel" id="toplevel2">
+    <property name="geometry">320x200</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <containerlayout manager="grid">
+      <property type="col" id="all" name="weight">1</property>
+      <property type="row" id="all" name="weight">1</property>
+    </containerlayout>
+    <child>
+      <object class="tk.Canvas" id="canvas2">
+        <property name="background">#22be22</property>
+        <property name="height">50</property>
+        <property name="width">50</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Toplevel" id="toplevel3">
+    <property name="geometry">320x200</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="tk.Canvas" id="canvas3">
+        <property name="background">#22be22</property>
+        <property name="height">50</property>
+        <property name="width">50</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="x">0</property>
+          <property name="y">0</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
