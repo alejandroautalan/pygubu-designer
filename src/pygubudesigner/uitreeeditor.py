@@ -1181,14 +1181,9 @@ class WidgetsTreeEditor:
         Otherwise, a full widget redraw is done.
         """
 
-        full_redraw = (
-            (hint & WidgetMeta.PROPERTY_RO_CHANGED)
-            | (hint & WidgetMeta.LAYOUT_MANAGER_CHANGED)
-            | (hint & WidgetMeta.PROPERTY_BLANKED)
+        full_redraw = (hint & WidgetMeta.PROPERTY_RO_CHANGED) | (
+            hint & WidgetMeta.LAYOUT_MANAGER_CHANGED
         )
-
-        # FIXME: A full redraw is done when a property is blanked.
-        #        Maybe this can be improved in the future?
 
         if full_redraw:
             # Needs full redraw.
@@ -1218,7 +1213,9 @@ class WidgetsTreeEditor:
             if hint & WidgetMeta.PROPERTY_CHANGED:
                 wbuilder.configure()
             if hint & WidgetMeta.LAYOUT_PROPERTY_CHANGED:
-                wbuilder.layout()
+                reset_layout = hint & WidgetMeta.PROPERTY_BLANKED
+                wbuilder.layout(forget=reset_layout)
+
                 # FIXME: When propagate property is changed
                 # calculations are not correct unless a property
                 # is reconfigured ?
