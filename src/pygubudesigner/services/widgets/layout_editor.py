@@ -25,6 +25,29 @@ baseui.i18n_translator = _
 # Manual user code
 #
 
+toolbar_expand_config = dict(
+    expand_reset=dict(
+        pack=dict(expand="", fill=""),
+        grid=dict(sticky=""),
+        place=dict(relwidth="", relheight=""),
+    ),
+    expand_all=dict(
+        pack=dict(expand="True", fill="both"),
+        grid=dict(sticky="nsew"),
+        place=dict(relwidth="1", relheight="1"),
+    ),
+    expand_width=dict(
+        pack=dict(expand="True", fill="x"),
+        grid=dict(sticky="ew"),
+        place=dict(relwidth="1", relheight=""),
+    ),
+    expand_height=dict(
+        pack=dict(expand="True", fill="y"),
+        grid=dict(sticky="ns"),
+        place=dict(relwidth="", relheight="1"),
+    ),
+)
+
 
 class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
     managers_keys = ("grid", "pack", "place")
@@ -46,16 +69,18 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         """Populate a frame with a list of all editable properties"""
 
         # Layout selector
-        label = ttk.Label(in_frame, text=_("Manager:"))
-        label.grid(row=0, column=0, sticky=tk.EW, pady=2)
-        self.layout_selector = combo = LayoutManagerPropertyEditor(in_frame)
-        combo.parameters(state="readonly", values=self.managers)
-        combo.grid(row=0, column=1, sticky=tk.EW, pady=2)
-        combo.bind("<<PropertyChanged>>", self._layout_manager_changed)
+        # label = ttk.Label(in_frame, text=_("Manager:"))
+        # label.grid(row=0, column=0, sticky=tk.EW, pady=2)
+        # self.layout_selector = combo = LayoutManagerPropertyEditor(in_frame)
+        self.layout_selector.parameters(state="readonly", values=self.managers)
+        # combo.grid(row=0, column=1, sticky=tk.EW, pady=2)
+        self.layout_selector.bind(
+            "<<PropertyChanged>>", self._layout_manager_changed
+        )
         self._allowed_managers = self.managers.keys()
         # Separator
-        w = ttk.Separator(in_frame, orient="horizontal")
-        w.grid(row=1, column=0, columnspan=2, sticky="ew", pady=4)
+        # w = ttk.Separator(in_frame, orient="horizontal")
+        # w.grid(row=1, column=0, columnspan=2, sticky="ew", pady=4)
 
         # Other Layout properties
         label_tpl = "{0}:"
@@ -219,6 +244,18 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         self.ftoolbar.grid_remove()
         self.fprop.grid_remove()
         self.cleditor.grid_remove()
+
+    def btn_expand_clicked(self, widget_id):
+        if self._current is None:
+            return
+
+        gcode = "00"
+        manager = self.layout_selector.value
+        config = toolbar_expand_config[widget_id][manager]
+        for pname, value in config.items():
+            editor = self._prop_bag[gcode + pname][1]
+            editor.edit(value)
+            self._current.layout_property(pname, value)
 
 
 if __name__ == "__main__":

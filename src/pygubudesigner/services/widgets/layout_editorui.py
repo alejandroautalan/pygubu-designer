@@ -29,46 +29,46 @@ class LayoutEditorUI(ttk.Frame):
         self.sframe.configure(usemousewheel=True)
         self.ftoolbar = ttk.Frame(self.sframe.innerframe, name="ftoolbar")
         self.ftoolbar.configure(height=200, padding="0 0 0 10", width=200)
-        self.btn_center = ttk.Button(self.ftoolbar, name="btn_center")
-        self.btn_center.configure(
-            style="Toolbutton", takefocus=True, text=_("C"), width=-2
+        self.expand_reset = ttk.Button(self.ftoolbar, name="expand_reset")
+        self.expand_reset.configure(
+            style="Toolbutton", takefocus=True, text=_("ER"), width=-2
         )
-        self.btn_center.grid(column=0, row=0)
+        self.expand_reset.grid(column=0, row=0)
 
-        def btn_center_cmd_():
-            self.btn_clicked("btn_center")
+        def expand_reset_cmd_():
+            self.btn_expand_clicked("expand_reset")
 
-        self.btn_center.configure(command=btn_center_cmd_)
-        self.btn_expand = ttk.Button(self.ftoolbar, name="btn_expand")
-        self.btn_expand.configure(
+        self.expand_reset.configure(command=expand_reset_cmd_)
+        self.expand_all = ttk.Button(self.ftoolbar, name="expand_all")
+        self.expand_all.configure(
             style="Toolbutton", takefocus=True, text=_("EA"), width=-2
         )
-        self.btn_expand.grid(column=1, row=0)
+        self.expand_all.grid(column=1, row=0)
 
-        def btn_expand_cmd_():
-            self.btn_clicked("btn_expand")
+        def expand_all_cmd_():
+            self.btn_expand_clicked("expand_all")
 
-        self.btn_expand.configure(command=btn_expand_cmd_)
-        self.btn_expandw = ttk.Button(self.ftoolbar, name="btn_expandw")
-        self.btn_expandw.configure(
+        self.expand_all.configure(command=expand_all_cmd_)
+        self.expand_width = ttk.Button(self.ftoolbar, name="expand_width")
+        self.expand_width.configure(
             style="Toolbutton", takefocus=True, text=_("EW"), width=-2
         )
-        self.btn_expandw.grid(column=2, row=0)
+        self.expand_width.grid(column=2, row=0)
 
-        def btn_expandw_cmd_():
-            self.btn_clicked("btn_expandw")
+        def expand_width_cmd_():
+            self.btn_expand_clicked("expand_width")
 
-        self.btn_expandw.configure(command=btn_expandw_cmd_)
-        self.btn_expandh = ttk.Button(self.ftoolbar, name="btn_expandh")
-        self.btn_expandh.configure(
+        self.expand_width.configure(command=expand_width_cmd_)
+        self.expand_height = ttk.Button(self.ftoolbar, name="expand_height")
+        self.expand_height.configure(
             style="Toolbutton", takefocus=True, text=_("EH"), width=-2
         )
-        self.btn_expandh.grid(column=3, row=0)
+        self.expand_height.grid(column=3, row=0)
 
-        def btn_expandh_cmd_():
-            self.btn_clicked("btn_expandh")
+        def expand_height_cmd_():
+            self.btn_expand_clicked("expand_height")
 
-        self.btn_expandh.configure(command=btn_expandh_cmd_)
+        self.expand_height.configure(command=expand_height_cmd_)
         self.ftoolbar.grid(column=0, row=0, sticky="ew")
         self.ftoolbar.columnconfigure("all", pad=2)
         self.fprop = ttk.Frame(self.sframe.innerframe, name="fprop")
@@ -93,7 +93,7 @@ class LayoutEditorUI(ttk.Frame):
         self.configure(height=500, padding=2, width=300)
         self.pack(expand=True, fill="both", side="top")
 
-    def btn_clicked(self, widget_id):
+    def btn_expand_clicked(self, widget_id):
         pass
 
 

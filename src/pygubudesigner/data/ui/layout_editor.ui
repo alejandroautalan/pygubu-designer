@@ -56,11 +56,11 @@
               <property type="col" id="all" name="pad">2</property>
             </containerlayout>
             <child>
-              <object class="ttk.Button" id="btn_center" named="True">
-                <property name="command" type="command" cbtype="with_wid">btn_clicked</property>
+              <object class="ttk.Button" id="expand_reset" named="True">
+                <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
-                <property name="text" translatable="yes">C</property>
+                <property name="text" translatable="yes">ER</property>
                 <property name="width">-2</property>
                 <layout manager="grid">
                   <property name="column">0</property>
@@ -69,8 +69,8 @@
               </object>
             </child>
             <child>
-              <object class="ttk.Button" id="btn_expand" named="True">
-                <property name="command" type="command" cbtype="with_wid">btn_clicked</property>
+              <object class="ttk.Button" id="expand_all" named="True">
+                <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EA</property>
@@ -82,8 +82,8 @@
               </object>
             </child>
             <child>
-              <object class="ttk.Button" id="btn_expandw" named="True">
-                <property name="command" type="command" cbtype="with_wid">btn_clicked</property>
+              <object class="ttk.Button" id="expand_width" named="True">
+                <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EW</property>
@@ -95,8 +95,8 @@
               </object>
             </child>
             <child>
-              <object class="ttk.Button" id="btn_expandh" named="True">
-                <property name="command" type="command" cbtype="with_wid">btn_clicked</property>
+              <object class="ttk.Button" id="expand_height" named="True">
+                <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EH</property>
