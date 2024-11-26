@@ -20,7 +20,7 @@
       <setting id="ttk_style_definition_file" />
     </settings>
     <customwidgets>
-      <customwidget path="../../services/widgets/treecomponentpalettebo.py" />
+      <customwidget path="../../services/builders/treecomponentpalettebo.py" />
       <customwidget path="../../services/builders/layout_editorbo.py" />
     </customwidgets>
   </project>

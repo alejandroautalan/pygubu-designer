@@ -136,7 +136,7 @@
       <setting id="main_classname">TreeComponentPalette</setting>
       <setting id="main_menu" />
       <setting id="output_dir">../../services/widgets</setting>
-      <setting id="output_dir2">../../services/widgets</setting>
+      <setting id="output_dir2">../../services/builders</setting>
       <setting id="import_tkvariables">False</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">True</setting>
