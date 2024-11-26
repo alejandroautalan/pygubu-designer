@@ -15,7 +15,7 @@
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">True</setting>
       <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">True</setting>
+      <setting id="generate_code_onsave">False</setting>
       <setting id="use_window_centering_code">False</setting>
       <setting id="ttk_style_definition_file" />
     </settings>
@@ -58,6 +58,7 @@
             <child>
               <object class="ttk.Button" id="expand_reset" named="True">
                 <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
+                <property name="image">arrows-minimize-24</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">ER</property>
@@ -71,6 +72,7 @@
             <child>
               <object class="ttk.Button" id="expand_all" named="True">
                 <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
+                <property name="image">arrows-maximize-24</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EA</property>
@@ -84,6 +86,7 @@
             <child>
               <object class="ttk.Button" id="expand_width" named="True">
                 <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
+                <property name="image">arrow-autofit-width-24</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EW</property>
@@ -97,6 +100,7 @@
             <child>
               <object class="ttk.Button" id="expand_height" named="True">
                 <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
+                <property name="image">arrow-autofit-height-24</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EH</property>

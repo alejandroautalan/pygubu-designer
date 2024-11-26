@@ -8,13 +8,31 @@ from pygubudesigner.properties.editors.propertyeditor import (
 )
 
 
+#
 # Begin i18n - Setup translator in derived class file
+#
 def i18n_noop(value):
     return value
 
 
 i18n_translator = i18n_noop
 # End i18n
+#
+# Begin image loader - Setup image_loader in derived class file
+#
+
+
+def default_image_loader(image_name):
+    img = None
+    try:
+        img = tk.PhotoImage(file=image_name)
+    except tk.TclError:
+        pass
+    return img
+
+
+image_loader = default_image_loader
+# End image loader
 
 #
 # Base class definition
@@ -30,8 +48,13 @@ class LayoutEditorUI(ttk.Frame):
         self.ftoolbar = ttk.Frame(self.sframe.innerframe, name="ftoolbar")
         self.ftoolbar.configure(height=200, padding="0 0 0 10", width=200)
         self.expand_reset = ttk.Button(self.ftoolbar, name="expand_reset")
+        self.img_arrowsminimize24 = image_loader("arrows-minimize-24")
         self.expand_reset.configure(
-            style="Toolbutton", takefocus=True, text=_("ER"), width=-2
+            image=self.img_arrowsminimize24,
+            style="Toolbutton",
+            takefocus=True,
+            text=_("ER"),
+            width=-2,
         )
         self.expand_reset.grid(column=0, row=0)
 
@@ -40,8 +63,13 @@ class LayoutEditorUI(ttk.Frame):
 
         self.expand_reset.configure(command=expand_reset_cmd_)
         self.expand_all = ttk.Button(self.ftoolbar, name="expand_all")
+        self.img_arrowsmaximize24 = image_loader("arrows-maximize-24")
         self.expand_all.configure(
-            style="Toolbutton", takefocus=True, text=_("EA"), width=-2
+            image=self.img_arrowsmaximize24,
+            style="Toolbutton",
+            takefocus=True,
+            text=_("EA"),
+            width=-2,
         )
         self.expand_all.grid(column=1, row=0)
 
@@ -50,8 +78,13 @@ class LayoutEditorUI(ttk.Frame):
 
         self.expand_all.configure(command=expand_all_cmd_)
         self.expand_width = ttk.Button(self.ftoolbar, name="expand_width")
+        self.img_arrowautofitwidth24 = image_loader("arrow-autofit-width-24")
         self.expand_width.configure(
-            style="Toolbutton", takefocus=True, text=_("EW"), width=-2
+            image=self.img_arrowautofitwidth24,
+            style="Toolbutton",
+            takefocus=True,
+            text=_("EW"),
+            width=-2,
         )
         self.expand_width.grid(column=2, row=0)
 
@@ -60,8 +93,13 @@ class LayoutEditorUI(ttk.Frame):
 
         self.expand_width.configure(command=expand_width_cmd_)
         self.expand_height = ttk.Button(self.ftoolbar, name="expand_height")
+        self.img_arrowautofitheight24 = image_loader("arrow-autofit-height-24")
         self.expand_height.configure(
-            style="Toolbutton", takefocus=True, text=_("EH"), width=-2
+            image=self.img_arrowautofitheight24,
+            style="Toolbutton",
+            takefocus=True,
+            text=_("EH"),
+            width=-2,
         )
         self.expand_height.grid(column=3, row=0)
 

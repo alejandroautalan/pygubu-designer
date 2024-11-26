@@ -7,6 +7,7 @@ from tkinter import messagebox
 
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
+from pygubu.stockimage import StockImage
 
 from pygubudesigner import properties
 from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
@@ -20,6 +21,16 @@ CLASS_MAP = builder.CLASS_MAP
 
 # i18n - Setup yout translator function
 baseui.i18n_translator = _
+
+#
+# image loader configuration
+
+
+def image_loader(image_name):
+    return StockImage.get(image_name)
+
+
+baseui.image_loader = image_loader
 
 #
 # Manual user code
