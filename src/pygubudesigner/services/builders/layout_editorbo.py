@@ -9,7 +9,7 @@ from pygubu.api.v1 import (
     BuilderObject,
     register_widget,
 )
-from layout_editor import LayoutEditor
+from pygubudesigner.services.widgets.layout_editor import LayoutEditor
 
 
 #

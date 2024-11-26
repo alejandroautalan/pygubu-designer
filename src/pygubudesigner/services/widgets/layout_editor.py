@@ -2,7 +2,6 @@
 import logging
 import tkinter as tk
 import tkinter.ttk as ttk
-import layout_editorui as baseui
 
 from tkinter import messagebox
 
@@ -14,6 +13,7 @@ from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
 from pygubudesigner.i18n import translator as _
 from pygubudesigner.properties.editors import LayoutManagerPropertyEditor
 from pygubudesigner.propertieseditor import PropertiesEditorMixin
+import pygubudesigner.services.widgets.layout_editorui as baseui
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
