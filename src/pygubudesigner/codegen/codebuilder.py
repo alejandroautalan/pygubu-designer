@@ -134,6 +134,9 @@ class UI2Code(Builder):
         code_callbacks = "\n".join(code_callbacks)
         code_methods = "\n".join(self._process_methods())
         code = "".join(code)
+
+        has_images = True if self._tkimages else False
+
         cc = {
             "imports": code_imports,
             target: code,
@@ -143,6 +146,7 @@ class UI2Code(Builder):
             "tkvariables": list(self._tkvariables.keys()),
             "tkvariablehints": self._tkvariablehints,
             "methods": code_methods,
+            "with_image_loader": has_images,
         }
         return cc
 
@@ -439,12 +443,12 @@ class UI2Code(Builder):
         code = []
         bsp = " "
         for target_id, mlines in self._methods.items():
-            line = f"{bsp*tab2}def create_{target_id}(self, master):"
+            line = f"{bsp * tab2}def create_{target_id}(self, master):"
             code.append(line)
             for line in mlines:
-                line = f"{bsp*tabspaces}{line}"
+                line = f"{bsp * tabspaces}{line}"
                 code.append(line)
-            line = f"{bsp*tabspaces}return {self._methods_target_code_ids[target_id]}"
+            line = f"{bsp * tabspaces}return {self._methods_target_code_ids[target_id]}"
             code.append(line)
         return code
 
@@ -497,11 +501,7 @@ class UI2Code(Builder):
             name, file_ext = os.path.splitext(basename)
             name = self._make_identifier(name)
             varname = f"self.img_{name}"
-
-            img_class = "tk.PhotoImage"
-            if file_ext in TK_BITMAP_FORMATS:
-                img_class = "tk.BitmapImage"
-            line = f'{varname} = {img_class}(file="{filename}")'
+            line = f'{varname} = image_loader("{filename}")'
             self._add_new_code([line])
             self._tkimages[filename] = varname
             self._import_tk = True

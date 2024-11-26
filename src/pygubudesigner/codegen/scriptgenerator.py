@@ -126,6 +126,7 @@ class ScriptGenerator:
         context["callbacks"] = code["callbacks"]
         context["methods"] = code["methods"]
         context["target_code_id"] = code["target_code_id"]
+        context["with_image_loader"] = code["with_image_loader"]
 
         bcontext = context.copy()
         bcontext["class_name"] = context["class_name"] + "UI"
@@ -160,6 +161,7 @@ class ScriptGenerator:
         context["widget_code"] = code[target]
         context["import_lines"] = code["imports"]
         context["callbacks"] = code["callbacks"]
+        context["with_image_loader"] = code["with_image_loader"]
 
         bcontext = context.copy()
         bcontext["class_name"] = context["class_name"] + "UI"
