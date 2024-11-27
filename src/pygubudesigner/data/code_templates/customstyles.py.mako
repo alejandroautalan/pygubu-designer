@@ -13,11 +13,11 @@ module that you need.
 
 == In Pygubu Designer
 
-Pygubu Designer will need to know which style definition file 
+Pygubu Designer will need to know which style definition file
 you wish to use in your project.
 
 To specify a style definition file in Pygubu Designer:
-Go to: Edit -> Preferences -> Ttk Styles -> Browse (button)
+Go to: Project -> Settings -> Styles -> Browse (button)
 
 Assuming that you have specified a style definition file,
 - Use the 'style' combobox drop-down menu in Pygubu Designer
