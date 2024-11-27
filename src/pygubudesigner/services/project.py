@@ -81,8 +81,23 @@ class Project:
         return settings
 
     def set_full_settings(self, new_settings: dict):
+        self._process_new_settings(new_settings)
         self.custom_widgets = new_settings.pop("custom_widgets", [])
         self.settings = new_settings
+
+    def _process_new_settings(self, new_settings: dict):
+        # reload ttk styles definition file:
+        key = "ttk_style_definition_file"
+        old_file = self.settings.get(key, None)
+        new_file = new_settings.get(key, None)
+        if old_file != new_file:
+            StyleHandler.clear_definition_file()
+            if new_file:
+                theme_path: pathlib.Path = self.fpath.parent / new_file
+                if theme_path.exists() and theme_path.is_file():
+                    # Load definitions file.
+                    StyleHandler.set_definition_file(theme_path)
+                    logger.debug("New ttk style definition file loaded.")
 
     def load_custom_widgets(self):
         uidir = pathlib.Path(self.fpath).parent.resolve()
