@@ -1188,43 +1188,53 @@ class WidgetsTreeEditor:
         if full_redraw:
             # Needs full redraw.
             self.draw_widget(item)
-        else:
-            if self.update_builder is None:
-                self.update_builder = Builder()
-            # Maybe just needs update.
-            preview_id = self.get_toplevel_parent(item)
+            return
 
-            widget_id = data.identifier
-            bclass = data.classname
-            widget = self.previewer.preview_for_widget(preview_id, widget_id)
-            if bclass not in self.update_bo:
-                bo_class = PluginManager.get_preview_builder_for(bclass)
-                bo_class = (
-                    CLASS_MAP[bclass].builder if bo_class is None else bo_class
-                )
-                self.update_bo[bclass] = bo_class(self.update_builder, data)
-            wbuilder = self.update_bo[bclass]
-            # Use copy here because preview builders can change data for preview
-            meta_copy = WidgetMeta(bclass, widget_id)
-            meta_copy.copy_properties(data)
-            wbuilder.wmeta = meta_copy
-            wbuilder.widget = widget
+        preview_id = self.get_toplevel_parent(item)
+        if (
+            hint & WidgetMeta.PROPERTY_DATA_CHANGED
+            and hint & WidgetMeta.PROPERTY_ID_CHANGED
+        ):
+            old_id = data.old_data["id"]
+            new_id = data.identifier
+            self.previewer.rename_preview_widget(preview_id, old_id, new_id)
+            return
 
-            if hint & WidgetMeta.PROPERTY_CHANGED:
-                wbuilder.configure()
-            if hint & WidgetMeta.LAYOUT_PROPERTY_CHANGED:
-                reset_layout = hint & WidgetMeta.PROPERTY_BLANKED
-                wbuilder.layout(forget=reset_layout)
+        if self.update_builder is None:
+            self.update_builder = Builder()
 
-                # FIXME: When propagate property is changed
-                # calculations are not correct unless a property
-                # is reconfigured ?
-                wbuilder.configure()
-            if hint & WidgetMeta.BINDING_CHANGED:
-                # Do nothing now
-                pass
-            self.previewer.update_preview_bbox(preview_id)
-            self.previewer.show_selected(preview_id, widget_id)
+        # Maybe just needs update.
+        widget_id = data.identifier
+        bclass = data.classname
+        widget = self.previewer.preview_for_widget(preview_id, widget_id)
+        if bclass not in self.update_bo:
+            bo_class = PluginManager.get_preview_builder_for(bclass)
+            bo_class = (
+                CLASS_MAP[bclass].builder if bo_class is None else bo_class
+            )
+            self.update_bo[bclass] = bo_class(self.update_builder, data)
+        wbuilder = self.update_bo[bclass]
+        # Use copy here because preview builders can change data for preview
+        meta_copy = WidgetMeta(bclass, widget_id)
+        meta_copy.copy_properties(data)
+        wbuilder.wmeta = meta_copy
+        wbuilder.widget = widget
+
+        if hint & WidgetMeta.PROPERTY_CHANGED:
+            wbuilder.configure()
+        if hint & WidgetMeta.LAYOUT_PROPERTY_CHANGED:
+            reset_layout = hint & WidgetMeta.PROPERTY_BLANKED
+            wbuilder.layout(forget=reset_layout)
+
+            # FIXME: When propagate property is changed
+            # calculations are not correct unless a property
+            # is reconfigured ?
+            wbuilder.configure()
+        if hint & WidgetMeta.BINDING_CHANGED:
+            # Do nothing now
+            pass
+        self.previewer.update_preview_bbox(preview_id)
+        self.previewer.show_selected(preview_id, widget_id)
 
     def update_event(self, hint, data):
         """Manages notify event when data is changed."""

@@ -38,6 +38,8 @@ class WidgetMeta(WidgetMetaBase, Observable):
     PROPERTY_RO_CHANGED = 8
     BINDING_CHANGED = 16
     PROPERTY_BLANKED = 32  # Will use this when a property is unset.
+    PROPERTY_DATA_CHANGED = 64
+    PROPERTY_ID_CHANGED = 128
 
     def __init__(
         self,
@@ -52,6 +54,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
         )
         self.start_id = None
         self.start_named = None
+        self.old_data = {}
 
     @WidgetMetaBase.identifier.setter
     def identifier(self, value: str):
@@ -84,11 +87,15 @@ class WidgetMeta(WidgetMetaBase, Observable):
             event_type = self.PROPERTY_CHANGED
             # Setter
             if name == "id":
+                event_type = self.PROPERTY_DATA_CHANGED
+                self.old_data[name] = self.identifier
                 self.identifier = value
-                event_type = event_type | self.PROPERTY_RO_CHANGED
+                event_type = event_type | self.PROPERTY_ID_CHANGED
             elif name == "class":
+                event_type = self.PROPERTY_DATA_CHANGED
+                self.old_data[name] = self.classname
                 self.classname = value
-                event_type = event_type | self.PROPERTY_RO_CHANGED
+                # event_type = event_type | self.PROPERTY_DATA_CHANGED
             else:
                 if value:
                     self.properties[name] = value

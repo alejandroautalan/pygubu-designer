@@ -303,6 +303,12 @@ class PreviewHelper:
             return widget
         return None
 
+    def rename_preview_widget(self, preview_id, widget_id, new_widget_id):
+        """Rename widget without full redraw."""
+        if preview_id in self.previews:
+            preview = self.previews[preview_id]
+            preview.rename_widget(widget_id, new_widget_id)
+
     def update_preview_bbox(self, preview_id):
         """Updates the preview to the requested size of
         the widget inside."""

@@ -181,6 +181,11 @@ class Preview:
         widget = self.builder.get_object(widget_id, parent)
         return widget
 
+    def rename_widget(self, widget_id, new_widget_id):
+        bo = self.builder.objects[widget_id]
+        self.builder.objects[new_widget_id] = bo
+        del self.builder.objects[widget_id]
+
     def get_widget_by_id(self, widget_id):
         return self.builder.get_object(widget_id)
 
