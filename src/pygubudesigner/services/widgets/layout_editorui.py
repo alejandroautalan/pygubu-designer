@@ -2,7 +2,9 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.widgets.scrolledframe import ScrolledFrame
-from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
+from pygubudesigner.services.widgets.containerlayouteditor import (
+    ContainerLayoutEditor,
+)
 from pygubudesigner.properties.editors.propertyeditor import (
     LayoutManagerPropertyEditor,
 )

@@ -2,7 +2,9 @@ from pygubu.api.v1 import (
     BuilderObject,
     register_widget,
 )
-from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
+from pygubudesigner.services.widgets.containerlayouteditor import (
+    ContainerLayoutEditor,
+)
 
 
 class ContainerLayoutEditorBO(BuilderObject):

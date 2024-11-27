@@ -20,7 +20,7 @@ from pygubu.widgets.simpletooltip import create as create_tooltip
 
 from pygubudesigner import properties
 from pygubudesigner.widgetdescr import WidgetMeta
-from pygubudesigner.widgets.containerlayouteditorbase import (
+from pygubudesigner.services.widgets.containerlayouteditorbase import (
     ContainerLayoutEditorBase,
 )
 from pygubudesigner.widgets.gridselector import GridRCselectorWidget

@@ -10,9 +10,7 @@ from pygubu.widgets.simpletooltip import create as create_tooltip
 from pygubu.stockimage import StockImage
 
 from pygubudesigner import properties
-from pygubudesigner.containerlayouteditor import ContainerLayoutEditor
 from pygubudesigner.i18n import translator as _
-from pygubudesigner.properties.editors import LayoutManagerPropertyEditor
 from pygubudesigner.propertieseditor import PropertiesEditorMixin
 import pygubudesigner.services.widgets.layout_editorui as baseui
 
@@ -80,18 +78,11 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         """Populate a frame with a list of all editable properties"""
 
         # Layout selector
-        # label = ttk.Label(in_frame, text=_("Manager:"))
-        # label.grid(row=0, column=0, sticky=tk.EW, pady=2)
-        # self.layout_selector = combo = LayoutManagerPropertyEditor(in_frame)
         self.layout_selector.parameters(state="readonly", values=self.managers)
-        # combo.grid(row=0, column=1, sticky=tk.EW, pady=2)
         self.layout_selector.bind(
             "<<PropertyChanged>>", self._layout_manager_changed
         )
         self._allowed_managers = self.managers.keys()
-        # Separator
-        # w = ttk.Separator(in_frame, orient="horizontal")
-        # w.grid(row=1, column=0, columnspan=2, sticky="ew", pady=4)
 
         # Other Layout properties
         label_tpl = "{0}:"
