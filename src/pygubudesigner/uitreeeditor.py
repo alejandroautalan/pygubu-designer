@@ -470,7 +470,7 @@ class WidgetsTreeEditor:
         def on_filtervar_changed(varname, element, mode):
             self.treeview.filter_by(self.filtervar.get())
 
-        self.filtervar.trace("w", on_filtervar_changed)
+        self.filtervar.trace_add("write", on_filtervar_changed)
 
         def on_filterbtn_click():
             self.filtervar.set("")
