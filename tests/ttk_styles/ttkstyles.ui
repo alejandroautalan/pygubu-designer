@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.40">
+  <project>
+    <settings>
+      <setting id="name">ttk Styles demo</setting>
+      <setting id="description">Mini demo to test ttk styles file.</setting>
+      <setting id="module_name">demoapp</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">tk1</setting>
+      <setting id="main_classname">DemoApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">True</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="tk1">
+    <property name="geometry">320x240</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">True</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Button" id="button1">
+            <property name="style">MyColored.TButton</property>
+            <property name="text" translatable="yes">Colored Button</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
