@@ -23,5 +23,9 @@ class LayoutEditorBO(BuilderObject):
 
 _builder_id = "projectcustom.LayoutEditor"
 register_widget(
-    _builder_id, LayoutEditorBO, "LayoutEditor", ("ttk", "Project Widgets")
+    _builder_id,
+    LayoutEditorBO,
+    "LayoutEditor",
+    ("ttk", "Project Widgets"),
+    public=False,
 )
