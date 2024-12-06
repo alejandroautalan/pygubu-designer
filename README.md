@@ -26,6 +26,29 @@ pip install pygubu-designer
 ```
 yay pygubu-designer
 ```
+### Notes for Windows Users:
+
+If your Python installation directory contains spaces (e.g., `C:\Program Files\Python312`), you may encounter errors. Use one of the following solutions:
+
+1. Use quotation marks when running commands:
+
+```
+
+"C:\Program Files\Python312\Scripts\pygubu-designer.exe"
+```
+
+2. Add Python to your system's PATH:
+- Open **System Properties** > **Environment Variables**.
+- Under **System Variables**, select `Path` > **Edit**.
+- Add the path to your Python installation (e.g., `C:\Program Files\Python312`).
+
+3. Use the short pathname format for directories with spaces:
+
+
+```
+
+C:\PROGRA~1\Python312\Scripts\pygubu-designer.exe
+```
 
 Screenshot
 ==========
