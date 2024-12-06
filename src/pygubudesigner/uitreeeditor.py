@@ -40,6 +40,7 @@ from .bindingseditor import BindingsEditor
 from .i18n import translator as _
 from .propertieseditor import PropertiesEditor
 from .util import trlog
+from .util.taskexecutor import TaskExecutor
 from .widgetdescr import WidgetMeta
 from pygubu.forms.widget import FieldWidget
 from pygubudesigner.properties.editors.forms import (
@@ -63,6 +64,7 @@ class WidgetsTreeEditor:
         self.app = app
         self.treeview = app.treeview
         self.previewer = app.previewer
+        self.task_executor = TaskExecutor(app.mainwindow)
         self.treedata = {}
         self.counter = Counter()
         self.virtual_clipboard_for_duplicate = None
@@ -72,7 +74,7 @@ class WidgetsTreeEditor:
         self.update_bo = {}
         self.preview_update_cbid = None
         self.scheduled_widget_updates = []
-        self._stretch_cb = None
+        # self._stretch_cb = None
         self.treeview.bind("<Configure>", self._on_tree_configure)
 
         self.treeview.filter_func = self.filter_match
@@ -185,10 +187,10 @@ class WidgetsTreeEditor:
             action.TREE_ITEM_PREVIEW_TOPLEVEL, self.on_preview_in_toplevel
         )
 
+        self.task_executor.start_processing()
+
     def _on_tree_configure(self, event):
-        if self._stretch_cb is not None:
-            self.treeview.after_cancel(self._stretch_cb)
-        self._stretch_cb = self.treeview.after(350, self._stretch_main_column)
+        self.task_executor.add(self._stretch_main_column)
 
     def _stretch_main_column(self):
         w = self.treeview.winfo_width()
@@ -580,10 +582,10 @@ class WidgetsTreeEditor:
         # Set final item focused
         if final_focus:
             selected_id = self.treedata[final_focus].identifier
-            tv.after_idle(lambda: tv.selection_set(final_focus))
-            tv.after_idle(lambda: tv.focus(final_focus))
-            tv.after_idle(lambda: tv.see(final_focus))
-            tv.after_idle(
+            self.task_executor.add(lambda: tv.selection_set(final_focus))
+            self.task_executor.add(lambda: tv.focus(final_focus))
+            self.task_executor.add(lambda: tv.see(final_focus))
+            self.task_executor.add(
                 lambda i=final_focus, s=selected_id: self.previewer.show_selected(
                     i, s
                 )
@@ -910,13 +912,13 @@ class WidgetsTreeEditor:
         if children_of_parent:
             # Select the last (latest) child so the user can see where the last
             # pasted item is.
-            self.treeview.after_idle(
+            self.task_executor.add(
                 lambda: self.treeview.selection_set(children_of_parent[-1])
             )
-            self.treeview.after_idle(
+            self.task_executor.add(
                 lambda: self.treeview.focus(children_of_parent[-1])
             )
-            self.treeview.after_idle(
+            self.task_executor.add(
                 lambda: self.treeview.see(children_of_parent[-1])
             )
 
@@ -991,9 +993,12 @@ class WidgetsTreeEditor:
         self.draw_widget(item)
 
         # Select and show the item created
-        tree.after_idle(lambda: tree.selection_set(item))
-        tree.after_idle(lambda: tree.focus(item))
-        tree.after_idle(lambda: tree.see(item))
+        # tree.after_idle(lambda: tree.selection_set(item))
+        # tree.after_idle(lambda: tree.focus(item))
+        # tree.after_idle(lambda: tree.see(item))
+        self.task_executor.add(lambda: tree.selection_set(item))
+        self.task_executor.add(lambda: tree.focus(item))
+        self.task_executor.add(lambda: tree.see(item))
 
     def remove_all(self):
         self.treedata = {}
@@ -1459,9 +1464,9 @@ class WidgetsTreeEditor:
             tree = self.treeview
             self.treeview.filter_remove()
             self.treeview.expand_to(found)
-            tree.after_idle(lambda: tree.selection_set(found))
-            tree.after_idle(lambda: tree.focus(found))
-            tree.after_idle(lambda: tree.see(found))
+            self.task_executor.add(lambda: tree.selection_set(found))
+            self.task_executor.add(lambda: tree.focus(found))
+            self.task_executor.add(lambda: tree.see(found))
 
     def is_id_unique(self, idvalue) -> bool:
         "Check if idvalue is unique in all UI tree."
