@@ -38,6 +38,9 @@ tooltip_help = {
     "background-ttk": _(
         "The widget's background color. If unspecified, the theme default is used."
     ),
+    "backgroundimage": _(
+        "This specifies an image to display on the frame's background within the border of the frame."
+    ),
     "borderwidth": _(
         "Specifies a non-negative value indicating the width of the 3-D border to draw around the outside of the widget."
     ),
@@ -248,6 +251,12 @@ tooltip_help = {
     "pady": _(
         "Specifies a non-negative value indicating how much extra space to request for the widget in the Y-direction."
     ),
+    "placeholder": _(
+        "Specifies a help text string to display if no text is otherwise displayed, that is when the widget is empty."
+    ),
+    "placeholderforeground": _(
+        "Specifies the foreground color of the placeholder text."
+    ),
     "postcommand": _(
         "In pygubu-designer, a python function name used as the callback for the widget postcommand property. The function is executed immediately before displaying the listbox. The postcommand callback may specify the values to display."
     ),
@@ -357,6 +366,7 @@ tooltip_help = {
     "textvariable": _(
         "Specifies the name of a variable whose value will be used in place of the text resource."
     ),
+    "tile": _("This specifies how to draw the background image on the frame."),
     "tickinterval": _(
         "Must be a real value. Determines the spacing between numerical tick marks displayed below or to the left of the slider."
     ),

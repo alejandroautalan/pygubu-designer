@@ -291,6 +291,7 @@ PROPERTY_DEFINITIONS = {
     "backgroundimage": {
         "editor": "dynamic",
         "params": {"mode": "imageentry"},
+        "help": help_for("backgroundimage"),
     },
     "baseName": {
         "editor": "dynamic",
@@ -893,6 +894,16 @@ PROPERTY_DEFINITIONS = {
         "params": {"mode": "dimensionentry"},
         "help": help_for("pady"),
     },
+    "placeholder": {
+        "editor": "dynamic",
+        "params": {"mode": "entry"},
+        "help": help_for("placeholder"),
+    },
+    "placeholderforeground": {
+        "editor": "dynamic",
+        "params": {"mode": "colorentry"},
+        "help": help_for("placeholderforeground"),
+    },
     # ttk.Checkbutton
     "postcommand": {
         "editor": "dynamic",
@@ -1301,10 +1312,10 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {
             "mode": "choice",
-            "values": ("true", "false"),
+            "values": ("", "true", "false"),
             "state": "readonly",
         },
-        "default": "false",
+        "help": help_for("tile"),
     },
     "title": {
         "editor": "dynamic",
