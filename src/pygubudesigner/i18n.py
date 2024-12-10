@@ -42,7 +42,7 @@ DEFAULT_LANGUAGES = os.environ.get("LANG", "").split(":")
 
 # Try to get the languages from the default locale
 languages = []
-lc, encoding = locale.getdefaultlocale()
+lc, encoding = locale.getlocale()
 if lc:
     languages = [lc]
 
