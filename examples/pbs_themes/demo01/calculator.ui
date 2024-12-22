@@ -1,0 +1,382 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.40">
+  <project>
+    <settings>
+      <setting id="name">Calculator UI</setting>
+      <setting id="description">Calculator ui using pygubu bootstrap theme.
+
+It's just the UI for example purpose.</setting>
+      <setting id="module_name">demoapp</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">tk1</setting>
+      <setting id="main_classname">CalculatorApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="tk1">
+    <property name="geometry">250x350</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Calculator UI</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">4</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">True</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="frame2">
+            <property name="height">200</property>
+            <property name="padding">2</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">True</property>
+              <property name="fill">x</property>
+              <property name="pady">20</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="lbl_display" named="True">
+                <property name="font">{Mono} 14 {}</property>
+                <property name="text" translatable="yes">3.141516</property>
+                <layout manager="pack">
+                  <property name="anchor">e</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame3">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <containerlayout manager="grid">
+              <property type="col" id="all" name="weight">1</property>
+              <property type="row" id="all" name="weight">1</property>
+            </containerlayout>
+            <child>
+              <object class="ttk.Button" id="btn_perc" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">%</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_7" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">7</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">1</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_4" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">4</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_1" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">1</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">3</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_psign" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">±</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">4</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_c" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">C</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_8" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">8</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">1</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_5" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">5</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_2" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">2</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">3</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_0" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">0</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">4</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_ce" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">CE</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_9" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">9</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">1</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_6" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">6</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_3" named="True">
+                <property name="padding">10</property>
+                <property name="style">primary.TButton</property>
+                <property name="text" translatable="yes">3</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">3</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_coma" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">,</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">4</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_div" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">/</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">3</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">0</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_mul" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">*</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">3</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">1</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_minus" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">-</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">3</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_plus" named="True">
+                <property name="padding">10</property>
+                <property name="style">secondary.TButton</property>
+                <property name="text" translatable="yes">+</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">3</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">3</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_eq" named="True">
+                <property name="padding">10</property>
+                <property name="style">success.TButton</property>
+                <property name="text" translatable="yes">=</property>
+                <property name="width">2</property>
+                <layout manager="grid">
+                  <property name="column">3</property>
+                  <property name="padx">1</property>
+                  <property name="pady">1</property>
+                  <property name="row">4</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
