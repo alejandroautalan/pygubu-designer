@@ -525,7 +525,7 @@ class WidgetsTreeEditor:
         else:
             logger.warning(_("No item selected."))
 
-    def on_treeview_double_click(self, event):
+    def on_treeview_double_click(self, event=None):
         tv = self.treeview
         sel = tv.selection()
         # toplevel_items = tv.get_children()

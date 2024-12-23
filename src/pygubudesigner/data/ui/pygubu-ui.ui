@@ -285,6 +285,15 @@
       </object>
     </child>
     <child>
+      <object class="tk.Menuitem.Separator" id="separator3" />
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_update_preview" named="True">
+        <property name="command" type="command" cbtype="simple">on_context_menu_update_preview</property>
+        <property name="label" translatable="yes">Update preview</property>
+      </object>
+    </child>
+    <child>
       <object class="tk.Menuitem.Separator" id="sep_context" />
     </child>
     <child>

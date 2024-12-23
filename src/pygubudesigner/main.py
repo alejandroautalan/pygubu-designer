@@ -785,6 +785,12 @@ proc ::tk::dialog::file::Create {w class} {
     def on_right_click_object_tree(self, event):
         self.show_context_menu(event)
 
+    def on_context_menu_update_preview(self):
+        """
+        Request a full redraw of preview
+        """
+        self.tree_editor.on_treeview_double_click()
+
     def on_context_menu_go_to_parent_clicked(self):
         """
         Go to parent was clicked from the context menu.
