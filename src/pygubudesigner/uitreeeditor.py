@@ -1234,10 +1234,14 @@ class WidgetsTreeEditor:
         wbuilder.wmeta = meta_copy
         wbuilder.widget = widget
 
+        property_was_blanked = hint & WidgetMeta.PROPERTY_BLANKED
+
         if hint & WidgetMeta.PROPERTY_CHANGED:
             wbuilder.configure()
+            if property_was_blanked:
+                wbuilder.unset_property(data.prop_blanked)
         if hint & WidgetMeta.LAYOUT_PROPERTY_CHANGED:
-            reset_layout = hint & WidgetMeta.PROPERTY_BLANKED
+            reset_layout = property_was_blanked
             wbuilder.layout(forget=reset_layout)
 
             # FIXME: When propagate property is changed

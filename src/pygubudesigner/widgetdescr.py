@@ -55,6 +55,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
         self.start_id = None
         self.start_named = None
         self.old_data = {}
+        self.prop_blanked = None  # store the last blanked property
 
     @WidgetMetaBase.identifier.setter
     def identifier(self, value: str):
@@ -103,6 +104,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
                     # remove if no value set
                     event_type = event_type | self.PROPERTY_BLANKED
                     self.properties.pop(name, None)
+                    self.prop_blanked = name
                 builder = CLASS_MAP[self.classname].builder
                 if name in builder.ro_properties:
                     event_type = event_type | self.PROPERTY_RO_CHANGED
