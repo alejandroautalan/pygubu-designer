@@ -789,7 +789,7 @@ proc ::tk::dialog::file::Create {w class} {
         """
         Request a full redraw of preview
         """
-        self.tree_editor.on_treeview_double_click()
+        self.tree_editor.on_user_request_redraw()
 
     def on_context_menu_go_to_parent_clicked(self):
         """

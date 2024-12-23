@@ -1164,6 +1164,15 @@ class WidgetsTreeEditor:
         # whether it makes sense to have some menus enabled or not.
         self.app.evaluate_menu_states()
 
+    def on_user_request_redraw(self, event=None):
+        tv = self.treeview
+        sel = tv.selection()
+        # toplevel_items = tv.get_children()
+        if sel:
+            item = sel[0]
+            top_item = self.get_toplevel_parent(item)
+            self.draw_widget(top_item)
+
     def update_tree_data_display(self, item, data):
         """Updates tree colums when itemdata is changed."""
         tree = self.treeview
