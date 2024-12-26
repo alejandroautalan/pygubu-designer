@@ -100,10 +100,6 @@ Theming notes:
 =============
 
 resources
-  - image (name, filename, format, data)
-  - named font
-  - OptionDatabaseGroup
-    OptionDatabase (pattern, value, priority, type?(string, image, color, dimension))
   Theme:
     properties: name, parent
     children: list of styles
@@ -132,57 +128,6 @@ LayoutElement Editor (layoutspect)
 The standard Tk <<Cut>>, <<Copy>>, <<Paste>>, and <<Clear>>
 
 Increase version to sync with pypi.
-
-tk 8.7
-======
-
-WIDGET STANDARD OPTIONS  http://www.tcl.tk/man/tcl8.7/TkCmd/options.htm
-
-    -activebackground, activeBackground, Foreground
-    -activeborderwidth, activeBorderWidth, BorderWidth
-    -activeforeground, activeForeground, Background
-    -activerelief, activeRelief, Relief
-    -anchor, anchor, Anchor
-    -background or -bg, background, Background
-    -bitmap, bitmap, Bitmap
-    -borderwidth or -bd, borderWidth, BorderWidth
-    -cursor, cursor, Cursor
-    -compound, compound, Compound
-    -disabledforeground, disabledForeground, DisabledForeground
-    -exportselection, exportSelection, ExportSelection
-    -font, font, Font
-    -foreground or -fg, foreground, Foreground
-    -highlightbackground, highlightBackground, HighlightBackground
-    -highlightcolor, highlightColor, HighlightColor
-    -highlightthickness, highlightThickness, HighlightThickness
-    -image, image, Image
-    -insertbackground, insertBackground, Foreground
-    -insertborderwidth, insertBorderWidth, BorderWidth
-    -insertofftime, insertOffTime, OffTime
-    -insertontime, insertOnTime, OnTime
-    -insertwidth, insertWidth, InsertWidth
-    -jump, jump, Jump
-    -justify, justify, Justify
-    -orient, orient, Orient
-    -padx, padX, Pad
-    -pady, padY, Pad
-    -placeholder, placeHolder, PlaceHolder
-    -placeholderforeground, placeholderForeground, PlaceholderForeground
-    -relief, relief, Relief
-    -repeatdelay, repeatDelay, RepeatDelay
-    -repeatinterval, repeatInterval, RepeatInterval
-    -selectbackground, selectBackground, Foreground
-    -selectborderwidth, selectBorderWidth, BorderWidth
-    -selectforeground, selectForeground, Background
-    -setgrid, setGrid, SetGrid
-    -takefocus, takeFocus, TakeFocus
-    -text, text, Text
-    -textvariable, textVariable, Variable
-    -troughcolor, troughColor, Background
-    -underline, underline, Underline
-    -wraplength, wrapLength, WrapLength
-    -xscrollcommand, xScrollCommand, ScrollCommand
-    -yscrollcommand, yScrollCommand, ScrollCommand
 
 
 Default ttk theme on linux
