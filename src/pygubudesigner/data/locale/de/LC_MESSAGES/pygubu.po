@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-18 00:13+0800\n"
+"POT-Creation-Date: 2025-01-14 23:18-0300\n"
 "PO-Revision-Date: 2020-05-25 22:24-0300\n"
 "Last-Translator: Benjamin Weis <benjamin.weis@gmx.com>\n"
 "Language-Team: \n"
@@ -79,75 +79,75 @@ msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:107
 msgid ""
-"font size to progressbar width ratio, e.g. for a progressbar size 100 "
-"pixels, a 0.1 ratio means font size 10"
+"font size to progressbar width ratio,e.g. for a progressbar size 100 pixels, "
+"a 0.1 ratio means font size 10"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:122
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:127
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:123
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:128
 msgid "horizontal scrollbar width"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:136
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:137
 msgid "use horizontal scrollbar"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:143
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:144
 msgid "include horizontal scrollbar"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:149
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:150
 msgid "indicator ring background \"fill color\""
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:152
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:153
 msgid "check mark color"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:157
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:158
 msgid "indicator outline / ring color"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:162
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:163
 msgid "indicator image for progressbar"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:168
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:169
 msgid ""
 "maximum characters allowed in Text widget, text will be truncated from the "
 "beginning to match the max chars"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:174
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:176
 msgid "color of parent container"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:179
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:181
 msgid "milliseconds"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:184
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:186
 msgid "color of scrollbars' trough, default to frame's background"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:189
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:191
 msgid "color of scrollbars' slider"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:201
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:203
 msgid "percentage text color"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:211
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:213
 msgid "use vertical scrollbar"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:218
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:220
 msgid "include vertical scrollbar"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:225
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:230
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:227
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:232
 msgid "vertical scrollbar width"
 msgstr ""
 
@@ -218,39 +218,43 @@ msgid ""
 "The default value is True."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:44
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:45
 msgid "Dialog option. Sets initial directory."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:45
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:46
 msgid "Dialog option. Sets dialog title."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:46
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:47
 msgid "Dialog option. Sets default file extension."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:110
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:116
 msgid "Image for the button."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:176
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:182
 msgid "Initial path value."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:210
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:216
 msgid "Path entry state."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:227
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:235
+msgid "Tk variable whose value will be used in place of the text resource."
+msgstr ""
+
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:241
 msgid "Tk variable associated to the path property."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:236
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:251
 msgid "Dialog type"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:250
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:265
 msgid "The weight value of the widget in the pane"
 msgstr ""
 
@@ -263,58 +267,58 @@ msgid "Pygubu Widgets"
 msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/pygubu/__init__.py:7
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1414
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1459
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1504
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:501
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:567
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:669
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1417
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1462
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1507
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:518
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:584
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:686
 msgid "Pygubu Helpers"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:72
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:15
 msgid "intinitially displayed year, default is current year."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:77
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:20
 msgid "initially displayed month, default is current month."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:86
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:29
 msgid "first day of the week"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:92
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:35
 msgid "minimum allowed date (string with format yyyy-mm-dd)"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:97
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:40
 msgid "maximum allowed date (string with format yyyy-mm-dd)"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:105
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:48
 msgid "whether to display week numbers"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:115
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:58
 msgid ""
 "whether to display the last days of the previous month and the first of the "
 "next month."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:132
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:75
 msgid "date pattern used to format the date as a string."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:143
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:86
 msgid "connect the currently selected date to the variable."
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:175
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:118
 msgid "tooltip opacity between 0 and 1"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:181
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:124
 msgid "delay in ms before displaying the tooltip"
 msgstr ""
 
@@ -328,6 +332,10 @@ msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/tkintertable/__init__.py:7
 msgid "tkintertable"
+msgstr ""
+
+#: ../pygubu/src/pygubu/plugins/tkinterweb/designer/properties.py:33
+msgid "Show debugging messages on console output."
 msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/tkinterweb/__init__.py:6
@@ -352,23 +360,23 @@ msgstr ""
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:780
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:856
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:898
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1519
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:69
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:89
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:112
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:136
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:177
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:193
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:204
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:230
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:252
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:274
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:289
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:369
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:478
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:709
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:745
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:774
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1522
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:74
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:94
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:117
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:141
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:172
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:213
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:229
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:240
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:269
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:291
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:306
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:386
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:495
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:730
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:769
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:798
 msgid "Control & Display"
 msgstr ""
 
@@ -381,22 +389,22 @@ msgstr ""
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:150
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:220
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:613
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:43
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:307
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:48
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:324
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:338
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:341
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:355
 msgid "Containers"
 msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:670
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:956
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1310
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1323
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1347
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1370
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1388
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1504
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:368
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1313
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1326
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1350
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1373
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1391
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1507
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:385
 msgid "Menu"
 msgstr ""
 
@@ -488,21 +496,21 @@ msgid ""
 "bool, italic: bool, underline: bool)"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:197
+#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:198
 msgid ""
 "name of the callback function with arguments: (bold: bool, italic: bool, "
 "underline: bool, overstrike: bool)"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:207
+#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:209
 msgid "Show/hide Header label"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:213
+#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:215
 msgid "size of the font on the buttons"
 msgstr ""
 
-#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:257
+#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:259
 msgid "name of the callback function on click with single argument: size: int"
 msgstr ""
 

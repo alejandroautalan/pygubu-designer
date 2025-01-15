@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-18 00:13+0800\n"
+"POT-Creation-Date: 2025-01-14 23:18-0300\n"
 "PO-Revision-Date: 2024-08-18 00:23+0800\n"
 "Last-Translator: larryw3i <larryw3i@163.com>\n"
 "Language-Team: Chinese - China <larryw3i@163.com>\n"
@@ -78,78 +78,79 @@ msgid "tkinter font for percentage text"
 msgstr "百分比文本的 tkinter 字体"
 
 #: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:107
+#, fuzzy
 msgid ""
-"font size to progressbar width ratio, e.g. for a progressbar size 100 "
-"pixels, a 0.1 ratio means font size 10"
+"font size to progressbar width ratio,e.g. for a progressbar size 100 pixels, "
+"a 0.1 ratio means font size 10"
 msgstr ""
 "文本尺寸相对于进度条宽的比例，例如：给进度条尺寸100个像素，当此处值为 0.1 时"
 "字体大小为 10。"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:122
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:127
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:123
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:128
 msgid "horizontal scrollbar width"
 msgstr "横向滚动条的宽"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:136
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:137
 msgid "use horizontal scrollbar"
 msgstr "使用横向滚动条"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:143
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:144
 msgid "include horizontal scrollbar"
 msgstr "包括横向滚动条"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:149
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:150
 msgid "indicator ring background \"fill color\""
 msgstr "指示环的背景填充色"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:152
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:153
 msgid "check mark color"
 msgstr "检查标记颜色"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:157
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:158
 msgid "indicator outline / ring color"
 msgstr "指示轮廓/环的颜色"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:162
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:163
 msgid "indicator image for progressbar"
 msgstr "进度条的指示图片"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:168
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:169
 msgid ""
 "maximum characters allowed in Text widget, text will be truncated from the "
 "beginning to match the max chars"
 msgstr "控件内文本（字符）的最大数量，超过指定数量的文本会被切出"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:174
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:176
 msgid "color of parent container"
 msgstr "父容器的颜色"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:179
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:181
 msgid "milliseconds"
 msgstr "毫秒"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:184
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:186
 msgid "color of scrollbars' trough, default to frame's background"
 msgstr "滚动条内部的颜色，默认是 frame 的背景颜色"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:189
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:191
 msgid "color of scrollbars' slider"
 msgstr "滚动条的颜色"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:201
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:203
 msgid "percentage text color"
 msgstr "百分比文本颜色"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:211
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:213
 msgid "use vertical scrollbar"
 msgstr "使用竖向滚动条"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:218
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:220
 msgid "include vertical scrollbar"
 msgstr "包括竖向滚动条"
 
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:225
-#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:230
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:227
+#: ../pygubu/src/pygubu/plugins/awesometkinter/designer/properties.py:232
 msgid "vertical scrollbar width"
 msgstr "竖向滚动条的宽 "
 
@@ -225,39 +226,43 @@ msgid ""
 "The default value is True."
 msgstr "对话框选项。决定是否目录和文件的路径必须存在。默认值为“True”。"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:44
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:45
 msgid "Dialog option. Sets initial directory."
 msgstr "对话框选项。设置初始目录。"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:45
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:46
 msgid "Dialog option. Sets dialog title."
 msgstr "对话框选项。设置对话框标题。"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:46
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:47
 msgid "Dialog option. Sets default file extension."
 msgstr "对话框选项。设置默认文件扩展。"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:110
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:116
 msgid "Image for the button."
 msgstr "按钮的图片。"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:176
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:182
 msgid "Initial path value."
 msgstr "初始路径值。"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:210
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:216
 msgid "Path entry state."
 msgstr "路径填入状态。"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:227
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:235
+msgid "Tk variable whose value will be used in place of the text resource."
+msgstr ""
+
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:241
 msgid "Tk variable associated to the path property."
 msgstr "路径属性的 Tk 关联值。"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:236
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:251
 msgid "Dialog type"
 msgstr "对话框类型"
 
-#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:250
+#: ../pygubu/src/pygubu/plugins/pygubu/designer/properties.py:265
 msgid "The weight value of the widget in the pane"
 msgstr "窗格的控件的比重值"
 
@@ -270,58 +275,58 @@ msgid "Pygubu Widgets"
 msgstr "Pygubu 控件"
 
 #: ../pygubu/src/pygubu/plugins/pygubu/__init__.py:7
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1414
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1459
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1504
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:501
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:567
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:669
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1417
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1462
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1507
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:518
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:584
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:686
 msgid "Pygubu Helpers"
 msgstr "Pygubu 助手"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:72
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:15
 msgid "intinitially displayed year, default is current year."
 msgstr "初始显示年份，默认是当年。"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:77
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:20
 msgid "initially displayed month, default is current month."
 msgstr "初始显示月份，默认是当月。"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:86
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:29
 msgid "first day of the week"
 msgstr "当前周的第一天"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:92
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:35
 msgid "minimum allowed date (string with format yyyy-mm-dd)"
 msgstr "最小的允许日期（格式：年年年年-月月-日日）"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:97
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:40
 msgid "maximum allowed date (string with format yyyy-mm-dd)"
 msgstr "最大的允许日期（格式：年年年年-月月-日日）"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:105
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:48
 msgid "whether to display week numbers"
 msgstr "是否显示周数"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:115
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:58
 msgid ""
 "whether to display the last days of the previous month and the first of the "
 "next month."
 msgstr "是否显示上个月的最后一天和下个月的第一天。"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:132
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:75
 msgid "date pattern used to format the date as a string."
 msgstr "日期的显示格式"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:143
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:86
 msgid "connect the currently selected date to the variable."
 msgstr "连接被选中的日期到一个变量。"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:175
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:118
 msgid "tooltip opacity between 0 and 1"
 msgstr "提示的透明度（0 ～ 1）"
 
-#: ../pygubu/src/pygubu/plugins/tkcalendar/basecalendar.py:181
+#: ../pygubu/src/pygubu/plugins/tkcalendar/designer/properties.py:124
 msgid "delay in ms before displaying the tooltip"
 msgstr "显示提示前延迟的毫秒数"
 
@@ -336,6 +341,10 @@ msgstr "Tkinter 映射视图"
 #: ../pygubu/src/pygubu/plugins/tkintertable/__init__.py:7
 msgid "tkintertable"
 msgstr "tkinter 表"
+
+#: ../pygubu/src/pygubu/plugins/tkinterweb/designer/properties.py:33
+msgid "Show debugging messages on console output."
+msgstr ""
 
 #: ../pygubu/src/pygubu/plugins/tkinterweb/__init__.py:6
 msgid "TkinterWeb"
@@ -359,23 +368,23 @@ msgstr "Tkinter 现代主题"
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:780
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:856
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:898
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1519
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:69
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:89
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:112
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:136
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:177
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:193
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:204
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:230
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:252
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:274
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:289
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:369
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:478
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:709
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:745
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:774
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1522
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:74
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:94
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:117
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:141
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:172
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:213
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:229
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:240
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:269
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:291
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:306
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:386
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:495
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:730
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:769
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:798
 msgid "Control & Display"
 msgstr "控件和显示"
 
@@ -388,22 +397,22 @@ msgstr "tksheet"
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:150
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:220
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:613
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:43
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:307
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:48
 #: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:324
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:338
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:341
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:355
 msgid "Containers"
 msgstr "容器"
 
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:670
 #: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:956
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1310
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1323
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1347
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1370
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1388
-#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1504
-#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:368
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1313
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1326
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1350
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1373
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1391
+#: ../pygubu/src/pygubu/plugins/tk/tkstdwidgets.py:1507
+#: ../pygubu/src/pygubu/plugins/ttk/ttkstdwidgets.py:385
 msgid "Menu"
 msgstr "菜单"
 
@@ -497,22 +506,22 @@ msgstr ""
 "回调函数名，参数：(family: str, size: int, bold: bool, italic: bool, "
 "underline: bool)"
 
-#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:197
+#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:198
 msgid ""
 "name of the callback function with arguments: (bold: bool, italic: bool, "
 "underline: bool, overstrike: bool)"
 msgstr ""
 "回调函数名：(bold: bool, italic: bool, underline: bool, overstrike: bool)"
 
-#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:207
+#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:209
 msgid "Show/hide Header label"
 msgstr "显示/隐藏顶标签"
 
-#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:213
+#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:215
 msgid "size of the font on the buttons"
 msgstr "按钮的字体大小"
 
-#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:257
+#: ../pygubu/src/pygubu/plugins/ttkwidgets/font.py:259
 msgid "name of the callback function on click with single argument: size: int"
 msgstr "回调函数名，参数：size: int"
 
