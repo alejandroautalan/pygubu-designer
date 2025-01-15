@@ -139,6 +139,58 @@ function install_from_testpypi {
     deactivate
 }
 
+
+function all-examples {
+    declare -a arr=(
+        "helloworld/helloworld.py"
+        "7guis/01_counter/counterapp.py"
+        "7guis/02_temperature_converter/tempconvapp.py"
+        "7guis/03_flight_Booker/flightbookerapp.py"
+        "7guis/04_timer/timerapp.py"
+        "canvas/canvas-scrollregion/myapp.py"
+        "command_properties/command_properties.py"
+        "control_variables/controlvariables.py"
+        "dialogs/demo1/demo.py"
+        "dialogs/demo2/demo.py"
+        "dialogs/demo3/demo.py"
+        "dialogs/demo4/settingsdemoapp.py"
+        "dialogs/demo5/mainapp.py"
+        "forms/formsdemo1app.py"
+        "i18n_gettext_demo/demoapp.py"
+        "image_property/image_property.py"
+        #"jpg_image_on_canvas/demoapp.py"
+        "menubutton/menubutton_demo.py"
+        "notebook/demo1app.py"
+        "pathchooserdemo/demo1/pathchooserdemo.py"
+        "pathchooserdemo/demo2/pathchooserdemo.py"
+        "pbs_themes/demo01/demoapp.py"
+        "scrolledframe/demoapp.py"
+        "scrolledtext/scrolledtextdemoapp.py"
+        "static_image/demoapp.py"
+        "text/logwindowdemo/demo1app.py"
+        "tk_window/tkdemoapp.py"
+        "toplevel_centered/centered_demo1.py"
+        "toplevel_centered/centered_demo2.py"
+        "toplevel_menu/menu.py"
+        "treeview/demo1/treeview.py"
+        "treeview/demo2/columnsstretchingdemo.py"
+        "treeview_editable/demo1/demoapp.py"
+        "treeview_editable/demo2/demo2app.py"
+        "treeview_editable/demo3/demo3app.py"
+        "treeview_filterable/demoapp.py"
+        "user_input/userinputapp.py"
+        "windowdeleteevent/demo1.py"
+        "windowdeleteevent/demo2.py"
+        )
+    
+    EXAMPLES_DIR=$PROJECT_ROOT"/examples";
+    for i in "${arr[@]}"
+    do
+       echo "Running: $EXAMPLES_DIR/$i"
+       $python3bin $EXAMPLES_DIR/$i
+    done
+}
+
 # Commands end. Dispatch to command.
 
 "$@"
