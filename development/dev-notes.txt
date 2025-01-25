@@ -18,7 +18,7 @@ pip install git+https://github.com/alejandroautalan/pygubu git+https://github.co
 
 TODO
 ====
-- Finish awesometkinter plugin?. Why didn't I finish it?
+
 - BUG: load a project with custom widgets and custom properties,
        the properties are not visible in the properties editors.
 - BUG: create a Toplevel, set a large geometry, greater than the preview canvas.
@@ -42,11 +42,8 @@ TODO
 - Allow to define custom font.
   This font can be defined selecting an specific font or can be defined
   based on a default TK font. For example I want TkTextFont but with size 60.
-- Tcl 8.7 alpha adds new properties to widgets. Investigate that.
-  For example, for tk.Toplevel: backgroundimage, tile
 - ttk image property (label), allows to use more than one image? test in python first.
   Add proper editor for this.
-- Do not rebuild entire preview for simple property changes
 - On code generation, allow to select which tk_variables import in the class.
   See example in userinputapp.py.
 
@@ -54,11 +51,6 @@ TODO
 My wish list?
 ============
 - Add Json format and drop XML for UI files ?
-- Add support to ttkbootstrap:
-  In config panel:
-    Create combobox selector for default theme engine (in this case ttkbootstrap)
-    If ttkbootstrap is active show the diferent styles provided by ttkbootstrap
-    in the style property for each widget. (Eg: primary.TButton
 - Tooltips:
   We need to save a "manager" or something similar in the xml
   to later know howto process the property in pygubu.
@@ -71,10 +63,6 @@ My wish list?
 - Add PDFviewer widget based on tkPDFView
 - Add widget for CanvasPlus
 - Add support to tkinterpp?
-- ADD designer plugin with sun valley ttk theme ?
-- Add button bar. Example: layout section with buttons that will modify
-  a group of properties. Example button "Expand": for pack manager will set
-  expand=True, fill=both.
 
 - Add notebook, add tab,  add label to tab.
   Should be displayed on center, y no tab sticky option is set.
@@ -88,12 +76,8 @@ Button Bar
 
 Section: New, Open, Save, Save As
 Section: Cut, copy, paste, delete, UndoButtons?
-Section: Align left, center, Align right, Expand # Buttons for Actions on current layout Manager
 Section: Preview refresh
 Section: Project Properties, Generate code
-
-Example: Click Expand
-  Manager Place: set expand=True, fill=both
 
 
 Theming notes:
