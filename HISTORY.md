@@ -1,6 +1,12 @@
 History
 =======
 
+Changes for version 0.40.1
+
+  * Fix: Treeview rows overlap in high dpi screen. refs #283
+  * Sticky editor: Draw widget bigger on high dpi screen.
+  * GridSelector: Draw widget bigger on high dpi screen.
+
 Changes for version 0.40
 
   * Add backspace key to trigger delete action. (#269 @Tweety24655)

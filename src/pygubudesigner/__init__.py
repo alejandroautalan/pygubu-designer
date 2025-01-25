@@ -7,4 +7,4 @@ os.environ["PYGUBU_LAZY_TRANSLATOR"] = "Y"
 os.environ["PYGUBU_DESIGNER_RUNNING"] = "Y"
 
 
-__version__ = "0.40"
+__version__ = "0.40.1"
