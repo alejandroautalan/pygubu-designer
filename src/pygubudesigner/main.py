@@ -143,7 +143,7 @@ class PygubuDesigner:
         self.preferences = None
         self.project_settings = None
         self.builder = pygubu.Builder(
-            translator, on_first_object=designerstyles.setup_ttk_styles
+            translator, on_first_object=designerstyles.on_first_window
         )
         self.current_project = None
         self.is_changed = False
@@ -563,11 +563,8 @@ proc ::tk::dialog::file::Create {w class} {
             self.mainwindow.deiconify()
 
     def _change_ttk_theme(self, theme):
-        s = get_ttk_style()
         try:
-            s.theme_use(theme)
-            logger.debug("ttk theme changed to: %s", theme)
-            designerstyles.setup_ttk_styles(self.mainwindow, theme)
+            designerstyles.apply_theme(self.mainwindow, theme)
             event_name = "<<PygubuDesignerTtkThemeChanged>>"
             self.mainwindow.event_generate(event_name)
         except tk.TclError:

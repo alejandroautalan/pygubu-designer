@@ -615,6 +615,7 @@
                                                         <child>
                                                           <object class="pygubu.builder.widgets.editabletreeview" id="bindingstree">
                                                             <property name="show">headings</property>
+                                                            <property name="style">BindingsEditor.Treeview</property>
                                                             <layout manager="pack">
                                                               <property name="expand">true</property>
                                                               <property name="fill">both</property>

@@ -67,8 +67,6 @@ class SequenceInplaceEditor(InplaceEditor):
 
 
 class BindingsEditor:
-    style_initialized = {}
-
     def __init__(self, etreeview, parent):
         self.tv = etreeview
         self._curr_data = None
@@ -91,17 +89,6 @@ class BindingsEditor:
         )
 
         self.hide_all()
-        self.tv.bind("<<ThemeChanged>>", self._setup_style)
-        self._setup_style()
-
-    def _setup_style(self, event=None):
-        style = ttk.Style()
-        theme = style.theme_use()
-        if theme not in BindingsEditor.style_initialized:
-            stylename = "BindingsEditor.Treeview"
-            style.configure(stylename, rowheight=30)
-            self.tv.configure(style=stylename)
-            BindingsEditor.style_initialized[theme] = True
 
     def _on_add_clicked(self, event):
         sel = self.tv.selection()
