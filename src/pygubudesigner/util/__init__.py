@@ -16,6 +16,7 @@
 import sys
 import platform
 import tkinter as tk
+import tkinter.font
 
 
 # in-place prettyprint formatter
@@ -97,3 +98,10 @@ def enable_dpi():
             ctypes.windll.user32.SetProcessDPIAware()
         else:
             ctypes.windll.shcore.SetProcessDpiAwareness(1)
+
+
+def get_linespace(root=None, *, font_name=None, scale_factor=1) -> int:
+    family = "TkDefaultFont" if font_name is None else font_name
+    font = tk.font.nametofont(family, root)
+    linespace = font.metrics()["linespace"]
+    return int(linespace * scale_factor)

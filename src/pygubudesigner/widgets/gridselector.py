@@ -16,6 +16,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from pygubudesigner.util import get_linespace
 from pygubudesigner.util.gridcalculator import GridCalculator
 
 
@@ -34,13 +35,14 @@ class GridRCselectorWidget(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
         self.canvas = tk.Canvas(self)
+        canvas_wh = get_linespace(scale_factor=5.1)
         self.canvas.configure(
             background="#ffffff",
             borderwidth="0",
             cursor="hand1",
             highlightthickness="0",
-            width=150,
-            height=150,
+            width=canvas_wh,
+            height=canvas_wh,
             takefocus=True,
         )
         self.canvas.pack(expand="true", fill="both", side="top")

@@ -16,6 +16,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from pygubudesigner.util import get_linespace
 from pygubudesigner.util.selecttool import SelectTool
 from .propertyeditor import (
     PropertyEditor,
@@ -50,13 +51,14 @@ class StickyPropertyEditor(PropertyEditor):
             "nsew": [1, 1, 1, 1, 1, 1, 1, 1, 1],
         }
         self._items = {}
+        canvas_wh = get_linespace(scale_factor=3.1)
         self._c = w = tk.Canvas(
             self,
             bg="#ffffff",
             borderwidth=0,
             highlightthickness=0,
-            width=50,
-            height=50,
+            width=canvas_wh,
+            height=canvas_wh,
         )
         w.bind("<Configure>", self._on_canvas_configure)
         w.bind("<<RegionSelected>>", self._on_region_selected)
