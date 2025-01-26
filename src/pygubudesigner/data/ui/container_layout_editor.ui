@@ -1,15 +1,36 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.3">
+<interface version="1.4" author="PygubuDesigner 0.40.1">
+  <project>
+    <settings>
+      <setting id="name">Container Layout Editor</setting>
+      <setting id="description">Allows to edit container layout properties.</setting>
+      <setting id="module_name">containerlayouteditor</setting>
+      <setting id="template">widget</setting>
+      <setting id="main_widget">containereditor_widget</setting>
+      <setting id="main_classname">ContainerLayoutEditor</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">../../services/widgets</setting>
+      <setting id="output_dir2">../../services/builders</setting>
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">True</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
   <object class="ttk.Frame" id="containereditor_widget">
     <property name="height">200</property>
     <property name="width">200</property>
-    <layout manager="pack">
-      <property name="expand">true</property>
-      <property name="fill">both</property>
-      <property name="side">top</property>
+    <layout manager="grid">
+      <property name="column">0</property>
+      <property name="row">0</property>
+      <property name="sticky">nsew</property>
     </layout>
     <child>
-      <object class="ttk.Frame" id="mainpanel">
+      <object class="ttk.Frame" id="mainpanel" named="True">
         <property name="height">200</property>
         <property name="width">200</property>
         <layout manager="pack">
@@ -19,9 +40,9 @@
           <property name="side">top</property>
         </layout>
         <child>
-          <object class="ttk.Label" id="lbl_title">
+          <object class="ttk.Label" id="lbl_title" named="True">
             <property name="font">TkHeadingFont</property>
-            <property name="padding">0 2</property>
+            <property name="padding">0 4p</property>
             <property name="text" translatable="yes">Options for {0} container</property>
             <layout manager="grid">
               <property name="column">0</property>
@@ -31,61 +52,42 @@
           </object>
         </child>
         <child>
-          <object class="ttk.Separator" id="separator4">
-            <property name="orient">horizontal</property>
+          <object class="ttk.Frame" id="foptions" named="True">
+            <property name="height">100</property>
+            <property name="padding">5p</property>
+            <property name="width">200</property>
             <layout manager="grid">
               <property name="column">0</property>
-              <property name="pady">5</property>
               <property name="row">1</property>
               <property name="sticky">ew</property>
             </layout>
           </object>
         </child>
         <child>
-          <object class="ttk.Frame" id="foptions">
-            <property name="height">100</property>
-            <property name="padding">5</property>
+          <object class="ttk.Frame" id="gridrcpanel" named="True">
+            <property name="height">200</property>
             <property name="width">200</property>
             <layout manager="grid">
               <property name="column">0</property>
               <property name="row">2</property>
               <property name="sticky">ew</property>
             </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Frame" id="gridrcpanel">
-            <property name="height">200</property>
-            <property name="width">200</property>
-            <layout manager="grid">
-              <property name="column">0</property>
-              <property name="row">3</property>
-              <property name="sticky">ew</property>
-            </layout>
             <child>
               <object class="ttk.Frame" id="frame2">
                 <property name="height">200</property>
+                <property name="padding">0 2p</property>
                 <property name="width">200</property>
                 <layout manager="pack">
+                  <property name="expand">True</property>
                   <property name="fill">x</property>
                   <property name="side">top</property>
                 </layout>
                 <child>
-                  <object class="ttk.Separator" id="separator1">
-                    <property name="orient">horizontal</property>
-                    <layout manager="place">
-                      <property name="relheight">1</property>
-                      <property name="relwidth">1</property>
-                      <property name="rely">0.5</property>
-                      <property name="x">0</property>
-                      <property name="y">0</property>
-                    </layout>
-                  </object>
-                </child>
-                <child>
                   <object class="ttk.Label" id="label1">
                     <property name="text" translatable="yes">Grid Row / Column options</property>
                     <layout manager="pack">
+                      <property name="expand">True</property>
+                      <property name="fill">x</property>
                       <property name="side">top</property>
                     </layout>
                   </object>
@@ -93,9 +95,8 @@
               </object>
             </child>
             <child>
-              <object class="ttk.Frame" id="cellselectorframe">
+              <object class="ttk.Frame" id="cellselectorframe" named="True">
                 <property name="height">200</property>
-                <property name="padding">5</property>
                 <property name="width">200</property>
                 <layout manager="pack">
                   <property name="expand">true</property>
@@ -104,9 +105,9 @@
                   <property name="side">top</property>
                 </layout>
                 <child>
-                  <object class="ttk.Frame" id="rcselectorframe">
+                  <object class="ttk.Frame" id="rcselectorframe" named="True">
                     <property name="height">180</property>
-                    <property name="width">180</property>
+                    <property name="width">150</property>
                     <layout manager="pack">
                       <property name="side">left</property>
                     </layout>
@@ -115,18 +116,19 @@
                 <child>
                   <object class="ttk.Frame" id="frame1">
                     <property name="height">200</property>
+                    <property name="padding">5p 0 0 0</property>
                     <property name="width">200</property>
                     <layout manager="pack">
                       <property name="anchor">center</property>
                       <property name="side">left</property>
                     </layout>
                     <child>
-                      <object class="ttk.Button" id="btn_allrows">
+                      <object class="ttk.Button" id="btn_allrows" named="True">
                         <property name="command" type="command" cbtype="simple">_btn_indexall_clicked</property>
                         <property name="text" translatable="yes">All row/cols</property>
                         <layout manager="pack">
                           <property name="fill">x</property>
-                          <property name="pady">0 10</property>
+                          <property name="pady">0 10p</property>
                           <property name="side">top</property>
                         </layout>
                       </object>
@@ -148,38 +150,39 @@
             <child>
               <object class="ttk.Frame" id="frame4">
                 <property name="height">200</property>
+                <property name="padding">0 2p</property>
                 <property name="width">200</property>
                 <layout manager="pack">
+                  <property name="expand">True</property>
                   <property name="fill">x</property>
                   <property name="side">top</property>
                 </layout>
                 <child>
-                  <object class="ttk.Separator" id="separator2">
-                    <property name="orient">horizontal</property>
-                    <layout manager="place">
-                      <property name="relheight">1</property>
-                      <property name="relwidth">1</property>
-                      <property name="rely">0.5</property>
-                      <property name="x">0</property>
-                      <property name="y">0</property>
+                  <object class="ttk.Label" id="rowframe_label" named="True">
+                    <property name="text" translatable="yes">Row {0} options</property>
+                    <layout manager="pack">
+                      <property name="expand">True</property>
+                      <property name="fill">x</property>
+                      <property name="side">top</property>
                     </layout>
                   </object>
                 </child>
                 <child>
-                  <object class="ttk.Label" id="rowframe_label">
-                    <property name="text" translatable="yes">Row {0} options</property>
+                  <object class="ttk.Separator" id="separator2">
+                    <property name="orient">horizontal</property>
                     <layout manager="pack">
-                      <property name="padx">10 0</property>
-                      <property name="side">left</property>
+                      <property name="expand">True</property>
+                      <property name="fill">x</property>
+                      <property name="side">top</property>
                     </layout>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="ttk.Frame" id="rowframe">
+              <object class="ttk.Frame" id="rowframe" named="True">
                 <property name="height">200</property>
-                <property name="padding">5</property>
+                <property name="padding">5p</property>
                 <property name="width">200</property>
                 <layout manager="pack">
                   <property name="fill">x</property>
@@ -190,38 +193,39 @@
             <child>
               <object class="ttk.Frame" id="frame6">
                 <property name="height">200</property>
+                <property name="padding">0 2p</property>
                 <property name="width">200</property>
                 <layout manager="pack">
+                  <property name="expand">True</property>
                   <property name="fill">x</property>
                   <property name="side">top</property>
                 </layout>
                 <child>
-                  <object class="ttk.Separator" id="separator3">
-                    <property name="orient">horizontal</property>
-                    <layout manager="place">
-                      <property name="relheight">1</property>
-                      <property name="relwidth">1</property>
-                      <property name="rely">0.5</property>
-                      <property name="x">0</property>
-                      <property name="y">0</property>
+                  <object class="ttk.Label" id="colframe_label" named="True">
+                    <property name="text" translatable="yes">Column {0} options</property>
+                    <layout manager="pack">
+                      <property name="expand">True</property>
+                      <property name="fill">x</property>
+                      <property name="side">top</property>
                     </layout>
                   </object>
                 </child>
                 <child>
-                  <object class="ttk.Label" id="colframe_label">
-                    <property name="text" translatable="yes">Column {0} options</property>
+                  <object class="ttk.Separator" id="separator3">
+                    <property name="orient">horizontal</property>
                     <layout manager="pack">
-                      <property name="padx">10 0</property>
-                      <property name="side">left</property>
+                      <property name="expand">True</property>
+                      <property name="fill">x</property>
+                      <property name="side">top</property>
                     </layout>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="ttk.Frame" id="colframe">
+              <object class="ttk.Frame" id="colframe" named="True">
                 <property name="height">200</property>
-                <property name="padding">5</property>
+                <property name="padding">5p</property>
                 <property name="width">200</property>
                 <layout manager="pack">
                   <property name="fill">x</property>

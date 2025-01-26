@@ -16,19 +16,22 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+import pygubudesigner.services.widgets.containerlayouteditorui as baseui
+
 from pygubu.widgets.simpletooltip import create as create_tooltip
 
 from pygubudesigner import properties
 from pygubudesigner.widgetdescr import WidgetMeta
-from pygubudesigner.services.widgets.containerlayouteditorbase import (
-    ContainerLayoutEditorBase,
-)
 from pygubudesigner.widgets.gridselector import GridRCselectorWidget
 from pygubudesigner.properties.editors import create_editor
 from pygubudesigner.i18n import _
 
 
-class ContainerLayoutEditor(ContainerLayoutEditorBase):
+# i18n - Setup yout translator function
+baseui.i18n_translator = _
+
+
+class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
         # Add grid selector

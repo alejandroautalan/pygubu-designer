@@ -35,7 +35,7 @@ class GridRCselectorWidget(ttk.Frame):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
         self.canvas = tk.Canvas(self)
-        canvas_wh = get_linespace(scale_factor=5.1)
+        canvas_wh = get_linespace(scale_factor=8.1)
         self.canvas.configure(
             background="#ffffff",
             borderwidth="0",
