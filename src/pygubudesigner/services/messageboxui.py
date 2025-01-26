@@ -9,8 +9,18 @@ RESOURCE_PATHS = [PROJECT_PATH]
 
 
 class CustomMessageBoxUI:
-    def __init__(self, master=None):
-        self.builder = pygubu.Builder()
+    def __init__(
+        self,
+        master=None,
+        translator=None,
+        on_first_object_cb=None,
+        data_pool=None,
+    ):
+        self.builder = pygubu.Builder(
+            translator=translator,
+            on_first_object=on_first_object_cb,
+            data_pool=data_pool,
+        )
         self.builder.add_resource_paths(RESOURCE_PATHS)
         self.builder.add_from_file(PROJECT_UI)
         # Main widget

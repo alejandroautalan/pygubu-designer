@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.40">
+<interface version="1.4" author="PygubuDesigner 0.40.1">
   <project>
     <settings>
       <setting id="name">New Layout Editor class</setting>
@@ -15,7 +15,7 @@
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">True</setting>
       <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">False</setting>
+      <setting id="generate_code_onsave">True</setting>
       <setting id="use_window_centering_code">False</setting>
       <setting id="ttk_style_definition_file" />
     </settings>
@@ -25,9 +25,9 @@
     </customwidgets>
   </project>
   <object class="ttk.Frame" id="fmain" named="True">
-    <property name="height">500</property>
-    <property name="padding">2</property>
-    <property name="width">300</property>
+    <property name="height">580p</property>
+    <property name="padding">2p</property>
+    <property name="width">280p</property>
     <layout manager="pack">
       <property name="expand">true</property>
       <property name="fill">both</property>
@@ -45,7 +45,7 @@
         <child>
           <object class="ttk.Frame" id="ftoolbar" named="True">
             <property name="height">200</property>
-            <property name="padding">0 0 0 10</property>
+            <property name="padding">0 0 0 10p</property>
             <property name="width">200</property>
             <layout manager="grid">
               <property name="column">0</property>
@@ -139,7 +139,7 @@
               <object class="layoutmanagerpebo.LayoutManagerPropertyEditor" id="layout_selector" named="True">
                 <layout manager="grid">
                   <property name="column">1</property>
-                  <property name="pady">2</property>
+                  <property name="pady">2p</property>
                   <property name="row">0</property>
                   <property name="sticky">ew</property>
                 </layout>
@@ -151,7 +151,7 @@
                 <layout manager="grid">
                   <property name="column">0</property>
                   <property name="columnspan">2</property>
-                  <property name="pady">4</property>
+                  <property name="pady">4p</property>
                   <property name="row">1</property>
                   <property name="sticky">ew</property>
                 </layout>
@@ -163,7 +163,7 @@
           <object class="containerlayouteditorbo.ContainerLayoutEditor" id="cleditor" named="True">
             <layout manager="grid">
               <property name="column">0</property>
-              <property name="pady">5 0</property>
+              <property name="pady">5p 0</property>
               <property name="row">2</property>
               <property name="sticky">ew</property>
             </layout>

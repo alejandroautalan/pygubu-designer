@@ -41,7 +41,7 @@ palette_rowheight = RowHeightLazy(1.5)
 
 designer_dboptions = {
     "*Dialog.msg.": {
-        "width": 34,
+        "width": "34p",
         "wrapLength": "6i",
     },
     # Preview panel, Selection indicator color

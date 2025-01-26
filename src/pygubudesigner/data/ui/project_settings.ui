@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.39">
+<interface version="1.4" author="PygubuDesigner 0.40.1">
   <project>
     <settings>
       <setting id="name">Project settings dialog</setting>
@@ -22,15 +22,15 @@
     <customwidgets />
   </project>
   <object class="pygubu.builder.widgets.dialog" id="settingsdialog" named="True">
-    <property name="geometry">680x580</property>
     <property name="height">100</property>
+    <property name="minsize">680|580</property>
     <property name="modal">true</property>
     <property name="width">200</property>
     <bind sequence="&lt;&lt;DialogClose&gt;&gt;" handler="on_dialog_close" add="True" />
     <child>
       <object class="ttk.Frame" id="frame8">
         <property name="height">200</property>
-        <property name="padding">4</property>
+        <property name="padding">4p</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="expand">true</property>
@@ -48,9 +48,9 @@
             </layout>
             <child>
               <object class="ttk.Notebook" id="notebook1">
-                <property name="height">200</property>
+                <property name="height">350p</property>
                 <property name="style">ProjectSettings.TNotebook</property>
-                <property name="width">200</property>
+                <property name="width">480p</property>
                 <layout manager="pack">
                   <property name="expand">true</property>
                   <property name="fill">both</property>
@@ -71,6 +71,7 @@
                         <containerlayout manager="grid">
                           <property type="col" id="1" name="weight">1</property>
                           <property type="col" id="all" name="pad">10</property>
+                          <property type="row" id="3" name="weight">1</property>
                           <property type="row" id="all" name="pad">10</property>
                         </containerlayout>
                         <child>
@@ -89,7 +90,7 @@
                             <property name="style">EntryField.TEntry</property>
                             <layout manager="grid">
                               <property name="column">1</property>
-                              <property name="ipady">3</property>
+                              <property name="ipady">2p</property>
                               <property name="row">0</property>
                               <property name="sticky">ew</property>
                             </layout>
@@ -119,12 +120,12 @@
                         <child>
                           <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper2">
                             <property name="scrolltype">both</property>
-                            <property name="usemousewheel">false</property>
+                            <property name="usemousewheel">true</property>
                             <layout manager="grid">
                               <property name="column">0</property>
                               <property name="columnspan">2</property>
                               <property name="row">3</property>
-                              <property name="sticky">ew</property>
+                              <property name="sticky">nsew</property>
                             </layout>
                             <child>
                               <object class="pygubu.forms.tkwidget.Text" id="textfield1">
@@ -158,7 +159,7 @@
                     <property name="text" translatable="yes">Code</property>
                     <child>
                       <object class="pygubu.forms.ttkwidget.FrameFormBuilder" id="frm_code" named="True">
-                        <property name="padding">5 5 50 5</property>
+                        <property name="padding">5p 5p 50p 5p</property>
                         <layout manager="pack">
                           <property name="expand">true</property>
                           <property name="fill">both</property>
@@ -192,7 +193,7 @@
                                 <property name="style">EntryField.TEntry</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="ipady">3</property>
+                                  <property name="ipady">2p</property>
                                   <property name="row">0</property>
                                   <property name="sticky">ew</property>
                                 </layout>
@@ -225,7 +226,7 @@
                                 <bind sequence="&lt;&lt;ComboboxSelected&gt;&gt;" handler="on_template_change" add="" />
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="ipady">3</property>
+                                  <property name="ipady">2p</property>
                                   <property name="row">2</property>
                                   <property name="sticky">ew</property>
                                 </layout>
@@ -236,7 +237,6 @@
                                 <property name="font">TkSmallCaptionFont</property>
                                 <property name="text" translatable="yes">Template description here.</property>
                                 <property name="textvariable">string:template_desc_var</property>
-                                <property name="wraplength">500</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
                                   <property name="row">3</property>
@@ -260,7 +260,7 @@
                                 <property name="style">ComboboxField.TCombobox</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="ipady">3</property>
+                                  <property name="ipady">2p</property>
                                   <property name="row">4</property>
                                   <property name="sticky">ew</property>
                                 </layout>
@@ -291,7 +291,7 @@
                                 <property name="style">EntryField.TEntry</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="ipady">3</property>
+                                  <property name="ipady">2p</property>
                                   <property name="row">6</property>
                                   <property name="sticky">ew</property>
                                 </layout>
@@ -324,7 +324,7 @@
                                 <property name="style">ComboboxField.TCombobox</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="ipady">3</property>
+                                  <property name="ipady">2p</property>
                                   <property name="row">8</property>
                                   <property name="sticky">ew</property>
                                 </layout>
@@ -366,7 +366,7 @@
                                     <layout manager="pack">
                                       <property name="expand">true</property>
                                       <property name="fill">x</property>
-                                      <property name="ipady">3</property>
+                                      <property name="ipady">2p</property>
                                       <property name="side">left</property>
                                     </layout>
                                   </object>
@@ -380,7 +380,7 @@
                                     <property name="width">4</property>
                                     <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="output_dir_changed" add="" />
                                     <layout manager="pack">
-                                      <property name="padx">10 0</property>
+                                      <property name="padx">10p 0</property>
                                       <property name="side">left</property>
                                     </layout>
                                   </object>
@@ -423,7 +423,7 @@
                                     <layout manager="pack">
                                       <property name="expand">true</property>
                                       <property name="fill">x</property>
-                                      <property name="ipady">3</property>
+                                      <property name="ipady">2p</property>
                                       <property name="side">left</property>
                                     </layout>
                                   </object>
@@ -437,7 +437,7 @@
                                     <property name="width">4</property>
                                     <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="output_dir2_changed" add="" />
                                     <layout manager="pack">
-                                      <property name="padx">10 0</property>
+                                      <property name="padx">10p 0</property>
                                       <property name="side">left</property>
                                     </layout>
                                   </object>
@@ -460,7 +460,7 @@
                         <child>
                           <object class="ttk.Frame" id="frame2">
                             <property name="height">200</property>
-                            <property name="padding">0 5 0 0</property>
+                            <property name="padding">0 5p 0 0</property>
                             <property name="width">200</property>
                             <layout manager="pack">
                               <property name="fill">x</property>
@@ -538,7 +538,7 @@
                     <property name="text" translatable="yes">Styles</property>
                     <child>
                       <object class="pygubu.forms.ttkwidget.FrameFormBuilder" id="frm_style" named="True">
-                        <property name="padding">5</property>
+                        <property name="padding">5p</property>
                         <layout manager="pack">
                           <property name="side">top</property>
                         </layout>
@@ -565,7 +565,7 @@
                                 <layout manager="pack">
                                   <property name="expand">true</property>
                                   <property name="fill">x</property>
-                                  <property name="ipady">3</property>
+                                  <property name="ipady">2p</property>
                                   <property name="side">left</property>
                                 </layout>
                               </object>
@@ -580,7 +580,7 @@
                                 <property name="width">4</property>
                                 <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_style_new_selected" add="" />
                                 <layout manager="pack">
-                                  <property name="padx">10 0</property>
+                                  <property name="padx">10p 0</property>
                                   <property name="side">left</property>
                                 </layout>
                               </object>
@@ -595,7 +595,7 @@
                                 <property name="width">3</property>
                                 <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_style_new_create" add="" />
                                 <layout manager="pack">
-                                  <property name="padx">5 0</property>
+                                  <property name="padx">5p 0</property>
                                   <property name="side">left</property>
                                 </layout>
                               </object>
@@ -605,7 +605,7 @@
                                 <property name="orient">vertical</property>
                                 <layout manager="pack">
                                   <property name="fill">y</property>
-                                  <property name="padx">5</property>
+                                  <property name="padx">5p</property>
                                   <property name="side">left</property>
                                 </layout>
                               </object>
@@ -628,7 +628,7 @@
                             <property name="style">LabelFieldInfo.TLabel</property>
                             <layout manager="pack">
                               <property name="fill">x</property>
-                              <property name="pady">0 5</property>
+                              <property name="pady">0 5p</property>
                               <property name="side">top</property>
                             </layout>
                           </object>
@@ -644,7 +644,7 @@
                     <child>
                       <object class="ttk.Frame" id="frame13">
                         <property name="height">200</property>
-                        <property name="padding">5</property>
+                        <property name="padding">5p</property>
                         <property name="width">200</property>
                         <layout manager="pack">
                           <property name="side">top</property>
@@ -654,7 +654,7 @@
                             <property name="text" translatable="yes">Project widget builders:</property>
                             <layout manager="pack">
                               <property name="anchor">w</property>
-                              <property name="pady">5</property>
+                              <property name="pady">5p</property>
                               <property name="side">top</property>
                             </layout>
                           </object>
@@ -662,7 +662,7 @@
                         <child>
                           <object class="pygubu.builder.widgets.scrollbarhelper" id="scrollbarhelper1">
                             <property name="scrolltype">both</property>
-                            <property name="usemousewheel">false</property>
+                            <property name="usemousewheel">true</property>
                             <layout manager="pack">
                               <property name="expand">true</property>
                               <property name="fill">both</property>
@@ -708,7 +708,7 @@
                                 <property name="width">-3</property>
                                 <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="btn_cwadd_clicked" add="" />
                                 <layout manager="pack">
-                                  <property name="pady">0 8</property>
+                                  <property name="pady">0 8p</property>
                                   <property name="side">top</property>
                                 </layout>
                               </object>
@@ -739,15 +739,16 @@
             <property name="width">200</property>
             <layout manager="pack">
               <property name="anchor">e</property>
-              <property name="pady">5 0</property>
+              <property name="pady">5p 0</property>
               <property name="side">top</property>
             </layout>
             <child>
               <object class="ttk.Button" id="button7">
                 <property name="command" type="command" cbtype="simple">btn_cancel_clicked</property>
                 <property name="text" translatable="yes">Cancel</property>
+                <property name="width">-8</property>
                 <layout manager="pack">
-                  <property name="padx">0 10</property>
+                  <property name="padx">0 10p</property>
                   <property name="side">left</property>
                 </layout>
               </object>
@@ -756,6 +757,7 @@
               <object class="ttk.Button" id="button6">
                 <property name="command" type="command" cbtype="simple">btn_apply_clicked</property>
                 <property name="text" translatable="yes">Ok</property>
+                <property name="width">-8</property>
                 <layout manager="pack">
                   <property name="side">left</property>
                 </layout>

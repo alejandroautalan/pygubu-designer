@@ -1,8 +1,29 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.38">
+<interface version="1.4" author="PygubuDesigner 0.40.1">
+  <project>
+    <settings>
+      <setting id="name">Custom message box</setting>
+      <setting id="description">A messagebox used to show long Exception messages.</setting>
+      <setting id="module_name">messagebox</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">dialog1</setting>
+      <setting id="main_classname">CustomMessageBox</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">../../services</setting>
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
   <object class="pygubu.builder.widgets.dialog" id="dialog1">
-    <property name="geometry">480x320</property>
     <property name="height">100</property>
+    <property name="minsize">480|320</property>
     <property name="modal">true</property>
     <property name="resizable">both</property>
     <property name="title" translatable="yes">Dialog</property>
@@ -11,7 +32,7 @@
     <child>
       <object class="ttk.Frame" id="frame1">
         <property name="height">200</property>
-        <property name="padding">5</property>
+        <property name="padding">5p</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="expand">true</property>
@@ -23,7 +44,7 @@
             <property name="font">TkHeadingFont</property>
             <layout manager="pack">
               <property name="fill">x</property>
-              <property name="pady">5</property>
+              <property name="pady">5p</property>
               <property name="side">top</property>
             </layout>
           </object>
@@ -55,7 +76,7 @@
             <property name="width">200</property>
             <layout manager="pack">
               <property name="fill">x</property>
-              <property name="pady">5 0</property>
+              <property name="pady">5p 0</property>
               <property name="side">top</property>
             </layout>
             <child>
@@ -73,25 +94,4 @@
       </object>
     </child>
   </object>
-  <project>
-    <settings>
-      <setting id="name">Custom message box</setting>
-      <setting id="description">A messagebox used to show long Exception messages.</setting>
-      <setting id="module_name">messagebox</setting>
-      <setting id="template">application</setting>
-      <setting id="main_widget">dialog1</setting>
-      <setting id="main_classname">CustomMessageBox</setting>
-      <setting id="main_menu" />
-      <setting id="output_dir">../../services</setting>
-      <setting id="output_dir2" />
-      <setting id="import_tkvariables">False</setting>
-      <setting id="use_ttk_styledefinition_file">False</setting>
-      <setting id="use_i18n">False</setting>
-      <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">False</setting>
-      <setting id="use_window_centering_code">False</setting>
-      <setting id="ttk_style_definition_file" />
-    </settings>
-    <customwidgets />
-  </project>
 </interface>

@@ -2,11 +2,11 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.widgets.scrolledframe import ScrolledFrame
-from pygubudesigner.services.widgets.containerlayouteditor import (
-    ContainerLayoutEditor,
-)
 from pygubudesigner.properties.editors.propertyeditor import (
     LayoutManagerPropertyEditor,
+)
+from pygubudesigner.services.widgets.containerlayouteditor import (
+    ContainerLayoutEditor,
 )
 
 
@@ -48,7 +48,7 @@ class LayoutEditorUI(ttk.Frame):
         self.sframe = ScrolledFrame(self, scrolltype="both", name="sframe")
         self.sframe.configure(usemousewheel=True)
         self.ftoolbar = ttk.Frame(self.sframe.innerframe, name="ftoolbar")
-        self.ftoolbar.configure(height=200, padding="0 0 0 10", width=200)
+        self.ftoolbar.configure(height=200, padding="0 0 0 10p", width=200)
         self.expand_reset = ttk.Button(self.ftoolbar, name="expand_reset")
         self.img_arrowsminimize24 = image_loader("arrows-minimize-24")
         self.expand_reset.configure(
@@ -119,18 +119,18 @@ class LayoutEditorUI(ttk.Frame):
         self.layout_selector = LayoutManagerPropertyEditor(
             self.fprop, name="layout_selector"
         )
-        self.layout_selector.grid(column=1, pady=2, row=0, sticky="ew")
+        self.layout_selector.grid(column=1, pady="2p", row=0, sticky="ew")
         separator1 = ttk.Separator(self.fprop)
         separator1.configure(orient="horizontal")
-        separator1.grid(column=0, columnspan=2, pady=4, row=1, sticky="ew")
+        separator1.grid(column=0, columnspan=2, pady="4p", row=1, sticky="ew")
         self.fprop.grid(column=0, row=1, sticky="nsew")
         self.fprop.columnconfigure("all", pad=2)
         self.cleditor = ContainerLayoutEditor(
             self.sframe.innerframe, name="cleditor"
         )
-        self.cleditor.grid(column=0, pady="5 0", row=2, sticky="ew")
+        self.cleditor.grid(column=0, pady="5p 0", row=2, sticky="ew")
         self.sframe.pack(expand=True, fill="both", side="top")
-        self.configure(height=500, padding=2, width=300)
+        self.configure(height="580p", padding="2p", width="280p")
         self.pack(expand=True, fill="both", side="top")
 
     def btn_expand_clicked(self, widget_id):

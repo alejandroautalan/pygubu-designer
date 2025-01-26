@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.3">
+<interface version="1.4" author="PygubuDesigner 0.40.1">
+  <project>
+    <settings />
+    <customwidgets />
+  </project>
   <object class="pygubu.builder.widgets.dialog" id="ask_save_changes_dialog">
     <property name="height">100</property>
     <property name="modal">true</property>
@@ -10,7 +14,7 @@
     <child>
       <object class="ttk.Frame" id="fcontainer">
         <property name="height">200</property>
-        <property name="padding">5</property>
+        <property name="padding">5p</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="expand">true</property>
@@ -24,7 +28,7 @@
         <child>
           <object class="ttk.Frame" id="frame3">
             <property name="height">200</property>
-            <property name="padding">10 10 10 20</property>
+            <property name="padding">10p 10p 10p 20p</property>
             <property name="width">200</property>
             <layout manager="grid">
               <property name="column">0</property>
@@ -98,7 +102,7 @@
                 <property name="text" translatable="yes">Don't Save</property>
                 <layout manager="grid">
                   <property name="column">0</property>
-                  <property name="padx">0 5</property>
+                  <property name="padx">0 5p</property>
                   <property name="row">0</property>
                   <property name="sticky">ew</property>
                 </layout>
@@ -125,7 +129,7 @@
                 <property name="text" translatable="yes">Save</property>
                 <layout manager="grid">
                   <property name="column">2</property>
-                  <property name="padx">5 0</property>
+                  <property name="padx">5p 0</property>
                   <property name="row">0</property>
                   <property name="sticky">ew</property>
                 </layout>

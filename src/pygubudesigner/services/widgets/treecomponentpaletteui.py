@@ -5,7 +5,9 @@ from pygubu.widgets.filterabletreeview import FilterableTreeview
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 
 
+#
 # Begin i18n - Setup translator in derived class file
+#
 def i18n_noop(value):
     return value
 
@@ -23,7 +25,7 @@ class TreeComponentPaletteUI(ttk.Frame):
         super().__init__(master, **kw)
         _ = i18n_translator  # i18n string marker.
         frame1 = ttk.Frame(self)
-        frame1.configure(height=200, padding="0 2 2 4", width=200)
+        frame1.configure(height=200, padding="0 2p 2p 4p", width=200)
         label3 = ttk.Label(frame1)
         label3.configure(
             compound="left", font="TkSmallCaptionFont", text=_("Filter:")
@@ -32,7 +34,7 @@ class TreeComponentPaletteUI(ttk.Frame):
         entry2 = ttk.Entry(frame1)
         self.filter_text_var = tk.StringVar()
         entry2.configure(textvariable=self.filter_text_var, width=10)
-        entry2.pack(expand=True, fill="both", padx="5 5", side="left")
+        entry2.pack(expand=True, fill="both", padx="5p 5p", side="left")
         entry2.bind("<KeyPress>", self.on_filter_keypress, add="")
         self.btn_filter_cancel = ttk.Button(frame1, name="btn_filter_cancel")
         self.btn_filter_cancel.configure(
@@ -42,7 +44,7 @@ class TreeComponentPaletteUI(ttk.Frame):
         self.btn_filter_cancel.configure(command=self.on_filter_clear)
         separator1 = ttk.Separator(frame1)
         separator1.configure(orient="vertical")
-        separator1.pack(fill="y", padx=4, side="left")
+        separator1.pack(fill="y", padx="4p", side="left")
         self.fb_show_alltk = ttk.Checkbutton(frame1, name="fb_show_alltk")
         self.var_show_alltk = tk.BooleanVar()
         self.fb_show_alltk.configure(
@@ -77,7 +79,7 @@ class TreeComponentPaletteUI(ttk.Frame):
         scrollbarhelper3.add_child(self.cptree)
         scrollbarhelper3.pack(expand=True, fill="both", side="top")
         frame3.pack(expand=True, fill="both", side="top")
-        self.configure(height=200, padding=2, width=200)
+        self.configure(height=200, padding="2p", width=200)
         self.pack(expand=True, fill="both", side="top")
 
     def on_filter_keypress(self, event=None):
