@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: Pygubu 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-14 23:18-0300\n"
-"PO-Revision-Date: 2025-01-14 23:31-0300\n"
+"PO-Revision-Date: 2025-01-26 20:20-0300\n"
 "Last-Translator: Alejandro Autalán <alejandroautalan@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: src/pygubudesigner/data/ui/about_dialog.ui:8
 msgid "About"
@@ -119,7 +119,7 @@ msgstr "Opciones para contenedor {0}"
 
 #: src/pygubudesigner/data/ui/container_layout_editor_base.ui:87
 msgid "Grid Row / Column options"
-msgstr "Opciones para columna '{0}'"
+msgstr "Opciones para Fila/Columna"
 
 #: src/pygubudesigner/data/ui/container_layout_editor_base.ui:126
 msgid "All row/cols"
