@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.40.1">
+  <project>
+    <settings>
+      <setting id="name">New Properties Editor class</setting>
+      <setting id="description">Redesign of properties editor as internal widget.</setting>
+      <setting id="module_name">properties_editor</setting>
+      <setting id="template">widget</setting>
+      <setting id="main_widget">fmain</setting>
+      <setting id="main_classname">PropertiesEditor</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">../../services/widgets</setting>
+      <setting id="output_dir2">../../services/builders</setting>
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">True</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="ttk.Frame" id="fmain" named="True">
+    <property name="height">580p</property>
+    <property name="padding">2p</property>
+    <property name="width">280p</property>
+    <layout manager="pack">
+      <property name="expand">true</property>
+      <property name="fill">both</property>
+      <property name="side">top</property>
+    </layout>
+    <child>
+      <object class="pygubu.builder.widgets.scrolledframe" id="scrolledframe1">
+        <property name="scrolltype">both</property>
+        <property name="usemousewheel">true</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="fprop" named="True">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

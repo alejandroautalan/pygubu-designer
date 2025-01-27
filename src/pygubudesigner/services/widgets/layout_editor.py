@@ -11,7 +11,9 @@ from pygubu.stockimage import StockImage
 
 from pygubudesigner import properties
 from pygubudesigner.i18n import translator as _
-from pygubudesigner.propertieseditor import PropertiesEditorMixin
+from pygubudesigner.services.widgets.properties_editor import (
+    PropertiesEditorMixin,
+)
 import pygubudesigner.services.widgets.layout_editorui as baseui
 
 logger = logging.getLogger(__name__)

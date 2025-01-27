@@ -22,6 +22,7 @@
     <customwidgets>
       <customwidget path="../../services/builders/treecomponentpalettebo.py" />
       <customwidget path="../../services/builders/layout_editorbo.py" />
+      <customwidget path="../../services/builders/properties_editorbo.py" />
     </customwidgets>
   </project>
   <object class="tk.Menu" id="mainmenu">
@@ -563,13 +564,8 @@
                                                 <property name="sticky">nsew</property>
                                                 <property name="text" translatable="yes">Appearance</property>
                                                 <child>
-                                                  <object class="pygubu.builder.widgets.scrolledframe" id="propertiesframe">
-                                                    <property name="padding">5p</property>
-                                                    <property name="scrolltype">both</property>
-                                                    <property name="usemousewheel">true</property>
+                                                  <object class="projectcustom.PropertiesEditor" id="propertieseditor1">
                                                     <layout manager="pack">
-                                                      <property name="expand">true</property>
-                                                      <property name="fill">both</property>
                                                       <property name="side">top</property>
                                                     </layout>
                                                   </object>
