@@ -12,6 +12,4 @@ from .predefined import (
     CONTAINER_PACK_PROPERTIES,
 )
 
-from .predefined import load_custom_properties
-
 # from .editors import forms

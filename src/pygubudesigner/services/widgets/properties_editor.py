@@ -35,7 +35,7 @@ class PropertiesEditorMixin:
         row = 0
         col = 0
 
-        for name in PropertiesManager.iternames():
+        for name in PropertiesManager.iter_names():
             kwdata = PropertiesManager.get_definition(name)
             labeltext = label_tpl.format(name)
             label = ttk.Label(in_frame, text=labeltext, anchor=tk.W)
@@ -113,7 +113,7 @@ class PropertiesEditorMixin:
         wclass = wdescr.classname
         class_descr = CLASS_MAP[wclass].builder
 
-        for name in PropertiesManager.iternames():
+        for name in PropertiesManager.iter_names():
             label, widget = self._prop_bag[name]
             if name in ("class", "id") or name in class_descr.properties:
                 self.update_editor(label, widget, wdescr, name)
