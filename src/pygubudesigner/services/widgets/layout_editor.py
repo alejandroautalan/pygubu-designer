@@ -100,10 +100,10 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
                 kwdata = propdescr[name]
                 labeltext = label_tpl.format(name)
                 label = ttk.Label(in_frame, text=labeltext, anchor=tk.W)
-                label.grid(row=row, column=col, sticky=tk.EW, pady=2)
+                label.grid(row=row, column=col, sticky=tk.EW, pady="2p")
                 label.tooltip = create_tooltip(label, "?")
                 widget = self._create_editor(in_frame, name, kwdata)
-                widget.grid(row=row, column=col + 1, sticky=tk.EW, pady=2)
+                widget.grid(row=row, column=col + 1, sticky=tk.EW, pady="2p")
                 row += 1
                 self._prop_bag[gcode + name] = (label, widget)
 
