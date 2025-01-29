@@ -1,4 +1,4 @@
-from .predefined import PROPERTY_DEFINITIONS
+from pygubu.component.property_registry import PropertyRegistry
 
 
 class PropertiesManager:
@@ -6,10 +6,10 @@ class PropertiesManager:
     _definitions_cache = {}
 
     @classmethod
-    def iternames(cls):
+    def iter_names(cls):
         yield from cls._required
 
-        for name in sorted(PROPERTY_DEFINITIONS.keys()):
+        for name in PropertyRegistry.iter_names():
             if name not in cls._required:
                 yield name
 
@@ -53,4 +53,4 @@ class PropertiesManager:
 
     @classmethod
     def get_definition(cls, pname):
-        return PROPERTY_DEFINITIONS[pname]
+        return PropertyRegistry.properties[pname]

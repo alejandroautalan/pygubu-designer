@@ -51,7 +51,6 @@ from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 from .i18n import translator
 from .logpanel import LogPanelManager
 from .preview import PreviewHelper
-from .properties import load_custom_properties
 from .rfilemanager import RecentFilesManager
 from .uitreeeditor import WidgetsTreeEditor
 from .util import menu_iter_children, virtual_event, enable_dpi
@@ -87,9 +86,6 @@ def init_pygubu_widgets():
 
     # Initialize designer plugins
     PluginManager.load_designer_plugins()
-
-    # Register custom properties
-    load_custom_properties()
 
 
 # Initialize images

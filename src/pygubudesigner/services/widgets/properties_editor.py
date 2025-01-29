@@ -14,7 +14,10 @@ from pygubudesigner.properties.editors import (
     NamedIDPropertyEditor,
 )
 from pygubudesigner.services.stylehandler import StyleHandler
-from pygubudesigner.properties.manager import PropertiesManager
+from pygubudesigner.properties.manager import (
+    PropertiesManager,
+    PropertyRegistry,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -26,32 +29,59 @@ class PropertiesEditorMixin:
         super().__init__(*args, **kw)
         self._current = None
         self._prop_bag = {}
+        self._sep = None  # separator
 
     def get_properties_frame(self):
         ...
 
-    def _create_properties(self, in_frame, row_start=0, col_start=0):
-        label_tpl = "{0}:"
-        row = 0
-        col = 0
+    def _create_properties(
+        self, in_frame, row_start: int = 0, col_start: int = 0
+    ):
+        self._sep = ttk.Separator(in_frame)
 
-        for name in PropertiesManager.iternames():
-            kwdata = PropertiesManager.get_definition(name)
-            labeltext = label_tpl.format(name)
-            label = ttk.Label(in_frame, text=labeltext, anchor=tk.W)
+        for name in PropertiesManager.iter_names():
+            self._create_editor_slot(in_frame, name)
+
+        self._redisplay_slots(in_frame, row_start, col_start)
+
+    def _redisplay_slots(
+        self, in_frame, row_start: int = 0, col_start: int = 0
+    ):
+        """Redo layout of editor slots ordered by property name."""
+        row = row_start
+        col = col_start
+
+        label: ttk.Label = None
+        widget: tk.Widget = None
+        for name in PropertiesManager.iter_names():
+            label, widget = self._prop_bag[name]
+            is_visible = widget.winfo_ismapped()
             label.grid(row=row, column=col, sticky=tk.EW, pady="2p")
-            label.tooltip = create_tooltip(label, "?")
-            widget = self._create_editor(in_frame, name, kwdata)
             widget.grid(row=row, column=col + 1, sticky=tk.EW, pady="2p")
+
+            if not is_visible:
+                label.grid_remove()
+                widget.grid_remove()
+
             row += 1
-            self._prop_bag[name] = (label, widget)
-            logger.debug("Created property: %s", name)
             if name == "id":
-                sep = ttk.Separator(in_frame)
-                sep.grid(
+                self._sep.grid(
                     row=row, column=col, sticky=tk.EW, pady="2p", columnspan=2
                 )
                 row += 1
+
+    def _create_editor_slot(self, in_frame, name):
+        label_tpl = "{0}:"
+        kwdata = PropertiesManager.get_definition(name)
+        labeltext = label_tpl.format(name)
+        label = ttk.Label(in_frame, text=labeltext, anchor=tk.W)
+        # label.grid(row=row, column=col, sticky=tk.EW, pady="2p")
+        label.tooltip = create_tooltip(label, "?")
+        widget = self._create_editor(in_frame, name, kwdata)
+        # widget.grid(row=row, column=col + 1, sticky=tk.EW, pady="2p")
+        # row += 1
+        self._prop_bag[name] = (label, widget)
+        logger.debug("Created property: %s", name)
 
     def _create_editor(self, master, pname, wdata):
         editor = None
@@ -113,7 +143,7 @@ class PropertiesEditorMixin:
         wclass = wdescr.classname
         class_descr = CLASS_MAP[wclass].builder
 
-        for name in PropertiesManager.iternames():
+        for name in PropertiesManager.iter_names():
             label, widget = self._prop_bag[name]
             if name in ("class", "id") or name in class_descr.properties:
                 self.update_editor(label, widget, wdescr, name)
@@ -160,12 +190,28 @@ class PropertiesEditor(PropertiesEditorMixin, baseui.PropertiesEditorUI):
         self.style_handler = StyleHandler(self, reselect_item_func=None)
         self.style_handler.start_monitoring()
 
-        # Wait until all properties definitions are loaded, then create propertieditors.
+        # Wait until all properties definitions are loaded, then create property editors.
         self.after_idle(self.load_properties_later)
+
+        self._redisplay_cb = None
+
+    def on_new_property_defined(self, sender, name):
+        """Create new editor slot and schedules a redisplay."""
+        self._create_editor_slot(self.fprop, name)
+
+        if self._redisplay_cb is None:
+            self._redisplay_cb = self.after_idle(self.redisplay_properties)
+
+    def redisplay_properties(self):
+        self._redisplay_slots(self.fprop)
+        self._redisplay_cb = None
 
     def load_properties_later(self):
         self._create_properties(self.fprop)
         self.hide_all()
+
+        # Connect to the registry for additional property definitions.
+        PropertyRegistry.on_property_new.connect(self.on_new_property_defined)
 
     @property
     def reselect_item_cb(self):

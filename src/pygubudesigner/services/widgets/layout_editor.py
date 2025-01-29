@@ -132,7 +132,11 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         is_container = CLASS_MAP[wclass].builder.container
         layout_required = CLASS_MAP[wclass].builder.layout_required
         allow_container_layout = CLASS_MAP[wclass].builder.container_layout
-        show_layout = layout_required and not parent_cancels_children_layout
+        show_layout = layout_required
+
+        if layout_required and parent_cancels_children_layout:
+            # Parent cancels layout
+            show_layout = False
 
         # manager selector
         manager = wdescr.manager
@@ -142,6 +146,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         elif manager == "place":
             manager_prop = properties.PLACE_PROPERTIES
 
+        # print(f"{wclass=} {show_layout=}")
         if show_layout:
             self.ftoolbar.grid()
             self.fprop.grid()
@@ -163,6 +168,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
                         label.grid_remove()
                         widget.grid_remove()
         else:
+            self.ftoolbar.grid_remove()
             self.fprop.grid_remove()
 
         # determine if show container layout options

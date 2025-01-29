@@ -14,7 +14,7 @@ import logging
 import platform
 import tkinter as tk
 
-from pygubu.component.builderobject import CUSTOM_PROPERTIES
+from pygubu.component.property_registry import PropertyRegistry
 
 from .propertieshelp import help_for
 
@@ -1882,16 +1882,5 @@ TRANSLATABLE_PROPERTIES = (
     "title",
 )
 
-
-def _register_custom(name, descr):
-    if name in PROPERTY_DEFINITIONS:
-        PROPERTY_DEFINITIONS[name].update(descr)
-        logger.debug("Updated property: %s", name)
-    else:
-        PROPERTY_DEFINITIONS[name] = descr
-        logger.debug("Registered property: %s", name)
-
-
-def load_custom_properties():
-    for name, descr in CUSTOM_PROPERTIES.items():
-        _register_custom(name, descr)
+for pname, desc in PROPERTY_DEFINITIONS.items():
+    PropertyRegistry.register(pname, desc)
