@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.40.1">
+  <project>
+    <settings>
+      <setting id="name">Pygubu Simple Tooltips demo</setting>
+      <setting id="description">Tooltips demo app.</setting>
+      <setting id="module_name">demoapp</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">mainwindow</setting>
+      <setting id="main_classname">TooltipsDemo</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">True</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Tk" id="mainwindow" named="True">
+    <property name="height">200</property>
+    <property name="minsize">300|200</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">Simple Tooltips Demo</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="frame2">
+            <property name="height">200</property>
+            <property name="padding">10p</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">True</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Labelframe" id="labelframe1">
+                <property name="height">200</property>
+                <property name="padding">10p</property>
+                <property name="text" translatable="yes">Tooltip using tk.Label</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="padx">0 10p</property>
+                  <property name="side">left</property>
+                </layout>
+                <child>
+                  <object class="ttk.Button" id="button1">
+                    <property name="text" translatable="yes">Default tooltip</property>
+                    <property name="width">-15</property>
+                    <layout manager="pack">
+                      <property name="pady">0 10p</property>
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="pygubu.widgets.Tooltip" id="tooltip1">
+                        <property name="text" translatable="yes">A simple tooltip for tkinter !</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Button" id="button2">
+                    <property name="text" translatable="yes">Customized tooltip</property>
+                    <property name="width">-15</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="pygubu.widgets.Tooltip" id="tooltip2">
+                        <property name="background">#000074</property>
+                        <property name="font">{Helvetica} 16 {}</property>
+                        <property name="foreground">#d6ffff</property>
+                        <property name="text" translatable="yes">A tooltip configured for button 2!</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Labelframe" id="labelframe2">
+                <property name="height">200</property>
+                <property name="padding">10p</property>
+                <property name="text" translatable="yes">Tooltip using ttk.Label</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="side">left</property>
+                </layout>
+                <child>
+                  <object class="ttk.Button" id="button3">
+                    <property name="text" translatable="yes">Default tooltip</property>
+                    <property name="width">-15</property>
+                    <layout manager="pack">
+                      <property name="pady">0 10p</property>
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="pygubu.widgets.Tooltipttk" id="tooltipttk1">
+                        <property name="text" translatable="yes">A simple tooltip for tkinter  ttk !</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Button" id="button4">
+                    <property name="text" translatable="yes">Customized tooltip</property>
+                    <property name="width">-15</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="pygubu.widgets.Tooltipttk" id="tooltipttk2">
+                        <property name="background">#d9b3d9</property>
+                        <property name="borderwidth">2p</property>
+                        <property name="font">{DejaVu Sans Mono} 14 {italic}</property>
+                        <property name="foreground">#d90000</property>
+                        <property name="relief">solid</property>
+                        <property name="text" translatable="yes">A tooltip configured for button 4!</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="fslot" named="True">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="label1">
+                <property name="text" translatable="yes">Same frame as above but generated with script version (just for testing purposes)</property>
+                <property name="wraplength">280p</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
