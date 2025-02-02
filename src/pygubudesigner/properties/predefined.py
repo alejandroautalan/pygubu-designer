@@ -174,7 +174,7 @@ if platform.system() == "Darwin":
 elif platform.system() == "Windows":
     TK_CURSORS = TK_CURSORS + TK_CURSORS_WINDOWS
 
-TK_RELIEFS = (tk.FLAT, tk.RAISED, tk.SUNKEN, tk.GROOVE, tk.RIDGE)
+TK_RELIEFS = (tk.FLAT, tk.GROOVE, tk.RAISED, tk.RIDGE, tk.SOLID, tk.SUNKEN)
 
 PROPERTY_DEFINITIONS = {
     "class": {
