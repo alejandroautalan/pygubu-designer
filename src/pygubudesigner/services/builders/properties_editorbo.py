@@ -24,4 +24,5 @@ register_widget(
     PropertiesEditorBO,
     "PropertiesEditor",
     ("ttk", "Project Widgets"),
+    public=False,
 )
