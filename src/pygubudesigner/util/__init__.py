@@ -102,6 +102,9 @@ def enable_dpi():
 
 def get_linespace(root=None, *, font_name=None, scale_factor=1) -> int:
     family = "TkDefaultFont" if font_name is None else font_name
-    font = tk.font.nametofont(family, root)
+    if sys.version_info >= (3, 10):
+        font = tk.font.nametofont(family, root)
+    else:
+        font = tk.font.nametofont(family)
     linespace = font.metrics()["linespace"]
     return int(linespace * scale_factor)
