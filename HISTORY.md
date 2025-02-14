@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.40.2
+
+  * Fix python 3.8, 3.9 compatibility.
+
 Changes for version 0.40.1
 
   * Fix: Treeview rows overlap in high dpi screen. refs #283
