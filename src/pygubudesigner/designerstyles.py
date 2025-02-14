@@ -35,8 +35,8 @@ class RowHeightLazy:
         return str(self.rowheight)
 
 
-treeview_rowheight = RowHeightLazy(1.1)
-palette_rowheight = RowHeightLazy(1.5)
+treeview_rowheight = RowHeightLazy(1.5)
+palette_rowheight = RowHeightLazy(1.8)
 
 
 designer_dboptions = {
