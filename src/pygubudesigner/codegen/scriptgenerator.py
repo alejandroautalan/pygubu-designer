@@ -155,6 +155,7 @@ class ScriptGenerator:
 
         # generator.with_i18n_support = False
         generator.add_import_line("tkinter", "tk")
+        generator.add_import_line("tkinter.ttk", "ttk")
         # Generate code
         code = generator.generate_app_widget(uidef, target)
         # Prepare template context
