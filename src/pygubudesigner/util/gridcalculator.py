@@ -68,7 +68,7 @@ class GridCalculator:
           )
         """
         for i, f, c in self.rowmajor():
-            coords = self.cell_coords(f, c)
+            coords = self.cell_coords(f, c, ox, oy)
             yield (i, *coords)
 
     def row_coords(self, row, ox=0, oy=0):

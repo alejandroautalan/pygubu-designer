@@ -36,12 +36,16 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
         super().__init__(master, **kw)
         # Add grid selector
         self.gridselector = w = GridRCselectorWidget(self.rcselectorframe)
-        w.bind("<<Gridselector:CellSelected>>", self._on_gridcell_clicked)
+        w.bind(
+            GridRCselectorWidget.EVENT_CELL_SELECTED, self._on_gridcell_clicked
+        )
+        w.bind(GridRCselectorWidget.EVENT_CELL_HOVER, self._show_hover)
         w.pack()
 
         self._propbag = {}
         self._rcbag = {}
         self._current = None
+        self._slots = None
         self._mainpanel_label = _("Options for {0} container")
         self._rowpanel_label = _("Row index: {0}")
         self._colpanel_label = _("Column index: {0}")
@@ -167,6 +171,7 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
     def _btn_indexall_clicked(self):
         self.gridselector.selection_clear()
         self._edit_grid_cell("all", "all")
+        # self.gridselector.mark_grid_all()
 
     def _btn_clearall_clicked(self):
         if self._current:
@@ -191,19 +196,21 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
 
             # update grid view
             self.gridselector.mark_clear_all()
-            self.gridselector.mark_grid_rows(False)
-            self.gridselector.mark_grid_cols(False)
+            self.gridselector.mark_grid_all(False)
+            # self.gridselector.mark_grid_cols(False)
 
             for row in self._current.gridrc_row_indexes():
                 if row == "all":
-                    self.gridselector.mark_grid_rows()
+                    self.gridselector.mark_grid_all()
                 else:
                     self.gridselector.mark_row(int(row))
             for col in self._current.gridrc_column_indexes():
                 if col == "all":
-                    self.gridselector.mark_grid_cols()
+                    self.gridselector.mark_grid_all()
                 else:
-                    self.gridselector.mark_column(int(col))
+                    self.gridselector.mark_col(int(col))
+            for row_col in self._slots:
+                self.gridselector.mark_slot(*row_col)
 
             # Update the preview now, after the grid rc changes have been made.
             target.notify(WidgetMeta.LAYOUT_PROPERTY_CHANGED, target)
@@ -222,35 +229,63 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
             self.update_rc_editor(
                 rowcol, index, label, widget, target, name, propdescr
             )
+        # mark_all = True if row == "all" else False
+        # self.gridselector.mark_grid_all(mark_all)
         # update labels
         label = self._rowpanel_label.format(row)
         self.rowframe_label.configure(text=label)
         label = self._colpanel_label.format(col)
         self.colframe_label.configure(text=label)
+        self._show_slot(row, col)
 
     def _edit_gridrc(self):
         # wdescr = self._current
         self.gridrcpanel.grid()
         self.gridselector.set_dim(*self._grid_dim)
         self.gridselector.mark_clear_all()
-        self.gridselector.mark_grid_rows(False)
-        self.gridselector.mark_grid_cols(False)
+        self.gridselector.mark_grid_all(False)
         self.gridselector.select_cell(0, 0)
+        self._show_slot(0, 0)
 
         for row in self._current.gridrc_row_indexes():
             if row == "all":
-                self.gridselector.mark_grid_rows()
+                self.gridselector.mark_grid_all()
             else:
                 self.gridselector.mark_row(int(row))
         for col in self._current.gridrc_column_indexes():
             if col == "all":
-                self.gridselector.mark_grid_cols()
+                self.gridselector.mark_grid_all()
             else:
-                self.gridselector.mark_column(int(col))
+                self.gridselector.mark_col(int(col))
+        for row_col in self._slots:
+            self.gridselector.mark_slot(*row_col)
 
-    def edit(self, wdescr, manager, grid_dim=None):
+    def _show_slot(self, row, col):
+        sel_widget = ""
+        sel_pos = f"({row}, {col})"
+
+        if row != "all":
+            rc = (int(row), int(col))
+            if rc in self._slots:
+                sel_widget = self._slots[rc]
+        self.sel_pos.configure(text=sel_pos)
+        self.sel_widget.configure(text=sel_widget)
+
+    def _show_hover(self, event=None):
+        row_col = self.gridselector.selection_hover
+        pos_txt = ""
+        widget_txt = ""
+        if row_col is not None:
+            pos_txt = f"{row_col}"
+        if row_col in self._slots:
+            widget_txt = self._slots[row_col]
+        self.hover_pos.configure(text=pos_txt)
+        self.hover_widget.configure(text=widget_txt)
+
+    def edit(self, wdescr, manager, grid_dim=None, slots=None):
         self._current = wdescr
         self._grid_dim = (1, 1) if grid_dim is None else grid_dim
+        self._slots = slots
 
         txt_label = self._mainpanel_label.format(str(manager).capitalize())
         self.lbl_title.configure(text=txt_label)

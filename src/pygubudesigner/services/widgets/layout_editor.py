@@ -174,11 +174,14 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         # determine if show container layout options
         # has_children = self._container_options.get("has_children", False)
         children_grid_dim = self._container_options.get("grid_dim", None)
+        children_slots = self._container_options.get("slots", {})
 
         if is_container and allow_container_layout:  # and has_children:
             self.cleditor.grid()
             cmanager = wdescr.container_manager
-            self.cleditor.edit(wdescr, cmanager, children_grid_dim)
+            self.cleditor.edit(
+                wdescr, cmanager, children_grid_dim, children_slots
+            )
         else:
             self.cleditor.grid_remove()
 

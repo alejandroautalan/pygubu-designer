@@ -404,6 +404,7 @@ class WidgetsTreeEditor:
         count = len(children)
         grid_dim = None
         manager = self.get_children_manager(item)
+        slots = {}
         max_row = 0
         max_col = 0
         if manager == "grid":
@@ -415,12 +416,14 @@ class WidgetsTreeEditor:
                 col = int(wmeta.layout_property("column"))
                 if col > max_col:
                     max_col = col
+                slots[(row, col)] = wmeta.identifier
             grid_dim = (max_row + 1, max_col + 1)
 
         cinfo = {
             "manager": manager,
             "has_children": bool(count),
             "grid_dim": grid_dim,
+            "slots": slots,
         }
         return cinfo
 
