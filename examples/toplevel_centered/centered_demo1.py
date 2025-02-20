@@ -27,7 +27,11 @@ class CenteredDemoApp:
             x_coord = int(toplevel.winfo_screenwidth() / 2 - width / 2)
             y_coord = int(toplevel.winfo_screenheight() / 2 - height / 2)
             geom = f"{width}x{height}+{x_coord}+{y_coord}"
-            toplevel.geometry(geom)
+
+            def set_geometry():
+                toplevel.geometry(geom)
+
+            self.mainwindow.after_idle(set_geometry)
             self._first_init = False
 
     def run(self):
