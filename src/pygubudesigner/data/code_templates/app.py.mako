@@ -39,39 +39,45 @@ class ${class_name}:
         self.builder.connect_callbacks(self)
 
 %if add_window_centering_code:
-    def center_init(self):
-        """ If `width` and `height` are set for the main widget,
-        this is the only time TK returns them. """
-        self.main_w = self.mainwindow.winfo_reqwidth()
-        self.main_h = self.mainwindow.winfo_reqheight()
-        self.center_map = self.mainwindow.bind("<Map>", self.center)
+    def center_window(self):
+        if self.mainwindow.winfo_ismapped():
+            min_w, min_h = self.mainwindow.wm_minsize()
+            max_w, max_h = self.mainwindow.wm_maxsize()
+            screen_w = self.mainwindow.winfo_screenwidth()
+            screen_h = self.mainwindow.winfo_screenheight()
+            final_w = min(
+                screen_w,
+                max_w,
+                max(
+                    min_w,
+                    self.mainwindow.winfo_width(),
+                    self.mainwindow.winfo_reqwidth(),
+                ),
+            )
+            final_h = min(
+                screen_h,
+                max_h,
+                max(
+                    min_h,
+                    self.mainwindow.winfo_height(),
+                    self.mainwindow.winfo_reqheight(),
+                ),
+            )
+            x = (screen_w // 2) - (final_w // 2)
+            y = (screen_h // 2) - (final_h // 2)
+            geometry = f"{final_w}x{final_h}+{x}+{y}"
 
-    def center(self, event=None):
-        min_w, min_h = self.mainwindow.wm_minsize()
-        max_w, max_h = self.mainwindow.wm_maxsize()
-        screen_w = self.mainwindow.winfo_screenwidth()
-        screen_h = self.mainwindow.winfo_screenheight()
-        final_w = min(screen_w, max_w,
-                    max(self.main_w, min_w,
-                        self.mainwindow.winfo_width(),
-                        self.mainwindow.winfo_reqwidth()))
-        final_h = min(screen_h, max_h,
-                    max(self.main_h, min_h,
-                        self.mainwindow.winfo_height(),
-                        self.mainwindow.winfo_reqheight()))
-        x = (screen_w // 2) - (final_w // 2)
-        y = (screen_h // 2) - (final_h // 2)
-        geometry = f"{final_w}x{final_h}+{x}+{y}"
+            def set_geometry():
+                self.mainwindow.geometry(geometry)
 
-        def set_geometry():
-            self.mainwindow.geometry(geometry)
-
-        self.mainwindow.after_idle(set_geometry)
-        self.mainwindow.unbind("<Map>", self.center_map)
+            self.mainwindow.after_idle(set_geometry)
+        else:
+            # Window is not mapped, wait and try again later.
+            self.mainwindow.after(5, self.center_window)
 
     def run(self, center=False):
         if center:
-            self.center_init()
+            self.center_window()
         self.mainwindow.mainloop()
 %else:
     def run(self):
