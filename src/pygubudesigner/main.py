@@ -141,6 +141,7 @@ class PygubuDesigner:
         self.builder = pygubu.Builder(
             translator, on_first_object=designerstyles.on_first_window
         )
+        self.builder.image_cache.auto_scaling = True
         self.current_project = None
         self.is_changed = False
         self.current_title = "new"
