@@ -1,6 +1,14 @@
 History
 =======
 
+Changes for next version
+
+  * Use point instead of pixels in designer UI. Fix glitches on high dpi screens.
+  * Fix filedialog size in high dpi screens (Linux)
+  * Fix for issue #284
+  * Improved container layout editor for grid manager.
+  * Fix window centerig code in code template.
+
 Changes for version 0.40.2
 
   * Fix python 3.8, 3.9 compatibility.
