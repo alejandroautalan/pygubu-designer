@@ -34,7 +34,7 @@ dependencies = [
     "screeninfo >=0.8",
     "autopep8 >=1.7",
     "blinker >=1.6",
-    "pygubu >=0.36.3"
+    "pygubu >=0.37"
 ]
 dynamic = ["version"]
 

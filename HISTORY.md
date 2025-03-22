@@ -1,13 +1,14 @@
 History
 =======
 
-Changes for next version
+Changes for version 0.41
 
   * Use point instead of pixels in designer UI. Fix glitches on high dpi screens.
+  * Enable image auto scaling for high dpi screens.
   * Fix filedialog size in high dpi screens (Linux)
   * Fix for issue #284
   * Improved container layout editor for grid manager.
-  * Fix window centerig code in code template.
+  * Fix window centerig code in code templates.
 
 Changes for version 0.40.2
 
