@@ -25,6 +25,7 @@
   <object class="tk.Toplevel" id="about_screen" named="True">
     <property name="height">200</property>
     <property name="minsize">320|240</property>
+    <property name="title" translatable="yes">About</property>
     <property name="width">200</property>
     <child>
       <object class="ttk.Frame" id="frame1">

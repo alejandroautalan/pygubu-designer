@@ -24,6 +24,7 @@
   </project>
   <object class="tk.Toplevel" id="config_screen" named="True">
     <property name="height">200</property>
+    <property name="title" translatable="yes">Configuration Panel</property>
     <property name="width">200</property>
     <child>
       <object class="ttk.Frame" id="frame1">
