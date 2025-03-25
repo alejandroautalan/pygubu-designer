@@ -21,6 +21,7 @@ class AboutScreenUI:
         self.about_screen = tk.Tk() if master is None else tk.Toplevel(master)
         self.about_screen.configure(height=200, width=200)
         self.about_screen.minsize(320, 240)
+        self.about_screen.title("About")
         frame1 = ttk.Frame(self.about_screen)
         frame1.configure(height=200, padding="4p", width=200)
         frame2 = ttk.Frame(frame1)

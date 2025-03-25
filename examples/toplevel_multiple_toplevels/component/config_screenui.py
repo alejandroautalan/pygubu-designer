@@ -20,6 +20,7 @@ class ConfigurationScreenUI:
         # build ui
         self.config_screen = tk.Tk() if master is None else tk.Toplevel(master)
         self.config_screen.configure(height=200, width=200)
+        self.config_screen.title("Configuration Panel")
         frame1 = ttk.Frame(self.config_screen)
         frame1.configure(height=200, padding="4p", width=200)
         frame2 = ttk.Frame(frame1)
