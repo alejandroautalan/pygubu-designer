@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.41">
+  <project>
+    <settings>
+      <setting id="name">Splash screen</setting>
+      <setting id="description">Demo about howto show a splash window.</setting>
+      <setting id="module_name">splash_screen</setting>
+      <setting id="template">codescript</setting>
+      <setting id="main_widget">splash_screen</setting>
+      <setting id="main_classname">SplashScreen</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">../component</setting>
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">True</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+    <resources />
+  </project>
+  <object class="tk.Toplevel" id="splash_screen" named="True">
+    <property name="borderwidth">0</property>
+    <property name="height">200</property>
+    <property name="maxsize">699|400</property>
+    <property name="minsize">699|400</property>
+    <property name="overrideredirect">true</property>
+    <property name="resizable">none</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Label" id="simage">
+        <property name="borderwidth">0</property>
+        <property name="image">splash01.png</property>
+        <layout manager="place">
+          <property name="anchor">nw</property>
+          <property name="bordermode">ignore</property>
+          <property name="relheight">1.0</property>
+          <property name="relwidth">1.0</property>
+          <property name="x">0</property>
+          <property name="y">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Progressbar" id="progress_bar" named="True">
+        <property name="mode">indeterminate</property>
+        <property name="orient">horizontal</property>
+        <layout manager="pack">
+          <property name="fill">x</property>
+          <property name="padx">5p</property>
+          <property name="pady">5p 10p</property>
+          <property name="side">bottom</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="lbl_progress" named="True">
+        <property name="background">#262626</property>
+        <property name="font">{TkTextFont } 16 {bold}</property>
+        <property name="foreground">#d9ac00</property>
+        <property name="relief">flat</property>
+        <property name="text" translatable="yes">Loading ... </property>
+        <property name="textvariable">string:txt_progress_var</property>
+        <layout manager="pack">
+          <property name="anchor">w</property>
+          <property name="padx">5p</property>
+          <property name="side">bottom</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>

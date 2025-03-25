@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.41">
+  <project>
+    <settings>
+      <setting id="name">Splash screen emo</setting>
+      <setting id="description">Demo about howto show a splash window.</setting>
+      <setting id="module_name">main_screen</setting>
+      <setting id="template">codescript</setting>
+      <setting id="main_widget">root</setting>
+      <setting id="main_classname">MainScreen</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">../component</setting>
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">True</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+    <resources />
+  </project>
+  <object class="tk.Tk" id="root" named="True">
+    <property name="height">200</property>
+    <property name="minsize">800|600</property>
+    <property name="title" translatable="yes">Main window</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="padding">5p</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">True</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="fmiddle" named="True">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">True</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="tk.Canvas" id="canvas2">
+                <property name="background">#5600d9</property>
+                <layout manager="pack">
+                  <property name="expand">True</property>
+                  <property name="fill">both</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="fbottom" named="True">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="fill">x</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="tk.Canvas" id="canvas3">
+                <property name="background">#006b0b</property>
+                <property name="height">32</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="label2">
+            <property name="background">#5600d9</property>
+            <property name="font">{Helvetica} 36 {}</property>
+            <property name="foreground">#ffffae</property>
+            <property name="text" translatable="yes">MAIN WINDOW</property>
+            <layout manager="place">
+              <property name="anchor">center</property>
+              <property name="relx">0.5</property>
+              <property name="rely">0.5</property>
+              <property name="x">0</property>
+              <property name="y">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="pygubu.builder.widgets.toplevelmenu" id="toplevelmenu1">
+        <child>
+          <object class="tk.Menu" id="menu1">
+            <property name="tearoff">false</property>
+            <child>
+              <object class="tk.Menuitem.Command" id="mi_quit" named="True">
+                <property name="command" type="command" cbtype="with_wid">on_menuitem_clicked</property>
+                <property name="label" translatable="yes">Quit</property>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Menuitem.Separator" id="separator1" />
+            </child>
+            <child>
+              <object class="tk.Menuitem.Command" id="mi_config" named="True">
+                <property name="command" type="command" cbtype="with_wid">on_menuitem_clicked</property>
+                <property name="label" translatable="yes">Configure</property>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Menuitem.Command" id="mi_about" named="True">
+                <property name="command" type="command" cbtype="with_wid">on_menuitem_clicked</property>
+                <property name="label" translatable="yes">About</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
