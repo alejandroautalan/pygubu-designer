@@ -205,3 +205,15 @@ History
 =======
 
 See the list of changes [here](HISTORY.md).
+
+
+License
+=======
+
+Pygubu Designer: GPL-3.0 license
+
+Pygubu Designer can generate pure python code scripts. For those cases where
+a license is required for these scripts, they are licensed under the same
+license as the pygubu core: MIT License.
+This applies to all standard plugins that come with pygubu core. If you're
+using a third-party plugin, check the plugin license.
