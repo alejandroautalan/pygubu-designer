@@ -13,26 +13,27 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import tkinter as tk
 import tkinter.ttk as ttk
 
 from .propertyeditor import (
-    EntryPropertyEditor,
     PropertyEditor,
     register_editor,
 )
+from .dimensionentry import DimensionPropertyEditor
 
 
 class WHPropertyEditor(PropertyEditor):
     def _create_ui(self):
         self._wlabel = w = ttk.Label(self, text="w:", font="TkSmallCaptionFont")
         w.grid(row=0, column=0)
-        self._weditor = w = EntryPropertyEditor(self)
+        self._weditor = w = DimensionPropertyEditor(self)
         w.grid(row=0, column=1, sticky="we")
         w.parameters(width=4)
 
         self._wlabel = w = ttk.Label(self, text="h:", font="TkSmallCaptionFont")
         w.grid(row=0, column=2)
-        self._heditor = w = EntryPropertyEditor(self)
+        self._heditor = w = DimensionPropertyEditor(self)
         w.grid(row=0, column=3, sticky="we")
         w.parameters(width=4)
 
@@ -66,9 +67,11 @@ class WHPropertyEditor(PropertyEditor):
             isvalid = True
         else:
             try:
-                if int(w) >= 0 and int(h) >= 0:
+                wpx = int(self.winfo_fpixels(w))
+                hpx = int(self.winfo_fpixels(h))
+                if wpx >= 0 and hpx >= 0:
                     isvalid = True
-            except ValueError:
+            except (ValueError, tk.TclError):
                 pass
         self.show_invalid(not isvalid)
         return isvalid
