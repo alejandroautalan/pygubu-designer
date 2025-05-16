@@ -1726,6 +1726,7 @@ LAYOUT_OPTIONS = {
         "default": "top",
         "help": help_for("side-pack"),
     },
+    # place properties
     "bordermode": {
         "editor": "choice",
         "params": {
@@ -1735,32 +1736,32 @@ LAYOUT_OPTIONS = {
         "help": help_for("bordermode-pack"),
     },
     "height": {
-        "editor": "pixelcoordinateentry",
-        "help": help_for("height-pack"),
+        "editor": "dimensionentry",
+        "help": help_for("height-place"),
     },
     "relheight": {
         "editor": "relativeentry",
-        "help": help_for("relheight-pack"),
+        "help": help_for("relheight-place"),
     },
     "relwidth": {
         "editor": "relativeentry",
-        "help": help_for("relwidth-pack"),
+        "help": help_for("relwidth-place"),
     },
-    "relx": {"editor": "relativeentry", "help": help_for("relx-pack")},
-    "rely": {"editor": "relativeentry", "help": help_for("rely-pack")},
+    "relx": {"editor": "relativeentry", "help": help_for("relx-place")},
+    "rely": {"editor": "relativeentry", "help": help_for("rely-place")},
     "width": {
-        "editor": "pixelcoordinateentry",
-        "help": help_for("width-pack"),
+        "editor": "dimensionentry",
+        "help": help_for("width-place"),
     },
     "x": {
-        "editor": "pixelcoordinateentry",
+        "editor": "dimensionentry",
         "default": "0",
-        "help": help_for("x-pack"),
+        "help": help_for("x-place"),
     },
     "y": {
-        "editor": "pixelcoordinateentry",
+        "editor": "dimensionentry",
         "default": "0",
-        "help": help_for("y-pack"),
+        "help": help_for("y-place"),
     },
     #
     # grid packing properties

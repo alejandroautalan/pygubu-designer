@@ -517,24 +517,24 @@ tooltip_help = {
     "bordermode-pack": _(
         "Determines the degree to which borders within the container are used in determining the placement of the content."
     ),
-    "height-pack": _("Specifies the height for window in screen units"),
-    "relheight-pack": _(
+    "height-place": _("Specifies the height for window in screen units"),
+    "relheight-place": _(
         "Specifies the height for window. In this case the height is specified as a floating-point number relative to the height of the container: 0.5 means window will be half as high as the container, 1.0 means window will have the same height as the container, and so on. If both height and relheight are specified for a content, their values are summed."
     ),
-    "relwidth-pack": _(
+    "relwidth-place": _(
         "Specifies the width for window. In this case the width is specified as a floating-point number relative to the width of the container: 0.5 means window will be half as wide as the container, 1.0 means window will have the same width as the container, and so on. If both width and relwidth are specified for a content, their values are summed."
     ),
-    "relx-pack": _(
+    "relx-place": _(
         "Specifies the x-coordinate within the container window of the anchor point for window. In this case the location is specified in a relative fashion as a floating-point number: 0.0 corresponds to the left edge of the container and 1.0 corresponds to the right edge of the container."
     ),
-    "rely-pack": _(
+    "rely-place": _(
         "Specifies the y-coordinate within the container window of the anchor point for window. In this case the value is specified in a relative fashion as a floating-point number: 0.0 corresponds to the top edge of the container and 1.0 corresponds to the bottom edge of the container."
     ),
-    "width-pack": _("Specifies the width for window in screen units."),
-    "x-pack": _(
+    "width-place": _("Specifies the width for window in screen units."),
+    "x-place": _(
         "Specifies the x-coordinate within the container window of the anchor point for window."
     ),
-    "y-pack": _(
+    "y-place": _(
         "Specifies the y-coordinate within the container window of the anchor point for window."
     ),
     #
