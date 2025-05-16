@@ -102,7 +102,7 @@ class Preview:
         ty = ry + 6
         c.coords(self.shapes["text"], tx, ty)
         c.coords(self.shapes["window"], x, y)
-        text = f"{self.widget_name} ({self.w}x{self.h})"
+        text = f"{self.widget_name} ({round(self.w)}x{round(self.h)})"
         c.itemconfigure(self.shapes["text"], text=text)
 
     def move_by(self, dx, dy):

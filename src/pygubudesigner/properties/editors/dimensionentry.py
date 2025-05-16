@@ -21,7 +21,7 @@ from .propertyeditor import (
     register_editor,
 )
 
-re_dim = "\\d+([cimp])?"
+re_dim = r"-?(\d+(\.\d*)?|\.\d+)([cimp])?"
 regexp = f"({re_dim})?$"
 RE_DIMENSION = re.compile(regexp)
 regexp = "({0})?$|{0}\\s{0}$".format(re_dim)
