@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.41">
+  <project>
+    <settings />
+    <customwidgets />
+  </project>
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="borderwidth">1</property>
+    <property name="height">200</property>
+    <property name="resizable">both</property>
+    <property name="title" translatable="yes">Managers</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="height">200</property>
+        <property name="padding">2</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Frame" id="Frame_2">
+            <property name="height">200</property>
+            <property name="padding">0 0 0 2</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <containerlayout manager="grid">
+              <property type="col" id="0" name="weight">1</property>
+              <property type="col" id="1" name="weight">1</property>
+            </containerlayout>
+            <child>
+              <object class="ttk.Label" id="Label_2">
+                <property name="anchor">center</property>
+                <property name="background">#00009b</property>
+                <property name="font">{Helvetica} 12 {}</property>
+                <property name="foreground">#ffffff</property>
+                <property name="padding">5</property>
+                <property name="text" translatable="yes">Grid Manager</property>
+                <layout manager="grid">
+                  <property name="columnspan">2</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_1">
+                <property name="text" translatable="yes">Button 1</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_3">
+                <property name="text" translatable="yes">Button 3</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_2">
+                <property name="text" translatable="yes">Button 2</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_4">
+                <property name="text" translatable="yes">Button 4</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="row">2</property>
+                  <property name="sticky">nsew</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="packedchildren">
+            <property name="height">200</property>
+            <property name="padding">0 0 0 2</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="Label_1">
+                <property name="anchor">center</property>
+                <property name="background">#00009b</property>
+                <property name="font">{Helvetica} 12 {}</property>
+                <property name="foreground">#ffffff</property>
+                <property name="padding">5</property>
+                <property name="text" translatable="yes">Pack Manager</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_a">
+                <property name="command" type="command" cbtype="simple" args="">btna_clicked</property>
+                <property name="text" translatable="yes">A</property>
+                <layout manager="pack">
+                  <property name="fill">x</property>
+                  <property name="padx">20p 2p</property>
+                  <property name="side">bottom</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_b">
+                <property name="command" type="command" cbtype="simple" args="">btnb_clicked</property>
+                <property name="text" translatable="yes">B</property>
+                <layout manager="pack">
+                  <property name="fill">y</property>
+                  <property name="side">left</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_c">
+                <property name="command" type="command" cbtype="simple" args="">btnc_clicked</property>
+                <property name="text" translatable="yes">C</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="side">right</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="Frame_placedchildren">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">both</property>
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Label" id="Label_3">
+                <property name="anchor">center</property>
+                <property name="background">#00009b</property>
+                <property name="font">{Helvetica} 12 {}</property>
+                <property name="foreground">#ffffff</property>
+                <property name="text" translatable="yes">Place Manager</property>
+                <layout manager="place">
+                  <property name="anchor">nw</property>
+                  <property name="relheight">0.2</property>
+                  <property name="relwidth">1</property>
+                  <property name="x">0</property>
+                  <property name="y">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_5">
+                <property name="text" translatable="yes">Button 5</property>
+                <layout manager="place">
+                  <property name="anchor">nw</property>
+                  <property name="relheight">0.4</property>
+                  <property name="relwidth">0.5</property>
+                  <property name="rely">0.2</property>
+                  <property name="x">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_7">
+                <property name="text" translatable="yes">Button 7</property>
+                <layout manager="place">
+                  <property name="anchor">nw</property>
+                  <property name="relheight">0.4</property>
+                  <property name="relwidth">0.5</property>
+                  <property name="relx">0.5</property>
+                  <property name="rely">0.2</property>
+                  <property name="x">0</property>
+                  <property name="y">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_6">
+                <property name="text" translatable="yes">Button 6</property>
+                <layout manager="place">
+                  <property name="anchor">nw</property>
+                  <property name="relheight">0.4</property>
+                  <property name="relwidth">0.5</property>
+                  <property name="rely">0.6</property>
+                  <property name="x">0</property>
+                  <property name="y">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button_8">
+                <property name="text" translatable="yes">Button 8</property>
+                <layout manager="place">
+                  <property name="anchor">nw</property>
+                  <property name="relheight">0.4</property>
+                  <property name="relwidth">0.5</property>
+                  <property name="relx">0.5</property>
+                  <property name="rely">0.6</property>
+                  <property name="x">0</property>
+                  <property name="y">0</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
