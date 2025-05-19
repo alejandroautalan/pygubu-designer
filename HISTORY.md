@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.41.1
+
+  * Allow to specify screen units for width/height/x/y place manager properties and other widgets. refs #295
+
 Changes for version 0.41
 
   * Use point instead of pixels in designer UI. Fix glitches on high dpi screens.
