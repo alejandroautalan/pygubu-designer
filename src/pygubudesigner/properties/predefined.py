@@ -1526,6 +1526,9 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {"mode": "scrollcommandentry"},
         "help": help_for("command-pygubu"),
+        "ttk.Treeview": {
+            "params": {"mode": "scrollsetcommandentry"},
+        },
     },
     "xscrollincrement": {
         "editor": "dynamic",
