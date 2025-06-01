@@ -3,6 +3,7 @@ import os
 import pathlib
 import tkinter as tk
 import webbrowser
+import importlib.metadata as pkgmeta
 import pygubu
 import pygubudesigner
 import pygubudesigner.services.aboutdialogui as base
@@ -25,13 +26,15 @@ base.RESOURCE_PATHS = [IMAGE_DIR]
 class AboutDialog(base.AboutDialogUI):
     def __init__(self, master=None, translator=None):
         super().__init__(master, translator)
+        pugubu_version = pkgmeta.version("pygubu")
+        designer_version = pkgmeta.version("pygubu-designer")
         entry = self.builder.get_object("version")
         txt = entry.cget("text")
-        txt = txt.replace("%version%", str(pygubu.__version__))
+        txt = txt.replace("%version%", pugubu_version)
         entry.configure(text=txt)
         entry = self.builder.get_object("designer_version")
         txt = entry.cget("text")
-        txt = txt.replace("%version%", str(pygubudesigner.__version__))
+        txt = txt.replace("%version%", designer_version)
         entry.configure(text=txt)
 
     def run(self):

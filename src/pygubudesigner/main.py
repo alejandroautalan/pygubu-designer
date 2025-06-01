@@ -19,6 +19,7 @@
 
 import argparse
 import importlib
+import importlib.metadata as pkgmeta
 import logging
 import pkgutil
 import platform
@@ -980,10 +981,12 @@ proc ::tk::dialog::file::Create {w class} {
 
 
 def start_pygubu():
+    pugubu_version = pkgmeta.version("pygubu")
+    designer_version = pkgmeta.version("pygubu-designer")
     print(f"python: {platform.python_version()} on {sys.platform}")
     print(f"tk: {tk.TkVersion}")
-    print(f"pygubu: {pygubu.__version__}")
-    print(f"pygubu-designer: {pygubudesigner.__version__}")
+    print(f"pygubu: {pugubu_version}")
+    print(f"pygubu-designer: {designer_version}")
 
     # Setup logging level
     parser = argparse.ArgumentParser()
