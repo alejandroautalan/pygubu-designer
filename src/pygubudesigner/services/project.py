@@ -55,6 +55,7 @@ class Project:
         self.uidefinition: UIDefinition = None
         self.custom_widgets: list = []
         self.settings: dict = {}
+        self.resources: list = []
 
     @property
     def generate_code_onsave(self):
@@ -69,6 +70,7 @@ class Project:
         self.fpath = pathlib.Path(filename)
         self.uidefinition.custom_widgets = self.custom_widgets
         self.uidefinition.project_settings = self.settings
+        self.uidefinition.project_resources = self.resources
         self.uidefinition.save(filename)
 
     def get_full_settings(self) -> dict:
@@ -149,4 +151,5 @@ class Project:
         project.uidefinition = uidef
         project.custom_widgets = uidef.custom_widgets
         project.settings = uidef.project_settings
+        project.resources = uidef.project_resources
         return project
