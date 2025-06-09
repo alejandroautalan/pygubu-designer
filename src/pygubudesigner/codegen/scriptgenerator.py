@@ -104,7 +104,7 @@ class ScriptGenerator:
         if not context["main_widget_is_toplevel"]:
             generator.add_import_line("tkinter", "tk")
 
-        first_object_callback = None
+        first_object_callback = "on_first_object_cb"
         if context["has_ttk_styles"]:
             ttk_styles_module = context["ttk_styles_module"]
             first_object_callback = f"{ttk_styles_module}.setup_ttk_styles"
@@ -157,7 +157,9 @@ class ScriptGenerator:
         generator.add_import_line("tkinter", "tk")
         generator.add_import_line("tkinter.ttk", "ttk")
         # Generate code
-        code = generator.generate_app_widget(uidef, target)
+        code = generator.generate_app_widget(
+            uidef, target, on_first_object_cb="on_first_object_cb"
+        )
         # Prepare template context
         context["widget_code"] = code[target]
         context["import_lines"] = code["imports"]

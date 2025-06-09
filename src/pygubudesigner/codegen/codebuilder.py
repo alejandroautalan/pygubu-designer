@@ -223,8 +223,15 @@ class UI2Code(Builder):
 
         return self._process_results(target)
 
-    def generate_app_widget(self, uidef, target):
-        self.generate_widget_class(uidef, target, script_type=ScriptType.WIDGET)
+    def generate_app_widget(
+        self, uidef, target, on_first_object_cb: str = None
+    ):
+        self.generate_widget_class(
+            uidef,
+            target,
+            script_type=ScriptType.WIDGET,
+            on_first_object_cb=on_first_object_cb,
+        )
         return self._process_results(target)
 
     def generate_widget_class(self, uidef, target, **kw):
@@ -399,10 +406,7 @@ class UI2Code(Builder):
             self._add_new_code(configure)
 
             # <<
-            if (
-                self._first_object_created is False
-                and self._on_first_object_cb is not None
-            ):
+            if self._first_object_created is False:
                 lines = [
                     "# First object created",
                     f"{self._on_first_object_cb}({uniqueid})",
@@ -501,7 +505,7 @@ class UI2Code(Builder):
             name, file_ext = os.path.splitext(basename)
             name = self._make_identifier(name)
             varname = f"self.img_{name}"
-            line = f'{varname} = image_loader("{filename}")'
+            line = f'{varname} = image_loader({self._current_target}, "{filename}")'
             self._add_new_code([line])
             self._tkimages[filename] = varname
             self._import_tk = True
