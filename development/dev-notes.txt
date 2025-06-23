@@ -44,6 +44,9 @@ TODO
   Add proper editor for this.
 - On code generation, allow to select which tk_variables import in the class.
   See example in userinputapp.py.
+- Code generation: add option, Named objects as class attributes. For App template.
+- Code generation: Remove unnecessary options: Add i18n support.
+- Code generation: Allow to configure code generation options for all toplevels.
 
 
 My wish list?
