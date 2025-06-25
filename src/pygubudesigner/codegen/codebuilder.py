@@ -300,7 +300,11 @@ class UI2Code(Builder):
 
     def _process_imports(self):
         lines = []
-        if self._script_type in (ScriptType.APP_CODE, ScriptType.WIDGET):
+        if self._script_type in (
+            ScriptType.APP_WITH_UI,
+            ScriptType.APP_CODE,
+            ScriptType.WIDGET,
+        ):
             if self._import_tk:
                 self.add_import_line("tkinter", "tk")
             if self._import_ttk:
@@ -392,6 +396,9 @@ class UI2Code(Builder):
             ):
                 self._generated_target_id = uniqueid
 
+                # This is the target widget, add required
+                # import line for correct type hint
+                self.code_classname_for(builder)
             if (
                 self._realize_mode == RealizeMode.METHOD
                 and originalid == self._current_method
