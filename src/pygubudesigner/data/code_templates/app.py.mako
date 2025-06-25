@@ -1,26 +1,26 @@
 <%inherit file="base.py.mako"/>
-<%block name="project_paths" filter="trim">
-PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "${project_name}"
-RESOURCE_PATHS = [PROJECT_PATH]
-</%block>
+
 
 <%block name="class_definition" filter="trim">
 class ${class_name}:
     def __init__(
         self,
         master=None,
+        *,
+        project_ui,
+        resource_paths=None,
         translator=None,
         on_first_object_cb=None,
-        data_pool=None
+        data_pool=None,
         ):
         self.builder = pygubu.Builder(
             translator=translator,
             on_first_object=on_first_object_cb,
             data_pool=data_pool
         )
-        self.builder.add_resource_paths(RESOURCE_PATHS)
-        self.builder.add_from_file(PROJECT_UI)
+        self.builder.add_from_file(project_ui)
+        if resource_paths is not None:
+            self.builder.add_resource_paths(resource_paths)
         # Main widget
         self.mainwindow:${widget_base_class} = self.builder.get_object("${main_widget}", master)
 %if set_main_menu:
@@ -86,3 +86,5 @@ class ${class_name}:
 
 ${callbacks}\
 </%block>
+
+<%block name="main" filter="trim"></%block>
