@@ -243,6 +243,7 @@ class UI2Code(Builder):
         if wmeta is not None:
             originalid = wmeta.identifier  # noqa: F841
             wmeta.identifier = "self"
+            self._current_target = "self"
 
             if wmeta.classname not in CLASS_MAP:
                 self._builder._import_class(wmeta.classname)
