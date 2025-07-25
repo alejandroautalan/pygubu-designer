@@ -102,7 +102,7 @@ IMAGE_PATHS = [  # (dir, tag)
     (IMAGES_DIR / imgformat / "widgets" / "22x22", "22x22-"),
     (IMAGES_DIR / imgformat / "widgets" / "16x16", "16x16-"),
     (IMAGES_DIR / imgformat / "widgets" / "fontentry", ""),
-    (IMAGES_DIR / "tabler", ""),
+    (IMAGES_DIR / imgformat / "tabler", ""),
 ]
 for dir_, prefix in IMAGE_PATHS:
     StockImage.register_all_from_dir(dir_, prefix)

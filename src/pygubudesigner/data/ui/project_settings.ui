@@ -59,7 +59,7 @@
                 <child>
                   <object class="ttk.Notebook.Tab" id="tab2">
                     <property name="compound">left</property>
-                    <property name="image">mglass.png</property>
+                    <property name="image">mglass</property>
                     <property name="sticky">nsew</property>
                     <property name="text" translatable="yes">General</property>
                     <child>
@@ -373,7 +373,7 @@
                                 </child>
                                 <child>
                                   <object class="pygubu.widgets.PathChooserButton" id="btn_path_chooser" named="True">
-                                    <property name="image">mglass.png</property>
+                                    <property name="image">mglass</property>
                                     <property name="text" translatable="yes">…</property>
                                     <property name="title" translatable="yes">Select output directory</property>
                                     <property name="type">directory</property>
@@ -430,7 +430,7 @@
                                 </child>
                                 <child>
                                   <object class="pygubu.widgets.PathChooserButton" id="btn_path2_chooser" named="True">
-                                    <property name="image">mglass.png</property>
+                                    <property name="image">mglass</property>
                                     <property name="text" translatable="yes">…</property>
                                     <property name="title" translatable="yes">Select output directory</property>
                                     <property name="type">directory</property>
@@ -573,7 +573,7 @@
                             <child>
                               <object class="pygubu.widgets.PathChooserButton" id="btn_stylepath_find" named="True">
                                 <property name="defaultextension">.py</property>
-                                <property name="image">mglass.png</property>
+                                <property name="image">mglass</property>
                                 <property name="text" translatable="yes">…</property>
                                 <property name="title" translatable="yes">Select style definitions file</property>
                                 <property name="type">file</property>
@@ -613,7 +613,7 @@
                             <child>
                               <object class="ttk.Button" id="button2">
                                 <property name="command" type="command" cbtype="simple">on_style_remove</property>
-                                <property name="image">bin-16.png</property>
+                                <property name="image">bin-16</property>
                                 <property name="text" translatable="yes">Remove</property>
                                 <layout manager="pack">
                                   <property name="side">left</property>
