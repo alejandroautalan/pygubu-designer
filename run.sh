@@ -193,7 +193,14 @@ function all-examples {
 
 # Commands end. Dispatch to command.
 
-"$@"
+if [[ -z "$@" ]]; then
+  echo "No subcommand provided."
+  echo "Available commands:"
+  compgen -A function | sed -e $'s/^/    /'
+  exit 1
+else
+  "$@"
+fi
 
 
 # Some dev notes for this script.
