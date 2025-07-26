@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.41.3
+
+  * Fix for issue #302, missing .gif images for tk 8.5
+
 Changes for version 0.41.2
 
   * Treeview, fix incorrect editor for xscroll command.
