@@ -202,7 +202,9 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
             def cb(f=old_manager, t=new_manager):
                 return self._ask_manager_change(f, t)
 
-            self.after_idle(cb)
+            # TODO: tkinter on mac os does not like after_idle here. Investigate later
+            # self.after_idle(cb)
+            self.after(180, cb)
         else:
             self._current.manager = new_manager
             self.edit(self._current, self._allowed_managers)
