@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.41.4
+
+  * Fix for issue #303, error on MacOS when changing manager of container children.
+
 Changes for version 0.41.3
 
   * Fix for issue #302, missing .gif images for tk 8.5
