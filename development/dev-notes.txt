@@ -48,6 +48,11 @@ TODO
 - Code generation: Remove unnecessary options: Add i18n support.
 - Code generation: Allow to configure code generation options for all toplevels.
 
+COMPLETED
+=========
+
+- Code generation: do not layout root widget in CustomWidget template. DONE
+
 
 My wish list?
 ============
