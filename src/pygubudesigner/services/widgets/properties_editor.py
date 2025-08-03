@@ -113,6 +113,11 @@ class PropertiesEditorMixin:
             params["placeholder"] = wdescr.start_id
 
         # Configure editor
+        final_mode = params["mode"]
+        if final_mode is None:
+            msg = "Configuration ERROR. Unable to determine editor mode for '%s.%s' property."
+            logger.warn(msg, classname, pname)
+            params["mode"] = "entry"
         logger.debug("Setting editor mode for %s", pname)
         editor.parameters(**params)
 
