@@ -239,9 +239,9 @@ class UI2Code(Builder):
         self._process_options(kw)
 
         mastermeta = wmeta = self.uidefinition.get_widget(target)
-        builder = bmaster = BuilderObject(self, mastermeta)
+        builder = BuilderObject(self, mastermeta)  # bmaster
         if wmeta is not None:
-            originalid = wmeta.identifier  # noqa: F841
+            originalid = wmeta.identifier
             wmeta.identifier = "self"
             self._current_target = "self"
 
@@ -251,8 +251,8 @@ class UI2Code(Builder):
             if wmeta.classname in CLASS_MAP:
                 bclass = CLASS_MAP[wmeta.classname].builder
                 builder = bclass.factory(self, wmeta)
-                uniqueid = builder.code_identifier()  # noqa: F841
-                masterid = bmaster.code_child_master()
+                # uniqueid = builder.code_identifier()  # noqa: F841
+                # masterid = bmaster.code_child_master()
 
                 for childmeta in self.uidefinition.widget_children(target):
                     childid = self._code_realize(builder, childmeta)
@@ -263,9 +263,11 @@ class UI2Code(Builder):
                 configure = builder.code_configure()
                 self._add_new_code(configure)
 
-                # layout? TODO: Review if layout is required here.
-                layout = builder.code_layout(parentid=masterid)
-                self._add_new_code(layout)
+                # Do not layout widget in class definition.
+                # layout = builder.code_layout(parentid=masterid)
+                # self._add_new_code(layout)
+                comment = f"# Layout for '{originalid}' skipped in custom widget template."
+                self._add_new_code((comment,))
 
     def code_classname_for(self, bobject):
         wmeta = bobject.wmeta
