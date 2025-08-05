@@ -47,6 +47,7 @@ TODO
 - Code generation: add option, Named objects as class attributes. For App template.
 - Code generation: Remove unnecessary options: Add i18n support.
 - Code generation: Allow to configure code generation options for all toplevels.
+- form_field_entry: validation bug, I can't add same field name for two diferent formbuilders. It should be posible.
 
 COMPLETED
 =========
