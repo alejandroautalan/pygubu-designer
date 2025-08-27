@@ -807,10 +807,6 @@ PROPERTY_DEFINITIONS = {
             "params": {"mode": "whentry"},
             "help": help_for("minsize-toplevel"),
         },
-        "pygubu.builder.widgets.dialog": {
-            "params": {"mode": "whentry"},
-            "help": help_for("minsize-toplevel"),
-        },
     },
     # ttk.Treeview.Column
     "minwidth": {
