@@ -515,7 +515,7 @@ class UI2Code(Builder):
             name, file_ext = os.path.splitext(basename)
             name = self._make_identifier(name)
             varname = f"self.img_{name}"
-            line = f'{varname} = image_loader({self._current_target}, "{filename}")'
+            line = f'{varname} = image_loader({self._generated_target_id}, "{filename}")'
             self._add_new_code([line])
             self._tkimages[filename] = varname
             self._import_tk = True
