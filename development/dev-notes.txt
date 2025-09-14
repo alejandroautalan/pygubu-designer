@@ -21,9 +21,6 @@ TODO
 
 - BUG: create a Toplevel, set a large geometry, greater than the preview canvas.
   The preview vertical scrollbar is shown but not the horizontal. Investigate.
-- BUG: create a pygubu dialog and generate code. Incorrect class hint generated
-  self.mainwindow: pygubu.builder.widgets.dialog = builder.get_object(
-            "settingsdialog", master)
 - Issue: redraw previews on theme change.
 - Customtkinter 5 Issues on designer:
   Can't select SegmentedButton in Preview (can't click it)
@@ -32,9 +29,6 @@ TODO
 - Treeview with scrollHelper. Srollbars are not shown depending on the
   treeview configuration or if columns are set stretch=true
   Investigate the behaviour.
-- FIX: Create a frame frame1, create a frame2 inside, then add a button.
-  Create another frame frame3 sibling of frame1, copy frame2 and paste in
-  frame3, the content of frame 2 is duplicated in frame3.
 - Add a tk.Spinbox, set from_:8  to:5  This show error on build, but
   howto validate this combination of properties?
 - Allow to define custom font.
@@ -47,12 +41,17 @@ TODO
 - Code generation: add option, Named objects as class attributes. For App template.
 - Code generation: Remove unnecessary options: Add i18n support.
 - Code generation: Allow to configure code generation options for all toplevels.
-- form_field_entry: validation bug, I can't add same field name for two diferent formbuilders. It should be posible.
 
 COMPLETED
 =========
 
 - Code generation: do not layout root widget in CustomWidget template. DONE
+- BUG: create a pygubu dialog and generate code. Incorrect class hint generated
+  self.mainwindow: pygubu.builder.widgets.dialog = builder.get_object("settingsdialog", master)
+- FIX: Create a frame frame1, create a frame2 inside, then add a button.
+  Create another frame frame3 sibling of frame1, copy frame2 and paste in
+  frame3, the content of frame 2 is duplicated in frame3.
+- form_field_entry: validation bug, I can't add same field name for two diferent formbuilders. It should be posible.
 
 
 My wish list?
