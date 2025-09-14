@@ -24,6 +24,7 @@ from tkinter import messagebox
 from pygubu.builder import CLASS_MAP, Builder
 from pygubu.component.uidefinition import UIDefinition
 from pygubu.stockimage import StockImage, StockImageException
+from pygubu.widgets.filterabletreeview import FilterableTreeview
 
 import pygubudesigner
 from pygubudesigner import preferences as pref
@@ -41,11 +42,11 @@ from .i18n import translator as _
 from .util import trlog
 from .util.taskexecutor import TaskExecutor
 from .widgetdescr import WidgetMeta
-from pygubu.forms.widget import FieldWidget
 from pygubudesigner.properties.editors.forms import (
     FormFieldNameEntry,
     FormFieldNameSelector,
 )
+from pygubudesigner.services.formsmanager import PygubuFormsManager
 from pygubudesigner.services.project import Project
 from pygubu.component.plugin_manager import PluginManager
 
@@ -61,7 +62,7 @@ class WidgetsTreeEditor:
 
     def __init__(self, app):
         self.app = app
-        self.treeview = app.treeview
+        self.treeview: FilterableTreeview = app.treeview
         self.previewer = app.previewer
         self.task_executor = TaskExecutor(app.mainwindow)
         self.treedata = {}
@@ -73,6 +74,7 @@ class WidgetsTreeEditor:
         self.update_bo = {}
         self.preview_update_cbid = None
         self.scheduled_widget_updates = []
+        self.forms_manager = PygubuFormsManager(self)
         # self._stretch_cb = None
         self.treeview.bind("<Configure>", self._on_tree_configure)
 
@@ -1426,6 +1428,13 @@ class WidgetsTreeEditor:
         for item in children:
             yield from self._data_iterator(item)
 
+    def iter_parents(self, itemid):
+        """Iter parents of itemid up to toplevel."""
+        parent = self.treeview.parent(itemid)
+        while parent != "":
+            yield (parent, self.treedata[parent])
+            parent = self.treeview.parent(parent)
+
     def get_tree_topitem_byid(self, wid):
         for item, data in self._top_widget_iterator():
             if data.identifier == wid:
@@ -1602,33 +1611,21 @@ class WidgetsTreeEditor:
         self.draw_widget(item)
         self.app.set_changed()
 
-    def _is_form_field_class(self, classname: str):
-        builder = CLASS_MAP[classname].builder
-        if builder.class_ is not None:
-            return issubclass(builder.class_, FieldWidget)
-        return False
-
-    def _is_form_filedname_defined(self, fieldname: str):
-        is_defined = False
-        for item, data in self._data_iterator():
-            if self._is_form_field_class(data.classname):
-                fname = data.widget_property("field_name")
-                if not fname:
-                    fname = data.identifier
-                if fname == fieldname:
-                    is_defined = True
-                    break
-        return is_defined
-
     def get_form_fieldname_list(self):
-        flist = []
-        for item, data in self._data_iterator():
-            if self._is_form_field_class(data.classname):
-                fname = data.widget_property("field_name")
-                if not fname:
-                    fname = data.identifier
-                flist.append(fname)
+        self.treeview.filter_remove(remember=True)
+        fbitem, fbdata = self.forms_manager.get_parent_fbuilder(
+            self.current_edit
+        )
+        flist = self.forms_manager.get_fieldname_list(fbitem)
+        self.treeview.filter_restore()
         return flist
 
-    def is_form_fieldname_valid(self, fieldname: str):
-        return not self._is_form_filedname_defined(fieldname)
+    def is_form_fieldname_valid(self, fieldname: str) -> bool:
+        self.treeview.filter_remove(remember=True)
+        fbitem, fbdata = self.forms_manager.get_parent_fbuilder(
+            self.current_edit
+        )
+        is_defined = self.forms_manager.is_field_defined(fbitem, fieldname)
+        self.treeview.filter_restore()
+
+        return not is_defined
