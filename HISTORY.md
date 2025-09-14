@@ -1,6 +1,13 @@
 History
 =======
 
+Changes for next version
+
+  * Modified code templates. Make easy to configure parent class from derived.
+  * Fix code generation issues for Custom Widget Template
+  * Avoid error when editor mode for custom property is not configured correctly.
+  * form_field_entry: Fixed a validation error that prevented the same field name from being used in different form builders.
+
 Changes for version 0.41.4
 
   * Fix for issue #303, error on MacOS when changing manager of container children.
