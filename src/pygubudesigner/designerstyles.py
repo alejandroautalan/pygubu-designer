@@ -37,6 +37,7 @@ class RowHeightLazy:
 
 treeview_rowheight = RowHeightLazy(1.5)
 palette_rowheight = RowHeightLazy(1.8)
+bindings_rowheight = RowHeightLazy(2.2)
 
 
 designer_dboptions = {
@@ -96,6 +97,11 @@ designer_settings = {
             "rowheight": palette_rowheight,
         }
     },
+    "BindingsEditor.Treeview": {
+        "configure": {
+            "rowheight": bindings_rowheight,
+        }
+    },
     # Forms ??
     # "LabelFieldInfo.TLabel": {"configure": {option:val,}},
     "Error.LabelFieldInfo.TLabel": {
@@ -131,6 +137,7 @@ def on_first_window(master: tk.Widget):
     # calculate rowheight for treviews
     treeview_rowheight.calculate(master)
     palette_rowheight.calculate(master)
+    bindings_rowheight.calculate(master)
 
     # setup database options
     # master.option_clear()
