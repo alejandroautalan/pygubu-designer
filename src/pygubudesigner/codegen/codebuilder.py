@@ -171,15 +171,6 @@ class UI2Code(Builder):
         if wmeta is not None:
             self._code_realize(builder, wmeta)
 
-        #
-        # Generate method callback definitions for associated main menu.
-        #
-        main_menu = self._options["main_menu"]
-        if main_menu is not None:
-            wmeta = self.uidefinition.get_widget(main_menu)
-            self._realize_mode = RealizeMode.MAIN_MENU
-            self._code_realize(builder, wmeta)
-
     def generate_app_with_ui(self, uidef, target, main_menu=None):
         self.generate(
             uidef,
@@ -368,9 +359,6 @@ class UI2Code(Builder):
             self._code.extend(newcode)
         elif self._realize_mode == RealizeMode.METHOD:
             self._methods[self._current_method].extend(newcode)
-        else:
-            # RealizeMode.MAIN_MENU
-            pass
 
     def _get_unique_id(self, wmeta, uniqueid, masterid):
         if self.as_class:
