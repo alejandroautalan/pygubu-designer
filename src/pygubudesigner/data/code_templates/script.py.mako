@@ -44,7 +44,7 @@ ${widget_code}
         self.mainwindow = ${target_code_id}
 %if set_main_menu:
         # Main menu
-        _main_menu = self.create_${main_menu_id}(self.mainwindow)
+        _main_menu = self.create_${main_menu_id}(self.mainwindow, image_loader)
         self.mainwindow.configure(menu=_main_menu)
 %endif
 %if add_window_centering_code:

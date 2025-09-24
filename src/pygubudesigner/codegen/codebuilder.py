@@ -445,7 +445,7 @@ class UI2Code(Builder):
         code = []
         bsp = " "
         for target_id, mlines in self._methods.items():
-            line = f"{bsp * tab2}def create_{target_id}(self, master):"
+            line = f"{bsp * tab2}def create_{target_id}(self, master, image_loader):"
             code.append(line)
             for line in mlines:
                 line = f"{bsp * tabspaces}{line}"
@@ -503,7 +503,10 @@ class UI2Code(Builder):
             name, file_ext = os.path.splitext(basename)
             name = self._make_identifier(name)
             varname = f"self.img_{name}"
-            line = f'{varname} = image_loader({self._generated_target_id}, "{filename}")'
+            master = self._generated_target_id
+            if self._realize_mode == RealizeMode.METHOD:
+                master = "master"
+            line = f'{varname} = image_loader({master}, "{filename}")'
             self._add_new_code([line])
             self._tkimages[filename] = varname
             self._import_tk = True
