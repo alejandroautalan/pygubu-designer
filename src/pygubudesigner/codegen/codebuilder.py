@@ -198,6 +198,7 @@ class UI2Code(Builder):
             on_first_object_cb=on_first_object_cb,
         )
         if methods_for is not None:
+            self._methods.clear()
             self._realize_mode = RealizeMode.METHOD
             for target_id in methods_for:
                 self._current_method = target_id

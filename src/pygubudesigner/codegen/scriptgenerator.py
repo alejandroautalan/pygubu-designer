@@ -119,6 +119,14 @@ class ScriptGenerator:
             methods_for=methods,
             on_first_object_cb=first_object_callback,
         )
+        # FIXME: call again but just to generate user code file without main menu code.
+        #        Find better way to do this.
+        code_user = generator.generate_app_code(
+            uidef,
+            target,
+            methods_for=[],
+            on_first_object_cb=first_object_callback,
+        )
 
         # Prepare template context
         context["widget_code"] = code[target]
@@ -140,6 +148,9 @@ class ScriptGenerator:
             outfile.write(final_code)
 
         tpl = makolookup.get_template("scriptuser.py.mako")
+        context["methods"] = code_user[
+            "methods"
+        ]  # FIXME: do not add main menu output for this file
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
         outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
