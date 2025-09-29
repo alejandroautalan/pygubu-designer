@@ -13,13 +13,18 @@ from ${module_name} import ${class_name}
 #
 # Builder definition section
 #
+_widget_namespace = "${module_name}"
+_widget_classname = "${class_name}"
+_builder_namespace = "projectcustom"
+_section_name = "Project Widgets"
+
 
 class ${class_name}BO(BuilderObject):
     class_ = ${class_name}
 
-_builder_id = "projectcustom.${class_name}"
+_builder_id = f"{_builder_namespace}.{_widget_classname}"
 register_widget(
-    _builder_id, ${class_name}BO, "${class_name}", ("ttk", "Project Widgets")
+    _builder_id, ${class_name}BO, _widget_classname, ("ttk", _section_name)
 )
 </%block>
 
