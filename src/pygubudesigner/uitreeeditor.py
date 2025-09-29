@@ -1441,6 +1441,16 @@ class WidgetsTreeEditor:
                 return item
         return None
 
+    def find_item_byid(self, wuid):
+        item = None
+        data = None
+        for item_, data_ in self.treedata.items():
+            if wuid == data_.identifier:
+                item = item_
+                data = data_
+                break
+        return item, data
+
     def get_top_widget_list(self):
         wlist = []
         for item, data in self._top_widget_iterator():
@@ -1462,13 +1472,44 @@ class WidgetsTreeEditor:
     def get_options_for_project_settings(self):
         main_widget = OrderedDict()
         main_menu = OrderedDict()
+        custom_widget = OrderedDict()
         for item, data in self._top_widget_iterator():
             label = f"{data.identifier} ({data.classname})"
             if data.classname == "tk.Menu":
                 main_menu[data.identifier] = label
             else:
                 main_widget[data.identifier] = label
-        return dict(main_widget=main_widget, main_menu=main_menu)
+                bo = CLASS_MAP[data.classname].builder
+                if issubclass(bo.class_, tk.Widget):
+                    custom_widget[data.identifier] = label
+                (
+                    child_is_candidate,
+                    widgetid,
+                    label,
+                ) = self.child_canbe_custom_widget(item)
+                if child_is_candidate:
+                    custom_widget[widgetid] = label
+        return dict(
+            main_widget=main_widget,
+            main_menu=main_menu,
+            custom_widget=custom_widget,
+        )
+
+    def child_canbe_custom_widget(self, item):
+        is_candidate = False
+        identifier = None
+        label = None
+
+        children = self.treeview.get_children(item)
+        if len(children) == 1:
+            child = children[0]
+            classname = self.treedata[child].classname
+            identifier = self.treedata[child].identifier
+            bo = CLASS_MAP[classname].builder
+            if issubclass(bo.class_, tk.Widget):
+                is_candidate = True
+                label = f"{identifier} ({classname})"
+        return is_candidate, identifier, label
 
     def get_widget_class(self, item):
         return self.treedata[item].classname

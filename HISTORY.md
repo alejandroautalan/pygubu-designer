@@ -7,6 +7,7 @@ Changes for next version
   * Fix code generation issues for Custom Widget Template
   * Avoid error when editor mode for custom property is not configured correctly.
   * form_field_entry: Fixed a validation error that prevented the same field name from being used in different form builders.
+  * Added new template to create a custom direct subclass from a tk widget.
 
 Changes for version 0.41.4
 

@@ -61,8 +61,9 @@ class ScriptType(Enum):
     APP_WITH_UI = 1
     APP_CODE = 2
     WIDGET = 3
-    APP_UI_METHOD = 4
-    APP_CODE_METHOD = 5
+    WIDGET_DS = 4
+    APP_UI_METHOD = 5
+    APP_CODE_METHOD = 6
 
 
 class RealizeMode(Enum):
@@ -226,6 +227,15 @@ class UI2Code(Builder):
         )
         return self._process_results(target)
 
+    def generate_widget_ds(self, uidef, target, on_first_object_cb: str = None):
+        self.generate_widget_class(
+            uidef,
+            target,
+            script_type=ScriptType.WIDGET_DS,
+            on_first_object_cb=on_first_object_cb,
+        )
+        return self._process_results(target)
+
     def generate_widget_class(self, uidef, target, **kw):
         self.uidefinition = uidef
         self._process_options(kw)
@@ -254,6 +264,10 @@ class UI2Code(Builder):
                 # configuration
                 configure = builder.code_configure()
                 self._add_new_code(configure)
+
+                # Configuration after adding all children
+                children_config = builder.code_configure_children()
+                self._add_new_code(children_config)
 
                 # Do not layout widget in class definition.
                 # layout = builder.code_layout(parentid=masterid)
@@ -299,6 +313,7 @@ class UI2Code(Builder):
             ScriptType.APP_WITH_UI,
             ScriptType.APP_CODE,
             ScriptType.WIDGET,
+            ScriptType.WIDGET_DS,
         ):
             if self._import_tk:
                 self.add_import_line("tkinter", "tk")
@@ -411,7 +426,8 @@ class UI2Code(Builder):
                     f"{self._on_first_object_cb}({uniqueid})",
                     "",
                 ]
-                self._add_new_code(lines)
+                if self._script_type != ScriptType.WIDGET_DS:
+                    self._add_new_code(lines)
                 self._first_object_created = True
 
             # Children
@@ -508,6 +524,8 @@ class UI2Code(Builder):
             if self._realize_mode == RealizeMode.METHOD:
                 master = "master"
             line = f'{varname} = image_loader({master}, "{filename}")'
+            if self._script_type == ScriptType.WIDGET_DS:
+                line = f"""{varname} = tk.PhotoImage(master=self, file="{filename}")"""
             self._add_new_code([line])
             self._tkimages[filename] = varname
             self._import_tk = True

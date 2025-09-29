@@ -210,14 +210,52 @@ class ScriptGenerator:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
+    def _widgetds_code(self, generator, context):
+        """Widget direct subclass code generation."""
+        uidef = self.tree.tree_to_uidef()
+        target = context["target"]
+
+        # generator.with_i18n_support = False
+        generator.add_import_line("tkinter", "tk")
+        generator.add_import_line("tkinter.ttk", "ttk")
+        # Generate code
+        code = generator.generate_widget_ds(uidef, target)
+        # Prepare template context
+        context["widget_code"] = code[target]
+        context["import_lines"] = code["imports"]
+        context["callbacks"] = code["callbacks"]
+        context["with_image_loader"] = code["with_image_loader"]
+
+        tpl = makolookup.get_template("widgetds.py.mako")
+        final_code = tpl.render(**context)
+        final_code = self._format_code(final_code)
+
+        output_dir = context["output_dir"]
+        outfn = output_dir / (context["module_name"] + ".py")
+        if not outfn.exists():
+            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+                outfile.write(final_code)
+                logger.info("Generated code file: %s", outfn)
+
+        tpl = makolookup.get_template("widgetbo.py.mako")
+        final_code = tpl.render(**context)
+        final_code = self._format_code(final_code)
+        output_dir2 = context["output_dir2"]
+        outfn: pathlib.Path = output_dir2 / (context["module_name"] + "bo.py")
+        # DO NOT overwrite user module.
+        if not outfn.exists():
+            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+                outfile.write(final_code)
+                logger.info("Generated code file: %s", outfn)
+
     def generate_code(self):
         project = self.app.current_project
         config = project.get_full_settings()
         generator = UI2Code()
         template = config["template"]
         target = config["main_widget"]
-        itemid = self.tree.get_tree_topitem_byid(target)
-        target_class = self.tree.get_widget_class(itemid)
+        itemid, data = self.tree.find_item_byid(target)
+        target_class = data.classname
 
         toplevel_uids = (
             "tk.Tk",
@@ -308,6 +346,8 @@ class ScriptGenerator:
             self._appui_code(generator, context)
         elif template == "widget":
             self._widget_code(generator, context)
+        elif template == "widgetds":
+            self._widgetds_code(generator, context)
         elif template == "codescript":
             self._script_code(generator, context)
 

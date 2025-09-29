@@ -28,6 +28,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         self._current_project: Project = None
         self.on_settings_changed = None
         self.dialog_toplevel = self.mainwindow.toplevel
+        self.combo_candidates = {}
 
         options = {
             "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
@@ -55,12 +56,14 @@ class ProjectSettings(psbase.ProjectSettingsUI):
                 "Create a pygubu application script using the UI definition."
             ),
             "codescript": _("Create a coded version of the UI definition."),
-            "widget": _("Create a base class for your custom widget."),
+            "widget": _("Create a base class for your custom compound widget."),
+            "widgetds": _("Create a direct subclass of a tkinter widget."),
         }
         self.template_keys = {
             "application": _("Application"),
             "codescript": _("Code Script"),
-            "widget": _("Custom Widget"),
+            "widget": _("Custom compound widget"),
+            "widgetds": _("Widget direct subclass"),
         }
 
         field = self.builder.get_object("template")
@@ -134,6 +137,13 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         self.mainwindow.close()
 
     def setup(self, options: dict):
+        self.combo_candidates = options
+
+    def setup_comboboxes(self):
+        template = self.frm_code.fields["template"].data
+        options = self.combo_candidates.copy()
+        if template in ("widget", "widgetds"):
+            options["main_widget"] = options["custom_widget"]
         keys = ("main_widget", "main_menu")
         for key in keys:
             if key in options:
@@ -149,6 +159,12 @@ class ProjectSettings(psbase.ProjectSettingsUI):
     def edit(self, project: Project):
         self._current_project = project
         settings = project.get_full_settings()
+
+        # update template val before loading project settings on form
+        template_val = settings["template"]
+        self.frm_code.fields["template"].data = template_val
+        self.setup_comboboxes()
+
         self.frm_general.edit(settings, project.settings_default)
         self.frm_code.edit(settings, project.settings_default)
         self.frm_style.edit(settings, project.settings_default)
@@ -239,7 +255,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             state["all_ids_attributes"] = "disabled"
         elif template == "codescript":
             pass
-        elif template == "widget":
+        elif template in ("widget", "widgetds"):
             # state["use_i18n"] = "disabled"
             state["main_menu"] = "disabled"
             state["output_dir2"] = "normal"
@@ -249,6 +265,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
                 self.frm_code.fields[fname].widget.configure(state=newstate)
             else:
                 self.builder.get_object(fname).configure(state=newstate)
+        self.setup_comboboxes()
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
 
