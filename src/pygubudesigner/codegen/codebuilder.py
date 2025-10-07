@@ -100,6 +100,7 @@ class UI2Code(Builder):
         self._current_method = None
         self._current_target = None
         self._generated_target_id = None
+        self._generated_target_child_master = None
         self.all_ids_as_attributes = False
         self._first_object_created = False
 
@@ -402,6 +403,9 @@ class UI2Code(Builder):
                 and originalid == self._current_target
             ):
                 self._generated_target_id = uniqueid
+                target_cm = builder.code_child_master()
+                target_cm = target_cm.replace(originalid, uniqueid)
+                self._generated_target_child_master = target_cm
 
                 # This is the target widget, add required
                 # import line for correct type hint
@@ -520,7 +524,7 @@ class UI2Code(Builder):
             name, file_ext = os.path.splitext(basename)
             name = self._make_identifier(name)
             varname = f"self.img_{name}"
-            master = self._generated_target_id
+            master = self._generated_target_child_master
             if self._realize_mode == RealizeMode.METHOD:
                 master = "master"
             line = f'{varname} = image_loader({master}, "{filename}")'
