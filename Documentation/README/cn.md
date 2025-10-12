@@ -131,7 +131,8 @@ if __name__ == '__main__':
 - [Python 官方 GUI 文档](https://docs.python.org/3/library/tk.html)
 - [Tkinter 8.5 参考指南](https://tkdocs.com/shipman)
 - [Tkinter 入门教程](http://effbot.org/tkinterbook) ([存档版](http://web.archive.org/web/20200504141939/http://www.effbot.org/tkinterbook))
-- [Tcl/Tk 8.5 手册](http://www.tcl.tk/man/tcl8.5/)
+- [Tcl/Tk 9.0 Manual](https://www.tcl-lang.org/man/tcl9.0/TkCmd/index.html)
+- [Tcl/Tk 8.6 Manual](https://www.tcl-lang.org/man/tcl8.6/TkCmd/contents.htm)
 
 更多实践示例请查看 [示例目录](examples)，或观看 [入门视频教程](http://youtu.be/wuzV9P8geDg)。
 
