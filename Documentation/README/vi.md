@@ -10,7 +10,7 @@ Pygubu lấy cảm hứng từ [Glade](https://glade.gnome.org).
 Cài đặt
 ============
 
-Phiên bản Pygubu hiện tại yêu cầu Python 3.8 trở lên.
+Phiên bản Pygubu hiện tại yêu cầu Python 3.9 trở lên.
 
 Cài đặt bằng:
 

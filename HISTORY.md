@@ -3,6 +3,7 @@ History
 
 Changes for next version
 
+  * Dropping support for Python 3.8 (was already not installable)
   * Modified code templates. Make easy to configure parent class from derived.
   * Fix code generation issues for Custom Widget Template
   * Avoid error when editor mode for custom property is not configured correctly.

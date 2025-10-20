@@ -13,7 +13,7 @@ Pygubu 的设计灵感源自 [Glade](https://gitlab.gnome.org/GNOME/glade)。
 
 ## 安装指南
 
-最新版 pygubu 要求 Python >= 3.8
+最新版 pygubu 要求 Python >= 3.9
 
 可通过以下方式安装 pygubu-designer：
 

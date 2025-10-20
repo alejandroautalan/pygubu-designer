@@ -11,7 +11,7 @@ Pygubu esta inspirado por [Glade](https://es.wikipedia.org/wiki/Glade) (el dise�
 Instalación
 ============
 
-La última versión de pygubu requiere Python >= 3.8
+La última versión de pygubu requiere Python >= 3.9
 
 Puedes instalar pygubu-designer usando:
 
