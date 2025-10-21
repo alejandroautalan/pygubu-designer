@@ -1002,7 +1002,7 @@ def start_pygubu():
     # Dependency check
     #
     help = "Hint, If your are using Debian, install package python3-appdirs."
-    check_dependency("appdirs", "1.3", help)
+    check_dependency("platformdirs", "4.4.0", help)
 
     app = PygubuDesigner()
 

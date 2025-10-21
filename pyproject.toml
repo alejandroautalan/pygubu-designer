@@ -29,7 +29,7 @@ classifiers = [
   "Topic :: Software Development :: User Interfaces",
 ]
 dependencies = [
-    "appdirs >=1.4.3",
+    "platformdirs >=4.4.0",
     "Mako >=1.1.4",
     "screeninfo >=0.8",
     "autopep8 >=1.7",

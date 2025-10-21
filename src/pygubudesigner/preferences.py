@@ -7,7 +7,7 @@ from pathlib import Path
 from tkinter import filedialog, messagebox
 
 import pygubu
-from appdirs import AppDirs
+import platformdirs as pdirs
 
 from pygubudesigner.services.theming import get_ttk_style
 
@@ -15,8 +15,9 @@ from .i18n import translator as _
 
 logger = logging.getLogger(__name__)
 
-dirs = AppDirs("pygubu-designer")
-CONFIG_FILE = Path(dirs.user_data_dir) / "config"
+APP_NAME = "pygubu-designer"
+USER_DATA_DIR = Path(pdirs.user_data_dir(APP_NAME))
+CONFIG_FILE = USER_DATA_DIR / "config"
 
 logger.info(f"Using configfile: {CONFIG_FILE}")
 
@@ -76,8 +77,8 @@ NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / "customstyles.py.mako"
 
 
 def initialize_configfile():
-    if not os.path.exists(dirs.user_data_dir):
-        os.makedirs(dirs.user_data_dir)
+    if not os.path.exists(USER_DATA_DIR):
+        os.makedirs(USER_DATA_DIR)
 
     if not CONFIG_FILE.exists():
         with CONFIG_FILE.open("w") as configfile:
