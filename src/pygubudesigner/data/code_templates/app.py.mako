@@ -36,7 +36,6 @@ class ${class_name}:
         self.builder.import_variables(self)
 
     %endif
-        self.builder.connect_callbacks(self)
 
 %if add_window_centering_code:
     def center_window(self):

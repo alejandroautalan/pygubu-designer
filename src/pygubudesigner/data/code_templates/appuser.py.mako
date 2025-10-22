@@ -24,6 +24,7 @@ class ${class_name}(${class_name}UI):
             translator=None, 
             on_first_object_cb=${first_object_func}
         )
+        self.builder.connect_callbacks(self)
 
 ${callbacks}\
 </%block>
