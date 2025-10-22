@@ -13,49 +13,68 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
+import tkinter as tk
+from pathlib import Path
+from .preferences import preferences
 
-from .preferences import recent_files_get, recent_files_save
+
+def image_loader(master, uid):
+    # TODO: replace this fun.
+    return None
 
 
 class RecentFilesManager:
     def __init__(self, menu, itemcallback):
-        self.menu = menu
+        self.menu: tk.Menu = menu
         self.item_callback = itemcallback
+        self.recent = {}
         self.filelist = []
+        self.load()
 
     def load(self):
-        self.filelist = recent_files_get()
+        self.recent = preferences.recent_files
+        self.filelist = [
+            key
+            for key, value in sorted(
+                self.recent.items(), key=lambda item: item[1]
+            )
+        ]
         for f in self.filelist:
             self._add_item(f)
 
     def save(self):
-        newlist = self.filelist[:10]
-        self.filelist = newlist
-        recent_files_save(reversed(newlist))
+        preferences.recent_files = self.recent
 
-    def addfile(self, filepath):
-        if filepath not in self.filelist:
-            self.filelist.insert(0, filepath)
-            self._add_item(filepath)
+    def add(self, filepath):
+        key = str(filepath)
+        if key in self.recent:
+            self.recent[key] += 1
         else:
-            self.filelist.remove(filepath)
-            self.filelist.insert(0, filepath)
+            self.recent[key] = 1
+            self._add_item(filepath)
         self.save()
 
     def _add_item(self, filepath):
-        name = os.path.basename(filepath)
+        name = Path(filepath).name
         itemlabel = f"{name} [{filepath}]"
 
         def item_command(fname=filepath, cb=self.item_callback):
-            cb(filepath)
+            cb(fname)
 
-        self.menu.insert_command(0, label=itemlabel, command=item_command)
+        master = self.menu.nametowidget(self.menu.winfo_parent())
+        item_image = image_loader(master, "mi_recentfiles_open")
+        self.menu.insert_command(
+            0,
+            label=itemlabel,
+            command=item_command,
+            compound=tk.LEFT,
+            image=item_image,
+        )
 
     def clear(self):
         count = self.menu.index("end")
         index_to = count - 2
         if index_to > 0:
             self.menu.delete(0, index_to)
-        self.filelist = []
+        self.recent = {}
         self.save()
