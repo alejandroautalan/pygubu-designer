@@ -25,7 +25,7 @@ from pygubu.stockimage import StockImage
 import pygubudesigner.actions as actions
 from pygubudesigner.properties.editors import TtkStylePropertyEditor
 from pygubudesigner.services.theming import ThemeChangedMonitor
-from ..preferences import get_preview_indicator_color
+from ..preferences import preferences
 from .preview import MenuPreview, Preview
 
 logger = logging.getLogger(__name__)
@@ -79,7 +79,7 @@ class PreviewHelper:
 
     def update_indicators_color(self):
         for key, frame in self.indicators.items():
-            frame.configure(background=get_preview_indicator_color())
+            frame.configure(background=preferences.preview_indicator_color)
 
     def add_resource_path(self, path):
         self.resource_paths.append(path)
@@ -219,7 +219,7 @@ class PreviewHelper:
                 width=1,
                 height=1,
                 borderwidth=0,
-                background=get_preview_indicator_color(),
+                background=preferences.preview_indicator_color,
             )
             self.canvas.create_window(
                 -10, -10, window=frame, anchor=anchors[tag], tags=tag

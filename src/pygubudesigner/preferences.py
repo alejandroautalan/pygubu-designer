@@ -1,180 +1,140 @@
-import configparser
-import logging
 import os
+import pathlib
+import logging
 import json
-import tkinter as tk
-from pathlib import Path
-from tkinter import filedialog, messagebox
-
-import pygubu
 import platformdirs as pdirs
 
-from pygubudesigner.services.theming import get_ttk_style
+from pathlib import Path
+from enum import auto
 
-from .i18n import translator as _
+try:
+    from enum import StrEnum
+except ImportError:
+    from backports.strenum import StrEnum
+
 
 logger = logging.getLogger(__name__)
 
 APP_NAME = "pygubu-designer"
+
 USER_DATA_DIR = Path(pdirs.user_data_dir(APP_NAME))
-CONFIG_FILE = USER_DATA_DIR / "config"
-
-logger.info(f"Using configfile: {CONFIG_FILE}")
-
-options = {
-    "widget_set": {"values": '["tk", "ttk"]', "default": "ttk"},
-    "ttk_theme": {"default": "default"},
-    "default_layout_manager": {
-        "values": '["pack", "grid", "place"]',
-        "default": "pack",
-    },
-    "center_preview": {
-        "values": '["yes", "no"]',
-        "default": "no",
-    },
-    "auto_generate_code": {
-        "values": '["yes", "no"]',
-        "default": "no",
-    },
-    "auto_generate_code_on_prop_change": {
-        "values": '["yes", "no"]',
-        "default": "no",
-    },
-    "single_section": {
-        "values": '["yes", "no"]',
-        "default": "no",
-    },
-    "geometry": {
-        "default": "640x480",
-    },
-    "widget_naming_separator": {
-        "values": '["NONE", "UNDERSCORE"]',
-        "default": "NONE",
-    },
-    "widget_naming_ufletter": {
-        "values": '["yes", "no"]',
-        "default": "no",
-    },
-    "v_style_definition_file": {
-        "default": "",
-    },
-    "maindock_layout": {
-        "default": "",
-    },
-}
-
-SEC_GENERAL = "GENERAL"
-SEC_CUSTOM_WIDGETS = "CUSTOM_WIDGETS"  # Not used anymore
-SEC_RECENT_FILES = "RECENT_FILES"
-config = configparser.ConfigParser()
-config.add_section(SEC_CUSTOM_WIDGETS)
-config.add_section(SEC_GENERAL)
-config.add_section(SEC_RECENT_FILES)
+CONFIG_FILE = USER_DATA_DIR / "config.json"
 
 DATA_DIR = Path(__file__).parent / "data"
 TEMPLATE_DIR = DATA_DIR / "code_templates"
 NEW_STYLE_FILE_TEMPLATE = TEMPLATE_DIR / "customstyles.py.mako"
 
 
-def initialize_configfile():
-    if not os.path.exists(USER_DATA_DIR):
-        os.makedirs(USER_DATA_DIR)
-
-    if not CONFIG_FILE.exists():
-        with CONFIG_FILE.open("w") as configfile:
-            config.write(configfile)
-
-
-def save_configfile():
-    with CONFIG_FILE.open("w") as configfile:
-        config.write(configfile)
+class CfgOption(StrEnum):
+    WIDGET_SET = auto()
+    TTK_THEME = auto()
+    DEFAULT_LAYOUT_MANAGER = auto()
+    CENTER_PREVIEW = auto()
+    WINDOW_GEOMETRY = auto()
+    WIDGET_NAMING_USE_UNDERSCORE = auto()
+    WIDGET_NAMING_UFLETTER = auto()
+    MAINDOCK_LAYOUT = auto()
+    RECENT_FILES = auto()
 
 
-def load_configfile():
-    defaults = {}
-    for k in options:
-        defaults[k] = options[k]["default"]
-    config[SEC_GENERAL] = defaults
-    if CONFIG_FILE.exists():
-        try:
-            config.read(CONFIG_FILE)
-        except configparser.MissingSectionHeaderError as e:
-            logger.exception(e)
-            msg = _(
-                f"Configuration file at {CONFIG_FILE!s} is corrupted, program may not work as expected."
-                + "If you delete this file, configuration will be set to default"
-            )
-            messagebox.showerror(_("Error"), msg)
-        except configparser.Error as e:
-            logger.exception(e)
-            msg = _(
-                f"Faild to parse config file at {CONFIG_FILE!s}, program may not work as expected."
-            )
-            messagebox.showerror(_("Error"), msg)
-    else:
-        initialize_configfile()
+default_config = {
+    CfgOption.WIDGET_SET: "ttk",
+    CfgOption.TTK_THEME: "default",
+    CfgOption.DEFAULT_LAYOUT_MANAGER: "pack",
+    CfgOption.CENTER_PREVIEW: True,
+    CfgOption.WINDOW_GEOMETRY: "1280x720",
+    CfgOption.WIDGET_NAMING_USE_UNDERSCORE: False,
+    CfgOption.WIDGET_NAMING_UFLETTER: False,
+    CfgOption.MAINDOCK_LAYOUT: {},
+    CfgOption.RECENT_FILES: {},
+}
 
 
-def get_option(key):
-    return config.get(SEC_GENERAL, key)
+class AppPreferences:
+    def __init__(self):
+        self.config = {}
+
+        if CONFIG_FILE.exists():
+            self.load()
+        else:
+            self.config = default_config.copy()
+            self.create_file()
+
+    def load(self):
+        with CONFIG_FILE.open() as cfile:
+            try:
+                self.config = json.load(cfile)
+            except json.JSONDecodeError as e:
+                msg = f"Error in config file {CONFIG_FILE}"
+                raise RuntimeError(msg) from e
+
+    def save(self, data: dict):
+        with CONFIG_FILE.open("w") as cfile:
+            json.dump(data, cfile, indent=2)
+
+    def create_file(self):
+        if not USER_DATA_DIR.exists():
+            os.makedirs(USER_DATA_DIR)
+        self.save(default_config)
+
+    @property
+    def recent_files(self):
+        return self.config[CfgOption.RECENT_FILES]
+
+    @recent_files.setter
+    def recent_files(self, flist: dict):
+        self.config[CfgOption.RECENT_FILES] = flist
+        self.save(self.config)
+
+    @property
+    def geometry(self):
+        return self.config[CfgOption.WINDOW_GEOMETRY]
+
+    @geometry.setter
+    def geometry(self, value: str):
+        self.config[CfgOption.WINDOW_GEOMETRY] = value
+        self.save(self.config)
+
+    @property
+    def maindock_layout(self):
+        return self.config[CfgOption.MAINDOCK_LAYOUT]
+
+    @maindock_layout.setter
+    def maindock_layout(self, dock_config: dict):
+        self.config[CfgOption.MAINDOCK_LAYOUT] = dock_config
+        self.save(self.config)
+
+    @property
+    def ttk_theme(self):
+        return self.config[CfgOption.TTK_THEME]
+
+    @property
+    def preview_indicator_color(self):
+        return "red"
+
+    @property
+    def center_preview(self):
+        return self.config[CfgOption.CENTER_PREVIEW]
+
+    @property
+    def default_layout_manager(self):
+        return self.config[CfgOption.DEFAULT_LAYOUT_MANAGER]
+
+    @property
+    def widget_naming_use_underscore(self):
+        return self.config[CfgOption.WIDGET_NAMING_USE_UNDERSCORE]
+
+    @property
+    def widget_naming_ufletter(self):
+        return self.config[CfgOption.WIDGET_NAMING_UFLETTER]
+
+    @property
+    def widget_set(self):
+        return self.config[CfgOption.WIDGET_SET]
+
+    @property
+    def single_section(self):
+        return False
 
 
-def set_option(key, value, save=False):
-    config.set(SEC_GENERAL, key, value)
-    if save:
-        save_configfile()
-
-
-def recent_files_get():
-    rf = []
-    for __, f in config.items(SEC_RECENT_FILES):
-        rf.append(f)
-    return rf
-
-
-def recent_files_save(file_list):
-    config.remove_section(SEC_RECENT_FILES)
-    config.add_section(SEC_RECENT_FILES)
-    for j, p in enumerate(file_list):
-        config.set(SEC_RECENT_FILES, f"f{j}", p)
-    save_configfile()
-
-
-def save_window_size(geom):
-    set_option("geometry", geom, save=True)
-
-
-def get_window_size():
-    return get_option("geometry")
-
-
-def get_preview_indicator_color():
-    return "red"
-
-
-def save_from_dict(new_values: dict):
-    # General
-    for key, value in new_values.items():
-        config.set(SEC_GENERAL, key, value)
-    # Custom Widgets
-    config.remove_section(SEC_CUSTOM_WIDGETS)
-    save_configfile()
-
-
-def save_maindock_layout(layout: dict):
-    value = json.dumps(layout)
-    set_option("maindock_layout", value, True)
-
-
-def get_maindock_layout():
-    layout = {}
-    try:
-        jvalue = get_option("maindock_layout")
-        layout = json.loads(jvalue)
-    except json.JSONDecodeError:
-        pass
-    return layout
-
-
-# Get user configuration
-load_configfile()
+preferences = AppPreferences()

@@ -39,7 +39,7 @@ import pygubudesigner
 import pygubudesigner.actions as actions
 import pygubudesigner.designerstyles as designerstyles
 
-from pygubudesigner import preferences as pref
+from pygubudesigner.preferences import preferences
 from pygubudesigner.services.project import Project
 from pygubudesigner.services.designersettings import DesignerSettings
 from pygubudesigner.services.projectsettings import ProjectSettings
@@ -198,7 +198,7 @@ class PygubuDesigner:
         self.previewer = PreviewHelper(
             self.preview_canvas,
             self.show_context_menu,
-            self._should_center_preview_window,
+            preferences.center_preview,
         )
 
         # Bottom Panel
@@ -441,7 +441,7 @@ proc ::tk::dialog::file::Create {w class} {
         s = get_ttk_style()
         styles = sorted(s.theme_names())
         self.__theme_var = var = tk.StringVar()
-        theme = pref.get_option("ttk_theme")
+        theme = preferences.ttk_theme
         var.set(theme)
 
         for idx, name in enumerate(styles):
@@ -457,18 +457,6 @@ proc ::tk::dialog::file::Create {w class} {
                 command=handler,
                 columnbreak=col_break,
             )
-
-    def _should_center_preview_window(self) -> bool:
-        """
-        Check whether the option has been enabled to center
-        the preview window or not.
-        :return: bool (True if we should center the preview window, otherwise False)
-        """
-        self.tree_editor.center_preview = pref.get_option("center_preview")
-        if self.tree_editor.center_preview == "yes":
-            return True
-        else:
-            return False
 
     def create_treelist(self):
         root_tagset = {"tk", "ttk"}
@@ -508,7 +496,8 @@ proc ::tk::dialog::file::Create {w class} {
 
         treelist = self.create_treelist()
         self._palette = ComponentPalette(
-            fpalette, notebook=(pref.get_option("single_section") == "no")
+            fpalette,
+            notebook=(not preferences.single_section),  # TODO: Fix this
         )
 
         # Start building widget tree selector
@@ -538,7 +527,7 @@ proc ::tk::dialog::file::Create {w class} {
             self._palette.add_button(
                 section, root, wlabel, wc.classname, w_image, callback
             )
-        default_group = pref.get_option("widget_set")
+        default_group = preferences.widget_set
         self._palette.show_group(default_group)
 
     def on_add_widget_event(self, classname):
@@ -549,12 +538,11 @@ proc ::tk::dialog::file::Create {w class} {
 
     def setup_app_preferences(self):
         # Restore windows position and size
-        geom = pref.get_window_size()
-        self.mainwindow.geometry(geom)
+        self.mainwindow.geometry(preferences.geometry)
         self.mainwindow.after_idle(self._check_window_visibility)
 
     def _check_window_visibility(self):
-        geom = pref.get_window_size()
+        geom = preferences.geometry
         window_visible = is_visible_in_screens(geom)
         logger.debug(_("Checking main window visibility."))
         if not window_visible:
@@ -579,12 +567,12 @@ proc ::tk::dialog::file::Create {w class} {
 
     def on_preferences_saved(self, event=None):
         # Setup ttk theme if changed
-        theme = pref.get_option("ttk_theme")
+        theme = preferences.ttk_theme
         self._change_ttk_theme(theme)
 
         # Get the preferred default layout manager, in case it has changed.
-        self.tree_editor.default_layout_manager = pref.get_option(
-            "default_layout_manager"
+        self.tree_editor.default_layout_manager = (
+            preferences.default_layout_manager
         )
 
     def ask_save_changes(self, message, detail=None, title=None):
@@ -614,8 +602,7 @@ proc ::tk::dialog::file::Create {w class} {
             StockImage.clear_cache()
 
             # Save window size and position
-            geom = self.mainwindow.geometry()
-            pref.save_window_size(geom)
+            preferences.geometry = self.mainwindow.geometry()
         return quit
 
     def do_save(self, fname):
@@ -968,14 +955,13 @@ proc ::tk::dialog::file::Create {w class} {
             dock = self.builder.get_object("maindock")
             dock_layout = dock.save_layout()
 
-        pref.save_maindock_layout(dock_layout)
+        preferences.maindock_layout = dock_layout
 
     def load_dockframe_layout(self):
         """Load layout for maindock widget."""
-        layout = pref.get_maindock_layout()
         try:
             dock = self.builder.get_object("maindock")
-            dock.load_layout(layout)
+            dock.load_layout(preferences.maindock_layout)
         except Exception:
             logger.debug("Error loading maindock layout")
 

@@ -4,7 +4,7 @@ import tkinter.ttk as ttk
 import logging
 from dataclasses import dataclass
 from pygubu.stockimage import StockImage, StockImageException
-from pygubudesigner import preferences as pref
+from pygubudesigner.preferences import preferences
 from pygubudesigner.services.theming import get_ttk_style
 from pygubudesigner.util import get_linespace
 
@@ -147,7 +147,7 @@ def on_first_window(master: tk.Widget):
             master.option_add(fpattern, value)
 
     # Load preferred ttk theme
-    user_theme = pref.get_option("ttk_theme")
+    user_theme = preferences.ttk_theme
     installed_themes = s.theme_names()
 
     if user_theme not in installed_themes:

@@ -27,7 +27,7 @@ from pygubu.stockimage import StockImage, StockImageException
 from pygubu.widgets.filterabletreeview import FilterableTreeview
 
 import pygubudesigner
-from pygubudesigner import preferences as pref
+from pygubudesigner.preferences import preferences
 from pygubudesigner.widgets import EventHandlerEditor
 from pygubudesigner.properties.editors import (
     CommandPropertyBase,
@@ -82,7 +82,7 @@ class WidgetsTreeEditor:
 
         # Get the default layout manager based on the user's configuration.
         self.__preferred_layout_manager_var = tk.StringVar()
-        current_default_layout = pref.get_option("default_layout_manager")
+        current_default_layout = preferences.default_layout_manager
         if not current_default_layout:
             self.__preferred_layout_manager_var.set("pack")
         else:
@@ -92,7 +92,7 @@ class WidgetsTreeEditor:
         self.default_layout_manager = self.__preferred_layout_manager_var.get()
 
         # Get whether we should center the toplevel preview window
-        self.center_preview = pref.get_option("center_preview")
+        self.center_preview = preferences.center_preview
 
         # Filter vars
         self.filter_on = False
@@ -832,14 +832,14 @@ class WidgetsTreeEditor:
     def _generate_id(self, classname, index):
         name = classname.split(".")[-1]
 
-        if pref.get_option("widget_naming_separator") == "UNDERSCORE":
+        if preferences.widget_naming_use_underscore:
             name = f"{name}_{index}"
         else:
             name = f"{name}{index}"
 
         name = name.lower()
 
-        if pref.get_option("widget_naming_ufletter") == "yes":
+        if preferences.widget_naming_ufletter:
             name = name.capitalize()
         return name
 
