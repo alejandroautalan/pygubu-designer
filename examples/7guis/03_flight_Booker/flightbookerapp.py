@@ -1,43 +1,40 @@
 #!/usr/bin/python3
 import pathlib
-from datetime import datetime
 import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.messagebox
 import pygubu
+from datetime import datetime
+from flightbookerappui import FlightBookerAppUI
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "flight_booker.ui"
+RESOURCE_PATHS = [PROJECT_PATH]
 
 
-class FlightBookerApp:
+class FlightBookerApp(FlightBookerAppUI):
     ONE_WAY_FLIGHT = 0
     RETURN_FLIGHT = 1
 
     def __init__(self, master=None):
-        self.builder = builder = pygubu.Builder()
-        builder.add_resource_path(PROJECT_PATH)
-        builder.add_from_file(PROJECT_UI)
-        # Main widget
-        self.mainwindow = builder.get_object("toplevel1", master)
-        self.cbox = builder.get_object("cbox_c")
-        self.t1 = builder.get_object("entry_t1")
-        self.t2 = builder.get_object("entry_t2")
-        self.button = builder.get_object("btn_b")
+        super().__init__(
+            master,
+            project_ui=PROJECT_UI,
+            resource_paths=RESOURCE_PATHS,
+            translator=None,
+            on_first_object_cb=None,
+        )
+        self.builder.connect_callbacks(self)
 
-        self.t1_var = None
-        self.t2_var = None
-        builder.import_variables(self, ["t1_var", "t2_var"])
+        self.cbox = self.builder.get_object("cbox_c")
+        self.t1 = self.builder.get_object("entry_t1")
+        self.t2 = self.builder.get_object("entry_t2")
+        self.button = self.builder.get_object("btn_b")
 
         self.style = ttk.Style()
         self.style.configure("Invalid.TEntry", fieldbackground="red")
-
-        builder.connect_callbacks(self)
         self.form_init()
         self.form_validate()
-
-    def run(self):
-        self.mainwindow.mainloop()
 
     def form_init(self):
         value = "10.07.2022"
@@ -79,9 +76,6 @@ class FlightBookerApp:
         t2_state = "normal" if t2_enabled else "disabled"
         self.t2.configure(state=t2_state)
 
-    def on_cbox_changed(self, event=None):
-        self.form_validate()
-
     def date_from_string(self, date: str):
         result = None
         try:
@@ -89,6 +83,9 @@ class FlightBookerApp:
         except ValueError:
             pass
         return result
+
+    def on_cbox_changed(self, event=None):
+        self.form_validate()
 
     def validate_date(self, p_entry_value, w_entry_name):
         self.mainwindow.after_idle(self.form_validate)

@@ -1,26 +1,25 @@
 #!/usr/bin/python3
 import pathlib
+import tkinter as tk
+import tkinter.ttk as ttk
 import pygubu
+from counterappui import CounterAppUI
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "counter.ui"
+RESOURCE_PATHS = [PROJECT_PATH]
 
 
-class CounterApp:
+class CounterApp(CounterAppUI):
     def __init__(self, master=None):
-        self.builder = builder = pygubu.Builder()
-        builder.add_resource_path(PROJECT_PATH)
-        builder.add_from_file(PROJECT_UI)
-        # Main widget
-        self.mainwindow = builder.get_object("toplevel1", master)
-
-        self.counter_var = None
-        builder.import_variables(self, ["counter_var"])
-
-        builder.connect_callbacks(self)
-
-    def run(self):
-        self.mainwindow.mainloop()
+        super().__init__(
+            master,
+            project_ui=PROJECT_UI,
+            resource_paths=RESOURCE_PATHS,
+            translator=None,
+            on_first_object_cb=None,
+        )
+        self.builder.connect_callbacks(self)
 
     def on_count_clicked(self):
         value = self.counter_var.get()

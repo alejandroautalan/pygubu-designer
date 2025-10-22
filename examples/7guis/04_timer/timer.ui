@@ -1,9 +1,31 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.2">
+<interface version="1.5" author="PygubuDesigner 0.41.4">
+  <project>
+    <settings>
+      <setting id="name">Timer</setting>
+      <setting id="description">Examples based on site [7GUIs](https://eugenkiss.github.io/7guis/tasks)</setting>
+      <setting id="module_name">timerapp</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">mainwindow</setting>
+      <setting id="main_classname">TimerApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir" />
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+    <resources />
+  </project>
   <object class="tk.Toplevel" id="mainwindow">
     <property name="geometry">300x140</property>
     <property name="height">200</property>
-    <property name="title" translatable="yes">Flight Booker</property>
+    <property name="title" translatable="yes">Timer</property>
     <property name="width">200</property>
     <child>
       <object class="ttk.Frame" id="mainframe">
