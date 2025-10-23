@@ -46,7 +46,6 @@ from pygubudesigner.services.projectsettings import ProjectSettings
 from pygubudesigner.services.aboutdialog import AboutDialog
 from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
-from pygubudesigner.widgets.componentpalette import ComponentPalette
 from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 
 from .i18n import translator
@@ -246,10 +245,6 @@ proc ::tk::dialog::file::Create {w class} {
 
         # Load all widgets before creating the component pallete
         init_pygubu_widgets()
-
-        # _pallete
-        # self.fpalette = self.builder.get_object("fpalette")
-        # self.create_component_palette(self.fpalette)
 
         # Tree palette
         self.tree_palette = self.builder.get_object("tree_palette")
@@ -485,50 +480,6 @@ proc ::tk::dialog::file::Create {w class} {
 
         treelist.sort(key=by_label)
         return treelist
-
-    def create_component_palette(self, fpalette):
-        # Default widget image:
-        default_image = ""
-        try:
-            default_image = StockImage.get("22x22-tk.default")
-        except StockImageException:
-            pass
-
-        treelist = self.create_treelist()
-        self._palette = ComponentPalette(
-            fpalette,
-            notebook=(not preferences.single_section),  # TODO: Fix this
-        )
-
-        # Start building widget tree selector
-        roots = {}
-        sections = {}
-        for key, wc in treelist:
-            root, section = key.split(">")
-            if section not in sections:
-                roots[root] = self._palette.add_tab(section, section)
-                sections[section] = 1
-
-            # insert widget
-            w_image = default_image
-            try:
-                w_image = StockImage.get(f"22x22-{wc.classname}")
-            except StockImageException:
-                pass
-
-            # define callback for button
-            def create_cb(cname):
-                return lambda: self.on_add_widget_event(cname)
-
-            wlabel = wc.label
-            if wlabel.startswith("Menuitem."):
-                wlabel = wlabel.replace("Menuitem.", "")
-            callback = create_cb(wc.classname)
-            self._palette.add_button(
-                section, root, wlabel, wc.classname, w_image, callback
-            )
-        default_group = preferences.widget_set
-        self._palette.show_group(default_group)
 
     def on_add_widget_event(self, classname):
         """Adds a widget to the widget tree."""

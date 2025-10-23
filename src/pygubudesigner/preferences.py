@@ -136,9 +136,5 @@ class AppPreferences:
     def widget_set(self) -> str:
         return self.config[CfgOption.WIDGET_SET]
 
-    @property
-    def single_section(self) -> bool:
-        return False
-
 
 preferences = AppPreferences()
