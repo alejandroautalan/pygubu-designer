@@ -596,7 +596,7 @@ proc ::tk::dialog::file::Create {w class} {
         self.current_project = project
         title = self.project_name()
         self.set_title(title)
-        self.rfiles_manager.addfile(str(filename))
+        self.rfiles_manager.add(str(filename))
 
     def set_changed(self, newvalue=True):
         if newvalue and not self.is_changed:
@@ -614,7 +614,7 @@ proc ::tk::dialog::file::Create {w class} {
             title = self.project_name()
             self.set_title(title)
             self.set_changed(False)
-            self.rfiles_manager.addfile(str(fpath))
+            self.rfiles_manager.add(str(fpath))
             self.reload_component_palette()
         except Exception as e:
             msg = str(e)
