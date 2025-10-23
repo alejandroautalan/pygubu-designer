@@ -182,11 +182,6 @@ class PygubuDesigner:
         # Set top menu
         self.mainwindow.configure(menu=self.main_menu)
 
-        # Recen Files management
-        rfmenu = self.builder.get_object("file_recent_menu")
-        self.rfiles_manager = RecentFilesManager(rfmenu, self.do_file_open)
-        self.mainwindow.after_idle(self.rfiles_manager.load)
-
         # widget tree
         self.treeview = self.builder.get_object("project_tree")
         self.bindings_frame = self.builder.get_object("bindingsframe")
@@ -204,6 +199,11 @@ class PygubuDesigner:
         self.setup_bottom_panel()
 
         self.builder.connect_callbacks(self)
+
+        # Recen Files management
+        # Setup menu after connect callbacks call above.
+        rfmenu = self.builder.get_object("file_recent_menu")
+        self.rfiles_manager = RecentFilesManager(rfmenu, self.do_file_open)
 
         # Customize OpenFiledialog window
         if sys.platform == "linux":
