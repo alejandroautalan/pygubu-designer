@@ -836,8 +836,7 @@ proc ::tk::dialog::file::Create {w class} {
 
     def _edit_preferences(self):
         if self.preferences is None:
-            # self.preferences = pref.PreferencesUI(self.mainwindow, translator)
-            self.preferences = DesignerSettings(self.mainwindow, translator)
+            self.preferences = DesignerSettings(self.mainwindow)
         self.preferences.run()
 
     def _reset_layout(self):

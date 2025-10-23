@@ -1,25 +1,26 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.40.1">
+<interface version="1.5" author="PygubuDesigner 0.41.4">
   <project>
     <settings>
       <setting id="name">Designer settings dialog</setting>
       <setting id="description">Designer Settings dialog.</setting>
       <setting id="module_name">designersettings</setting>
-      <setting id="template">application</setting>
+      <setting id="template">codescript</setting>
       <setting id="main_widget">preferences</setting>
       <setting id="main_classname">DesignerSettings</setting>
       <setting id="main_menu" />
-      <setting id="output_dir">../../services</setting>
+      <setting id="output_dir">../src/pygubudesigner/services</setting>
       <setting id="output_dir2" />
       <setting id="import_tkvariables">False</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">True</setting>
       <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">False</setting>
+      <setting id="generate_code_onsave">True</setting>
       <setting id="use_window_centering_code">False</setting>
       <setting id="ttk_style_definition_file" />
     </settings>
     <customwidgets />
+    <resources />
   </project>
   <object class="pygubu.builder.widgets.dialog" id="preferences">
     <property name="height">200</property>
@@ -40,7 +41,7 @@
           <property name="side">top</property>
         </layout>
         <child>
-          <object class="pygubu.forms.ttkwidget.FrameFormBuilder" id="frm_settings" named="True">
+          <object class="pygubu.forms.ttkwidget.FrameFormBuilder" id="ffb_settings" named="True">
             <layout manager="pack">
               <property name="expand">true</property>
               <property name="fill">both</property>
@@ -95,6 +96,7 @@
                             </child>
                             <child>
                               <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="widget_set" named="True">
+                                <property name="values">[["tk", "tk"], ["ttk", "ttk"]]</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
                                   <property name="ipady">3p</property>
@@ -135,6 +137,7 @@
                             </child>
                             <child>
                               <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="default_layout_manager" named="True">
+                                <property name="values">[["pack", "pack"], ["grid", "grid"], ["place", "place"]]</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
                                   <property name="ipady">3p</property>
@@ -145,8 +148,6 @@
                             </child>
                             <child>
                               <object class="pygubu.forms.ttkwidget.Checkbutton" id="center_preview" named="True">
-                                <property name="offvalue">no</property>
-                                <property name="onvalue">yes</property>
                                 <property name="text" translatable="yes">Center toplevel preview window</property>
                                 <layout manager="grid">
                                   <property name="column">0</property>
@@ -192,19 +193,11 @@
                                   <property type="row" id="all" name="pad">5</property>
                                 </containerlayout>
                                 <child>
-                                  <object class="ttk.Label" id="label3">
-                                    <property name="text" translatable="yes">Separator:</property>
+                                  <object class="pygubu.forms.ttkwidget.Checkbutton" id="widget_naming_use_underscore" named="True">
+                                    <property name="text" translatable="yes">Use "_" as separator (e.g. button_1)</property>
                                     <layout manager="grid">
                                       <property name="column">0</property>
-                                      <property name="row">0</property>
-                                      <property name="sticky">ew</property>
-                                    </layout>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="widget_naming_separator" named="True">
-                                    <layout manager="grid">
-                                      <property name="column">1</property>
+                                      <property name="columnspan">2</property>
                                       <property name="ipady">3p</property>
                                       <property name="row">0</property>
                                       <property name="sticky">ew</property>
@@ -213,8 +206,6 @@
                                 </child>
                                 <child>
                                   <object class="pygubu.forms.ttkwidget.Checkbutton" id="widget_naming_ufletter" named="True">
-                                    <property name="offvalue">no</property>
-                                    <property name="onvalue">yes</property>
                                     <property name="text" translatable="yes">Uppercase first letter (e.g. Button…)</property>
                                     <layout manager="grid">
                                       <property name="column">0</property>
@@ -258,7 +249,7 @@
             </layout>
             <child>
               <object class="ttk.Button" id="cancel">
-                <property name="command" type="command" cbtype="simple">btn_cancel_cliced</property>
+                <property name="command" type="command" cbtype="simple">btn_cancel_clicked</property>
                 <property name="text" translatable="yes">Cancel</property>
                 <property name="width">-8</property>
                 <layout manager="grid">

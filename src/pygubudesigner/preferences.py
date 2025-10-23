@@ -77,8 +77,12 @@ class AppPreferences:
             os.makedirs(USER_DATA_DIR)
         self.save(default_config)
 
+    def update(self, new_data: dict):
+        self.config.update(new_data)
+        self.save(self.config)
+
     @property
-    def recent_files(self):
+    def recent_files(self) -> dict:
         return self.config[CfgOption.RECENT_FILES]
 
     @recent_files.setter
@@ -87,7 +91,7 @@ class AppPreferences:
         self.save(self.config)
 
     @property
-    def geometry(self):
+    def geometry(self) -> str:
         return self.config[CfgOption.WINDOW_GEOMETRY]
 
     @geometry.setter
@@ -96,7 +100,7 @@ class AppPreferences:
         self.save(self.config)
 
     @property
-    def maindock_layout(self):
+    def maindock_layout(self) -> dict:
         return self.config[CfgOption.MAINDOCK_LAYOUT]
 
     @maindock_layout.setter
@@ -105,35 +109,35 @@ class AppPreferences:
         self.save(self.config)
 
     @property
-    def ttk_theme(self):
+    def ttk_theme(self) -> str:
         return self.config[CfgOption.TTK_THEME]
 
     @property
-    def preview_indicator_color(self):
+    def preview_indicator_color(self) -> str:
         return "red"
 
     @property
-    def center_preview(self):
+    def center_preview(self) -> bool:
         return self.config[CfgOption.CENTER_PREVIEW]
 
     @property
-    def default_layout_manager(self):
+    def default_layout_manager(self) -> str:
         return self.config[CfgOption.DEFAULT_LAYOUT_MANAGER]
 
     @property
-    def widget_naming_use_underscore(self):
+    def widget_naming_use_underscore(self) -> bool:
         return self.config[CfgOption.WIDGET_NAMING_USE_UNDERSCORE]
 
     @property
-    def widget_naming_ufletter(self):
+    def widget_naming_ufletter(self) -> bool:
         return self.config[CfgOption.WIDGET_NAMING_UFLETTER]
 
     @property
-    def widget_set(self):
+    def widget_set(self) -> str:
         return self.config[CfgOption.WIDGET_SET]
 
     @property
-    def single_section(self):
+    def single_section(self) -> bool:
         return False
 
 
