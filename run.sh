@@ -33,7 +33,7 @@ readonly SCRIPT="$PROJECT_ROOT/$( basename "$0" )"
 # System requirements:
 # apt install python3-build twine
 #
-
+PYGUBU_DIR=$(realpath "$PROJECT_ROOT/../pygubu")
 DESIGNER_MODULE_ROOT_DIR="./src/pygubudesigner"
 
 python3bin=$(which python3)
@@ -139,6 +139,17 @@ function install_from_testpypi {
     deactivate
 }
 
+function designer {
+    reqfile="/tmp/pygubu-designer-editable.txt"
+    cat << EOF > $reqfile
+platformdirs
+-e file://$PYGUBU_DIR#egg=pygubu
+-e file://$PROJECT_ROOT#egg=pygubu-designer
+EOF
+
+    fades -r $reqfile -x pygubu-designer ${@:1}
+
+}
 
 function all-examples {
     declare -a arr=(
