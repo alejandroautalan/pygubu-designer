@@ -347,6 +347,8 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             fname = self._current_project.get_relative_path(fname)
             self.cwtree.insert("", tk.END, text=fname)
             self._configure_path_remove()
+        # Pathchooser button bug?
+        btn.configure(path=None)
 
     def btn_cwremove_clicked(self):
         items = self.cwtree.selection()
