@@ -232,10 +232,10 @@ class ScriptGenerator:
 
         output_dir = context["output_dir"]
         outfn = output_dir / (context["module_name"] + ".py")
-        # Rewrite custom widget definition
-        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
-            outfile.write(final_code)
-            logger.info("Generated code file: %s", outfn)
+        if not outfn.exists():
+            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+                outfile.write(final_code)
+                logger.info("Generated code file: %s", outfn)
 
         tpl = makolookup.get_template("widgetbo.py.mako")
         final_code = tpl.render(**context)
