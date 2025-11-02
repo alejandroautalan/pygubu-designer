@@ -10,7 +10,6 @@ class ${class_name}(${widget_base_class}):
 
     Only simple properties will be configured.
     No commands, no bindings.
-    This file will not be re-generated.
     """
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)

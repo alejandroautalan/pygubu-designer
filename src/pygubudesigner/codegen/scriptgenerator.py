@@ -231,18 +231,33 @@ class ScriptGenerator:
         final_code = self._format_code(final_code)
 
         output_dir = context["output_dir"]
-        outfn = output_dir / (context["module_name"] + ".py")
-        if not outfn.exists():
-            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
-                outfile.write(final_code)
-                logger.info("Generated code file: %s", outfn)
+        module_name = context["module_name"]
+        outfn = output_dir / (module_name + ".py")
+        if outfn.exists():
+            with codecs.open(outfn, "r", encoding="utf-8") as ifile:
+                old_user_code = ifile.read()
+            last_saved_user_code = final_code
+            last_copy = output_dir / f"{module_name}.old.00.py"
+            i = 1
+            while last_copy.exists():
+                with codecs.open(last_copy, "r", encoding="utf-8") as ifile:
+                    last_saved_user_code = ifile.read()
+                last_copy = output_dir / f"{module_name}.old.{i:0>2}.py"
+                i += 1
+            if old_user_code != last_saved_user_code:
+                with codecs.open(last_copy, "w", encoding="utf-8") as outfile:
+                    outfile.write(old_user_code)
+
+        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+            outfile.write(final_code)
+            logger.info("Generated code file: %s", outfn)
 
         tpl = makolookup.get_template("widgetbo.py.mako")
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
         output_dir2 = context["output_dir2"]
-        outfn: pathlib.Path = output_dir2 / (context["module_name"] + "bo.py")
-        # DO NOT overwrite user module.
+        outfn: pathlib.Path = output_dir2 / (module_name + "bo.py")
+        # DO NOT overwrite BO module.
         if not outfn.exists():
             with codecs.open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
