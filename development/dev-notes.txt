@@ -19,6 +19,9 @@ pip install git+https://github.com/alejandroautalan/pygubu git+https://github.co
 TODO
 ====
 
+- In Options for pack container: add mini toolbar to layout left right all childrens
+- Add tooltips to widget layout mini toolbar.
+- In binding editor, allow bind mode "all" and if posible "class". (Re design binding editor?) This might not be necessary?. keep investigating.
 - BUG: create a Toplevel, set a large geometry, greater than the preview canvas.
   The preview vertical scrollbar is shown but not the horizontal. Investigate.
 - Issue: redraw previews on theme change.
