@@ -13,35 +13,38 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pathlib import Path
-
-import pygubu
+import tkinter as tk
+import tkinter.ttk as ttk
+import pygubudesigner.services.ask_save_changesui as baseui
 
 from pygubudesigner.i18n import translator
-
-DATA_DIR = Path(__file__).parent / "data"
-ASK_SAVE_CHANGES_DIALOG_UI = DATA_DIR / "ui" / "ask_save_changes_dialog.ui"
+from pygubu.stockimage import StockImage
 
 
-class AskSaveChangesDialog:
-    CANCEL = 0
-    SAVE = 1
-    DONTSAVE = 3
+def image_loader(master, image_name: str):
+    # map before using future Icon loader or aliases
+    imap = {
+        "scd_msg": "download3-32",
+        "scd_cancel": "bin-16",
+        "scd_discard": "cancel-circle-16",
+        "scd_save": "download3-16",
+    }
+    return StockImage.get(imap[image_name])
 
-    def __init__(self, master):
+
+class AskSaveChangesDialog(baseui.AskSaveChangesDialogUI):
+    CANCEL = 1
+    SAVE = 2
+    DISCARD = 3
+
+    def __init__(self, master=None):
         self.master = master
-        self.builder = builder = pygubu.Builder(translator)
-        builder.add_from_file(str(ASK_SAVE_CHANGES_DIALOG_UI))
-        self.dialog = builder.get_object("ask_save_changes_dialog", master)
-        self.lbl_message = builder.get_object("lbl_message")
-        self.lbl_detail = builder.get_object("lbl_detail")
-        self.btn_save = builder.get_object("btn_save")
-        builder.connect_callbacks(self)
+        super().__init__(
+            master, translator=translator, image_loader=image_loader
+        )
 
-        self.user_choice = None
-
-    def on_dontsave(self):
-        self.user_choice = self.DONTSAVE
+    def on_discard(self):
+        self.user_choice = self.DISCARD
         self.dialog.close()
         self.dialog.destroy()
 
@@ -62,8 +65,8 @@ class AskSaveChangesDialog:
 
     def run(self, title, message, detail=""):
         self.dialog.set_title(title)
-        self.lbl_message["text"] = message
-        self.lbl_detail["text"] = detail
+        self.message_var.set(message)
+        self.detail_var.set(detail)
         self.btn_save.focus_set()
         self.dialog.run()
         self.master.wait_window(self.dialog.toplevel)
@@ -76,8 +79,16 @@ def ask_save_changes(master, title, message, detail=""):
 
 
 if __name__ == "__main__":
-    import tkinter as tk
-
     root = tk.Tk()
-    app = AskSaveChangesDialog(root)
-    app.run()
+
+    def test():
+        value = ask_save_changes(
+            root,
+            "Save",
+            "File was modified, save changes?",
+            "More detail here.",
+        )
+        print("User selected: ", value)
+
+    root.after(100, test)
+    root.mainloop()

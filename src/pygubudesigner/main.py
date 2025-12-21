@@ -44,8 +44,11 @@ from pygubudesigner.services.project import Project
 from pygubudesigner.services.designersettings import DesignerSettings
 from pygubudesigner.services.projectsettings import ProjectSettings
 from pygubudesigner.services.aboutdialog import AboutDialog
+from pygubudesigner.services.ask_save_changes import (
+    ask_save_changes,
+    AskSaveChangesDialog,
+)
 from pygubudesigner.codegen import ScriptGenerator
-from pygubudesigner.dialogs import AskSaveChangesDialog, ask_save_changes
 from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 
 from .i18n import translator
@@ -539,7 +542,7 @@ proc ::tk::dialog::file::Create {w class} {
             do_continue = self.on_file_save()
         elif choice == AskSaveChangesDialog.CANCEL:
             do_continue = False
-        elif choice == AskSaveChangesDialog.DONTSAVE:
+        elif choice == AskSaveChangesDialog.DISCARD:
             do_continue = True
         return do_continue
 

@@ -1,10 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.40.1">
+<interface version="1.5" author="PygubuDesigner 0.41.4">
   <project>
-    <settings />
+    <settings>
+      <setting id="name">Ask Save changes dialog</setting>
+      <setting id="description">Dialog with three buttons: Don't Save, Cancel, Save</setting>
+      <setting id="module_name">ask_save_changes</setting>
+      <setting id="template">codescript</setting>
+      <setting id="main_widget">dialog</setting>
+      <setting id="main_classname">AskSaveChangesDialog</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">../src/pygubudesigner/services</setting>
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">True</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
     <customwidgets />
+    <resources />
   </project>
-  <object class="pygubu.builder.widgets.dialog" id="ask_save_changes_dialog">
+  <object class="pygubu.builder.widgets.dialog" id="dialog" named="True">
     <property name="height">100</property>
     <property name="modal">true</property>
     <property name="resizable">both</property>
@@ -37,7 +55,7 @@
             </layout>
             <child>
               <object class="ttk.Label" id="labelicon">
-                <property name="image">download3-32</property>
+                <property name="image">scd_msg</property>
                 <property name="text" translatable="yes">SaveIcon</property>
                 <layout manager="pack">
                   <property name="fill">y</property>
@@ -60,6 +78,7 @@
                     <property name="font">TkDefaultFont</property>
                     <property name="padding">0 0 0 5</property>
                     <property name="text" translatable="yes">Message</property>
+                    <property name="textvariable">string:message_var</property>
                     <layout manager="pack">
                       <property name="fill">x</property>
                       <property name="side">top</property>
@@ -70,6 +89,7 @@
                   <object class="ttk.Label" id="lbl_detail">
                     <property name="font">TkDefaultFont</property>
                     <property name="text" translatable="yes">Detail</property>
+                    <property name="textvariable">string:detail_var</property>
                     <layout manager="pack">
                       <property name="fill">x</property>
                       <property name="side">top</property>
@@ -95,41 +115,40 @@
               <property type="col" id="2" name="weight">1</property>
             </containerlayout>
             <child>
-              <object class="ttk.Button" id="btn_dontsave">
-                <property name="command" type="command" cbtype="simple" args="">on_dontsave</property>
-                <property name="compound">left</property>
-                <property name="image">bin-16</property>
-                <property name="text" translatable="yes">Don't Save</property>
-                <layout manager="grid">
-                  <property name="column">0</property>
-                  <property name="padx">0 5p</property>
-                  <property name="row">0</property>
-                  <property name="sticky">ew</property>
-                </layout>
-              </object>
-            </child>
-            <child>
               <object class="ttk.Button" id="btn_cancel">
                 <property name="command" type="command" cbtype="simple" args="">on_cancel</property>
                 <property name="compound">left</property>
-                <property name="image">cancel-circle-16</property>
+                <property name="image">scd_cancel</property>
                 <property name="text" translatable="yes">Cancel</property>
                 <layout manager="grid">
-                  <property name="column">1</property>
+                  <property name="column">0</property>
                   <property name="row">0</property>
                   <property name="sticky">ew</property>
                 </layout>
               </object>
             </child>
             <child>
-              <object class="ttk.Button" id="btn_save">
+              <object class="ttk.Button" id="btn_dontsave">
+                <property name="command" type="command" cbtype="simple">on_discard</property>
+                <property name="compound">left</property>
+                <property name="image">scd_discard</property>
+                <property name="text" translatable="yes">Discard</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="padx">5p</property>
+                  <property name="row">0</property>
+                  <property name="sticky">ew</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="btn_save" named="True">
                 <property name="command" type="command" cbtype="simple" args="">on_save</property>
                 <property name="compound">left</property>
-                <property name="image">download3-16</property>
+                <property name="image">scd_save</property>
                 <property name="text" translatable="yes">Save</property>
                 <layout manager="grid">
                   <property name="column">2</property>
-                  <property name="padx">5p 0</property>
                   <property name="row">0</property>
                   <property name="sticky">ew</property>
                 </layout>
