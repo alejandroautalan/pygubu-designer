@@ -3,19 +3,10 @@ import pathlib
 import tkinter as tk
 import pygubu
 
-import pygubudesigner.services.messageboxui as base
-from pygubudesigner.preferences import DATA_DIR
+import pygubudesigner.services.messageboxui as baseui
 
 
-base.PROJECT_PATH = DATA_DIR / "ui"
-base.PROJECT_UI = base.PROJECT_PATH / "messagebox.ui"
-
-
-class CustomMessageBox(base.CustomMessageBoxUI):
-    def __init__(self, master=None):
-        super().__init__(master)
-        self.message = self.builder.get_object("lbl_message")
-        self.detail = self.builder.get_object("txt_detail")
+class CustomMessageBox(baseui.CustomMessageBoxUI):
 
     def run(self):
         self.mainwindow.run()
