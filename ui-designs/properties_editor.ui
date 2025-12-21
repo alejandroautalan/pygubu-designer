@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.40.1">
+<interface version="1.5" author="PygubuDesigner 0.41.4">
   <project>
     <settings>
       <setting id="name">New Properties Editor class</setting>
@@ -9,17 +9,18 @@
       <setting id="main_widget">fmain</setting>
       <setting id="main_classname">PropertiesEditor</setting>
       <setting id="main_menu" />
-      <setting id="output_dir">../../services/widgets</setting>
-      <setting id="output_dir2">../../services/builders</setting>
+      <setting id="output_dir">../src/pygubudesigner/services/widgets</setting>
+      <setting id="output_dir2">../src/pygubudesigner/services/builders</setting>
       <setting id="import_tkvariables">False</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">True</setting>
       <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">True</setting>
+      <setting id="generate_code_onsave">False</setting>
       <setting id="use_window_centering_code">False</setting>
       <setting id="ttk_style_definition_file" />
     </settings>
     <customwidgets />
+    <resources />
   </project>
   <object class="ttk.Frame" id="fmain" named="True">
     <property name="height">580p</property>
