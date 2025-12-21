@@ -5,26 +5,29 @@ import tkinter.ttk as ttk
 import logging
 import pygubu
 
-import pygubudesigner.services.projectsettingsui as psbase
+import pygubudesigner.services.projectsettingsui as baseui
 from collections.abc import Iterable
 from tkinter import messagebox
 from pygubu.forms.transformer.tkboolean import BoolTransformer
-from pygubudesigner.preferences import DATA_DIR, NEW_STYLE_FILE_TEMPLATE
+from pygubudesigner.preferences import NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
 from .project import Project
 from .fieldvalidator import IsIdentifier, RelativePathExists, Choice
+from pygubu.stockimage import StockImage
 
 
 logger = logging.getLogger(__name__)
 
 
-psbase.PROJECT_PATH = DATA_DIR / "ui"
-psbase.PROJECT_UI = psbase.PROJECT_PATH / "project_settings.ui"
+def image_loader(master, image_name: str):
+    return StockImage.get(image_name)
 
 
-class ProjectSettings(psbase.ProjectSettingsUI):
+class ProjectSettings(baseui.ProjectSettingsUI):
     def __init__(self, master=None, translator=None):
-        super().__init__(master, translator)
+        super().__init__(
+            master, translator=translator, image_loader=image_loader
+        )
         self._current_project: Project = None
         self.on_settings_changed = None
         self.dialog_toplevel = self.mainwindow.toplevel
@@ -34,22 +37,21 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             "filetypes": ((_("Python module"), "*.py"), (_("All"), "*.*")),
         }
         buttons = (
-            "btn_stylepath_find",
-            "btn_stylepath_new",
-            "btn_cwadd_module",
+            self.btn_stylepath_find,
+            self.btn_stylepath_new,
+            self.btn_cwadd_module,
         )
-        for name in buttons:
-            btn = self.builder.get_object(name)
+        for btn in buttons:
             btn.configure(**options)
 
-        self.fb_general = self.builder.get_object("frm_general")
-        self.fb_code = self.builder.get_object("frm_code")
-        self.fb_style = self.builder.get_object("frm_style")
-        self.cwtree: ttk.Treeview = self.builder.get_object("cwtree")
-        self.btn_cwremove = self.builder.get_object("btn_cwremove")
+        self.fb_general = self.frm_general
+        self.fb_code = self.frm_code
+        self.fb_style = self.frm_style
+        # self.cwtree: ttk.Treeview = self.builder.get_object("cwtree")
+        # self.btn_cwremove = self.builder.get_object("btn_cwremove")
 
-        self.template_desc_var: tk.StringVar = None
-        self.builder.import_variables(self, ["template_desc_var"])
+        # self.template_desc_var: tk.StringVar = None
+        # self.builder.import_variables(self, ["template_desc_var"])
 
         self.template_desc = {
             "application": _(
@@ -66,8 +68,8 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             "widgetds": _("Widget direct subclass"),
         }
 
-        field = self.builder.get_object("template")
-        field.configure(values=self.template_keys.items())
+        # field = self.builder.get_object("template")
+        self.template.configure(values=self.template_keys.items())
 
         bool_transformer = BoolTransformer()
         identifier_constraint = IsIdentifier()
@@ -147,7 +149,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
         keys = ("main_widget", "main_menu")
         for key in keys:
             if key in options:
-                field = self.builder.get_object(key)
+                field = getattr(self, key)
                 field.configure(values=options[key])
                 # setup valid values for constraints
                 constraint = getattr(self, f"{key}_constraint")
@@ -264,7 +266,7 @@ class ProjectSettings(psbase.ProjectSettingsUI):
             if fname in self.frm_code.fields:
                 self.frm_code.fields[fname].widget.configure(state=newstate)
             else:
-                self.builder.get_object(fname).configure(state=newstate)
+                getattr(self, fname).configure(state=newstate)
         self.setup_comboboxes()
         # Update template description
         self.template_desc_var.set(self.template_desc[template])
