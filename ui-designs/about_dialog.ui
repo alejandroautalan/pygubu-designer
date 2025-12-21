@@ -1,15 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.40.1">
+<interface version="1.5" author="PygubuDesigner 0.41.4">
   <project>
     <settings>
       <setting id="name">About Dialog</setting>
       <setting id="description">About dialog for pygubu designer.</setting>
       <setting id="module_name">aboutdialog</setting>
-      <setting id="output_dir">../../services</setting>
-      <setting id="template">application</setting>
+      <setting id="template">codescript</setting>
       <setting id="main_widget">aboutdialog</setting>
       <setting id="main_classname">AboutDialog</setting>
       <setting id="main_menu" />
+      <setting id="output_dir">../src/pygubudesigner/services</setting>
+      <setting id="output_dir2" />
       <setting id="import_tkvariables">True</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">True</setting>
@@ -19,6 +20,7 @@
       <setting id="ttk_style_definition_file" />
     </settings>
     <customwidgets />
+    <resources />
   </project>
   <object class="pygubu.builder.widgets.dialog" id="aboutdialog">
     <property name="height">100</property>
@@ -107,7 +109,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="ttk.Label" id="designer_version">
+                  <object class="ttk.Label" id="designer_version" named="True">
                     <property name="font">{sans} 10 {}</property>
                     <property name="text" translatable="yes">Version: %version%</property>
                     <layout manager="pack">
@@ -198,7 +200,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="ttk.Label" id="version">
+                  <object class="ttk.Label" id="pygubu_version" named="True">
                     <property name="font">{Sans} 10 {}</property>
                     <property name="text" translatable="yes">Version: %version%</property>
                     <layout manager="pack" />
@@ -266,9 +268,9 @@
         </child>
         <child>
           <object class="ttk.Frame" id="bottom">
-            <property name="height" />
+            <property name="height">200</property>
             <property name="padding">0 8p 0 0</property>
-            <property name="width" />
+            <property name="width">200</property>
             <layout manager="pack">
               <property name="fill">x</property>
             </layout>
