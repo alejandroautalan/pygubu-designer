@@ -110,8 +110,6 @@ class ScriptGenerator:
             first_object_callback = f"{ttk_styles_module}.setup_ttk_styles"
 
         methods = []
-        if context["set_main_menu"]:
-            methods.append(context["main_menu_id"])
         # Generate code
         code = generator.generate_app_code(
             uidef,
