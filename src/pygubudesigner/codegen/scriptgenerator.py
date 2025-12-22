@@ -263,6 +263,45 @@ class ScriptGenerator:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
+    def _fn_script_code(self, generator, context):
+        uidef = self.tree.tree_to_uidef()
+        target = context["target"]
+
+        if not context["main_widget_is_toplevel"]:
+            generator.add_import_line("tkinter", "tk")
+
+        first_object_callback = "on_first_object_cb"
+        if context["has_ttk_styles"]:
+            ttk_styles_module = context["ttk_styles_module"]
+            first_object_callback = f"{ttk_styles_module}.setup_ttk_styles"
+
+        methods = []
+        # Generate code
+        code = generator.generate_fnscript(
+            uidef,
+            target,
+            methods_for=methods,
+            on_first_object_cb=first_object_callback,
+        )
+
+        # Prepare template context
+        context["widget_code"] = code[target]
+        context["import_lines"] = code["imports"]
+        context["callbacks"] = code["callbacks"]
+        context["methods"] = code["methods"]
+        context["target_code_id"] = code["target_code_id"]
+        context["with_image_loader"] = code["with_image_loader"]
+
+        bcontext = context.copy()
+        tpl = makolookup.get_template("fnscript.py.mako")
+        final_code = tpl.render(**bcontext)
+        final_code = self._format_code(final_code)
+
+        output_dir = context["output_dir"]
+        outfn = output_dir / (context["module_name"] + ".py")
+        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+            outfile.write(final_code)
+
     def generate_code(self):
         project = self.app.current_project
         config = project.get_full_settings()
@@ -281,16 +320,10 @@ class ScriptGenerator:
         )
 
         main_widget_is_toplevel = False
-        main_menu_id = ""
-        set_main_menu = False
         has_ttk_styles = False
 
         if target_class in toplevel_uids:
             main_widget_is_toplevel = True
-            # Main menu definition
-            main_menu_id = config["main_menu"]
-            if main_menu_id and template != "widget":
-                set_main_menu = True
 
         # Style definitions
         use_ttk_styles = tk.getboolean(config["use_ttk_styledefinition_file"])
@@ -346,8 +379,6 @@ class ScriptGenerator:
             "ttk_styles_module": ttk_styles_module,
             "set_project_path": False,
             "with_i18n_support": with_i18n_support,
-            "set_main_menu": set_main_menu,
-            "main_menu_id": main_menu_id,
             "add_window_centering_code": add_window_centering_code,
             "import_tk_vars": import_tk_vars,
         }
@@ -365,6 +396,8 @@ class ScriptGenerator:
             self._widgetds_code(generator, context)
         elif template == "codescript":
             self._script_code(generator, context)
+        elif template == "fnscript":
+            self._fn_script_code(generator, context)
 
     def camel_case(self, st):
         output = "".join(x for x in st.title() if x.isalnum())

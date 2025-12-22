@@ -169,22 +169,9 @@ class ProjectSettingsUI:
         labelfieldinfo2 = LabelWidgetInfo(frame1, field_name="main_classname")
         labelfieldinfo2.configure(style="LabelFieldInfo.TLabel")
         labelfieldinfo2.grid(column=1, row=7, sticky="ew")
-        label2 = ttk.Label(frame1)
-        label2.configure(text=_("Main menu:"))
-        label2.grid(column=0, row=8, sticky="ew")
-        self.main_menu = PygubuCombobox(
-            frame1, name="main_menu", field_name="main_menu"
-        )
-        self.main_menu.configure(
-            state="readonly", style="ComboboxField.TCombobox"
-        )
-        self.main_menu.grid(column=1, ipady="2p", row=8, sticky="ew")
-        labelfieldinfo3 = LabelWidgetInfo(frame1, field_name="main_menu")
-        labelfieldinfo3.configure(style="LabelFieldInfo.TLabel")
-        labelfieldinfo3.grid(column=1, row=9, sticky="ew")
         label4 = ttk.Label(frame1)
         label4.configure(text=_("Module output:"))
-        label4.grid(column=0, row=10, sticky="ew")
+        label4.grid(column=0, row=8, sticky="ew")
         frame3 = ttk.Frame(frame1)
         frame3.configure(height=200, width=200)
         self.output_dir = Entry(
@@ -206,13 +193,13 @@ class ProjectSettingsUI:
         self.btn_path_chooser.bind(
             "<<PathChooserPathChanged>>", self.output_dir_changed, add=""
         )
-        frame3.grid(column=1, row=10, sticky="ew")
+        frame3.grid(column=1, row=8, sticky="ew")
         labelfieldinfo5 = LabelWidgetInfo(frame1, field_name="output_dir")
         labelfieldinfo5.configure(style="LabelFieldInfo.TLabel")
-        labelfieldinfo5.grid(column=1, row=11, sticky="ew")
+        labelfieldinfo5.grid(column=1, row=9, sticky="ew")
         label9 = ttk.Label(frame1)
         label9.configure(text=_("Builder output:"))
-        label9.grid(column=0, row=12, sticky="ew")
+        label9.grid(column=0, row=10, sticky="ew")
         frame5 = ttk.Frame(frame1)
         frame5.configure(height=200, width=200)
         self.output_dir2 = Entry(
@@ -234,10 +221,10 @@ class ProjectSettingsUI:
         self.btn_path2_chooser.bind(
             "<<PathChooserPathChanged>>", self.output_dir2_changed, add=""
         )
-        frame5.grid(column=1, row=12, sticky="ew")
+        frame5.grid(column=1, row=10, sticky="ew")
         labelwidgetinfo1 = LabelWidgetInfo(frame1, field_name="output_dir2")
         labelwidgetinfo1.configure(style="LabelFieldInfo.TLabel")
-        labelwidgetinfo1.grid(column=1, row=13, sticky="ew")
+        labelwidgetinfo1.grid(column=1, row=11, sticky="ew")
         frame1.pack(fill="x", side="top")
         frame1.rowconfigure("all", pad=8)
         frame1.columnconfigure("all", pad=5)

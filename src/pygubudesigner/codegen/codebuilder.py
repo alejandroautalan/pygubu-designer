@@ -64,6 +64,7 @@ class ScriptType(Enum):
     WIDGET_DS = 4
     APP_UI_METHOD = 5
     APP_CODE_METHOD = 6
+    FN_SCRIPT = 7
 
 
 class RealizeMode(Enum):
@@ -217,6 +218,24 @@ class UI2Code(Builder):
 
         return self._process_results(target)
 
+    def generate_fnscript(
+        self,
+        uidef,
+        target,
+        methods_for: list = None,
+        on_first_object_cb: str = None,
+    ):
+        self.generate(
+            uidef,
+            target,
+            as_class=False,
+            tabspaces=4,
+            script_type=ScriptType.FN_SCRIPT,
+            on_first_object_cb=on_first_object_cb,
+        )
+
+        return self._process_results(target)
+
     def generate_app_widget(
         self, uidef, target, on_first_object_cb: str = None
     ):
@@ -315,6 +334,7 @@ class UI2Code(Builder):
             ScriptType.APP_CODE,
             ScriptType.WIDGET,
             ScriptType.WIDGET_DS,
+            ScriptType.FN_SCRIPT,
         ):
             if self._import_tk:
                 self.add_import_line("tkinter", "tk")
@@ -516,6 +536,8 @@ class UI2Code(Builder):
         if cbname not in self._callbacks:
             self._callbacks[cbname] = (widgetid, cbtype, args)
         cb_name = f"self.{cbname}"
+        if self._script_type == ScriptType.FN_SCRIPT:
+            cb_name = f"""find_callback(callbacks_bag, "{cbname}")"""
         return cb_name
 
     def code_create_image(self, filename):

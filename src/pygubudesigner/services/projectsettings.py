@@ -60,12 +60,14 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             "codescript": _("Create a coded version of the UI definition."),
             "widget": _("Create a base class for your custom compound widget."),
             "widgetds": _("Create a direct subclass of a tkinter widget."),
+            "fnscript": _("Create the ui with a function."),
         }
         self.template_keys = {
             "application": _("Application"),
             "codescript": _("Code Script"),
             "widget": _("Custom compound widget"),
             "widgetds": _("Widget direct subclass"),
+            "fnscript": _("Function script"),
         }
 
         # field = self.builder.get_object("template")
@@ -75,7 +77,6 @@ class ProjectSettings(baseui.ProjectSettingsUI):
         identifier_constraint = IsIdentifier()
         path_exists_constraint = RelativePathExists()
         self.main_widget_constraint = Choice()
-        self.main_menu_constraint = Choice()
         self.path_exists_constraint = path_exists_constraint
         frm_general_config = {"name": {}, "description": {}, "translator": _}
         frm_code_config = {
@@ -88,10 +89,6 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             },
             "main_widget": {
                 "constraints": [self.main_widget_constraint],
-            },
-            "main_menu": {
-                "required": False,
-                "constraints": [self.main_menu_constraint],
             },
             "output_dir": {
                 "required": False,
@@ -146,7 +143,9 @@ class ProjectSettings(baseui.ProjectSettingsUI):
         options = self.combo_candidates.copy()
         if template in ("widget", "widgetds"):
             options["main_widget"] = options["custom_widget"]
-        keys = ("main_widget", "main_menu")
+        elif template == "fnscript":
+            options["main_widget"].update(options["main_menu"])
+        keys = ("main_widget",)
         for key in keys:
             if key in options:
                 field = getattr(self, key)
@@ -154,8 +153,6 @@ class ProjectSettings(baseui.ProjectSettingsUI):
                 # setup valid values for constraints
                 constraint = getattr(self, f"{key}_constraint")
                 choices = list(options[key])
-                if key == "main_menu":
-                    choices.append("")
                 constraint.valid_choices = choices
 
     def edit(self, project: Project):
@@ -248,7 +245,6 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             "import_tkvariables": "disabled",
             "use_i18n": "normal",
             "all_ids_attributes": "normal",
-            "main_menu": "normal",
             "output_dir2": "disabled",
             "btn_path2_chooser": "disabled",
         }
@@ -259,7 +255,6 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             pass
         elif template in ("widget", "widgetds"):
             # state["use_i18n"] = "disabled"
-            state["main_menu"] = "disabled"
             state["output_dir2"] = "normal"
             state["btn_path2_chooser"] = "normal"
         for fname, newstate in state.items():

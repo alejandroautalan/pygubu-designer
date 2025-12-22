@@ -310,44 +310,11 @@
                               </object>
                             </child>
                             <child>
-                              <object class="ttk.Label" id="label2">
-                                <property name="text" translatable="yes">Main menu:</property>
-                                <layout manager="grid">
-                                  <property name="column">0</property>
-                                  <property name="row">8</property>
-                                  <property name="sticky">ew</property>
-                                </layout>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="pygubu.forms.pygubuwidget.PygubuCombobox" id="main_menu" named="True">
-                                <property name="state">readonly</property>
-                                <property name="style">ComboboxField.TCombobox</property>
-                                <layout manager="grid">
-                                  <property name="column">1</property>
-                                  <property name="ipady">2p</property>
-                                  <property name="row">8</property>
-                                  <property name="sticky">ew</property>
-                                </layout>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelfieldinfo3">
-                                <property name="field_name">main_menu</property>
-                                <property name="style">LabelFieldInfo.TLabel</property>
-                                <layout manager="grid">
-                                  <property name="column">1</property>
-                                  <property name="row">9</property>
-                                  <property name="sticky">ew</property>
-                                </layout>
-                              </object>
-                            </child>
-                            <child>
                               <object class="ttk.Label" id="label4">
                                 <property name="text" translatable="yes">Module output:</property>
                                 <layout manager="grid">
                                   <property name="column">0</property>
-                                  <property name="row">10</property>
+                                  <property name="row">8</property>
                                   <property name="sticky">ew</property>
                                 </layout>
                               </object>
@@ -358,7 +325,7 @@
                                 <property name="width">200</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="row">10</property>
+                                  <property name="row">8</property>
                                   <property name="sticky">ew</property>
                                 </layout>
                                 <child>
@@ -394,7 +361,7 @@
                                 <property name="style">LabelFieldInfo.TLabel</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="row">11</property>
+                                  <property name="row">9</property>
                                   <property name="sticky">ew</property>
                                 </layout>
                               </object>
@@ -404,7 +371,7 @@
                                 <property name="text" translatable="yes">Builder output:</property>
                                 <layout manager="grid">
                                   <property name="column">0</property>
-                                  <property name="row">12</property>
+                                  <property name="row">10</property>
                                   <property name="sticky">ew</property>
                                 </layout>
                               </object>
@@ -415,7 +382,7 @@
                                 <property name="width">200</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="row">12</property>
+                                  <property name="row">10</property>
                                   <property name="sticky">ew</property>
                                 </layout>
                                 <child>
@@ -451,7 +418,7 @@
                                 <property name="style">LabelFieldInfo.TLabel</property>
                                 <layout manager="grid">
                                   <property name="column">1</property>
-                                  <property name="row">13</property>
+                                  <property name="row">11</property>
                                   <property name="sticky">ew</property>
                                 </layout>
                               </object>
