@@ -64,6 +64,7 @@ from .services.stylehandler import StyleHandler
 from .services.messagebox import show_error
 from .services.theming import get_ttk_style
 from .services.context_menu import create_context_menu
+from .services.main_menu import create_main_menu
 
 
 # Initialize logger
@@ -162,7 +163,9 @@ class PygubuDesigner:
 
         # build main ui
         self.mainwindow = self.builder.get_object("mainwindow")
-        self.main_menu = self.builder.get_object("mainmenu", self.mainwindow)
+        self.main_menu = create_main_menu(
+            master=self.mainwindow, translator=translator, callbacks_bag=self
+        )
         self.context_menu = create_context_menu(
             master=self.mainwindow, translator=translator, callbacks_bag=self
         )
@@ -207,7 +210,9 @@ class PygubuDesigner:
 
         # Recen Files management
         # Setup menu after connect callbacks call above.
-        rfmenu = self.builder.get_object("file_recent_menu")
+        # rfmenu = self.builder.get_object("file_recent_menu")
+        fmenu = self.main_menu.nametowidget(self.main_menu.entrycget(0, "menu"))
+        rfmenu = fmenu.nametowidget(fmenu.entrycget(2, "menu"))
         self.rfiles_manager = RecentFilesManager(rfmenu, self.do_file_open)
 
         # Customize OpenFiledialog window
@@ -415,7 +420,8 @@ class PygubuDesigner:
         w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)
 
     def _setup_theme_menu(self):
-        menu = self.builder.get_object("preview_themes_submenu")
+        pmenu = self.main_menu.nametowidget(self.main_menu.entrycget(3, "menu"))
+        menu = pmenu.nametowidget(pmenu.entrycget(2, "menu"))
         s = get_ttk_style()
         styles = sorted(s.theme_names())
         self.__theme_var = var = tk.StringVar()
@@ -688,8 +694,9 @@ class PygubuDesigner:
         The state of the menus is dependant on whether they can be used at the current time or not.
         """
 
-        # menu_duplicate_context = self.builder.get_object("menu_duplicate")
-        menu_duplicate_edit = self.builder.get_object("TREE_ITEM_DUPLICATE")
+        menu_edit = self.main_menu.nametowidget(
+            self.main_menu.entrycget(1, "menu")
+        )
 
         # Should we enable the 'Duplicate' menu?
         self.duplicate_menu_state = (
@@ -697,8 +704,10 @@ class PygubuDesigner:
             if self.tree_editor.selection_different_parents()
             else "normal"
         )
+        # context menu item duplicate
         self.context_menu.entryconfig(9, state=self.duplicate_menu_state)
-        menu_duplicate_edit.entryconfig(3, state=self.duplicate_menu_state)
+        # edit menu item duplicate
+        menu_edit.entryconfig(3, state=self.duplicate_menu_state)
 
     def show_context_menu(self, event):
         """
