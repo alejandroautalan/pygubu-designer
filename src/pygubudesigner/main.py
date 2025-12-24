@@ -59,6 +59,7 @@ from .uitreeeditor import WidgetsTreeEditor
 from .util import menu_iter_children, virtual_event, enable_dpi
 from .util.keyboard import Key, key_bind
 from .util.screens import is_visible_in_screens, parse_geometry
+from .util.tkhacks import filedialog_hack
 from .services.stylehandler import StyleHandler
 from .services.messagebox import show_error
 from .services.theming import get_ttk_style
@@ -209,29 +210,7 @@ class PygubuDesigner:
         self.rfiles_manager = RecentFilesManager(rfmenu, self.do_file_open)
 
         # Customize OpenFiledialog window
-        if sys.platform == "linux":
-            scaling_cmd = f"tk scaling -displayof {self.mainwindow}"
-            tk_scaling = float(self.mainwindow.tk.eval(scaling_cmd))
-            fd_width = int(tk_scaling * 510)
-            fd_height = int(tk_scaling * 262)
-            # print(f"{tk_scaling} {dialog_width} {dialog_height}")
-
-            file_dialog_hack = """
-# Show button and hide hidden files
-catch {tk_getOpenFile -badoption}
-set ::tk::dialog::file::showHiddenBtn 1
-set ::tk::dialog::file::showHiddenVar 0
-
-# Make dialog window bigger
-rename ::tk::dialog::file::Create ::tk::dialog::file::_CreateOriginal
-proc ::tk::dialog::file::Create {w class} {
-    eval ::tk::dialog::file::_CreateOriginal $w $class
-    wm geometry $w {dialog_geometry}
-}"""
-            file_dialog_hack = file_dialog_hack.replace(
-                "{dialog_geometry}", f"{fd_width}x{fd_height}"
-            )
-            self.mainwindow.tk.eval(file_dialog_hack)
+        filedialog_hack(self.mainwindow)
 
         #
         # Setup dynamic theme submenu
