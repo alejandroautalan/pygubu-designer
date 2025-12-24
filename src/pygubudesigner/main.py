@@ -63,6 +63,7 @@ from .util.tkhacks import filedialog_hack
 from .services.stylehandler import StyleHandler
 from .services.messagebox import show_error
 from .services.theming import get_ttk_style
+from .services.context_menu import create_context_menu
 
 
 # Initialize logger
@@ -162,8 +163,8 @@ class PygubuDesigner:
         # build main ui
         self.mainwindow = self.builder.get_object("mainwindow")
         self.main_menu = self.builder.get_object("mainmenu", self.mainwindow)
-        self.context_menu = self.builder.get_object(
-            "context_menu", self.mainwindow
+        self.context_menu = create_context_menu(
+            master=self.mainwindow, translator=translator, callbacks_bag=self
         )
 
         # Initialize duplicate menu state
@@ -687,7 +688,7 @@ class PygubuDesigner:
         The state of the menus is dependant on whether they can be used at the current time or not.
         """
 
-        menu_duplicate_context = self.builder.get_object("menu_duplicate")
+        # menu_duplicate_context = self.builder.get_object("menu_duplicate")
         menu_duplicate_edit = self.builder.get_object("TREE_ITEM_DUPLICATE")
 
         # Should we enable the 'Duplicate' menu?
@@ -696,7 +697,7 @@ class PygubuDesigner:
             if self.tree_editor.selection_different_parents()
             else "normal"
         )
-        menu_duplicate_context.entryconfig(7, state=self.duplicate_menu_state)
+        self.context_menu.entryconfig(9, state=self.duplicate_menu_state)
         menu_duplicate_edit.entryconfig(3, state=self.duplicate_menu_state)
 
     def show_context_menu(self, event):

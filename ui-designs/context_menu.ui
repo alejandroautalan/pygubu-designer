@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.5" author="PygubuDesigner 0.41.4">
+  <project>
+    <settings>
+      <setting id="name">pygubu-designer context menu</setting>
+      <setting id="description">This is a context menu.</setting>
+      <setting id="module_name">context_menu</setting>
+      <setting id="template">fnscript</setting>
+      <setting id="main_widget">context_menu</setting>
+      <setting id="main_classname">create_context_menu</setting>
+      <setting id="output_dir">../src/pygubudesigner/services</setting>
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">True</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">True</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+    <resources />
+  </project>
+  <object class="tk.Menu" id="context_menu">
+    <property name="tearoff">false</property>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_go_to_parent">
+        <property name="command" type="command" cbtype="simple">on_context_menu_go_to_parent_clicked</property>
+        <property name="label" translatable="yes">Go to parent</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Separator" id="separator3" />
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_update_preview" named="True">
+        <property name="command" type="command" cbtype="simple">on_context_menu_update_preview</property>
+        <property name="label" translatable="yes">Update preview</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Separator" id="sep_context" />
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_copy">
+        <property name="command" type="command" cbtype="simple">on_context_menu_copy_clicked</property>
+        <property name="label" translatable="yes">Copy</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_paste">
+        <property name="command" type="command" cbtype="simple">on_context_menu_paste_clicked</property>
+        <property name="label" translatable="yes">Paste</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_cut">
+        <property name="command" type="command" cbtype="simple">on_context_menu_cut_clicked</property>
+        <property name="label" translatable="yes">Cut</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_delete">
+        <property name="command" type="command" cbtype="simple">on_context_menu_delete_clicked</property>
+        <property name="label" translatable="yes">Delete</property>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Separator" id="context_sep1" />
+    </child>
+    <child>
+      <object class="tk.Menuitem.Command" id="menu_duplicate">
+        <property name="command" type="command" cbtype="simple">on_context_menu_duplicate_clicked</property>
+        <property name="label" translatable="yes">Duplicate</property>
+      </object>
+    </child>
+  </object>
+</interface>
