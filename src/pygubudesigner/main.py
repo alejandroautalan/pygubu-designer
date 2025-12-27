@@ -200,7 +200,7 @@ class PygubuDesigner:
         self.previewer = PreviewHelper(
             self.preview_canvas,
             self.show_context_menu,
-            preferences.center_preview,
+            lambda: preferences.center_preview,
         )
 
         # Bottom Panel
