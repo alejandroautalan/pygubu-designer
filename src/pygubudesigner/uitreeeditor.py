@@ -716,7 +716,8 @@ class WidgetsTreeEditor:
         data.attach(self)
         self.treedata[item] = data
 
-        self.app.set_changed()
+        if not from_file:
+            self.app.set_changed()
 
         return item
 
