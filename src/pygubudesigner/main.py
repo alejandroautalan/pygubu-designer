@@ -44,10 +44,6 @@ from pygubudesigner.services.project import Project
 from pygubudesigner.services.designersettings import DesignerSettings
 from pygubudesigner.services.projectsettings import ProjectSettings
 from pygubudesigner.services.aboutdialog import AboutDialog
-from pygubudesigner.services.ask_save_changes import (
-    ask_save_changes,
-    AskSaveChangesDialog,
-)
 from pygubudesigner.codegen import ScriptGenerator
 from pygubudesigner.widgets.toolbarframe import ToolbarFrame
 
@@ -65,6 +61,7 @@ from .services.messagebox import show_error
 from .services.theming import get_ttk_style
 from .services.context_menu import create_context_menu
 from .services.main_menu import create_main_menu
+from .services.fileactions import FileActionsManager
 
 
 # Initialize logger
@@ -149,7 +146,6 @@ class PygubuDesigner:
         )
         self.builder.image_cache.auto_scaling = True
         self.current_project = None
-        self.is_changed = False
         self.current_title = "new"
         self.mbox_title = _("Pygubu Designer")
 
@@ -213,7 +209,9 @@ class PygubuDesigner:
         # rfmenu = self.builder.get_object("file_recent_menu")
         fmenu = self.main_menu.nametowidget(self.main_menu.entrycget(0, "menu"))
         rfmenu = fmenu.nametowidget(fmenu.entrycget(2, "menu"))
-        self.rfiles_manager = RecentFilesManager(rfmenu, self.do_file_open)
+        self.rfiles_manager = RecentFilesManager(
+            rfmenu, self.on_recentfile_clicked
+        )
 
         # Customize OpenFiledialog window
         filedialog_hack(self.mainwindow)
@@ -256,6 +254,11 @@ class PygubuDesigner:
         )
         # load maindock state
         self.load_dockframe_layout()
+
+        # start new Project
+        self.mainwindow.after(
+            200, lambda: self.mainwindow.event_generate(actions.FILE_NEW)
+        )
 
     def run(self):
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
@@ -408,12 +411,31 @@ class PygubuDesigner:
                 add=True,
             )
 
+        # New fileactions module
+        self.fileactions = FileActionsManager(
+            self.mainwindow,
+            ".ui",
+            ((_("pygubu ui"), "*.ui"), (_("All"), "*.*")),
+        )
+        MSGID = self.fileactions.MSGID
+        self.fileactions.user_file_new = self.on_file_new
+        self.fileactions.user_file_open = self.on_file_open
+        self.fileactions.user_file_save = self.on_file_save
+        self.fileactions.messages = {
+            MSGID.SAVECHANGE_MESSAGE: _("Save current changes?"),
+            MSGID.SAVECHANGE_DETAIL: _(
+                "If you don't save the document, all the changes will be lost."
+            ),
+            MSGID.SAVECHANGE_TITLE: _("Save Changes"),
+        }
+        # _("Do you want to save the changes before closing?")
+
         # Actions Bindings
         w = self.mainwindow
-        w.bind(actions.FILE_NEW, self.on_file_new)
-        w.bind(actions.FILE_OPEN, lambda e: self.do_file_open())
-        w.bind(actions.FILE_SAVE, self.on_file_save)
-        w.bind(actions.FILE_SAVEAS, lambda e: self.do_save_as())
+        w.bind(actions.FILE_NEW, lambda e: self.fileactions.action_new())
+        w.bind(actions.FILE_OPEN, lambda e: self.fileactions.action_open())
+        w.bind(actions.FILE_SAVE, lambda e: self.fileactions.action_save())
+        w.bind(actions.FILE_SAVEAS, lambda e: self.fileactions.action_saveas())
         w.bind(actions.FILE_QUIT, lambda e: self.quit())
         w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
         # On preferences save binding
@@ -515,28 +537,8 @@ class PygubuDesigner:
             preferences.default_layout_manager
         )
 
-    def ask_save_changes(self, message, detail=None, title=None):
-        do_continue = False
-        if title is None:
-            title = _("Save Changes")
-        if detail is None:
-            detail = _(
-                "If you don't save the document, all the changes will be lost."
-            )
-        choice = ask_save_changes(self.mainwindow, title, message, detail)
-        if choice == AskSaveChangesDialog.SAVE:
-            do_continue = self.on_file_save()
-        elif choice == AskSaveChangesDialog.CANCEL:
-            do_continue = False
-        elif choice == AskSaveChangesDialog.DISCARD:
-            do_continue = True
-        return do_continue
-
     def on_close_execute(self):
-        quit = True
-        if self.is_changed:
-            msg = _("Do you want to save the changes before closing?")
-            quit = self.ask_save_changes(msg)
+        quit = self.fileactions.action_close()
         if quit:
             # prevent tk image errors on python2 ?
             StockImage.clear_cache()
@@ -545,15 +547,56 @@ class PygubuDesigner:
             preferences.geometry = self.mainwindow.geometry()
         return quit
 
-    def do_save(self, fname):
+    def set_changed(self, newvalue=True):
+        if newvalue and not self.fileactions.file_is_changed:
+            self.set_title(f"{self.current_title} (*)")
+        self.fileactions.file_is_changed = newvalue
+
+    def on_file_new(self):
+        """Implement Fileactions user_file_new."""
+        self.previewer.remove_all()
+        self.tree_editor.remove_all()
+        self.current_project = None
+        # self.set_changed(False)
+        self.set_title(self.project_name())
+        StyleHandler.clear_definition_file()
+
+    def on_file_open(self, filename):
+        """Implement Fileactions user_file_open."""
+        try:
+            fpath = Path(filename).resolve()
+            project = Project.load(fpath)
+            self.tree_editor.load_file(project)
+            self.current_project = project
+            self.set_title(self.project_name())
+            self.rfiles_manager.add(fpath)
+            self.reload_component_palette()
+        except Exception as e:
+            msg = str(e)
+            det = traceback.format_exc()
+            show_error(self.mainwindow, _("Error"), msg, det)
+
+    def on_file_save(self, filepath, *, is_update=False, is_saveas=False):
         saved = False
         try:
-            self.save_file(fname)
-            self.set_changed(False)
-            logger.info(_("Project saved to %s"), fname)
+            # save begin
+            project = (
+                Project()
+                if self.current_project is None
+                else self.current_project
+            )
+            project.uidefinition = self.tree_editor.tree_to_uidef()
+            project.save(filepath)
+            self.current_project = project
+            self.set_title(self.project_name())
+            logger.info(_("Project saved to %s"), filepath)
             saved = True
+
             if self.generate_code_on_save():
                 self._project_code_generate()
+
+            if is_saveas or not is_update:
+                self.rfiles_manager.add(filepath)
         except Exception as e:
             msg = str(e)
             det = traceback.format_exc()
@@ -565,95 +608,13 @@ class PygubuDesigner:
             )
         return saved
 
-    def do_save_as(self):
-        saved = False
-        options = {
-            "defaultextension": ".ui",
-            "filetypes": ((_("pygubu ui"), "*.ui"), (_("All"), "*.*")),
-        }
-        fname = filedialog.asksaveasfilename(**options)
-        if fname:
-            saved = self.do_save(fname)
-        return saved
-
-    def save_file(self, filename):
-        project = self.current_project
-        if project is None:
-            project = Project()
-        project.uidefinition = self.tree_editor.tree_to_uidef()
-        project.save(filename)
-        self.current_project = project
-        title = self.project_name()
-        self.set_title(title)
-        self.rfiles_manager.add(str(filename))
-
-    def set_changed(self, newvalue=True):
-        if newvalue and not self.is_changed:
-            self.set_title(f"{self.current_title} (*)")
-        self.is_changed = newvalue
-
-    def load_file(self, filename):
-        """Load xml into treeview"""
-
-        try:
-            fpath = Path(filename).resolve()
-            project = Project.load(fpath)
-            self.tree_editor.load_file(project)
-            self.current_project = project
-            title = self.project_name()
-            self.set_title(title)
-            self.set_changed(False)
-            self.rfiles_manager.add(str(fpath))
-            self.reload_component_palette()
-        except Exception as e:
-            msg = str(e)
-            det = traceback.format_exc()
-            show_error(self.mainwindow, _("Error"), msg, det)
-
-    def do_file_open(self, filename=None):
-        openfile = True
-        if self.is_changed:
-            msg = _("Do you want to save the changes before opening?")
-            openfile = self.ask_save_changes(msg)
-        if openfile:
-            if filename is None:
-                options = {
-                    "defaultextension": ".ui",
-                    "filetypes": (
-                        (_("pygubu ui"), "*.ui"),
-                        (_("All"), "*.*"),
-                    ),
-                }
-                filename = filedialog.askopenfilename(**options)
-            if filename:
-                self.load_file(filename)
-
-    def on_file_new(self, event=None):
-        new = True
-        if self.is_changed:
-            msg = _("Do you want to save the changes before creating?")
-            new = self.ask_save_changes(msg)
-        if new:
-            self.previewer.remove_all()
-            self.tree_editor.remove_all()
-            self.current_project = None
-            self.set_changed(False)
-            self.set_title(self.project_name())
-            StyleHandler.clear_definition_file()
-
-    def on_file_save(self, event=None):
-        file_saved = False
-        if self.current_project:
-            if self.is_changed:
-                file_saved = self.do_save(self.current_project.fpath)
-        else:
-            file_saved = self.do_save_as()
-        return file_saved
-
     # File Menu
     def on_file_menuitem_clicked(self, itemid):
         action = f"<<ACTION_{itemid}>>"
         self.mainwindow.event_generate(action)
+
+    def on_recentfile_clicked(self, fpath):
+        self.fileactions.action_open(fpath)
 
     # Edit menu
     def on_edit_menuitem_clicked(self, itemid):
