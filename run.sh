@@ -38,6 +38,9 @@ DESIGNER_MODULE_ROOT_DIR="./src/pygubudesigner"
 
 python3bin=$(which python3)
 
+fades_bin=/opt/py-3.14.2-tk-9.0.3/bin/fades
+
+
 function tests {
     cd tests; $python3bin -W default -m unittest -v; cd ..;
 }
@@ -147,7 +150,7 @@ platformdirs
 -e file://$PROJECT_ROOT#egg=pygubu-designer
 EOF
 
-    fades -r $reqfile -x pygubu-designer ${@:1}
+    $fades_bin -r $reqfile -x pygubu-designer ${@:1}
 
 }
 
