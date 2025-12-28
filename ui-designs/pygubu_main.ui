@@ -4,35 +4,35 @@
     <settings>
       <setting id="name">pygubu-designer window</setting>
       <setting id="description">This is the main pygubu-designer ui file.</setting>
-      <setting id="module_name">main_ui</setting>
-      <setting id="template">application</setting>
-      <setting id="main_widget">mainwindow</setting>
-      <setting id="main_classname">PygubuDesigner</setting>
-      <setting id="main_menu" />
-      <setting id="output_dir">../../</setting>
+      <setting id="module_name">main_window</setting>
+      <setting id="template">codescript</setting>
+      <setting id="main_widget">mainroot</setting>
+      <setting id="main_classname">MainWindow</setting>
+      <setting id="output_dir">../src/pygubudesigner/services</setting>
       <setting id="output_dir2" />
       <setting id="import_tkvariables">False</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
-      <setting id="use_i18n">False</setting>
+      <setting id="use_i18n">True</setting>
       <setting id="all_ids_attributes">False</setting>
       <setting id="generate_code_onsave">False</setting>
       <setting id="use_window_centering_code">False</setting>
       <setting id="ttk_style_definition_file" />
     </settings>
     <customwidgets>
-      <customwidget path="../../services/builders/treecomponentpalettebo.py" />
-      <customwidget path="../../services/builders/layout_editorbo.py" />
-      <customwidget path="../../services/builders/properties_editorbo.py" />
+      <customwidget path="../src/pygubudesigner/services/builders/treecomponentpalettebo.py" />
+      <customwidget path="../src/pygubudesigner/services/builders/layout_editorbo.py" />
+      <customwidget path="../src/pygubudesigner/services/builders/properties_editorbo.py" />
+      <customwidget path="builders/custom_rootbo.py" />
     </customwidgets>
     <resources />
   </project>
-  <object class="tk.Tk" id="mainwindow" named="True">
+  <object class="pygubudesigner.services.widgets.custom_root.CustomRoot" id="mainroot" named="True">
     <property name="className">PygubuDesigner</property>
-    <property name="height">200</property>
+    <property name="height">100</property>
     <property name="minsize">854|480</property>
     <property name="resizable">both</property>
     <property name="title" translatable="yes">Pygubu Designer</property>
-    <property name="width">200</property>
+    <property name="width">100</property>
     <child>
       <object class="ttk.Frame" id="mainframe">
         <property name="padding">2p</property>
@@ -42,7 +42,7 @@
           <property name="side">top</property>
         </layout>
         <child>
-          <object class="ttk.Panedwindow" id="mainpw">
+          <object class="ttk.Panedwindow" id="mainpw" named="True">
             <property name="height">200</property>
             <property name="orient">vertical</property>
             <property name="width">200</property>
@@ -135,8 +135,8 @@
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="ttk.Button" id="filterclear_btn">
-                                                <property name="image">close.gif</property>
+                                              <object class="ttk.Button" id="filterclear_btn" named="True">
+                                                <property name="image">close</property>
                                                 <property name="style">FilterClearButton.Toolbutton</property>
                                                 <property name="text" translatable="yes">✖</property>
                                                 <property name="width">-2</property>
@@ -259,7 +259,7 @@
                                                 <property name="sticky">nsew</property>
                                                 <property name="text" translatable="yes">Appearance</property>
                                                 <child>
-                                                  <object class="projectcustom.PropertiesEditor" id="propertieseditor1">
+                                                  <object class="projectcustom.PropertiesEditor" id="propertieseditor1" named="True">
                                                     <layout manager="pack">
                                                       <property name="side">top</property>
                                                     </layout>
@@ -273,7 +273,7 @@
                                                 <property name="sticky">nsew</property>
                                                 <property name="text" translatable="yes">Layout</property>
                                                 <child>
-                                                  <object class="projectcustom.LayoutEditor" id="layouteditor1">
+                                                  <object class="projectcustom.LayoutEditor" id="layouteditor1" named="True">
                                                     <layout manager="pack">
                                                       <property name="side">top</property>
                                                     </layout>
@@ -297,7 +297,7 @@
                                                       <property name="side">top</property>
                                                     </layout>
                                                     <child>
-                                                      <object class="pygubu.builder.widgets.scrollbarhelper" id="bindingsframe">
+                                                      <object class="pygubu.builder.widgets.scrollbarhelper" id="bindings_frame" named="True">
                                                         <property name="scrolltype">both</property>
                                                         <property name="usemousewheel">true</property>
                                                         <layout manager="pack">
@@ -306,7 +306,7 @@
                                                           <property name="side">top</property>
                                                         </layout>
                                                         <child>
-                                                          <object class="pygubu.builder.widgets.editabletreeview" id="bindingstree">
+                                                          <object class="pygubu.builder.widgets.editabletreeview" id="bindings_tree" named="True">
                                                             <property name="show">headings</property>
                                                             <property name="style">BindingsEditor.Treeview</property>
                                                             <layout manager="pack">
@@ -401,7 +401,7 @@
                                           <property name="side">top</property>
                                         </layout>
                                         <child>
-                                          <object class="tk.Canvas" id="preview_canvas">
+                                          <object class="tk.Canvas" id="preview_canvas" named="True">
                                             <property name="highlightthickness">0</property>
                                             <property name="takefocus">true</property>
                                             <layout manager="pack">
@@ -429,14 +429,14 @@
               <object class="ttk.Panedwindow.Pane" id="mainpw_bottom">
                 <property name="weight">0</property>
                 <child>
-                  <object class="ttk.Frame" id="bpanel">
+                  <object class="ttk.Frame" id="bpanel" named="True">
                     <property name="height">200</property>
                     <property name="width">200</property>
                     <layout manager="pack">
                       <property name="side">top</property>
                     </layout>
                     <child>
-                      <object class="ttk.Frame" id="bp_container">
+                      <object class="ttk.Frame" id="bp_container" named="True">
                         <property name="height">200</property>
                         <property name="width">200</property>
                         <layout manager="pack">
@@ -454,7 +454,7 @@
                               <property name="side">top</property>
                             </layout>
                             <child>
-                              <object class="tk.Text" id="txt_log">
+                              <object class="tk.Text" id="txt_log" named="True">
                                 <property name="font">TkFixedFont</property>
                                 <property name="height">8</property>
                                 <property name="state">disabled</property>
@@ -469,7 +469,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="ttk.Frame" id="bp_buttons">
+                      <object class="ttk.Frame" id="bp_buttons" named="True">
                         <property name="height">200</property>
                         <property name="padding">1p</property>
                         <property name="width">200</property>
@@ -478,7 +478,7 @@
                           <property name="side">bottom</property>
                         </layout>
                         <child>
-                          <object class="ttk.Checkbutton" id="btn_messages">
+                          <object class="ttk.Checkbutton" id="btn_messages" named="True">
                             <property name="command" type="command" cbtype="simple" args="">on_bpanel_button_clicked</property>
                             <property name="offvalue">0</property>
                             <property name="onvalue">messages</property>

@@ -36,7 +36,7 @@ makolookup = TemplateLookup(directories=[TEMPLATE_DIR])
 class ScriptGenerator:
     def __init__(self, app):
         self.app = app
-        self.builder = app.builder
+        # self.builder = app.builder
         self.tree = app.tree_editor
         self.projectname = ""
 

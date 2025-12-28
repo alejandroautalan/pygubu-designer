@@ -96,8 +96,12 @@ class WidgetsTreeEditor:
 
         # Filter vars
         self.filter_on = False
-        self.filtervar = app.builder.get_variable("filtervar")
-        self.filter_btn = app.builder.get_object("filterclear_btn")
+
+        # self.filtervar = app.builder.get_variable("filtervar")
+        # self.filter_btn = app.builder.get_object("filterclear_btn")
+        self.filtervar = app.filtervar
+        self.filter_btn = app.filterclear_btn
+
         self.filter_prev_value = ""
         self.filter_prev_sitem = None
         self._detached = []
@@ -122,14 +126,20 @@ class WidgetsTreeEditor:
         FormFieldNameEntry.global_validator = self.is_form_fieldname_valid
 
         # Widget Editor
-        bframe = app.builder.get_object("bindingsframe")
-        bindingstree = app.builder.get_object("bindingstree")
-        self.properties_editor = app.builder.get_object("propertieseditor1")
+        # bframe = app.builder.get_object("bindingsframe")
+        # bindingstree = app.builder.get_object("bindingstree")
+        # self.properties_editor = app.builder.get_object("propertieseditor1")
+
+        bframe = app.bindings_frame
+        bindingstree = app.bindings_tree
+        self.properties_editor = app.propertieseditor1
+
         self.properties_editor.reselect_item_cb = partial(
             self.on_treeview_select, None
         )
 
-        lframe = app.builder.get_object("layouteditor1")
+        # lframe = app.builder.get_object("layouteditor1")
+        lframe = app.layouteditor1
         self.layout_editor = lframe
         self.bindings_editor = BindingsEditor(bindingstree, bframe)
         self.treeview.bind_all(

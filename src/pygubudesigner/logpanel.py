@@ -1,14 +1,13 @@
 class LogPanelManager:
     def __init__(self, app):
         self.app = app
-        builder = self.app.builder
-        self.btn_messages = builder.get_object("btn_messages")
-        self.txt_log = builder.get_object("txt_log")
-        self.buttonsvar = builder.get_variable("bpanel_buttonsvar")
-        self.bpanel = builder.get_object("bpanel")
-        self.gcontainer = builder.get_object("bp_container")
-        self.gbuttons = builder.get_object("bp_buttons")
-        self.mainpw = builder.get_object("mainpw")
+        self.btn_messages = app.btn_messages
+        self.txt_log = app.txt_log
+        self.buttonsvar = app.bpanel_buttonsvar
+        self.bpanel = app.bpanel
+        self.gcontainer = app.bp_container
+        self.gbuttons = app.bp_buttons
+        self.mainpw = app.mainpw
         self.mainpw.bind("<Configure>", self.pwindow_configure)
         self.mainpw_sash_pos = None
         self.gcontainer.pack_forget()
