@@ -15,6 +15,7 @@ from pathlib import Path
 from tkinter import filedialog, messagebox
 from pygubu import builder
 from pygubu.component.plugin_manager import PluginManager
+from pygubu.theming.iconset.loader import IconSetLoader
 from pygubu.stockimage import StockImage, StockImageException
 
 from pygubudesigner.preferences import preferences
@@ -100,9 +101,15 @@ class MainWindow(baseui.MainWindowUI):
         # Enable DPI aware
         enable_dpi()
 
+        self.image_loader = IconSetLoader(
+            "pygubudesigner.data.iconset", "pygubu.json"
+        )
         # build main ui
         self.main_menu = create_main_menu(
-            master=self.mainwindow, translator=translator, callbacks_bag=self
+            master=self.mainwindow,
+            translator=translator,
+            callbacks_bag=self,
+            image_loader=self.image_loader,
         )
         self.context_menu = create_context_menu(
             master=self.mainwindow, translator=translator, callbacks_bag=self
