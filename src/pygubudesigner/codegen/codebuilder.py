@@ -546,6 +546,8 @@ class UI2Code(Builder):
             name, file_ext = os.path.splitext(basename)
             name = self._make_identifier(name)
             varname = f"self.img_{name}"
+            if self._script_type == ScriptType.FN_SCRIPT:
+                varname = f"img_{name}"
             master = self._generated_target_child_master
             if self._realize_mode == RealizeMode.METHOD:
                 master = "master"
