@@ -38,7 +38,8 @@ DESIGNER_MODULE_ROOT_DIR="./src/pygubudesigner"
 
 python3bin=$(which python3)
 
-fades_bin=/opt/py-3.14.2-tk-9.0.3/bin/fades
+fades_bin=/opt/py-3.13.8-tk-8.6.17/bin/fades
+fades_tk9_bin=/opt/py-3.14.2-tk-9.0.3/bin/fades
 
 
 function tests {
@@ -143,7 +144,7 @@ function install_from_testpypi {
 }
 
 function designer {
-    reqfile="/tmp/pygubu-designer-editable.txt"
+    reqfile="/tmp/pygubu-designertk8-editable.txt"
     cat << EOF > $reqfile
 platformdirs
 -e file://$PYGUBU_DIR#egg=pygubu
@@ -151,6 +152,18 @@ platformdirs
 EOF
 
     $fades_bin -r $reqfile -x pygubu-designer ${@:1}
+
+}
+
+function designertk9 {
+    reqfile="/tmp/pygubu-designer-tk9-editable.txt"
+    cat << EOF > $reqfile
+platformdirs
+-e file://$PYGUBU_DIR#egg=pygubu
+-e file://$PROJECT_ROOT#egg=pygubu-designer
+EOF
+
+    $fades_tk9_bin -r $reqfile -x pygubu-designer ${@:1}
 
 }
 
