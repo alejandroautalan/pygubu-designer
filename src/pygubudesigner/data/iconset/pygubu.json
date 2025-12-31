@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "name": "Pygubu designer Iconset",
+  "docs": "An iconset for pygubu designer.\n",
+  "icon_width": 24,
+  "color_onlight": "#000000",
+  "color_ondark": "#98ff00",
+  "with_png": true,
+  "with_gif": true,
+  "icons": [
+    {
+      "fn": "ta-file.svg",
+      "uid": "tb_new",
+      "color_keep": false,
+      "color_onlight": "",
+      "color_ondark": ""
+    },
+    {
+      "fn": "ta-folder-open.svg",
+      "uid": "tb_open"
+    },
+    {
+      "fn": "ta-device-floppy.svg",
+      "uid": "tb_save"
+    },
+    {
+      "fn": "ta-file-download.svg",
+      "uid": "tb_saveas"
+    },
+    {
+      "fn": "ta-power.svg",
+      "uid": "mi_quit"
+    },
+    {
+      "fn": "ta-folder-open.svg",
+      "uid": "mi_open"
+    },
+    {
+      "fn": "ta-file.svg",
+      "uid": "mi_new"
+    },
+    {
+      "fn": "ta-file-plus.svg",
+      "uid": "mi_new2"
+    },
+    {
+      "fn": "ta-device-floppy.svg",
+      "uid": "mi_save"
+    },
+    {
+      "fn": "ta-file-download.svg",
+      "uid": "mi_saveas"
+    },
+    {
+      "fn": "ta-search.svg",
+      "uid": "mi_search"
+    },
+    {
+      "fn": "ta-menu.svg",
+      "uid": "mi_menu"
+    },
+    {
+      "fn": "ta-square-rounded-chevron-right.svg",
+      "uid": "mi_menu2"
+    },
+    {
+      "fn": "ta-chevron-right.svg",
+      "uid": "mi_menu3"
+    },
+    {
+      "fn": "ta-clear-all.svg",
+      "uid": "mi_recent_clear"
+    },
+    {
+      "fn": "ta-copy.svg",
+      "uid": "mi_copy"
+    },
+    {
+      "fn": "ta-clipboard-data.svg",
+      "uid": "mi_paste"
+    },
+    {
+      "fn": "ta-cut.svg",
+      "uid": "mi_cut"
+    },
+    {
+      "fn": "ta-copy-plus.svg",
+      "uid": "mi_duplicate"
+    },
+    {
+      "fn": "ta-arrow-move-up-filled.svg",
+      "uid": "mi_move_up"
+    },
+    {
+      "fn": "ta-arrow-move-down-filled.svg",
+      "uid": "mi_move_down"
+    },
+    {
+      "fn": "ta-arrow-move-left-filled.svg",
+      "uid": "mi_move_left"
+    },
+    {
+      "fn": "ta-arrow-move-right-filled.svg",
+      "uid": "mi_move_right"
+    },
+    {
+      "fn": "ta-trash.svg",
+      "uid": "mi_delete"
+    },
+    {
+      "fn": "ta-settings.svg",
+      "uid": "mi_settings"
+    },
+    {
+      "fn": "ta-layout.svg",
+      "uid": "mi_layout_reset"
+    },
+    {
+      "fn": "ta-settings-code.svg",
+      "uid": "mi_settings_code"
+    },
+    {
+      "fn": "ta-code.svg",
+      "uid": "mi_code"
+    },
+    {
+      "fn": "ta-device-desktop.svg",
+      "uid": "mi_preview"
+    },
+    {
+      "fn": "ta-device-desktop-cancel.svg",
+      "uid": "mi_preview_close"
+    },
+    {
+      "fn": "ta-palette.svg",
+      "uid": "mi_theme"
+    },
+    {
+      "fn": "ta-external-link.svg",
+      "uid": "mi_wiki"
+    },
+    {
+      "fn": "ta-info-small.svg",
+      "uid": "mi_about"
+    }
+  ],
+  "custom_files": {}
+}
