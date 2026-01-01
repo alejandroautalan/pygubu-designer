@@ -68,6 +68,10 @@
       "uid": "mi_menu3"
     },
     {
+      "fn": "ta-file-upload.svg",
+      "uid": "mi_recentfiles_open"
+    },
+    {
       "fn": "ta-clear-all.svg",
       "uid": "mi_recent_clear"
     },

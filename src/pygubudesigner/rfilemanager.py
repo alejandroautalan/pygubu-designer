@@ -16,11 +16,7 @@
 import tkinter as tk
 from pathlib import Path
 from .preferences import preferences
-
-
-def image_loader(master, uid):
-    # TODO: replace this fun.
-    return None
+from pygubudesigner.services.image_loader import iconset_loader
 
 
 class RecentFilesManager:
@@ -62,7 +58,7 @@ class RecentFilesManager:
             cb(fname)
 
         master = self.menu.nametowidget(self.menu.winfo_parent())
-        item_image = image_loader(master, "mi_recentfiles_open")
+        item_image = iconset_loader(master, "mi_recentfiles_open")
         self.menu.insert_command(
             0,
             label=itemlabel,
