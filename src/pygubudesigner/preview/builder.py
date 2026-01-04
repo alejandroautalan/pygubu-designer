@@ -49,8 +49,10 @@ class BuilderForPreview(pygubu.Builder):
 
     def make_previewonly(self, bobject):
         """Make widget just display with no functionality."""
-        if isinstance(bobject.widget, tk.Widget):
-            crop_widget(bobject.widget, recursive=False)
+
+        # FIXME: Move responsibility of cropping widget to Plugins?
+        # if isinstance(bobject.widget, tk.Widget):
+        #    crop_widget(bobject.widget, recursive=False)
         builder_uid = bobject.wmeta.classname
         PluginManager.configure_for_preview(builder_uid, bobject.widget)
 
