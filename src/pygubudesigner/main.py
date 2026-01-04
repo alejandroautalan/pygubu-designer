@@ -27,8 +27,9 @@ import platform
 import tkinter as tk
 
 from pathlib import Path
+
+from pygubu.component.plugin_manager import PluginManager
 from pygubu.stockimage import StockImage, StockImageException
-from .services.main_window import MainWindow
 
 
 # Initialize logger
@@ -55,6 +56,27 @@ for dir_, prefix in IMAGE_PATHS:
     StockImage.register_all_from_dir(dir_, prefix)
 
 
+def init_plugin_widgets():
+    """Loads all widgets from registered plugins.
+
+    This needs to be run before the root window is created.
+    """
+    # Initialize all builders from plugins
+    all_modules = []
+    for plugin in PluginManager.builder_plugins():
+        all_modules.extend(plugin.get_all_modules())
+    for _module in all_modules:
+        try:
+            importlib.import_module(_module)
+        except (ModuleNotFoundError, ImportError) as e:
+            logger.exception(e)
+            msg = f"Failed to load widget module: '{_module}'"
+            raise RuntimeError(msg) from e
+
+    # Initialize designer plugins
+    PluginManager.load_designer_plugins()
+
+
 def start_pygubu():
     pugubu_version = pkgmeta.version("pygubu")
     designer_version = pkgmeta.version("pygubu-designer")
@@ -78,6 +100,10 @@ def start_pygubu():
     #
     help = "Hint, If your are using Debian, install package python3-appdirs."
     check_dependency("platformdirs", "4.4.0", help)
+
+    init_plugin_widgets()
+
+    from .services.main_window import MainWindow
 
     app = MainWindow()
 

@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import sys
 import logging
-import importlib
 import traceback
 import webbrowser
 
@@ -14,7 +13,6 @@ import pygubudesigner.designerstyles as designerstyles
 from pathlib import Path
 from tkinter import filedialog, messagebox
 from pygubu import builder
-from pygubu.component.plugin_manager import PluginManager
 from pygubu.stockimage import StockImage, StockImageException
 
 from pygubudesigner.preferences import preferences
@@ -52,25 +50,6 @@ logger = logging.getLogger(__name__)
 
 # translator function
 _ = translator
-
-
-def init_pygubu_widgets():
-
-    # Initialize all builders from plugins
-    all_modules = []
-    for plugin in PluginManager.builder_plugins():
-        all_modules.extend(plugin.get_all_modules())
-    for _module in all_modules:
-        try:
-            importlib.import_module(_module)
-        except (ModuleNotFoundError, ImportError) as e:
-            logger.exception(e)
-            msg = _(f"Failed to load widget module: '{_module}'")
-            det = traceback.format_exc()
-            show_error(None, _("Error"), msg, det)
-
-    # Initialize designer plugins
-    PluginManager.load_designer_plugins()
 
 
 class MainWindow(baseui.MainWindowUI):
@@ -165,9 +144,6 @@ class MainWindow(baseui.MainWindowUI):
             top.tk.call("wm", "iconphoto", ".", StockImage.get("pygubu"))
         except StockImageException:
             pass
-
-        # Load all widgets before creating the component pallete
-        init_pygubu_widgets()
 
         # Tree palette
         self.tree_palette.on_add_widget = self.on_add_widget_event
