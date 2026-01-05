@@ -379,34 +379,6 @@ class MainWindow(baseui.MainWindowUI):
                 columnbreak=col_break,
             )
 
-    def create_treelist(self):
-        root_tagset = {"tk", "ttk"}
-
-        # create unique tag set
-        tagset = set()
-        for c in builder.CLASS_MAP.keys():
-            wc = builder.CLASS_MAP[c]
-            tagset.update(wc.tags)
-        tagset.difference_update(root_tagset)
-
-        treelist = []
-        for c in builder.CLASS_MAP.keys():
-            wc = builder.CLASS_MAP[c]
-            ctags = set(wc.tags)
-            roots = root_tagset & ctags
-            sections = tagset & ctags
-            for r in roots:
-                for s in sections:
-                    key = f"{r}>{s}"
-                    treelist.append((key, wc))
-
-        # sort tags by group and label
-        def by_label(t):
-            return f"{t[0]}{t[1].group}{t[1].label}"
-
-        treelist.sort(key=by_label)
-        return treelist
-
     def on_add_widget_event(self, classname):
         """Adds a widget to the widget tree."""
 
