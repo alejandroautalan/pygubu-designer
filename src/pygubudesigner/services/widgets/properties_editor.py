@@ -32,7 +32,7 @@ class PropertiesEditorMixin:
         self._sep = None  # separator
 
     def get_properties_frame(self):
-        ...
+        pass
 
     def _create_properties(
         self, in_frame, row_start: int = 0, col_start: int = 0
