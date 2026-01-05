@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
+import logging
 from collections import OrderedDict
 from enum import Enum
 
@@ -24,6 +25,9 @@ from pygubu.plugins.tk.tkstdwidgets import TKToplevel
 from pygubu.stockimage import TK_BITMAP_FORMATS
 
 from pygubudesigner.services.stylehandler import StyleHandler
+
+
+logger = logging.getLogger(__name__)
 
 
 class ToplevelOrTk(TKToplevel):
@@ -407,6 +411,7 @@ class UI2Code(Builder):
         originalid = wmeta.identifier
         uniqueid = None
 
+        logger.debug("Begin realize for: %s", wmeta.classname)
         if wmeta.classname not in CLASS_MAP:
             self._builder._import_class(wmeta.classname)
 
@@ -415,6 +420,8 @@ class UI2Code(Builder):
             builder = bclass.factory(self, wmeta)
             uniqueid = builder.code_identifier()
             masterid = bmaster.code_child_master()
+
+            logger.debug("Builder: %s", bclass)
 
             uniqueid = self._get_unique_id(wmeta, uniqueid, masterid)
 
@@ -476,6 +483,7 @@ class UI2Code(Builder):
         else:
             msg = f'Class "{wmeta.classname}" not mapped'
             raise Exception(msg)
+        logger.debug("End realize for: %s", wmeta.classname)
 
         return uniqueid
 
