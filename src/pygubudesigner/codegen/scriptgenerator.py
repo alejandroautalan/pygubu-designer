@@ -51,12 +51,8 @@ class ScriptGenerator:
         generator.add_import_line("tkinter", "tk", priority=1)
         generator.add_import_line("pygubu", priority=10)
         target = context["target"]
-        main_menu_id = None
-        if context["set_main_menu"]:
-            main_menu_id = context["main_menu_id"]
-        code = generator.generate_app_with_ui(
-            uidef, target, main_menu=main_menu_id
-        )
+
+        code = generator.generate_app_with_ui(uidef, target)
 
         context["import_lines"] = code["imports"]
         # Set project paths
