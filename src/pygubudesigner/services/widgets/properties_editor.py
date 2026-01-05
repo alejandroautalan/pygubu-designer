@@ -123,6 +123,7 @@ class PropertiesEditorMixin:
 
         # Setup tooltip
         help = pdescr.get("help", None)
+        help = _("No help defined.") if help is None else help
         if isinstance(help, dict):
             found_match = False
             for k, v in help.items():
