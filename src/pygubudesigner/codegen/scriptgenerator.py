@@ -22,6 +22,7 @@ from tkinter import filedialog, messagebox
 import autopep8
 from mako.lookup import TemplateLookup
 
+from pygubu.component.plugin_manager import PluginManager
 from .codebuilder import UI2Code
 from pygubudesigner.services.stylehandler import StyleHandler
 from pygubudesigner.services.project import Project
@@ -316,7 +317,11 @@ class ScriptGenerator:
         main_widget_is_toplevel = False
         has_ttk_styles = False
 
-        if target_class in toplevel_uids:
+        # FIXME: stop using toplevel_uids variable and implement
+        #        is_toplevel_widget in all plugins
+        if target_class in toplevel_uids or PluginManager.is_toplevel_widget(
+            target_class
+        ):
             main_widget_is_toplevel = True
 
         # Style definitions
