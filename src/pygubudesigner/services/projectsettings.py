@@ -141,7 +141,7 @@ class ProjectSettings(baseui.ProjectSettingsUI):
     def setup_comboboxes(self):
         template = self.frm_code.fields["template"].data
         options = self.combo_candidates.copy()
-        if template in ("widget", "widgetds"):
+        if template in ("widget", "widgetds", "fnscript"):
             options["main_widget"] = options["custom_widget"]
         elif template == "fnscript":
             options["main_widget"].update(options["main_menu"])
