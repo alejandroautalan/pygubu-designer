@@ -5,7 +5,7 @@ __style = None
 
 has_sv_ttk = False
 has_ttkthemes = False
-has_ttkbootsrap = False
+has_ttkbootstrap = False
 has_pygubu_bootstrap = False
 
 
@@ -54,7 +54,12 @@ class ttkthemesModule(ThemeModule):
 class ttkbModule(ThemeModule):
     def __init__(self):
         self.style = ttkb.Style()
-        self.definitions = list(self.style.theme_names())
+        theme_list = []
+        if hasattr(self.style, "list_themes"):
+            theme_list = [td["name"] for td in self.style.list_themes()]
+        else:
+            theme_list = list(self.style.theme_names())
+        self.definitions = theme_list
 
     def theme_names(self) -> list:
         return self.definitions
@@ -112,7 +117,7 @@ class MultipleThemeModuleManager(ttk.Style):
 try:
     import ttkbootstrap as ttkb
 
-    has_ttkbootsrap = True
+    has_ttkbootstrap = True
 except ImportError:
     pass
 
@@ -148,7 +153,7 @@ def get_ttk_style():
             manager.modules.append(ttkthemesModule())
         if has_sv_ttk:
             manager.modules.append(SunValleyModule())
-        if has_ttkbootsrap:
+        if has_ttkbootstrap:
             manager.modules.append(ttkbModule())
 
         __style = manager
