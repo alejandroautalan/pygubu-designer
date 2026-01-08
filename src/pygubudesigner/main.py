@@ -32,6 +32,15 @@ from pygubu.component.plugin_manager import PluginManager
 from pygubu.stockimage import StockImage, StockImageException
 
 
+selected_level = os.getenv("LOGLEVEL", "ERROR")
+loglevel = getattr(logging, selected_level, logging.ERROR)
+
+logging.basicConfig(
+    level=loglevel,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y%m%d %H:%M:%S",
+)
+
 # Initialize logger
 logger = logging.getLogger(__name__)
 
