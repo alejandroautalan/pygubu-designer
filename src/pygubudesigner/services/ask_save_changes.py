@@ -18,18 +18,7 @@ import tkinter.ttk as ttk
 import pygubudesigner.services.ask_save_changesui as baseui
 
 from pygubudesigner.i18n import translator
-from pygubu.stockimage import StockImage
-
-
-def image_loader(master, image_name: str):
-    # map before using future Icon loader or aliases
-    imap = {
-        "scd_msg": "download3-32",
-        "scd_cancel": "bin-16",
-        "scd_discard": "cancel-circle-16",
-        "scd_save": "download3-16",
-    }
-    return StockImage.get(imap[image_name])
+from pygubudesigner.services.image_loader import iconset_loader
 
 
 class AskSaveChangesDialog(baseui.AskSaveChangesDialogUI):
@@ -40,7 +29,7 @@ class AskSaveChangesDialog(baseui.AskSaveChangesDialogUI):
     def __init__(self, master=None):
         self.master = master
         super().__init__(
-            master, translator=translator, image_loader=image_loader
+            master, translator=translator, image_loader=iconset_loader
         )
 
     def on_discard(self):

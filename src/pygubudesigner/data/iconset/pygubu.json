@@ -10,10 +10,7 @@
   "icons": [
     {
       "fn": "ta-file.svg",
-      "uid": "tb_new",
-      "color_keep": false,
-      "color_onlight": "",
-      "color_ondark": ""
+      "uid": "tb_new"
     },
     {
       "fn": "ta-folder-open.svg",
@@ -146,6 +143,22 @@
     {
       "fn": "ta-info-small.svg",
       "uid": "mi_about"
+    },
+    {
+      "fn": "ta-device-floppy.svg",
+      "uid": "scd_save"
+    },
+    {
+      "fn": "ta-circle-x.svg",
+      "uid": "scd_cancel"
+    },
+    {
+      "fn": "ta-download.svg",
+      "uid": "scd_msg"
+    },
+    {
+      "fn": "ta-trash.svg",
+      "uid": "scd_discard"
     }
   ],
   "custom_files": {}
