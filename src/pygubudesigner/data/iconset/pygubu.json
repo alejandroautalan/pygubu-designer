@@ -25,6 +25,10 @@
       "uid": "tb_saveas"
     },
     {
+      "fn": "ta-refresh.svg",
+      "uid": "mi_restart"
+    },
+    {
       "fn": "ta-power.svg",
       "uid": "mi_quit"
     },
