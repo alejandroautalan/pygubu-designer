@@ -100,9 +100,10 @@ def start_pygubu():
     parser.add_argument("--loglevel")
     args = parser.parse_args()
 
-    loglevel = str(args.loglevel).upper()
-    loglevel = getattr(logging, loglevel, logging.WARNING)
-    logging.getLogger("").setLevel(loglevel)
+    if args.loglevel:
+        loglevel = str(args.loglevel).upper()
+        loglevel = getattr(logging, loglevel, logging.WARNING)
+        logging.getLogger("").setLevel(loglevel)
 
     #
     # Dependency check
