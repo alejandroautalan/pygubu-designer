@@ -143,7 +143,7 @@ class ProjectSettings(baseui.ProjectSettingsUI):
         options = self.combo_candidates.copy()
         if template in ("widget", "widgetds", "fnscript"):
             options["main_widget"] = options["custom_widget"]
-        elif template == "fnscript":
+        if template == "fnscript":
             options["main_widget"].update(options["main_menu"])
         keys = ("main_widget",)
         for key in keys:
