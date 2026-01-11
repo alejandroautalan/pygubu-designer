@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import os
 import logging
 import traceback
 import webbrowser
@@ -185,6 +186,21 @@ class MainWindow(baseui.MainWindowUI):
         """Exit the app if it is ready for quit."""
         self.__on_window_close()
 
+    def restart(self):
+        if self.on_close_execute():
+            self.previewer.close_toplevel_previews()
+            self.mainwindow.withdraw()
+            self.mainwindow.update()
+            self.mainwindow.quit()
+
+            python = sys.executable
+            logger.debug("Restarting...")
+            logger.debug("Python exe: %s", python)
+
+            # Do restart
+            logging.shutdown()
+            os.execl(python, python, *sys.argv)
+
     def load_file(self, file_path):
         self.mainwindow.after(
             200, lambda: self.fileactions.action_open(file_path)
@@ -352,6 +368,7 @@ class MainWindow(baseui.MainWindowUI):
         w.bind(actions.FILE_SAVE, lambda e: self.fileactions.action_save())
         w.bind(actions.FILE_SAVEAS, lambda e: self.fileactions.action_saveas())
         w.bind(actions.FILE_QUIT, lambda e: self.quit())
+        w.bind(actions.FILE_RESTART, lambda e: self.restart())
         w.bind(actions.FILE_RECENT_CLEAR, lambda e: self.rfiles_manager.clear())
         # On preferences save binding
         w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)

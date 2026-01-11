@@ -89,6 +89,14 @@
           <object class="tk.Menuitem.Separator" id="file_sep1" />
         </child>
         <child>
+          <object class="tk.Menuitem.Command" id="FILE_RESTART" named="True">
+            <property name="command" type="command" cbtype="with_wid" args="">on_file_menuitem_clicked</property>
+            <property name="compound">left</property>
+            <property name="image">mi_restart</property>
+            <property name="label" translatable="yes">Restart …</property>
+          </object>
+        </child>
+        <child>
           <object class="tk.Menuitem.Command" id="FILE_QUIT">
             <property name="accelerator">Ctrl+Q</property>
             <property name="command" type="command" cbtype="with_wid" args="">on_file_menuitem_clicked</property>

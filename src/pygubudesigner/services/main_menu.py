@@ -135,6 +135,18 @@ def create_main_menu(
         label=_("Save as …"),
     )
     filemenu.add("separator")
+    img_mi_restart = image_loader(mainmenu, "mi_restart")
+
+    def FILE_RESTART_cmd(itemid="FILE_RESTART"):
+        find_callback(callbacks_bag, "on_file_menuitem_clicked")(itemid)
+
+    filemenu.add(
+        "command",
+        command=FILE_RESTART_cmd,
+        compound="left",
+        image=img_mi_restart,
+        label=_("Restart …"),
+    )
     img_mi_quit = image_loader(mainmenu, "mi_quit")
 
     def FILE_QUIT_cmd(itemid="FILE_QUIT"):
