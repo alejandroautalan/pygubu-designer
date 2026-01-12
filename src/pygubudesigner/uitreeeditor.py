@@ -134,8 +134,10 @@ class WidgetsTreeEditor:
         bindingstree = app.bindings_tree
         self.properties_editor = app.propertieseditor1
 
-        self.properties_editor.reselect_item_cb = partial(
-            self.on_treeview_select, None
+        # When user styles change, simulate mouse click to reload
+        # style property comboboxes.
+        self.app.mainwindow.bind_all(
+            "<<PygubuDesignerUserStylesApplied>>", self.on_treeview_select
         )
 
         # lframe = app.builder.get_object("layouteditor1")

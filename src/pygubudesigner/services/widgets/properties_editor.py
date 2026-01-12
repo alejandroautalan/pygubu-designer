@@ -13,7 +13,6 @@ from pygubudesigner.properties.editors import (
     create_editor,
     NamedIDPropertyEditor,
 )
-from pygubudesigner.services.stylehandler import StyleHandler
 from pygubudesigner.properties.manager import (
     PropertiesManager,
     PropertyRegistry,
@@ -191,10 +190,6 @@ baseui.image_loader = image_loader
 class PropertiesEditor(PropertiesEditorMixin, baseui.PropertiesEditorUI):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
-        # Used for refreshing/re-populating the styles combobox.
-        # Used when the style definition gets updated (simulates clicking on the treeview item again.)
-        self.style_handler = StyleHandler(self, reselect_item_func=None)
-        self.style_handler.start_monitoring()
 
         # Wait until all properties definitions are loaded, then create property editors.
         self.after_idle(self.load_properties_later)
@@ -218,14 +213,6 @@ class PropertiesEditor(PropertiesEditorMixin, baseui.PropertiesEditorUI):
 
         # Connect to the registry for additional property definitions.
         PropertyRegistry.on_property_new.connect(self.on_new_property_defined)
-
-    @property
-    def reselect_item_cb(self):
-        return self.style_handler.reselect_item_func
-
-    @reselect_item_cb.setter
-    def reselect_item_cb(self, callback):
-        self.style_handler.reselect_item_func = callback
 
 
 if __name__ == "__main__":

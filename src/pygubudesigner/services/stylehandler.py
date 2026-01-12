@@ -47,54 +47,72 @@ class StyleRegister(ttk.Style):
         super().configure(style, query_opt, **kw)
 
 
-class StyleHandler:
+class StyleHandlerAndMonitor:
+    """Monitor changes in a style definitions file and applies them
+    in a specified root window.
+    """
+
     current_definition_file = None
     last_definition_file = None
     last_modified_time = None
     required_function_name = "setup_ttk_styles"
 
-    def __init__(self, mframe, reselect_item_func):
-        self.mframe = mframe
+    def __init__(self):
+        self.root = None
         self.after_token = None
-        self.style = StyleRegister()
 
-        # Listen to theme change events
-        self.mframe.bind_all(
-            "<<PygubuDesignerTtkThemeChanged>>", self._on_theme_changed
+    def start_monitoring(self, root):
+        if self.root is None:
+            self.root = root
+            self.style = StyleRegister(root)
+            # Listen to theme change events
+            self.root.bind_all(
+                "<<PygubuDesignerTtkThemeChanged>>", self._on_theme_changed
+            )
+            self.root.after_idle(self.check_definition_file)
+
+    def apply_user_styles(self, root):
+        """Apply user styles in a toplevel preview."""
+
+        style_definition_path = self.current_definition_file
+        file_valid = (
+            style_definition_path is not None
+            and style_definition_path.is_file()
         )
-
-        # Used for refreshing/re-populating the styles combobox.
-        # Used when the style definition gets updated (simulates clicking on the treeview item.)
-        self.reselect_item_func = reselect_item_func
-
-    def start_monitoring(self):
-        self.mframe.after_idle(self.check_definition_file)
+        if file_valid:
+            self._run_styles_module(
+                style_definition_path, root, collect_styles=False
+            )
 
     def _on_theme_changed(self, event=None):
         logger.debug("Theme changed. Force reload of style definitions.")
         self.check_definition_file(force_reload=True)
 
-    def _run_styles_module(self, module_path):
-        logger.debug(_("Applying ttk style definitions"))
+    def _run_styles_module(self, module_path: Path, root, collect_styles=True):
+
+        if not module_path.match("*.py"):
+            logger.debug("Invalid python module file name.")
+            return
+
         try:
-            if module_path.match("*.py"):
-                module_name = module_path.name[:-3]
+            module_name = module_path.name[:-3]
 
-                spec = importlib.util.spec_from_file_location(
-                    module_name, module_path
-                )
-                module = importlib.util.module_from_spec(spec)
+            spec = importlib.util.spec_from_file_location(
+                module_name, module_path
+            )
+            module = importlib.util.module_from_spec(spec)
 
-                sys.modules[module_name] = module
-                spec.loader.exec_module(module)
+            sys.modules[module_name] = module
+            spec.loader.exec_module(module)
 
-                if hasattr(module, self.required_function_name):
-                    master = self.mframe.winfo_toplevel()
-                    module.setup_ttk_styles(master)
-                else:
-                    msg = "Styles definition file does not have the required function: %s"
-                    logger.info(msg, self.required_function_name)
+            if hasattr(module, self.required_function_name):
+                logger.debug(_("Applying ttk style definitions"))
+                module.setup_ttk_styles(root)
+            else:
+                msg = "Styles definition file does not have the required function: %s"
+                logger.info(msg, self.required_function_name)
 
+            if collect_styles:
                 new_styles = self.style.registered_styles()
                 TtkStylePropertyEditor.set_global_style_list(new_styles)
         except Exception as e:
@@ -148,18 +166,20 @@ class StyleHandler:
                 # will no longer populate in the style combobox.
                 StyleRegister.STYLE_DEFINITIONS.clear()
 
-                self._run_styles_module(style_definition_path)
+                self._run_styles_module(style_definition_path, self.root)
 
                 # Re-select the selected item so the style combobox
                 # will show the latest styles from the definition file.
-                if self.reselect_item_func is not None:
-                    self.reselect_item_func()
+                self.root.event_generate("<<PygubuDesignerUserStylesApplied>>")
 
         # schedule new check
-        self.after_token = self.mframe.after(1000, self.check_definition_file)
+        self.after_token = self.root.after(1000, self.check_definition_file)
 
 
 # Patch ttk module, so designer can "see" style changes.
 if not hasattr(ttk, "_style_original"):
     ttk._style_original = ttk.Style
     ttk.Style = StyleRegister
+
+
+StyleHandler = StyleHandlerAndMonitor()

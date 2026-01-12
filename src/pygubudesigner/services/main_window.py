@@ -170,6 +170,11 @@ class MainWindow(baseui.MainWindowUI):
 
         self.mainwindow.protocol("WM_DELETE_WINDOW", self.__on_window_close)
 
+        # Start user styles monitoring.
+        # Used for refreshing/re-populating the styles combobox.
+        # Used when the style definition gets updated (simulates clicking on the treeview item again.)
+        StyleHandler.start_monitoring(self.mainwindow)
+
         # start new Project
         self.mainwindow.after(
             100, lambda: self.mainwindow.event_generate(actions.FILE_NEW)

@@ -25,6 +25,7 @@ from pygubu.stockimage import StockImage
 import pygubudesigner.actions as actions
 from pygubudesigner.properties.editors import TtkStylePropertyEditor
 from pygubudesigner.services.theming import ThemeChangedMonitor
+from pygubudesigner.services.stylehandler import StyleHandler
 from ..preferences import preferences
 from .preview import MenuPreview, Preview
 
@@ -337,6 +338,7 @@ class PreviewHelper:
         preview = self.previews[identifier]
         top = preview.create_toplevel(widget_id, uidefinition)
         self.toplevel_previews.append(top)
+        StyleHandler.apply_user_styles(top)
 
         # Check if we should center the preview window
         if self.center_window_check():
