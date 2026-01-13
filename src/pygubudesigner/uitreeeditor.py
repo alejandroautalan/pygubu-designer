@@ -73,6 +73,8 @@ class WidgetsTreeEditor:
         self.update_builder = None
         self.update_bo = {}
         self.preview_update_cbid = None
+        self.on_tree_item_selected_cbid = None
+        self.tree_item_selected = None
         self.scheduled_widget_updates = []
         self.forms_manager = PygubuFormsManager(self)
         # self._stretch_cb = None
@@ -1160,14 +1162,38 @@ class WidgetsTreeEditor:
         return max_row
 
     def on_treeview_select(self, event):
+        """Manage <<TreeviewSelect>> event.
+
+        As stated in docs: "multiple selection changes could happen
+        before events can be processed leading to multiple events with
+        the same visible selection."
+
+        Call on_tree_item_selected only on selection change.
+        """
+        selected_changed = False
         tree = self.treeview
         sel = tree.selection()
         if sel:
-            item = sel[0]
+            first_selected = sel[0]
+            if self.tree_item_selected != first_selected:
+                selected_changed = True
+                self.tree_item_selected = first_selected
+        else:
+            self.tree_item_selected = None
+
+        if selected_changed:
+            if self.on_tree_item_selected_cbid is not None:
+                self.treeview.after_cancel(self.on_tree_item_selected_cbid)
+            self.on_tree_item_selected_cbid = self.treeview.after(
+                100, self.on_tree_item_selected
+            )
+
+    def on_tree_item_selected(self):
+        item = self.tree_item_selected
+        if item:
             top = self.get_toplevel_parent(item)
             selected_id = self.treedata[item].identifier
             self.previewer.show_selected(top, selected_id)
-            # max_rc = self.get_max_row_col(item)
             self.editor_edit(item, self.treedata[item])
         else:
             # No selection hide all
