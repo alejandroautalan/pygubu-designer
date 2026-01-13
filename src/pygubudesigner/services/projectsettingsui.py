@@ -99,11 +99,13 @@ class ProjectSettingsUI:
         self.frm_general.rowconfigure(3, weight=1)
         self.frm_general.columnconfigure("all", pad=10)
         self.frm_general.columnconfigure(1, weight=1)
-        self.img_mglass = image_loader(self.settingsdialog.toplevel, "mglass")
+        self.img_pp_general = image_loader(
+            self.settingsdialog.toplevel, "pp_general"
+        )
         notebook1.add(
             self.frm_general,
             compound="left",
-            image=self.img_mglass,
+            image=self.img_pp_general,
             sticky="nsew",
             text=_("General"),
         )
@@ -182,6 +184,7 @@ class ProjectSettingsUI:
         self.btn_path_chooser = PathChooserButton(
             frame3, name="btn_path_chooser"
         )
+        self.img_mglass = image_loader(self.settingsdialog.toplevel, "mglass")
         self.btn_path_chooser.configure(
             image=self.img_mglass,
             text=_("…"),
@@ -290,7 +293,14 @@ class ProjectSettingsUI:
         )
         self.use_window_centering_code.pack(anchor="w", side="top")
         frame2.pack(fill="x", side="top")
-        notebook1.add(self.frm_code, sticky="nsew", text=_("Code"))
+        self.img_pp_code = image_loader(self.settingsdialog.toplevel, "pp_code")
+        notebook1.add(
+            self.frm_code,
+            compound="left",
+            image=self.img_pp_code,
+            sticky="nsew",
+            text=_("Code"),
+        )
         self.frm_style = FrameFormBuilder(
             notebook1, name="frm_style", field_name="frm_style"
         )
@@ -353,7 +363,16 @@ class ProjectSettingsUI:
         )
         labelfieldinfo8.configure(style="LabelFieldInfo.TLabel")
         labelfieldinfo8.pack(fill="x", pady="0 5p", side="top")
-        notebook1.add(self.frm_style, sticky="nsew", text=_("Styles"))
+        self.img_pp_style = image_loader(
+            self.settingsdialog.toplevel, "pp_style"
+        )
+        notebook1.add(
+            self.frm_style,
+            compound="left",
+            image=self.img_pp_style,
+            sticky="nsew",
+            text=_("Styles"),
+        )
         frame13 = ttk.Frame(notebook1)
         frame13.configure(height=200, padding="5p", width=200)
         label8 = ttk.Label(frame13)
@@ -395,7 +414,16 @@ class ProjectSettingsUI:
         self.btn_cwremove.pack(side="top")
         self.btn_cwremove.configure(command=self.btn_cwremove_clicked)
         frame7.pack(fill="y", side="left")
-        notebook1.add(frame13, sticky="nsew", text=_("Custom Widgets"))
+        self.img_pp_customwidget = image_loader(
+            self.settingsdialog.toplevel, "pp_customwidget"
+        )
+        notebook1.add(
+            frame13,
+            compound="left",
+            image=self.img_pp_customwidget,
+            sticky="nsew",
+            text=_("Custom Widgets"),
+        )
         notebook1.pack(expand=True, fill="both", side="top")
         frame9.pack(expand=True, fill="both", side="top")
         frame10 = ttk.Frame(frame8)

@@ -74,6 +74,8 @@
                             <property name="orient">horizontal</property>
                             <child>
                               <object class="pygubu.widgets.dockwidget" id="dw_cpalette" named="True">
+                                <property name="compound">left</property>
+                                <property name="image">sec_components</property>
                                 <property name="title" translatable="yes">Components Palette</property>
                                 <property name="weight">0</property>
                                 <child>
@@ -95,6 +97,8 @@
                                 <property name="weight">0</property>
                                 <child>
                                   <object class="pygubu.widgets.dockwidget" id="dw_ptree" named="True">
+                                    <property name="compound">left</property>
+                                    <property name="image">sec_project_tree</property>
                                     <property name="title" translatable="yes">Project Tree</property>
                                     <child>
                                       <object class="ttk.Frame" id="addwframe1">
@@ -232,6 +236,8 @@
                                 </child>
                                 <child>
                                   <object class="pygubu.widgets.dockwidget" id="dw_props" named="True">
+                                    <property name="compound">left</property>
+                                    <property name="image">sec_properties</property>
                                     <property name="title" translatable="yes">Properties</property>
                                     <property name="weight">2</property>
                                     <child>
@@ -255,6 +261,8 @@
                                             </layout>
                                             <child>
                                               <object class="ttk.Notebook.Tab" id="generaltab">
+                                                <property name="compound">left</property>
+                                                <property name="image">prop_apperance</property>
                                                 <property name="padding">2p 6p 2p 6p</property>
                                                 <property name="sticky">nsew</property>
                                                 <property name="text" translatable="yes">Appearance</property>
@@ -269,6 +277,8 @@
                                             </child>
                                             <child>
                                               <object class="ttk.Notebook.Tab" id="layouttab" named="True">
+                                                <property name="compound">left</property>
+                                                <property name="image">prop_layout</property>
                                                 <property name="padding">2p 6p 2p 6p</property>
                                                 <property name="sticky">nsew</property>
                                                 <property name="text" translatable="yes">Layout</property>
@@ -283,6 +293,8 @@
                                             </child>
                                             <child>
                                               <object class="ttk.Notebook.Tab" id="bindingtab">
+                                                <property name="compound">left</property>
+                                                <property name="image">prop_bindings</property>
                                                 <property name="padding">2p 6p 2p 6p</property>
                                                 <property name="sticky">nsew</property>
                                                 <property name="text" translatable="yes">Bindings</property>
@@ -379,6 +391,8 @@
                             </child>
                             <child>
                               <object class="pygubu.widgets.dockwidget" id="dw_preview" named="True">
+                                <property name="compound">left</property>
+                                <property name="image">sec_preview</property>
                                 <property name="title" translatable="yes">Preview</property>
                                 <property name="weight">2</property>
                                 <child>

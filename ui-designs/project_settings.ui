@@ -60,7 +60,7 @@
                 <child>
                   <object class="ttk.Notebook.Tab" id="tab2">
                     <property name="compound">left</property>
-                    <property name="image">mglass</property>
+                    <property name="image">pp_general</property>
                     <property name="sticky">nsew</property>
                     <property name="text" translatable="yes">General</property>
                     <child>
@@ -156,6 +156,8 @@
                 </child>
                 <child>
                   <object class="ttk.Notebook.Tab" id="tab1">
+                    <property name="compound">left</property>
+                    <property name="image">pp_code</property>
                     <property name="sticky">nsew</property>
                     <property name="text" translatable="yes">Code</property>
                     <child>
@@ -502,6 +504,8 @@
                 </child>
                 <child>
                   <object class="ttk.Notebook.Tab" id="tab3">
+                    <property name="compound">left</property>
+                    <property name="image">pp_style</property>
                     <property name="sticky">nsew</property>
                     <property name="text" translatable="yes">Styles</property>
                     <child>
@@ -607,6 +611,8 @@
                 </child>
                 <child>
                   <object class="ttk.Notebook.Tab" id="tab4">
+                    <property name="compound">left</property>
+                    <property name="image">pp_customwidget</property>
                     <property name="sticky">nsew</property>
                     <property name="text" translatable="yes">Custom Widgets</property>
                     <child>

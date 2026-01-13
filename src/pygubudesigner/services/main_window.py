@@ -58,7 +58,7 @@ class MainWindow(baseui.MainWindowUI):
         super().__init__(
             master,
             translator=translator,
-            image_loader=image_loader,
+            image_loader=iconset_loader,
             on_first_object_cb=designerstyles.on_first_window,
         )
 

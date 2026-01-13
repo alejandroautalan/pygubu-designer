@@ -13,20 +13,16 @@ from pygubudesigner.preferences import NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
 from .project import Project
 from .fieldvalidator import IsIdentifier, RelativePathExists, Choice
-from pygubu.stockimage import StockImage
+from pygubudesigner.services.image_loader import iconset_loader
 
 
 logger = logging.getLogger(__name__)
 
 
-def image_loader(master, image_name: str):
-    return StockImage.get(image_name)
-
-
 class ProjectSettings(baseui.ProjectSettingsUI):
     def __init__(self, master=None, translator=None):
         super().__init__(
-            master, translator=translator, image_loader=image_loader
+            master, translator=translator, image_loader=iconset_loader
         )
         self._current_project: Project = None
         self.on_settings_changed = None

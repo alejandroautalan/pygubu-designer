@@ -72,10 +72,15 @@ class MainWindowUI:
         dockpane1 = self.maindock.new_pane(
             orient="horizontal", uid="dockpane1", main_pane=True
         )
+        self.img_sec_components = image_loader(self.mainroot, "sec_components")
         self.dw_cpalette = dockpane1.maindock.new_widget(
             name="dw_cpalette", uid="dw_cpalette"
         )
-        self.dw_cpalette.configure(title=_("Components Palette"))
+        self.dw_cpalette.configure(
+            compound="left",
+            image=self.img_sec_components,
+            title=_("Components Palette"),
+        )
         dockpane1.add_widget(self.dw_cpalette, grouped=False, weight=0)
         self.tree_palette = TreeComponentPalette(
             self.dw_cpalette.fcenter, name="tree_palette"
@@ -87,10 +92,17 @@ class MainWindowUI:
             orient="vertical", uid="dockpane2"
         )
         dockpane1.add_pane(dockpane2, weight=0)
+        self.img_sec_project_tree = image_loader(
+            self.mainroot, "sec_project_tree"
+        )
         self.dw_ptree = dockpane2.maindock.new_widget(
             name="dw_ptree", uid="dw_ptree"
         )
-        self.dw_ptree.configure(title=_("Project Tree"))
+        self.dw_ptree.configure(
+            compound="left",
+            image=self.img_sec_project_tree,
+            title=_("Project Tree"),
+        )
         dockpane2.add_widget(self.dw_ptree, grouped=False, weight=1)
         addwframe1 = ttk.Frame(self.dw_ptree.fcenter)
         addwframe1.configure(padding="2p")
@@ -147,10 +159,15 @@ class MainWindowUI:
         sbh1.add_child(self.project_tree)
         sbh1.pack(expand=True, fill="both", side="top")
         addwframe1.pack(expand=True, fill="both", side="top")
+        self.img_sec_properties = image_loader(self.mainroot, "sec_properties")
         self.dw_props = dockpane2.maindock.new_widget(
             name="dw_props", uid="dw_props"
         )
-        self.dw_props.configure(title=_("Properties"))
+        self.dw_props.configure(
+            compound="left",
+            image=self.img_sec_properties,
+            title=_("Properties"),
+        )
         dockpane2.add_widget(self.dw_props, grouped=False, weight=2)
         frame_1 = ttk.Frame(self.dw_props.fcenter)
         frame_1.configure(height=200, width=200)
@@ -159,15 +176,21 @@ class MainWindowUI:
         self.propertieseditor1 = PropertiesEditor(
             notebook1, name="propertieseditor1"
         )
+        self.img_prop_apperance = image_loader(self.mainroot, "prop_apperance")
         notebook1.add(
             self.propertieseditor1,
+            compound="left",
+            image=self.img_prop_apperance,
             padding="2p 6p 2p 6p",
             sticky="nsew",
             text=_("Appearance"),
         )
         self.layouteditor1 = LayoutEditor(notebook1, name="layouteditor1")
+        self.img_prop_layout = image_loader(self.mainroot, "prop_layout")
         notebook1.add(
             self.layouteditor1,
+            compound="left",
+            image=self.img_prop_layout,
             padding="2p 6p 2p 6p",
             sticky="nsew",
             text=_("Layout"),
@@ -212,18 +235,24 @@ class MainWindowUI:
         self.bindings_tree.heading("actions", anchor="w", text=_("actions"))
         self.bindings_frame.add_child(self.bindings_tree)
         self.bindings_frame.pack(expand=True, fill="both", side="top")
+        self.img_prop_bindings = image_loader(self.mainroot, "prop_bindings")
         notebook1.add(
             bindingscontainer,
+            compound="left",
+            image=self.img_prop_bindings,
             padding="2p 6p 2p 6p",
             sticky="nsew",
             text=_("Bindings"),
         )
         notebook1.pack(expand=True, fill="both", side="top")
         frame_1.pack(expand=True, fill="both", side="top")
+        self.img_sec_preview = image_loader(self.mainroot, "sec_preview")
         self.dw_preview = dockpane1.maindock.new_widget(
             name="dw_preview", uid="dw_preview"
         )
-        self.dw_preview.configure(title=_("Preview"))
+        self.dw_preview.configure(
+            compound="left", image=self.img_sec_preview, title=_("Preview")
+        )
         dockpane1.add_widget(self.dw_preview, grouped=False, weight=2)
         Frame_1 = ttk.Frame(self.dw_preview.fcenter)
         Frame_1.configure(height=250, padding="1p", width=250)
