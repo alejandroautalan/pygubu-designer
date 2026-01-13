@@ -163,6 +163,55 @@
     {
       "fn": "ta-trash.svg",
       "uid": "scd_discard"
+    },
+    {
+      "fn": "ta-sitemap.svg",
+      "uid": "sec_project_tree"
+    },
+    {
+      "fn": "ta-components.svg",
+      "uid": "sec_components"
+    },
+    {
+      "fn": "ta-settings-2.svg",
+      "uid": "sec_properties"
+    },
+    {
+      "fn": "ta-eye.svg",
+      "uid": "sec_preview"
+    },
+    {
+      "fn": "ta-layout.svg",
+      "uid": "prop_layout"
+    },
+    {
+      "fn": "ta-plug-connected.svg",
+      "uid": "prop_bindings"
+    },
+    {
+      "fn": "ta-adjustments.svg",
+      "uid": "prop_apperance"
+    },
+    {
+      "fn": "ta-circle-x.svg",
+      "uid": "filter_cancel",
+      "width": 16
+    },
+    {
+      "fn": "ta-file-text.svg",
+      "uid": "pp_general"
+    },
+    {
+      "fn": "ta-code.svg",
+      "uid": "pp_code"
+    },
+    {
+      "fn": "ta-brush.svg",
+      "uid": "pp_style"
+    },
+    {
+      "fn": "ta-components.svg",
+      "uid": "pp_customwidget"
     }
   ],
   "custom_files": {}
