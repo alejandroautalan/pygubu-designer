@@ -475,7 +475,6 @@ class WidgetsTreeEditor:
             wdescr, manager_options, cinfo, parent_classname
         )
         self.bindings_editor.edit(wdescr)
-        self.get_form_fieldname_list()
 
     def editor_hide_all(self):
         self.properties_editor.hide_all()
