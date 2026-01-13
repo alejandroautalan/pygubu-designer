@@ -51,7 +51,7 @@ from pygubudesigner.services.project import Project
 from pygubu.component.plugin_manager import PluginManager
 
 
-logger = logging.getLogger("pygubu.designer")
+logger = logging.getLogger(__name__)
 
 
 class WidgetsTreeEditor:

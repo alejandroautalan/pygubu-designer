@@ -1,4 +1,8 @@
+import logging
 import queue
+
+
+logger = logging.getLogger(__name__)
 
 
 class TaskExecutor:
@@ -25,6 +29,7 @@ class TaskExecutor:
             while 1:
                 data = self.tasks.get_nowait()
                 cmd, args, kw = data
+                logger.debug("Running task %s", str(cmd))
                 cmd(*args, **kw)
         except queue.Empty:
             # print("No tasks pending.")
