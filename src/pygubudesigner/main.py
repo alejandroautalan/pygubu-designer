@@ -32,8 +32,8 @@ from pygubu.component.plugin_manager import PluginManager
 from pygubu.stockimage import StockImage, StockImageException
 
 
-selected_level = os.getenv("LOGLEVEL", "ERROR")
-loglevel = getattr(logging, selected_level, logging.ERROR)
+selected_level = os.getenv("LOGLEVEL", "WARNING")
+loglevel = getattr(logging, selected_level, logging.WARNING)
 
 logging.basicConfig(
     level=loglevel,
