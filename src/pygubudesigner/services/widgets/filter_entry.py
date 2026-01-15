@@ -3,6 +3,8 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import pygubudesigner.services.widgets.filter_entryui as baseui
 
+from pygubudesigner.i18n import translator
+from pygubudesigner.services.image_loader import iconset_loader
 
 #
 # Manual user code
@@ -14,7 +16,7 @@ class FilterEntry(baseui.FilterEntryUI):
     KEY_PRESS_CB_MILISECONDS = 500
 
     def __init__(self, master=None, **kw):
-        super().__init__(master, **kw)
+        super().__init__(master, image_loader=iconset_loader, **kw)
 
         self.prev_value = ""
         self.keypress_cbid = None

@@ -56,12 +56,17 @@ class FilterEntryUI(ttk.Frame):
         self.filter_entry = ttk.Entry(self, name="filter_entry")
         self.filter_var = tk.StringVar()
         self.filter_entry.configure(textvariable=self.filter_var)
-        self.filter_entry.pack(expand=True, fill="x", padx="4p", side="left")
+        self.filter_entry.pack(
+            expand=True, fill="x", ipady="2p", padx="4p", side="left"
+        )
         self.filter_entry.bind(
             "<KeyRelease>", self.on_keypress_onfilter, add=""
         )
         button1 = ttk.Button(self)
-        button1.configure(style="Toolbutton", text="✖", width=-2)
+        self.img_filter_cancel = image_loader(None, "filter_cancel")
+        button1.configure(
+            image=self.img_filter_cancel, style="Toolbutton", text="✖", width=-2
+        )
         button1.pack(side="left")
         button1.configure(command=self.on_clear_filter_clicked)
         self.configure(height=200, width=200)
