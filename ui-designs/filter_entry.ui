@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.5" author="PygubuDesigner 0.41.4">
+  <project>
+    <settings>
+      <setting id="name">FilterEntry</setting>
+      <setting id="description">A compound widget.</setting>
+      <setting id="module_name">filter_entry</setting>
+      <setting id="template">widget</setting>
+      <setting id="main_widget">frame2</setting>
+      <setting id="main_classname">FilterEntry</setting>
+      <setting id="output_dir">../src/pygubudesigner/services/widgets</setting>
+      <setting id="output_dir2">builders</setting>
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+    <resources />
+  </project>
+  <object class="ttk.Frame" id="frame2">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <layout manager="pack">
+      <property name="side">top</property>
+    </layout>
+    <child>
+      <object class="ttk.Label" id="label1">
+        <property name="text" translatable="yes">Filter:</property>
+        <layout manager="pack">
+          <property name="side">left</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Entry" id="filter_entry" named="True">
+        <property name="textvariable">string:filter_var</property>
+        <bind sequence="&lt;KeyRelease&gt;" handler="on_keypress_onfilter" add="" />
+        <layout manager="pack">
+          <property name="expand">True</property>
+          <property name="fill">x</property>
+          <property name="padx">4p</property>
+          <property name="side">left</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="button1">
+        <property name="command" type="command" cbtype="simple">on_clear_filter_clicked</property>
+        <property name="style">Toolbutton</property>
+        <property name="text" translatable="yes">✖</property>
+        <property name="width">-2</property>
+        <layout manager="pack">
+          <property name="side">left</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>

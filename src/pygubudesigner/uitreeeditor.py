@@ -16,6 +16,7 @@ import json
 import logging
 import os
 import tkinter as tk
+import tkinter.ttk as ttk
 import xml.etree.ElementTree as ET
 from collections import Counter, OrderedDict
 from functools import partial
@@ -62,7 +63,8 @@ class WidgetsTreeEditor:
 
     def __init__(self, app):
         self.app = app
-        self.treeview: FilterableTreeview = app.treeview
+        self.treeview: ttk.Treeview = app.treeview
+        self.project_tree_frame = app.project_tree_frame
         self.previewer = app.previewer
         self.task_executor = TaskExecutor(app.mainwindow)
         self.treedata = {}
@@ -77,8 +79,11 @@ class WidgetsTreeEditor:
         self.tree_item_selected = None
         self.scheduled_widget_updates = []
         self.forms_manager = PygubuFormsManager(self)
-        # self._stretch_cb = None
-        self.treeview.bind("<Configure>", self._on_tree_configure)
+
+        self.treeview.bind(
+            "<Configure>",
+            lambda e: self.task_executor.add(self._stretch_main_column),
+        )
 
         self.treeview.filter_func = self.filter_match
 
@@ -96,21 +101,9 @@ class WidgetsTreeEditor:
         # Get whether we should center the toplevel preview window
         self.center_preview = preferences.center_preview
 
-        # Filter vars
-        self.filter_on = False
-
-        # self.filtervar = app.builder.get_variable("filtervar")
-        # self.filter_btn = app.builder.get_object("filterclear_btn")
-        self.filtervar = app.filtervar
-        self.filter_btn = app.filterclear_btn
-
-        self.filter_prev_value = ""
-        self.filter_prev_sitem = None
-        self._detached = []
         self._listen_object_updates = True
 
         self.config_treeview()
-        self.config_filter()
 
         # current item being edited
         self.current_edit = None
@@ -202,26 +195,8 @@ class WidgetsTreeEditor:
 
         self.task_executor.start_processing()
 
-    def _on_tree_configure(self, event):
-        self.task_executor.add(self._stretch_main_column)
-
     def _stretch_main_column(self):
-        w = self.treeview.winfo_width()
-        stretch_col = "#0"
-        stretch_col_cwidth = 0
-        cols = [stretch_col]
-        cols.extend(self.treeview.cget("displaycolumns"))
-        csum = 0
-        for col in cols:
-            cwidth = self.treeview.column(col, "width")
-            if col == stretch_col:
-                stretch_col_cwidth = cwidth
-            csum += cwidth
-        space_left = w - csum - 4
-        if space_left > 0:
-            stretch_col_cwidth += space_left
-            self.treeview.column(stretch_col, width=stretch_col_cwidth)
-        self._stretch_cb = None
+        self.project_tree_frame.stretch_tree_column()
 
     def filter_match(self, tree, itemid, filter_value):
         txt = tree.item(itemid, "text").lower()
@@ -483,17 +458,6 @@ class WidgetsTreeEditor:
         self.layout_editor.hide_all()
         self.bindings_editor.hide_all()
 
-    def config_filter(self):
-        def on_filtervar_changed(varname, element, mode):
-            self.treeview.filter_by(self.filtervar.get())
-
-        self.filtervar.trace_add("write", on_filtervar_changed)
-
-        def on_filterbtn_click():
-            self.filtervar.set("")
-
-        self.filter_btn.configure(command=on_filterbtn_click)
-
     def config_treeview(self):
         """Sets treeview columns and other params"""
         tree = self.treeview
@@ -515,8 +479,6 @@ class WidgetsTreeEditor:
         """Create a preview of the selected treeview item"""
 
         if item:
-            self.treeview.filter_remove(remember=True)
-
             selected_id = self.treedata[item].identifier
             item = self.get_toplevel_parent(item)
             widget_id = self.treedata[item].identifier
@@ -524,19 +486,16 @@ class WidgetsTreeEditor:
             uidef = self.tree_to_uidef(item)
             self.previewer.draw(item, widget_id, uidef, wclass)
             self.previewer.show_selected(item, selected_id)
-            self.treeview.filter_restore()
 
     def on_preview_in_toplevel(self, event=None):
         tv = self.treeview
         sel = tv.selection()
         if sel:
-            self.treeview.filter_remove(remember=True)
             item = sel[0]
             item = self.get_toplevel_parent(item)
             widget_id = self.treedata[item].identifier
             uidef = self.tree_to_uidef(item)
             self.previewer.preview_in_toplevel(item, widget_id, uidef)
-            self.treeview.filter_restore()
         else:
             logger.warning(_("No item selected."))
 
@@ -555,9 +514,6 @@ class WidgetsTreeEditor:
 
         tv = self.treeview
         selection = tv.selection()
-
-        # Need to remove filter
-        self.treeview.filter_remove(remember=True)
 
         toplevel_items = tv.get_children()
         parents_to_redraw = set()
@@ -610,9 +566,6 @@ class WidgetsTreeEditor:
         # we've just deleted selected items from the treeview.
         self.current_edit = None
 
-        # restore filter
-        self.treeview.filter_restore()
-
     def delete_item_data(self, item):
         """
         Delete the item and all its descendants from self.treedata
@@ -638,9 +591,6 @@ class WidgetsTreeEditor:
     def tree_to_uidef(self, treeitem=None):
         """Traverses treeview and generates a ElementTree object"""
 
-        # Need to remove filter or hidden items will not be saved.
-        self.treeview.filter_remove(remember=True)
-
         uidef = self.new_uidefinition()
         if treeitem is None:
             items = self.treeview.get_children()
@@ -650,9 +600,6 @@ class WidgetsTreeEditor:
         else:
             node = self.build_uidefinition(uidef, "", treeitem)
             uidef.add_xmlnode(node)
-
-        # restore filter
-        self.treeview.filter_restore()
 
         return uidef
 
@@ -743,8 +690,6 @@ class WidgetsTreeEditor:
         selection = tree.selection()
         logger.debug("Selection %s", selection)
         if selection:
-            self.treeview.filter_remove(remember=True)
-
             uidef = self.new_uidefinition()
             for item in selection:
                 node = self.build_uidefinition(uidef, "", item)
@@ -756,8 +701,6 @@ class WidgetsTreeEditor:
             else:
                 tree.clipboard_clear()
                 tree.clipboard_append(text)
-
-            self.treeview.filter_restore()
 
     def cut_to_clipboard(self):
         self.copy_to_clipboard()
@@ -871,8 +814,6 @@ class WidgetsTreeEditor:
         return start_id
 
     def paste_from_clipboard(self):
-        self.treeview.filter_remove(remember=True)
-
         tree = self.treeview
         selected_item = ""
 
@@ -921,8 +862,6 @@ class WidgetsTreeEditor:
         else:
             self.draw_widget(selected_item)
 
-        self.treeview.filter_restore()
-
         # Get all the children widgets of the parent that we pasted into.
         children_of_parent = self.treeview.get_children(selected_item)
         if children_of_parent:
@@ -952,15 +891,15 @@ class WidgetsTreeEditor:
     def add_widget(self, wclass):
         """Adds a new item to the treeview."""
 
+        # All edit operations should disable filter ???
+        self.project_tree_frame.filter_clear()
+
         tree = self.treeview
         #  get the selected item:
         selected_item = ""
         tsel = tree.selection()
         if tsel:
             selected_item = tsel[0]
-
-        #  Need to remove filter if set
-        self.treeview.filter_remove()
 
         root = selected_item
         #  check if the widget can be added at selected point
@@ -1018,7 +957,7 @@ class WidgetsTreeEditor:
 
     def remove_all(self):
         self.treedata = {}
-        self.treeview.filter_remove()
+        self.project_tree_frame.filter_clear()
         children = self.treeview.get_children()
         if children:
             self.treeview.delete(*children)
@@ -1374,7 +1313,7 @@ class WidgetsTreeEditor:
         tree = self.treeview
         sel = tree.selection()
         if sel:
-            self.treeview.filter_remove(remember=True)
+            # self.treeview.filter_remove(remember=True)
             item = sel[0]
             parent = tree.parent(item)
             prev = tree.prev(item)
@@ -1391,13 +1330,13 @@ class WidgetsTreeEditor:
                 if manager in ("pack", "place") or not layout_required:
                     # self.draw_widget(item)
                     self.schedule_preview_update(item)
-            self.treeview.filter_restore()
+            # self.treeview.filter_restore()
 
     def on_item_move_down(self, event):
         tree = self.treeview
         sel = tree.selection()
         if sel:
-            self.treeview.filter_remove(remember=True)
+            # self.treeview.filter_remove(remember=True)
             item = sel[0]
             parent = tree.parent(item)
             next = tree.next(item)
@@ -1414,7 +1353,7 @@ class WidgetsTreeEditor:
                 if manager in ("pack", "place") or not layout_required:
                     # self.draw_widget(item)
                     self.schedule_preview_update(item)
-            self.treeview.filter_restore()
+            # self.treeview.filter_restore()
 
     #
     # Item grid move functions
@@ -1423,7 +1362,7 @@ class WidgetsTreeEditor:
         tree = self.treeview
         selection = tree.selection()
         if selection:
-            self.treeview.filter_remove(remember=True)
+            # self.treeview.filter_remove(remember=True)
             for item in selection:
                 data = self.treedata[item]
 
@@ -1449,7 +1388,7 @@ class WidgetsTreeEditor:
                 if current_col != new_col:
                     data.layout_property("column", str(new_col))
                     data.notify(WidgetMeta.LAYOUT_PROPERTY_CHANGED)
-            self.treeview.filter_restore()
+            # self.treeview.filter_restore()
 
     def _top_widget_iterator(self):
         children = self.treeview.get_children("")
@@ -1563,8 +1502,8 @@ class WidgetsTreeEditor:
                 break
         if found:
             tree = self.treeview
-            self.treeview.filter_remove()
-            self.treeview.expand_to(found)
+            self.project_tree_frame.filter_clear()
+            self.project_tree_frame.show_item(found)
             self.task_executor.add(lambda: tree.selection_set(found))
             self.task_executor.add(lambda: tree.focus(found))
             self.task_executor.add(lambda: tree.see(found))
@@ -1691,20 +1630,20 @@ class WidgetsTreeEditor:
         self.app.set_changed()
 
     def get_form_fieldname_list(self):
-        self.treeview.filter_remove(remember=True)
+        # self.treeview.filter_remove(remember=True)
         fbitem, fbdata = self.forms_manager.get_parent_fbuilder(
             self.current_edit
         )
         flist = self.forms_manager.get_fieldname_list(fbitem)
-        self.treeview.filter_restore()
+        # self.treeview.filter_restore()
         return flist
 
     def is_form_fieldname_valid(self, fieldname: str) -> bool:
-        self.treeview.filter_remove(remember=True)
+        # self.treeview.filter_remove(remember=True)
         fbitem, fbdata = self.forms_manager.get_parent_fbuilder(
             self.current_edit
         )
         is_defined = self.forms_manager.is_field_defined(fbitem, fieldname)
-        self.treeview.filter_restore()
+        # self.treeview.filter_restore()
 
         return not is_defined
