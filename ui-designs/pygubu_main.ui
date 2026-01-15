@@ -19,9 +19,9 @@
       <setting id="ttk_style_definition_file" />
     </settings>
     <customwidgets>
-      <customwidget path="../src/pygubudesigner/services/builders/treecomponentpalettebo.py" />
-      <customwidget path="../src/pygubudesigner/services/builders/layout_editorbo.py" />
-      <customwidget path="../src/pygubudesigner/services/builders/properties_editorbo.py" />
+      <customwidget path="./builders/treecomponentpalettebo.py" />
+      <customwidget path="./builders/layout_editorbo.py" />
+      <customwidget path="./builders/properties_editorbo.py" />
       <customwidget path="builders/custom_rootbo.py" />
     </customwidgets>
     <resources />

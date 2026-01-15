@@ -10,7 +10,7 @@
       <setting id="main_classname">PropertiesEditor</setting>
       <setting id="main_menu" />
       <setting id="output_dir">../src/pygubudesigner/services/widgets</setting>
-      <setting id="output_dir2">../src/pygubudesigner/services/builders</setting>
+      <setting id="output_dir2">./builders</setting>
       <setting id="import_tkvariables">False</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_i18n">True</setting>
