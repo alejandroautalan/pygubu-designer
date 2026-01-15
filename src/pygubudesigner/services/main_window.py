@@ -109,7 +109,7 @@ class MainWindow(baseui.MainWindowUI):
         self.mainwindow.configure(menu=self.main_menu)
 
         # widget tree
-        self.treeview = self.project_tree
+        self.treeview = self.project_tree_frame.tvdata
 
         # Preview
         self.previewer = PreviewHelper(

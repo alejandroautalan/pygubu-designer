@@ -3,10 +3,10 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.widgets.dockfw.dockframe import DockFrame
 from pygubu.widgets.editabletreeview import EditableTreeview
-from pygubu.widgets.filterabletreeview import FilterableTreeview
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 from pygubudesigner.services.widgets.custom_root import CustomRoot
 from pygubudesigner.services.widgets.layout_editor import LayoutEditor
+from pygubudesigner.services.widgets.project_tree_frame import ProjectTreeFrame
 from pygubudesigner.services.widgets.properties_editor import PropertiesEditor
 from pygubudesigner.services.widgets.treecomponentpalette import (
     TreeComponentPalette,
@@ -104,61 +104,12 @@ class MainWindowUI:
             title=_("Project Tree"),
         )
         dockpane2.add_widget(self.dw_ptree, grouped=False, weight=1)
-        addwframe1 = ttk.Frame(self.dw_ptree.fcenter)
-        addwframe1.configure(padding="2p")
-        filter_frame = ttk.Frame(addwframe1)
-        filter_frame.configure(height=200, padding="0 0 0 6p", width=200)
-        lblfilter = ttk.Label(filter_frame)
-        lblfilter.configure(font="TkSmallCaptionFont", text=_("Filter:"))
-        lblfilter.pack(side="left")
-        filter_entry = ttk.Entry(filter_frame)
-        self.filtervar = tk.StringVar()
-        filter_entry.configure(textvariable=self.filtervar, validate="none")
-        filter_entry.pack(expand=True, fill="x", padx="4p", side="left")
-        self.filterclear_btn = ttk.Button(filter_frame, name="filterclear_btn")
-        self.img_close = image_loader(self.mainroot, "close")
-        self.filterclear_btn.configure(
-            image=self.img_close,
-            style="FilterClearButton.Toolbutton",
-            text=_("✖"),
-            width=-2,
+        self.project_tree_frame = ProjectTreeFrame(
+            self.dw_ptree.fcenter, name="project_tree_frame"
         )
-        self.filterclear_btn.pack(fill="both", side="right")
-        filter_frame.pack(fill="x", side="top")
-        sbh1 = ScrollbarHelper(addwframe1, scrolltype="both")
-        sbh1.configure(usemousewheel=True)
-        self.project_tree = FilterableTreeview(
-            sbh1.container, name="project_tree"
+        self.project_tree_frame.pack(
+            expand=True, fill="both", padx="2p", pady="2p", side="top"
         )
-        self.project_tree_cols = ["class", "row", "col", "space_trick"]
-        self.project_tree_dcols = ["row", "col", "space_trick"]
-        self.project_tree.configure(
-            columns=self.project_tree_cols,
-            displaycolumns=self.project_tree_dcols,
-        )
-        self.project_tree.column(
-            "#0", anchor="w", stretch=False, width=200, minwidth=200
-        )
-        self.project_tree.column(
-            "class", anchor="w", stretch=False, width=120, minwidth=100
-        )
-        self.project_tree.column(
-            "row", anchor="w", stretch=False, width=25, minwidth=25
-        )
-        self.project_tree.column(
-            "col", anchor="w", stretch=False, width=25, minwidth=25
-        )
-        self.project_tree.column(
-            "space_trick", anchor="w", stretch=False, width=20, minwidth=20
-        )
-        self.project_tree.heading("#0", anchor="w", text=_("ID"))
-        self.project_tree.heading("class", anchor="w", text=_("Class"))
-        self.project_tree.heading("row", anchor="center", text=_("R"))
-        self.project_tree.heading("col", anchor="center", text=_("C"))
-        self.project_tree.heading("space_trick", anchor="w", text=_(" "))
-        sbh1.add_child(self.project_tree)
-        sbh1.pack(expand=True, fill="both", side="top")
-        addwframe1.pack(expand=True, fill="both", side="top")
         self.img_sec_properties = image_loader(self.mainroot, "sec_properties")
         self.dw_props = dockpane2.maindock.new_widget(
             name="dw_props", uid="dw_props"
