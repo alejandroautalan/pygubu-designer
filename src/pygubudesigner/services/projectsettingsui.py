@@ -12,6 +12,7 @@ from pygubu.forms.ttkwidget import (
 from pygubu.widgets.dialog import Dialog
 from pygubu.widgets.pathchooserinput import PathChooserButton
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
+from pygubu.widgets.scrolledframe import ScrolledFrame
 
 
 def i18n_translator_noop(value):
@@ -55,7 +56,7 @@ class ProjectSettingsUI:
         self.settingsdialog = Dialog(master)
         self.settingsdialog.configure(height=100, modal=True, width=200)
         mw_ = self.settingsdialog.toplevel.winfo_pixels(680)
-        mh_ = self.settingsdialog.toplevel.winfo_pixels(580)
+        mh_ = self.settingsdialog.toplevel.winfo_pixels(640)
         self.settingsdialog.toplevel.minsize(mw_, mh_)
         # First object created
         on_first_object_cb(self.settingsdialog)
@@ -64,12 +65,12 @@ class ProjectSettingsUI:
         frame8.configure(height=200, padding="4p", width=200)
         frame9 = ttk.Frame(frame8)
         frame9.configure(height=200, width=200)
-        notebook1 = ttk.Notebook(frame9)
-        notebook1.configure(
+        self.settings_notebook = ttk.Notebook(frame9, name="settings_notebook")
+        self.settings_notebook.configure(
             height="350p", style="ProjectSettings.TNotebook", width="480p"
         )
         self.frm_general = FrameFormBuilder(
-            notebook1, name="frm_general", field_name="frm_general"
+            self.settings_notebook, name="frm_general", field_name="frm_general"
         )
         self.frm_general.configure(padding=5)
         label6 = ttk.Label(self.frm_general)
@@ -102,91 +103,115 @@ class ProjectSettingsUI:
         self.img_pp_general = image_loader(
             self.settingsdialog.toplevel, "pp_general"
         )
-        notebook1.add(
+        self.settings_notebook.add(
             self.frm_general,
             compound="left",
             image=self.img_pp_general,
             sticky="nsew",
             text=_("General"),
         )
+        scrolledframe1 = ScrolledFrame(
+            self.settings_notebook, scrolltype="both"
+        )
+        scrolledframe1.configure(usemousewheel=True)
         self.frm_code = FrameFormBuilder(
-            notebook1, name="frm_code", field_name="frm_code"
+            scrolledframe1.innerframe, name="frm_code", field_name="frm_code"
         )
-        self.frm_code.configure(padding="5p 5p 50p 5p")
-        frame1 = ttk.Frame(self.frm_code)
-        frame1.configure(height=200, width=200)
-        label3 = ttk.Label(frame1)
-        label3.configure(text=_("Module name:"))
-        label3.grid(column=0, row=0, sticky="ew")
-        self.module_name = Entry(
-            frame1, name="module_name", field_name="module_name"
+        self.frm_code.configure(padding="5p 5p 5p 5p")
+        labelframe3 = ttk.Labelframe(self.frm_code)
+        labelframe3.configure(
+            height=200, padding="4p", text=_("Template"), width=200
         )
-        self.module_name.configure(style="EntryField.TEntry")
-        self.module_name.grid(column=1, ipady="2p", row=0, sticky="ew")
-        labelfieldinfo4 = LabelWidgetInfo(frame1, field_name="module_name")
-        labelfieldinfo4.configure(style="LabelFieldInfo.TLabel")
-        labelfieldinfo4.grid(column=1, row=1, sticky="ew")
-        lbl_template = ttk.Label(frame1)
-        lbl_template.configure(text=_("Template:"))
-        lbl_template.grid(column=0, row=2, sticky="ew")
         self.template = PygubuCombobox(
-            frame1, name="template", field_name="template"
+            labelframe3, name="template", field_name="template"
         )
         self.template.configure(style="ComboboxField.TCombobox")
-        self.template.grid(column=1, ipady="2p", row=2, sticky="ew")
+        self.template.pack(fill="x", ipady="1p")
         self.template.bind(
             "<<ComboboxSelected>>", self.on_template_change, add=""
         )
-        label5 = ttk.Label(frame1)
+        label5 = ttk.Label(labelframe3)
         self.template_desc_var = tk.StringVar(
             value=_("Template description here.")
         )
         label5.configure(
-            font="TkSmallCaptionFont",
             text=_("Template description here."),
             textvariable=self.template_desc_var,
         )
-        label5.grid(column=1, row=3, sticky="ew")
-        lbl_wlist = ttk.Label(frame1)
+        label5.pack(expand=True, fill="x")
+        lbl_wlist = ttk.Label(labelframe3)
         lbl_wlist.configure(text=_("Main widget:"))
-        lbl_wlist.grid(column=0, row=4, sticky="ew")
+        lbl_wlist.pack(expand=True, fill="x", pady="2p 0")
         self.main_widget = PygubuCombobox(
-            frame1, name="main_widget", field_name="main_widget"
+            labelframe3, name="main_widget", field_name="main_widget"
         )
         self.main_widget.configure(
             state="readonly", style="ComboboxField.TCombobox"
         )
-        self.main_widget.grid(column=1, ipady="2p", row=4, sticky="ew")
-        labelfieldinfo1 = LabelWidgetInfo(frame1, field_name="main_widget")
+        self.main_widget.pack(fill="x", ipady="1p")
+        labelfieldinfo1 = LabelWidgetInfo(labelframe3, field_name="main_widget")
         labelfieldinfo1.configure(style="LabelFieldInfo.TLabel")
-        labelfieldinfo1.grid(column=1, row=5, sticky="ew")
-        label_2 = ttk.Label(frame1)
+        labelfieldinfo1.pack(expand=True, fill="x")
+        labelframe3.pack(fill="x", side="top")
+        labelframe1 = ttk.Labelframe(self.frm_code)
+        labelframe1.configure(
+            height=200, padding="4p", text=_("Module"), width=200
+        )
+        label2 = ttk.Label(labelframe1)
+        label2.configure(text=_("Namespace:"))
+        label2.pack(expand=True, fill="x")
+        self.module_namespace = Entry(
+            labelframe1, name="module_namespace", field_name="module_namespace"
+        )
+        self.module_namespace.configure(style="EntryField.TEntry")
+        self.module_namespace.pack(fill="x", ipady="1p")
+        labelwidgetinfo3 = LabelWidgetInfo(
+            labelframe1, field_name="module_namespace"
+        )
+        labelwidgetinfo3.configure(style="LabelFieldInfo.TLabel")
+        labelwidgetinfo3.pack(expand=True, fill="x")
+        label3 = ttk.Label(labelframe1)
+        label3.configure(text=_("Name:"))
+        label3.pack(expand=True, fill="x", pady="2p 0")
+        self.module_name = Entry(
+            labelframe1, name="module_name", field_name="module_name"
+        )
+        self.module_name.configure(style="EntryField.TEntry")
+        self.module_name.pack(fill="x", ipady="1p")
+        labelfieldinfo4 = LabelWidgetInfo(labelframe1, field_name="module_name")
+        labelfieldinfo4.configure(style="LabelFieldInfo.TLabel")
+        labelfieldinfo4.pack()
+        label_2 = ttk.Label(labelframe1)
         label_2.configure(text=_("Class name:"))
-        label_2.grid(row=6, sticky="ew")
+        label_2.pack(expand=True, fill="x", pady="2p 0")
         self.main_classname = Entry(
-            frame1, name="main_classname", field_name="main_classname"
+            labelframe1, name="main_classname", field_name="main_classname"
         )
         self.main_classname.configure(style="EntryField.TEntry")
-        self.main_classname.grid(column=1, ipady="2p", row=6, sticky="ew")
-        labelfieldinfo2 = LabelWidgetInfo(frame1, field_name="main_classname")
+        self.main_classname.pack(fill="x", ipady="1p")
+        labelfieldinfo2 = LabelWidgetInfo(
+            labelframe1, field_name="main_classname"
+        )
         labelfieldinfo2.configure(style="LabelFieldInfo.TLabel")
-        labelfieldinfo2.grid(column=1, row=7, sticky="ew")
-        label4 = ttk.Label(frame1)
-        label4.configure(text=_("Module output:"))
-        label4.grid(column=0, row=8, sticky="ew")
-        frame3 = ttk.Frame(frame1)
+        labelfieldinfo2.pack(expand=True, fill="x")
+        label4 = ttk.Label(labelframe1)
+        label4.configure(text=_("Output directory:"))
+        label4.pack(expand=True, fill="x", pady="2p 0")
+        frame3 = ttk.Frame(labelframe1)
         frame3.configure(height=200, width=200)
         self.output_dir = Entry(
             frame3, name="output_dir", field_name="output_dir"
         )
         self.output_dir.configure(style="EntryField.TEntry")
-        self.output_dir.pack(expand=True, fill="x", ipady="2p", side="left")
+        self.output_dir.pack(expand=True, fill="x", ipady="1p", side="left")
         self.btn_path_chooser = PathChooserButton(
             frame3, name="btn_path_chooser"
         )
-        self.img_mglass = image_loader(self.settingsdialog.toplevel, "mglass")
+        self.img_path_btn_search = image_loader(
+            self.settingsdialog.toplevel, "path_btn_search"
+        )
         self.btn_path_chooser.configure(
-            image=self.img_mglass,
+            image=self.img_path_btn_search,
             text=_("…"),
             title=_("Select output directory"),
             type="directory",
@@ -196,14 +221,34 @@ class ProjectSettingsUI:
         self.btn_path_chooser.bind(
             "<<PathChooserPathChanged>>", self.output_dir_changed, add=""
         )
-        frame3.grid(column=1, row=8, sticky="ew")
-        labelfieldinfo5 = LabelWidgetInfo(frame1, field_name="output_dir")
+        frame3.pack(fill="x")
+        labelfieldinfo5 = LabelWidgetInfo(labelframe1, field_name="output_dir")
         labelfieldinfo5.configure(style="LabelFieldInfo.TLabel")
-        labelfieldinfo5.grid(column=1, row=9, sticky="ew")
-        label9 = ttk.Label(frame1)
-        label9.configure(text=_("Builder output:"))
-        label9.grid(column=0, row=10, sticky="ew")
-        frame5 = ttk.Frame(frame1)
+        labelfieldinfo5.pack(expand=True, fill="x")
+        labelframe1.pack(fill="x", pady="5p", side="top")
+        labelframe2 = ttk.Labelframe(self.frm_code)
+        labelframe2.configure(
+            height=200, padding="4p", text=_("Builder"), width=200
+        )
+        label10 = ttk.Label(labelframe2)
+        label10.configure(text=_("Namespace:"))
+        label10.pack(expand=True, fill="x")
+        self.builder_namespace = Entry(
+            labelframe2,
+            name="builder_namespace",
+            field_name="builder_namespace",
+        )
+        self.builder_namespace.configure(style="EntryField.TEntry")
+        self.builder_namespace.pack(expand=True, fill="x")
+        labelwidgetinfo2 = LabelWidgetInfo(
+            labelframe2, field_name="builder_namespace"
+        )
+        labelwidgetinfo2.configure(style="LabelFieldInfo.TLabel")
+        labelwidgetinfo2.pack(expand=True, fill="x")
+        label9 = ttk.Label(labelframe2)
+        label9.configure(text=_("Output directory:"))
+        label9.pack(expand=True, fill="x", pady="2p 0")
+        frame5 = ttk.Frame(labelframe2)
         frame5.configure(height=200, width=200)
         self.output_dir2 = Entry(
             frame5, name="output_dir2", field_name="output_dir2"
@@ -214,7 +259,7 @@ class ProjectSettingsUI:
             frame5, name="btn_path2_chooser"
         )
         self.btn_path2_chooser.configure(
-            image=self.img_mglass,
+            image=self.img_path_btn_search,
             text=_("…"),
             title=_("Select output directory"),
             type="directory",
@@ -224,14 +269,13 @@ class ProjectSettingsUI:
         self.btn_path2_chooser.bind(
             "<<PathChooserPathChanged>>", self.output_dir2_changed, add=""
         )
-        frame5.grid(column=1, row=10, sticky="ew")
-        labelwidgetinfo1 = LabelWidgetInfo(frame1, field_name="output_dir2")
+        frame5.pack(expand=True, fill="x")
+        labelwidgetinfo1 = LabelWidgetInfo(
+            labelframe2, field_name="output_dir2"
+        )
         labelwidgetinfo1.configure(style="LabelFieldInfo.TLabel")
-        labelwidgetinfo1.grid(column=1, row=11, sticky="ew")
-        frame1.pack(fill="x", side="top")
-        frame1.rowconfigure("all", pad=8)
-        frame1.columnconfigure("all", pad=5)
-        frame1.columnconfigure(1, weight=1)
+        labelwidgetinfo1.pack(expand=True, fill="x")
+        labelframe2.pack(fill="x", side="top")
         frame2 = ttk.Frame(self.frm_code)
         frame2.configure(height=200, padding="0 5p 0 0", width=200)
         self.import_tkvariables = Checkbutton(
@@ -293,16 +337,17 @@ class ProjectSettingsUI:
         )
         self.use_window_centering_code.pack(anchor="w", side="top")
         frame2.pack(fill="x", side="top")
+        self.frm_code.pack(expand=True, fill="both", side="top")
         self.img_pp_code = image_loader(self.settingsdialog.toplevel, "pp_code")
-        notebook1.add(
-            self.frm_code,
+        self.settings_notebook.add(
+            scrolledframe1,
             compound="left",
             image=self.img_pp_code,
             sticky="nsew",
             text=_("Code"),
         )
         self.frm_style = FrameFormBuilder(
-            notebook1, name="frm_style", field_name="frm_style"
+            self.settings_notebook, name="frm_style", field_name="frm_style"
         )
         self.frm_style.configure(padding="5p")
         label1 = ttk.Label(self.frm_style)
@@ -322,6 +367,7 @@ class ProjectSettingsUI:
         self.btn_stylepath_find = PathChooserButton(
             frame4, name="btn_stylepath_find"
         )
+        self.img_mglass = image_loader(self.settingsdialog.toplevel, "mglass")
         self.btn_stylepath_find.configure(
             defaultextension=".py",
             image=self.img_mglass,
@@ -366,14 +412,14 @@ class ProjectSettingsUI:
         self.img_pp_style = image_loader(
             self.settingsdialog.toplevel, "pp_style"
         )
-        notebook1.add(
+        self.settings_notebook.add(
             self.frm_style,
             compound="left",
             image=self.img_pp_style,
             sticky="nsew",
             text=_("Styles"),
         )
-        frame13 = ttk.Frame(notebook1)
+        frame13 = ttk.Frame(self.settings_notebook)
         frame13.configure(height=200, padding="5p", width=200)
         label8 = ttk.Label(frame13)
         label8.configure(text=_("Project widget builders:"))
@@ -417,14 +463,14 @@ class ProjectSettingsUI:
         self.img_pp_customwidget = image_loader(
             self.settingsdialog.toplevel, "pp_customwidget"
         )
-        notebook1.add(
+        self.settings_notebook.add(
             frame13,
             compound="left",
             image=self.img_pp_customwidget,
             sticky="nsew",
             text=_("Custom Widgets"),
         )
-        notebook1.pack(expand=True, fill="both", side="top")
+        self.settings_notebook.pack(expand=True, fill="both", side="top")
         frame9.pack(expand=True, fill="both", side="top")
         frame10 = ttk.Frame(frame8)
         frame10.configure(height=200, width=200)

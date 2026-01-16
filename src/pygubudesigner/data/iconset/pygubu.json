@@ -195,7 +195,7 @@
     {
       "fn": "ta-circle-x.svg",
       "uid": "filter_cancel",
-      "width": 16
+      "width": 20
     },
     {
       "fn": "ta-file-text.svg",
@@ -216,6 +216,11 @@
     {
       "fn": "ta-list.svg",
       "uid": "dlg_settings_general"
+    },
+    {
+      "fn": "ta-search.svg",
+      "uid": "path_btn_search",
+      "width": 20
     }
   ],
   "custom_files": {}

@@ -5,6 +5,37 @@ from pygubu.forms.validation.base import Constraint, ConstraintValidator
 from pygubu.i18n import noop_translator as _
 
 
+class IsNamespace(Constraint):
+    code = "not_namespace_error"
+    message = _("This value should be a valid python namespace string.")
+
+    def __init__(self, *args, message=None, empty_values=None, **kw):
+        super().__init__(*args, **kw)
+        if message is not None:
+            self.message = message
+        self.empty_values = [] if empty_values is None else empty_values
+
+    def validated_by(self):
+        return IsNamespaceValidator
+
+
+class IsNamespaceValidator(ConstraintValidator):
+
+    def validate(self, value: str, constraint: IsNamespace):
+        if value in constraint.empty_values:
+            return
+        for part in value.split("."):
+            part_valid = part.isidentifier() and not keyword.iskeyword(part)
+            if not part_valid:
+                self.context.add_violation(
+                    message=constraint.message,
+                    constraint=constraint,
+                    code=constraint.code,
+                    params=None,
+                )
+                break
+
+
 class IsIdentifier(Constraint):
     code = "not_identifier_error"
     message = _("This value should be a valid python identifier.")

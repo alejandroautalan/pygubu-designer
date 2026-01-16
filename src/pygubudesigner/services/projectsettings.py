@@ -12,7 +12,12 @@ from pygubu.forms.transformer.tkboolean import BoolTransformer
 from pygubudesigner.preferences import NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
 from .project import Project
-from .fieldvalidator import IsIdentifier, RelativePathExists, Choice
+from .fieldvalidator import (
+    IsIdentifier,
+    RelativePathExists,
+    Choice,
+    IsNamespace,
+)
 from pygubudesigner.services.image_loader import iconset_loader
 
 
@@ -71,56 +76,65 @@ class ProjectSettings(baseui.ProjectSettingsUI):
 
         bool_transformer = BoolTransformer()
         identifier_constraint = IsIdentifier()
+        namespace_or_empty = IsNamespace(empty_values=[""])
         path_exists_constraint = RelativePathExists()
         self.main_widget_constraint = Choice()
         self.path_exists_constraint = path_exists_constraint
         frm_general_config = {"name": {}, "description": {}, "translator": _}
-        frm_code_config = {
-            "translator": _,
-            "module_name": {
+        frm_code_config = dict(
+            translator=_,
+            module_namespace={
+                "required": False,
+                "constraints": [namespace_or_empty],
+            },
+            module_name={
                 "constraints": [identifier_constraint],
             },
-            "main_classname": {
+            main_classname={
                 "constraints": [identifier_constraint],
             },
-            "main_widget": {
+            main_widget={
                 "constraints": [self.main_widget_constraint],
             },
-            "output_dir": {
+            output_dir={
                 "required": False,
                 "constraints": [path_exists_constraint],
             },
-            "output_dir2": {
+            output_dir2={
                 "required": False,
                 "constraints": [path_exists_constraint],
             },
-            "import_tkvariables": {
+            builder_namespace={
+                "required": False,
+                "constraints": [namespace_or_empty],
+            },
+            import_tkvariables={
                 "model_transformer": bool_transformer,
             },
-            "use_ttk_styledefinition_file": {
+            use_ttk_styledefinition_file={
                 "model_transformer": bool_transformer,
             },
-            "use_i18n": {
+            use_i18n={
                 "model_transformer": bool_transformer,
             },
-            "all_ids_attributes": {
+            all_ids_attributes={
                 "model_transformer": bool_transformer,
             },
-            "generate_code_onsave": {
+            generate_code_onsave={
                 "model_transformer": bool_transformer,
             },
-            "use_window_centering_code": {
+            use_window_centering_code={
                 "model_transformer": bool_transformer,
             },
-        }
+        )
 
-        frm_style_config = {
-            "translator": _,
-            "ttk_style_definition_file": {
+        frm_style_config = dict(
+            translator=_,
+            ttk_style_definition_file={
                 "required": False,
                 "constraints": [path_exists_constraint],
             },
-        }
+        )
         self.frm_general = self.fb_general.get_form(frm_general_config)
         self.frm_code = self.fb_code.get_form(frm_code_config)
         self.frm_style = self.fb_style.get_form(frm_style_config)
@@ -180,24 +194,21 @@ class ProjectSettings(baseui.ProjectSettingsUI):
     def process_forms(self):
         new_settings = {}
         forms = (
-            (self.fb_general, self.frm_general),
-            (self.fb_code, self.frm_code),
-            (self.fb_style, self.frm_style),
+            # form frame builder, form setting, tab index
+            (self.fb_general, self.frm_general, 0),
+            (self.fb_code, self.frm_code, 1),
+            (self.fb_style, self.frm_style, 2),
         )
         # Process forms
         all_valid = True
-        for builder, form in forms:
+        for builder, form, tab_index in forms:
             form.submit()
             valid = form.is_valid()
             all_valid = all_valid and valid
             if valid:
                 new_settings.update(form.cleaned_data)
             else:
-                notebook: ttk.Notebook = builder.nametowidget(
-                    builder.winfo_parent()
-                )
-                index = notebook.index(builder)
-                notebook.select(index)
+                self.settings_notebook.select(tab_index)
                 # Stop validation here
                 break
 
@@ -238,21 +249,23 @@ class ProjectSettings(baseui.ProjectSettingsUI):
         template_field = self.frm_code.fields["template"]
         template = template_field.data
         state = {
-            "import_tkvariables": "disabled",
-            "use_i18n": "normal",
-            "all_ids_attributes": "normal",
-            "output_dir2": "disabled",
-            "btn_path2_chooser": "disabled",
+            "import_tkvariables": tk.DISABLED,
+            "use_i18n": tk.NORMAL,
+            "all_ids_attributes": tk.NORMAL,
+            "output_dir2": tk.DISABLED,
+            "btn_path2_chooser": tk.DISABLED,
+            "builder_namespace": tk.DISABLED,
         }
         if template == "application":
-            state["import_tkvariables"] = "normal"
-            state["all_ids_attributes"] = "disabled"
+            state["import_tkvariables"] = tk.NORMAL
+            state["all_ids_attributes"] = tk.DISABLED
         elif template == "codescript":
             pass
         elif template in ("widget", "widgetds"):
-            # state["use_i18n"] = "disabled"
-            state["output_dir2"] = "normal"
-            state["btn_path2_chooser"] = "normal"
+            # state["use_i18n"] = tk.DISABLED
+            state["output_dir2"] = tk.NORMAL
+            state["btn_path2_chooser"] = tk.NORMAL
+            state["builder_namespace"] = tk.NORMAL
         for fname, newstate in state.items():
             if fname in self.frm_code.fields:
                 self.frm_code.fields[fname].widget.configure(state=newstate)
