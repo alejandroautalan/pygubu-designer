@@ -19,6 +19,7 @@ _section_name = "Project Widgets"
 
 class FilterEntryBO(BuilderObject):
     class_ = FilterEntry
+    virtual_events = (FilterEntry.EVENT_ENTRY_CHANGED,)
 
     def code_imports(self):
         # will return an iterable of (module, classname/function) to import

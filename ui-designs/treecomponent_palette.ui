@@ -8,7 +8,6 @@
       <setting id="template">widget</setting>
       <setting id="main_widget">fmain</setting>
       <setting id="main_classname">TreeComponentPalette</setting>
-      <setting id="main_menu" />
       <setting id="output_dir">../src/pygubudesigner/services/widgets</setting>
       <setting id="output_dir2">./builders</setting>
       <setting id="import_tkvariables">False</setting>
@@ -19,7 +18,9 @@
       <setting id="use_window_centering_code">False</setting>
       <setting id="ttk_style_definition_file" />
     </settings>
-    <customwidgets />
+    <customwidgets>
+      <customwidget path="builders/filter_entrybo.py" />
+    </customwidgets>
     <resources />
   </project>
   <object class="ttk.Frame" id="fmain" named="True">
@@ -41,37 +42,9 @@
           <property name="side">top</property>
         </layout>
         <child>
-          <object class="ttk.Label" id="label3">
-            <property name="compound">left</property>
-            <property name="font">TkSmallCaptionFont</property>
-            <property name="text" translatable="yes">Filter:</property>
+          <object class="pygubudesigner.widget.FilterEntry" id="filter_entry" named="True">
+            <bind sequence="&lt;&lt;FilterEntryChanged&gt;&gt;" handler="on_do_filter" add="" />
             <layout manager="pack">
-              <property name="fill">both</property>
-              <property name="side">left</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Entry" id="entry2">
-            <property name="textvariable">string:filter_text_var</property>
-            <property name="width">10</property>
-            <bind sequence="&lt;KeyPress&gt;" handler="on_filter_keypress" add="" />
-            <layout manager="pack">
-              <property name="expand">true</property>
-              <property name="fill">both</property>
-              <property name="padx">5p 5p</property>
-              <property name="side">left</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="ttk.Button" id="btn_filter_cancel" named="True">
-            <property name="command" type="command" cbtype="simple">on_filter_clear</property>
-            <property name="style">Toolbutton</property>
-            <property name="takefocus">true</property>
-            <property name="width">-2</property>
-            <layout manager="pack">
-              <property name="fill">both</property>
               <property name="side">left</property>
             </layout>
           </object>

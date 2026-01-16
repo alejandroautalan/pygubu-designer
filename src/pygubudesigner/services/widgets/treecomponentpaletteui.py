@@ -3,45 +3,63 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.widgets.filterabletreeview import FilterableTreeview
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
+from pygubudesigner.services.widgets.filter_entry import FilterEntry
 
 
-#
-# Begin i18n - Setup translator in derived class file
-#
-def i18n_noop(value):
+def i18n_translator_noop(value):
+    """i18n - Setup translator in derived class file"""
     return value
 
 
-i18n_translator = i18n_noop
-# End i18n
+def first_object_callback_noop(widget):
+    """on first objec callback - Setup callback in derived class file."""
+    pass
+
+
+def image_loader_default(master, image_name: str):
+    """Image loader - Setup image_loader in derived class file."""
+    img = None
+    try:
+        img = tk.PhotoImage(file=image_name, master=master)
+    except tk.TclError:
+        pass
+    return img
+
 
 #
 # Base class definition
 #
-
-
 class TreeComponentPaletteUI(ttk.Frame):
-    def __init__(self, master=None, **kw):
+    def __init__(
+        self,
+        master=None,
+        *,
+        translator=None,
+        on_first_object_cb=None,
+        data_pool=None,
+        image_loader=None,
+        **kw,
+    ):
+        if translator is None:
+            translator = i18n_translator_noop
+        _ = translator  # i18n string marker.
+        if image_loader is None:
+            image_loader = image_loader_default
+        if on_first_object_cb is None:
+            on_first_object_cb = first_object_callback_noop
+
         super().__init__(master, **kw)
-        _ = i18n_translator  # i18n string marker.
+
         frame1 = ttk.Frame(self)
         frame1.configure(height=200, padding="0 2p 2p 4p", width=200)
-        label3 = ttk.Label(frame1)
-        label3.configure(
-            compound="left", font="TkSmallCaptionFont", text=_("Filter:")
+        # First object created
+        on_first_object_cb(frame1)
+
+        self.filter_entry = FilterEntry(frame1, name="filter_entry")
+        self.filter_entry.pack(side="left")
+        self.filter_entry.bind(
+            "<<FilterEntryChanged>>", self.on_do_filter, add=""
         )
-        label3.pack(fill="both", side="left")
-        entry2 = ttk.Entry(frame1)
-        self.filter_text_var = tk.StringVar()
-        entry2.configure(textvariable=self.filter_text_var, width=10)
-        entry2.pack(expand=True, fill="both", padx="5p 5p", side="left")
-        entry2.bind("<KeyPress>", self.on_filter_keypress, add="")
-        self.btn_filter_cancel = ttk.Button(frame1, name="btn_filter_cancel")
-        self.btn_filter_cancel.configure(
-            style="Toolbutton", takefocus=True, width=-2
-        )
-        self.btn_filter_cancel.pack(fill="both", side="left")
-        self.btn_filter_cancel.configure(command=self.on_filter_clear)
         separator1 = ttk.Separator(frame1)
         separator1.configure(orient="vertical")
         separator1.pack(fill="y", padx="4p", side="left")
@@ -75,17 +93,13 @@ class TreeComponentPaletteUI(ttk.Frame):
             "#0", anchor="w", stretch=True, width=200, minwidth=20
         )
         self.cptree.heading("#0", anchor="w", text=_("Components"))
-        self.cptree.pack(expand=True, fill="both", side="top")
         scrollbarhelper3.add_child(self.cptree)
         scrollbarhelper3.pack(expand=True, fill="both", side="top")
         frame3.pack(expand=True, fill="both", side="top")
         self.configure(height=200, padding="2p", width=200)
-        self.pack(expand=True, fill="both", side="top")
+        # Layout for 'fmain' skipped in custom widget template.
 
-    def on_filter_keypress(self, event=None):
-        pass
-
-    def on_filter_clear(self):
+    def on_do_filter(self, event=None):
         pass
 
     def on_show_alltk(self):

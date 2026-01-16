@@ -5,9 +5,7 @@ import pygubu.widgets.simpletooltip as tooltip
 import pygubudesigner.services.widgets.treecomponentpaletteui as baseui
 from pygubudesigner.i18n import translator
 from pygubu.stockimage import StockImage, StockImageException
-
-
-baseui.i18n_translator = translator
+from pygubudesigner.services.image_loader import iconset_loader
 
 
 class TreeVisualState:
@@ -35,7 +33,9 @@ class TreeComponentPalette(baseui.TreeComponentPaletteUI):
     KEY_PRESS_CB_MILISECONDS = 800
 
     def __init__(self, master=None, **kw):
-        super().__init__(master, **kw)
+        super().__init__(
+            master, translator=translator, image_loader=iconset_loader, **kw
+        )
 
         self.on_add_widget = None  # callback to call on double click.
         self._keypress_cbid = None
@@ -43,8 +43,6 @@ class TreeComponentPalette(baseui.TreeComponentPaletteUI):
         tooltip.create(self.fb_show_alltk, "Show all Tk widgets")
         self.setup_styles()
         self.visual_state = TreeVisualState(self.cptree)
-        btn_image = StockImage.get("cancel-circle-16")
-        self.btn_filter_cancel.configure(image=btn_image)
         self.project_custom_widget_prefixes = []
 
     def setup_styles(self):
@@ -58,23 +56,8 @@ class TreeComponentPalette(baseui.TreeComponentPaletteUI):
         match_found = fvalue in txt
         return match_found
 
-    def on_filter_keypress(self, event=None):
-        if self._keypress_cbid is not None:
-            self.after_cancel(self._keypress_cbid)
-        self._keypress_cbid = self.after(
-            self.KEY_PRESS_CB_MILISECONDS, self._on_filter_keypress_after
-        )
-
-    def _on_filter_keypress_after(self, event=None):
-        self.on_do_filter(event)
-        self._cbid = None
-
     def on_do_filter(self, event=None):
-        self.cptree.filter_by(self.filter_text_var.get())
-
-    def on_filter_clear(self):
-        self.filter_text_var.set("")
-        self.cptree.filter_by("")
+        self.cptree.filter_by(self.filter_entry.getvalue())
 
     def on_show_alltk(self):
         self.build_tree()
@@ -85,7 +68,7 @@ class TreeComponentPalette(baseui.TreeComponentPaletteUI):
         items = self.cptree.get_children()
         self.cptree.delete(*items)
         self.create_treeview_widget_list()
-        self.cptree.filter_by(self.filter_text_var.get())
+        self.cptree.filter_by(self.filter_entry.getvalue())
         self.visual_state.restore()
 
     def create_treelist(self):
