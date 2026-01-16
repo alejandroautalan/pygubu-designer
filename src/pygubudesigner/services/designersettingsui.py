@@ -148,7 +148,16 @@ class DesignerSettingsUI:
         )
         label_1.pack(anchor="w", fill="x", padx="10p 5p", pady="5p 0")
         frame1.pack(fill="x")
-        Notebook_1.add(frame4, sticky="nsew", text=_("General"))
+        self.img_dlg_settings_general = image_loader(
+            preferences.toplevel, "dlg_settings_general"
+        )
+        Notebook_1.add(
+            frame4,
+            compound="left",
+            image=self.img_dlg_settings_general,
+            sticky="nsew",
+            text=_("General"),
+        )
         Notebook_1.pack(expand=True, fill="both", side="top")
         self.ffb_settings.pack(expand=True, fill="both", side="top")
         Frame_4 = ttk.Frame(frame3)

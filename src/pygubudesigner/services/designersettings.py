@@ -7,11 +7,14 @@ from pygubu.forms.transformer.tkboolean import BoolTransformer
 from pygubudesigner.preferences import preferences, default_config, CfgOption
 from pygubudesigner.services.theming import get_ttk_style
 from pygubudesigner.i18n import translator
+from pygubudesigner.services.image_loader import iconset_loader
 
 
 class DesignerSettings(baseui.DesignerSettingsUI):
     def __init__(self, master=None):
-        super().__init__(master, translator=translator)
+        super().__init__(
+            master, translator=translator, image_loader=iconset_loader
+        )
 
         self.dialog_toplevel = self.mainwindow.toplevel
 

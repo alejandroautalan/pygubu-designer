@@ -212,6 +212,10 @@
     {
       "fn": "ta-components.svg",
       "uid": "pp_customwidget"
+    },
+    {
+      "fn": "ta-list.svg",
+      "uid": "dlg_settings_general"
     }
   ],
   "custom_files": {}

@@ -59,6 +59,8 @@
                 </layout>
                 <child>
                   <object class="ttk.Notebook.Tab" id="Tab_general">
+                    <property name="compound">left</property>
+                    <property name="image">dlg_settings_general</property>
                     <property name="sticky">nsew</property>
                     <property name="text" translatable="yes">General</property>
                     <child>
