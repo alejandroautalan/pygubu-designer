@@ -42,7 +42,7 @@ class Project:
         "main_classname": "",
         "output_dir": "",
         "output_dir2": "",
-        "builder_namespace": "",
+        "builder_namespace": "custom_widgets",
         "import_tkvariables": False,
         "use_ttk_styledefinition_file": False,
         "use_i18n": False,

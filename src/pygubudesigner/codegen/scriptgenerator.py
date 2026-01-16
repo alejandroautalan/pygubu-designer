@@ -358,11 +358,24 @@ class ScriptGenerator:
         else:
             output_dir2 = uipath
 
+        # Module FQN
+        module_namespace = config["module_namespace"]
+        module_name = config["module_name"]
+        module_fqn = module_name
+        if module_namespace:
+            module_fqn = f"{module_namespace}.{module_name}"
+        # builder ns
+        builder_namespace = config["builder_namespace"]
+        if not builder_namespace:
+            builder_namespace = "custom_widget"
+
         context = {
             "output_dir": output_dir,
             "output_dir2": output_dir2,
             "target": target,
-            "module_name": config["module_name"],
+            "builder_namespace": builder_namespace,
+            "module_fqn": module_fqn,
+            "module_name": module_name,
             "project_name": self.app.project_name(),
             "class_name": config["main_classname"],
             "main_widget_is_toplevel": main_widget_is_toplevel,
