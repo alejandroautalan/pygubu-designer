@@ -121,10 +121,6 @@ class WidgetsTreeEditor:
         FormFieldNameEntry.global_validator = self.is_form_fieldname_valid
 
         # Widget Editor
-        # bframe = app.builder.get_object("bindingsframe")
-        # bindingstree = app.builder.get_object("bindingstree")
-        # self.properties_editor = app.builder.get_object("propertieseditor1")
-
         bframe = app.bindings_frame
         bindingstree = app.bindings_tree
         self.properties_editor = app.propertieseditor1

@@ -124,7 +124,6 @@ class MainWindow(baseui.MainWindowUI):
 
         # Recen Files management
         # Setup menu after connect callbacks call above.
-        # rfmenu = self.builder.get_object("file_recent_menu")
         fmenu = self.main_menu.nametowidget(self.main_menu.entrycget(0, "menu"))
         rfmenu = fmenu.nametowidget(fmenu.entrycget(2, "menu"))
         self.rfiles_manager = RecentFilesManager(
@@ -770,8 +769,7 @@ class MainWindow(baseui.MainWindowUI):
         if reset_layout:
             dock_layout = None
         else:
-            dock = self.builder.get_object("maindock")
-            dock_layout = dock.save_layout()
+            dock_layout = self.maindock.save_layout()
 
         preferences.maindock_layout = dock_layout
 

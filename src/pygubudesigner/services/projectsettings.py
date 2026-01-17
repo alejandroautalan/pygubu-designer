@@ -48,11 +48,6 @@ class ProjectSettings(baseui.ProjectSettingsUI):
         self.fb_general = self.frm_general
         self.fb_code = self.frm_code
         self.fb_style = self.frm_style
-        # self.cwtree: ttk.Treeview = self.builder.get_object("cwtree")
-        # self.btn_cwremove = self.builder.get_object("btn_cwremove")
-
-        # self.template_desc_var: tk.StringVar = None
-        # self.builder.import_variables(self, ["template_desc_var"])
 
         self.template_desc = {
             "application": _(
