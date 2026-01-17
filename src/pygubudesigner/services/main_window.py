@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import platform
 import os
 import logging
 import traceback
@@ -199,12 +200,17 @@ class MainWindow(baseui.MainWindowUI):
             self.mainwindow.quit()
 
             python = sys.executable
+            args = sys.argv
+
+            if platform.system() == "Windows":
+                args = ["-m", "pygubudesigner"]
+
             logger.debug("Restarting...")
             logger.debug("Python exe: %s", python)
 
             # Do restart
             logging.shutdown()
-            os.execl(python, python, *sys.argv)
+            os.execl(python, python, *args)
 
     def load_file(self, file_path):
         self.mainwindow.after(
