@@ -4,11 +4,13 @@
     <settings>
       <setting id="name">pygubu-designer context menu</setting>
       <setting id="description">This is a context menu.</setting>
-      <setting id="module_name">context_menu</setting>
       <setting id="template">fnscript</setting>
-      <setting id="main_widget">context_menu</setting>
+      <setting id="main_widget">mcontext</setting>
+      <setting id="module_namespace" />
+      <setting id="module_name">context_menu</setting>
       <setting id="main_classname">create_context_menu</setting>
       <setting id="output_dir">../src/pygubudesigner/services</setting>
+      <setting id="builder_namespace">custom_widgets</setting>
       <setting id="output_dir2" />
       <setting id="import_tkvariables">False</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
@@ -21,7 +23,7 @@
     <customwidgets />
     <resources />
   </project>
-  <object class="tk.Menu" id="context_menu">
+  <object class="tk.Menu" id="mcontext" named="True">
     <property name="tearoff">false</property>
     <child>
       <object class="tk.Menuitem.Command" id="menu_go_to_parent">

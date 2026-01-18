@@ -35,8 +35,8 @@ def find_callback(callbacks_bag, callback_uid):
 
 
 def create_context_menu(
-    *,
     master=None,
+    *,
     translator=None,
     on_first_object_cb=None,
     data_pool=None,
@@ -53,47 +53,47 @@ def create_context_menu(
 
     #
     # Begin UI code
-    context_menu = tk.Menu(master)
-    context_menu.configure(tearoff=False)
+    mcontext = tk.Menu(master, name="mcontext")
+    mcontext.configure(tearoff=False)
     # First object created
-    on_first_object_cb(context_menu)
+    on_first_object_cb(mcontext)
 
-    context_menu.add(
+    mcontext.add(
         "command",
         command=find_callback(
             callbacks_bag, "on_context_menu_go_to_parent_clicked"
         ),
         label=_("Go to parent"),
     )
-    context_menu.add("separator")
-    context_menu.add(
+    mcontext.add("separator")
+    mcontext.add(
         "command",
         command=find_callback(callbacks_bag, "on_context_menu_update_preview"),
         label=_("Update preview"),
     )
-    context_menu.add("separator")
-    context_menu.add(
+    mcontext.add("separator")
+    mcontext.add(
         "command",
         command=find_callback(callbacks_bag, "on_context_menu_copy_clicked"),
         label=_("Copy"),
     )
-    context_menu.add(
+    mcontext.add(
         "command",
         command=find_callback(callbacks_bag, "on_context_menu_paste_clicked"),
         label=_("Paste"),
     )
-    context_menu.add(
+    mcontext.add(
         "command",
         command=find_callback(callbacks_bag, "on_context_menu_cut_clicked"),
         label=_("Cut"),
     )
-    context_menu.add(
+    mcontext.add(
         "command",
         command=find_callback(callbacks_bag, "on_context_menu_delete_clicked"),
         label=_("Delete"),
     )
-    context_menu.add("separator")
-    context_menu.add(
+    mcontext.add("separator")
+    mcontext.add(
         "command",
         command=find_callback(
             callbacks_bag, "on_context_menu_duplicate_clicked"
@@ -101,7 +101,7 @@ def create_context_menu(
         label=_("Duplicate"),
     )
 
-    return context_menu
+    return mcontext
 
 
 if __name__ == "__main__":
