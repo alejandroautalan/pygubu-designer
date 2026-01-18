@@ -4,11 +4,13 @@
     <settings>
       <setting id="name">pygubu-designer main menu</setting>
       <setting id="description">This is the main menu ui file for pygubu-designer.</setting>
-      <setting id="module_name">main_menu</setting>
       <setting id="template">fnscript</setting>
-      <setting id="main_widget">mainmenu</setting>
+      <setting id="main_widget">mmain</setting>
+      <setting id="module_namespace" />
+      <setting id="module_name">main_menu</setting>
       <setting id="main_classname">create_main_menu</setting>
       <setting id="output_dir">../src/pygubudesigner/services</setting>
+      <setting id="builder_namespace">custom_widgets</setting>
       <setting id="output_dir2" />
       <setting id="import_tkvariables">False</setting>
       <setting id="use_ttk_styledefinition_file">False</setting>
@@ -21,10 +23,10 @@
     <customwidgets />
     <resources />
   </project>
-  <object class="tk.Menu" id="mainmenu">
+  <object class="tk.Menu" id="mmain" named="True">
     <property name="tearoff">0</property>
     <child>
-      <object class="tk.Menuitem.Submenu" id="filemenu">
+      <object class="tk.Menuitem.Submenu" id="mfile" named="True">
         <property name="label" translatable="yes">File</property>
         <property name="tearoff">0</property>
         <property name="underline">0</property>
@@ -47,7 +49,7 @@
           </object>
         </child>
         <child>
-          <object class="tk.Menuitem.Submenu" id="file_recent_menu">
+          <object class="tk.Menuitem.Submenu" id="mrecent" named="True">
             <property name="compound">left</property>
             <property name="image">mi_menu3</property>
             <property name="label" translatable="yes">Open recent …</property>
@@ -108,7 +110,7 @@
       </object>
     </child>
     <child>
-      <object class="tk.Menuitem.Submenu" id="editmenu">
+      <object class="tk.Menuitem.Submenu" id="medit" named="True">
         <property name="label" translatable="yes">Edit</property>
         <property name="tearoff">0</property>
         <property name="underline">0</property>
@@ -257,7 +259,7 @@
       </object>
     </child>
     <child>
-      <object class="tk.Menuitem.Submenu" id="projectmenu" named="True">
+      <object class="tk.Menuitem.Submenu" id="mproject" named="True">
         <property name="label" translatable="yes">Project</property>
         <property name="tearoff">false</property>
         <property name="underline">6</property>
@@ -283,7 +285,7 @@
       </object>
     </child>
     <child>
-      <object class="tk.Menuitem.Submenu" id="previewmenu">
+      <object class="tk.Menuitem.Submenu" id="mpreview" named="True">
         <property name="label" translatable="yes">Preview</property>
         <property name="tearoff">0</property>
         <property name="underline">0</property>
@@ -306,7 +308,7 @@
           </object>
         </child>
         <child>
-          <object class="tk.Menuitem.Submenu" id="preview_themes_submenu">
+          <object class="tk.Menuitem.Submenu" id="mthemes_list" named="True">
             <property name="compound">left</property>
             <property name="image">mi_theme</property>
             <property name="label" translatable="yes">ttk theme</property>
@@ -316,7 +318,7 @@
       </object>
     </child>
     <child>
-      <object class="tk.Menuitem.Submenu" id="helpmenu">
+      <object class="tk.Menuitem.Submenu" id="mhelp" named="True">
         <property name="label" translatable="yes">Help</property>
         <property name="tearoff">0</property>
         <property name="underline">0</property>

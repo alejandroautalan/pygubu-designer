@@ -124,8 +124,7 @@ class MainWindow(baseui.MainWindowUI):
 
         # Recen Files management
         # Setup menu after connect callbacks call above.
-        fmenu = self.main_menu.nametowidget(self.main_menu.entrycget(0, "menu"))
-        rfmenu = fmenu.nametowidget(fmenu.entrycget(2, "menu"))
+        rfmenu = self.mainwindow.nametowidget(".mmain.mfile.mrecent")
         self.rfiles_manager = RecentFilesManager(
             rfmenu, self.on_recentfile_clicked
         )
@@ -384,8 +383,9 @@ class MainWindow(baseui.MainWindowUI):
         w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)
 
     def _setup_theme_menu(self):
-        pmenu = self.main_menu.nametowidget(self.main_menu.entrycget(3, "menu"))
-        menu = pmenu.nametowidget(pmenu.entrycget(2, "menu"))
+        themes_list_menu = self.mainwindow.nametowidget(
+            ".mmain.mpreview.mthemes_list"
+        )
         s = get_ttk_style()
         styles = sorted(s.theme_names())
         self.__theme_var = var = tk.StringVar()
@@ -398,7 +398,7 @@ class MainWindow(baseui.MainWindowUI):
                 self._change_ttk_theme(theme)
 
             col_break = idx % 20 == 0
-            menu.add_radiobutton(
+            themes_list_menu.add_radiobutton(
                 label=name,
                 value=name,
                 variable=self.__theme_var,

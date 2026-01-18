@@ -1667,7 +1667,7 @@ PROPERTY_DEFINITIONS = {
         "editor": "dynamic",
         "params": {
             "mode": "choice",
-            "values": ("apple", "help", "window", "system"),
+            "values": ("", "apple", "help", "window", "system"),
             "state": "readonly",
         },
     },
