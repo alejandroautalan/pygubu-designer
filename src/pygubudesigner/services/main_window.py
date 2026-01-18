@@ -569,7 +569,7 @@ class MainWindow(baseui.MainWindowUI):
         The state of the menus is dependant on whether they can be used at the current time or not.
         """
 
-        menu_edit = self.mainwindow.nametowidget(".mmenu.medit")
+        menu_edit = self.mainwindow.nametowidget(".mmain.medit")
 
         # Should we enable the 'Duplicate' menu?
         self.duplicate_menu_state = (
