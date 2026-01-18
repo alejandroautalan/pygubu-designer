@@ -37,8 +37,8 @@ def find_callback(callbacks_bag, callback_uid):
 
 
 def ${class_name}(
-    *,
     master=None,
+    *,
     translator=None,
     on_first_object_cb=None,
     data_pool=None,
