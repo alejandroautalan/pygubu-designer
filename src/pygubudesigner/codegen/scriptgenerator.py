@@ -347,7 +347,7 @@ class ScriptGenerator:
         )
 
         # calculate output dir
-        uipath = self.app.current_project.fpath.parent
+        uipath = project.fpath.parent
         output_dir: pathlib.Path = config["output_dir"]
         if output_dir:
             output_dir = uipath / output_dir
@@ -373,6 +373,9 @@ class ScriptGenerator:
         # fix template when using pygubu.dialog
         target_is_pygubu_dialog = target_class == nspygubu.widgets.Dialog
 
+        # add source file
+        ui_filename = project.fpath.name
+
         context = {
             "output_dir": output_dir,
             "output_dir2": output_dir2,
@@ -380,7 +383,9 @@ class ScriptGenerator:
             "builder_namespace": builder_namespace,
             "module_fqn": module_fqn,
             "module_name": module_name,
-            "project_name": self.app.project_name(),
+            "ui_filename": ui_filename,
+            "project_name": config["name"],
+            "project_doc": config["description"],
             "class_name": config["main_classname"],
             "main_widget_is_toplevel": main_widget_is_toplevel,
             "main_widget": target,

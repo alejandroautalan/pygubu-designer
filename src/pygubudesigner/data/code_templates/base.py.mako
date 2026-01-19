@@ -1,4 +1,13 @@
 #!/usr/bin/python3
+<%block name="module_doc" filter="trim">
+"""
+${project_name}
+
+${project_doc}
+
+UI source file: ${ui_filename}
+"""
+</%block>
 <%block name="imports" filter="trim">
 ${import_lines}
 </%block>

@@ -10,7 +10,7 @@ import ${ttk_styles_module} # Styles definition module
 
 <%block name="project_paths" filter="trim">
 PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "${project_name}"
+PROJECT_UI = PROJECT_PATH / "${ui_filename}"
 RESOURCE_PATHS = [PROJECT_PATH]
 </%block>
 
