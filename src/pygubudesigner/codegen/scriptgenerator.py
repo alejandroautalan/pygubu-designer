@@ -23,6 +23,7 @@ import autopep8
 from mako.lookup import TemplateLookup
 
 from pygubu.component.plugin_manager import PluginManager
+from pygubu.plugins.pygubu._config import nspygubu
 from .codebuilder import UI2Code
 from pygubudesigner.services.stylehandler import StyleHandler
 from pygubudesigner.services.project import Project
@@ -369,6 +370,9 @@ class ScriptGenerator:
         if not builder_namespace:
             builder_namespace = "custom_widget"
 
+        # fix template when using pygubu.dialog
+        target_is_pygubu_dialog = target_class == nspygubu.widgets.Dialog
+
         context = {
             "output_dir": output_dir,
             "output_dir2": output_dir2,
@@ -393,6 +397,7 @@ class ScriptGenerator:
             "with_i18n_support": with_i18n_support,
             "add_window_centering_code": add_window_centering_code,
             "import_tk_vars": import_tk_vars,
+            "target_is_pygubu_dialog": target_is_pygubu_dialog,
         }
 
         generator.with_i18n_support = with_i18n_support

@@ -47,7 +47,7 @@ ${widget_code}
         _main_menu = self.create_${main_menu_id}(self.mainwindow, image_loader)
         self.mainwindow.configure(menu=_main_menu)
 %endif
-%if add_window_centering_code:
+%if add_window_centering_code and not target_is_pygubu_dialog:
     def center_window(self):
         if self.mainwindow.winfo_ismapped():
             min_w, min_h = self.mainwindow.wm_minsize()
@@ -88,6 +88,9 @@ ${widget_code}
         if center:
             self.center_window()
         self.mainwindow.mainloop()
+%elif target_is_pygubu_dialog:
+    def run(self):
+        self.mainwindow.run()
 %else:
     def run(self):
         self.mainwindow.mainloop()
