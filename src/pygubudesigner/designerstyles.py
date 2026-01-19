@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pygubu.stockimage import StockImage, StockImageException
 from pygubudesigner.preferences import preferences
 from pygubudesigner.services.theming import get_ttk_style
+from pygubudesigner.services.image_loader import match_icons_with_theme
 from pygubudesigner.util import get_linespace
 
 
@@ -208,6 +209,7 @@ def apply_theme(master: tk.Widget, theme_name: str):
 
     def fix_theme_later():
         fix_theme(master, theme_name)
+        match_icons_with_theme(theme_name)
 
     try:
         s.theme_use(theme_name)
