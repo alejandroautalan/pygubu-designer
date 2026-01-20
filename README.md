@@ -1,54 +1,28 @@
 
 [Leer en Español](Documentation/README/es.md). More translations [here](Documentation/README)
 
-Welcome to Pygubu!
+Welcome to Pygubu Designer!
 ============================================
 
-`Pygubu` is a [RAD tool](https://en.wikipedia.org/wiki/Rapid_application_development) to enable _quick_ and _easy development of user interfaces_ for the Python's `tkinter` module.
+`Pygubu Designer` is a [RAD tool](https://en.wikipedia.org/wiki/Rapid_application_development) to enable _quick_ and _easy development of user interfaces_ for the Python's `tkinter` module.
 
 The user interfaces designed are saved as [XML](https://en.wikipedia.org/wiki/XML) files, and, by using the _pygubu builder_, these can be loaded by applications dynamically as needed.
 
-Pygubu is inspired by [Glade](https://gitlab.gnome.org/GNOME/glade).
+Pygubu Designer is inspired by [Glade](https://gitlab.gnome.org/GNOME/glade).
 
 Installation
 ============
 
 The latest version of pygubu requires Python >= 3.9
 
-You can install pygubu-designer using:
-
-### pip
+You can install pygubu-designer using **pip**:
 
 ```
 pip install pygubu-designer
 ```
-### Arch Linux ([AUR](https://aur.archlinux.org/packages/pygubu-designer))
-```
-yay pygubu-designer
-```
-### Notes for Windows Users:
 
-If your Python installation directory contains spaces (e.g., `C:\Program Files\Python312`), you may encounter errors. Use one of the following solutions:
+For other installation methods, please see [this page](https://github.com/alejandroautalan/pygubu-designer/wiki/Installation-&-Related).
 
-1. Use quotation marks when running commands:
-
-```
-
-"C:\Program Files\Python312\Scripts\pygubu-designer.exe"
-```
-
-2. Add Python to your system's PATH:
-- Open **System Properties** > **Environment Variables**.
-- Under **System Variables**, select `Path` > **Edit**.
-- Add the path to your Python installation (e.g., `C:\Program Files\Python312`).
-
-3. Use the short pathname format for directories with spaces:
-
-
-```
-
-C:\PROGRA~1\Python312\Scripts\pygubu-designer.exe
-```
 
 Screenshot
 ==========

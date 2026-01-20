@@ -1,19 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.41">
+<interface version="1.5" author="PygubuDesigner 0.41.4">
   <project>
     <settings />
     <customwidgets />
+    <resources />
   </project>
-  <object class="tk.Toplevel" id="mainwindow">
-    <property name="borderwidth">1</property>
+  <object class="tk.Tk" id="tk1">
     <property name="height">200</property>
-    <property name="resizable">both</property>
-    <property name="title" translatable="yes">Managers</property>
     <property name="width">200</property>
     <child>
       <object class="ttk.Frame" id="mainframe">
         <property name="height">200</property>
-        <property name="padding">2</property>
+        <property name="padding">5p</property>
         <property name="width">200</property>
         <layout manager="pack">
           <property name="expand">true</property>
@@ -23,7 +21,7 @@
         <child>
           <object class="ttk.Frame" id="Frame_2">
             <property name="height">200</property>
-            <property name="padding">0 0 0 2</property>
+            <property name="padding">0 0 0 5p</property>
             <property name="width">200</property>
             <layout manager="pack">
               <property name="expand">true</property>
@@ -31,8 +29,10 @@
               <property name="side">top</property>
             </layout>
             <containerlayout manager="grid">
-              <property type="col" id="0" name="weight">1</property>
-              <property type="col" id="1" name="weight">1</property>
+              <property type="col" id="all" name="pad">4p</property>
+              <property type="col" id="all" name="weight">1</property>
+              <property type="row" id="all" name="pad">4p</property>
+              <property type="row" id="all" name="weight">1</property>
             </containerlayout>
             <child>
               <object class="ttk.Label" id="Label_2">
@@ -44,6 +44,7 @@
                 <property name="text" translatable="yes">Grid Manager</property>
                 <layout manager="grid">
                   <property name="columnspan">2</property>
+                  <property name="row">0</property>
                   <property name="sticky">ew</property>
                 </layout>
               </object>
@@ -54,7 +55,6 @@
                 <layout manager="grid">
                   <property name="column">0</property>
                   <property name="row">1</property>
-                  <property name="sticky">nsew</property>
                 </layout>
               </object>
             </child>
@@ -64,7 +64,6 @@
                 <layout manager="grid">
                   <property name="column">1</property>
                   <property name="row">1</property>
-                  <property name="sticky">nsew</property>
                 </layout>
               </object>
             </child>
@@ -74,7 +73,6 @@
                 <layout manager="grid">
                   <property name="column">0</property>
                   <property name="row">2</property>
-                  <property name="sticky">nsew</property>
                 </layout>
               </object>
             </child>
@@ -84,7 +82,6 @@
                 <layout manager="grid">
                   <property name="column">1</property>
                   <property name="row">2</property>
-                  <property name="sticky">nsew</property>
                 </layout>
               </object>
             </child>
@@ -93,7 +90,7 @@
         <child>
           <object class="ttk.Frame" id="packedchildren">
             <property name="height">200</property>
-            <property name="padding">0 0 0 2</property>
+            <property name="padding">0 0 0 5p</property>
             <property name="width">200</property>
             <layout manager="pack">
               <property name="expand">true</property>
