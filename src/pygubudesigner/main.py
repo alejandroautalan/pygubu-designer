@@ -37,7 +37,7 @@ loglevel = getattr(logging, selected_level, logging.WARNING)
 
 logging.basicConfig(
     level=loglevel,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
     datefmt="%Y%m%d %H:%M:%S",
 )
 
