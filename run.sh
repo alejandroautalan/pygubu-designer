@@ -64,19 +64,21 @@ function create_pot {
     # Pygubu designer
     pkg_name="pygubudesigner"
     pot_path="$DESIGNER_MODULE_ROOT_DIR/data/locale/pygubu-designer.pot"
-    ui_files=$(find ${DESIGNER_MODULE_ROOT_DIR}/data/ui -name "*.ui" | sort | paste -d " ")
+    #
+    # all widgets converted to code so, no ui files needed
+    #
+    #ui_files=$(find ${DESIGNER_MODULE_ROOT_DIR}/data/ui -name "*.ui" | sort | paste -d " ")
     # echo $ui_files
-    xgettext \
-        --package-name $pkg_name \
-        --language=Glade \
-        --verbose \
-        --output=${pot_path} \
-        $ui_files
+    #xgettext \
+    #    --package-name $pkg_name \
+    #    --language=Glade \
+    #    --verbose \
+    #    --output=${pot_path} \
+    #    $ui_files
     py_files=$(find ${DESIGNER_MODULE_ROOT_DIR} -name "*.py" | sort | paste -d " ")
     # echo $py_files
     xgettext \
         --package-name $pkg_name \
-        --join-existing \
         --language=Python \
         --keyword=_ \
         --verbose \
