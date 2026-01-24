@@ -63,9 +63,9 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             ),
         }
         self.template_keys = {
-            "application": _("Script that uses UI file"),
-            "codescript": _("Script with coded UI (class)"),
-            "fnscript": _("Script with coded UI (function)"),
+            "application": _("Application that uses UI file"),
+            "codescript": _("Application with coded UI (class)"),
+            "fnscript": _("Application with coded UI (function)"),
             "widget": _("Custom widget: compound"),
             "widgetds": _("Custom widget: direct subclass"),
         }
@@ -257,6 +257,7 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             "use_window_centering_code": tk.NORMAL,
             "use_ttk_styledefinition_file": tk.NORMAL,
         }
+        self.class_name_label_var.set(_("Class name:"))
         if template == "application":
             state["import_tkvariables"] = tk.NORMAL
             state["all_ids_attributes"] = tk.DISABLED
@@ -273,6 +274,7 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             state["all_ids_attributes"] = tk.DISABLED
             state["use_window_centering_code"] = tk.DISABLED
             state["use_ttk_styledefinition_file"] = tk.DISABLED
+            self.class_name_label_var.set(_("Function name:"))
         for fname, newstate in state.items():
             if fname in self.frm_code.fields:
                 self.frm_code.fields[fname].widget.configure(state=newstate)

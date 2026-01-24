@@ -308,6 +308,7 @@
                                 <child>
                                   <object class="ttk.Label" id="label_2">
                                     <property name="text" translatable="yes">Class name:</property>
+                                    <property name="textvariable">string:class_name_label_var</property>
                                     <layout manager="pack">
                                       <property name="expand">True</property>
                                       <property name="fill">x</property>

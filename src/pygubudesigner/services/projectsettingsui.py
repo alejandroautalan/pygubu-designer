@@ -191,7 +191,10 @@ class ProjectSettingsUI:
         labelfieldinfo4.configure(style="LabelFieldInfo.TLabel")
         labelfieldinfo4.pack()
         label_2 = ttk.Label(labelframe1)
-        label_2.configure(text=_("Class name:"))
+        self.class_name_label_var = tk.StringVar(value=_("Class name:"))
+        label_2.configure(
+            text=_("Class name:"), textvariable=self.class_name_label_var
+        )
         label_2.pack(expand=True, fill="x", pady="2p 0")
         self.main_classname = Entry(
             labelframe1, name="main_classname", field_name="main_classname"
