@@ -198,6 +198,8 @@
                                 </child>
                                 <child>
                                   <object class="ttk.Label" id="label5">
+                                    <property name="font">TkHeadingFont</property>
+                                    <property name="padding">2p</property>
                                     <property name="text" translatable="yes">Template description here.</property>
                                     <property name="textvariable">string:template_desc_var</property>
                                     <layout manager="pack">
@@ -493,19 +495,9 @@
                                   <property name="side">top</property>
                                 </layout>
                                 <child>
-                                  <object class="pygubu.forms.ttkwidget.Checkbutton" id="import_tkvariables" named="True">
-                                    <property name="text" translatable="yes">Import Tk Variables</property>
-                                    <property name="variable">boolean:import_tkvariables_var</property>
-                                    <layout manager="pack">
-                                      <property name="anchor">w</property>
-                                      <property name="side">top</property>
-                                    </layout>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="pygubu.forms.ttkwidget.Checkbutton" id="use_ttk_styledefinition_file" named="True">
-                                    <property name="text" translatable="yes">Use ttk style definitions file</property>
-                                    <property name="variable">boolean:use_ttk_style_var</property>
+                                  <object class="pygubu.forms.ttkwidget.Checkbutton" id="generate_code_onsave" named="True">
+                                    <property name="text" translatable="yes">Regenerate code when saving the project</property>
+                                    <property name="variable">boolean:generate_code_onsave_var</property>
                                     <layout manager="pack">
                                       <property name="anchor">w</property>
                                       <property name="side">top</property>
@@ -533,9 +525,19 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="pygubu.forms.ttkwidget.Checkbutton" id="generate_code_onsave" named="True">
-                                    <property name="text" translatable="yes">Regenerate code when saving the project</property>
-                                    <property name="variable">boolean:generate_code_onsave_var</property>
+                                  <object class="pygubu.forms.ttkwidget.Checkbutton" id="import_tkvariables" named="True">
+                                    <property name="text" translatable="yes">Import Tk Variables</property>
+                                    <property name="variable">boolean:import_tkvariables_var</property>
+                                    <layout manager="pack">
+                                      <property name="anchor">w</property>
+                                      <property name="side">top</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="pygubu.forms.ttkwidget.Checkbutton" id="use_ttk_styledefinition_file" named="True">
+                                    <property name="text" translatable="yes">Use ttk style definitions file</property>
+                                    <property name="variable">boolean:use_ttk_style_var</property>
                                     <layout manager="pack">
                                       <property name="anchor">w</property>
                                       <property name="side">top</property>
@@ -603,7 +605,7 @@
                             <child>
                               <object class="pygubu.widgets.PathChooserButton" id="btn_stylepath_find" named="True">
                                 <property name="defaultextension">.py</property>
-                                <property name="image">mglass</property>
+                                <property name="image">path_btn_search</property>
                                 <property name="text" translatable="yes">…</property>
                                 <property name="title" translatable="yes">Select style definitions file</property>
                                 <property name="type">file</property>
@@ -618,9 +620,10 @@
                             <child>
                               <object class="pygubu.widgets.PathChooserButton" id="btn_stylepath_new" named="True">
                                 <property name="defaultextension">.py</property>
+                                <property name="image">style_add_btn</property>
                                 <property name="mustexist">false</property>
                                 <property name="text" translatable="yes">+</property>
-                                <property name="title" translatable="yes">Select style definitions file</property>
+                                <property name="title" translatable="yes">Create style definitions file</property>
                                 <property name="type">file</property>
                                 <property name="width">3</property>
                                 <bind sequence="&lt;&lt;PathChooserPathChanged&gt;&gt;" handler="on_style_new_create" add="" />
@@ -643,7 +646,7 @@
                             <child>
                               <object class="ttk.Button" id="button2">
                                 <property name="command" type="command" cbtype="simple">on_style_remove</property>
-                                <property name="image">bin-16</property>
+                                <property name="image">style_remove_btn</property>
                                 <property name="text" translatable="yes">Remove</property>
                                 <layout manager="pack">
                                   <property name="side">left</property>

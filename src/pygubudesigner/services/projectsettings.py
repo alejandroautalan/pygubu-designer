@@ -51,19 +51,23 @@ class ProjectSettings(baseui.ProjectSettingsUI):
 
         self.template_desc = {
             "application": _(
-                "Create a pygubu application script using the UI definition."
+                "Create a class based application that uses the UI definition file."
             ),
-            "codescript": _("Create a coded version of the UI definition."),
-            "widget": _("Create a base class for your custom compound widget."),
-            "widgetds": _("Create a direct subclass of a tkinter widget."),
-            "fnscript": _("Create the ui with a function."),
+            "codescript": _("Create a class based application with coded UI."),
+            "fnscript": _("Create a function based application with coded UI."),
+            "widget": _(
+                "Create a custom widget and the the object builder class file."
+            ),
+            "widgetds": _(
+                "Create a custom widget that uses a tkinter widget as parent class."
+            ),
         }
         self.template_keys = {
-            "application": _("Application"),
-            "codescript": _("Code Script"),
-            "widget": _("Custom compound widget"),
-            "widgetds": _("Widget direct subclass"),
-            "fnscript": _("Function script"),
+            "application": _("Script that uses UI file"),
+            "codescript": _("Script with coded UI (class)"),
+            "fnscript": _("Script with coded UI (function)"),
+            "widget": _("Custom widget: compound"),
+            "widgetds": _("Custom widget: direct subclass"),
         }
 
         # field = self.builder.get_object("template")
@@ -250,6 +254,8 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             "output_dir2": tk.DISABLED,
             "btn_path2_chooser": tk.DISABLED,
             "builder_namespace": tk.DISABLED,
+            "use_window_centering_code": tk.NORMAL,
+            "use_ttk_styledefinition_file": tk.NORMAL,
         }
         if template == "application":
             state["import_tkvariables"] = tk.NORMAL
@@ -261,6 +267,12 @@ class ProjectSettings(baseui.ProjectSettingsUI):
             state["output_dir2"] = tk.NORMAL
             state["btn_path2_chooser"] = tk.NORMAL
             state["builder_namespace"] = tk.NORMAL
+            state["use_window_centering_code"] = tk.DISABLED
+            state["use_ttk_styledefinition_file"] = tk.DISABLED
+        elif template == "fnscript":
+            state["all_ids_attributes"] = tk.DISABLED
+            state["use_window_centering_code"] = tk.DISABLED
+            state["use_ttk_styledefinition_file"] = tk.DISABLED
         for fname, newstate in state.items():
             if fname in self.frm_code.fields:
                 self.frm_code.fields[fname].widget.configure(state=newstate)

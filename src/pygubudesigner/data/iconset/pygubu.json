@@ -221,6 +221,16 @@
       "fn": "ta-search.svg",
       "uid": "path_btn_search",
       "width": 20
+    },
+    {
+      "fn": "ta-trash.svg",
+      "uid": "style_remove_btn",
+      "width": 20
+    },
+    {
+      "fn": "ta-file-plus.svg",
+      "uid": "style_add_btn",
+      "width": 20
     }
   ],
   "custom_files": {}

@@ -1,4 +1,11 @@
 #!/usr/bin/python3
+"""
+Project settings dialog
+
+Designer Project Settings dialog.
+
+UI source file: project_settings.ui
+"""
 import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.forms.pygubuwidget import PygubuCombobox
@@ -15,17 +22,17 @@ from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 from pygubu.widgets.scrolledframe import ScrolledFrame
 
 
-def i18n_translator_noop(value):
+def safe_i18n_translator(value):
     """i18n - Setup translator in derived class file"""
     return value
 
 
-def first_object_callback_noop(widget):
+def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
     pass
 
 
-def image_loader_default(master, image_name: str):
+def safe_image_loader(master, image_name: str):
     """Image loader - Setup image_loader in derived class file."""
     img = None
     try:
@@ -46,12 +53,12 @@ class ProjectSettingsUI:
         image_loader=None,
     ):
         if translator is None:
-            translator = i18n_translator_noop
+            translator = safe_i18n_translator
         _ = translator  # i18n string marker.
         if image_loader is None:
-            image_loader = image_loader_default
+            image_loader = safe_image_loader
         if on_first_object_cb is None:
-            on_first_object_cb = first_object_callback_noop
+            on_first_object_cb = safe_fo_callback
         # build ui
         self.settingsdialog = Dialog(master)
         self.settingsdialog.configure(height=100, modal=True, width=200)
@@ -135,6 +142,8 @@ class ProjectSettingsUI:
             value=_("Template description here.")
         )
         label5.configure(
+            font="TkHeadingFont",
+            padding="2p",
             text=_("Template description here."),
             textvariable=self.template_desc_var,
         )
@@ -278,6 +287,34 @@ class ProjectSettingsUI:
         labelframe2.pack(fill="x", side="top")
         frame2 = ttk.Frame(self.frm_code)
         frame2.configure(height=200, padding="0 5p 0 0", width=200)
+        self.generate_code_onsave = Checkbutton(
+            frame2,
+            name="generate_code_onsave",
+            field_name="generate_code_onsave",
+        )
+        self.generate_code_onsave_var = tk.BooleanVar()
+        self.generate_code_onsave.configure(
+            text=_("Regenerate code when saving the project"),
+            variable=self.generate_code_onsave_var,
+        )
+        self.generate_code_onsave.pack(anchor="w", side="top")
+        self.use_i18n = Checkbutton(
+            frame2, name="use_i18n", field_name="use_i18n"
+        )
+        self.use_i18n_var = tk.BooleanVar()
+        self.use_i18n.configure(
+            text=_("Add i18n support"), variable=self.use_i18n_var
+        )
+        self.use_i18n.pack(anchor="w", side="top")
+        self.all_ids_attributes = Checkbutton(
+            frame2, name="all_ids_attributes", field_name="all_ids_attributes"
+        )
+        self.all_ids_attr_var = tk.BooleanVar()
+        self.all_ids_attributes.configure(
+            text=_("All IDs as class attributes"),
+            variable=self.all_ids_attr_var,
+        )
+        self.all_ids_attributes.pack(anchor="w", side="top")
         self.import_tkvariables = Checkbutton(
             frame2, name="import_tkvariables", field_name="import_tkvariables"
         )
@@ -297,34 +334,6 @@ class ProjectSettingsUI:
             variable=self.use_ttk_style_var,
         )
         self.use_ttk_styledefinition_file.pack(anchor="w", side="top")
-        self.use_i18n = Checkbutton(
-            frame2, name="use_i18n", field_name="use_i18n"
-        )
-        self.use_i18n_var = tk.BooleanVar()
-        self.use_i18n.configure(
-            text=_("Add i18n support"), variable=self.use_i18n_var
-        )
-        self.use_i18n.pack(anchor="w", side="top")
-        self.all_ids_attributes = Checkbutton(
-            frame2, name="all_ids_attributes", field_name="all_ids_attributes"
-        )
-        self.all_ids_attr_var = tk.BooleanVar()
-        self.all_ids_attributes.configure(
-            text=_("All IDs as class attributes"),
-            variable=self.all_ids_attr_var,
-        )
-        self.all_ids_attributes.pack(anchor="w", side="top")
-        self.generate_code_onsave = Checkbutton(
-            frame2,
-            name="generate_code_onsave",
-            field_name="generate_code_onsave",
-        )
-        self.generate_code_onsave_var = tk.BooleanVar()
-        self.generate_code_onsave.configure(
-            text=_("Regenerate code when saving the project"),
-            variable=self.generate_code_onsave_var,
-        )
-        self.generate_code_onsave.pack(anchor="w", side="top")
         self.use_window_centering_code = Checkbutton(
             frame2,
             name="use_window_centering_code",
@@ -367,10 +376,9 @@ class ProjectSettingsUI:
         self.btn_stylepath_find = PathChooserButton(
             frame4, name="btn_stylepath_find"
         )
-        self.img_mglass = image_loader(self.settingsdialog.toplevel, "mglass")
         self.btn_stylepath_find.configure(
             defaultextension=".py",
-            image=self.img_mglass,
+            image=self.img_path_btn_search,
             text=_("…"),
             title=_("Select style definitions file"),
             type="file",
@@ -383,11 +391,15 @@ class ProjectSettingsUI:
         self.btn_stylepath_new = PathChooserButton(
             frame4, name="btn_stylepath_new"
         )
+        self.img_style_add_btn = image_loader(
+            self.settingsdialog.toplevel, "style_add_btn"
+        )
         self.btn_stylepath_new.configure(
             defaultextension=".py",
+            image=self.img_style_add_btn,
             mustexist=False,
             text=_("+"),
-            title=_("Select style definitions file"),
+            title=_("Create style definitions file"),
             type="file",
             width=3,
         )
@@ -399,8 +411,10 @@ class ProjectSettingsUI:
         separator1.configure(orient="vertical")
         separator1.pack(fill="y", padx="5p", side="left")
         button2 = ttk.Button(frame4)
-        self.img_bin16 = image_loader(self.settingsdialog.toplevel, "bin-16")
-        button2.configure(image=self.img_bin16, text=_("Remove"))
+        self.img_style_remove_btn = image_loader(
+            self.settingsdialog.toplevel, "style_remove_btn"
+        )
+        button2.configure(image=self.img_style_remove_btn, text=_("Remove"))
         button2.pack(side="left")
         button2.configure(command=self.on_style_remove)
         frame4.pack(fill="x", side="top")
