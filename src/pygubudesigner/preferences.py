@@ -4,6 +4,7 @@ import logging
 import json
 import platformdirs as pdirs
 
+from datetime import datetime
 from pathlib import Path
 from enum import auto
 
@@ -51,6 +52,20 @@ default_config = {
 
 
 class AppPreferences:
+
+    @staticmethod
+    def _json_serialize(obj):
+        if isinstance(obj, datetime):
+            return {"_isoformat": obj.isoformat()}
+        raise TypeError("Type not serializable")
+
+    @staticmethod
+    def _json_hook(obj):
+        _isoformat = obj.get("_isoformat")
+        if _isoformat is not None:
+            return datetime.fromisoformat(_isoformat)
+        return obj
+
     def __init__(self):
         self.config = {}
 
@@ -63,14 +78,14 @@ class AppPreferences:
     def load(self):
         with CONFIG_FILE.open() as cfile:
             try:
-                self.config = json.load(cfile)
+                self.config = json.load(cfile, object_hook=self._json_hook)
             except json.JSONDecodeError as e:
                 msg = f"Error in config file {CONFIG_FILE}"
                 raise RuntimeError(msg) from e
 
     def save(self, data: dict):
         with CONFIG_FILE.open("w") as cfile:
-            json.dump(data, cfile, indent=2)
+            json.dump(data, cfile, indent=2, default=self._json_serialize)
 
     def create_file(self):
         if not USER_DATA_DIR.exists():
