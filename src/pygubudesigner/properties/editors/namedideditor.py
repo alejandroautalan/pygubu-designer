@@ -13,10 +13,10 @@
 import keyword
 import re
 import tkinter.ttk as ttk
-from pygubu.stockimage import StockImage
 import pygubu.widgets.simpletooltip as tooltip
 from .propertyeditor import PropertyEditor, register_editor
 from pygubudesigner.i18n import _
+from pygubudesigner.services.image_loader import iconset_loader
 
 
 class NamedIDPropertyEditor(PropertyEditor):
@@ -25,7 +25,7 @@ class NamedIDPropertyEditor(PropertyEditor):
         self._entry = entry = ttk.Entry(self, textvariable=self._variable)
         entry.grid(sticky="we")
         self._btn_reset = ttk.Button(self)
-        img = StockImage.get("bin-16")
+        img = iconset_loader(self, "named_id_delete")
         self._btn_reset.configure(
             text="×",
             image=img,

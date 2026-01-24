@@ -3,11 +3,11 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import logging
 from dataclasses import dataclass
-from pygubu.stockimage import StockImage, StockImageException
 from pygubudesigner.preferences import preferences
 from pygubudesigner.services.theming import get_ttk_style
 from pygubudesigner.services.image_loader import match_icons_with_theme
 from pygubudesigner.util import get_linespace
+from pygubudesigner.services.image_loader import iconset_loader
 
 
 logger = logging.getLogger(__name__)
@@ -18,7 +18,7 @@ class ImgLazyLoader:
         self.name = name
 
     def __str__(self):
-        return str(StockImage.get(self.name))
+        return str(iconset_loader(None, self.name))
 
 
 class RowHeightLazy:
@@ -56,12 +56,12 @@ designer_dboptions = {
 designer_settings = {
     "ColorSelectorButton.Toolbutton": {
         "configure": {
-            "image": ImgLazyLoader("mglass"),
+            "image": ImgLazyLoader("color_picker"),
         }
     },
     "ImageSelectorButton.Toolbutton": {
         "configure": {
-            "image": ImgLazyLoader("mglass"),
+            "image": ImgLazyLoader("image_search"),
         }
     },
     "ComponentPalette.Toolbutton": {

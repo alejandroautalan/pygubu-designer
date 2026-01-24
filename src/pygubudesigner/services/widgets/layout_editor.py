@@ -7,30 +7,17 @@ from tkinter import messagebox
 
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
-from pygubu.stockimage import StockImage
 
 from pygubudesigner import properties
-from pygubudesigner.i18n import translator as _
+from pygubudesigner.i18n import translator, translator as _
 from pygubudesigner.services.widgets.properties_editor import (
     PropertiesEditorMixin,
 )
+from pygubudesigner.services.image_loader import iconset_loader
 import pygubudesigner.services.widgets.layout_editorui as baseui
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
-
-# i18n - Setup yout translator function
-baseui.i18n_translator = _
-
-#
-# image loader configuration
-
-
-def image_loader(image_name):
-    return StockImage.get(image_name)
-
-
-baseui.image_loader = image_loader
 
 #
 # Manual user code
@@ -66,7 +53,9 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
     managers = dict(zip(managers_keys, managers_labels))
 
     def __init__(self, master=None, **kw):
-        super().__init__(master, **kw)
+        super().__init__(
+            master, translator=translator, image_loader=iconset_loader, **kw
+        )
         # To mantain container options:
         self._container_options = {}
 

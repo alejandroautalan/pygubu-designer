@@ -231,6 +231,35 @@
       "fn": "ta-file-plus.svg",
       "uid": "style_add_btn",
       "width": 20
+    },
+    {
+      "fn": "ta-arrows-minimize.svg",
+      "uid": "layout_expand_reset"
+    },
+    {
+      "fn": "ta-arrows-maximize.svg",
+      "uid": "layout_expand_all"
+    },
+    {
+      "fn": "ta-arrow-autofit-width.svg",
+      "uid": "layout_expand_width"
+    },
+    {
+      "fn": "ta-arrow-autofit-height.svg",
+      "uid": "layout_expand__height"
+    },
+    {
+      "fn": "ta-photo-search.svg",
+      "uid": "image_search"
+    },
+    {
+      "fn": "ta-color-picker.svg",
+      "uid": "color_picker"
+    },
+    {
+      "fn": "ta-trash.svg",
+      "uid": "named_id_delete",
+      "width": 20
     }
   ],
   "custom_files": {}

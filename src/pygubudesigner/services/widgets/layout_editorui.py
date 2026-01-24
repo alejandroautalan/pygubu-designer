@@ -1,4 +1,11 @@
 #!/usr/bin/python3
+"""
+New Layout Editor class
+
+Redesign of layout editor.
+
+UI source file: layout_editor.ui
+"""
 import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.widgets.scrolledframe import ScrolledFrame
@@ -10,49 +17,61 @@ from pygubudesigner.services.widgets.containerlayouteditor import (
 )
 
 
-#
-# Begin i18n - Setup translator in derived class file
-#
-def i18n_noop(value):
+def safe_i18n_translator(value):
+    """i18n - Setup translator in derived class file"""
     return value
 
 
-i18n_translator = i18n_noop
-# End i18n
-#
-# Begin image loader - Setup image_loader in derived class file
-#
+def safe_fo_callback(widget):
+    """on first objec callback - Setup callback in derived class file."""
+    pass
 
 
-def default_image_loader(image_name):
+def safe_image_loader(master, image_name: str):
+    """Image loader - Setup image_loader in derived class file."""
     img = None
     try:
-        img = tk.PhotoImage(file=image_name)
+        img = tk.PhotoImage(file=image_name, master=master)
     except tk.TclError:
         pass
     return img
 
 
-image_loader = default_image_loader
-# End image loader
-
 #
 # Base class definition
 #
-
-
 class LayoutEditorUI(ttk.Frame):
-    def __init__(self, master=None, **kw):
+    def __init__(
+        self,
+        master=None,
+        *,
+        translator=None,
+        on_first_object_cb=None,
+        data_pool=None,
+        image_loader=None,
+        **kw,
+    ):
+        if translator is None:
+            translator = safe_i18n_translator
+        _ = translator  # i18n string marker.
+        if image_loader is None:
+            image_loader = safe_image_loader
+        if on_first_object_cb is None:
+            on_first_object_cb = safe_fo_callback
+
         super().__init__(master, **kw)
-        _ = i18n_translator  # i18n string marker.
+
         self.sframe = ScrolledFrame(self, scrolltype="both", name="sframe")
         self.sframe.configure(usemousewheel=True)
+        # First object created
+        on_first_object_cb(self.sframe)
+
         self.ftoolbar = ttk.Frame(self.sframe.innerframe, name="ftoolbar")
         self.ftoolbar.configure(height=200, padding="0 0 0 10p", width=200)
         self.expand_reset = ttk.Button(self.ftoolbar, name="expand_reset")
-        self.img_arrowsminimize24 = image_loader("arrows-minimize-24")
+        self.img_layout_expand_reset = image_loader(None, "layout_expand_reset")
         self.expand_reset.configure(
-            image=self.img_arrowsminimize24,
+            image=self.img_layout_expand_reset,
             style="Toolbutton",
             takefocus=True,
             text=_("ER"),
@@ -65,9 +84,9 @@ class LayoutEditorUI(ttk.Frame):
 
         self.expand_reset.configure(command=expand_reset_cmd_)
         self.expand_all = ttk.Button(self.ftoolbar, name="expand_all")
-        self.img_arrowsmaximize24 = image_loader("arrows-maximize-24")
+        self.img_layout_expand_all = image_loader(None, "layout_expand_all")
         self.expand_all.configure(
-            image=self.img_arrowsmaximize24,
+            image=self.img_layout_expand_all,
             style="Toolbutton",
             takefocus=True,
             text=_("EA"),
@@ -80,9 +99,9 @@ class LayoutEditorUI(ttk.Frame):
 
         self.expand_all.configure(command=expand_all_cmd_)
         self.expand_width = ttk.Button(self.ftoolbar, name="expand_width")
-        self.img_arrowautofitwidth24 = image_loader("arrow-autofit-width-24")
+        self.img_layout_expand_width = image_loader(None, "layout_expand_width")
         self.expand_width.configure(
-            image=self.img_arrowautofitwidth24,
+            image=self.img_layout_expand_width,
             style="Toolbutton",
             takefocus=True,
             text=_("EW"),
@@ -95,9 +114,11 @@ class LayoutEditorUI(ttk.Frame):
 
         self.expand_width.configure(command=expand_width_cmd_)
         self.expand_height = ttk.Button(self.ftoolbar, name="expand_height")
-        self.img_arrowautofitheight24 = image_loader("arrow-autofit-height-24")
+        self.img_layout_expand__height = image_loader(
+            None, "layout_expand__height"
+        )
         self.expand_height.configure(
-            image=self.img_arrowautofitheight24,
+            image=self.img_layout_expand__height,
             style="Toolbutton",
             takefocus=True,
             text=_("EH"),
@@ -131,7 +152,7 @@ class LayoutEditorUI(ttk.Frame):
         self.cleditor.grid(column=0, pady="5p 0", row=2, sticky="ew")
         self.sframe.pack(expand=True, fill="both", side="top")
         self.configure(height="580p", padding="2p", width="280p")
-        self.pack(expand=True, fill="both", side="top")
+        # Layout for 'fmain' skipped in custom widget template.
 
     def btn_expand_clicked(self, widget_id):
         pass

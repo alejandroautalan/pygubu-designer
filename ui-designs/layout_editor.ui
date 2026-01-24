@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.40.1">
+<interface version="1.5" author="PygubuDesigner 0.41.4">
   <project>
     <settings>
       <setting id="name">New Layout Editor class</setting>
@@ -23,6 +23,7 @@
       <customwidget path="./builders/layoutmanagerpebo.py" />
       <customwidget path="./builders/containerlayouteditorbo.py" />
     </customwidgets>
+    <resources />
   </project>
   <object class="ttk.Frame" id="fmain" named="True">
     <property name="height">580p</property>
@@ -58,7 +59,7 @@
             <child>
               <object class="ttk.Button" id="expand_reset" named="True">
                 <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
-                <property name="image">arrows-minimize-24</property>
+                <property name="image">layout_expand_reset</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">ER</property>
@@ -72,7 +73,7 @@
             <child>
               <object class="ttk.Button" id="expand_all" named="True">
                 <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
-                <property name="image">arrows-maximize-24</property>
+                <property name="image">layout_expand_all</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EA</property>
@@ -86,7 +87,7 @@
             <child>
               <object class="ttk.Button" id="expand_width" named="True">
                 <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
-                <property name="image">arrow-autofit-width-24</property>
+                <property name="image">layout_expand_width</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EW</property>
@@ -100,7 +101,7 @@
             <child>
               <object class="ttk.Button" id="expand_height" named="True">
                 <property name="command" type="command" cbtype="with_wid">btn_expand_clicked</property>
-                <property name="image">arrow-autofit-height-24</property>
+                <property name="image">layout_expand__height</property>
                 <property name="style">Toolbutton</property>
                 <property name="takefocus">true</property>
                 <property name="text" translatable="yes">EH</property>
