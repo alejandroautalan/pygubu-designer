@@ -1,7 +1,22 @@
 History
 =======
 
-Changes for next version
+Changes for version 0.43
+
+  * Rewrite preferences module. Use json format to store application settings.
+  * Rewrite recent files manager.
+  * Added option to restart designer: File > Restart
+  * Added new icons to the general interface.
+  * Improve project setting dialog.
+  * Renamed code templates.
+  * Added new code template: Application with coded UI (function)
+  * Move common file related actions to new module.
+  * Allow to configure global log level with 'LOGLEVEL' env variable.
+  * Fix applying user styles in toplevel previews.
+  * Improved project tree panel. Filtering is done in separate treeview.
+  * Improved custom widget templates.
+
+Changes for version 0.42
 
   * Dropping support for Python 3.8 (was already not installable)
   * Modified code templates. Make easy to configure parent class from derived.
