@@ -58,6 +58,8 @@ ${callbacks}\
 if __name__ == "__main__":
     root = tk.Tk()
     widget = ${class_name}(root)
+% if not main_widget_is_toplevel:
     widget.pack(expand=True, fill="both")
+% endif
     root.mainloop()
 </%block>

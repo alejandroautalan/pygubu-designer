@@ -1453,7 +1453,7 @@ class WidgetsTreeEditor:
             else:
                 main_widget[data.identifier] = label
                 bo = CLASS_MAP[data.classname].builder
-                if issubclass(bo.class_, tk.Widget):
+                if issubclass(bo.class_, (tk.Widget, tk.Toplevel)):
                     custom_widget[data.identifier] = label
                 (
                     child_is_candidate,
