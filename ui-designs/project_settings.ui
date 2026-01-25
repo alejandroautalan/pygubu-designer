@@ -302,7 +302,10 @@
                                   <object class="pygubu.forms.ttkwidget.LabelWidgetInfo" id="labelfieldinfo4">
                                     <property name="field_name">module_name</property>
                                     <property name="style">LabelFieldInfo.TLabel</property>
-                                    <layout manager="pack" />
+                                    <layout manager="pack">
+                                      <property name="expand">True</property>
+                                      <property name="fill">x</property>
+                                    </layout>
                                   </object>
                                 </child>
                                 <child>

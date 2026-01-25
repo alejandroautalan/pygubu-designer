@@ -189,7 +189,7 @@ class ProjectSettingsUI:
         self.module_name.pack(fill="x", ipady="1p")
         labelfieldinfo4 = LabelWidgetInfo(labelframe1, field_name="module_name")
         labelfieldinfo4.configure(style="LabelFieldInfo.TLabel")
-        labelfieldinfo4.pack()
+        labelfieldinfo4.pack(expand=True, fill="x")
         label_2 = ttk.Label(labelframe1)
         self.class_name_label_var = tk.StringVar(value=_("Class name:"))
         label_2.configure(
