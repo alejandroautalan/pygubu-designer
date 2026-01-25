@@ -2,7 +2,7 @@
 [Leer en Español](Documentation/README/es.md). More translations [here](Documentation/README)
 
 Welcome to Pygubu Designer!
-============================================
+===========================
 
 `Pygubu Designer` is a [RAD tool](https://en.wikipedia.org/wiki/Rapid_application_development) to enable _quick_ and _easy development of user interfaces_ for the Python's `tkinter` module.
 
@@ -33,6 +33,24 @@ Screenshot
 Usage
 =====
 
+Pygubu designer supports two types of workflow. The first and classic method is creating an application that uses the "*.ui" file that defines your user interface.
+
+In the classic mode, pygubu is in charge of creating the widgets and connecting defined bindings. I recommend this mode for apps that have one or a few windows, but you can use it for creating apps of any complexity (Pygubu Designer it self was created with this mode, but now uses the new one). This method uses a class based approach where your code lives in the derived class and the base class is updated by pygubu designer.
+
+The second method is to create an app with a coded version of the *.ui file. Using the same class based approach mentioned above, pygubu designer generates the python code for the base class and you write the app logic in the derived class.
+
+Generating the code for the UI has some benefits:
+
+- The *.ui file is not required at runtime
+- Allows you to create pure tkinter apps, if you do not use any pygubu widget (eliminating pygubu dependency).
+- Easy creation of custom widgets.
+
+Whichever you choose, you can always modify the user interface using pygubu designer.
+
+
+Starting Pygubu Designer
+------------------------
+
 Type on the terminal one of the following commands depending on your system.
 
 ### Unix-like systems
@@ -41,119 +59,7 @@ Type on the terminal one of the following commands depending on your system.
 pygubu-designer
 ```
 
-### Windows
-
-```
-C:\Python3\Scripts\pygubu-designer.exe
-```
-
-Where `C:\Python3` is the path to **your** Python installation directory.
-
-Now, you can start creating your tkinter application using the widgets that you
-find in the top panel called `Widget Palette`.
-
-After you finished creating your _UI definition_, save it to a `.ui` file by
-going to the top menu `File > Save`.
-
-The following is a UI definition example called
-[helloworld.ui](examples/helloworld/helloworld.ui) created using pygubu:
-
-
-```xml
-<?xml version='1.0' encoding='utf-8'?>
-<interface version="1.2">
-  <object class="tk.Toplevel" id="mainwindow">
-    <property name="height">200</property>
-    <property name="resizable">both</property>
-    <property name="title" translatable="yes">Hello World App</property>
-    <property name="width">200</property>
-    <child>
-      <object class="ttk.Frame" id="mainframe">
-        <property name="height">200</property>
-        <property name="padding">20</property>
-        <property name="width">200</property>
-        <layout manager="pack">
-          <property name="expand">true</property>
-          <property name="side">top</property>
-        </layout>
-        <child>
-          <object class="ttk.Label" id="label1">
-            <property name="anchor">center</property>
-            <property name="font">Helvetica 26</property>
-            <property name="foreground">#0000b8</property>
-            <property name="text" translatable="yes">Hello World !</property>
-            <layout manager="pack">
-              <property name="side">top</property>
-            </layout>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
-</interface>
-```
-
-Then, you should create your _application script_ as shown below
-([helloworld.py](examples/helloworld/helloworld.py)):
-
-```python
-# helloworld.py
-import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
-import pygubu
-
-PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "helloworld.ui"
-
-
-class HelloworldApp:
-    def __init__(self, master=None):
-        # 1: Create a builder and setup resources path (if you have images)
-        self.builder = builder = pygubu.Builder()
-        builder.add_resource_path(PROJECT_PATH)
-
-        # 2: Load an ui file
-        builder.add_from_file(PROJECT_UI)
-
-        # 3: Create the mainwindow
-        self.mainwindow = builder.get_object('mainwindow', master)
-
-        # 4: Connect callbacks
-        builder.connect_callbacks(self)
-
-    def run(self):
-        self.mainwindow.mainloop()
-
-
-if __name__ == '__main__':
-    app = HelloworldApp()
-    app.run()
-
-```
-
-Note that instead of `helloworld.ui` in the following line:
-
-```python
-PROJECT_UI = PROJECT_PATH / "helloworld.ui"
-```
-
-You should insert the _filename_ (or path) of your just saved UI definition.
-
-
-Note also that instead of `'mainwindow'` in the following line:
-
-```python
-self.mainwindow = builder.get_object('mainwindow', master)
-```
-
-You should have the name of your _main widget_ (the parent of all widgets),
-otherwise you will get an error similar to the following:
-
-    Exception: Widget not defined.
-
-See [this](https://github.com/alejandroautalan/pygubu/issues/40) issue for
-more information.
+For other platforms see [this page](https://github.com/alejandroautalan/pygubu-designer/wiki/Launch).
 
 
 Documentation
