@@ -74,7 +74,7 @@ class ProjectSettingsUI:
         frame9.configure(height=200, width=200)
         self.settings_notebook = ttk.Notebook(frame9, name="settings_notebook")
         self.settings_notebook.configure(
-            height="350p", style="ProjectSettings.TNotebook", width="480p"
+            height=350, style="ProjectSettings.TNotebook", width=480
         )
         self.frm_general = FrameFormBuilder(
             self.settings_notebook, name="frm_general", field_name="frm_general"
