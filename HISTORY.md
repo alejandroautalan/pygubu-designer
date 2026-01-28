@@ -1,6 +1,11 @@
 History
 =======
 
+Changes for version 0.43.1
+
+  * Fix for issue #316, incorrect parameter values width and height for tk.Notebook
+  * Fix timestamp error on Windows OS, that affected recent files listing.
+
 Changes for version 0.43
 
   * Rewrite preferences module. Use json format to store application settings.
