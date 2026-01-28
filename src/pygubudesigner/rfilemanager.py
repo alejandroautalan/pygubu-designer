@@ -50,7 +50,7 @@ class RecentFilesManager:
         FCOUNT = 0
         FDATE = 1
         today_date = datetime.now().date()
-        long_time = datetime.fromisoformat("19010101").timestamp()
+        long_time = datetime.fromisoformat("19800915").timestamp()
 
         def generate_sort_key(pair):
             # files used today first, then older files by usage count.
