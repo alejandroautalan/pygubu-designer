@@ -49,9 +49,9 @@
             </layout>
             <child>
               <object class="ttk.Notebook" id="Notebook_1">
-                <property name="height">260p</property>
+                <property name="height">340</property>
                 <property name="style">ProjectSettings.TNotebook</property>
-                <property name="width">350p</property>
+                <property name="width">350</property>
                 <layout manager="pack">
                   <property name="expand">true</property>
                   <property name="fill">both</property>

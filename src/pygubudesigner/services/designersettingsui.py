@@ -1,4 +1,11 @@
 #!/usr/bin/python3
+"""
+Designer settings dialog
+
+Designer Settings dialog.
+
+UI source file: designer_settings.ui
+"""
 import tkinter as tk
 import tkinter.ttk as ttk
 from pygubu.forms.pygubuwidget import PygubuCombobox
@@ -6,17 +13,17 @@ from pygubu.forms.ttkwidget import Checkbutton, FrameFormBuilder
 from pygubu.widgets.dialog import Dialog
 
 
-def i18n_translator_noop(value):
+def safe_i18n_translator(value):
     """i18n - Setup translator in derived class file"""
     return value
 
 
-def first_object_callback_noop(widget):
+def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
     pass
 
 
-def image_loader_default(master, image_name: str):
+def safe_image_loader(master, image_name: str):
     """Image loader - Setup image_loader in derived class file."""
     img = None
     try:
@@ -37,12 +44,12 @@ class DesignerSettingsUI:
         image_loader=None,
     ):
         if translator is None:
-            translator = i18n_translator_noop
+            translator = safe_i18n_translator
         _ = translator  # i18n string marker.
         if image_loader is None:
-            image_loader = image_loader_default
+            image_loader = safe_image_loader
         if on_first_object_cb is None:
-            on_first_object_cb = first_object_callback_noop
+            on_first_object_cb = safe_fo_callback
         # build ui
         preferences = Dialog(master)
         preferences.configure(height=200, modal=True, width=200)
@@ -61,7 +68,7 @@ class DesignerSettingsUI:
         )
         Notebook_1 = ttk.Notebook(self.ffb_settings)
         Notebook_1.configure(
-            height="260p", style="ProjectSettings.TNotebook", width="350p"
+            height=340, style="ProjectSettings.TNotebook", width=350
         )
         frame4 = ttk.Frame(Notebook_1)
         frame4.configure(height=200, width=200)
