@@ -1479,7 +1479,10 @@ class WidgetsTreeEditor:
             classname = self.treedata[child].classname
             identifier = self.treedata[child].identifier
             bo = CLASS_MAP[classname].builder
-            if issubclass(bo.class_, tk.Widget):
+            # Note: bo.class_ can be None for some plugins,
+            # because the way widgets where implemented.
+            # for example: ThemedTkinterWidgets
+            if bo.class_ is not None and issubclass(bo.class_, tk.Widget):
                 is_candidate = True
                 label = f"{identifier} ({classname})"
         return is_candidate, identifier, label
