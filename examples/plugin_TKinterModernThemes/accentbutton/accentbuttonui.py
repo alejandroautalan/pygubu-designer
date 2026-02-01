@@ -1,30 +1,43 @@
 #!/usr/bin/python3
+"""
+TKMT AccentButton
+
+AccentButton example.
+
+UI source file: accentbutton.ui
+"""
 import pathlib
 import tkinter as tk
+import TKinterModernThemes as tkmt
 import pygubu
-
-PROJECT_PATH = pathlib.Path(__file__).parent
-PROJECT_UI = PROJECT_PATH / "accentbutton.ui"
-RESOURCE_PATHS = [PROJECT_PATH]
 
 
 class AppUI:
-    def __init__(self, master=None):
-        self.builder = pygubu.Builder()
-        self.builder.add_resource_paths(RESOURCE_PATHS)
-        self.builder.add_from_file(PROJECT_UI)
+    def __init__(
+        self,
+        master=None,
+        *,
+        project_ui,
+        resource_paths=None,
+        translator=None,
+        on_first_object_cb=None,
+        data_pool=None,
+    ):
+        self.builder = pygubu.Builder(
+            translator=translator,
+            on_first_object=on_first_object_cb,
+            data_pool=data_pool,
+        )
+        self.builder.add_from_file(project_ui)
+        if resource_paths is not None:
+            self.builder.add_resource_paths(resource_paths)
         # Main widget
-        self.mainwindow = self.builder.get_object("themedtkinterframe1", master)
-        self.builder.connect_callbacks(self)
+        self.mainwindow: tkmt.ThemedTKinterFrame = self.builder.get_object(
+            "themedtkinterframe1", master
+        )
 
     def run(self):
         self.mainwindow.mainloop()
 
     def handle_btn_click(self):
         pass
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = AppUI(root)
-    app.run()

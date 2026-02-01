@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """
-HtmlLabel demo
+Hello world
 
-Simple HtmlLabel example.
+Very basic hello world example, using *.ui file.
 
-UI source file: demo_label.ui
+UI source file: helloworld.ui
 """
 import pathlib
 import tkinter as tk
@@ -12,7 +12,7 @@ import tkinter.ttk as ttk
 import pygubu
 
 
-class DemoAppUI:
+class HelloAppUI:
     def __init__(
         self,
         master=None,

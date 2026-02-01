@@ -1,18 +1,18 @@
 #!/usr/bin/python3
 """
-HtmlLabel demo
+Simple demo
 
-Simple HtmlLabel example.
+Customtkinter simple demo.
 
-UI source file: demo_label.ui
+UI source file: simple_demo.ui
 """
 import pathlib
 import tkinter as tk
-import tkinter.ttk as ttk
+import customtkinter
 import pygubu
 
 
-class DemoAppUI:
+class SimpleDemoAppUI:
     def __init__(
         self,
         master=None,
@@ -32,7 +32,18 @@ class DemoAppUI:
         if resource_paths is not None:
             self.builder.add_resource_paths(resource_paths)
         # Main widget
-        self.mainwindow: tk.Tk = self.builder.get_object("tk1", master)
+        self.mainwindow: customtkinter.CTk = self.builder.get_object(
+            "ctk1", master
+        )
+
+        self.radiobutton_var: tk.StringVar = None
+        self.builder.import_variables(self)
 
     def run(self):
         self.mainwindow.mainloop()
+
+    def button_callback(self):
+        pass
+
+    def slider_callback(self, value):
+        pass

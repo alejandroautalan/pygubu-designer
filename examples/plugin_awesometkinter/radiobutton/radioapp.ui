@@ -1,25 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.4" author="PygubuDesigner 0.39.3">
+<interface version="1.5" author="PygubuDesigner 0.41.4">
   <project>
     <settings>
       <setting id="name">Radiobutton Example</setting>
       <setting id="description">Awesome tkinter radiobutton example.</setting>
-      <setting id="module_name">radiobutton</setting>
       <setting id="template">application</setting>
       <setting id="main_widget">tk1</setting>
+      <setting id="module_namespace" />
+      <setting id="module_name">radiobutton</setting>
       <setting id="main_classname">RadiobuttonApp</setting>
-      <setting id="main_menu" />
       <setting id="output_dir" />
+      <setting id="builder_namespace">custom_widgets</setting>
       <setting id="output_dir2" />
-      <setting id="import_tkvariables">True</setting>
-      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="generate_code_onsave">False</setting>
       <setting id="use_i18n">False</setting>
       <setting id="all_ids_attributes">False</setting>
-      <setting id="generate_code_onsave">True</setting>
+      <setting id="import_tkvariables">True</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
       <setting id="use_window_centering_code">False</setting>
       <setting id="ttk_style_definition_file" />
     </settings>
     <customwidgets />
+    <resources />
   </project>
   <object class="tk.Tk" id="tk1">
     <property name="height">200</property>

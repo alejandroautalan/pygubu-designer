@@ -1,18 +1,18 @@
 #!/usr/bin/python3
 """
-Radiobutton Example
+Complex demo
 
-Awesome tkinter radiobutton example.
+Customtkinter complex demo.
 
-UI source file: radioapp.ui
+UI source file: complex_demo.ui
 """
 import pathlib
 import tkinter as tk
-import tkinter.ttk as ttk
+import customtkinter
 import pygubu
 
 
-class RadiobuttonAppUI:
+class ComplexDemoAppUI:
     def __init__(
         self,
         master=None,
@@ -32,10 +32,32 @@ class RadiobuttonAppUI:
         if resource_paths is not None:
             self.builder.add_resource_paths(resource_paths)
         # Main widget
-        self.mainwindow: tk.Tk = self.builder.get_object("tk1", master)
+        self.mainwindow: customtkinter.CTk = self.builder.get_object(
+            "ctk1", master
+        )
 
-        self.rbutton_var: tk.StringVar = None
+        self.appearance_var: tk.StringVar = None
+        self.scaling_var: tk.StringVar = None
+        self.radio_var: tk.StringVar = None
         self.builder.import_variables(self)
 
     def run(self):
         self.mainwindow.mainloop()
+
+    def sidebar_button_event(self):
+        pass
+
+    def change_appearance_mode_event(self, current_value):
+        pass
+
+    def change_scaling_event(self, current_value):
+        pass
+
+    def open_input_dialog_event(self):
+        pass
+
+    def on_switch_toggle(self):
+        pass
+
+    def on_segbtn_clicked(self, current_value):
+        pass
