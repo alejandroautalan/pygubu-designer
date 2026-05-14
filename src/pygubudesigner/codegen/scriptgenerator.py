@@ -105,6 +105,7 @@ class ScriptGenerator:
         first_object_callback = "on_first_object_cb"
         if context["has_ttk_styles"]:
             ttk_styles_module = context["ttk_styles_module"]
+            generator.add_import_line(ttk_styles_module, priority=11)
             first_object_callback = f"{ttk_styles_module}.setup_ttk_styles"
 
         methods = []
@@ -269,6 +270,7 @@ class ScriptGenerator:
         first_object_callback = "on_first_object_cb"
         if context["has_ttk_styles"]:
             ttk_styles_module = context["ttk_styles_module"]
+            generator.add_import_line(ttk_styles_module, priority=11)
             first_object_callback = f"{ttk_styles_module}.setup_ttk_styles"
 
         methods = []
