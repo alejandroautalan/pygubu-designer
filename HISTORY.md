@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.43.3
+
+  * Fix for issue #318, missing import when using ttk styles definition file. (PR #319 @kootenay-joe)
+
 Changes for version 0.43.2
 
  * Fix windows OS issue with preferences dialog.
