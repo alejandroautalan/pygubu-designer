@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.43.2
+
+ * Fix windows OS issue with preferences dialog.
+
 Changes for version 0.43.1
 
   * Fix for issue #316, incorrect parameter values width and height for tk.Notebook
