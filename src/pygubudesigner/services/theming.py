@@ -116,6 +116,7 @@ class MultipleThemeModuleManager(ttk.Style):
 
 try:
     import ttkbootstrap as ttkb
+    import ttkbootstrap.window  # Make shure style management is installed
 
     has_ttkbootstrap = True
 except ImportError:

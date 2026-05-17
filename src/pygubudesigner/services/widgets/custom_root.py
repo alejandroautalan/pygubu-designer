@@ -10,10 +10,24 @@ import tkinter as tk
 
 BaseRoot = tk.Tk
 
-
+has_ttkbootstrap_window = False
 if "ttkbootstrap" in sys.modules:
+    # ttkbootstrap is a namespace pkg, so add aditional check:
+    try:
+        from ttkbootstrap import Window
+
+        has_ttkbootstrap_window = True
+    except ImportError:
+        pass
+
+has_bootstack_window = False
+if "bootstack" in sys.modules:
+    from bootstack import Window  # noqa: F811
+
+    has_bootstack_window = True
+
+if has_ttkbootstrap_window or has_bootstack_window:
     # do ttkbootstrap stuff
-    from ttkbootstrap import Window
 
     class ttkbRoot(Window):
         def __init__(
