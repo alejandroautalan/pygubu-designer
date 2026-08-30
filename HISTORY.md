@@ -1,6 +1,12 @@
 History
 =======
 
+Changes for version 0.46
+
+  * properties.editors: Improve text property editor, allow edition in external window.
+  * properties: Add missing compound values: text, image, center.
+  * codegen: Keep user modifications in widget direct subclass template. First draft.
+
 Changes for version 0.45
 
   * codebuilder: give priority to code_imports defined in builder class.

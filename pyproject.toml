@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pygubu-designer"
-version="0.45"
+version="0.46"
 description = "A simple GUI designer for the python tkinter module"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -35,7 +35,7 @@ dependencies = [
     "screeninfo >=0.8",
     "autopep8 >=1.7",
     "blinker >=1.6",
-    "pygubu >=0.41"
+    "pygubu >=0.42"
 ]
 
 [project.urls]
