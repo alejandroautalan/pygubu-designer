@@ -102,8 +102,11 @@ class ScriptGenerator:
         uidef = self.tree.tree_to_uidef()
         target = context["target"]
 
-        if not context["main_widget_is_toplevel"]:
-            generator.add_import_line("tkinter", "tk")
+        # default safe functions use tk module, so import it to fix code.
+        generator.add_import_line("tkinter", "tk")
+        # and following code is commented:
+        # if not context["main_widget_is_toplevel"]:
+        #    generator.add_import_line("tkinter", "tk")
 
         first_object_callback = "on_first_object_cb"
         if context["has_ttk_styles"]:
@@ -293,8 +296,11 @@ class ScriptGenerator:
         uidef = self.tree.tree_to_uidef()
         target = context["target"]
 
-        if not context["main_widget_is_toplevel"]:
-            generator.add_import_line("tkinter", "tk")
+        # default safe functions use tk module, so import it to fix code.
+        generator.add_import_line("tkinter", "tk")
+        # and following code is commented:
+        # if not context["main_widget_is_toplevel"]:
+        #    generator.add_import_line("tkinter", "tk")
 
         first_object_callback = "on_first_object_cb"
         if context["has_ttk_styles"]:
