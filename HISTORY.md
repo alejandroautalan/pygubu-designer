@@ -1,6 +1,11 @@
 History
 =======
 
+Changes for version 0.46.1
+
+  * Fix missing tk import in generated code.
+  * Allow to select toplevel widgets with function script template.
+
 Changes for version 0.46
 
   * properties.editors: Improve text property editor, allow edition in external window.
