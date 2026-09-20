@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.46.2
+
+  * Fix generating container layout code for target widget in class template.
+
 Changes for version 0.46.1
 
   * Fix missing tk import in generated code.
