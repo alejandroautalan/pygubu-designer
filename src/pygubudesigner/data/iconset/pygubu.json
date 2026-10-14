@@ -1,7 +1,5 @@
 {
   "version": 1,
-  "name": "Pygubu designer Iconset",
-  "docs": "An iconset for pygubu designer.\n",
   "icon_width": 24,
   "color_onlight": "#000000",
   "color_ondark": "#98ff00",
@@ -270,5 +268,9 @@
       "uid": "text_edit"
     }
   ],
-  "custom_files": {}
+  "meta": {
+    "name": "Pygubu designer Iconset",
+    "docs": "An iconset for pygubu designer.\n",
+    "custom_files": {}
+  }
 }
