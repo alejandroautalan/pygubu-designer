@@ -15,6 +15,8 @@ alejandroautalan/pygubu-designer#99
 
 pip install git+https://github.com/alejandroautalan/pygubu git+https://github.com/alejandroautalan/pygubu-designer
 
+Issue in Debian 13 with ibus. After designer usage the system gets lagged.
+Temporary fix:  run designer with environ XMODIFIERS="@im=none"
 
 TODO
 ====
