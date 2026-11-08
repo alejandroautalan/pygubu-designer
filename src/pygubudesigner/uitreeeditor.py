@@ -79,6 +79,7 @@ class WidgetsTreeEditor:
         self.tree_item_selected = None
         self.scheduled_widget_updates = []
         self.forms_manager = PygubuFormsManager(self)
+        self._listen_object_updates = True
 
         self.treeview.bind(
             "<Configure>",
@@ -100,8 +101,6 @@ class WidgetsTreeEditor:
 
         # Get whether we should center the toplevel preview window
         self.center_preview = preferences.center_preview
-
-        self._listen_object_updates = True
 
         self.config_treeview()
 
@@ -376,6 +375,9 @@ class WidgetsTreeEditor:
     def get_children_manager(self, parent, current_item=None):
         """Get layout manager for children of item"""
         manager = None
+        layout_canceled, manager = self.parent_cancels_layout(parent)
+        if layout_canceled:
+            return manager
         children = self.treeview.get_children(parent)
         for child in children:
             child_manager = self.treedata[child].manager
@@ -639,8 +641,12 @@ class WidgetsTreeEditor:
         tree = self.treeview
         treelabel = self._treeitem_label(data)
         row = col = ""
-        if root != "" and data.has_layout_defined():
-            if data.manager == "grid" and data.layout_required:
+        if root != "":
+            self._listen_object_updates = False
+            layout_canceled, manager = self.parent_cancels_layout(root)
+            if layout_canceled:
+                data.manager = manager
+            if data.manager == "grid" and self.is_layout_required(root, data):
                 row = data.layout_property("row")
                 col = data.layout_property("column")
                 # Fix grid row position when using copy and paste
@@ -649,8 +655,8 @@ class WidgetsTreeEditor:
                         # Increase the pasted widget by 1 row (if necessary)
                         # so that it doesn't overlap
                         row = self.get_available_row(root, data)
-
                     data.layout_property("row", row)
+            self._listen_object_updates = True
 
         image = ""
         try:
@@ -834,7 +840,6 @@ class WidgetsTreeEditor:
             uidef.load_from_string(text)
             for wmeta in uidef.widgets():
                 if self._validate_add(selected_item, wmeta.classname):
-                    self.update_layout(selected_item, wmeta)
                     self.populate_tree(
                         selected_item,
                         uidef,
@@ -872,17 +877,6 @@ class WidgetsTreeEditor:
             self.task_executor.add(
                 lambda: self.treeview.see(children_of_parent[-1])
             )
-
-    def update_layout(self, root, data):
-        """Removes layout info from element, when copied from clipboard."""
-
-        cmanager = self.get_children_manager(root)
-        cmanager = (
-            cmanager if cmanager is not None else self.default_layout_manager
-        )
-        emanager = data.manager
-        if emanager != "place" and cmanager != emanager:
-            data.manager = cmanager
 
     def add_widget(self, wclass):
         """Adds a new item to the treeview."""
@@ -1148,21 +1142,42 @@ class WidgetsTreeEditor:
             top_item = self.get_toplevel_parent(item)
             self.draw_widget(top_item)
 
+    def parent_cancels_layout(self, parent_item) -> tuple:
+        pdata = self.treedata[parent_item]
+        pbuilder = CLASS_MAP[pdata.classname].builder
+        manager = pbuilder.children_layout_manager
+        if manager is None:
+            manager = self.default_layout_manager
+        return (
+            pbuilder.children_layout_override,
+            manager,
+        )
+
+    def is_layout_required(self, parent_item, data):
+        layout_required = data.layout_required
+        if parent_item:
+            layout_canceled, n = self.parent_cancels_layout(parent_item)  # nqa
+            layout_required = data.layout_required and not layout_canceled
+        return layout_required
+
     def update_tree_data_display(self, item, data):
         """Updates tree colums when itemdata is changed."""
         tree = self.treeview
         item_text = self._treeitem_label(data)
         if item_text != tree.item(item, "text"):
             tree.item(item, text=item_text)
-        # if tree.parent(item) != '' and 'layout' in data:
-        if tree.parent(item) != "" and data.layout_required:
-            if data.manager == "grid":
-                row = data.layout_property("row")
-                col = data.layout_property("column")
-                values = tree.item(item, "values")
-                if row != values[1] or col != values[2]:
-                    values = (data.classname, row, col)
-                tree.item(item, values=values)
+        # Check if parent cancels children layout.
+        parent = tree.parent(item)
+        if not parent:
+            return
+        tree.item(item, values=(data.classname, "", ""))
+        if data.manager == "grid" and self.is_layout_required(parent, data):
+            row = data.layout_property("row")
+            col = data.layout_property("column")
+            values = tree.item(item, "values")
+            if row != values[1] or col != values[2]:
+                values = (data.classname, row, col)
+            tree.item(item, values=values)
 
     def preview_widget_update(self, item, hint, data):
         """Update widget preview.
