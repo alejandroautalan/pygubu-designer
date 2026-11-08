@@ -44,6 +44,10 @@ if "PYGUBU_DESIGNER_RUNNING" in os.environ:
         #
         # IPluginBase interface methodsttk.Frame
         #
+        @classmethod
+        def get_uid(cls) -> str:
+            return "pygubudesigner_customroot"
+
         def do_activate(self) -> bool:
             return True
 
