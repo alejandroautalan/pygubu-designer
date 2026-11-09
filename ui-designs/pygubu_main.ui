@@ -90,7 +90,7 @@
                                 <property name="compound">left</property>
                                 <property name="image">sec_components</property>
                                 <property name="title" translatable="yes">Components Palette</property>
-                                <property name="weight">0</property>
+                                <property name="weight">1</property>
                                 <child>
                                   <object class="treecomponentpalettebo.TreeComponentPalette" id="tree_palette" named="True">
                                     <layout manager="pack">
@@ -107,7 +107,7 @@
                             <child>
                               <object class="pygubu.widgets.dockpane" id="dockpane2">
                                 <property name="orient">vertical</property>
-                                <property name="weight">0</property>
+                                <property name="weight">1</property>
                                 <child>
                                   <object class="pygubu.widgets.dockwidget" id="dw_ptree" named="True">
                                     <property name="compound">left</property>
@@ -131,7 +131,7 @@
                                     <property name="compound">left</property>
                                     <property name="image">sec_properties</property>
                                     <property name="title" translatable="yes">Properties</property>
-                                    <property name="weight">2</property>
+                                    <property name="weight">1</property>
                                     <child>
                                       <object class="ttk.Frame" id="frame_1">
                                         <property name="height">200</property>
@@ -286,7 +286,7 @@
                                 <property name="compound">left</property>
                                 <property name="image">sec_preview</property>
                                 <property name="title" translatable="yes">Preview</property>
-                                <property name="weight">2</property>
+                                <property name="weight">5</property>
                                 <child>
                                   <object class="ttk.Frame" id="Frame_1">
                                     <property name="height">250</property>

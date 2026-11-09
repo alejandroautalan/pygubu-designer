@@ -91,7 +91,7 @@ class MainWindowUI:
             image=self.img_sec_components,
             title=_("Components Palette"),
         )
-        dockpane1.add_widget(self.dw_cpalette, grouped=False, weight=0)
+        dockpane1.add_widget(self.dw_cpalette, grouped=False, weight=1)
         self.tree_palette = TreeComponentPalette(
             self.dw_cpalette.fcenter, name="tree_palette"
         )
@@ -101,7 +101,7 @@ class MainWindowUI:
         dockpane2 = dockpane1.maindock.new_pane(
             orient="vertical", uid="dockpane2"
         )
-        dockpane1.add_pane(dockpane2, weight=0)
+        dockpane1.add_pane(dockpane2, weight=1)
         self.img_sec_project_tree = image_loader(
             self.mainroot, "sec_project_tree"
         )
@@ -129,7 +129,7 @@ class MainWindowUI:
             image=self.img_sec_properties,
             title=_("Properties"),
         )
-        dockpane2.add_widget(self.dw_props, grouped=False, weight=2)
+        dockpane2.add_widget(self.dw_props, grouped=False, weight=1)
         frame_1 = ttk.Frame(self.dw_props.fcenter)
         frame_1.configure(height=200, width=200)
         notebook1 = ttk.Notebook(frame_1)
@@ -214,7 +214,7 @@ class MainWindowUI:
         self.dw_preview.configure(
             compound="left", image=self.img_sec_preview, title=_("Preview")
         )
-        dockpane1.add_widget(self.dw_preview, grouped=False, weight=2)
+        dockpane1.add_widget(self.dw_preview, grouped=False, weight=5)
         Frame_1 = ttk.Frame(self.dw_preview.fcenter)
         Frame_1.configure(height=250, padding="1p", width=250)
         scrollbarhelper_1 = ScrollbarHelper(Frame_1, scrolltype="both")
