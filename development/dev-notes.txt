@@ -18,6 +18,13 @@ pip install git+https://github.com/alejandroautalan/pygubu git+https://github.co
 Issue in Debian 13 with ibus. After designer usage the system gets lagged.
 Temporary fix:  run designer with environ XMODIFIERS="@im=none"
 
+Migration to python 3.10
+
+    find src/ -name "*.py" -print0 | xargs -0 pyupgrade --py310-plus
+    ruff check --target-version py310  sources-dir/
+
+
+
 TODO
 ====
 
