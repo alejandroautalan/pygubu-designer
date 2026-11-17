@@ -1,6 +1,10 @@
 History
 =======
 
+Changes for version 0.47
+
+  * Keep up to date with pygubu changes
+
 Changes for version 0.46.2
 
   * Fix generating container layout code for target widget in class template.
