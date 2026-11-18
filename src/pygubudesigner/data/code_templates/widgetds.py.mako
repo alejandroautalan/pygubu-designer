@@ -2,11 +2,12 @@
 
 <%block name="imports" filter="trim">
 % if not MODULE_IMPORTS:
-# <MODULE_IMPORTS>  # </MODULE_IMPORTS>
+# <MODULE_IMPORTS>
+${parent.imports()}
+# </MODULE_IMPORTS>
 % else:
 ${MODULE_IMPORTS}
 % endif
-${parent.imports()}
 </%block>
 
 <%block name="class_definition" filter="trim">

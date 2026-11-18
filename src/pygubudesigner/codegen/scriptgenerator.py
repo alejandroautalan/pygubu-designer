@@ -234,6 +234,21 @@ class ScriptGenerator:
                     sections[section_key] = res.group(1)
         return sections
 
+    def _merge_code_lines(self, required_code: str, user_code: str) -> str:
+        required_lines = required_code.splitlines()
+        user_lines = user_code.splitlines()
+        # Create a set with the cleaned lines to check for duplicates
+        cleaned_lines = {line.strip() for line in user_lines}
+        lines_added = []
+
+        # Check which mandatory lines are missing
+        for line in required_lines:
+            line_cleaned = line.strip()
+            if line_cleaned and line_cleaned not in cleaned_lines:
+                lines_added.append(line_cleaned)
+                cleaned_lines.add(line_cleaned)
+        return "\n".join(lines_added + user_lines)
+
     def _widgetds_code(self, generator, context: dict[str, Any]):
         """Widget direct subclass code generation."""
         uidef = self.tree.tree_to_uidef()
@@ -256,7 +271,11 @@ class ScriptGenerator:
         outfn = output_dir / (module_name + ".py")
 
         user_blocks = self._load_user_code(outfn)
+        merged_imports = self._merge_code_lines(
+            code["imports"], user_blocks["MODULE_IMPORTS"]
+        )
         context.update(user_blocks)
+        context["import_lines"] = merged_imports
 
         tpl = makolookup.get_template("widgetds.py.mako")
         final_code: str = tpl.render(**context)
