@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 <%block name="module_doc" filter="trim">
 """
 ${project_name}
