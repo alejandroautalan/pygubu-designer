@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "pygubu-designer"
@@ -65,26 +65,21 @@ all = [
   'customtkinter >=5.2.2', 'packaging', 'pillow',
   'tkintermapview']
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/pygubudesigner",
+    "Documentation/**",
+    "examples/**",
+    "tests/**",
+    "ui-disigns/**",
+    "run.sh",
+    "HISTORY.md",
+    "pygubu-designer.png",
+]
 
-[tool.setuptools.exclude-package-data]
-"*" = ["*.pot", "*.po"]
-
-[tool.black]
-line-length = 80
-target-version = ["py39", "py310", "py311", "py312", "py313"]
-include = '\\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
+[tool.hatch.build.targets.wheel]
+packages = ["src/pygubudesigner"]
+exclude = [
+  "*.pot",
+  "*.po",
+]
