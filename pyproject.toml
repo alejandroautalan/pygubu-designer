@@ -7,7 +7,7 @@ name = "pygubu-designer"
 version="0.47"
 description = "A simple GUI designer for the python tkinter module"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "GPL-3.0-only"
 keywords = ["gui", "tkinter", "designer"]
 authors = [
@@ -16,12 +16,12 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Libraries :: Python Modules",
@@ -29,7 +29,6 @@ classifiers = [
   "Topic :: Software Development :: User Interfaces",
 ]
 dependencies = [
-    "backports.strenum;python_version<'3.11'",
     "platformdirs >=4.4.0",
     "Mako >=1.1.4",
     "screeninfo >=0.8",
