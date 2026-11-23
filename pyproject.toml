@@ -82,3 +82,107 @@ exclude = [
   "*.pot",
   "*.po",
 ]
+
+[tool.hatch.envs.default]
+dependencies = [
+  # Code checking tools:
+  #"pytest",
+  #"pytest-cov",
+  "flake8",
+  "Flake8-pyproject",
+  "flake8-pylint",
+  "pylint",
+  "mypy",
+  "black",
+  "isort",
+  "autoflake",
+]
+
+[tool.hatch.sources]
+pygubu = "../pygubu" 
+
+[tool.hatch.envs.default.scripts]
+app = "python -m pygubudesigner"
+
+# Testing commands
+# test = "pytest {args:tests}"
+# cov = "pytest --cov=pygubu --cov-report=term-missing {args:tests}"
+# test = "cd tests; PYTHONPATH=../src python3 -W default -m unittest -v"
+
+# Cleanup and formatting commands
+fix = [
+  "autoflake .",
+  "isort .",
+  "black .",
+]
+
+# Unified linting command
+check = [
+    "flake8 src tests",
+    "mypy src tests",
+]
+
+# All before upload?
+all = [
+  "fix",
+  "check",
+]
+
+[tool.hatch.envs.minimal]
+python = "3.10"
+
+[tool.hatch.envs.minimal.scripts]
+app = "python -m pygubudesigner"
+
+
+# PYTEST config
+# [tool.pytest.ini_options]
+# pythonpath = ["src"]
+# testpaths = ["tests"]
+# addopts = "-v"
+
+# AUTO-FIXERS
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+line_length = 88
+src_paths = ["src", "tests"]
+
+[tool.autoflake]
+in-place = true
+remove-all-unused-imports = false
+remove-unused-variables = true
+recursive = true
+
+# LINTERS (Flake8 + Pylint)
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503", "E701",]
+exclude = [".git", "__pycache__", ".venv", "venv", "build", "dist"]
+
+[tool.pylint.main]
+source-roots = ["src"]
+
+[tool.pylint.format]
+max-line-length = 88
+
+[tool.pylint."messages control"]
+disable = [
+  "C0301", # line-too-long (Black)
+  "C0303", # trailing-whitespace (Black)
+  "C0114", # missing-module-docstring
+  "C0115", # missing-class-docstring
+  "C0116", # missing-function-docstring
+]
+
+# Static typing (Mypy)
+[tool.mypy]
+python_version = "3.10"
+mypy_path = "src"
+packages = ["pygubudesigner"]
+strict = false
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
