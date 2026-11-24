@@ -39,13 +39,9 @@ class SplashScreenUI:
             x=0,
             y=0,
         )
-        self.progress_bar = ttk.Progressbar(
-            self.splash_screen, name="progress_bar"
-        )
+        self.progress_bar = ttk.Progressbar(self.splash_screen, name="progress_bar")
         self.progress_bar.configure(mode="indeterminate", orient="horizontal")
-        self.progress_bar.pack(
-            fill="x", padx="5p", pady="5p 10p", side="bottom"
-        )
+        self.progress_bar.pack(fill="x", padx="5p", pady="5p 10p", side="bottom")
         self.lbl_progress = ttk.Label(self.splash_screen, name="lbl_progress")
         self.txt_progress_var = tk.StringVar(value="Loading ... ")
         self.lbl_progress.configure(

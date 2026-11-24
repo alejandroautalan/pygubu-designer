@@ -20,9 +20,7 @@ class PropertiesManager:
             return cls._definitions_cache[_key]
         # Calculate and cache params
         definition = cls.get_definition(pname)
-        default_params = (
-            dict(definition["params"]) if "params" in definition else {}
-        )
+        default_params = dict(definition["params"]) if "params" in definition else {}
         default_mode = default_params.get("mode", None)
         def_cached = {
             "params": default_params,

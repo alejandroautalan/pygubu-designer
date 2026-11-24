@@ -11,7 +11,6 @@ As this is a python module, now you can import any other
 module that you need.
 """
 
-import tkinter as tk
 import tkinter.ttk as ttk
 
 

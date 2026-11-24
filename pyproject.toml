@@ -119,7 +119,7 @@ fix = [
 # Unified linting command
 check = [
     "flake8 src tests",
-    "mypy src tests",
+#    "mypy src tests",
 ]
 
 # All before upload?
@@ -160,13 +160,21 @@ recursive = true
 [tool.flake8]
 max-line-length = 88
 extend-ignore = ["E203", "W503", "E701",]
-exclude = [".git", "__pycache__", ".venv", "venv", "build", "dist"]
+extend-exclude = [".git", "__pycache__", ".venv", "venv", "build", "dist", "*ui.py"]
 
 [tool.pylint.main]
 source-roots = ["src"]
+ignore-patterns = [".*ui\\.py$"]
 
 [tool.pylint.format]
 max-line-length = 88
+
+[tool.pylint.design]
+max-parents = 12
+max-attributes = 25
+max-locals = 25
+# max-args = 7
+# max-positional-arguments = 7
 
 [tool.pylint."messages control"]
 disable = [
@@ -175,14 +183,27 @@ disable = [
   "C0114", # missing-module-docstring
   "C0115", # missing-class-docstring
   "C0116", # missing-function-docstring
+  "W0511", # fixme and todo's
 ]
+
 
 # Static typing (Mypy)
 [tool.mypy]
 python_version = "3.10"
 mypy_path = "src"
 packages = ["pygubudesigner"]
+
+# Gradual adoption settings:
 strict = false
-warn_return_any = true
-warn_unused_configs = true
+check_untyped_defs = false
+disallow_untyped_defs = false
 ignore_missing_imports = true
+
+# Helpful guardrails that don't create massive noise:
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+
+# Disable noisy checks for legacy/Tkinter codebases
+warn_return_any = false

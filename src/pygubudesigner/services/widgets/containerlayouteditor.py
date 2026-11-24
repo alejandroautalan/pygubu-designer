@@ -14,18 +14,16 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
-
-import pygubudesigner.services.widgets.containerlayouteditorui as baseui
+from tkinter import ttk
 
 from pygubu.widgets.simpletooltip import create as create_tooltip
 
+import pygubudesigner.services.widgets.containerlayouteditorui as baseui
 from pygubudesigner import properties
+from pygubudesigner.i18n import _
+from pygubudesigner.properties.editors import create_editor
 from pygubudesigner.widgetdescr import WidgetMeta
 from pygubudesigner.widgets.gridselector import GridRCselectorWidget
-from pygubudesigner.properties.editors import create_editor
-from pygubudesigner.i18n import _
-
 
 # i18n - Setup yout translator function
 baseui.i18n_translator = _
@@ -36,9 +34,7 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
         super().__init__(master, **kw)
         # Add grid selector
         self.gridselector = w = GridRCselectorWidget(self.rcselectorframe)
-        w.bind(
-            GridRCselectorWidget.EVENT_CELL_SELECTED, self._on_gridcell_clicked
-        )
+        w.bind(GridRCselectorWidget.EVENT_CELL_SELECTED, self._on_gridcell_clicked)
         w.bind(GridRCselectorWidget.EVENT_CELL_HOVER, self._show_hover)
         w.pack()
 
@@ -49,6 +45,7 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
         self._mainpanel_label = _("Options for {0} container")
         self._rowpanel_label = _("Row index: {0}")
         self._colpanel_label = _("Column index: {0}")
+        self._grid_dim = (1, 1)
         self._build_editors()
 
     def _build_editors(self):
@@ -133,7 +130,7 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
         editor.bind("<<PropertyChanged>>", make_on_change_cb(pname, editor))
         return editor
 
-    def update_editor(self, label, editor, wdescr, pname, propdescr):
+    def update_editor(self, _label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
         manager = wdescr.container_manager
 
@@ -149,9 +146,8 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
             value = default
         editor.edit(value)
 
-    def update_rc_editor(
-        self, type_, index, label, editor, wdescr, pname, propdescr
-    ):
+    # pylint: disable=too-many-arguments,too-many-positional-arguments
+    def update_rc_editor(self, type_, index, _label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
         classname = wdescr.classname
 
@@ -215,20 +211,18 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
             # Update the preview now, after the grid rc changes have been made.
             target.notify(WidgetMeta.LAYOUT_PROPERTY_CHANGED, target)
 
-    def _on_gridcell_clicked(self, event=None):
+    def _on_gridcell_clicked(self, _event=None):
         self._edit_grid_cell(*self.gridselector.selection)
 
     def _edit_grid_cell(self, row, col):
         # Update RC properties editors for cell
         target = self._current
-        for key in self._rcbag:
+        for key, value in self._rcbag.items():
             rowcol, name = key.split("_")
             propdescr = properties.LAYOUT_OPTIONS[name]
             index = col if rowcol == "col" else row
-            label, widget = self._rcbag[key]
-            self.update_rc_editor(
-                rowcol, index, label, widget, target, name, propdescr
-            )
+            label, widget = value
+            self.update_rc_editor(rowcol, index, label, widget, target, name, propdescr)
         # mark_all = True if row == "all" else False
         # self.gridselector.mark_grid_all(mark_all)
         # update labels
@@ -271,7 +265,7 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
         self.sel_pos.configure(text=sel_pos)
         self.sel_widget.configure(text=sel_widget)
 
-    def _show_hover(self, event=None):
+    def _show_hover(self, _event=None):
         row_col = self.gridselector.selection_hover
         pos_txt = ""
         widget_txt = ""
@@ -322,8 +316,8 @@ class ContainerLayoutEditor(baseui.ContainerLayoutEditorUI):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    widget = ContainerLayoutEditor(root)
-    widget.pack(expand=True, fill="both")
+    test_widget = ContainerLayoutEditor(root)
+    test_widget.pack(expand=True, fill="both")
 
     wd = WidgetMeta("tk.Frame", "frame1")
     wd.gridrc_property("row", "0", "minsize", "25")
@@ -336,7 +330,7 @@ if __name__ == "__main__":
     wd.gridrc_property("col", "2", "minsize", "75")
 
     print(wd)
-    widget.edit(wd, "grid", (10, 10))
-    # widget.edit(wd, 'pack')
+    test_widget.edit(wd, "grid", (10, 10))
+    # test_widget.edit(wd, 'pack')
 
     root.mainloop()

@@ -7,29 +7,24 @@ for the CustomRoot class.
 import sys
 import tkinter as tk
 
-
 BaseRoot = tk.Tk
+Window = None  # pylint: disable=invalid-name
 
-has_ttkbootstrap_window = False
 if "ttkbootstrap" in sys.modules:
-    # ttkbootstrap is a namespace pkg, so add aditional check:
+    # ttkbootstrap is a namespace pkg, so add additional check:
     try:
         from ttkbootstrap import Window
-
-        has_ttkbootstrap_window = True
     except ImportError:
-        pass
+        Window = None
 
-has_bootstack_window = False
-if "bootstack" in sys.modules:
-    from bootstack import Window  # noqa: F811
+if Window is None and "bootstack" in sys.modules:
+    from bootstack import Window  # noqa: F811 # pylint: disable=import-error
 
-    has_bootstack_window = True
+if Window is not None:
+    # do ttkbootstrap / bootstack stuff
 
-if has_ttkbootstrap_window or has_bootstack_window:
-    # do ttkbootstrap stuff
-
-    class ttkbRoot(Window):
+    class ttkbRoot(Window):  # pylint: disable=too-few-public-methods
+        # pylint: disable=invalid-name,too-many-arguments,too-many-positional-arguments
         def __init__(
             self,
             screenName=None,
@@ -39,14 +34,14 @@ if has_ttkbootstrap_window or has_bootstack_window:
             sync=False,
             use=None,
         ):
-            kw = dict(
-                screenName=screenName,
-                baseName=baseName,
-                className=className,
-                useTk=useTk,
-                sync=sync,
-                use=use,
-            )
+            kw = {
+                "screenName": screenName,
+                "baseName": baseName,
+                "className": className,
+                "useTk": useTk,
+                "sync": sync,
+                "use": use,
+            }
             super().__init__(**kw)
 
     BaseRoot = ttkbRoot

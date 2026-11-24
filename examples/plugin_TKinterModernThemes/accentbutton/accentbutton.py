@@ -6,8 +6,9 @@ AccentButton example.
 
 UI source file: accentbutton.ui
 """
+
 import pathlib
-import tkinter as tk
+
 import pygubu
 from accentbuttonui import AppUI
 

@@ -1,5 +1,6 @@
 import json
 from collections.abc import Iterable
+
 from .propertyeditor import register_editor
 from .textentry import TextPropertyEditor
 

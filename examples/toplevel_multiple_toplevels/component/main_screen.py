@@ -1,11 +1,9 @@
 #!/usr/bin/python3
-import tkinter as tk
-import tkinter.ttk as ttk
 import component.main_screenui as baseui
 from component.about_screen import AboutScreen
 from component.config_screen import ConfigurationScreen
+from component.loader import LoaderTask, TaskExecutor
 from component.splash_screen import SplashScreen
-from component.loader import TaskExecutor, LoaderTask
 
 
 class MainScreen(baseui.MainScreenUI):

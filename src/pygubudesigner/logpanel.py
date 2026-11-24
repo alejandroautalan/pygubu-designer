@@ -14,7 +14,7 @@ class LogPanelManager:
         self.btn_messages_label = self.btn_messages.cget("text")
         self.unread = 0
 
-    def pwindow_configure(self, event):
+    def pwindow_configure(self, _event):
         self.mainpw_sash_pos = None
 
     def update_sash(self, action="show"):
@@ -59,7 +59,7 @@ class LogPanelManager:
         tktext.config(state="disabled")
         tktext.see("end")
 
-    def log_message(self, msg, level):
+    def log_message(self, msg, _level):
         if self.buttonsvar.get() != "messages":
             self.unread += 1
             # log panel is not visible, update label

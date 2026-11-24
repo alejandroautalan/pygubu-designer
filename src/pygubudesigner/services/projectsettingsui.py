@@ -6,8 +6,10 @@ Designer Project Settings dialog.
 
 UI source file: project_settings.ui
 """
+
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.forms.pygubuwidget import PygubuCombobox
 from pygubu.forms.tkwidget import Text
 from pygubu.forms.ttkwidget import (
@@ -29,7 +31,6 @@ def safe_i18n_translator(value):
 
 def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def safe_image_loader(master, image_name: str):
@@ -98,18 +99,14 @@ class ProjectSettingsUI:
         textfield1.configure(height=8, width=32)
         scrollbarhelper2.add_child(textfield1)
         scrollbarhelper2.grid(column=0, columnspan=2, row=3, sticky="nsew")
-        labelfieldinfo7 = LabelWidgetInfo(
-            self.frm_general, field_name="description"
-        )
+        labelfieldinfo7 = LabelWidgetInfo(self.frm_general, field_name="description")
         labelfieldinfo7.configure(style="LabelFieldInfo.TLabel")
         labelfieldinfo7.grid(column=0, columnspan=2, row=4, sticky="ew")
         self.frm_general.rowconfigure("all", pad=10)
         self.frm_general.rowconfigure(3, weight=1)
         self.frm_general.columnconfigure("all", pad=10)
         self.frm_general.columnconfigure(1, weight=1)
-        self.img_pp_general = image_loader(
-            self.settingsdialog.toplevel, "pp_general"
-        )
+        self.img_pp_general = image_loader(self.settingsdialog.toplevel, "pp_general")
         self.settings_notebook.add(
             self.frm_general,
             compound="left",
@@ -117,30 +114,22 @@ class ProjectSettingsUI:
             sticky="nsew",
             text=_("General"),
         )
-        scrolledframe1 = ScrolledFrame(
-            self.settings_notebook, scrolltype="both"
-        )
+        scrolledframe1 = ScrolledFrame(self.settings_notebook, scrolltype="both")
         scrolledframe1.configure(usemousewheel=True)
         self.frm_code = FrameFormBuilder(
             scrolledframe1.innerframe, name="frm_code", field_name="frm_code"
         )
         self.frm_code.configure(padding="5p 5p 5p 5p")
         labelframe3 = ttk.Labelframe(self.frm_code)
-        labelframe3.configure(
-            height=200, padding="4p", text=_("Template"), width=200
-        )
+        labelframe3.configure(height=200, padding="4p", text=_("Template"), width=200)
         self.template = PygubuCombobox(
             labelframe3, name="template", field_name="template"
         )
         self.template.configure(style="ComboboxField.TCombobox")
         self.template.pack(fill="x", ipady="1p")
-        self.template.bind(
-            "<<ComboboxSelected>>", self.on_template_change, add=""
-        )
+        self.template.bind("<<ComboboxSelected>>", self.on_template_change, add="")
         label5 = ttk.Label(labelframe3)
-        self.template_desc_var = tk.StringVar(
-            value=_("Template description here.")
-        )
+        self.template_desc_var = tk.StringVar(value=_("Template description here."))
         label5.configure(
             font="TkHeadingFont",
             padding="2p",
@@ -154,18 +143,14 @@ class ProjectSettingsUI:
         self.main_widget = PygubuCombobox(
             labelframe3, name="main_widget", field_name="main_widget"
         )
-        self.main_widget.configure(
-            state="readonly", style="ComboboxField.TCombobox"
-        )
+        self.main_widget.configure(state="readonly", style="ComboboxField.TCombobox")
         self.main_widget.pack(fill="x", ipady="1p")
         labelfieldinfo1 = LabelWidgetInfo(labelframe3, field_name="main_widget")
         labelfieldinfo1.configure(style="LabelFieldInfo.TLabel")
         labelfieldinfo1.pack(expand=True, fill="x")
         labelframe3.pack(fill="x", side="top")
         labelframe1 = ttk.Labelframe(self.frm_code)
-        labelframe1.configure(
-            height=200, padding="4p", text=_("Module"), width=200
-        )
+        labelframe1.configure(height=200, padding="4p", text=_("Module"), width=200)
         label2 = ttk.Label(labelframe1)
         label2.configure(text=_("Namespace:"))
         label2.pack(expand=True, fill="x")
@@ -174,9 +159,7 @@ class ProjectSettingsUI:
         )
         self.module_namespace.configure(style="EntryField.TEntry")
         self.module_namespace.pack(fill="x", ipady="1p")
-        labelwidgetinfo3 = LabelWidgetInfo(
-            labelframe1, field_name="module_namespace"
-        )
+        labelwidgetinfo3 = LabelWidgetInfo(labelframe1, field_name="module_namespace")
         labelwidgetinfo3.configure(style="LabelFieldInfo.TLabel")
         labelwidgetinfo3.pack(expand=True, fill="x")
         label3 = ttk.Label(labelframe1)
@@ -192,18 +175,14 @@ class ProjectSettingsUI:
         labelfieldinfo4.pack(expand=True, fill="x")
         label_2 = ttk.Label(labelframe1)
         self.class_name_label_var = tk.StringVar(value=_("Class name:"))
-        label_2.configure(
-            text=_("Class name:"), textvariable=self.class_name_label_var
-        )
+        label_2.configure(text=_("Class name:"), textvariable=self.class_name_label_var)
         label_2.pack(expand=True, fill="x", pady="2p 0")
         self.main_classname = Entry(
             labelframe1, name="main_classname", field_name="main_classname"
         )
         self.main_classname.configure(style="EntryField.TEntry")
         self.main_classname.pack(fill="x", ipady="1p")
-        labelfieldinfo2 = LabelWidgetInfo(
-            labelframe1, field_name="main_classname"
-        )
+        labelfieldinfo2 = LabelWidgetInfo(labelframe1, field_name="main_classname")
         labelfieldinfo2.configure(style="LabelFieldInfo.TLabel")
         labelfieldinfo2.pack(expand=True, fill="x")
         label4 = ttk.Label(labelframe1)
@@ -211,14 +190,10 @@ class ProjectSettingsUI:
         label4.pack(expand=True, fill="x", pady="2p 0")
         frame3 = ttk.Frame(labelframe1)
         frame3.configure(height=200, width=200)
-        self.output_dir = Entry(
-            frame3, name="output_dir", field_name="output_dir"
-        )
+        self.output_dir = Entry(frame3, name="output_dir", field_name="output_dir")
         self.output_dir.configure(style="EntryField.TEntry")
         self.output_dir.pack(expand=True, fill="x", ipady="1p", side="left")
-        self.btn_path_chooser = PathChooserButton(
-            frame3, name="btn_path_chooser"
-        )
+        self.btn_path_chooser = PathChooserButton(frame3, name="btn_path_chooser")
         self.img_path_btn_search = image_loader(
             self.settingsdialog.toplevel, "path_btn_search"
         )
@@ -239,9 +214,7 @@ class ProjectSettingsUI:
         labelfieldinfo5.pack(expand=True, fill="x")
         labelframe1.pack(fill="x", pady="5p", side="top")
         labelframe2 = ttk.Labelframe(self.frm_code)
-        labelframe2.configure(
-            height=200, padding="4p", text=_("Builder"), width=200
-        )
+        labelframe2.configure(height=200, padding="4p", text=_("Builder"), width=200)
         label10 = ttk.Label(labelframe2)
         label10.configure(text=_("Namespace:"))
         label10.pack(expand=True, fill="x")
@@ -252,9 +225,7 @@ class ProjectSettingsUI:
         )
         self.builder_namespace.configure(style="EntryField.TEntry")
         self.builder_namespace.pack(expand=True, fill="x")
-        labelwidgetinfo2 = LabelWidgetInfo(
-            labelframe2, field_name="builder_namespace"
-        )
+        labelwidgetinfo2 = LabelWidgetInfo(labelframe2, field_name="builder_namespace")
         labelwidgetinfo2.configure(style="LabelFieldInfo.TLabel")
         labelwidgetinfo2.pack(expand=True, fill="x")
         label9 = ttk.Label(labelframe2)
@@ -262,14 +233,10 @@ class ProjectSettingsUI:
         label9.pack(expand=True, fill="x", pady="2p 0")
         frame5 = ttk.Frame(labelframe2)
         frame5.configure(height=200, width=200)
-        self.output_dir2 = Entry(
-            frame5, name="output_dir2", field_name="output_dir2"
-        )
+        self.output_dir2 = Entry(frame5, name="output_dir2", field_name="output_dir2")
         self.output_dir2.configure(style="EntryField.TEntry")
         self.output_dir2.pack(expand=True, fill="x", ipady="2p", side="left")
-        self.btn_path2_chooser = PathChooserButton(
-            frame5, name="btn_path2_chooser"
-        )
+        self.btn_path2_chooser = PathChooserButton(frame5, name="btn_path2_chooser")
         self.btn_path2_chooser.configure(
             image=self.img_path_btn_search,
             text=_("…"),
@@ -282,9 +249,7 @@ class ProjectSettingsUI:
             "<<PathChooserPathChanged>>", self.output_dir2_changed, add=""
         )
         frame5.pack(expand=True, fill="x")
-        labelwidgetinfo1 = LabelWidgetInfo(
-            labelframe2, field_name="output_dir2"
-        )
+        labelwidgetinfo1 = LabelWidgetInfo(labelframe2, field_name="output_dir2")
         labelwidgetinfo1.configure(style="LabelFieldInfo.TLabel")
         labelwidgetinfo1.pack(expand=True, fill="x")
         labelframe2.pack(fill="x", side="top")
@@ -301,13 +266,9 @@ class ProjectSettingsUI:
             variable=self.generate_code_onsave_var,
         )
         self.generate_code_onsave.pack(anchor="w", side="top")
-        self.use_i18n = Checkbutton(
-            frame2, name="use_i18n", field_name="use_i18n"
-        )
+        self.use_i18n = Checkbutton(frame2, name="use_i18n", field_name="use_i18n")
         self.use_i18n_var = tk.BooleanVar()
-        self.use_i18n.configure(
-            text=_("Add i18n support"), variable=self.use_i18n_var
-        )
+        self.use_i18n.configure(text=_("Add i18n support"), variable=self.use_i18n_var)
         self.use_i18n.pack(anchor="w", side="top")
         self.all_ids_attributes = Checkbutton(
             frame2, name="all_ids_attributes", field_name="all_ids_attributes"
@@ -376,9 +337,7 @@ class ProjectSettingsUI:
         self.ttk_style_definition_file.pack(
             expand=True, fill="x", ipady="2p", side="left"
         )
-        self.btn_stylepath_find = PathChooserButton(
-            frame4, name="btn_stylepath_find"
-        )
+        self.btn_stylepath_find = PathChooserButton(frame4, name="btn_stylepath_find")
         self.btn_stylepath_find.configure(
             defaultextension=".py",
             image=self.img_path_btn_search,
@@ -391,9 +350,7 @@ class ProjectSettingsUI:
         self.btn_stylepath_find.bind(
             "<<PathChooserPathChanged>>", self.on_style_new_selected, add=""
         )
-        self.btn_stylepath_new = PathChooserButton(
-            frame4, name="btn_stylepath_new"
-        )
+        self.btn_stylepath_new = PathChooserButton(frame4, name="btn_stylepath_new")
         self.img_style_add_btn = image_loader(
             self.settingsdialog.toplevel, "style_add_btn"
         )
@@ -426,9 +383,7 @@ class ProjectSettingsUI:
         )
         labelfieldinfo8.configure(style="LabelFieldInfo.TLabel")
         labelfieldinfo8.pack(fill="x", pady="0 5p", side="top")
-        self.img_pp_style = image_loader(
-            self.settingsdialog.toplevel, "pp_style"
-        )
+        self.img_pp_style = image_loader(self.settingsdialog.toplevel, "pp_style")
         self.settings_notebook.add(
             self.frm_style,
             compound="left",
@@ -450,17 +405,13 @@ class ProjectSettingsUI:
         self.cwtree.configure(
             columns=self.cwtree_cols, displaycolumns=self.cwtree_dcols
         )
-        self.cwtree.column(
-            "#0", anchor="w", stretch=True, width=200, minwidth=20
-        )
+        self.cwtree.column("#0", anchor="w", stretch=True, width=200, minwidth=20)
         self.cwtree.heading("#0", anchor="center", text=_("Modules"))
         scrollbarhelper1.add_child(self.cwtree)
         scrollbarhelper1.pack(expand=True, fill="both", side="left")
         frame7 = ttk.Frame(frame13)
         frame7.configure(height=200, padding="4 0 4 0", width=200)
-        self.btn_cwadd_module = PathChooserButton(
-            frame7, name="btn_cwadd_module"
-        )
+        self.btn_cwadd_module = PathChooserButton(frame7, name="btn_cwadd_module")
         self.btn_cwadd_module.configure(
             defaultextension=".py",
             text=_("+"),
@@ -501,9 +452,7 @@ class ProjectSettingsUI:
         button6.configure(command=self.btn_apply_clicked)
         frame10.pack(anchor="e", pady="5p 0", side="top")
         frame8.pack(expand=True, fill="both", side="top")
-        self.settingsdialog.bind(
-            "<<DialogClose>>", self.on_dialog_close, add="+"
-        )
+        self.settingsdialog.bind("<<DialogClose>>", self.on_dialog_close, add="+")
 
         # Main widget
         self.mainwindow = self.settingsdialog

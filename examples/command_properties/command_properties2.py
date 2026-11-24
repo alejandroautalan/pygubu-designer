@@ -2,6 +2,7 @@
 # command_properties.py
 import pathlib
 from tkinter import messagebox
+
 import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
@@ -29,19 +30,13 @@ class MyApplication:
     # define the method callbacks:
 
     def on_button1_clicked(self):
-        messagebox.showinfo(
-            "Message", "You clicked Button 1", parent=self.mainwindow
-        )
+        messagebox.showinfo("Message", "You clicked Button 1", parent=self.mainwindow)
 
     def on_button2_clicked(self):
-        messagebox.showinfo(
-            "Message", "You clicked Button 2", parent=self.mainwindow
-        )
+        messagebox.showinfo("Message", "You clicked Button 2", parent=self.mainwindow)
 
     def on_button3_clicked(self):
-        messagebox.showinfo(
-            "Message", "You clicked Button 3", parent=self.mainwindow
-        )
+        messagebox.showinfo("Message", "You clicked Button 3", parent=self.mainwindow)
 
 
 if __name__ == "__main__":

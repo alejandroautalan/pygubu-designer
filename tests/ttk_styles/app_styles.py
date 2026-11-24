@@ -12,8 +12,7 @@ module that you need.
 
 """
 
-import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 
 def setup_ttk_styles(master=None):

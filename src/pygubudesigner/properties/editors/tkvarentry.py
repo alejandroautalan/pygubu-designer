@@ -15,7 +15,7 @@
 
 import keyword
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 from .propertyeditor import (
     ChoicePropertyEditor,
@@ -50,9 +50,7 @@ class TkVarPropertyEditor(PropertyEditor):
 
         self._entry.bind("<<PropertyChanged>>", self._on_variable_changed)
         self._cbox.bind("<<PropertyChanged>>", self._on_variable_changed)
-        self._cbox.parameters(
-            width=8, values=self.type_choices, state="readonly"
-        )
+        self._cbox.parameters(width=8, values=self.type_choices, state="readonly")
 
     def _get_value(self):
         value = ""

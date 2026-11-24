@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-import pathlib
-import tkinter as tk
-import pygubu
 import json
-from allwidgetsui import AppUI
 
+import pygubu
+from allwidgetsui import AppUI
 
 # Define treeview data
 tree_data = None
@@ -33,9 +31,7 @@ class App(AppUI):
 
     def printcheckboxvars(self, number):
         print("Checkbox number:", number, "was pressed")
-        print(
-            "Checkboxes: ", self.var_checkbox1.get(), self.var_checkbox2.get()
-        )
+        print("Checkboxes: ", self.var_checkbox1.get(), self.var_checkbox2.get())
 
     def printradiobuttons(self, _var, _indx, _mode):
         print("Radio button: ", self.var_radiobutton.get(), "pressed.")

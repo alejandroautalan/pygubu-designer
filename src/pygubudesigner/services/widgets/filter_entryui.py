@@ -10,7 +10,6 @@ def i18n_translator_noop(value):
 
 def first_object_callback_noop(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def image_loader_default(master, image_name: str):
@@ -59,9 +58,7 @@ class FilterEntryUI(ttk.Frame):
         self.filter_entry.pack(
             expand=True, fill="x", ipady="2p", padx="4p", side="left"
         )
-        self.filter_entry.bind(
-            "<KeyRelease>", self.on_keypress_onfilter, add=""
-        )
+        self.filter_entry.bind("<KeyRelease>", self.on_keypress_onfilter, add="")
         button1 = ttk.Button(self)
         self.img_filter_cancel = image_loader(None, "filter_cancel")
         button1.configure(

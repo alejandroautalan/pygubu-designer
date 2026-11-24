@@ -14,10 +14,11 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 from pygubudesigner.util import get_linespace
 from pygubudesigner.util.selecttool import SelectTool
+
 from .propertyeditor import (
     PropertyEditor,
     register_editor,
@@ -84,7 +85,7 @@ class StickyPropertyEditor(PropertyEditor):
         else:
             self._paint_state(self._map[""])
 
-    def _on_canvas_configure(self, event=None):
+    def _on_canvas_configure(self, _event=None):
         # Draw grid
         canvas = self._c
         ch, cw = canvas.winfo_height() - 1, canvas.winfo_width() - 1
@@ -114,9 +115,10 @@ class StickyPropertyEditor(PropertyEditor):
                 y1 = y0 + rh
                 canvas.coords(item, x0, y0, x1, y1)
 
-    def _on_region_selected(self, event=None):
+    def _on_region_selected(self, _event=None):
         canvas = self._c
-        region = canvas.region_selected
+        # Note: canvas.region_selected is setup by SelectTool
+        region = canvas.region_selected  # pylint: disable=no-member
         items = canvas.find_overlapping(*region)
         self._activate(items)
 
@@ -128,8 +130,7 @@ class StickyPropertyEditor(PropertyEditor):
             self._c.itemconfigure(item, fill=color)
 
     def _paint_state(self, state, color="#9999cc"):
-        for item in self._items:
-            pos = self._items[item]
+        for item, pos in self._items.items():
             if state[pos]:
                 self._c.itemconfigure(item, fill=color)
 
@@ -158,7 +159,7 @@ if __name__ == "__main__":
     editor.grid()
     editor.edit("nsew")
 
-    def see_var(event=None):
+    def see_var(_event=None):
         print(editor.value)
 
     editor.bind("<<PropertyChanged>>", see_var)

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import pathlib
 import tkinter as tk
 import tkinter.ttk as ttk
+
 import pygubu
 from demoappui import TooltipsDemoUI
 from framescript import FrameScript

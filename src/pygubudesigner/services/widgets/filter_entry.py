@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 import tkinter as tk
-import tkinter.ttk as ttk
-import pygubudesigner.services.widgets.filter_entryui as baseui
 
-from pygubudesigner.i18n import translator
+import pygubudesigner.services.widgets.filter_entryui as baseui
 from pygubudesigner.services.image_loader import iconset_loader
 
 #
@@ -44,11 +42,11 @@ class FilterEntry(baseui.FilterEntryUI):
 
     def setvalue(self, value: str, notify_change=True):
         if notify_change:
-            self.filter_var.set("")
+            self.filter_var.set(value)
             self.evaluate_change()
         else:
             self.prev_value = ""
-            self.filter_var.set("")
+            self.filter_var.set(value)
 
     def getvalue(self) -> str:
         return self.filter_var.get()

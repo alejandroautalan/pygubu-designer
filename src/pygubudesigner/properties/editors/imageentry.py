@@ -15,12 +15,12 @@
 
 import os
 import tkinter as tk
-import tkinter.filedialog
-import tkinter.ttk as ttk
+from tkinter import filedialog, ttk
 
-from pygubu.stockimage import StockImage, TK_IMAGE_FORMATS
+from pygubu.stockimage import TK_IMAGE_FORMATS, StockImage
 
 from pygubudesigner.i18n import translator
+
 from .propertyeditor import (
     PropertyEditor,
     register_editor,
@@ -53,14 +53,14 @@ class ImagePropertyEditor(PropertyEditor):
             ]
         }
 
-        fname = tk.filedialog.askopenfilename(**options)
+        fname = filedialog.askopenfilename(**options)
         if fname:
-            base, name = os.path.split(fname)
+            _base, name = os.path.split(fname)
             #  Register image before change event is generated:
             if not StockImage.is_registered(name):
                 StockImage.register(name, fname)
             self._set_value(name)
-            self._on_variable_changed(event=None)
+            self._on_variable_changed()
 
 
 register_editor("imageentry", ImagePropertyEditor)
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     entry.grid()
 
     def see_var():
-        print(entry._variable.get())
+        print(entry._variable.get())  # pylint: disable=protected-access
 
     entry.edit("image.gif")
     btn = ttk.Button(root, text="Value", command=see_var)

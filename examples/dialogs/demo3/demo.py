@@ -4,8 +4,8 @@ import threading
 import time
 import tkinter as tk
 import tkinter.messagebox
-import pygubu  # fades
 
+import pygubu  # fades
 
 PROJECT_PATH = os.path.dirname(__file__)
 PROJECT_UI = os.path.join(PROJECT_PATH, "demo.ui")
@@ -28,7 +28,7 @@ class LongRunningTask(threading.Thread):
         Send commands to the main app using self.app.task_cmd()
         """
         dialog_id = self.dialog_id
-        msg = "task {0}".format(dialog_id)
+        msg = f"task {dialog_id}"
         self.app.task_cmd(
             "task_start", dialog_id=dialog_id, message=msg + " starting ..."
         )
@@ -36,15 +36,11 @@ class LongRunningTask(threading.Thread):
         while self.seconds > 0:
             time.sleep(1)
             self.seconds -= 1
-            self.app.task_cmd(
-                "task_step", dialog_id=dialog_id, message=msg + " step"
-            )
-        self.app.task_cmd(
-            "task_stop", dialog_id=dialog_id, message=msg + " Done."
-        )
+            self.app.task_cmd("task_step", dialog_id=dialog_id, message=msg + " step")
+        self.app.task_cmd("task_stop", dialog_id=dialog_id, message=msg + " Done.")
 
 
-class Task1Dialog(object):
+class Task1Dialog:
     """This represents a Dialog UI that runs a long running task"""
 
     def __init__(self, app):
@@ -100,7 +96,7 @@ class MainApp:
         self.process_queue()
 
     def addlog(self, msg):
-        msg = "{0}\n".format(msg)
+        msg = f"{msg}\n"
         self.txtlog.insert("end", msg)
         self.mainwindow.after_idle(lambda: self.txtlog.see("end"))
 

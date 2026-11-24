@@ -1,5 +1,5 @@
-import threading
 import queue
+import threading
 import time
 
 
@@ -18,9 +18,7 @@ class TaskExecutor:
 
     def _schedule_processing(self):
         if self.processor_id is None:
-            self.processor_id = self.master.after(
-                self.delay, self.process_tasks
-            )
+            self.processor_id = self.master.after(self.delay, self.process_tasks)
 
     def process_tasks(self):
         try:

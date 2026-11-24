@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-import pathlib
 import tkinter as tk
+
 import pygubu
 from dialog1ui import SimpleDialog1UI
 

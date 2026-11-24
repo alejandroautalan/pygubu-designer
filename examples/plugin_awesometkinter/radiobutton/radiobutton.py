@@ -6,9 +6,9 @@ Awesome tkinter radiobutton example.
 
 UI source file: radioapp.ui
 """
+
 import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 from radiobuttonui import RadiobuttonAppUI
 

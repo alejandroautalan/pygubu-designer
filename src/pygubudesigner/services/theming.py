@@ -1,7 +1,8 @@
-import tkinter.ttk as ttk
+from abc import ABC, abstractmethod
+from tkinter import ttk
+from typing import ClassVar
 
-
-__style = None
+_STYLE = None
 
 has_sv_ttk = False
 has_ttkthemes = False
@@ -9,14 +10,14 @@ has_ttkbootstrap = False
 has_pygubu_bootstrap = False
 
 
-class ThemeModule:
-    def theme_names(self) -> list:
-        raise NotImplementedError
+class ThemeModule(ABC):
+    @abstractmethod
+    def theme_names(self) -> list: ...
 
-    def theme_use(self, name):
-        raise NotImplementedError
+    @abstractmethod
+    def theme_use(self, name): ...
 
-    def can_handle(self, name) -> bool:
+    def can_handle(self, _name) -> bool:
         return False
 
 
@@ -36,7 +37,7 @@ class SunValleyModule(ThemeModule):
         return name in self.sv_themes
 
 
-class ttkthemesModule(ThemeModule):
+class TtkthemesModule(ThemeModule):
     def __init__(self):
         self.style = ThemedStyle()
         self.definitions = list(self.style.theme_names())
@@ -51,7 +52,7 @@ class ttkthemesModule(ThemeModule):
         return name in self.definitions
 
 
-class ttkbModule(ThemeModule):
+class TtkbModule(ThemeModule):
     def __init__(self):
         self.style = ttkb.Style()
         theme_list = []
@@ -87,36 +88,40 @@ class PygubuBootstrapModule(ThemeModule):
 
 
 class MultipleThemeModuleManager(ttk.Style):
-    modules = []
-    theme_list = None
+    modules: ClassVar[list] = []
+    theme_list: ClassVar[list | None] = None
 
     def theme_names(self):
         if self.theme_list is None:
-            MultipleThemeModuleManager.theme_list = list(super().theme_names())
+            new_list: list[str] = list(super().theme_names())
             for m in self.modules:
                 themes = m.theme_names()
                 for t in themes:
-                    if t not in self.theme_list:
-                        self.theme_list.append(t)
+                    if t not in new_list:
+                        new_list.append(t)
+            MultipleThemeModuleManager.theme_list = new_list
         return self.theme_list
 
-    def theme_use(self, name=None):
-        if name is None:
+    def theme_use(self, themename=None):
+        if themename is None:
             return super().theme_use()
 
         theme_set = False
         for m in self.modules:
-            if m.can_handle(name):
-                m.theme_use(name)
+            if m.can_handle(themename):
+                m.theme_use(themename)
                 theme_set = True
                 break
         if not theme_set:
-            super().theme_use(name)
+            return super().theme_use(themename)
+        return None
 
 
 try:
     import ttkbootstrap as ttkb
-    import ttkbootstrap.window  # Make shure style management is installed
+
+    # Make shure style management is installed
+    import ttkbootstrap.window  # pylint: disable=unused-import
 
     has_ttkbootstrap = True
 except ImportError:
@@ -145,24 +150,24 @@ except ImportError:
 
 def get_ttk_style():
     """Use themes from multiple modules if they are installed."""
-    global __style
-    if __style is None:
+    global _STYLE  # pylint: disable=global-statement
+    if _STYLE is None:
         manager = MultipleThemeModuleManager()
         if has_pygubu_bootstrap:
             manager.modules.append(PygubuBootstrapModule())
         if has_ttkthemes:
-            manager.modules.append(ttkthemesModule())
+            manager.modules.append(TtkthemesModule())
         if has_sv_ttk:
             manager.modules.append(SunValleyModule())
         if has_ttkbootstrap:
-            manager.modules.append(ttkbModule())
+            manager.modules.append(TtkbModule())
 
-        __style = manager
+        _STYLE = manager
 
-    return __style
+    return _STYLE
 
 
-class ThemeChangedMonitor:
+class ThemeChangedMonitor:  # pylint: disable=too-few-public-methods
     """A class to monitor theme change and execute a callback when that happens.
     The callback is executed once in each theme.
     """

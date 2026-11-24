@@ -1,15 +1,15 @@
-import sys
+import importlib
+import logging
 import os
 import pathlib
-import logging
-import importlib
+import sys
 import tkinter as tk
 
 from pygubu.component.uidefinition import UIDefinition
-from ..widgetdescr import WidgetMeta
-from ..i18n import translator
-from .stylehandler import StyleHandler
 
+from ..i18n import translator
+from ..widgetdescr import WidgetMeta
+from .stylehandler import StyleHandler
 
 logger = logging.getLogger(__name__)
 _ = translator
@@ -121,13 +121,12 @@ class Project:
             # Notify user some path does not exits
             # raise exception
             msg = "Custom widgets not found:\n" + "\n".join(
-                (str(f) for f in notfound_list)
+                str(f) for f in notfound_list
             )
-            raise Exception(msg)
-        else:
-            # Load builders
-            for path in path_list:
-                load_custom_widget(path)
+            raise RuntimeError(msg)
+        # Load builders
+        for path in path_list:
+            load_custom_widget(path)
 
     @staticmethod
     def load(filename) -> "Project":

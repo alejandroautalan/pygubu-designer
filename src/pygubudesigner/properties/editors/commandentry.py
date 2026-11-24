@@ -15,13 +15,13 @@
 
 import json
 import keyword
-import re
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 from pygubu.component.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
+
 from .propertyeditor import (
     ChoiceByKeyPropertyEditor,
     EntryPropertyEditor,
@@ -73,9 +73,7 @@ class SimpleCommandEntry(CommandPropertyBase):
         is_valid = True
         value = self._cbname.value
         if len(value) != 0:
-            is_valid = self.is_safe_identifier(
-                value
-            ) and self.is_valid_globally(value)
+            is_valid = self.is_safe_identifier(value) and self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
 
@@ -150,9 +148,7 @@ class CommandPropertyEditor(CommandPropertyBase):
         is_valid = True
         value = self._cbname.value
         if len(value) != 0:
-            is_valid = self.is_safe_identifier(
-                value
-            ) and self.is_valid_globally(value)
+            is_valid = self.is_safe_identifier(value) and self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
 
@@ -171,7 +167,7 @@ if __name__ == "__main__":
         print("change cb")
 
     editor.bind("<<PropertyChanged>>", change_cb)
-    value = '{"value":"mycb", "cbtype": "simple"}'
-    editor.edit(value)
+    test_value = '{"value":"mycb", "cbtype": "simple"}'
+    editor.edit(test_value)
 
     root.mainloop()

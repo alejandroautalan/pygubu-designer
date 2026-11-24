@@ -1,5 +1,6 @@
 import importlib
 import traceback
+
 from pygubu.component.plugin_manager import PluginManager
 
 

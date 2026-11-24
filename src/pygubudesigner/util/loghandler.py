@@ -14,7 +14,5 @@ class StatusBarHandler(logging.Handler):
         try:
             msg = self.format(record)
             self.app.log_message(msg, record.levelno)
-        except (KeyboardInterrupt, SystemExit):
-            raise
-        except BaseException:
+        except Exception:  # pylint: disable=broad-exception-caught
             self.handleError(record)

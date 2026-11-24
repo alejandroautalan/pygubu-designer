@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import pathlib
 import tkinter as tk
+
 import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent

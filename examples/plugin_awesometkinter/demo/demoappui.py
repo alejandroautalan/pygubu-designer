@@ -6,8 +6,9 @@ Same as demo.py from awesometkinter examples.
 
 UI source file: demo.ui
 """
-import pathlib
+
 import tkinter as tk
+
 import pygubu
 
 

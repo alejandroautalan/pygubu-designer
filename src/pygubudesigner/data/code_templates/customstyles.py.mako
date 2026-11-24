@@ -31,7 +31,7 @@ The code below shows the minimal example definition file.
 """
 
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 
 def setup_ttk_styles(master=None):

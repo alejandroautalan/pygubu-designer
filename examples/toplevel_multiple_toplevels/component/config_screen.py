@@ -1,8 +1,5 @@
 #!/usr/bin/python3
-import tkinter as tk
-import tkinter.ttk as ttk
 import component.config_screenui as baseui
-
 
 # i18n - Setup yout translator function
 # baseui.i18n_translator = mytranslator

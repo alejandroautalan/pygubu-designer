@@ -16,16 +16,15 @@
 import logging
 import sys
 import tkinter as tk
-import tkinter.ttk as ttk
 from collections import OrderedDict
 from functools import partial
+from tkinter import ttk
 
-from pygubu.stockimage import StockImage
-
-import pygubudesigner.actions as actions
+from pygubudesigner import actions
 from pygubudesigner.properties.editors import TtkStylePropertyEditor
-from pygubudesigner.services.theming import ThemeChangedMonitor
 from pygubudesigner.services.stylehandler import StyleHandler
+from pygubudesigner.services.theming import ThemeChangedMonitor
+
 from ..preferences import preferences
 from .preview import MenuPreview, Preview
 
@@ -74,12 +73,10 @@ class PreviewHelper:
             lambda e: self.close_toplevel_previews(),
         )
         # monitor theme change to maintain selector color
-        self.tcmonitor = ThemeChangedMonitor(
-            canvas, self.update_indicators_color
-        )
+        self.tcmonitor = ThemeChangedMonitor(canvas, self.update_indicators_color)
 
     def update_indicators_color(self):
-        for key, frame in self.indicators.items():
+        for frame in self.indicators.values():
             frame.configure(background=preferences.preview_indicator_color)
 
     def add_resource_path(self, path):
@@ -114,7 +111,7 @@ class PreviewHelper:
                 c.configure(cursor="fleur")
                 self._last_event = event
 
-    def release_handler(self, event):
+    def release_handler(self, _event):
         self._objects_moving = None
         self._moving = False
 
@@ -171,7 +168,7 @@ class PreviewHelper:
 
         y = 10
         min_y = [y]
-        for k, p in self.previews.items():
+        for p in self.previews.values():
             y += p.height() + self.padding
             min_y.append(y)
         return min_y
@@ -180,7 +177,7 @@ class PreviewHelper:
         "Returns the next coordinates for a preview"
 
         x = y = 10
-        for k, p in self.previews.items():
+        for p in self.previews.values():
             y += p.height() + self.padding
         return x, y
 
@@ -200,20 +197,19 @@ class PreviewHelper:
         self.reset_selected(identifier)
         self.move_previews()
 
-        if True:
-            # we are allways recreating full preview.
-            # create callback and bind widgets
-            def callback(event, self=self, previewid=identifier):
-                self.preview_click_handler(previewid, event)
+        # we are allways recreating full preview.
+        # create callback and bind widgets
+        def callback(event, self=self, previewid=identifier):
+            self.preview_click_handler(previewid, event)
 
-            widget = preview.root_widget
-            self.bind_preview_widget(widget, callback)
+        widget = preview.root_widget
+        self.bind_preview_widget(widget, callback)
 
     def _create_indicators(self):
         # selected indicators
         anchors = {"top": tk.SW, "bottom": tk.NW, "left": tk.NE, "right": tk.NW}
         self.indicators = {}
-        for tag in anchors:
+        for tag, tag_value in anchors.items():
             frame = tk.Frame(
                 self.canvas,
                 class_="PreviewIndicatorFrame",
@@ -223,7 +219,7 @@ class PreviewHelper:
                 background=preferences.preview_indicator_color,
             )
             self.canvas.create_window(
-                -10, -10, window=frame, anchor=anchors[tag], tags=tag
+                -10, -10, window=frame, anchor=tag_value, tags=tag
             )
             self.indicators[tag] = frame
 
@@ -243,6 +239,10 @@ class PreviewHelper:
         wy2 = y + wh
         stroke = self.indicator_stroke
         offset = self.indicator_offset
+        ix = 0
+        iy = 0
+        iw = 0
+        ih = 0
         if tag == "top":
             ix = x - (stroke + offset)
             iy = y - offset
@@ -367,9 +367,7 @@ class PreviewHelper:
         # The function that will be called when a right-click occurs.
         # The second argument (callback) is used to select the widget before
         # showing the context menu.
-        right_click_func = partial(
-            self.on_right_clicked_preview_widget, callback
-        )
+        right_click_func = partial(self.on_right_clicked_preview_widget, callback)
 
         # For right-clicking - bind to button2 for macos and button3 for a
         # different OS.
@@ -390,8 +388,8 @@ class PreviewHelper:
         - Callback: we need to run this method before we show the context menu.
         This method will cause the widget to be selected.
 
-        - Event: a normal event argument. This will tell us which widget was right-clicked
-        on if we ever need that info.
+        - Event: a normal event argument. This will tell us which widget was
+        right-clicked on if we ever need that info.
         """
 
         # Select the widget that was right-clicked.

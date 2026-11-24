@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 # translator marker
 from pygubudesigner.i18n import translator as _
 
@@ -10,9 +11,7 @@ tooltip_help = {
     "activerelief": _(
         "Specifies the relief to use when displaying the element that is active, if any."
     ),
-    "activestyle": _(
-        "Specifies the style in which to draw the active element."
-    ),
+    "activestyle": _("Specifies the style in which to draw the active element."),
     "activebackground": _(
         "Specifies background color to use when drawing active elements."
     ),
@@ -123,9 +122,7 @@ tooltip_help = {
     "format": _(
         "Specifies an alternate format to use when setting the string value when using the from and to range. This must be a format specifier of the form %<pad>.<pad>f, as it will format a floating-point number."
     ),
-    "from_": _(
-        "A floating-point value specifying the lowest value for the widget."
-    ),
+    "from_": _("A floating-point value specifying the lowest value for the widget."),
     "handlepad": _(
         "When sash handles are drawn, specifies the distance from the top or left end of the sash (depending on the orientation of the widget) at which to draw the handle."
     ),
@@ -143,12 +140,8 @@ tooltip_help = {
     "height-tk.Menubutton": _(
         "Specifies a desired height for the menubutton. If an image or bitmap is being displayed in the menubutton then the value is in screen units; for text it is in lines of text."
     ),
-    "height-ttk.Treeview": _(
-        "Specifies the number of rows which should be visible."
-    ),
-    "height-ttk.Combobox": _(
-        "Specifies the height of the pop-down listbox, in rows."
-    ),
+    "height-ttk.Treeview": _("Specifies the number of rows which should be visible."),
+    "height-ttk.Combobox": _("Specifies the height of the pop-down listbox, in rows."),
     "hidemargin": _(
         "Specifies whether the standard margins should be drawn for this menu entry. This is useful when creating palette with images in them."
     ),
@@ -205,12 +198,8 @@ tooltip_help = {
     "labelanchor": _(
         "Specifies where to place the label. The default value is theme-dependent."
     ),
-    "length": _(
-        "Specifies the desired long dimension of the scale in screen units."
-    ),
-    "listvariable": _(
-        "A variable name to be used as source of items for the Listbox"
-    ),
+    "length": _("Specifies the desired long dimension of the scale in screen units."),
+    "listvariable": _("A variable name to be used as source of items for the Listbox"),
     "maximum": _(
         "A floating point number specifying the maximum value. Defaults to 100."
     ),
@@ -281,9 +270,7 @@ tooltip_help = {
     ),
     "sliderrelief": _("Specifies the relief to use when drawing the slider."),
     "sashcursor": _("Mouse cursor to use when over a sash."),
-    "sashpad": _(
-        "Specifies the amount of padding to leave of each side of a sash."
-    ),
+    "sashpad": _("Specifies the amount of padding to leave of each side of a sash."),
     "sashrelief": _("Relief to use when drawing a sash."),
     "sashwidth": _("Specifies the width of each sash."),
     "selectbackground": _(
@@ -304,9 +291,7 @@ tooltip_help = {
     "selectimage": _(
         "Specifies an image to display (in place of the image option) when the checkbutton is selected. This option is ignored unless the image option has been specified."
     ),
-    "selectmode": _(
-        "Controls how the built-in class bindings manage the selection."
-    ),
+    "selectmode": _("Controls how the built-in class bindings manage the selection."),
     "setgrid": _(
         "Specifies a boolean value that determines whether this widget controls the resizing grid for its top-level window."
     ),
@@ -330,18 +315,14 @@ tooltip_help = {
     "startline": _(
         "Specifies an integer line index representing the first line of the underlying textual data store that should be contained in the widget. This allows a text widget to reflect only a portion of a larger piece of text."
     ),
-    "state": _(
-        "May be set to normal or disabled to control the disabled state bit."
-    ),
+    "state": _("May be set to normal or disabled to control the disabled state bit."),
     "state-tk.Checkbutton": _(
         "Specifies one of three states for the checkbutton: normal, active, or disabled."
     ),
     "state-tk.Canvas": _(
         "Modifies the default state of the canvas where state may be set to one of: normal, disabled, or hidden. Individual canvas objects all have their own state option which may override the default state."
     ),
-    "sticky": _(
-        "Specifies how the content window is positioned within the pane area."
-    ),
+    "sticky": _("Specifies how the content window is positioned within the pane area."),
     "stretch": _("Controls how extra space is allocated to each of the panes."),
     "stretch-ttk.Treeview": _(
         "Specifies whether or not the column width should be adjusted when the widget is resized or the user drags a column separator."
@@ -401,9 +382,7 @@ tooltip_help = {
     ),
     "validate": _("Specifies the mode in which validation should operate."),
     "validatecommand": None,
-    "variable": _(
-        "The name of a variable whose value is linked to the widget."
-    ),
+    "variable": _("The name of a variable whose value is linked to the widget."),
     "weight": _(
         "An integer specifying the relative stretchability of the pane. When the paned window is resized, the extra space is added or subtracted to each pane proportionally to its weight."
     ),
@@ -464,9 +443,7 @@ tooltip_help = {
     ),
     #
     # Custom properties
-    "geometry-custom": _(
-        "Set the window geometry. Allowed string format: 'wxh'"
-    ),
+    "geometry-custom": _("Set the window geometry. Allowed string format: 'wxh'"),
     "maxsize-toplevel": _("Set the maximum window size."),
     "minsize-toplevel": _("Set the minimum window size."),
     "overrideredirect-custom": _(
@@ -498,9 +475,7 @@ tooltip_help = {
         "Specifies how much vertical internal padding to leave on each side of the content."
     ),
     "propagate-layout": _("Enable/Disable Geometry Propagation"),
-    "anchor-layout": _(
-        "It specifies where to position each content in its parcel."
-    ),
+    "anchor-layout": _("It specifies where to position each content in its parcel."),
     "anchor-layout-place": _(
         "Specifies which point of window is to be positioned at the (x,y) location selected by the x, y, relx, and rely options."
     ),
@@ -539,18 +514,14 @@ tooltip_help = {
     ),
     #
     # grid packing properties
-    "row-grid": _(
-        "Insert the content so that it occupies the nth row in the grid."
-    ),
+    "row-grid": _("Insert the content so that it occupies the nth row in the grid."),
     "column-grid": _(
         "Insert the window so that it occupies the nth column in the grid."
     ),
     "sticky-grid": _(
         "If a content's cell is larger than its requested dimensions, this option may be used to position (or stretch) the content within its cell."
     ),
-    "rowspan-grid": _(
-        "Insert the content so that it occupies n rows in the grid."
-    ),
+    "rowspan-grid": _("Insert the content so that it occupies n rows in the grid."),
     "columnspan-grid": _(
         "Insert the window so that it occupies n columns in the grid."
     ),

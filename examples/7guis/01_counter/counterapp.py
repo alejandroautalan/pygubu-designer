@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 from counterappui import CounterAppUI
 

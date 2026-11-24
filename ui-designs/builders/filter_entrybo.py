@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-import tkinter as tk
-import tkinter.ttk as ttk
 from pygubu.api.v1 import (
     BuilderObject,
     register_widget,
 )
-from pygubudesigner.services.widgets.filter_entry import FilterEntry
 
+from pygubudesigner.services.widgets.filter_entry import FilterEntry
 
 #
 # Builder definition section
@@ -28,6 +26,4 @@ class FilterEntryBO(BuilderObject):
 
 
 _builder_id = f"{_builder_namespace}.{_widget_classname}"
-register_widget(
-    _builder_id, FilterEntryBO, _widget_classname, ("ttk", _section_name)
-)
+register_widget(_builder_id, FilterEntryBO, _widget_classname, ("ttk", _section_name))

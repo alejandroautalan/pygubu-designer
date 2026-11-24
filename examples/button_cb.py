@@ -1,8 +1,7 @@
-# encoding: utf8
 import pathlib
 from tkinter import messagebox
-import pygubu
 
+import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "button_cb.ui"

@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import platform
 import tkinter as tk
 import tkinter.font
@@ -27,8 +26,8 @@ def indent(elem, level=0):
             elem.text = i + "  "
         if not elem.tail or not elem.tail.strip():
             elem.tail = i
-        for elem in elem:
-            indent(elem, level + 1)
+        for child in elem:
+            indent(child, level + 1)
         if not elem.tail or not elem.tail.strip():
             elem.tail = i
     else:
@@ -47,7 +46,7 @@ def treeview_print(tree, root=""):
     tree_print(tree, root)
 
 
-class BraceMessage:
+class BraceMessage:  # pylint: disable=too-few-public-methods
     """Helper class to use braces {} in log messages"""
 
     def __init__(self, fmt, *args, **kwargs):
@@ -57,10 +56,6 @@ class BraceMessage:
 
     def __str__(self):
         return self.fmt.format(*self.args, **self.kwargs)
-
-
-# Helper to translate log messages with braces
-trlog = BraceMessage
 
 
 def virtual_event(event_name):
@@ -92,7 +87,7 @@ def enable_dpi():
     """Enable DPI Awareness."""
 
     if platform.system() == "Windows":
-        import ctypes
+        import ctypes  # pylint: disable=import-outside-toplevel
 
         if platform.release() == "7":
             ctypes.windll.user32.SetProcessDPIAware()
@@ -102,9 +97,6 @@ def enable_dpi():
 
 def get_linespace(root=None, *, font_name=None, scale_factor=1) -> int:
     family = "TkDefaultFont" if font_name is None else font_name
-    if sys.version_info >= (3, 10):
-        font = tk.font.nametofont(family, root)
-    else:
-        font = tk.font.nametofont(family)
+    font = tk.font.nametofont(family, root)
     linespace = font.metrics()["linespace"]
     return int(linespace * scale_factor)

@@ -1,34 +1,29 @@
-#!/usr/bin/python3
+import logging
 import pathlib
 import tkinter as tk
-import tkinter.ttk as ttk
-import logging
-import pygubu
+from tkinter import messagebox
+
+from pygubu.forms.transformer.tkboolean import BoolTransformer
 
 import pygubudesigner.services.projectsettingsui as baseui
-from collections.abc import Iterable
-from tkinter import messagebox
-from pygubu.forms.transformer.tkboolean import BoolTransformer
-from pygubudesigner.preferences import NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.i18n import translator as _
-from .project import Project
-from .fieldvalidator import (
-    IsIdentifier,
-    RelativePathExists,
-    Choice,
-    IsNamespace,
-)
+from pygubudesigner.preferences import NEW_STYLE_FILE_TEMPLATE
 from pygubudesigner.services.image_loader import iconset_loader
 
+from .fieldvalidator import (
+    Choice,
+    IsIdentifier,
+    IsNamespace,
+    RelativePathExists,
+)
+from .project import Project
 
 logger = logging.getLogger(__name__)
 
 
 class ProjectSettings(baseui.ProjectSettingsUI):
     def __init__(self, master=None, translator=None):
-        super().__init__(
-            master, translator=translator, image_loader=iconset_loader
-        )
+        super().__init__(master, translator=translator, image_loader=iconset_loader)
         self._current_project: Project = None
         self.on_settings_changed = None
         self.dialog_toplevel = self.mainwindow.toplevel
@@ -80,60 +75,60 @@ class ProjectSettings(baseui.ProjectSettingsUI):
         self.main_widget_constraint = Choice()
         self.path_exists_constraint = path_exists_constraint
         frm_general_config = {"name": {}, "description": {}, "translator": _}
-        frm_code_config = dict(
-            translator=_,
-            module_namespace={
+        frm_code_config = {
+            "translator": _,
+            "module_namespace": {
                 "required": False,
                 "constraints": [namespace_or_empty],
             },
-            module_name={
+            "module_name": {
                 "constraints": [identifier_constraint],
             },
-            main_classname={
+            "main_classname": {
                 "constraints": [identifier_constraint],
             },
-            main_widget={
+            "main_widget": {
                 "constraints": [self.main_widget_constraint],
             },
-            output_dir={
+            "output_dir": {
                 "required": False,
                 "constraints": [path_exists_constraint],
             },
-            output_dir2={
+            "output_dir2": {
                 "required": False,
                 "constraints": [path_exists_constraint],
             },
-            builder_namespace={
+            "builder_namespace": {
                 "required": False,
                 "constraints": [namespace_or_empty],
             },
-            import_tkvariables={
+            "import_tkvariables": {
                 "model_transformer": bool_transformer,
             },
-            use_ttk_styledefinition_file={
+            "use_ttk_styledefinition_file": {
                 "model_transformer": bool_transformer,
             },
-            use_i18n={
+            "use_i18n": {
                 "model_transformer": bool_transformer,
             },
-            all_ids_attributes={
+            "all_ids_attributes": {
                 "model_transformer": bool_transformer,
             },
-            generate_code_onsave={
+            "generate_code_onsave": {
                 "model_transformer": bool_transformer,
             },
-            use_window_centering_code={
+            "use_window_centering_code": {
                 "model_transformer": bool_transformer,
             },
-        )
+        }
 
-        frm_style_config = dict(
-            translator=_,
-            ttk_style_definition_file={
+        frm_style_config = {
+            "translator": _,
+            "ttk_style_definition_file": {
                 "required": False,
                 "constraints": [path_exists_constraint],
             },
-        )
+        }
         self.frm_general = self.fb_general.get_form(frm_general_config)
         self.frm_code = self.fb_code.get_form(frm_code_config)
         self.frm_style = self.fb_style.get_form(frm_style_config)
@@ -203,7 +198,7 @@ class ProjectSettings(baseui.ProjectSettingsUI):
         )
         # Process forms
         all_valid = True
-        for builder, form, tab_index in forms:
+        for _builder, form, tab_index in forms:
             form.submit()
             valid = form.is_valid()
             all_valid = all_valid and valid
@@ -215,12 +210,12 @@ class ProjectSettings(baseui.ProjectSettingsUI):
                 break
 
         # Process custom widgets section
-        # FIXME: improve this
+        # NOTE: can this be improved?
         new_settings["custom_widgets"] = self._get_custom_widget_list()
         return all_valid, new_settings
 
     def validate_for_codegen(self):
-        all_valid, new_settings = self.process_forms()
+        all_valid, _new_settings = self.process_forms()
         return all_valid
 
     def btn_apply_clicked(self):
@@ -326,16 +321,14 @@ class ProjectSettings(baseui.ProjectSettingsUI):
         fname = btn.cget("path")
 
         try:
-            with open(fname, "w") as f:
+            with open(fname, "w", encoding="utf-8") as f:
                 with NEW_STYLE_FILE_TEMPLATE.open() as tfile:
                     sample_script_contents = tfile.read()
                     f.write(sample_script_contents)
 
             if pathlib.Path(fname).exists():
                 msg = _("File saved.\n\nPlease edit the style definition file.")
-                messagebox.showinfo(
-                    _("Styles"), msg, parent=self.dialog_toplevel
-                )
+                messagebox.showinfo(_("Styles"), msg, parent=self.dialog_toplevel)
 
                 # Auto setup this new file definition:
                 fieldname = "ttk_style_definition_file"

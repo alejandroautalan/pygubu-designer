@@ -1,10 +1,9 @@
-# encoding: utf8
 import pathlib
 import tkinter as tk
-from tkinter import messagebox
 from random import randint
-import pygubu
+from tkinter import messagebox
 
+import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "treeview.ui"

@@ -6,9 +6,9 @@ Simple HtmlLabel example.
 
 UI source file: demo_label.ui
 """
+
 import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 from demoui import DemoAppUI
 

@@ -6,13 +6,13 @@ Main toolbar for pygubu designer.
 
 UI source file: main_toolbar.ui
 """
-import tkinter as tk
-import tkinter.ttk as ttk
-import pygubudesigner.actions as actions
-import pygubudesigner.services.widgets.main_toolbarui as baseui
-from pygubudesigner.services.image_loader import iconset_loader
-from pygubudesigner.i18n import translator
 
+import tkinter as tk
+
+import pygubudesigner.services.widgets.main_toolbarui as baseui
+from pygubudesigner import actions
+from pygubudesigner.i18n import translator
+from pygubudesigner.services.image_loader import iconset_loader
 
 #
 # Manual user code

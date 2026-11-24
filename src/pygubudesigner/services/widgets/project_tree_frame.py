@@ -1,15 +1,13 @@
-#!/usr/bin/python3
 import tkinter as tk
-import tkinter.ttk as ttk
+from collections.abc import Callable
+from tkinter import ttk
+
 import pygubudesigner.services.widgets.project_tree_frameui as baseui
 
-from typing import Callable, Optional
-from pprint import pprint as pp
-
-_filter_func = Callable[[ttk.Treeview, str, str], bool]
+_FilterFunc = Callable[[ttk.Treeview, str, str], bool]
 
 
-class BasicFilter:
+class BasicFilter:  # pylint: disable=too-few-public-methods
     def __call__(self, tree, itemid, filter_value: str) -> bool:
         # Default filter match function.
         txt = tree.item(itemid, "text").lower()
@@ -31,12 +29,10 @@ class ProjectTreeFrame(baseui.ProjectTreeFrameUI):
         self.filter_value = ""
         self.filtering = False
 
-        self.tvfilter.bind(
-            "<<TreeviewSelect>>", self.on_tvfilter_selection_change
-        )
+        self.tvfilter.bind("<<TreeviewSelect>>", self.on_tvfilter_selection_change)
 
     # BEGIN Display methods
-    def on_tvfilter_selection_change(self, event):
+    def on_tvfilter_selection_change(self, _event):
         if self.filtering:
             return
         sel = self.tvfilter.selection()
@@ -87,9 +83,7 @@ class ProjectTreeFrame(baseui.ProjectTreeFrameUI):
                 matching[child].update(child_match)
         return matching
 
-    def _copy_items(
-        self, stree: ttk.Treeview, dtree: ttk.Treeview, data, parent=""
-    ):
+    def _copy_items(self, stree: ttk.Treeview, dtree: ttk.Treeview, data, parent=""):
         for item, children in data.items():
             item_options = stree.item(item)
             dtree.insert(parent, tk.END, iid=item, **item_options)

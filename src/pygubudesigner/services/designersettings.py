@@ -1,20 +1,17 @@
-#!/usr/bin/python3
 import tkinter as tk
-import tkinter.ttk as ttk
-import pygubudesigner.services.designersettingsui as baseui
 
 from pygubu.forms.transformer.tkboolean import BoolTransformer
-from pygubudesigner.preferences import preferences, default_config, CfgOption
-from pygubudesigner.services.theming import get_ttk_style
+
+import pygubudesigner.services.designersettingsui as baseui
 from pygubudesigner.i18n import translator
+from pygubudesigner.preferences import CfgOption, default_config, preferences
 from pygubudesigner.services.image_loader import iconset_loader
+from pygubudesigner.services.theming import get_ttk_style
 
 
 class DesignerSettings(baseui.DesignerSettingsUI):
     def __init__(self, master=None):
-        super().__init__(
-            master, translator=translator, image_loader=iconset_loader
-        )
+        super().__init__(master, translator=translator, image_loader=iconset_loader)
 
         self.dialog_toplevel = self.mainwindow.toplevel
 
@@ -22,23 +19,20 @@ class DesignerSettings(baseui.DesignerSettingsUI):
         s = get_ttk_style()
         styles = s.theme_names()
         themelist = []
-        for name in styles:
-            themelist.append((name, name))
+        if styles:
+            for name in styles:
+                themelist.append((name, name))
         themelist.sort()
         self.ttk_theme.configure(values=themelist)
 
         bool_transformer = BoolTransformer()
         form_config = {
-            CfgOption.CENTER_PREVIEW: dict(model_transformer=bool_transformer),
-            CfgOption.WIDGET_NAMING_USE_UNDERSCORE: dict(
-                model_transformer=bool_transformer
-            ),
-            CfgOption.WIDGET_NAMING_UFLETTER: dict(
-                model_transformer=bool_transformer
-            ),
-            CfgOption.MAIN_TOOLBAR_VISIBLE: dict(
-                model_transformer=bool_transformer
-            ),
+            CfgOption.CENTER_PREVIEW: {"model_transformer": bool_transformer},
+            CfgOption.WIDGET_NAMING_USE_UNDERSCORE: {
+                "model_transformer": bool_transformer
+            },
+            CfgOption.WIDGET_NAMING_UFLETTER: {"model_transformer": bool_transformer},
+            CfgOption.MAIN_TOOLBAR_VISIBLE: {"model_transformer": bool_transformer},
         }
         self.frm_settings = self.ffb_settings.get_form(form_config)
 
@@ -84,9 +78,6 @@ class DesignerSettings(baseui.DesignerSettingsUI):
             )
             parent.event_generate("<<PygubuDesignerPreferencesSaved>>")
             self.on_dialog_close()
-        else:
-            # FIXME
-            print(form.errors)
 
 
 if __name__ == "__main__":

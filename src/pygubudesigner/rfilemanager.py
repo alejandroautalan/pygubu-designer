@@ -14,12 +14,16 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-
 from datetime import datetime
-from pathlib import Path
 from functools import reduce
-from .preferences import preferences
+from pathlib import Path
+
 from pygubudesigner.services.image_loader import iconset_loader
+
+from .preferences import preferences
+
+FCOUNT = 0
+FDATE = 1
 
 
 class RecentFilesManager:
@@ -47,8 +51,6 @@ class RecentFilesManager:
             self.menu.delete(0, index_to)
 
     def _create_file_list(self):
-        FCOUNT = 0
-        FDATE = 1
         today_date = datetime.now().date()
         long_time = datetime.fromisoformat("19800915").timestamp()
 
@@ -95,7 +97,7 @@ class RecentFilesManager:
     def add(self, filepath):
         key = str(filepath)
         if key in self.recent:
-            count, date = self.recent[key]
+            count, _date = self.recent[key]
             self.recent[key] = [count + 1, datetime.now()]
         else:
             self.recent[key] = [1, datetime.now()]

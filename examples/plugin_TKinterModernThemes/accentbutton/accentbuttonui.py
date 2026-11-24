@@ -6,10 +6,9 @@ AccentButton example.
 
 UI source file: accentbutton.ui
 """
-import pathlib
-import tkinter as tk
-import TKinterModernThemes as tkmt
+
 import pygubu
+import TKinterModernThemes as tkmt
 
 
 class AppUI:

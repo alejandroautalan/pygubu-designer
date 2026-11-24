@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+# pylint: skip-file
 """
 pygubu-designer main menu
 
@@ -6,6 +6,7 @@ This is the main menu ui file for pygubu-designer.
 
 UI source file: main_menu.ui
 """
+
 import tkinter as tk
 
 
@@ -16,7 +17,6 @@ def safe_i18n_translator(value):
 
 def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def safe_image_loader(master, image_name: str):

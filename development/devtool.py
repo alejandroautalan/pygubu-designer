@@ -1,8 +1,7 @@
 import os
-import shlex
 import pathlib
+import shlex
 import subprocess as sp
-
 
 PROJECT_DIR = pathlib.Path(__file__).parent.parent
 SRC_DIR = PROJECT_DIR / "src"
@@ -25,16 +24,12 @@ def create_pot():
     pyfiles = [f.relative_to(PROJECT_DIR) for f in SRC_DIR.glob("**/*.py")]
     pyfiles.sort()
     pyfiles = " ".join([str(f) for f in pyfiles])
-    options = (
-        "--package-name pygubudesigner --join-existing -L Python --keyword=_ "
-    )
+    options = "--package-name pygubudesigner --join-existing -L Python --keyword=_ "
     cmd = f"xgettext {options} --output={pot_path} --from-code=UTF-8 {pyfiles}"
     sp.run(shlex.split(cmd))
 
     pot_path = DATA_DIR / "locale" / "pygubu.pot"
-    pyfiles = [
-        os.path.relpath(f, PROJECT_DIR) for f in PYGUBU_SRC_DIR.glob("**/*.py")
-    ]
+    pyfiles = [os.path.relpath(f, PROJECT_DIR) for f in PYGUBU_SRC_DIR.glob("**/*.py")]
     pyfiles = " ".join([str(f) for f in pyfiles])
     options = "--package-name pygubu -L Python --keyword=_"
     cmd = f"xgettext {options} --output={pot_path} --from-code=UTF-8 {pyfiles}"

@@ -15,14 +15,14 @@
 
 import json
 import tkinter as tk
-import tkinter.ttk as ttk
 from collections import OrderedDict
+from tkinter import ttk
 
 from pygubu.component.builderobject import CB_TYPES
 
 from pygubudesigner.i18n import translator as _
-from .commandentry import CommandPropertyBase
 
+from .commandentry import CommandPropertyBase
 from .propertyeditor import EntryPropertyEditor, register_editor
 
 
@@ -71,18 +71,18 @@ class EntryValidateCommandPropertyEditor(CommandPropertyBase):
         self.columnconfigure(0, weight=1)
 
     def _on_select_all(self):
-        for key, var in self._vars.items():
+        for var in self._vars.values():
             var.set(True)
         self._on_update_args()
         self._on_variable_changed()
 
     def _on_clear(self):
-        for key, var in self._vars.items():
+        for var in self._vars.values():
             var.set(False)
         self._on_update_args()
         self._on_variable_changed()
 
-    def _on_update_args(self, event=None):
+    def _on_update_args(self, _event=None):
         self._arg_var.set(self._get_args())
         self._on_variable_changed()
 
@@ -152,7 +152,7 @@ if __name__ == "__main__":
         print(editor.value)
 
     editor.bind("<<PropertyChanged>>", on_change_cb)
-    value = '{"value":"mycb", "cbtype": "entryvalidate"}'
-    editor.edit(value)
+    test_value = '{"value":"mycb", "cbtype": "entryvalidate"}'
+    editor.edit(test_value)
 
     root.mainloop()

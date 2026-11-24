@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+# pylint: skip-file
 import tkinter as tk
 
 
@@ -9,7 +9,6 @@ def i18n_translator_noop(value):
 
 def first_object_callback_noop(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def image_loader_default(master, image_name: str):
@@ -60,9 +59,7 @@ def create_context_menu(
 
     mcontext.add(
         "command",
-        command=find_callback(
-            callbacks_bag, "on_context_menu_go_to_parent_clicked"
-        ),
+        command=find_callback(callbacks_bag, "on_context_menu_go_to_parent_clicked"),
         label=_("Go to parent"),
     )
     mcontext.add("separator")
@@ -95,9 +92,7 @@ def create_context_menu(
     mcontext.add("separator")
     mcontext.add(
         "command",
-        command=find_callback(
-            callbacks_bag, "on_context_menu_duplicate_clicked"
-        ),
+        command=find_callback(callbacks_bag, "on_context_menu_duplicate_clicked"),
         label=_("Duplicate"),
     )
 

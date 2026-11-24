@@ -15,11 +15,11 @@
 
 import tkinter as tk
 
+from ..predefined import TK_CURSORS
 from .propertyeditor import (
     ChoicePropertyEditor,
     register_editor,
 )
-from ..predefined import TK_CURSORS
 
 
 class CursorPropertyEditor(ChoicePropertyEditor):
@@ -41,10 +41,10 @@ if __name__ == "__main__":
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
-    def make_on_change_cb(editor):
+    def make_on_change_cb(widget):
         def on_change_cb(event=None):
-            print(editor.value)
-            print(repr(editor.value))
+            print(widget.value)
+            print(repr(widget.value))
 
         return on_change_cb
 

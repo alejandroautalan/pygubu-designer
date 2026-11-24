@@ -1,23 +1,19 @@
 #!/usr/bin/python3
-import tkinter as tk
-import tkinter.ttk as ttk
 import logging
-
-import pygubudesigner.services.widgets.properties_editorui as baseui
+import tkinter as tk
+from tkinter import ttk
 
 from pygubu import builder
 from pygubu.stockimage import StockImage
 from pygubu.widgets.simpletooltip import create as create_tooltip
+
+import pygubudesigner.services.widgets.properties_editorui as baseui
 from pygubudesigner.i18n import translator as _
-from pygubudesigner.properties.editors import (
-    create_editor,
-    NamedIDPropertyEditor,
-)
+from pygubudesigner.properties.editors import create_editor
 from pygubudesigner.properties.manager import (
     PropertiesManager,
     PropertyRegistry,
 )
-
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
@@ -33,9 +29,7 @@ class PropertiesEditorMixin:
     def get_properties_frame(self):
         pass
 
-    def _create_properties(
-        self, in_frame, row_start: int = 0, col_start: int = 0
-    ):
+    def _create_properties(self, in_frame, row_start: int = 0, col_start: int = 0):
         self._sep = ttk.Separator(in_frame)
 
         for name in PropertiesManager.iter_names():
@@ -43,9 +37,7 @@ class PropertiesEditorMixin:
 
         self._redisplay_slots(in_frame, row_start, col_start)
 
-    def _redisplay_slots(
-        self, in_frame, row_start: int = 0, col_start: int = 0
-    ):
+    def _redisplay_slots(self, _in_frame, row_start: int = 0, col_start: int = 0):
         """Redo layout of editor slots ordered by property name."""
         row = row_start
         col = col_start
@@ -114,26 +106,29 @@ class PropertiesEditorMixin:
         # Configure editor
         final_mode = params["mode"]
         if final_mode is None:
-            msg = "Configuration ERROR. Unable to determine editor mode for '%s.%s' property."
-            logger.warn(msg, classname, pname)
+            msg = (
+                "Configuration ERROR. "
+                + "Unable to determine editor mode for '%s.%s' property."
+            )
+            logger.warning(msg, classname, pname)
             params["mode"] = "entry"
         logger.debug("Setting editor mode for %s", pname)
         editor.parameters(**params)
 
         # Setup tooltip
-        help = pdescr.get("help", None)
-        help = _("No help defined.") if help is None else help
-        if isinstance(help, dict):
+        editor_help = pdescr.get("help", None)
+        editor_help = _("No help defined.") if editor_help is None else editor_help
+        if isinstance(editor_help, dict):
             found_match = False
-            for k, v in help.items():
+            for k, v in editor_help.items():
                 if classname.startswith(k):
-                    help = v
+                    editor_help = v
                     found_match = True
                     break
-            # FIXME: review this process for custom properties.
+            # NOTE: review this process for custom properties.
             if not found_match:
-                help = ""  # No help string found
-        label.tooltip.text = help
+                editor_help = ""  # No help string found
+        label.tooltip.text = editor_help
 
         # setup default value
         default = pdescr.get("default", "")
@@ -191,12 +186,13 @@ class PropertiesEditor(PropertiesEditorMixin, baseui.PropertiesEditorUI):
     def __init__(self, master=None, **kw):
         super().__init__(master, **kw)
 
-        # Wait until all properties definitions are loaded, then create property editors.
+        # Wait until all properties definitions are loaded,
+        # then create property editors.
         self.after_idle(self.load_properties_later)
 
         self._redisplay_cb = None
 
-    def on_new_property_defined(self, sender, name):
+    def on_new_property_defined(self, _sender, name):
         """Create new editor slot and schedules a redisplay."""
         self._create_editor_slot(self.fprop, name)
 
@@ -217,6 +213,6 @@ class PropertiesEditor(PropertiesEditorMixin, baseui.PropertiesEditorUI):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    widget = PropertiesEditor(root)
-    widget.pack(expand=True, fill="both")
+    test_widget = PropertiesEditor(root)
+    test_widget.pack(expand=True, fill="both")
     root.mainloop()

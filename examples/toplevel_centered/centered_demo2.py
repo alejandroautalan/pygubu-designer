@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import pathlib
+
 import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
@@ -31,7 +32,7 @@ class CenteredDemoApp:
 
     def run(self, *, centered=False):
         if centered is True:
-            self._center_fid = self.mainwindow.bind('<Map>', self.center_window)        
+            self._center_fid = self.mainwindow.bind("<Map>", self.center_window)
         self.mainwindow.mainloop()
 
 

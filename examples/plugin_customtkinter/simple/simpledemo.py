@@ -6,8 +6,9 @@ Customtkinter simple demo.
 
 UI source file: simple_demo.ui
 """
+
 import pathlib
-import tkinter as tk
+
 import pygubu
 from simpledemoui import SimpleDemoAppUI
 

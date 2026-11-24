@@ -1,6 +1,6 @@
 import getopt
-import sys
 import re
+import sys
 
 from pygubudesigner import get_setup_requirements
 

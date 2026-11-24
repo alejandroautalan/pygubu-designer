@@ -8,9 +8,9 @@ It's just the UI for example purpose.
 
 UI source file: calculator.ui
 """
-import pathlib
+
 import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 
 

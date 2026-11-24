@@ -16,7 +16,6 @@
 import gettext
 import locale
 import os
-import sys
 from pathlib import Path
 
 import pygubu.i18n as pygubu_i18n

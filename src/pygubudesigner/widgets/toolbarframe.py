@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 from pygubu.binding import ApplicationLevelBindManager as BindManager
 
@@ -29,22 +29,16 @@ class ToolbarFrame(ttk.Frame):
         fvport = ttk.Frame(self)
         fcontent = ttk.Frame(fvport)
         fcontent.config(height="50", width="30", padding=0)
-        fcontent.place(
-            anchor="nw", x="0", y="0", bordermode="inside", relheight=1
-        )
+        fcontent.place(anchor="nw", x="0", y="0", bordermode="inside", relheight=1)
         fvport.config(height="50", width="30")
         fvport.pack(expand="true", fill="both", side="left")
         fcontrols = ttk.Frame(self)
         bsleft = ttk.Button(fcontrols)
-        bsleft.config(
-            text="<", width="1", takefocus=True, style=self.BTN_LEFT_STYLE
-        )
+        bsleft.config(text="<", width="1", takefocus=True, style=self.BTN_LEFT_STYLE)
         bsleft.pack(expand="true", fill="y", side="left")
         bsleft.configure(command=self.scroll_left)
         bsright = ttk.Button(fcontrols)
-        bsright.config(
-            text=">", width="1", takefocus=True, style=self.BTN_RIGHT_STYLE
-        )
+        bsright.config(text=">", width="1", takefocus=True, style=self.BTN_RIGHT_STYLE)
         bsright.pack(expand="true", fill="y", side="left")
         bsright.configure(command=self.scroll_right)
         fcontrols.config(height="50", width="50")
@@ -55,14 +49,14 @@ class ToolbarFrame(ttk.Frame):
 
         self.controls_visible = True
         self.controls_required = False
-        self._scrollRecurse = 0
+        self._scroll_recurse = 0
         self.timer = None
         self.fcontrols = fcontrols
         self.fvport = fvport
         self.fcontent = fcontent
         self.fcstart = 0
         self._xvstatus = [1.0, 1.0]
-        self.SCROLL_INCREMENT = 50
+        self._scroll_increment = 50
         fvport.bind("<Configure>", self._reposition)
         fcontent.bind("<Configure>", self._reposition)
         self._configure_mousewheel()
@@ -75,7 +69,7 @@ class ToolbarFrame(ttk.Frame):
         BindManager.mousewheel_bind(self)
         self.on_mousewheel = BindManager.make_onmousewheel_cb(self, "x", 2)
 
-    def xview(self, mode=None, value=None, units=None):
+    def xview(self, mode=None, value=None, _units=None):
         if mode == "scroll":
             vp_width = self.fvport.winfo_width()
             content_width = self.fcontent.winfo_reqwidth()
@@ -86,9 +80,10 @@ class ToolbarFrame(ttk.Frame):
                     self.scroll_left()
         if mode is None and value is None:
             return self._xvstatus
+        return None
 
     def scroll_right(self):
-        newstart = self.fcstart - self.SCROLL_INCREMENT
+        newstart = self.fcstart - self._scroll_increment
         cw = self.fcontent.winfo_reqwidth()
         f_width = self.fvport.winfo_width()
         limit = cw - f_width
@@ -101,7 +96,7 @@ class ToolbarFrame(ttk.Frame):
         self.fcontent.place(x=self.fcstart)
 
     def scroll_left(self):
-        newstart = self.fcstart + self.SCROLL_INCREMENT
+        newstart = self.fcstart + self._scroll_increment
         if newstart <= 0:
             self.fcstart = newstart
         elif self.fcstart < 0:
@@ -121,16 +116,16 @@ class ToolbarFrame(ttk.Frame):
         if self.timer is None:
             self.timer = self.after_idle(self._reposition)
 
-    def _reposition(self, event):
+    def _reposition(self, _event):
         self.timer = None
 
         # Call update_idletasks to make sure that the containing frame
         # has been resized before we attempt to set the scrollbars.
         # Otherwise the scrollbars may be mapped/unmapped continuously.
-        self._scrollRecurse = self._scrollRecurse + 1
+        self._scroll_recurse = self._scroll_recurse + 1
         self.update_idletasks()
-        self._scrollRecurse = self._scrollRecurse - 1
-        if self._scrollRecurse != 0:
+        self._scroll_recurse = self._scroll_recurse - 1
+        if self._scroll_recurse != 0:
             return
 
         fcw = self.fcontent.winfo_reqwidth()
@@ -142,7 +137,7 @@ class ToolbarFrame(ttk.Frame):
         vpw = self.fvport.winfo_width()
         # vph = self.fvport.winfo_height()
 
-        self.SCROLL_INCREMENT = vpw // 3
+        self._scroll_increment = vpw // 3
         hole = myw - fctlw
         diff = hole - fcw
 

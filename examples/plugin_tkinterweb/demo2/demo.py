@@ -8,9 +8,9 @@ Requires tkinterweb > 4.0
 
 UI source file: demo_frame.ui
 """
+
 import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 from demoui import DemoAppUI
 

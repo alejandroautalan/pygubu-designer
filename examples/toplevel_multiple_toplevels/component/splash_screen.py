@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
-import component.splash_screenui as baseui
 
+import component.splash_screenui as baseui
 
 PROJECT_PATH = pathlib.Path(__file__).parent.parent / "appdata"
 

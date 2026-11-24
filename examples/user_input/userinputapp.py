@@ -1,7 +1,7 @@
 import pathlib
 import random
-import pygubu
 
+import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "userinput.ui"

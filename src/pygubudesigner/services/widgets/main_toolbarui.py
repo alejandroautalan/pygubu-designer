@@ -6,8 +6,10 @@ Main toolbar for pygubu designer.
 
 UI source file: main_toolbar.ui
 """
+
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.widgets.hideableframe import HideableFrame
 
 
@@ -18,7 +20,6 @@ def safe_i18n_translator(value):
 
 def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def safe_image_loader(master, image_name: str):

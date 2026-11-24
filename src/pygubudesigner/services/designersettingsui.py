@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """
 Designer settings dialog
 
@@ -6,8 +5,10 @@ Designer Settings dialog.
 
 UI source file: designer_settings.ui
 """
+
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.forms.pygubuwidget import PygubuCombobox
 from pygubu.forms.ttkwidget import Checkbutton, FrameFormBuilder
 from pygubu.widgets.dialog import Dialog
@@ -20,7 +21,6 @@ def safe_i18n_translator(value):
 
 def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def safe_image_loader(master, image_name: str):
@@ -67,9 +67,7 @@ class DesignerSettingsUI:
             frame3, name="ffb_settings", field_name="ffb_settings"
         )
         Notebook_1 = ttk.Notebook(self.ffb_settings)
-        Notebook_1.configure(
-            height=340, style="ProjectSettings.TNotebook", width=350
-        )
+        Notebook_1.configure(height=340, style="ProjectSettings.TNotebook", width=350)
         frame4 = ttk.Frame(Notebook_1)
         frame4.configure(height=200, width=200)
         fgeneral = ttk.Frame(frame4)
@@ -90,9 +88,7 @@ class DesignerSettingsUI:
         )
         self.ttk_theme.grid(column=1, ipady="3p", row=1, sticky="ew")
         lbl_preferred_layout_manager = ttk.Label(fgeneral)
-        lbl_preferred_layout_manager.configure(
-            text=_("Preferred layout manager:")
-        )
+        lbl_preferred_layout_manager.configure(text=_("Preferred layout manager:"))
         lbl_preferred_layout_manager.grid(column=0, row=2, sticky="ew")
         self.default_layout_manager = PygubuCombobox(
             fgeneral,
@@ -102,16 +98,12 @@ class DesignerSettingsUI:
         self.default_layout_manager.configure(
             values='[["pack", "pack"], ["grid", "grid"], ["place", "place"]]'
         )
-        self.default_layout_manager.grid(
-            column=1, ipady="3p", row=2, sticky="ew"
-        )
+        self.default_layout_manager.grid(column=1, ipady="3p", row=2, sticky="ew")
         self.center_preview = Checkbutton(
             fgeneral, name="center_preview", field_name="center_preview"
         )
         self.center_preview.configure(text=_("Center toplevel preview window"))
-        self.center_preview.grid(
-            column=0, columnspan=2, ipady="2p", row=3, sticky="w"
-        )
+        self.center_preview.grid(column=0, columnspan=2, ipady="2p", row=3, sticky="w")
         self.main_toolbar_visible = Checkbutton(
             fgeneral,
             name="main_toolbar_visible",
@@ -159,9 +151,7 @@ class DesignerSettingsUI:
         frame2.columnconfigure("all", pad=5)
         frame2.columnconfigure(1, weight=1)
         label_1 = ttk.Label(frame1)
-        label_1.configure(
-            text=_("This does not affect previously generated names.")
-        )
+        label_1.configure(text=_("This does not affect previously generated names."))
         label_1.pack(anchor="w", fill="x", padx="10p 5p", pady="5p 0")
         frame1.pack(fill="x")
         self.img_dlg_settings_general = image_loader(
