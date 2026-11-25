@@ -52,7 +52,7 @@ class RecentFilesManager:
 
     def _create_file_list(self):
         today_date = datetime.now().date()
-        long_time = datetime.fromisoformat("19800915").timestamp()
+        long_time = datetime.fromisoformat("1980-09-15").timestamp()
 
         def generate_sort_key(pair):
             # files used today first, then older files by usage count.
