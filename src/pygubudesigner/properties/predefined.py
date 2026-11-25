@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines,invalid-name
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
@@ -138,7 +139,8 @@ TK_CURSORS_WINDOWS = (
     "no",
     "starting",
     "size",
-    "size_ne_sw" "size_ns",
+    "size_ne_sw",
+    "size_ns",
     "size_nw_se",
     "size_we",
     "uparrow",
@@ -1182,9 +1184,7 @@ PROPERTY_DEFINITIONS = {
                 "state": "readonly",
             }
         },
-        "tk.Combobox": {
-            "params": {"values": ("", "readonly"), "state": "readonly"}
-        },
+        "tk.Combobox": {"params": {"values": ("", "readonly"), "state": "readonly"}},
         "ttk.Entry": {
             "params": {
                 "values": ("", tk.NORMAL, tk.DISABLED, "readonly"),
@@ -1253,7 +1253,7 @@ PROPERTY_DEFINITIONS = {
         "ttk.Radiobutton": {"params": {"values": ("", "Toolbutton")}},
         "help": help_for("style"),
     },
-    "tabs": {  # FIXME see tk.Text tab property
+    "tabs": {
         "editor": "dynamic",
         "params": {"mode": "entry"},
         "help": help_for("tabs"),

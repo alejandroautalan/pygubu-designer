@@ -2,6 +2,7 @@
 # command_properties.py
 import pathlib
 from tkinter import messagebox
+
 import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent

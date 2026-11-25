@@ -16,10 +16,9 @@
 import re
 import sys
 import tkinter as tk
-import tkinter.font
-import tkinter.ttk as ttk
+from tkinter import font, ttk
 
-from pygubu.stockimage import StockImage, StockImageException
+from pygubu.stockimage import StockImage
 
 from .propertyeditor import (
     CheckbuttonPropertyEditor,
@@ -29,7 +28,14 @@ from .propertyeditor import (
 )
 
 RE_FONT = re.compile(
-    "(?P<family>\\{\\w+(\\w|\\s)*\\}|\\w+)\\s?(?P<size>-?\\d+)?\\s?(?P<modifiers>\\{\\w+(\\w|\\s)*\\}|\\w+)?"
+    r"""
+    (?P<family>\{\w+(\w|\s)*\}|\w+)
+    \s?
+    (?P<size>-?\d+)?
+    \s?
+    (?P<modifiers>\{\w+(\w|\s)*\}|\w+)?
+    """,
+    re.VERBOSE,
 )
 
 PREDEFINED_FONTS = [
@@ -69,10 +75,10 @@ MAC_FONTS = (
     "systemDetailEmphasizedSystemFont",
 )
 
-_sp = sys.platform
-if _sp in ("win32", "cygwin"):
+_SP = sys.platform
+if _SP in ("win32", "cygwin"):
     PREDEFINED_FONTS.extend(WIN_FONTS)
-if _sp == "darwin":
+if _SP == "darwin":
     PREDEFINED_FONTS.extend(MAC_FONTS)
 
 
@@ -205,7 +211,7 @@ class FontPropertyEditor(PropertyEditor):
         PropertyEditor.edit(self, value)
         self._on_fontname_changed()
 
-    def _on_fontname_changed(self, event=None):
+    def _on_fontname_changed(self, _event=None):
         #        print('_on_fontname_changed', event, self._name.value)
         if self._name.value in PREDEFINED_FONTS:
             self._optionsframe.grid_remove()
@@ -225,7 +231,7 @@ class FontPropertyEditor(PropertyEditor):
         sizes = (6, 8, 9, 10, 11, 12, 14, 16, 20, 24, 36, 48, 72)
         self._size.parameters(values=sizes)
 
-        families = sorted(tk.font.families())
+        families = sorted(font.families())
         values = [""] + PREDEFINED_FONTS + families
         self._name.parameters(values=values)
 
@@ -251,8 +257,8 @@ if __name__ == "__main__":
     lbl.grid(row=1, column=0)
 
     def font_cb(event=None):
-        font = editor.value.split("|")
-        lbl.configure(font=font)
+        editor_font = editor.value.split("|")
+        lbl.configure(font=editor_font)
 
     editor.bind("<<PropertyChanged>>", font_cb)
 

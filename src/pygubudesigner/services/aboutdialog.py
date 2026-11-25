@@ -1,25 +1,19 @@
-#!/usr/bin/python3
-import os
-import pathlib
+import importlib.metadata as pkgmeta
 import tkinter as tk
 import webbrowser
-import importlib.metadata as pkgmeta
-import pygubu
-import pygubudesigner
-import pygubudesigner.services.aboutdialogui as baseui
 
 from pygubu.stockimage import StockImage
 
+import pygubudesigner.services.aboutdialogui as baseui
 
-def image_loader(master, image_name: str):
+
+def image_loader(_master, image_name: str):
     return StockImage.get(image_name)
 
 
 class AboutDialog(baseui.AboutDialogUI):
     def __init__(self, master=None, translator=None):
-        super().__init__(
-            master, translator=translator, image_loader=image_loader
-        )
+        super().__init__(master, translator=translator, image_loader=image_loader)
         pugubu_version = pkgmeta.version("pygubu")
         designer_version = pkgmeta.version("pygubu-designer")
         txt = self.pygubu_version.cget("text")
@@ -50,7 +44,6 @@ class AboutDialog(baseui.AboutDialogUI):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = None
 
     def create_dialog():
         app = AboutDialog(root)

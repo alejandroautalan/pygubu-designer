@@ -30,9 +30,7 @@ class EventHandlerEditor(EntryPropertyEditor):
     def _validate(self):
         is_valid = True
         value = self._get_value()
-        is_valid = self.is_safe_identifier(value) and self.is_valid_globally(
-            value
-        )
+        is_valid = self.is_safe_identifier(value) and self.is_valid_globally(value)
         self.show_invalid(not is_valid)
         return is_valid
 
@@ -106,8 +104,8 @@ seq_types = [
 
 
 def build_seq_re(modifiers, types):
-    modlist = "|".join(seq_modifiers)
-    typelist = "|".join(seq_types)
+    modlist = "|".join(modifiers)
+    typelist = "|".join(types)
     detail = ".+"
     re_seq = f"<(?P<mod>({modlist})-)*(?P<type>{typelist})(?P<det>-{detail})?>"
     re_vseq = "(?P<vseq><<.+>>)"

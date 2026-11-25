@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import pathlib
-import pygubu
 
+import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "scrolledtext_demo.ui"
@@ -21,7 +21,7 @@ class ScrolledtextDemoApp:
 
     def _populate_text(self):
         filename = PROJECT_PATH / "scrolledtextdemoapp.py"
-        with open(filename, "r") as file:
+        with open(filename) as file:
             content = file.read()
             self.text1.insert("0.0", content)
             self.text2.insert("0.0", content)

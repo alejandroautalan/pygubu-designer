@@ -119,7 +119,7 @@ class GridCalculator:
 
     def rowcol_center_cross(self, row, col, ox=0, oy=0):
         """Coords for the two row/col insersection lines."""
-        x1, y1, x2, y2 = self.cell_coords(row, col, ox, oy)
+        x1, y1, _x2, _y2 = self.cell_coords(row, col, ox, oy)
         xc = x1 + self.colw / 2
         yc = y1 + self.rowh / 2
         return ((xc, oy, xc, self.fheight), (ox, yc, self.fwidth, yc))

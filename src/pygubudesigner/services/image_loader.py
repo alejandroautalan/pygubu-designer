@@ -1,10 +1,10 @@
-from pygubu.stockimage import StockImage, StockImageException
-from pygubu.theming.iconset.iconset import ThemeType
-from pygubu.theming.iconset.loader import IconSetLoader, HAS_SVG_SUPPORT
+from pygubu.stockimage import StockImage
 from pygubu.theming.bootstrap.themes import STANDARD_THEMES as PBS_THEMES
+from pygubu.theming.iconset.iconset import ThemeType
+from pygubu.theming.iconset.loader import HAS_SVG_SUPPORT, IconSetLoader
 
 
-def image_loader(master, image_id):
+def image_loader(_master, image_id):
     return StockImage.get(image_id)
 
 
@@ -19,12 +19,7 @@ def match_icons_with_theme(theme_name: str):
     dark = ThemeType.DARK
     light = ThemeType.LIGHT
 
-    known_themes = dict(
-        alt=light,
-        clam=light,
-        classic=light,
-        default=light,
-    )
+    known_themes = {"alt": light, "clam": light, "classic": light, "default": light}
 
     if theme_name in known_themes:
         theme_type = known_themes[theme_name]

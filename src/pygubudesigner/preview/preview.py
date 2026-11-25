@@ -14,17 +14,15 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-import re
 import sys
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 import pygubu
 import screeninfo
-
 from pygubu.component.plugin_manager import PluginManager
 from pygubu.utils.font import tkfontstr_to_dict
-from pygubudesigner.widgetdescr import WidgetMeta
+
 from .builder import BuilderForPreview
 
 logger = logging.getLogger(__name__)
@@ -51,6 +49,7 @@ class Preview:
         # --
         self.selected_widget = None
         self.root_widget = None
+        self._preview_widget = None
 
     def width(self):
         return self.w
@@ -68,9 +67,7 @@ class Preview:
         # Preview box
         c = self.canvas
         x, y, x2, y2 = (-1001, -1000, -1001, -1000)
-        s1 = c.create_rectangle(
-            x, y, x2, y2, width=2, outline="blue", tags=self.id
-        )
+        s1 = c.create_rectangle(x, y, x2, y2, width=2, outline="blue", tags=self.id)
         s2 = c.create_rectangle(
             x, y, x2, y2, fill="blue", outline="blue", tags=(self.id, "resizer")
         )
@@ -83,7 +80,7 @@ class Preview:
 
     def erase(self):
         self.canvas_window.destroy()
-        for key, sid in self.shapes.items():
+        for sid in self.shapes.values():
             self.canvas.delete(sid)
 
     def draw(self):
@@ -146,7 +143,7 @@ class Preview:
 
     def update(self, widget_id, uidefinition):
         # delete current preview
-        # FIXME maybe do something to update preview without re-creating all ?
+        # NOTE: maybe do something to update preview without re-creating all ?
         del self.builder
         self.builder = None
         self.canvas.itemconfigure(self.shapes["window"], window="")
@@ -234,15 +231,17 @@ class Preview:
         True : if the center calculations were done successfully and the window
         has been centered on a monitor.
 
-        False : if for some reason the mouse pointer wasn't found on any of the monitors (shouldn't happen).
+        False : if for some reason the mouse pointer wasn't found on any of the
+        monitors (shouldn't happen).
         """
 
         if not isinstance(window, (tk.Tk, tk.Toplevel)):
-            return
+            return False
 
-        # We need to call the update_idletasks() method before we try and get the window's size,
-        # because if the window hasn't been drawn on the screen yet, we won't get the proper dimensions
-        # when we try and use winfo_width() and winfo_height().
+        # We need to call the update_idletasks() method before we try and get the
+        # window's size, because if the window hasn't been drawn on the screen yet,
+        # we won't get the proper dimensions when we try and use winfo_width() and
+        # winfo_height().
         # After we run .update_idletasks(), then winfo_width() and winfo_height()
         # will work as expected.
         window.update_idletasks()
@@ -266,14 +265,16 @@ class Preview:
         # (from_x, to_x, center_x, center_y)
 
         # 'from_x' and 'to_x' represent a monitor's width from 'from_x' to 'to_x'.
-        # For example: if the first monitor is 1920 pixels wide, then 'from_x' will be 0, and 'to_x' will be 1920.
+        # For example: if the first monitor is 1920 pixels wide, then 'from_x'
+        # will be 0, and 'to_x' will be 1920.
 
-        # Then, if the second monitor is also 1920 pixels wide, then for the second monitor,
-        # 'from_x' will be 1921, to_x' will be 3840.
+        # Then, if the second monitor is also 1920 pixels wide, then for the second
+        #  monitor, 'from_x' will be 1921, to_x' will be 3840.
 
-        # So if the mouse pointer's X position is within that monitor's 'from_x' to 'to_x', then we will consider
-        # the mouse pointer to be inside that monitor (because the mouse pointer's X was inside the 'from_x'
-        # and 'to_x' of that monitor's tuple value).
+        # So if the mouse pointer's X position is within that monitor's 'from_x'
+        # to 'to_x', then we will consider the mouse pointer to be inside that monitor
+        # (because the mouse pointer's X was inside the 'from_x' and 'to_x' of that
+        # monitor's tuple value).
 
         # center_x, center_y are the center width and center height, respectively,
         # of the single monitor that the mouse pointer is in.
@@ -281,12 +282,14 @@ class Preview:
         # Enumerate over each monitor
         for idx, m in enumerate(monitors):
 
-            # If it's the first monitor, then we don't need to add +1 for the first '_from_x'
+            # If it's the first monitor,
+            # then we don't need to add +1 for the first '_from_x'
             if idx == 0:
                 _from = 0
                 _to = m.width
             else:
-                # Add a +1 so that it continues 1 pixel more for the next monitor, so that two monitors don't overlap.
+                # Add a +1 so that it continues 1 pixel more for the next monitor,
+                # so that two monitors don't overlap.
                 _from = combined_width_so_far + 1
                 _to = combined_width_so_far + m.width
 
@@ -294,21 +297,25 @@ class Preview:
             center_x = combined_width_so_far + (m.width // 2)
             center_y = m.height // 2
 
-            # We will use this later to find out which of these monitors the specified window is in.
+            # We will use this later to find out which of these monitors the specified
+            # window is in.
             mon_sizes.append((_from, _to, center_x, center_y))
 
             # As we continue enumerating over each monitor, the 'from_x' has to continue
             # where the last monitor's width left off.
 
             # So we keep summing up the width of each monitor that we enumerate so the
-            # next monitor can start its 'from_x', where the last monitor's width ended, + 1.
+            # next monitor can start its 'from_x', where the last monitor's width
+            # ended, + 1.
             combined_width_so_far += m.width
 
         # Find the X position of the mouse pointer.
-        # If there are multiple monitors, in Windows it will have a combined width X position.
+        # If there are multiple monitors, in Windows it will have a combined
+        # width X position.
         mouse_pointer_x = window.winfo_pointerx()
 
-        # Find out which monitor (width-range) the X of the window is on, then center it based on that.
+        # Find out which monitor (width-range) the X of the window is on, then
+        # center it based on that.
         for size_range in mon_sizes:
 
             # Is the mouse pointer inside the current monitor in the loop?
@@ -323,8 +330,7 @@ class Preview:
                 window.deiconify()
 
                 return True
-        else:
-            return False
+        return False
 
 
 class DefaultMenuPreview(Preview):
@@ -349,7 +355,7 @@ class DefaultMenuPreview(Preview):
         top["menu"] = menu
         return top
 
-    def resize_by(self, dw, hw):
+    def resize_by(self, dw, dh):
         return
 
 
@@ -376,7 +382,7 @@ class OnCanvasMenuPreview(Preview):
 
         if font and isinstance(font, str):
             fontname = family = font
-        elif isinstance(font, tk._tkinter.Tcl_Obj):
+        elif isinstance(font, tk._tkinter.Tcl_Obj):  # pylint: disable=protected-access
             fontname = family = str(font)
             tclobject = True
         elif isinstance(font, tuple):
@@ -456,7 +462,7 @@ class OnCanvasMenuPreview(Preview):
         container = tk.Frame(parent, container=True, height=50)
         container.pack(fill="both", expand=True)
 
-        self._top = top = tk.Toplevel(parent, use=container.winfo_id())
+        top = tk.Toplevel(parent, use=container.winfo_id())
         top.maxsize(2048, 50)
         top.resizable(width=True, height=False)
         top.update()

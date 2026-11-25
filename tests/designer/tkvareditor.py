@@ -1,12 +1,6 @@
-# encoding: utf8
-import os
-import sys
 import tkinter as tk
-import tkinter.ttk as ttk
 
-import fixpath
-from pygubudesigner.widgets import TkVarPropertyEditor
-
+from pygubudesigner.properties.editors import TkVarPropertyEditor
 
 if __name__ == "__main__":
     root = tk.Tk()
@@ -14,7 +8,7 @@ if __name__ == "__main__":
     editor.grid()
     editor.edit("double:mydouble")
 
-    def see_var(event=None):
+    def see_var(_event=None):
         print(editor.value)
 
     editor.bind("<<PropertyChanged>>", see_var)

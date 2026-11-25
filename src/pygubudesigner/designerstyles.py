@@ -1,19 +1,17 @@
+import logging
 import sys
 import tkinter as tk
-import tkinter.ttk as ttk
-import logging
-from dataclasses import dataclass
-from pygubudesigner.preferences import preferences
-from pygubudesigner.services.theming import get_ttk_style
-from pygubudesigner.services.image_loader import match_icons_with_theme
-from pygubudesigner.util import get_linespace
-from pygubudesigner.services.image_loader import iconset_loader
+from tkinter import ttk
 
+from pygubudesigner.preferences import preferences
+from pygubudesigner.services.image_loader import iconset_loader, match_icons_with_theme
+from pygubudesigner.services.theming import get_ttk_style
+from pygubudesigner.util import get_linespace
 
 logger = logging.getLogger(__name__)
 
 
-class ImgLazyLoader:
+class ImgLazyLoader:  # pylint: disable=too-few-public-methods
     def __init__(self, name):
         self.name = name
 
@@ -28,7 +26,7 @@ class RowHeightLazy:
 
     def calculate(self, root):
         # setup rowheight
-        self.rowheight = get_linespace(scale_factor=self.scale_factor)
+        self.rowheight = get_linespace(root, scale_factor=self.scale_factor)
 
     def __str__(self):
         if self.rowheight is None:
@@ -147,18 +145,18 @@ def on_first_window(master: tk.Widget):
 
     # setup database options
     # master.option_clear()
-    for pattern in designer_dboptions:
-        for option, value in designer_dboptions[pattern].items():
+    for pattern, pattern_value in designer_dboptions.items():
+        for option, value in pattern_value.items():
             fpattern = f"{pattern}{option}"
             master.option_add(fpattern, value)
 
     # Load preferred ttk theme
     user_theme = preferences.ttk_theme
-    installed_themes = s.theme_names()
+    installed_themes: list[str] = s.theme_names()
 
-    if user_theme not in installed_themes:
+    if user_theme not in (installed_themes or ()):
         msg = "User theme '%s' was not found. The default theme will be used."
-        logger.warn(msg, user_theme)
+        logger.warning(msg, user_theme)
         user_theme = "default"
 
     apply_theme(master, user_theme)
@@ -219,8 +217,6 @@ def apply_theme(master: tk.Widget, theme_name: str):
     try:
         s.theme_use(theme_name)
         master.after_idle(fix_theme_later)
-        logger.debug(
-            "ttk theme changed from '%s' to '%s'", current_theme, theme_name
-        )
+        logger.debug("ttk theme changed from '%s' to '%s'", current_theme, theme_name)
     except tk.TclError as e:
         logger.exception(e)

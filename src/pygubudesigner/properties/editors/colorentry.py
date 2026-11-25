@@ -14,8 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.colorchooser
-import tkinter.ttk as ttk
+from tkinter import colorchooser, ttk
 
 from .propertyeditor import (
     PropertyEditor,
@@ -51,10 +50,10 @@ class ColorPropertyEditor(PropertyEditor):
         current = self._get_value()
         txtcolor = None
         try:
-            _, txtcolor = tk.colorchooser.askcolor(color=current)
+            _, txtcolor = colorchooser.askcolor(color=current)
             if txtcolor is not None:
                 self._set_value(txtcolor)
-                self._on_variable_changed(event=None)
+                self._on_variable_changed()
         except tk.TclError:
             pass
         self._change_color(txtcolor)
@@ -101,7 +100,7 @@ if __name__ == "__main__":
     editor.grid()
     editor.edit("red")
 
-    def see_var(event=None):
+    def see_var(_event=None):
         print(editor.value)
 
     editor.bind("<<PropertyChanged>>", see_var)

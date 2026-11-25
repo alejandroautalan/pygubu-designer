@@ -1,5 +1,6 @@
-import pygubu
 import pathlib
+
+import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "demoapp.ui"

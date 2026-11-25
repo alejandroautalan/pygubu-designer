@@ -42,13 +42,9 @@ class ContainerLayoutEditorUI(ttk.Frame):
         label1.configure(text=_("Grid Row / Column options"))
         label1.pack(expand=True, fill="x", side="top")
         frame2.pack(expand=True, fill="x", side="top")
-        self.cellselectorframe = ttk.Frame(
-            self.gridrcpanel, name="cellselectorframe"
-        )
+        self.cellselectorframe = ttk.Frame(self.gridrcpanel, name="cellselectorframe")
         self.cellselectorframe.configure(height=200, width=200)
-        self.rcselectorframe = ttk.Frame(
-            self.cellselectorframe, name="rcselectorframe"
-        )
+        self.rcselectorframe = ttk.Frame(self.cellselectorframe, name="rcselectorframe")
         self.rcselectorframe.configure(height=180, width=150)
         self.rcselectorframe.pack(expand=True, fill="both", side="top")
         frame1 = ttk.Frame(self.cellselectorframe)
@@ -88,9 +84,7 @@ class ContainerLayoutEditorUI(ttk.Frame):
         frame5.columnconfigure(0, weight=1)
         frame5.columnconfigure(1, pad="5p", weight=1)
         frame5.columnconfigure(2, pad="5p", weight=1)
-        self.cellselectorframe.pack(
-            expand=True, fill="x", pady="0 5", side="top"
-        )
+        self.cellselectorframe.pack(expand=True, fill="x", pady="0 5", side="top")
         frame4 = ttk.Frame(self.gridrcpanel)
         frame4.configure(height=200, padding="0 2p", width=200)
         self.rowframe_label = ttk.Label(frame4, name="rowframe_label")

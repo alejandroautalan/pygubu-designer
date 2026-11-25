@@ -18,9 +18,7 @@ class DemoApp:
         self.mainwindow = builder.get_object("mainwindow", master)
         builder.connect_callbacks(self)
 
-        self.progressdialog = builder.get_object(
-            "progressdialog", self.mainwindow
-        )
+        self.progressdialog = builder.get_object("progressdialog", self.mainwindow)
 
         # Show data load at start
         self.mainwindow.after(100, self.show_load_dialog)
@@ -36,7 +34,7 @@ class DemoApp:
         for i in range(1, 101):
             # simulate work, sleep 1/10 seconds
             time.sleep(0.1)
-            tv.insert("", tk.END, text="item {0}".format(i))
+            tv.insert("", tk.END, text=f"item {i}")
 
             # update windows
             self.mainwindow.update()

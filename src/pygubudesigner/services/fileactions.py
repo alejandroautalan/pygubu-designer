@@ -1,10 +1,10 @@
-import tkinter as tk
-import tkinter.filedialog
-import tkinter.messagebox
 import enum
+from collections.abc import Callable
+from tkinter import filedialog
+
 from pygubudesigner.services.ask_save_changes import (
-    ask_save_changes,
     AskSaveChangesDialog,
+    ask_save_changes,
 )
 
 
@@ -24,9 +24,9 @@ class FileActionsManager:
         self.tk_master = tk_master
         self.file_current = None
         self.file_is_changed = False
-        self.user_file_new = None
-        self.user_file_open = None
-        self.user_file_save = None
+        self.user_file_new: Callable | None = None
+        self.user_file_open: Callable | None = None
+        self.user_file_save: Callable | None = None
         self.defaultextension = defaultextension
         self.filetypes = filetypes
         self.messages = {
@@ -44,7 +44,8 @@ class FileActionsManager:
         if new:
             self.file_current = None
             self.file_is_changed = False
-            self.user_file_new()
+            if self.user_file_new is not None:
+                self.user_file_new()
 
     def action_open(self, file_path=None):
         openfile = True
@@ -61,11 +62,12 @@ class FileActionsManager:
                     "filetypes": self.filetypes,
                     "parent": self.tk_master,
                 }
-                file_path = tk.filedialog.askopenfilename(**options)
+                file_path = filedialog.askopenfilename(**options)
             if file_path:
                 self.file_current = file_path
                 self.file_is_changed = False
-                self.user_file_open(file_path)
+                if self.user_file_open is not None:
+                    self.user_file_open(file_path)
 
     def action_close(self) -> bool:
         do_close = True
@@ -96,7 +98,7 @@ class FileActionsManager:
             "filetypes": self.filetypes,
             "parent": self.tk_master,
         }
-        fname = tk.filedialog.asksaveasfilename(**options)
+        fname = filedialog.asksaveasfilename(**options)
         if fname:
             saved = self.do_save(fname, is_saveas=True)
         return saved
@@ -104,11 +106,12 @@ class FileActionsManager:
     def do_save(self, file_path, *, is_update=False, is_saveas=False):
         saved = False
         try:
-            saved = self.user_file_save(
-                file_path, is_update=is_update, is_saveas=is_saveas
-            )
-            self.file_current = file_path
-            self.file_is_changed = False
+            if self.user_file_save is not None:
+                saved = self.user_file_save(
+                    file_path, is_update=is_update, is_saveas=is_saveas
+                )
+                self.file_current = file_path
+                self.file_is_changed = False
         except Exception as e:
             raise e
         return saved

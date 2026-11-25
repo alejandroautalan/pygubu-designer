@@ -1,12 +1,15 @@
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
+
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
+
+from pygubudesigner.i18n import _
+from pygubudesigner.services.text_editor_dialog import TextEditorDialog
+
 from .propertyeditor import (
     PropertyEditor,
     register_editor,
 )
-from pygubudesigner.services.text_editor_dialog import TextEditorDialog
-from pygubudesigner.i18n import _
 
 
 class TextPropertyEditor(PropertyEditor):
@@ -63,9 +66,9 @@ if __name__ == "__main__":
 
         return on_change_cb
 
-    editor = TextPropertyEditor(root)
-    editor.pack(expand=True, fill="x")
-    editor.edit("MyValue 2")
-    editor.bind("<<PropertyChanged>>", make_on_change_cb(editor))
+    test_editor = TextPropertyEditor(root)
+    test_editor.pack(expand=True, fill="x")
+    test_editor.edit("MyValue 2")
+    test_editor.bind("<<PropertyChanged>>", make_on_change_cb(test_editor))
 
     root.mainloop()

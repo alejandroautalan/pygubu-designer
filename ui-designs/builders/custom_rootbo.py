@@ -1,10 +1,11 @@
 import os
-from pygubu.api.v1 import register_widget, register_custom_property
-from pygubu.i18n import _
-from pygubu.plugins.tk.tkstdwidgets import TKToplevel as TKToplevelBO
-from pygubu.plugins.tk.tkstdwidgets import TKRootBO
-from pygubudesigner.services.widgets.custom_root import CustomRoot
 
+from pygubu.api.v1 import register_custom_property, register_widget
+from pygubu.i18n import _
+from pygubu.plugins.tk.tkstdwidgets import TKRootBO
+from pygubu.plugins.tk.tkstdwidgets import TKToplevel as TKToplevelBO
+
+from pygubudesigner.services.widgets.custom_root import CustomRoot
 
 _group_name = "Project Widgets"
 _namespace = "pygubudesigner.services.widgets.custom_root"
@@ -31,8 +32,8 @@ _custom_root_buid = _builder_id
 
 if "PYGUBU_DESIGNER_RUNNING" in os.environ:
     from typing import Optional
-    from pygubu.api.v1 import BuilderLoaderPlugin
-    from pygubu.api.v1 import IDesignerPlugin
+
+    from pygubu.api.v1 import BuilderLoaderPlugin, IDesignerPlugin
     from pygubu.component.plugin_manager import PluginManager
     from pygubu.plugins.pygubu.designer.toplevelframe import (
         ToplevelFramePreviewBO,

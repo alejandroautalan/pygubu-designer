@@ -1,20 +1,17 @@
-#!/usr/bin/python3
 import logging
 import tkinter as tk
-import tkinter.ttk as ttk
-
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 
 from pygubu import builder
 from pygubu.widgets.simpletooltip import create as create_tooltip
 
+import pygubudesigner.services.widgets.layout_editorui as baseui
 from pygubudesigner import properties
-from pygubudesigner.i18n import translator, translator as _
+from pygubudesigner.i18n import _, translator
+from pygubudesigner.services.image_loader import iconset_loader
 from pygubudesigner.services.widgets.properties_editor import (
     PropertiesEditorMixin,
 )
-from pygubudesigner.services.image_loader import iconset_loader
-import pygubudesigner.services.widgets.layout_editorui as baseui
 
 logger = logging.getLogger(__name__)
 CLASS_MAP = builder.CLASS_MAP
@@ -23,28 +20,28 @@ CLASS_MAP = builder.CLASS_MAP
 # Manual user code
 #
 
-toolbar_expand_config = dict(
-    expand_reset=dict(
-        pack=dict(expand="", fill=""),
-        grid=dict(sticky=""),
-        place=dict(relwidth="", relheight=""),
-    ),
-    expand_all=dict(
-        pack=dict(expand="True", fill="both"),
-        grid=dict(sticky="nsew"),
-        place=dict(relwidth="1", relheight="1"),
-    ),
-    expand_width=dict(
-        pack=dict(expand="True", fill="x"),
-        grid=dict(sticky="ew"),
-        place=dict(relwidth="1", relheight=""),
-    ),
-    expand_height=dict(
-        pack=dict(expand="True", fill="y"),
-        grid=dict(sticky="ns"),
-        place=dict(relwidth="", relheight="1"),
-    ),
-)
+toolbar_expand_config = {
+    "expand_reset": {
+        "pack": {"expand": "", "fill": ""},
+        "grid": {"sticky": ""},
+        "place": {"relwidth": "", "relheight": ""},
+    },
+    "expand_all": {
+        "pack": {"expand": "True", "fill": "both"},
+        "grid": {"sticky": "nsew"},
+        "place": {"relwidth": "1", "relheight": "1"},
+    },
+    "expand_width": {
+        "pack": {"expand": "True", "fill": "x"},
+        "grid": {"sticky": "ew"},
+        "place": {"relwidth": "1", "relheight": ""},
+    },
+    "expand_height": {
+        "pack": {"expand": "True", "fill": "y"},
+        "grid": {"sticky": "ns"},
+        "place": {"relwidth": "", "relheight": "1"},
+    },
+}
 
 
 class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
@@ -70,9 +67,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
 
         # Layout selector
         self.layout_selector.parameters(state="readonly", values=self.managers)
-        self.layout_selector.bind(
-            "<<PropertyChanged>>", self._layout_manager_changed
-        )
+        self.layout_selector.bind("<<PropertyChanged>>", self._layout_manager_changed)
         self._allowed_managers = self.managers.keys()
 
         # Other Layout properties
@@ -102,7 +97,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         manager_options,
         container_options=None,
         parent_classname=None,
-    ):
+    ):  # pylint: disable=arguments-differ,too-many-branches
         self._current = wdescr
 
         # need to save the container info when updating the view.
@@ -148,9 +143,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
                     propdescr = gproperties[name]
                     label, widget = self._prop_bag[gcode + name]
                     if show_layout and name in manager_prop:
-                        self.update_editor(
-                            label, widget, wdescr, name, propdescr
-                        )
+                        self.update_editor(label, widget, wdescr, name, propdescr)
                         label.grid()
                         widget.grid()
                     else:
@@ -168,15 +161,13 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         if is_container and allow_container_layout:  # and has_children:
             self.cleditor.grid()
             cmanager = wdescr.container_manager
-            self.cleditor.edit(
-                wdescr, cmanager, children_grid_dim, children_slots
-            )
+            self.cleditor.edit(wdescr, cmanager, children_grid_dim, children_slots)
         else:
             self.cleditor.grid_remove()
 
         self.sframe.reposition()
 
-    def _layout_manager_changed(self, event=None):
+    def _layout_manager_changed(self, _event=None):
         if self._current is None:
             # I'm not editing anything
             return
@@ -191,7 +182,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
             def cb(f=old_manager, t=new_manager):
                 return self._ask_manager_change(f, t)
 
-            # TODO: tkinter on mac os does not like after_idle here. Investigate later
+            # NOTE: tkinter on mac os does not like after_idle here. Investigate later
             # self.after_idle(cb)
             self.after(180, cb)
         else:
@@ -205,9 +196,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
 
     def _ask_manager_change(self, old_manager, new_manager):
         title = _("Change Manager")
-        msg = _("Change manager from {0} to {1}?").format(
-            old_manager, new_manager
-        )
+        msg = _("Change manager from {0} to {1}?").format(old_manager, new_manager)
         detail = _("All container widgets will be updated.")
         user_accepts_change = messagebox.askokcancel(
             title,
@@ -226,6 +215,7 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
         # Save new value and update the preview
         self._current.layout_property(name, value)
 
+    # pylint: disable=arguments-differ
     def update_editor(self, label, editor, wdescr, pname, propdescr):
         pdescr = propdescr.copy()
         manager = wdescr.manager
@@ -264,6 +254,6 @@ class LayoutEditor(PropertiesEditorMixin, baseui.LayoutEditorUI):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    widget = LayoutEditor(root)
-    widget.pack(expand=True, fill="both")
+    test_widget = LayoutEditor(root)
+    test_widget.pack(expand=True, fill="both")
     root.mainloop()

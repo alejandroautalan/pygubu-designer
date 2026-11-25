@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """
 Text editor dialog
 
@@ -6,11 +5,11 @@ A simple external text editor.
 
 UI source file: text_editor_dialog.ui
 """
-import tkinter as tk
-import tkinter.ttk as ttk
-import pygubudesigner.services.text_editor_dialogui as baseui
 
-from pygubu.widgets.dialog import Dialog
+import tkinter as tk
+from tkinter import ttk
+
+import pygubudesigner.services.text_editor_dialogui as baseui
 from pygubudesigner.i18n import translator
 from pygubudesigner.services.image_loader import iconset_loader
 
@@ -23,9 +22,7 @@ class TextEditorDialog(baseui.TextEditorDialogUI):
         self.user_choice = self.CANCEL
         self.master = master
         self._textbuf: str = ""
-        super().__init__(
-            master, translator=translator, image_loader=iconset_loader
-        )
+        super().__init__(master, translator=translator, image_loader=iconset_loader)
 
     def on_cancel(self):
         self.user_choice = self.CANCEL

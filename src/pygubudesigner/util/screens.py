@@ -1,10 +1,9 @@
 import re
+
 from screeninfo import get_monitors
 
 # geometry format:  WxH+x+y
-RE_GEOMETRY = (
-    r"(?P<width>\d+)x(?P<heigth>\d+)(\+(?P<xpos>-?\d+)\+(?P<ypos>-?\d+))?"
-)
+RE_GEOMETRY = r"(?P<width>\d+)x(?P<heigth>\d+)(\+(?P<xpos>-?\d+)\+(?P<ypos>-?\d+))?"
 RE_GEOMETRY = re.compile(RE_GEOMETRY)
 
 
@@ -27,7 +26,7 @@ def parse_geometry(geom: str):
 
 
 def is_visible_in_screens(geom: str):
-    w, h, xpos, ypos = parse_geometry(geom)
+    w, _h, xpos, ypos = parse_geometry(geom)
     window_visible = False
     fh = 30
     x0 = xpos

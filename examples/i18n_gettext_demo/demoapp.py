@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 import pathlib
 import tkinter as tk
-import pygubu
 
+import pygubu
 from i18n import translator
 
 # Set translatable strings marker

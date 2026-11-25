@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import pathlib
 import tkinter as tk
 import tkinter.ttk as ttk
+
 import pygubu
 from demo3appui import DemoAppUI
 from pygubu.widgets.editabletreeview import (
@@ -105,7 +105,7 @@ country_data = {
     },
 }
 
-country_names = [name for name in country_data.keys()]
+country_names = [*country_data.keys()]
 
 table_data = [
     ["0001", "Alex", "Argentina", "Cordoba"],
@@ -126,9 +126,7 @@ class DemoApp(DemoAppUI):
         # Create and connect the editors
         CityIEditor.city_map = country_data
         self.county_editor = CountryIEditor(self.etv)
-        self.county_editor.combo.configure(
-            values=[name for name in country_data.keys()]
-        )
+        self.county_editor.combo.configure(values=[*country_data.keys()])
         self.city_editor = CityIEditor(self.etv)
         self.county_editor.combo_city = self.city_editor
 

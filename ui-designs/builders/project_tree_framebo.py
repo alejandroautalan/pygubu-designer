@@ -1,14 +1,12 @@
 #!/usr/bin/python3
-import tkinter as tk
-import tkinter.ttk as ttk
-from pygubu.widgets.scrollbarhelper import ScrollbarHelper
-from pygubudesigner.services.widgets.filter_entry import FilterEntry
 from pygubu.api.v1 import (
     BuilderObject,
     register_widget,
 )
-from pygubudesigner.services.widgets.project_tree_frame import ProjectTreeFrame
+from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 
+from pygubudesigner.services.widgets.filter_entry import FilterEntry
+from pygubudesigner.services.widgets.project_tree_frame import ProjectTreeFrame
 
 #
 # Builder definition section

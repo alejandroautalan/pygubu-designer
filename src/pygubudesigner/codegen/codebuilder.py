@@ -12,8 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-import os
 import logging
+import os
 from collections import OrderedDict
 from enum import Enum
 
@@ -22,10 +22,8 @@ from pygubu.api.v1 import BuilderObject, register_widget
 from pygubu.component.builderobject import CB_TYPES, CLASS_MAP
 from pygubu.component.widgetmeta import WidgetMeta
 from pygubu.plugins.tk.tkstdwidgets import TKToplevel
-from pygubu.stockimage import TK_BITMAP_FORMATS
 
 from pygubudesigner.services.stylehandler import StyleHandler
-
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +34,8 @@ class ToplevelOrTk(TKToplevel):
             self._code_identifier = code_identifier
         lines = []
         master = boparent.code_child_master()
+        target = self.code_identifier()
+        tcname = self._code_class_name()
         init_args = self._get_init_args()
         bag = []
         for pname, value in init_args.items():
@@ -43,22 +43,17 @@ class ToplevelOrTk(TKToplevel):
             bag.append(s)
         kwargs = ""
         if bag:
-            kwargs = ", {}".format(", ".join(bag))
+            kwlist = ", ".join(bag)
+            kwargs = f", {kwlist}"
+        s = f"{target} = tk.Tk() if master is None else {tcname}({master}{kwargs})"
         if init_args:
             # has init args defined so create a TkToplevel
-            s = "{0} = {1}({2}{3})"
-        else:
-            s = "{0} = tk.Tk() if master is None else {1}({2}{3})"
-        s = s.format(
-            self.code_identifier(), self._code_class_name(), master, kwargs
-        )
+            s = f"{target} = {tcname}({master}{kwargs})"
         lines.append(s)
         return lines
 
 
-register_widget(
-    "pygubudesigner.ToplevelOrTk", ToplevelOrTk, "ToplevelOrTk", tuple()
-)
+register_widget("pygubudesigner.ToplevelOrTk", ToplevelOrTk, "ToplevelOrTk", tuple())
 
 
 class ScriptType(Enum):
@@ -77,7 +72,7 @@ class RealizeMode(Enum):
     MAIN_MENU = 3
 
 
-class UI2Code(Builder):
+class UI2Code(Builder):  # pylint: disable=too-many-instance-attributes
     def __init__(self):
         super().__init__()
 
@@ -109,6 +104,8 @@ class UI2Code(Builder):
         self._generated_widget_base_classname = None
         self.all_ids_as_attributes = False
         self._first_object_created = False
+        self.tabspaces = None
+        self._on_first_object_cb = None
 
     def add_import_line(self, module_name, as_name=None, priority=0):
         if module_name not in self._extra_imports:
@@ -131,8 +128,9 @@ class UI2Code(Builder):
 
     def _process_results(self, target):
         code = []
+        tabspace = " " * self.tabspaces
         for line in self._code:
-            line = "{}{}\n".format(" " * self.tabspaces, line)
+            line = f"{tabspace}{line}\n"
             code.append(line)
         code = "".join(code)
 
@@ -143,7 +141,7 @@ class UI2Code(Builder):
         code_methods = "\n".join(self._process_methods())
         code = "".join(code)
 
-        has_images = True if self._tkimages else False
+        has_images = bool(self._tkimages)
 
         cc = {
             "imports": code_imports,
@@ -228,7 +226,7 @@ class UI2Code(Builder):
         self,
         uidef,
         target,
-        methods_for: list = None,
+        _methods_for: list = None,
         on_first_object_cb: str = None,
     ):
         self.generate(
@@ -242,9 +240,7 @@ class UI2Code(Builder):
 
         return self._process_results(target)
 
-    def generate_app_widget(
-        self, uidef, target, on_first_object_cb: str = None
-    ):
+    def generate_app_widget(self, uidef, target, on_first_object_cb: str = None):
         self.generate_widget_class(
             uidef,
             target,
@@ -274,6 +270,7 @@ class UI2Code(Builder):
             self._current_target = "self"
 
             if wmeta.classname not in CLASS_MAP:
+                # pylint: disable=protected-access
                 self._builder._import_class(wmeta.classname)
 
             if wmeta.classname in CLASS_MAP:
@@ -302,7 +299,9 @@ class UI2Code(Builder):
                 self._add_new_code(children_config)
 
                 # Do not layout widget it self in class definition.
-                comment = f"# Layout for '{originalid}' skipped in custom widget template."
+                comment = (
+                    f"# Layout for '{originalid}' skipped in custom widget template."
+                )
                 self._add_new_code((comment,))
                 # But, do container layout:
                 prev_value = type(builder).layout_required
@@ -320,7 +319,7 @@ class UI2Code(Builder):
 
             if has_custom_imports:
                 # Use custom import defined by builder first.
-                # FIXME: review this process.
+                # NOTE: review this process.
                 cname = bobject.class_.__name__
                 for module, obj in imports_:
                     if module not in self._code_imports:
@@ -376,7 +375,7 @@ class UI2Code(Builder):
                         bag.append(cname)
                 clist = None
                 if len(bag) > 1:
-                    clist = "({})".format(", ".join(bag))
+                    clist = f"({', '.join(bag)})"
                 else:
                     clist = "".join(bag)
                 line = f"from {mname} import {clist}"
@@ -427,6 +426,7 @@ class UI2Code(Builder):
 
         logger.debug("Begin realize for: %s", wmeta.classname)
         if wmeta.classname not in CLASS_MAP:
+            # pylint: disable=protected-access
             self._builder._import_class(wmeta.classname)
 
         if wmeta.classname in CLASS_MAP:
@@ -496,7 +496,7 @@ class UI2Code(Builder):
             self._add_new_code(bindings)
         else:
             msg = f'Class "{wmeta.classname}" not mapped'
-            raise Exception(msg)
+            raise RuntimeError(msg)
         logger.debug("End realize for: %s", wmeta.classname)
 
         return uniqueid
@@ -521,35 +521,37 @@ class UI2Code(Builder):
         tabspaces = self._options["tabspaces"]
         tab2 = tabspaces // 2 if tabspaces == 8 else 1
 
+        tabspace1 = " " * tabspaces
+        tabspace2 = " " * tab2
         lines = []
         for name, value in self._callbacks.items():
-            wid, cbtype, args = value
+            _wid, cbtype, args = value
             if cbtype == CB_TYPES.BIND_EVENT:
-                line = "{}def {}(self, event=None):".format(" " * tab2, name)
+                line = f"{tabspace2}def {name}(self, event=None):"
                 lines.append(line)
-                line = "{}pass\n".format(" " * tabspaces)
+                line = f"{tabspace1}pass\n"
                 lines.append(line)
             elif cbtype == CB_TYPES.SCROLL:
                 fargs = []
                 for a in args:
                     fargs.append(f"{a}=None")
                 fargs = ", ".join(fargs)
-                line = "{}def {}(self, {}):".format(" " * tab2, name, fargs)
+                line = f"{tabspace2}def {name}(self, {fargs}):"
                 lines.append(line)
-                line = "{}pass\n".format(" " * tabspaces)
+                line = f"{tabspace1}pass\n"
                 lines.append(line)
             else:
                 # other types: cb_simple, cb_with_id, etc.
                 if args is None:
-                    line = "{}def {}(self):".format(" " * tab2, name)
+                    line = f"{tabspace2}def {name}(self):"
                     lines.append(line)
-                    line = "{}pass\n".format(" " * tabspaces)
+                    line = f"{tabspace1}pass\n"
                     lines.append(line)
                 else:
                     fargs = ", ".join(args)
-                    line = "{}def {}(self, {}):".format(" " * tab2, name, fargs)
+                    line = f"{tabspace2}def {name}(self, {fargs}):"
                     lines.append(line)
-                    line = "{}pass\n".format(" " * tabspaces)
+                    line = f"{tabspace1}pass\n"
                     lines.append(line)
         return lines
 
@@ -565,7 +567,7 @@ class UI2Code(Builder):
     def code_create_image(self, filename):
         if filename not in self._tkimages:
             basename = os.path.basename(filename)
-            name, file_ext = os.path.splitext(basename)
+            name, _file_ext = os.path.splitext(basename)
             name = self._make_identifier(name)
             varname = f"self.img_{name}"
             if self._script_type == ScriptType.FN_SCRIPT:
@@ -582,10 +584,10 @@ class UI2Code(Builder):
         return self._tkimages[filename]
 
     def code_create_iconbitmap(self, filename):
-        TPL = "@{0}"
+        bitmap = f"@{filename}"
         if os.name == "nt":
-            TPL = "{0}"
-        return TPL.format(filename)
+            bitmap = f"{filename}"
+        return bitmap
 
     def _make_identifier(self, name):
         output = name.replace(".", "_")
@@ -596,8 +598,7 @@ class UI2Code(Builder):
         escaped = BuilderObject.code_escape_str(value)
         if self.with_i18n_support:
             return f"_({escaped})"
-        else:
-            return escaped
+        return escaped
 
     def code_get_resource(self, uri: str):
         line = f"""_data = data_pool.get_resource("{uri}")"""

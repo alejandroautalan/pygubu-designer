@@ -11,22 +11,21 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 from pygubu import builder
 from pygubu.widgets.editabletreeview import InplaceEditor
 
-from .widgets.bindingeditor import EventHandlerEditor, SequenceEditor
 from .widgetdescr import WidgetMeta
-
+from .widgets.bindingeditor import EventHandlerEditor, SequenceEditor
 
 CLASS_MAP = builder.CLASS_MAP
 
 
 class EventhandlerInplaceEditor(InplaceEditor):
     def __init__(self, master):
-        self._editor = e = EventHandlerEditor(master)
-        e.bind("<<PropertyChanged>>", lambda e: self._notify_change())
+        self._editor = EventHandlerEditor(master)
+        self._editor.bind("<<PropertyChanged>>", lambda e: self._notify_change())
 
     @property
     def widget(self) -> tk.Widget:
@@ -40,13 +39,13 @@ class EventhandlerInplaceEditor(InplaceEditor):
         self._editor.edit(value)
 
     def focus_set(self) -> None:
-        self._editor._entry.focus_set()
+        self._editor._entry.focus_set()  # pylint: disable=protected-access
 
 
 class SequenceInplaceEditor(InplaceEditor):
     def __init__(self, master):
-        self._editor = e = SequenceEditor(master)
-        e.bind("<<PropertyChanged>>", lambda e: self._notify_change())
+        self._editor = SequenceEditor(master)
+        self._editor.bind("<<PropertyChanged>>", lambda e: self._notify_change())
 
     @property
     def widget(self) -> tk.Widget:
@@ -60,7 +59,7 @@ class SequenceInplaceEditor(InplaceEditor):
         self._editor.edit(value)
 
     def focus_set(self) -> None:
-        self._editor._combobox.focus_set()
+        self._editor._combobox.focus_set()  # pylint: disable=protected-access
 
     def parameters(self, **kw):
         self._editor.parameters(**kw)
@@ -84,13 +83,11 @@ class BindingsEditor:
         self._handler_editor = EventhandlerInplaceEditor(self.tv)
         # hack to create inplace checkbutton in order
         self.tv.inplace_checkbutton("add", "", offvalue="")
-        self._del_btn = ttk.Button(
-            self.tv, text="-", command=self._on_del_clicked
-        )
+        self._del_btn = ttk.Button(self.tv, text="-", command=self._on_del_clicked)
 
         self.hide_all()
 
-    def _on_add_clicked(self, event):
+    def _on_add_clicked(self, _event):
         sel = self.tv.selection()
         if sel:
             item = sel[0]
@@ -110,8 +107,8 @@ class BindingsEditor:
             self.tv.delete(item)
         self._copy_to_data()
 
-    def _on_cell_edited(self, event):
-        col, item = self.tv.get_event_info()
+    def _on_cell_edited(self, _event):
+        # col, item = self.tv.get_event_info()
         self._copy_to_data()
 
     def _copy_to_data(self):
@@ -137,9 +134,7 @@ class BindingsEditor:
         self.clear()
         self._curr_data = wdescr
         self._curr_bo = CLASS_MAP[wclass].builder
-        seqvalues = (
-            self._curr_bo.virtual_events + SequenceEditor.default_choices
-        )
+        seqvalues = self._curr_bo.virtual_events + SequenceEditor.default_choices
         self._sequence_editor.parameters(values=seqvalues)
 
         self._allow_edit = self._curr_bo.allow_bindings
@@ -151,7 +146,7 @@ class BindingsEditor:
         for bind in wdescr.bindings:
             self._add_binding(bind)
 
-    def _on_inplace_edit(self, event):
+    def _on_inplace_edit(self, _event):
         col, item = self.tv.get_event_info()
         if item != self._adder and self._allow_edit:
             if col == "sequence":

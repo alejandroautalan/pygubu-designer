@@ -6,8 +6,10 @@ A simple external text editor.
 
 UI source file: text_editor_dialog.ui
 """
+
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.widgets.dialog import Dialog
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
 
@@ -19,7 +21,6 @@ def safe_i18n_translator(value):
 
 def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def safe_image_loader(master, image_name: str):
@@ -62,14 +63,10 @@ class TextEditorDialogUI:
         frame1.configure(height=200, padding="5p", width=200)
         scrollbarhelper1 = ScrollbarHelper(frame1, scrolltype="both")
         scrollbarhelper1.configure(usemousewheel=False)
-        self.text_widget = tk.Text(
-            scrollbarhelper1.container, name="text_widget"
-        )
+        self.text_widget = tk.Text(scrollbarhelper1.container, name="text_widget")
         self.text_widget.configure(font="TkFixedFont", height=10, width=50)
         scrollbarhelper1.add_child(self.text_widget)
-        scrollbarhelper1.pack(
-            expand=True, fill="both", pady="0 10p", side="top"
-        )
+        scrollbarhelper1.pack(expand=True, fill="both", pady="0 10p", side="top")
         frame2 = ttk.Frame(frame1)
         frame2.configure(height=200, width=200)
         button1 = ttk.Button(frame2)

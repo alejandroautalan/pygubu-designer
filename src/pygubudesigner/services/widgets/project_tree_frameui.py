@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
+
 from pygubudesigner.services.widgets.filter_entry import FilterEntry
 
 
@@ -12,7 +14,6 @@ def i18n_translator_noop(value):
 
 def first_object_callback_noop(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def image_loader_default(master, image_name: str):
@@ -59,9 +60,7 @@ class ProjectTreeFrameUI(ttk.Frame):
         )
         frame3 = ttk.Frame(self)
         frame3.configure(height=200, width=200)
-        self.fdisplay = ScrollbarHelper(
-            frame3, scrolltype="both", name="fdisplay"
-        )
+        self.fdisplay = ScrollbarHelper(frame3, scrolltype="both", name="fdisplay")
         self.fdisplay.configure(usemousewheel=False)
         self.tvfilter = ttk.Treeview(self.fdisplay.container, name="tvfilter")
         self.tvfilter.configure(selectmode="extended")
@@ -70,9 +69,7 @@ class ProjectTreeFrameUI(ttk.Frame):
         self.tvfilter.configure(
             columns=self.tvfilter_cols, displaycolumns=self.tvfilter_dcols
         )
-        self.tvfilter.column(
-            "#0", anchor="w", stretch=False, width=200, minwidth=200
-        )
+        self.tvfilter.column("#0", anchor="w", stretch=False, width=200, minwidth=200)
         self.tvfilter.column(
             "column2", anchor="w", stretch=False, width=120, minwidth=100
         )
@@ -101,18 +98,10 @@ class ProjectTreeFrameUI(ttk.Frame):
         self.tvdata.configure(
             columns=self.tvdata_cols, displaycolumns=self.tvdata_dcols
         )
-        self.tvdata.column(
-            "#0", anchor="w", stretch=False, width=200, minwidth=200
-        )
-        self.tvdata.column(
-            "class", anchor="w", stretch=False, width=120, minwidth=100
-        )
-        self.tvdata.column(
-            "row", anchor="w", stretch=False, width=25, minwidth=25
-        )
-        self.tvdata.column(
-            "col", anchor="w", stretch=False, width=25, minwidth=25
-        )
+        self.tvdata.column("#0", anchor="w", stretch=False, width=200, minwidth=200)
+        self.tvdata.column("class", anchor="w", stretch=False, width=120, minwidth=100)
+        self.tvdata.column("row", anchor="w", stretch=False, width=25, minwidth=25)
+        self.tvdata.column("col", anchor="w", stretch=False, width=25, minwidth=25)
         self.tvdata.column(
             "space_trick", anchor="w", stretch=False, width=20, minwidth=20
         )

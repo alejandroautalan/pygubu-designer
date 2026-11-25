@@ -8,15 +8,14 @@ It's just the UI for example purpose.
 
 UI source file: calculator.ui
 """
+
 import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 from demoappui import CalculatorAppUI
 
 # Import style from pygubu bootstrap module
 from pygubu.theming.bootstrap.style import Style
-
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "calculator.ui"

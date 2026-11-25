@@ -17,20 +17,18 @@
 #
 # For further info, check  http://pygubu.web.here
 
-import sys
-import os
 import argparse
 import importlib
 import importlib.metadata as pkgmeta
 import logging
+import os
 import platform
+import sys
 import tkinter as tk
-
 from pathlib import Path
 
 from pygubu.component.plugin_manager import PluginManager
-from pygubu.stockimage import StockImage, StockImageException
-
+from pygubu.stockimage import StockImage
 
 selected_level = os.getenv("LOGLEVEL", "WARNING")
 loglevel = getattr(logging, selected_level, logging.WARNING)
@@ -100,18 +98,19 @@ def start_pygubu():
     args = parser.parse_args()
 
     if args.loglevel:
-        loglevel = str(args.loglevel).upper()
-        loglevel = getattr(logging, loglevel, logging.WARNING)
-        logging.getLogger("").setLevel(loglevel)
+        app_loglevel = str(args.loglevel).upper()
+        app_loglevel = getattr(logging, app_loglevel, logging.WARNING)
+        logging.getLogger("").setLevel(app_loglevel)
 
     #
     # Dependency check
     #
-    help = "Hint, If your are using Debian, install package python3-appdirs."
-    check_dependency("platformdirs", "4.4.0", help)
+    check_help = "Hint, If your are using Debian, install package python3-appdirs."
+    check_dependency("platformdirs", "4.4.0", check_help)
 
     init_plugin_widgets()
 
+    # pylint: disable=import-outside-toplevel
     from .services.main_window import MainWindow
 
     app = MainWindow()
@@ -130,7 +129,7 @@ def check_dependency(modulename, version, help_msg=None):
             v = getattr(module, attr, None)
             if v is not None:
                 break
-        logger.info(f"Module {modulename} imported ok, version {v}")
+        logger.info("Module %s imported ok, version %s", modulename, v)
     except ImportError:
         logger.error(
             f"I can't import module {modulename!r}. You need to have installed "

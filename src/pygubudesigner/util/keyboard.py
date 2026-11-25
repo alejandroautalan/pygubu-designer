@@ -16,6 +16,7 @@
 import os
 import sys
 from collections import namedtuple
+from enum import Enum
 
 #
 # Begin shortcut helpers
@@ -23,26 +24,25 @@ from collections import namedtuple
 
 Keydef = namedtuple("Keydef", "sym code")
 
-osnt = True if os.name == "nt" else False
-oslinux = True if sys.platform == "linux" else False
+OS_NT = os.name == "nt"
+OS_LINUX = sys.platform == "linux"
 
 
-class Key:
+class Key(Keydef, Enum):
     # Default keys used in pygubu-designer
-    # TODO extend this keycode list
     # keysym, keycode (windows, linux)
-    C = Keydef("c", 67 if osnt else 54)
-    D = Keydef("d", 68 if osnt else 40)
-    I = Keydef("i", 73 if osnt else 31)  # noqa: E741
-    J = Keydef("j", 74 if osnt else 44)
-    K = Keydef("k", 75 if osnt else 45)
-    L = Keydef("l", 76 if osnt else 46)
-    N = Keydef("n", 78 if osnt else 57)
-    O = Keydef("o", 79 if osnt else 32)  # noqa: E741
-    Q = Keydef("q", 81 if osnt else 24)
-    S = Keydef("s", 83 if osnt else 39)
-    V = Keydef("v", 86 if osnt else 55)
-    X = Keydef("x", 88 if osnt else 53)
+    C = Keydef("c", 67 if OS_NT else 54)
+    D = Keydef("d", 68 if OS_NT else 40)
+    I = Keydef("i", 73 if OS_NT else 31)  # noqa: E741
+    J = Keydef("j", 74 if OS_NT else 44)
+    K = Keydef("k", 75 if OS_NT else 45)
+    L = Keydef("l", 76 if OS_NT else 46)
+    N = Keydef("n", 78 if OS_NT else 57)
+    O = Keydef("o", 79 if OS_NT else 32)  # noqa: E741
+    Q = Keydef("q", 81 if OS_NT else 24)
+    S = Keydef("s", 83 if OS_NT else 39)
+    V = Keydef("v", 86 if OS_NT else 55)
+    X = Keydef("x", 88 if OS_NT else 53)
 
 
 def key_bind(key, callback):
@@ -50,11 +50,11 @@ def key_bind(key, callback):
     Run callback if key of event match"""
 
     def key_event_manager(event):
-        if osnt or oslinux:
+        if OS_NT or OS_LINUX:
             if event.keycode == key.code:
                 callback(event)
         else:
-            # TODO: keycode in mac is not unique?
+            # Note: keycode in mac is not unique?
             #
             # Default match with keysym
             if event.keysym == key.sym:

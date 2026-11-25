@@ -2,6 +2,7 @@ from pygubu.api.v1 import (
     BuilderObject,
     register_widget,
 )
+
 from pygubudesigner.services.widgets.containerlayouteditor import (
     ContainerLayoutEditor,
 )

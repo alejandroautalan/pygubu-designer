@@ -1,9 +1,6 @@
 #!/usr/bin/python3
-import pathlib
-import tkinter as tk
 import pygubu
 from treeviewui import AppUI
-
 
 resources = {
     "tree_data": [

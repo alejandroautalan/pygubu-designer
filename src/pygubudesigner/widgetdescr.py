@@ -63,7 +63,7 @@ class WidgetMeta(WidgetMetaBase, Observable):
             self.start_id = value
         else:
             if self.start_named is not None and not self.start_named:
-                self.is_named = True if self.start_id != value else False
+                self.is_named = self.start_id != value
         super(WidgetMeta, type(self)).identifier.fset(self, value)
 
     @WidgetMetaBase.is_named.setter
@@ -80,35 +80,34 @@ class WidgetMeta(WidgetMetaBase, Observable):
         if value is None:
             if name == "id":
                 return self.identifier
-            elif name == "class":
+            if name == "class":
                 return self.classname
-            else:
-                return self.properties.get(name, "")
+            return self.properties.get(name, "")
+        event_type = self.PROPERTY_CHANGED
+        # Setter
+        if name == "id":
+            event_type = self.PROPERTY_DATA_CHANGED
+            self.old_data[name] = self.identifier
+            self.identifier = value
+            event_type = event_type | self.PROPERTY_ID_CHANGED
+        elif name == "class":
+            event_type = self.PROPERTY_DATA_CHANGED
+            self.old_data[name] = self.classname
+            self.classname = value
+            # event_type = event_type | self.PROPERTY_DATA_CHANGED
         else:
-            event_type = self.PROPERTY_CHANGED
-            # Setter
-            if name == "id":
-                event_type = self.PROPERTY_DATA_CHANGED
-                self.old_data[name] = self.identifier
-                self.identifier = value
-                event_type = event_type | self.PROPERTY_ID_CHANGED
-            elif name == "class":
-                event_type = self.PROPERTY_DATA_CHANGED
-                self.old_data[name] = self.classname
-                self.classname = value
-                # event_type = event_type | self.PROPERTY_DATA_CHANGED
+            if value:
+                self.properties[name] = value
             else:
-                if value:
-                    self.properties[name] = value
-                else:
-                    # remove if no value set
-                    event_type = event_type | self.PROPERTY_BLANKED
-                    self.properties.pop(name, None)
-                    self.prop_blanked = name
-                builder = CLASS_MAP[self.classname].builder
-                if name in builder.ro_properties:
-                    event_type = event_type | self.PROPERTY_RO_CHANGED
-            self.notify(event_type, self)
+                # remove if no value set
+                event_type = event_type | self.PROPERTY_BLANKED
+                self.properties.pop(name, None)
+                self.prop_blanked = name
+            builder = CLASS_MAP[self.classname].builder
+            if name in builder.ro_properties:
+                event_type = event_type | self.PROPERTY_RO_CHANGED
+        self.notify(event_type, self)
+        return None
 
     def layout_property(self, name, value=None):
         if value is None:
@@ -117,34 +116,34 @@ class WidgetMeta(WidgetMetaBase, Observable):
             if name in ("row", "column"):
                 default = "0"
             return self.layout_properties.get(name, default)
+        event_type = self.LAYOUT_PROPERTY_CHANGED
+        # Setter
+        if value:
+            self.layout_properties[name] = value
         else:
-            event_type = self.LAYOUT_PROPERTY_CHANGED
-            # Setter
-            if value:
-                self.layout_properties[name] = value
-            else:
-                # remove if no value set
-                event_type = event_type | self.PROPERTY_BLANKED
-                self.layout_properties.pop(name, None)
-            self.notify(event_type, self)
+            # remove if no value set
+            event_type = event_type | self.PROPERTY_BLANKED
+            self.layout_properties.pop(name, None)
+        self.notify(event_type, self)
+        return None
 
     def container_property(self, name, value=None):
         if value is None:
             # Getter
             return self.container_properties.get(name, "")
+        event_type = self.LAYOUT_PROPERTY_CHANGED
+        # do not save propagate if value is True
+        if name == "propagate" and value.lower() == "true":
+            value = None
+        # Setter
+        if value:
+            self.container_properties[name] = value
         else:
-            event_type = self.LAYOUT_PROPERTY_CHANGED
-            # do not save propagate if value is True
-            if name == "propagate" and value.lower() == "true":
-                value = None
-            # Setter
-            if value:
-                self.container_properties[name] = value
-            else:
-                # remove if no value set
-                event_type = event_type | self.PROPERTY_BLANKED
-                self.container_properties.pop(name, None)
-            self.notify(event_type, self)
+            # remove if no value set
+            event_type = event_type | self.PROPERTY_BLANKED
+            self.container_properties.pop(name, None)
+        self.notify(event_type, self)
+        return None
 
     def gridrc_property(self, type_, num, pname, value=None):
         if value is None:
@@ -155,9 +154,9 @@ class WidgetMeta(WidgetMetaBase, Observable):
             pvalue = self.get_gridrc_value(type_, num, pname)
             pvalue = pvalue if pvalue is not None else default
             return pvalue
-        else:
-            # Setter
-            self.set_gridrc_value(type_, num, pname, value)
+        # Setter
+        self.set_gridrc_value(type_, num, pname, value)
+        return None
 
     def gridrc_clear(self, notify_change=True):
         self.gridrc_properties = []
@@ -216,19 +215,14 @@ class WidgetMeta(WidgetMetaBase, Observable):
             # setup default values for properties
             builder = CLASS_MAP[wclass].builder
             for pname in builder.properties:
-                pdescription = {}
-                if pname in PROPERTY_DEFINITIONS:
-                    pdescription = PROPERTY_DEFINITIONS[pname]
+                pdescription = PROPERTY_DEFINITIONS.get(pname, {})
                 if wclass in pdescription:
                     pdescription = dict(pdescription, **pdescription[wclass])
                 default_value = str(pdescription.get("default", ""))
                 if default_value:
                     properties[pname] = default_value
                 # default text for widgets with text prop:
-                if (
-                    pname in ("text", "label")
-                    and pname not in builder.OPTIONS_CUSTOM
-                ):
+                if pname in ("text", "label") and pname not in builder.OPTIONS_CUSTOM:
                     properties[pname] = widget_id
 
         # setup default values for layout

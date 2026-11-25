@@ -15,7 +15,7 @@
 
 import re
 import tkinter as tk
-import tkinter.ttk as ttk
+
 from pygubu.theming.bootstrap.style import Style as BootstrapStyle
 
 from .propertyeditor import (
@@ -25,9 +25,7 @@ from .propertyeditor import (
 
 
 class TtkStylePropertyEditor(ChoicePropertyEditor):
-    RE_TTKSTYLECLASS = re.compile(
-        "(?i)$|[_A-Za-z](\\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$"
-    )
+    RE_TTKSTYLECLASS = re.compile("(?i)$|[_A-Za-z](\\.[_a-zA-Z0-9]+|[_a-zA-Z0-9]*)*$")
     STYLES = []
     STYLES_FILTER_HINTS = None
 
@@ -73,10 +71,10 @@ if __name__ == "__main__":
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
-    def make_on_change_cb(editor):
+    def make_on_change_cb(widget):
         def on_change_cb(event=None):
-            print(editor.value)
-            print(repr(editor.value))
+            print(widget.value)
+            print(repr(widget.value))
 
         return on_change_cb
 

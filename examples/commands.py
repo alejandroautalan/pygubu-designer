@@ -1,8 +1,7 @@
-# encoding: utf8
 import pathlib
 from tkinter import messagebox
-import pygubu
 
+import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "commands.ui"
@@ -32,19 +31,13 @@ class Myapp:
         return value == "" or value.isnumeric()
 
     def entry_invalid(self):
-        messagebox.showinfo(
-            "Title", "Invalid entry input", parent=self.mainwindow
-        )
+        messagebox.showinfo("Title", "Invalid entry input", parent=self.mainwindow)
 
     def radiobutton_command(self):
-        messagebox.showinfo(
-            "Title", "Radiobutton command", parent=self.mainwindow
-        )
+        messagebox.showinfo("Title", "Radiobutton command", parent=self.mainwindow)
 
     def checkbutton_command(self):
-        messagebox.showinfo(
-            "Title", "Checkbutton command", parent=self.mainwindow
-        )
+        messagebox.showinfo("Title", "Checkbutton command", parent=self.mainwindow)
 
     def on_scale1_changed(self, event):
         print(event)
@@ -88,9 +81,7 @@ class Myapp:
         )
 
     def on_combobox_postcmd(self):
-        messagebox.showinfo(
-            "Title", "Combobox postcommand", parent=self.mainwindow
-        )
+        messagebox.showinfo("Title", "Combobox postcommand", parent=self.mainwindow)
 
     def on_menuitem_clicked(self, itemid):
         messagebox.showinfo(

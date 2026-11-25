@@ -1,9 +1,9 @@
 # file: myapp.py
+import math
 import os
 import random
-import math
-import pygubu
 
+import pygubu
 
 CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
 DEG2RAD = 4 * math.atan(1) * 2 / 360
@@ -95,9 +95,7 @@ class MyApplication:
             start = random.randint(0, 180)
 
             if figure == "circle":
-                canvas.create_oval(
-                    x, y, x + w, y + w, outline="#FF6666", width=borderw
-                )
+                canvas.create_oval(x, y, x + w, y + w, outline="#FF6666", width=borderw)
             if figure == "square":
                 self.create_regpoly(
                     x,
@@ -146,9 +144,7 @@ class MyApplication:
                     fill="",
                 )
 
-    def create_regpoly(
-        self, x0, y0, x1, y1, sides=0, start=90, extent=360, **kw
-    ):
+    def create_regpoly(self, x0, y0, x1, y1, sides=0, start=90, extent=360, **kw):
         """Create a regular polygon"""
         coords = self.__regpoly_coords(x0, y0, x1, y1, sides, start, extent)
         return self.canvas.create_polygon(*coords, **kw)

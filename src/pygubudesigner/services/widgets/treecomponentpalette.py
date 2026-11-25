@@ -1,10 +1,11 @@
-import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
+
 import pygubu
 import pygubu.widgets.simpletooltip as tooltip
+from pygubu.stockimage import StockImage, StockImageException
+
 import pygubudesigner.services.widgets.treecomponentpaletteui as baseui
 from pygubudesigner.i18n import translator
-from pygubu.stockimage import StockImage, StockImageException
 from pygubudesigner.services.image_loader import iconset_loader
 
 
@@ -49,9 +50,7 @@ class TreeComponentPalette(baseui.TreeComponentPaletteUI):
         s = ttk.Style(self)
         s.configure("TreeComponentPalette.Treeview", rowheight=30)
 
-    def custom_filter(
-        self, tree: ttk.Treeview, itemid: str, fvalue: str
-    ) -> bool:
+    def custom_filter(self, tree: ttk.Treeview, itemid: str, fvalue: str) -> bool:
         txt = tree.item(itemid, "text").lower()
         match_found = fvalue in txt
         return match_found
@@ -76,16 +75,13 @@ class TreeComponentPalette(baseui.TreeComponentPaletteUI):
 
         # create unique tag set
         tagset: set = set()
-        for c in pygubu.builder.CLASS_MAP.keys():
-            wc = pygubu.builder.CLASS_MAP[c]
-            tagset.update((str(tag) for tag in wc.tags))
+        for wc in pygubu.builder.CLASS_MAP.values():
+            tagset.update(str(tag) for tag in wc.tags)
         tagset.difference_update(omit_tagset)
 
         # Put every class in defined sections
         treelist = []
-        for c in pygubu.builder.CLASS_MAP.keys():
-            wc = pygubu.builder.CLASS_MAP[c]
-
+        for c, wc in pygubu.builder.CLASS_MAP.items():
             is_tk_only = "tk" in wc.tags and "ttk" not in wc.tags
             if is_tk_only and not self.var_show_alltk.get():
                 continue
@@ -98,7 +94,7 @@ class TreeComponentPalette(baseui.TreeComponentPaletteUI):
                         break
                 if show_widget is False:
                     continue
-            ctags = set((str(tag) for tag in wc.tags)) - omit_tagset
+            ctags = {str(tag) for tag in wc.tags} - omit_tagset
             sections = tagset & ctags
             for s in sections:
                 treelist.append((s, wc))
@@ -133,7 +129,7 @@ class TreeComponentPalette(baseui.TreeComponentPaletteUI):
             # insert widget
             w_image = default_image
             try:
-                w_image = StockImage.get("22x22-{0}".format(wc.classname))
+                w_image = StockImage.get(f"22x22-{wc.classname}")
             except StockImageException:
                 pass
 

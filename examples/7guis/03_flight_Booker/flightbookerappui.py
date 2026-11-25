@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-import pathlib
 import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 
 
@@ -25,9 +24,7 @@ class FlightBookerAppUI:
         if resource_paths is not None:
             self.builder.add_resource_paths(resource_paths)
         # Main widget
-        self.mainwindow: tk.Toplevel = self.builder.get_object(
-            "toplevel1", master
-        )
+        self.mainwindow: tk.Toplevel = self.builder.get_object("toplevel1", master)
 
         self.t1_var: tk.StringVar = None
         self.t2_var: tk.StringVar = None

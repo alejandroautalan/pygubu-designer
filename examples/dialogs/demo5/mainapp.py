@@ -1,9 +1,7 @@
 #!/usr/bin/python3
-import pathlib
-import tkinter as tk
 import pygubu
-from mainappui import MyDemoAppUI
 from dialog1 import SimpleDialog1
+from mainappui import MyDemoAppUI
 
 
 class MyDemoApp(MyDemoAppUI):

@@ -27,7 +27,9 @@ __all__ = [
 import keyword
 import re
 import tkinter as tk
-import tkinter.ttk as ttk
+from collections.abc import Callable
+from tkinter import ttk
+from typing import ClassVar
 
 from pygubu.widgets.combobox import Combobox
 
@@ -42,20 +44,20 @@ def register_editor(name, class_):
 def create_editor(name, *args, **kw):
     if name not in EDITORS:
         msg = f"Trying to use an unregister editor named: {name}"
-        raise Exception(msg)
-    editor = EDITORS[name](*args, **kw)
-    return editor
+        raise RuntimeError(msg)
+    new_editor = EDITORS[name](*args, **kw)
+    return new_editor
 
 
 class PropertyEditor(ttk.Frame):
-    style_initialized = False
+    style_initialized: ClassVar[bool] = False
 
-    global_validator = None
+    global_validator: ClassVar[Callable | None] = None
 
     @classmethod
     def is_valid_globally(cls, value):
         result = True
-        if callable(cls.global_validator):
+        if cls.global_validator is not None:
             result = cls.global_validator(value)
         return result
 
@@ -72,12 +74,10 @@ class PropertyEditor(ttk.Frame):
         self.configure(borderwidth=2)
         self._create_ui()
 
-    def _on_keypress(self, event=None):
+    def _on_keypress(self, _event=None):
         if self._cbid is not None:
             self.after_cancel(self._cbid)
-        self._cbid = self.after(
-            KEY_PRESS_CB_MILISECONDS, self._on_keypress_after
-        )
+        self._cbid = self.after(KEY_PRESS_CB_MILISECONDS, self._on_keypress_after)
 
     def _on_keypress_after(self, event=None):
         self._on_variable_changed(event)
@@ -103,7 +103,7 @@ class PropertyEditor(ttk.Frame):
         """Save value on storage"""
         self._variable.set(value)
 
-    def _on_variable_changed(self, event=None):
+    def _on_variable_changed(self, _event=None):
         if self._validate():
             self.value = self._get_value()
             if self.value != self._initvalue:
@@ -204,9 +204,7 @@ class SpinboxPropertyEditor(PropertyEditor):
 class ChoicePropertyEditor(PropertyEditor):
     def _create_ui(self):
         self._cb_pending = False
-        self._combobox = combobox = ttk.Combobox(
-            self, textvariable=self._variable
-        )
+        self._combobox = combobox = ttk.Combobox(self, textvariable=self._variable)
         combobox.grid(sticky="we")
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
@@ -272,7 +270,7 @@ class NaturalNumberEditor(_NumberEditor):
                 number = int(value)
                 if number >= 0:
                     valid = True
-            except BaseException:
+            except ValueError:
                 pass
             if valid:
                 valid = self.validate_minmax(number)
@@ -289,7 +287,7 @@ class IntegerNumberEditor(_NumberEditor):
             try:
                 number = int(value)
                 valid = True
-            except BaseException:
+            except ValueError:
                 pass
             if valid:
                 valid = self.validate_minmax(number)
@@ -306,7 +304,7 @@ class RealNumberEditor(_NumberEditor):
             try:
                 number = float(value)
                 valid = True
-            except BaseException:
+            except ValueError:
                 pass
             if valid:
                 valid = self.validate_minmax(number)
@@ -359,10 +357,10 @@ if __name__ == "__main__":
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
-    def make_on_change_cb(editor):
+    def make_on_change_cb(widget):
         def on_change_cb(event=None):
-            print(editor.value)
-            print(repr(editor.value))
+            print(widget.value)
+            print(repr(widget.value))
 
         return on_change_cb
 

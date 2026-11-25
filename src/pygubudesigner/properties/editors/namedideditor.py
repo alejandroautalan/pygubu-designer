@@ -11,12 +11,14 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import keyword
-import re
-import tkinter.ttk as ttk
+from tkinter import ttk
+
 import pygubu.widgets.simpletooltip as tooltip
-from .propertyeditor import PropertyEditor, register_editor
+
 from pygubudesigner.i18n import _
 from pygubudesigner.services.image_loader import iconset_loader
+
+from .propertyeditor import PropertyEditor, register_editor
 
 
 class NamedIDPropertyEditor(PropertyEditor):
@@ -74,12 +76,12 @@ class NamedIDPropertyEditor(PropertyEditor):
             value = self._placeholder
         self._variable.set(value)
 
-    def _on_focusin(self, event):
+    def _on_focusin(self, _event):
         if self._variable.get() == self._placeholder:
             # self._entry.delete('0', 'end')
             self._variable.set("")
 
-    def _on_focusout(self, event):
+    def _on_focusout(self, _event):
         if not self._variable.get():
             self._variable.set(self._placeholder)
         self._on_variable_changed()

@@ -14,21 +14,26 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
-
-from typing import List, Dict, DefaultDict
+from abc import ABC, abstractmethod
 from collections import defaultdict
+from tkinter import ttk
+from typing import DefaultDict
+
 from pygubudesigner.util import get_linespace
 from pygubudesigner.util.gridcalculator import GridCalculator
 
 
-class Shape:
+class Shape(ABC):
     FIRST = 1
 
     def __init__(self, canvas: tk.Canvas, items=None, options=None):
         self.canvas: tk.Canvas = canvas
         self.items: DefaultDict = defaultdict(list) if items is None else items
-        self.options: Dict = {} if options is None else options
+        self.options: dict = {} if options is None else options
+
+    @abstractmethod
+    def draw(self, redraw=False, coords=None):
+        """Render the shape onto the canvas."""
 
     def delete(self):
         for itemlist in self.items.values():
@@ -37,16 +42,14 @@ class Shape:
 
 
 class SelectedSlotShape(Shape):
-    def draw(self, coords, redraw=False):
+    def draw(self, redraw=False, coords=None):
         redraw = bool(self.items[self.FIRST])
         cicle_coords = self.slot_coords(*coords)
         color = self.options.get("fill", "blue")
         if redraw:
             self.canvas.coords(self.items[self.FIRST][0], *cicle_coords)
         else:
-            item = self.canvas.create_oval(
-                *cicle_coords, outline=color, width=6
-            )
+            item = self.canvas.create_oval(*cicle_coords, outline=color, width=6)
             self.items[self.FIRST].append(item)
 
     def slot_coords(self, x1, y1, x2, y2):
@@ -72,7 +75,7 @@ class GridShape(Shape):
         self.marked_all = False
         self.marked_slots = set()
 
-    def draw(self, redraw=False):
+    def draw(self, redraw=False, coords=None):
         self._draw_cells(redraw)
         self._draw_rc_marks(redraw)
         self._draw_slots(redraw)
@@ -134,9 +137,7 @@ class GridShape(Shape):
                 self.canvas.coords(self.items[self.SLOT][idx], *slot_coords)
             else:
                 color = "#DC8ADD"
-                item = self.canvas.create_oval(
-                    *slot_coords, fill=color, outline=color
-                )
+                item = self.canvas.create_oval(*slot_coords, fill=color, outline=color)
                 self.items[self.SLOT].append(item)
 
     def marked_slot_coords(self, x1, y1, x2, y2):
@@ -223,12 +224,8 @@ class GridRCselectorWidget(ttk.Frame):
 
         self.grid = GridCalculator(1, 1, 1, 1)
         self.grid_shape = GridShape(self.canvas, self.grid)
-        self.selector_shape = SelectedSlotShape(
-            self.canvas, None, dict(fill="#000099")
-        )
-        self.hover_shape = SelectedSlotShape(
-            self.canvas, None, dict(fill="#FF7800")
-        )
+        self.selector_shape = SelectedSlotShape(self.canvas, None, {"fill": "#000099"})
+        self.hover_shape = SelectedSlotShape(self.canvas, None, {"fill": "#FF7800"})
         self.after(200, self._draw_grid)
 
     @property
@@ -250,7 +247,7 @@ class GridRCselectorWidget(ttk.Frame):
         self._call_redraw()
         self.event_generate(self.EVENT_CELL_SELECTED)
 
-    def selection_clear(self):
+    def select_clear(self):
         self._selection = None
         self._call_redraw()
 
@@ -286,7 +283,7 @@ class GridRCselectorWidget(ttk.Frame):
         cell = self.grid.xy2rowcol(event.x, event.y)
         self.select_cell(*cell)
 
-    def _on_canvas_configure(self, event=None):
+    def _on_canvas_configure(self, _event=None):
         self._call_redraw()
 
     def _call_redraw(self):
@@ -309,7 +306,7 @@ class GridRCselectorWidget(ttk.Frame):
         else:
             r, c = self._selection
             cell_coords = self.grid.cell_coords(r, c)
-            self.selector_shape.draw(cell_coords, redraw)
+            self.selector_shape.draw(redraw, cell_coords)
 
     def _leave_handler(self, event: tk.Event):
         # Remove row/col hover on wiget leave.
@@ -328,7 +325,7 @@ class GridRCselectorWidget(ttk.Frame):
             self._motion_rowcol = rc
             row, col = rc
             cell_coords = self.grid.cell_coords(row, col)
-            self.hover_shape.draw(cell_coords)
+            self.hover_shape.draw(coords=cell_coords)
             self.event_generate(self.EVENT_CELL_HOVER)
 
 
@@ -354,7 +351,7 @@ if __name__ == "__main__":
         widget.mark_col(7)
         widget.mark_grid_all()
 
-    def on_cell_selected(event):
+    def on_cell_selected(_event):
         print(widget.selection)
 
     widget.bind("<<Gridselector:CellSelected>>", on_cell_selected)

@@ -1,7 +1,7 @@
 import os
+
 import pygubu
 from PIL import Image, ImageTk
-
 
 PROJECT_PATH = os.path.dirname(__file__)
 PROJECT_UI = os.path.join(PROJECT_PATH, "demoapp.ui")

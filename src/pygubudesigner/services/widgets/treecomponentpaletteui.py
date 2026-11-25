@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.widgets.filterabletreeview import FilterableTreeview
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
+
 from pygubudesigner.services.widgets.filter_entry import FilterEntry
 
 
@@ -13,7 +15,6 @@ def i18n_translator_noop(value):
 
 def first_object_callback_noop(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def image_loader_default(master, image_name: str):
@@ -57,9 +58,7 @@ class TreeComponentPaletteUI(ttk.Frame):
 
         self.filter_entry = FilterEntry(frame1, name="filter_entry")
         self.filter_entry.pack(side="left")
-        self.filter_entry.bind(
-            "<<FilterEntryChanged>>", self.on_do_filter, add=""
-        )
+        self.filter_entry.bind("<<FilterEntryChanged>>", self.on_do_filter, add="")
         separator1 = ttk.Separator(frame1)
         separator1.configure(orient="vertical")
         separator1.pack(fill="y", padx="4p", side="left")
@@ -80,18 +79,14 @@ class TreeComponentPaletteUI(ttk.Frame):
         frame3.configure(height=200, width=200)
         scrollbarhelper3 = ScrollbarHelper(frame3, scrolltype="both")
         scrollbarhelper3.configure(usemousewheel=False)
-        self.cptree = FilterableTreeview(
-            scrollbarhelper3.container, name="cptree"
-        )
+        self.cptree = FilterableTreeview(scrollbarhelper3.container, name="cptree")
         self.cptree.configure(style="TreeComponentPalette.Treeview")
         self.cptree_cols = []
         self.cptree_dcols = []
         self.cptree.configure(
             columns=self.cptree_cols, displaycolumns=self.cptree_dcols
         )
-        self.cptree.column(
-            "#0", anchor="w", stretch=True, width=200, minwidth=20
-        )
+        self.cptree.column("#0", anchor="w", stretch=True, width=200, minwidth=20)
         self.cptree.heading("#0", anchor="w", text=_("Components"))
         scrollbarhelper3.add_child(self.cptree)
         scrollbarhelper3.pack(expand=True, fill="both", side="top")

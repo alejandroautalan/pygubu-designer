@@ -6,9 +6,9 @@ Very basic hello world example, using *.ui file.
 
 UI source file: helloworld.ui
 """
-import pathlib
+
 import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 
 

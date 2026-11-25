@@ -1,13 +1,13 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "pygubu-designer"
 version="0.47"
 description = "A simple GUI designer for the python tkinter module"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "GPL-3.0-only"
 keywords = ["gui", "tkinter", "designer"]
 authors = [
@@ -16,12 +16,12 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Libraries :: Python Modules",
@@ -29,7 +29,6 @@ classifiers = [
   "Topic :: Software Development :: User Interfaces",
 ]
 dependencies = [
-    "backports.strenum;python_version<'3.11'",
     "platformdirs >=4.4.0",
     "Mako >=1.1.4",
     "screeninfo >=0.8",
@@ -65,26 +64,146 @@ all = [
   'customtkinter >=5.2.2', 'packaging', 'pillow',
   'tkintermapview']
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/pygubudesigner",
+    "Documentation/**",
+    "examples/**",
+    "tests/**",
+    "ui-disigns/**",
+    "run.sh",
+    "HISTORY.md",
+    "pygubu-designer.png",
+]
 
-[tool.setuptools.exclude-package-data]
-"*" = ["*.pot", "*.po"]
+[tool.hatch.build.targets.wheel]
+packages = ["src/pygubudesigner"]
+exclude = [
+  "*.pot",
+  "*.po",
+]
 
+[tool.hatch.envs.default]
+dependencies = [
+  # Code checking tools:
+  #"pytest",
+  #"pytest-cov",
+  "flake8",
+  "Flake8-pyproject",
+  "flake8-pylint",
+  "pylint",
+  "mypy",
+  "black",
+  "isort",
+  "autoflake",
+]
+
+[tool.hatch.sources]
+pygubu = "../pygubu" 
+
+[tool.hatch.envs.default.scripts]
+app = "python -m pygubudesigner"
+
+# Testing commands
+# test = "pytest {args:tests}"
+# cov = "pytest --cov=pygubu --cov-report=term-missing {args:tests}"
+# test = "cd tests; PYTHONPATH=../src python3 -W default -m unittest -v"
+
+# Cleanup and formatting commands
+fix = [
+  "autoflake .",
+  "isort .",
+  "black .",
+]
+
+# Unified linting command
+check = [
+    "flake8 src tests",
+#    "mypy src tests",
+]
+
+# All before upload?
+all = [
+  "fix",
+  "check",
+]
+
+[tool.hatch.envs.minimal]
+python = "3.10"
+
+[tool.hatch.envs.minimal.scripts]
+app = "python -m pygubudesigner"
+
+
+# PYTEST config
+# [tool.pytest.ini_options]
+# pythonpath = ["src"]
+# testpaths = ["tests"]
+# addopts = "-v"
+
+# AUTO-FIXERS
 [tool.black]
-line-length = 80
-target-version = ["py39", "py310", "py311", "py312", "py313"]
-include = '\\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
+line-length = 88
+
+[tool.isort]
+profile = "black"
+line_length = 88
+src_paths = ["src", "tests"]
+
+[tool.autoflake]
+in-place = true
+remove-all-unused-imports = false
+remove-unused-variables = true
+recursive = true
+
+# LINTERS (Flake8 + Pylint)
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503", "E701",]
+extend-exclude = [".git", "__pycache__", ".venv", "venv", "build", "dist", "*ui.py"]
+
+[tool.pylint.main]
+source-roots = ["src"]
+ignore-patterns = [".*ui\\.py$"]
+
+[tool.pylint.format]
+max-line-length = 88
+
+[tool.pylint.design]
+max-parents = 12
+max-attributes = 25
+max-locals = 25
+# max-args = 7
+# max-positional-arguments = 7
+
+[tool.pylint."messages control"]
+disable = [
+  "C0301", # line-too-long (Black)
+  "C0303", # trailing-whitespace (Black)
+  "C0114", # missing-module-docstring
+  "C0115", # missing-class-docstring
+  "C0116", # missing-function-docstring
+  "W0511", # fixme and todo's
+]
+
+
+# Static typing (Mypy)
+[tool.mypy]
+python_version = "3.10"
+mypy_path = "src"
+packages = ["pygubudesigner"]
+
+# Gradual adoption settings:
+strict = false
+check_untyped_defs = false
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+# Helpful guardrails that don't create massive noise:
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+
+# Disable noisy checks for legacy/Tkinter codebases
+warn_return_any = false

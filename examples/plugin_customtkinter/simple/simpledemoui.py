@@ -6,8 +6,9 @@ Customtkinter simple demo.
 
 UI source file: simple_demo.ui
 """
-import pathlib
+
 import tkinter as tk
+
 import customtkinter
 import pygubu
 
@@ -32,9 +33,7 @@ class SimpleDemoAppUI:
         if resource_paths is not None:
             self.builder.add_resource_paths(resource_paths)
         # Main widget
-        self.mainwindow: customtkinter.CTk = self.builder.get_object(
-            "ctk1", master
-        )
+        self.mainwindow: customtkinter.CTk = self.builder.get_object("ctk1", master)
 
         self.radiobutton_var: tk.StringVar = None
         self.builder.import_variables(self)

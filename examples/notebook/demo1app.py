@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import pathlib
+
 import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
@@ -16,9 +17,7 @@ class Demo1App:
 
         self.var_enable_tab3 = None
         self.var_show_hidden_tab = None
-        builder.import_variables(
-            self, ["var_enable_tab3", "var_show_hidden_tab"]
-        )
+        builder.import_variables(self, ["var_enable_tab3", "var_show_hidden_tab"])
 
         builder.connect_callbacks(self)
 

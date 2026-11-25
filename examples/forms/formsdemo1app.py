@@ -1,14 +1,9 @@
 #!/usr/bin/python3
-import pathlib
-import os
-import pprint as pp
-import tkinter as tk
 import pygubu
 from formsdemo1appui import FormsDemo1AppUI
-from pygubu.forms.validation.constraint.notblank import NotBlank
-from pygubu.forms.validation.constraint.istrue import IsTrue
 from pygubu.forms.transformer.tkboolean import BoolTransformer
-
+from pygubu.forms.validation.constraint.istrue import IsTrue
+from pygubu.forms.validation.constraint.notblank import NotBlank
 
 bool_transformer = BoolTransformer()
 

@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 import pygubu.widgets.simpletooltip as tooltip
 
@@ -84,8 +84,13 @@ class ComponentPalette(ttk.Frame):
         self.notebook.add(frame_1, text=label)
         self._tabs[tabid] = frame_1
 
+    # pylint: disable=too-many-arguments,too-many-positional-arguments
     def add_button(self, tabid, group, label, ttiplabel, image, callback):
-        master = self._tabs[tabid].child_master() if self.notebook else self.frame.child_master()
+        master = (
+            self._tabs[tabid].child_master()
+            if self.notebook
+            else self.frame.child_master()
+        )
         # master = self._tabs[tabid]
         b = ttk.Button(
             master,

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.widgets.dialog import Dialog
 
 
@@ -11,7 +12,6 @@ def i18n_translator_noop(value):
 
 def first_object_callback_noop(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def image_loader_default(master, image_name: str):

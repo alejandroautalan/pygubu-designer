@@ -12,13 +12,14 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-import sys
 import importlib
 import logging
+import sys
 from pathlib import Path
 from tkinter import ttk
 
 from pygubudesigner.properties.editors import TtkStylePropertyEditor
+
 from ..i18n import translator as _
 
 logger = logging.getLogger(__name__)
@@ -60,6 +61,7 @@ class StyleHandlerAndMonitor:
     def __init__(self):
         self.root = None
         self.after_token = None
+        self.style: StyleRegister | None = None
 
     def start_monitoring(self, root):
         if self.root is None:
@@ -76,15 +78,12 @@ class StyleHandlerAndMonitor:
 
         style_definition_path = self.current_definition_file
         file_valid = (
-            style_definition_path is not None
-            and style_definition_path.is_file()
+            style_definition_path is not None and style_definition_path.is_file()
         )
         if file_valid:
-            self._run_styles_module(
-                style_definition_path, root, collect_styles=False
-            )
+            self._run_styles_module(style_definition_path, root, collect_styles=False)
 
-    def _on_theme_changed(self, event=None):
+    def _on_theme_changed(self, _event=None):
         logger.debug("Theme changed. Force reload of style definitions.")
         self.check_definition_file(force_reload=True)
 
@@ -97,9 +96,7 @@ class StyleHandlerAndMonitor:
         try:
             module_name = module_path.name[:-3]
 
-            spec = importlib.util.spec_from_file_location(
-                module_name, module_path
-            )
+            spec = importlib.util.spec_from_file_location(module_name, module_path)
             module = importlib.util.module_from_spec(spec)
 
             sys.modules[module_name] = module
@@ -115,7 +112,7 @@ class StyleHandlerAndMonitor:
             if collect_styles:
                 new_styles = self.style.registered_styles()
                 TtkStylePropertyEditor.set_global_style_list(new_styles)
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             msg = _("ttk style definition error: %s")
             logger.error(msg, e)
 
@@ -177,9 +174,9 @@ class StyleHandlerAndMonitor:
 
 
 # Patch ttk module, so designer can "see" style changes.
-if not hasattr(ttk, "_style_original"):
-    ttk._style_original = ttk.Style
+if ttk.Style is not StyleRegister:
+    _StyleOriginal = ttk.Style
     ttk.Style = StyleRegister
 
 
-StyleHandler = StyleHandlerAndMonitor()
+StyleHandler = StyleHandlerAndMonitor()  # pylint: disable=invalid-name

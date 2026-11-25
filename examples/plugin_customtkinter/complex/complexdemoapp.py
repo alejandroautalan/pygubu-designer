@@ -6,10 +6,11 @@ Customtkinter complex demo.
 
 UI source file: complex_demo.ui
 """
+
 import pathlib
-import tkinter as tk
-import pygubu
+
 import customtkinter
+import pygubu
 from complexdemoappui import ComplexDemoAppUI
 
 PROJECT_PATH = pathlib.Path(__file__).parent

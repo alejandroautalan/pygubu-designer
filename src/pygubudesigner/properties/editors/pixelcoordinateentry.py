@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 from .propertyeditor import (
     PropertyEditor,
@@ -54,11 +54,11 @@ if __name__ == "__main__":
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
-    def make_on_change_cb(editor):
+    def make_on_change_cb(widget):
         def on_change_cb(event=None):
             print("Property changed: ")
-            print(editor.value)
-            print(repr(editor.value))
+            print(widget.value)
+            print(repr(widget.value))
 
         return on_change_cb
 

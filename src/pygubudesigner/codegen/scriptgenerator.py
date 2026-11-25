@@ -12,24 +12,18 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-import keyword
 import logging
 import pathlib
-import codecs
 import re
 import tkinter as tk
 from typing import Any
-from tkinter import filedialog, messagebox
 
 import autopep8
 from mako.lookup import TemplateLookup
-
 from pygubu.component.plugin_manager import PluginManager
 from pygubu.plugins.pygubu._config import nspygubu
-from .codebuilder import UI2Code
-from pygubudesigner.services.stylehandler import StyleHandler
-from pygubudesigner.services.project import Project
 
+from .codebuilder import UI2Code
 
 logger = logging.getLogger(__name__)
 DATA_DIR = pathlib.Path(__file__).parent.parent / "data"
@@ -78,15 +72,12 @@ class ScriptGenerator:
 
         output_dir = context["output_dir"]
         outfn = output_dir / (context["module_name"] + "ui.py")
-        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+        with open(outfn, "w", encoding="utf-8") as outfile:
             outfile.write(final_code)
             logger.info("Generated code file: %s", outfn)
 
         context["import_lines"] += (
-            "\nfrom "
-            + context["module_name"]
-            + "ui import "
-            + bcontext["class_name"]
+            "\nfrom " + context["module_name"] + "ui import " + bcontext["class_name"]
         )
         tpl = makolookup.get_template("appuser.py.mako")
         final_code = tpl.render(**context)
@@ -94,7 +85,7 @@ class ScriptGenerator:
         outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
-            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+            with open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
@@ -122,7 +113,7 @@ class ScriptGenerator:
             methods_for=methods,
             on_first_object_cb=first_object_callback,
         )
-        # FIXME: call again but just to generate user code file without main menu code.
+        # NOTE: call again but just to generate user code file without main menu code.
         #        Find better way to do this.
         code_user = generator.generate_app_code(
             uidef,
@@ -148,19 +139,19 @@ class ScriptGenerator:
 
         output_dir = context["output_dir"]
         outfn = output_dir / (context["module_name"] + "ui.py")
-        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+        with open(outfn, "w", encoding="utf-8") as outfile:
             outfile.write(final_code)
 
         tpl = makolookup.get_template("scriptuser.py.mako")
         context["methods"] = code_user[
             "methods"
-        ]  # FIXME: do not add main menu output for this file
+        ]  # NOTE: do not add main menu output for this file
         final_code = tpl.render(**context)
         final_code = self._format_code(final_code)
         outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
-            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+            with open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
@@ -190,7 +181,7 @@ class ScriptGenerator:
 
         output_dir = context["output_dir"]
         outfn = output_dir / (context["module_name"] + "ui.py")
-        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+        with open(outfn, "w", encoding="utf-8") as outfile:
             outfile.write(final_code)
             logger.info("Generated code file: %s", outfn)
 
@@ -201,7 +192,7 @@ class ScriptGenerator:
         outfn: pathlib.Path = output_dir2 / (context["module_name"] + "bo.py")
         # DO NOT overwrite user module.
         if not outfn.exists():
-            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+            with open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
@@ -211,7 +202,7 @@ class ScriptGenerator:
         outfn: pathlib.Path = output_dir / (context["module_name"] + ".py")
         # DO NOT overwrite user module.
         if not outfn.exists():
-            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+            with open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
@@ -223,10 +214,10 @@ class ScriptGenerator:
             "MODULE_BODY": "",
         }
         if target.exists():
-            with codecs.open(target, "r", encoding="utf-8") as ifile:
+            with open(target, encoding="utf-8") as ifile:
                 old_user_code = ifile.read()
             # retrieve user sections
-            for section_key in sections.keys():
+            for section_key in sections:
                 pattern = rf"(#\s<{section_key}>.*?#\s</{section_key}>)"
                 res = re.search(pattern, old_user_code, re.DOTALL)
                 if res:
@@ -282,21 +273,21 @@ class ScriptGenerator:
         final_code = self._format_code(final_code)
 
         if outfn.exists():
-            with codecs.open(outfn, "r", encoding="utf-8") as ifile:
+            with open(outfn, encoding="utf-8") as ifile:
                 old_user_code = ifile.read()
             last_saved_user_code = final_code
             last_copy = output_dir / f"{module_name}.old.00.py"
             i = 1
             while last_copy.exists():
-                with codecs.open(last_copy, "r", encoding="utf-8") as ifile:
+                with open(last_copy, encoding="utf-8") as ifile:
                     last_saved_user_code = ifile.read()
                 last_copy = output_dir / f"{module_name}.old.{i:0>2}.py"
                 i += 1
             if old_user_code != last_saved_user_code:
-                with codecs.open(last_copy, "w", encoding="utf-8") as outfile:
+                with open(last_copy, "w", encoding="utf-8") as outfile:
                     outfile.write(old_user_code)
 
-        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+        with open(outfn, "w", encoding="utf-8") as outfile:
             outfile.write(final_code)
             logger.info("Generated code file: %s", outfn)
 
@@ -307,7 +298,7 @@ class ScriptGenerator:
         outfn: pathlib.Path = output_dir2 / (module_name + "bo.py")
         # DO NOT overwrite BO module.
         if not outfn.exists():
-            with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+            with open(outfn, "w", encoding="utf-8") as outfile:
                 outfile.write(final_code)
                 logger.info("Generated code file: %s", outfn)
 
@@ -351,16 +342,17 @@ class ScriptGenerator:
 
         output_dir = context["output_dir"]
         outfn = output_dir / (context["module_name"] + ".py")
-        with codecs.open(outfn, "w", encoding="utf-8") as outfile:
+        with open(outfn, "w", encoding="utf-8") as outfile:
             outfile.write(final_code)
 
+    # pylint: disable=too-many-locals,too-many-branches,too-many-statements
     def generate_code(self):
         project = self.app.current_project
         config = project.get_full_settings()
         generator = UI2Code()
         template = config["template"]
         target = config["main_widget"]
-        itemid, data = self.tree.find_item_byid(target)
+        _itemid, data = self.tree.find_item_byid(target)
         target_class = data.classname
 
         toplevel_uids = (
@@ -374,7 +366,7 @@ class ScriptGenerator:
         main_widget_is_toplevel = False
         has_ttk_styles = False
 
-        # FIXME: stop using toplevel_uids variable and implement
+        # TODO: stop using toplevel_uids variable and implement
         #        is_toplevel_widget in all plugins
         if target_class in toplevel_uids or PluginManager.is_toplevel_widget(
             target_class
@@ -398,9 +390,7 @@ class ScriptGenerator:
 
         with_i18n_support = tk.getboolean(config["use_i18n"])
         import_tk_vars = tk.getboolean(config["import_tkvariables"])
-        add_window_centering_code = tk.getboolean(
-            config["use_window_centering_code"]
-        )
+        add_window_centering_code = tk.getboolean(config["use_window_centering_code"])
 
         # calculate output dir
         uipath = project.fpath.parent
@@ -461,9 +451,7 @@ class ScriptGenerator:
         }
 
         generator.with_i18n_support = with_i18n_support
-        generator.all_ids_as_attributes = tk.getboolean(
-            config["all_ids_attributes"]
-        )
+        generator.all_ids_as_attributes = tk.getboolean(config["all_ids_attributes"])
 
         if template == "application":
             self._appui_code(generator, context)
@@ -483,40 +471,6 @@ class ScriptGenerator:
     def get_classname(self):
         name = pathlib.Path(self.projectname).stem
         return self.camel_case(name)
-
-    def form_valid(self):
-        valid = True
-
-        _ = self.app.translator
-        mbtitle = self.msgtitle
-        widget = self.widgetlist.current()
-        parent = self.widgetlist.winfo_toplevel()
-        if widget is None:
-            valid = False
-            messagebox.showwarning(
-                title=mbtitle, message=_("Select widget"), parent=parent
-            )
-        template = self.template_var.get()
-        if valid and template is None:
-            valid = False
-            messagebox.showwarning(
-                title=mbtitle, message=_("Select template"), parent=parent
-            )
-        classname = self.classnamevar.get()
-        if valid and classname == "":
-            valid = False
-            messagebox.showwarning(
-                title=mbtitle, message=_("Enter classname"), parent=parent
-            )
-        if valid and (
-            keyword.iskeyword(classname) or not classname.isidentifier()
-        ):
-            valid = False
-            messagebox.showwarning(
-                title=mbtitle, message=_("Invalid classname"), parent=parent
-            )
-
-        return valid
 
     def _format_code(self, code):
         return autopep8.fix_code(code, options={"aggressive": 1})

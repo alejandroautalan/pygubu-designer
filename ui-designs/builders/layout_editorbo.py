@@ -1,16 +1,14 @@
 #!/usr/bin/python3
-import tkinter as tk
-import tkinter.ttk as ttk
-from pygubu.widgets.scrolledframe import ScrolledFrame
-from pygubudesigner.properties.editors.propertyeditor import (
-    LayoutManagerPropertyEditor,
-)
 from pygubu.api.v1 import (
     BuilderObject,
     register_widget,
 )
-from pygubudesigner.services.widgets.layout_editor import LayoutEditor
+from pygubu.widgets.scrolledframe import ScrolledFrame
 
+from pygubudesigner.properties.editors.propertyeditor import (
+    LayoutManagerPropertyEditor,
+)
+from pygubudesigner.services.widgets.layout_editor import LayoutEditor
 
 #
 # Builder definition section

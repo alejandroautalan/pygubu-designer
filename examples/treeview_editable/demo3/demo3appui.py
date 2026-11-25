@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import pathlib
 import tkinter as tk
+
 import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
@@ -14,9 +15,7 @@ class DemoAppUI:
         self.builder.add_resource_paths(RESOURCE_PATHS)
         self.builder.add_from_file(PROJECT_UI)
         # Main widget
-        self.mainwindow: tk.Toplevel = self.builder.get_object(
-            "toplevel1", master
-        )
+        self.mainwindow: tk.Toplevel = self.builder.get_object("toplevel1", master)
 
         self.allow_edit: tk.BooleanVar = None
         self.builder.import_variables(self)

@@ -1,10 +1,7 @@
 import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
-
 from settingsdialog import SettingsDialog
-
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "settingsdemo.ui"

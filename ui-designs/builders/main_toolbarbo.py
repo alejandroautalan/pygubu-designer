@@ -6,15 +6,14 @@ Main toolbar for pygubu designer.
 
 UI source file: main_toolbar.ui
 """
-import tkinter as tk
-import tkinter.ttk as ttk
-from pygubu.widgets.simpletooltip import Tooltipttk
+
 from pygubu.api.v1 import (
     BuilderObject,
     register_widget,
 )
-from pygubudesigner.services.widgets.main_toolbar import MainToolbar
+from pygubu.widgets.simpletooltip import Tooltipttk
 
+from pygubudesigner.services.widgets.main_toolbar import MainToolbar
 
 #
 # Builder definition section
@@ -35,6 +34,4 @@ class MainToolbarBO(BuilderObject):
 
 
 builder_id = f"{builder_namespace}.{widget_classname}"
-register_widget(
-    builder_id, MainToolbarBO, widget_classname, ("ttk", section_name)
-)
+register_widget(builder_id, MainToolbarBO, widget_classname, ("ttk", section_name))

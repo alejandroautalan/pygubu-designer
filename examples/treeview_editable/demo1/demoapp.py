@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+import pathlib
 import tkinter as tk
 import tkinter.ttk as ttk
-import pathlib
+
 import pygubu
 from pygubu.widgets.editabletreeview import InplaceEditor
 
@@ -31,9 +32,7 @@ class CustomInplaceEditor(InplaceEditor):
         self._widget = frame = ttk.Frame(master)
         self._label = ttk.Label(frame, width=5, anchor=tk.E)
         self._label.pack(side=tk.LEFT)
-        self._scale = ttk.Scale(
-            frame, from_=10, to=100, command=self._onscalechange
-        )
+        self._scale = ttk.Scale(frame, from_=10, to=100, command=self._onscalechange)
         self._scale.pack(side=tk.LEFT, fill=tk.X)
 
     def _onscalechange(self, value):

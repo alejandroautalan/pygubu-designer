@@ -14,9 +14,8 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
-import pygubudesigner.services.ask_save_changesui as baseui
 
+import pygubudesigner.services.ask_save_changesui as baseui
 from pygubudesigner.i18n import translator
 from pygubudesigner.services.image_loader import iconset_loader
 
@@ -28,9 +27,8 @@ class AskSaveChangesDialog(baseui.AskSaveChangesDialogUI):
 
     def __init__(self, master=None):
         self.master = master
-        super().__init__(
-            master, translator=translator, image_loader=iconset_loader
-        )
+        self.user_choice: int | None = None
+        super().__init__(master, translator=translator, image_loader=iconset_loader)
 
     def on_discard(self):
         self.user_choice = self.DISCARD
@@ -52,7 +50,7 @@ class AskSaveChangesDialog(baseui.AskSaveChangesDialogUI):
         self.dialog.close()
         self.dialog.destroy()
 
-    def run(self, title, message, detail=""):
+    def run(self, title="", message="", detail=""):
         self.dialog.set_title(title)
         self.message_var.set(message)
         self.detail_var.set(detail)

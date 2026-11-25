@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 import pathlib
 from tkinter import messagebox
-import pygubu
 
+import pygubu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "pathchooserdemo.ui"
@@ -37,10 +37,7 @@ class MyApp:
         # path = self.filepath.cget("path")  # If you are not using specific tk variable.
 
         enable_btn = False
-        if (
-            self.default_path != path
-            and pathlib.Path(self.path_var.get()).exists()
-        ):
+        if self.default_path != path and pathlib.Path(self.path_var.get()).exists():
             enable_btn = True
 
         btn_state = "normal" if enable_btn else "disabled"
@@ -48,9 +45,7 @@ class MyApp:
 
     def on_reset_clicked(self):
         self.last_dir = pathlib.Path(self.path_var.get()).parent
-        self.filepath.configure(
-            path=self.default_path, initialdir=self.last_dir
-        )
+        self.filepath.configure(path=self.default_path, initialdir=self.last_dir)
         self.btn_process.configure(state="disabled")
 
     def on_process_clicked(self):

@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 import pathlib
 import tkinter as tk
-import tkinter.ttk as ttk
 import tkinter.messagebox
-import pygubu
+import tkinter.ttk as ttk
 from datetime import datetime
+
+import pygubu
 from flightbookerappui import FlightBookerAppUI
 
 PROJECT_PATH = pathlib.Path(__file__).parent
@@ -95,9 +96,7 @@ class FlightBookerApp(FlightBookerAppUI):
         fdate = self.t1_var.get()
         ftype = self.cbox.get()
         msg = f"You have booked a {ftype} on {fdate}."
-        tk.messagebox.showinfo(
-            title="Message", message=msg, parent=self.mainwindow
-        )
+        tk.messagebox.showinfo(title="Message", message=msg, parent=self.mainwindow)
 
 
 if __name__ == "__main__":

@@ -6,10 +6,13 @@ Redesign of layout editor.
 
 UI source file: layout_editor.ui
 """
+
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.widgets.scrolledframe import ScrolledFrame
 from pygubu.widgets.simpletooltip import Tooltip
+
 from pygubudesigner.properties.editors.propertyeditor import (
     LayoutManagerPropertyEditor,
 )
@@ -25,7 +28,6 @@ def safe_i18n_translator(value):
 
 def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def safe_image_loader(master, image_name: str):
@@ -121,9 +123,7 @@ class LayoutEditorUI(ttk.Frame):
 
         self.expand_width.configure(command=expand_width_cmd_)
         self.expand_height = ttk.Button(self.ftoolbar, name="expand_height")
-        self.img_layout_expand__height = image_loader(
-            None, "layout_expand__height"
-        )
+        self.img_layout_expand__height = image_loader(None, "layout_expand__height")
         self.expand_height.configure(
             image=self.img_layout_expand__height,
             style="Toolbutton",
@@ -155,9 +155,7 @@ class LayoutEditorUI(ttk.Frame):
         separator1.grid(column=0, columnspan=2, pady="4p", row=1, sticky="ew")
         self.fprop.grid(column=0, row=1, sticky="nsew")
         self.fprop.columnconfigure("all", pad=2)
-        self.cleditor = ContainerLayoutEditor(
-            self.sframe.innerframe, name="cleditor"
-        )
+        self.cleditor = ContainerLayoutEditor(self.sframe.innerframe, name="cleditor")
         self.cleditor.grid(column=0, pady="5p 0", row=2, sticky="ew")
         self.sframe.pack(expand=True, fill="both", side="top")
         self.configure(height="580p", padding="2p", width="280p")

@@ -1,7 +1,4 @@
-#!/usr/bin/python3
-import pathlib
 import tkinter as tk
-import pygubu
 
 import pygubudesigner.services.messageboxui as baseui
 

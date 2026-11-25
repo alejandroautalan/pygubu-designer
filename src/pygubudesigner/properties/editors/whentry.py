@@ -14,13 +14,13 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
+from .dimensionentry import DimensionPropertyEditor
 from .propertyeditor import (
     PropertyEditor,
     register_editor,
 )
-from .dimensionentry import DimensionPropertyEditor
 
 
 class WHPropertyEditor(PropertyEditor):

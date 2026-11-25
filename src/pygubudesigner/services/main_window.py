@@ -1,50 +1,40 @@
-#!/usr/bin/python3
-import sys
-import platform
-import os
 import logging
+import os
+import platform
+import sys
+import tkinter as tk
 import traceback
 import webbrowser
-
-import tkinter as tk
-import tkinter.ttk as ttk
-
-import pygubudesigner.actions as actions
-import pygubudesigner.designerstyles as designerstyles
-
 from pathlib import Path
-from tkinter import filedialog, messagebox
-from pygubu import builder
+from tkinter import messagebox
+
 from pygubu.stockimage import StockImage, StockImageException
 
-from pygubudesigner.preferences import preferences
-from pygubudesigner.services.project import Project
-from pygubudesigner.services.designersettings import DesignerSettings
-from pygubudesigner.services.projectsettings import ProjectSettings
-from pygubudesigner.services.aboutdialog import AboutDialog
+import pygubudesigner.services.main_windowui as baseui
+from pygubudesigner import actions, designerstyles
 from pygubudesigner.codegen import ScriptGenerator
-from pygubudesigner.widgets.toolbarframe import ToolbarFrame
-
 from pygubudesigner.i18n import translator
 from pygubudesigner.logpanel import LogPanelManager
+from pygubudesigner.preferences import preferences
 from pygubudesigner.preview import PreviewHelper
 from pygubudesigner.rfilemanager import RecentFilesManager
+from pygubudesigner.services.aboutdialog import AboutDialog
+from pygubudesigner.services.context_menu import create_context_menu
+from pygubudesigner.services.designersettings import DesignerSettings
+from pygubudesigner.services.fileactions import FileActionsManager
+from pygubudesigner.services.image_loader import iconset_loader
+from pygubudesigner.services.main_menu import create_main_menu
+from pygubudesigner.services.messagebox import show_error
+from pygubudesigner.services.project import Project
+from pygubudesigner.services.projectsettings import ProjectSettings
+from pygubudesigner.services.stylehandler import StyleHandler
+from pygubudesigner.services.theming import get_ttk_style
 from pygubudesigner.uitreeeditor import WidgetsTreeEditor
-from pygubudesigner.util import menu_iter_children, virtual_event, enable_dpi
+from pygubudesigner.util import enable_dpi, menu_iter_children, virtual_event
 from pygubudesigner.util.keyboard import Key, key_bind
+from pygubudesigner.util.loghandler import StatusBarHandler
 from pygubudesigner.util.screens import is_visible_in_screens, parse_geometry
 from pygubudesigner.util.tkhacks import filedialog_hack
-from pygubudesigner.util.loghandler import StatusBarHandler
-from pygubudesigner.services.stylehandler import StyleHandler
-from pygubudesigner.services.messagebox import show_error
-from pygubudesigner.services.theming import get_ttk_style
-from pygubudesigner.services.context_menu import create_context_menu
-from pygubudesigner.services.main_menu import create_main_menu
-from pygubudesigner.services.fileactions import FileActionsManager
-from pygubudesigner.services.image_loader import image_loader, iconset_loader
-
-import pygubudesigner.services.main_windowui as baseui
-
 
 # Initialize logger
 logger = logging.getLogger(__name__)
@@ -54,6 +44,7 @@ logger = logging.getLogger(__name__)
 _ = translator
 
 
+# pylint: disable=too-many-public-methods
 class MainWindow(baseui.MainWindowUI):
     def __init__(self, master=None):
         super().__init__(
@@ -101,9 +92,7 @@ class MainWindow(baseui.MainWindowUI):
             self.mainwindow.createcommand(cmd, self.quit)
             # In mac add apple menu
             m = tk.Menu(self.main_menu, name="apple")
-            m.add_command(
-                label=_("Quit …"), accelerator="Cmd-Q", command=self.quit
-            )
+            m.add_command(label=_("Quit …"), accelerator="Cmd-Q", command=self.quit)
             self.main_menu.insert_cascade(0, menu=m)
 
         # Set top menu
@@ -125,9 +114,7 @@ class MainWindow(baseui.MainWindowUI):
         # Recen Files management
         # Setup menu after connect callbacks call above.
         rfmenu = self.mainwindow.nametowidget(".mmain.mfile.mrecent")
-        self.rfiles_manager = RecentFilesManager(
-            rfmenu, self.on_recentfile_clicked
-        )
+        self.rfiles_manager = RecentFilesManager(rfmenu, self.on_recentfile_clicked)
 
         # Customize OpenFiledialog window
         filedialog_hack(self.mainwindow)
@@ -161,9 +148,7 @@ class MainWindow(baseui.MainWindowUI):
 
         # project settings
         self.project_settings = ProjectSettings(self.mainwindow, translator)
-        self.project_settings.on_settings_changed = (
-            self._on_project_settings_changed
-        )
+        self.project_settings.on_settings_changed = self._on_project_settings_changed
         # load maindock state
         self.load_dockframe_layout()
 
@@ -174,7 +159,8 @@ class MainWindow(baseui.MainWindowUI):
 
         # Start user styles monitoring.
         # Used for refreshing/re-populating the styles combobox.
-        # Used when the style definition gets updated (simulates clicking on the treeview item again.)
+        # Used when the style definition gets updated (simulates clicking on the
+        # treeview item again.)
         StyleHandler.start_monitoring(self.mainwindow)
 
         # start new Project
@@ -214,9 +200,7 @@ class MainWindow(baseui.MainWindowUI):
             os.execl(python, python, *args)
 
     def load_file(self, file_path):
-        self.mainwindow.after(
-            200, lambda: self.fileactions.action_open(file_path)
-        )
+        self.mainwindow.after(200, lambda: self.fileactions.action_open(file_path))
 
     def set_title(self, newtitle):
         self.current_title = newtitle
@@ -224,31 +208,27 @@ class MainWindow(baseui.MainWindowUI):
         title = default_title.format(newtitle)
         self.mainwindow.wm_title(title)
 
-    def _setup_app_bindings(self):
+    def _setup_app_bindings(self):  # pylint: disable=too-many-statements
         in_macos = sys.platform == "darwin"
         #
         # Context menu binding for object treeview
         #
         if in_macos:
             # tree_editor context menu binding (2nd mouse button for macos)
-            self.tree_editor.treeview.bind(
-                "<2>", self.on_right_click_object_tree
-            )
+            self.tree_editor.treeview.bind("<2>", self.on_right_click_object_tree)
         else:
             # tree_editor context menu binding (3rd mouse button for linux and
             # windows)
-            self.tree_editor.treeview.bind(
-                "<3>", self.on_right_click_object_tree
-            )
+            self.tree_editor.treeview.bind("<3>", self.on_right_click_object_tree)
 
         #
         # Application Keyboard bindings
         #
-        CONTROL_KP_SEQUENCE = "<Control-KeyPress>"
-        ALT_KP_SEQUENCE = "<Alt-KeyPress>"
+        control_kp_sequence = "<Control-KeyPress>"
+        alt_kp_sequence = "<Alt-KeyPress>"
         if in_macos:
-            CONTROL_KP_SEQUENCE = "<Command-KeyPress>"
-            ALT_KP_SEQUENCE = "<Control-KeyPress>"
+            control_kp_sequence = "<Command-KeyPress>"
+            alt_kp_sequence = "<Control-KeyPress>"
             # Fix menu accelerators
             for m, itemtype, index in menu_iter_children(self.main_menu):
                 if itemtype != "separator":
@@ -259,61 +239,55 @@ class MainWindow(baseui.MainWindowUI):
 
         master = self.mainwindow
         master.bind_all(
-            CONTROL_KP_SEQUENCE,
+            control_kp_sequence,
             key_bind(Key.N, virtual_event(actions.FILE_NEW)),
         )
         master.bind_all(
-            CONTROL_KP_SEQUENCE,
+            control_kp_sequence,
             key_bind(Key.O, virtual_event(actions.FILE_OPEN)),
             add=True,
         )
         master.bind_all(
-            CONTROL_KP_SEQUENCE,
+            control_kp_sequence,
             key_bind(Key.S, virtual_event(actions.FILE_SAVE)),
             add=True,
         )
         master.bind_all(
-            CONTROL_KP_SEQUENCE,
+            control_kp_sequence,
             key_bind(Key.Q, virtual_event(actions.FILE_QUIT)),
             add=True,
         )
-        master.bind_all(
-            "<F5>", virtual_event(actions.TREE_ITEM_PREVIEW_TOPLEVEL)
-        )
-        master.bind_all(
-            "<F6>", virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL)
-        )
+        master.bind_all("<F5>", virtual_event(actions.TREE_ITEM_PREVIEW_TOPLEVEL))
+        master.bind_all("<F6>", virtual_event(actions.PREVIEW_TOPLEVEL_CLOSE_ALL))
 
         # Tree Editing Keyboard events
         for widget in (self.treeview, self.preview_canvas):
             widget.bind(
-                CONTROL_KP_SEQUENCE,
+                control_kp_sequence,
                 key_bind(Key.I, virtual_event(actions.TREE_ITEM_MOVE_UP)),
             )
             widget.bind(
-                CONTROL_KP_SEQUENCE,
+                control_kp_sequence,
                 key_bind(Key.K, virtual_event(actions.TREE_ITEM_MOVE_DOWN)),
                 add=True,
             )
             widget.bind(
-                CONTROL_KP_SEQUENCE,
+                control_kp_sequence,
                 key_bind(Key.C, lambda e: self.tree_editor.copy_to_clipboard()),
                 add=True,
             )
             widget.bind(
-                CONTROL_KP_SEQUENCE,
-                key_bind(
-                    Key.V, lambda e: self.tree_editor.paste_from_clipboard()
-                ),
+                control_kp_sequence,
+                key_bind(Key.V, lambda e: self.tree_editor.paste_from_clipboard()),
                 add=True,
             )
             widget.bind(
-                CONTROL_KP_SEQUENCE,
+                control_kp_sequence,
                 key_bind(Key.D, virtual_event(actions.TREE_ITEM_DUPLICATE)),
                 add=True,
             )
             widget.bind(
-                CONTROL_KP_SEQUENCE,
+                control_kp_sequence,
                 key_bind(Key.X, lambda e: self.tree_editor.cut_to_clipboard()),
                 add=True,
             )
@@ -326,30 +300,26 @@ class MainWindow(baseui.MainWindowUI):
                 key_bind(Key.K, virtual_event(actions.TREE_NAV_DOWN)),
                 add=True,
             )
-            widget.bind(
-                "<KeyPress-Delete>", virtual_event(actions.TREE_ITEM_DELETE)
-            )
-            widget.bind(
-                "<KeyPress-BackSpace>", virtual_event(actions.TREE_ITEM_DELETE)
-            )
+            widget.bind("<KeyPress-Delete>", virtual_event(actions.TREE_ITEM_DELETE))
+            widget.bind("<KeyPress-BackSpace>", virtual_event(actions.TREE_ITEM_DELETE))
 
             # grid move bindings
             widget.bind(
-                ALT_KP_SEQUENCE,
+                alt_kp_sequence,
                 key_bind(Key.I, virtual_event(actions.TREE_ITEM_GRID_UP)),
             )
             widget.bind(
-                ALT_KP_SEQUENCE,
+                alt_kp_sequence,
                 key_bind(Key.K, virtual_event(actions.TREE_ITEM_GRID_DOWN)),
                 add=True,
             )
             widget.bind(
-                ALT_KP_SEQUENCE,
+                alt_kp_sequence,
                 key_bind(Key.J, virtual_event(actions.TREE_ITEM_GRID_LEFT)),
                 add=True,
             )
             widget.bind(
-                ALT_KP_SEQUENCE,
+                alt_kp_sequence,
                 key_bind(Key.L, virtual_event(actions.TREE_ITEM_GRID_RIGHT)),
                 add=True,
             )
@@ -387,17 +357,13 @@ class MainWindow(baseui.MainWindowUI):
             actions.PROJECT_EDIT_SETTINGS,
             lambda e: self._edit_project_settings(),
         )
-        w.bind(
-            actions.PROJECT_BUILD_CODE, lambda e: self._project_code_generate()
-        )
+        w.bind(actions.PROJECT_BUILD_CODE, lambda e: self._project_code_generate())
 
         # On preferences save binding
         w.bind("<<PygubuDesignerPreferencesSaved>>", self.on_preferences_saved)
 
     def _setup_theme_menu(self):
-        themes_list_menu = self.mainwindow.nametowidget(
-            ".mmain.mpreview.mthemes_list"
-        )
+        themes_list_menu = self.mainwindow.nametowidget(".mmain.mpreview.mthemes_list")
         s = get_ttk_style()
         styles = sorted(s.theme_names())
         self.__theme_var = var = tk.StringVar()
@@ -436,7 +402,7 @@ class MainWindow(baseui.MainWindowUI):
         if not window_visible:
             msg = _("Main window is not visible in current monitors.")
             logger.debug(msg)
-            w, h, uu, uu = parse_geometry(geom)
+            w, h, _uu, _uu2 = parse_geometry(geom)
             geom = f"{w}x{h}+0+0"
             msg = _("Main window position fixed.")
             logger.debug(msg)
@@ -453,28 +419,26 @@ class MainWindow(baseui.MainWindowUI):
         except tk.TclError:
             logger.exception("Invalid ttk theme.")
 
-    def on_preferences_saved(self, event=None):
+    def on_preferences_saved(self, _event=None):
         # Setup ttk theme if changed
         theme = preferences.ttk_theme
         self._change_ttk_theme(theme)
 
         # Get the preferred default layout manager, in case it has changed.
-        self.tree_editor.default_layout_manager = (
-            preferences.default_layout_manager
-        )
+        self.tree_editor.default_layout_manager = preferences.default_layout_manager
 
         # Setup toolbar visibility
         self.main_toolbar.hidden = not preferences.main_toolbar_visible
 
     def on_close_execute(self):
-        quit = self.fileactions.action_close()
-        if quit:
+        do_quit = self.fileactions.action_close()
+        if do_quit:
             # prevent tk image errors on python2 ?
             StockImage.clear_cache()
 
             # Save window size and position
             preferences.geometry = self.mainwindow.geometry()
-        return quit
+        return do_quit
 
     def set_changed(self, newvalue=True):
         if newvalue and not self.fileactions.file_is_changed:
@@ -500,7 +464,7 @@ class MainWindow(baseui.MainWindowUI):
             self.set_title(self.project_name())
             self.rfiles_manager.add(fpath)
             self.reload_component_palette()
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             msg = str(e)
             det = traceback.format_exc()
             show_error(self.mainwindow, _("Error"), msg, det)
@@ -510,9 +474,7 @@ class MainWindow(baseui.MainWindowUI):
         try:
             # save begin
             project = (
-                Project()
-                if self.current_project is None
-                else self.current_project
+                Project() if self.current_project is None else self.current_project
             )
             project.uidefinition = self.tree_editor.tree_to_uidef()
             project.save(filepath)
@@ -526,7 +488,7 @@ class MainWindow(baseui.MainWindowUI):
 
             if is_saveas or not is_update:
                 self.rfiles_manager.add(filepath)
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             msg = str(e)
             det = traceback.format_exc()
             show_error(
@@ -581,16 +543,15 @@ class MainWindow(baseui.MainWindowUI):
         """
         Check whether some menus (such as 'Duplicate' need to be enabled or disabled.
 
-        The state of the menus is dependant on whether they can be used at the current time or not.
+        The state of the menus is dependant on whether they can be used at the current
+        time or not.
         """
 
         menu_edit = self.mainwindow.nametowidget(".mmain.medit")
 
         # Should we enable the 'Duplicate' menu?
         self.duplicate_menu_state = (
-            "disabled"
-            if self.tree_editor.selection_different_parents()
-            else "normal"
+            "disabled" if self.tree_editor.selection_different_parents() else "normal"
         )
         # context menu item duplicate
         self.context_menu.entryconfig(9, state=self.duplicate_menu_state)
@@ -620,9 +581,7 @@ class MainWindow(baseui.MainWindowUI):
         Select the parent of the currently selected widget.
         """
         current_selected_item = self.tree_editor.current_edit
-        if current_selected_item and self.treeview.exists(
-            current_selected_item
-        ):
+        if current_selected_item and self.treeview.exists(current_selected_item):
             parent_iid = self.treeview.parent(current_selected_item)
 
             if parent_iid:
@@ -756,7 +715,7 @@ class MainWindow(baseui.MainWindowUI):
                 project.load_custom_widgets()
                 self.tree_palette.project_custom_widget_prefixes = prefixes
                 self.tree_palette.build_tree()
-            except Exception as e:
+            except Exception as e:  # pylint: disable=broad-exception-caught
                 msg = str(e)
                 det = traceback.format_exc()
                 show_error(
@@ -790,7 +749,7 @@ class MainWindow(baseui.MainWindowUI):
         """Load layout for maindock widget."""
         try:
             self.maindock.load_layout(preferences.maindock_layout)
-        except Exception:
+        except ValueError:
             logger.debug("Error loading maindock layout")
 
 

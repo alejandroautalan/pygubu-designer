@@ -6,9 +6,9 @@ A simple demo for Notebook widget.
 
 UI source file: demo_notebook.ui
 """
-import pathlib
+
 import tkinter as tk
-import tkinter.ttk as ttk
+
 import pygubu
 
 

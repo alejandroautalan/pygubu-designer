@@ -1,7 +1,6 @@
 import gettext
 import locale
 import os
-import sys
 from pathlib import Path
 
 # Change this variable to your app name!

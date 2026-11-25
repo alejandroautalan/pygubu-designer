@@ -1,17 +1,18 @@
-import os
-import pathlib
-import logging
 import json
+import logging
+import os
+import sys
+from datetime import datetime
+from enum import Enum, auto
+from pathlib import Path
+
 import platformdirs as pdirs
 
-from datetime import datetime
-from pathlib import Path
-from enum import auto
-
-try:
+if sys.version_info >= (3, 11):
     from enum import StrEnum
-except ImportError:
-    from backports.strenum import StrEnum
+else:
+
+    class StrEnum(str, Enum): ...
 
 
 logger = logging.getLogger(__name__)

@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-import pathlib
-import tkinter as tk
 import pygubu
 from layoutdemoui import AppUI
 

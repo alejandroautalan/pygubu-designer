@@ -1,7 +1,8 @@
 import keyword
+
 from .propertyeditor import (
-    EntryPropertyEditor,
     ChoicePropertyEditor,
+    EntryPropertyEditor,
     register_editor,
 )
 

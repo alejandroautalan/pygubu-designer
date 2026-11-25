@@ -21,12 +21,12 @@ from .propertyeditor import (
     register_editor,
 )
 
-re_dim = r"-?(\d+(\.\d*)?|\.\d+)([cimp])?"
-regexp = f"({re_dim})?$"
+RE_DIM = r"-?(\d+(\.\d*)?|\.\d+)([cimp])?"
+regexp = f"({RE_DIM})?$"
 RE_DIMENSION = re.compile(regexp)
-regexp = "({0})?$|{0}\\s{0}$".format(re_dim)
+regexp = f"({RE_DIM})?$|{RE_DIM}\\s{RE_DIM}$"
 RE_TWO_DIMENSION = re.compile(regexp)
-regexp = "({0})?$|{0}\\s{0}$|{0}\\s{0}\\s{0}\\s{0}$".format(re_dim)
+regexp = f"({RE_DIM})?$|{RE_DIM}\\s{RE_DIM}$|{RE_DIM}\\s{RE_DIM}\\s{RE_DIM}\\s{RE_DIM}$"
 RE_FOUR_DIMENSION = re.compile(regexp)
 
 
@@ -64,10 +64,10 @@ if __name__ == "__main__":
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
-    def make_on_change_cb(editor):
+    def make_on_change_cb(widget):
         def on_change_cb(event=None):
-            print(editor.value)
-            print(repr(editor.value))
+            print(widget.value)
+            print(repr(widget.value))
 
         return on_change_cb
 

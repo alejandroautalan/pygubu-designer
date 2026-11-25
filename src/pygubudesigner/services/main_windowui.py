@@ -6,11 +6,14 @@ This is the main pygubu-designer ui file.
 
 UI source file: pygubu_main.ui
 """
+
 import tkinter as tk
 import tkinter.ttk as ttk
+
 from pygubu.widgets.dockfw.dockframe import DockFrame
 from pygubu.widgets.editabletreeview import EditableTreeview
 from pygubu.widgets.scrollbarhelper import ScrollbarHelper
+
 from pygubudesigner.services.widgets.custom_root import CustomRoot
 from pygubudesigner.services.widgets.layout_editor import LayoutEditor
 from pygubudesigner.services.widgets.main_toolbar import MainToolbar
@@ -28,7 +31,6 @@ def safe_i18n_translator(value):
 
 def safe_fo_callback(widget):
     """on first objec callback - Setup callback in derived class file."""
-    pass
 
 
 def safe_image_loader(master, image_name: str):
@@ -73,9 +75,7 @@ class MainWindowUI:
         mainframe.configure(padding="2p")
         self.main_toolbar = MainToolbar(mainframe, name="main_toolbar")
         self.main_toolbar.pack(fill="x", pady="0 2p", side="top")
-        self.mainpw = ttk.Panedwindow(
-            mainframe, orient="vertical", name="mainpw"
-        )
+        self.mainpw = ttk.Panedwindow(mainframe, orient="vertical", name="mainpw")
         self.mainpw.configure(height=200, width=200)
         newmain = ttk.Frame(self.mainpw)
         self.maindock = DockFrame(newmain, name="maindock", uid="maindock")
@@ -98,16 +98,10 @@ class MainWindowUI:
         self.tree_palette.pack(
             expand=True, fill="both", padx="2p", pady="2p", side="top"
         )
-        dockpane2 = dockpane1.maindock.new_pane(
-            orient="vertical", uid="dockpane2"
-        )
+        dockpane2 = dockpane1.maindock.new_pane(orient="vertical", uid="dockpane2")
         dockpane1.add_pane(dockpane2, weight=1)
-        self.img_sec_project_tree = image_loader(
-            self.mainroot, "sec_project_tree"
-        )
-        self.dw_ptree = dockpane2.maindock.new_widget(
-            name="dw_ptree", uid="dw_ptree"
-        )
+        self.img_sec_project_tree = image_loader(self.mainroot, "sec_project_tree")
+        self.dw_ptree = dockpane2.maindock.new_widget(name="dw_ptree", uid="dw_ptree")
         self.dw_ptree.configure(
             compound="left",
             image=self.img_sec_project_tree,
@@ -121,9 +115,7 @@ class MainWindowUI:
             expand=True, fill="both", padx="2p", pady="2p", side="top"
         )
         self.img_sec_properties = image_loader(self.mainroot, "sec_properties")
-        self.dw_props = dockpane2.maindock.new_widget(
-            name="dw_props", uid="dw_props"
-        )
+        self.dw_props = dockpane2.maindock.new_widget(name="dw_props", uid="dw_props")
         self.dw_props.configure(
             compound="left",
             image=self.img_sec_properties,
@@ -134,9 +126,7 @@ class MainWindowUI:
         frame_1.configure(height=200, width=200)
         notebook1 = ttk.Notebook(frame_1)
         notebook1.configure(height=200, padding="0 2p 0 0", width=375)
-        self.propertieseditor1 = PropertiesEditor(
-            notebook1, name="propertieseditor1"
-        )
+        self.propertieseditor1 = PropertiesEditor(notebook1, name="propertieseditor1")
         self.img_prop_apperance = image_loader(self.mainroot, "prop_apperance")
         notebook1.add(
             self.propertieseditor1,
@@ -165,9 +155,7 @@ class MainWindowUI:
         self.bindings_tree = EditableTreeview(
             self.bindings_frame.container, name="bindings_tree"
         )
-        self.bindings_tree.configure(
-            show="headings", style="BindingsEditor.Treeview"
-        )
+        self.bindings_tree.configure(show="headings", style="BindingsEditor.Treeview")
         self.bindings_tree_cols = ["sequence", "handler", "add", "actions"]
         self.bindings_tree_dcols = ["sequence", "handler", "add", "actions"]
         self.bindings_tree.configure(
@@ -189,9 +177,7 @@ class MainWindowUI:
         self.bindings_tree.heading(
             "sequence", anchor="w", text=_("Sequence descriptor")
         )
-        self.bindings_tree.heading(
-            "handler", anchor="w", text=_("Event Handler")
-        )
+        self.bindings_tree.heading("handler", anchor="w", text=_("Event Handler"))
         self.bindings_tree.heading("add", anchor="w", text=_("Add"))
         self.bindings_tree.heading("actions", anchor="w", text=_("actions"))
         self.bindings_frame.add_child(self.bindings_tree)
@@ -236,22 +222,16 @@ class MainWindowUI:
         self.bpanel.configure(height=200, width=200)
         self.bp_container = ttk.Frame(self.bpanel, name="bp_container")
         self.bp_container.configure(height=200, width=200)
-        scrollbarhelper_3 = ScrollbarHelper(
-            self.bp_container, scrolltype="both"
-        )
+        scrollbarhelper_3 = ScrollbarHelper(self.bp_container, scrolltype="both")
         scrollbarhelper_3.configure(usemousewheel=False)
         self.txt_log = tk.Text(scrollbarhelper_3.container, name="txt_log")
-        self.txt_log.configure(
-            font="TkFixedFont", height=8, state="disabled", width=50
-        )
+        self.txt_log.configure(font="TkFixedFont", height=8, state="disabled", width=50)
         scrollbarhelper_3.add_child(self.txt_log)
         scrollbarhelper_3.pack(expand=True, fill="both", side="top")
         self.bp_container.pack(expand=True, fill="both", side="top")
         self.bp_buttons = ttk.Frame(self.bpanel, name="bp_buttons")
         self.bp_buttons.configure(height=200, padding="1p", width=200)
-        self.btn_messages = ttk.Checkbutton(
-            self.bp_buttons, name="btn_messages"
-        )
+        self.btn_messages = ttk.Checkbutton(self.bp_buttons, name="btn_messages")
         self.bpanel_buttonsvar = tk.StringVar()
         self.btn_messages.configure(
             offvalue=0,

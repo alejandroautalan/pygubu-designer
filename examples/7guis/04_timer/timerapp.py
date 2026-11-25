@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 import pathlib
-import tkinter as tk
-import tkinter.ttk as ttk
 import time
+
 import pygubu
 from timerappui import TimerAppUI
 

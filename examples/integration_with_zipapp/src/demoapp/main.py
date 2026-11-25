@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import pathlib
-import pygubu
 import importlib.resources as resources
+
+import pygubu
 
 PROJECT_PKG = "demoapp"
 PROJECT_UI = resources.files(PROJECT_PKG) / "data" / "demoapp.ui"
